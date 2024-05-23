@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        html * {
+            font-family: monospace;
+            font-size: 10px;
+        }
+
+        body {
+            margin: 10mm 10mm 10mm 25mm;
+            padding: 0px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        table.data {
+        }
+
+        table.data tr {
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        .header_report {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .header_fragment {
+            font-size: 15px;
+            font-weight: bold;
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+
+        .header_data {
+            background-color: #CCCCCC;
+            color: #000000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td class="header_report">{report_type}</td>
+            <td class="header_report" align=right>{dmdy}</td>
+        </tr>
+    </table>
+
+    <br>&nbsp;<br>
+
+    <table class="data">
+        <tr>
+            <td class="header_fragment" colspan=6>ФИНСОСТОЯНИЕ</td>
+        </tr>
+
+        <tr class="header_data">
+            <td>ФИНСТРУКТУРА</td>
+            <td align=right width=10%>БЫЛО</td>
+            <td align=right width=10%>ИЗМЕНЕНИЕ</td>
+            <td align=right width=10%>СТАЛО</td>
+            <td align=right width=10%>ПОСТУПИЛО</td>
+            <td align=right width=10%>ВЫБЫЛО</td>
+        </tr>
+
+        <tr>
+            <td style="padding-left:{padding}px;">{finstruct}</td>
+            <td align=right>{remain_initial}</td>
+            <td align=right>{remain_delta}</td>
+            <td align=right><b>{remain_final}</b></td>
+            <td align=right>{amount_income}</td>
+            <td align=right>{amount_outcome}</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table class="data">
+        <tr>
+            <td class="header_fragment" colspan=3>ФИНСТАТИСТИКА</td>
+        </tr>
+
+        <tr class="header_data">
+            <td>{findescription}</td>
+            <td align=right width=10%>ДОХОД</td>
+            <td align=right width=10%>РАСХОД</td>
+        </tr>
+
+        <tr>
+            <td style="padding-left:{padding}px;">{findescription}</td>
+            <td align=right>{amount_income}</td>
+            <td align=right>{amount_outcome}</td>
+        </tr>
+
+        <tr><td colspan="3">&nbsp;</td></tr>
+
+        <tr class="header_data">
+            <td>КАТЕГОРИЯ</td>
+            <td align=right width=15%>ДОХОД</td>
+            <td align=right width=15%>РАСХОД</td>
+        </tr>
+
+        <tr>
+            <td style="padding-left:5px;">Автомобили</td>
+            <td align=right>0</td>
+            <td align=right>-3 923</td>
+        </tr>
+
+        <tr>
+            <td style="padding-left:15px;">Subaru Outback</td>
+            <td align=right>0</td>
+            <td align=right>-4 239</td>
+        </tr>
+
+        <tr>
+            <td style="padding-left:5px;">Топливо</td>
+            <td align=right>0</td>
+            <td align=right>-2 303</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <table class="data" style="page-break-before:always;">
+        <tr>
+            <td class="header_fragment" colspan=3>ФИНДАННЫЕ</td>
+        </tr>
+
+        <tr class="header_data">
+            <td width=12% align=right><b>{dddmdy}</b></td>
+            <td width=25% ><b>ФИНСТРУКТУРА</b></td>
+            <td><b>ПРИМЕЧАНИЕ</b></td>
+        </tr>
+
+        <tr>
+            <td align=right>{amount}</td>
+            <td>{finstruct}</td>
+            <td>{note}</td>
+        </tr>
+
+        <tr><td colspan="3">&nbsp;</td></tr>
+    </table>
+
+    <br>
+
+    <table class="data" style="page-break-before:always;">
+        <tr>
+            <td class="header_fragment" colspan=4>ФИНДЕЙСТВИЯ</td>
+        </tr>
+
+        <tr class="header_data">
+            <td width=12% align=right><b>{dddmdy}</b></td>
+            <td width=20% ><b>ФИНСТРУКТУРА</b></td>
+            <td width=30% ><b>ФИНСОСТАВ</b></td>
+            <td><b>ПРИМЕЧАНИЕ</b></td>
+        </tr>
+
+        <tr>
+            <td align=right>{amount}</td>
+            <td>{finstruct}</td>
+            <td>{findescription}</td>
+            <td>{note}</td>
+        </tr>
+
+        <tr><td colspan="3">&nbsp;</td></tr>
+    </table>
+
+    <br>
+
+    <table class="data">
+        <tr>
+            <td class="header_fragment" colspan=6>{finstruct}</td>
+        </tr>
+
+        <tr class="header_data">
+            <td>ФИНПЕРИОД</td>
+            <td align=right width=10%>БЫЛО</td>
+            <td align=right width=10%>ИЗМЕНЕНИЕ</td>
+            <td align=right width=10%>СТАЛО</td>
+            <td align=right width=10%>ПОСТУПИЛО</td>
+            <td align=right width=10%>ВЫБЫЛО</td>
+        </tr>
+
+        <tr>
+            <td style="padding-left:{padding}px;">{dydm}</td>
+            <td align=right>{remain_initial}</td>
+            <td align=right>{remain_delta}</td>
+            <td align=right>{remain_final}</td>
+            <td align=right>{amount_income}</td>
+            <td align=right>{amount_outcome}</td>
+        </tr>
+    </table>
+
+</body>
+</html>
