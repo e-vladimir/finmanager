@@ -1,7 +1,7 @@
 # ФОРМА ФИНДАННЫЕ: МЕХАНИКА ДАННЫХ
 
 from PySide6.QtCore      import QModelIndex, Qt
-from PySide6.QtGui       import QStandardItem
+from PySide6.QtGui import QStandardItem, QColor
 
 from L00_findescription import *
 from L00_roles           import *
@@ -233,6 +233,29 @@ class C60_FormFindata(C50_FormFindata):
 		index_row    : int                = index_record.row()
 
 		self.model_data.removeRow(index_row, index_parent)
+
+	def SetupRecordFindataColor(self):
+		""" Установка цвета записи финданных """
+		if not self._oid_processing_findata: return
+
+		index_record: QModelIndex = self.model_data.indexByData(self._oid_processing_findata, ROLE_OID_FINDATA)
+		if index_record is None: return
+
+		index_row: int = index_record.row()
+		index_parent: QModelIndex = index_record.parent()
+
+		item_parent: QStandardItem = self.model_data.itemFromIndex(index_parent)
+
+		color_fg: QColor = QColor(150, 150, 150)
+
+		record_findata = C90_RecordFindata(self._oid_processing_findata)
+
+		if record_findata.LinkedFinactionsOids():
+			color_fg: QColor = QColor(0, 0, 0)
+
+			if abs(record_findata.CalcAmountDeviationByLinks()) > 1: color_fg: QColor = QColor(200, 60, 60)
+
+		self.model_data.setRowColor(item_parent, index_row, color_fg=color_fg)
 
 	# Запись финдействий
 	def LoadRecordFinactions(self):

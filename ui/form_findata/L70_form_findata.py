@@ -1,11 +1,8 @@
 # ФОРМА ФИНДАННЫЕ: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtCore   import QModelIndex
-from PySide6.QtGui    import QColor, QStandardItem, QCursor
+from PySide6.QtGui    import QCursor
 
 from G10_math_linear  import CalcBetween
-
-from L00_roles        import *
 
 from L10_converts     import AmountToString
 from L60_form_findata import C60_FormFindata
@@ -54,24 +51,7 @@ class C70_FormFindata(C60_FormFindata):
 		dy : int = self.workspace.Dy()
 		dm : int = self.workspace.Dm()
 
-		for oid in self.findata.OidsInDyDmDd(dy, dm):
-			record_findata               = C90_RecordFindata(oid)
-			index_record : QModelIndex   = self.model_data.indexByData(oid, ROLE_OID_FINDATA)
-			if index_record is None: continue
-
-			index_row    : int           = index_record.row()
-			index_parent : QModelIndex   = index_record.parent()
-
-			item_parent  : QStandardItem = self.model_data.itemFromIndex(index_parent)
-
-			color_fg     : QColor        = QColor(150, 150, 150)
-
-			if record_findata.LinkedFinactionsOids():
-				color_fg: QColor = QColor(0, 0, 0)
-
-				if abs(record_findata.CalcAmountDeviationByLinks()) > 1: color_fg: QColor = QColor(200, 60, 60)
-
-			self.model_data.setRowColor(item_parent, index_row, color_fg=color_fg)
+		for self._oid_processing_findata in self.findata.OidsInDyDmDd(dy, dm): self.SetupRecordFindataColor()
 
 	# Меню данных
 	def ShowMenuData(self):

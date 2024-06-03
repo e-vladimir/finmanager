@@ -1,6 +1,5 @@
 # ГЕНЕТАОР ОТЧЁТОВ: ЛОГИКА ДАННЫХ
 
-# import pdfkit
 import subprocess
 
 from   os             import mkdir
@@ -73,6 +72,9 @@ class C80_Report(C70_Report):
 	def SaveReportToPDF(self):
 		""" Сохранение отчёта в PDF формат """
 		self.GenerateReportFilename()
+
+		with open("out.html", "w") as file:
+			file.write('\n'.join(self._report_data))
 
 		# pdfkit.from_string('\n'.join(self._report_data), f"{self._path_report}")
 

@@ -23,7 +23,7 @@ class C70_FormFinanalytics(C60_FormFinanalytics):
 	def AdjustTableFindescriptionDynamicSize(self):
 		""" Настройка размера """
 		header : QHeaderView =  self.table_findescription_dynamic.horizontalHeader()
-		header.setSectionResizeMode(0, header.Stretch)
+		header.setSectionResizeMode(0, header.ResizeMode.Stretch)
 
 		for index_col in range(1, header.count()):
 			self.table_findescription_dynamic.setColumnWidth(index_col, 65)

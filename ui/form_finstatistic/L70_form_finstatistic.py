@@ -39,7 +39,7 @@ class C70_FormFinstatistic(C60_FormFinstatistic):
 				index_parent          : QModelIndex = index_finstatistic.parent()
 				index_row             : int         = index_finstatistic.row()
 
-				subindex_finstatistic : QModelIndex = index_finstatistic.child(0, 0)
+				subindex_finstatistic : QModelIndex = index_finstatistic.sibling(0, 0)
 				if     subindex_finstatistic.isValid(): continue
 
 				index_income          : QModelIndex = self.model_finstatistic.index(index_row, 1, index_parent)

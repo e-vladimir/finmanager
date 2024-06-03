@@ -1,4 +1,5 @@
 # ФОРМА ФИНДАННЫЕ: ЛОГИКА УПРАВЛЕНИЯ
+import time
 
 from L80_form_findata import C80_FormFindata
 
@@ -80,7 +81,8 @@ class C90_FormFindata(C80_FormFindata):
 
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataSize()
-		self.AdjustTreeDataColor()
+
+		self.SetupRecordFindataColor()
 
 	# Дерево данных
 	def on_RequestProcessingDbClickOnTreeData(self):
