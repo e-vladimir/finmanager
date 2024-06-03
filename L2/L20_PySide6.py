@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 2024-05-14
+# 2024-06-03
 
 from pathlib           import Path
 from PySide6           import QtGui
@@ -212,13 +212,13 @@ class QMultipleItemsInputDialog(QDialog):
 		for item in items:
 			item_text = QListWidgetItem()
 			item_text.setText(item)
-			item_text.setCheckState(Qt.Unchecked)
+			item_text.setCheckState(Qt.CheckState.Unchecked)
 
 			self.list_items.addItem(item_text)
 
 		layout_form.addRow(self.list_items)
 
-		btn_box     = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, Qt.Horizontal, self)
+		btn_box     = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, Qt.Orientation.Horizontal, self)
 		layout_form.addRow(btn_box)
 
 		btn_box.accepted.connect(self.accept)
@@ -229,7 +229,7 @@ class QMultipleItemsInputDialog(QDialog):
 
 		for index_row in range(self.list_items.count()):
 			item_text : QListWidgetItem = self.list_items.item(index_row)
-			if item_text.checkState() == Qt.Unchecked: continue
+			if item_text.checkState() == Qt.CheckState.Unchecked: continue
 
 			result.append(item_text.text())
 
@@ -251,7 +251,7 @@ class QMultipleTextInputDialog(QDialog):
 		self.edit_text.setPlainText('\n'.join(items))
 		layout_form.addRow(self.edit_text)
 
-		btn_box     = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel, Qt.Horizontal, self)
+		btn_box     = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, Qt.Orientation.Horizontal, self)
 		layout_form.addRow(btn_box)
 
 		btn_box.accepted.connect(self.accept)
@@ -282,36 +282,36 @@ def RequestMultipleText(title: str, message: str, old_text: list[str] = []) -> N
 	return dialog.textValues()
 
 
-def RequestValue(title: str, message: str, old_value: int | float = None, min: int | float = None, max: int | float = None) -> None | int | float:
+def RequestValue(title: str, message: str, value_old: int | float = None, value_min: int | float = None, value_max: int | float = None) -> None | int | float:
 	""" Запрос числового значения """
 	dialog = QInputDialog(None)
 	dialog.setWindowTitle(title)
 	dialog.setLabelText(message)
 	dialog.resize(480, 150)
 
-	if   type(min) is int  : dialog.setIntMinimum(min)
-	elif type(min) is float: dialog.setDoubleMinimum(min)
+	if   type(value_min) is int  : dialog.setIntMinimum(value_min)
+	elif type(value_min) is float: dialog.setDoubleMinimum(value_min)
 
-	if   type(max) is int  : dialog.setIntMaximum(max)
-	elif type(max) is float: dialog.setDoubleMaximum(max)
+	if   type(value_max) is int  : dialog.setIntMaximum(value_max)
+	elif type(value_max) is float: dialog.setDoubleMaximum(value_max)
 
-	if   type(old_value) is int  : dialog.setIntValue(old_value)
-	elif type(old_value) is float: dialog.setDoubleValue(old_value)
+	if   type(value_old) is int  : dialog.setIntValue(value_old)
+	elif type(value_old) is float: dialog.setDoubleValue(value_old)
 
 	if not dialog.exec_(): return None
-	if   type(old_value) is int  : return dialog.intValue()
-	elif type(old_value) is float: return dialog.doubleValue()
+	if   type(value_old) is int  : return dialog.intValue()
+	elif type(value_old) is float: return dialog.doubleValue()
 
 
 def RequestConfirm(title: str, message: str, flag_btn_cancel: bool = False) -> bool | None:
 	""" Запрос подтверждения """
-	if flag_btn_cancel: btns = QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel
-	else              : btns = QMessageBox.Yes | QMessageBox.No
+	if flag_btn_cancel: btns = QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel
+	else              : btns = QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
 
-	result = QMessageBox(QMessageBox.Question, title, message, btns).exec_()
+	result = QMessageBox(QMessageBox.Icon.Question, title, message, btns).exec_()
 
-	if result  == QMessageBox.Cancel: return None
-	return result == QMessageBox.Yes
+	if result  == QMessageBox.StandardButton.Cancel: return None
+	return result == QMessageBox.StandardButton.Yes
 
 
 def RequestItem(title: str, message: str, items: list[str]) -> str | None:
@@ -322,7 +322,7 @@ def RequestItem(title: str, message: str, items: list[str]) -> str | None:
 	dialog_items.setWindowTitle(title)
 	dialog_items.setLabelText(message)
 	dialog_items.setComboBoxItems(items)
-	dialog_items.setOption(dialog_items.UseListViewForComboBoxItems, True)
+	dialog_items.setOption(dialog_items.InputDialogOption.UseListViewForComboBoxItems, True)
 
 	max_length : int = max(list(map(len, items)))
 
@@ -365,8 +365,8 @@ def RequestFilepath(title: str, filename: str = "", filters: str = "") -> Path |
 def RequestDirectory(title: str, current_dir: str = "") -> Path | None:
 	""" Запрос директории """
 	dialog          = QFileDialog()
-	dialog.setFileMode(QFileDialog.Directory)
-	dialog.setOption(QFileDialog.ShowDirsOnly)
+	dialog.setFileMode(QFileDialog.FileMode.Directory)
+	dialog.setOption(QFileDialog.Option.ShowDirsOnly)
 	dialog.setDirectory(current_dir)
 
 	directory : str = dialog.getExistingDirectory(None, title)
@@ -394,7 +394,7 @@ def ItemsFromStandardModel(model: QStandardItemModel, parent_item: QStandardItem
 	return result
 
 
-def FindItemFromStandardModelByData(model: QStandardItemModel, text: str, role=Qt.DisplayRole) -> QStandardItem | None:
+def FindItemFromStandardModelByData(model: QStandardItemModel, text: str, role=Qt.ItemDataRole.DisplayRole) -> QStandardItem | None:
 	""" Поиск элемента модели по тексту """
 	for item in ItemsFromStandardModel(model):
 		if item.data(role) == text: return item
@@ -419,7 +419,7 @@ def IndexesFromStandardModel(model: QStandardItemModel, parent_index: QModelInde
 	return result
 
 
-def FindIndexFromStandardModelByData(model: QStandardItemModel, text: str, role=Qt.DisplayRole) -> QModelIndex | None:
+def FindIndexFromStandardModelByData(model: QStandardItemModel, text: str, role=Qt.ItemDataRole.DisplayRole) -> QModelIndex | None:
 	""" Поиск элемента модели по тексту """
 	for index_item in IndexesFromStandardModel(model):
 		if index_item.data(role) == text: return index_item
@@ -444,15 +444,15 @@ class C20_StandardItemModel(QStandardItemModel):
 		""" Перезапись служебного метода """
 		self.index_processing = index
 
-		if   role == Qt.DisplayRole:
+		if   role == Qt.ItemDataRole.DisplayRole:
 			self.textChanged.emit()
 
-		elif role == Qt.UserRole   :
+		elif role == Qt.ItemDataRole.UserRole   :
 			self.dataChanged.emit()
 
-		elif role == Qt.CheckStateRole:
-			if value == Qt.Checked : self.itemChecked.emit()
-			else                   : self.itemUnchecked.emit()
+		elif role == Qt.ItemDataRole.CheckStateRole:
+			if value == Qt.CheckState.Checked.value : self.itemChecked.emit()
+			else                                    : self.itemUnchecked.emit()
 
 		return super().setData(index, value, role)
 
@@ -462,7 +462,7 @@ class C20_StandardItemModel(QStandardItemModel):
 		self.removeRows(0, self.rowCount())
 
 	# Инструментарий отображения
-	def setRowColor(self, parent: QStandardItem, row: int, color_bg: QColor = Qt.white, color_fg: QColor = Qt.black):
+	def setRowColor(self, parent: QStandardItem, row: int, color_bg: QColor = Qt.GlobalColor.white, color_fg: QColor = Qt.GlobalColor.black):
 		""" Установка цвета строки """
 		for index_col in range(self.columnCount()):
 			item_child : QStandardItem | None = parent.child(row, index_col)
@@ -471,7 +471,7 @@ class C20_StandardItemModel(QStandardItemModel):
 			item_child.setBackground(color_bg)
 			item_child.setForeground(color_fg)
 
-	def setCellColor(self, parent: QStandardItem, row: int, col: int, color_bg: QColor = Qt.white, color_fg: QColor = Qt.black):
+	def setCellColor(self, parent: QStandardItem, row: int, col: int, color_bg: QColor = Qt.GlobalColor.white, color_fg: QColor = Qt.GlobalColor.black):
 		""" Установка цвета ячейки """
 		item_child: QStandardItem | None = parent.child(row, col)
 		if item_child is None: return
@@ -536,11 +536,11 @@ class C20_StandardItemModel(QStandardItemModel):
 		""" Список всех индексов в колонке 0 """
 		return IndexesFromStandardModel(self)
 
-	def indexByData(self, text: str, role=Qt.DisplayRole) -> QModelIndex | None:
+	def indexByData(self, text: str, role=Qt.ItemDataRole.DisplayRole) -> QModelIndex | None:
 		""" Поиск индекса по данным """
 		return FindIndexFromStandardModelByData(self, text, role)
 
-	def itemByData(self, text: str, role = Qt.DisplayRole) -> QStandardItem | None:
+	def itemByData(self, text: str, role = Qt.ItemDataRole.DisplayRole) -> QStandardItem | None:
 		""" Поиск элемента по данным """
 		index_data = self.indexByData(text, role)
 		if index_data is None: return None
@@ -559,9 +559,9 @@ class C20_StandardItem(QStandardItem):
 		font : QFont = self.font()
 		font.setBold(flag_bold)
 
-		if flag_align_right: self.setTextAlignment(Qt.AlignRight | Qt.AlignVCenter)
+		if flag_align_right: self.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 		if flag_bold       : self.setFont(font)
 
 		if flag_checked is not None:
 			self.setCheckable(True)
-			self.setCheckState(Qt.Checked if flag_checked else Qt.Unchecked)
+			self.setCheckState(Qt.CheckState.Checked if flag_checked else Qt.CheckState.Unchecked)
