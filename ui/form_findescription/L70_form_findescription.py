@@ -62,7 +62,7 @@ class C70_FormFindescription(C60_FormFindescription):
 	def SelectCurrentCategory(self):
 		""" Подсветка категории финсостава """
 		item_category : QListWidgetItem | None = self.lst_categories.item(0)
-		self.lst_categories.setItemSelected(item_category, True)
+		self.lst_categories.setCurrentItem(item_category)
 
 	# Дерево финсостава
 	def ExpandTreFindescription(self):
