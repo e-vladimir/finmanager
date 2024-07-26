@@ -179,7 +179,7 @@ class C31_ContainerRAM(C30_Container):
 		if   type(cell_cells) is T20_StructCell:
 			idss : list[str] = []
 
-			for scell in self._s_cells.datas():
+			for scell in self._s_cells.values():
 				result_skip: bool = False
 				result_skip      |= bool(cell_cells.idc) and not (scell.idc == cell_cells.idc)
 				result_skip      |= bool(cell_cells.ido) and not (scell.ido == cell_cells.ido)
@@ -232,7 +232,7 @@ class C31_ContainerRAM(C30_Container):
 		result            = T21_StructResult_StructCells()
 
 		if   type(cell_cells) is T20_StructCell:
-			for scell in self._s_cells.datas():
+			for scell in self._s_cells.values():
 				result_skip: bool = False
 				result_skip      |= bool(cell_cells.idc) and not (scell.idc == cell_cells.idc)
 				result_skip      |= bool(cell_cells.ido) and not (scell.ido == cell_cells.ido)
@@ -534,7 +534,7 @@ class C31_ContainerRAM(C30_Container):
 		vlt_min      : int | None                = None
 		vlt_max      : int | None                = None
 
-		for dcell in dcells.datas():
+		for dcell in dcells.values():
 			if bool(cell.vlt_l) and (dcell.vlt < cell.vlt_l): continue
 			if bool(cell.vlt_r) and (dcell.vlt > cell.vlt_r): continue
 
@@ -562,7 +562,7 @@ class C31_ContainerRAM(C30_Container):
 
 		dcells       : dict[int, T20_StructCell] = self._d_cells.get(cell.ids, dict())
 
-		for dcell in dcells.datas():
+		for dcell in dcells.values():
 			if bool(cell.vlt_l) and (dcell.vlt < cell.vlt_l): continue
 			if bool(cell.vlt_r) and (dcell.vlt > cell.vlt_r): continue
 

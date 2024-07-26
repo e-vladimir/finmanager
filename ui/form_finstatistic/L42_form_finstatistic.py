@@ -15,8 +15,8 @@ class C42_FormFinstatistic(C41_FormFinstatistic):
 	def Init_00(self):
 		super().Init_00()
 
-		self._oid_processing         : str       = ""
-		self._oids_struct_processing : list[str] = []
+		self._ido_processing         : str       = ""
+		self._idos_struct_processing : list[str] = []
 
 		self._index_processing       : QModelIndex | None = None
 

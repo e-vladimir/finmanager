@@ -20,11 +20,11 @@ class C80_FormRules(C70_FormRules):
 		self.SetupModelData()
 
 		if   self._type_processing == RULE_REPLACE_TEXT                 :
-			for self._oid_processing in self.rules.IdosByType(RULE_REPLACE_TEXT): self.LoadRecordReplaceText()
+			for self._ido_processing in self.rules.IdosByType(RULE_REPLACE_TEXT): self.LoadRecordReplaceText()
 
 		elif self._type_processing == RULE_DETECT_FINDESCRIPTION_BY_TEXT:
-			for self._oid_processing in self.findescription.SubIdos()                            : self.LoadRecordFindescription()
-			for self._oid_processing in self.rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT): self.LoadRecordDetectFindescriptionByText()
+			for self._ido_processing in self.findescription.SubIdos()                            : self.LoadRecordFindescription()
+			for self._ido_processing in self.rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT): self.LoadRecordDetectFindescriptionByText()
 
 	# Дерево данных
 	def ProcessingTreeDataDbClick(self):
@@ -49,15 +49,15 @@ class C80_FormRules(C70_FormRules):
 		record_rules.OptionsOutputAsString(options_output)
 		record_rules.Type(RULE_REPLACE_TEXT)
 
-		self._oid_processing = record_rules.Ido().data
+		self._ido_processing = record_rules.Ido().data
 
 		self.on_RecordReplaceTextCreated()
 
 	def EditInputForRecordReplaceText(self):
 		""" Редактирование записи правил замены текстовых фрагментов """
-		if not self._oid_processing : return
+		if not self._ido_processing : return
 
-		record_rule               = C90_RecordProcessingRules(self._oid_processing)
+		record_rule               = C90_RecordProcessingRules(self._ido_processing)
 
 		input_options : list[str] | None = RequestMultipleText("Запись правил замены текстовых фрагментов", f"Фрагмент замены: {record_rule.OptionsOutputAsString()}", record_rule.OptionsInputAsStrings())
 		if     input_options is None: return
@@ -68,9 +68,9 @@ class C80_FormRules(C70_FormRules):
 
 	def EditOutputForRecordReplaceText(self):
 		""" Редактирование записи правил замены текстовых фрагментов """
-		if not self._oid_processing : return
+		if not self._ido_processing : return
 
-		record_rule                 = C90_RecordProcessingRules(self._oid_processing)
+		record_rule                 = C90_RecordProcessingRules(self._ido_processing)
 
 		output_options : str | None = RequestText("Запись правил замены текстовых фрагментов", "Фрагменты поиска:\n" + '\n'.join(record_rule.OptionsInputAsStrings()), record_rule.OptionsOutputAsString())
 		if     output_options is None: return
@@ -81,9 +81,9 @@ class C80_FormRules(C70_FormRules):
 
 	def DeleteRecordReplaceText(self):
 		""" Удаление записи правил замены текстовых фрагментов """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_rule = C90_RecordProcessingRules(self._oid_processing)
+		record_rule = C90_RecordProcessingRules(self._ido_processing)
 
 		if not RequestConfirm("Запись правил замены текстовых фрагментов", f"Удаление записи для фрагмента: {record_rule.OptionsOutputAsString()}"): return
 
@@ -96,7 +96,7 @@ class C80_FormRules(C70_FormRules):
 		""" Редактирование параметров записи правил """
 		if not self._name_processing: return
 
-		if not self._oid_processing :
+		if not self._ido_processing :
 			record_findescription           = C90_RecordFindescription()
 			if not record_findescription.SwitchByName(self._name_processing): return
 
@@ -107,11 +107,11 @@ class C80_FormRules(C70_FormRules):
 			record_rules.OptionsOutputAsString(record_findescription.Ido().data)
 			record_rules.Type(RULE_DETECT_FINDESCRIPTION_BY_TEXT)
 
-			self._oid_processing = record_rules.Ido().data
+			self._ido_processing = record_rules.Ido().data
 
-		if not self._oid_processing : return
+		if not self._ido_processing : return
 
-		record_rule                      = C90_RecordProcessingRules(self._oid_processing)
+		record_rule                      = C90_RecordProcessingRules(self._ido_processing)
 
 		input_options : list[str] | None = RequestMultipleText("Запись правил определения финсостава по текстовым фрагментам", f"Финсостав: {self._name_processing}", record_rule.OptionsInputAsStrings())
 		if     input_options is None: return
@@ -122,9 +122,9 @@ class C80_FormRules(C70_FormRules):
 
 	def DeleteRecordDetectFindescription(self):
 		""" Удаление записи правил определения финсостава по текстовым фрагментам """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_rule = C90_RecordProcessingRules(self._oid_processing)
+		record_rule = C90_RecordProcessingRules(self._ido_processing)
 
 		if not RequestConfirm("Запись правил определения финсостава по текстовым фрагментам", f"Удаление записи для финсостава: {self._name_processing}"): return
 
@@ -140,16 +140,16 @@ class C80_FormRules(C70_FormRules):
 		if not record_findescription.SwitchByName(self._name_processing): return
 
 		options_input          : list[str] = []
-		findescription_suboids : list      = record_findescription.SubIdos(True)
+		findescription_subidos : list      = record_findescription.SubIdos(True)
 
-		for rule_oid in self.rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
-			record_rule = C90_RecordProcessingRules(rule_oid)
+		for rule_ido in self.rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
+			record_rule = C90_RecordProcessingRules(rule_ido)
 
-			if record_rule.OptionsOutputAsString() not in findescription_suboids: continue
+			if record_rule.OptionsOutputAsString() not in findescription_subidos: continue
 
 			options_input.extend(record_rule.OptionsInputAsStrings())
 
-		if not self._oid_processing:
+		if not self._ido_processing:
 			record_rule = C90_RecordProcessingRules()
 			record_rule.GenerateIdo()
 			record_rule.RegisterObject(CONTAINER_LOCAL)
@@ -157,10 +157,10 @@ class C80_FormRules(C70_FormRules):
 			record_rule.Type(RULE_DETECT_FINDESCRIPTION_BY_TEXT)
 			record_rule.OptionsOutputAsString(record_findescription.Ido().data)
 
-			self._oid_processing = record_rule.Ido().data
+			self._ido_processing = record_rule.Ido().data
 
 		else                       :
-			record_rule = C90_RecordProcessingRules(self._oid_processing)
+			record_rule = C90_RecordProcessingRules(self._ido_processing)
 
 		record_rule.OptionsInputAsStrings(list(set(options_input)))
 

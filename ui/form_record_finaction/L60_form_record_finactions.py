@@ -21,18 +21,18 @@ class C60_FormRecordFinactions(C50_FormRecordFinactions):
 	# Параметры
 	def Reset(self):
 		""" Сброс """
-		self._oid_processing   = ""
+		self._ido_processing   = ""
 		self._name_processing  = ""
 		self._value_processing = ""
 
 	def ReadIdoProcessingFromTblData(self):
 		""" Считывание OID из таблицы данных """
-		self._oid_processing = ""
+		self._ido_processing = ""
 
 		index_current : QModelIndex = self.tbl_data.currentIndex()
 		if not index_current.isValid(): return
 
-		self._oid_processing = index_current.data(ROLE_OID)
+		self._ido_processing = index_current.data(ROLE_OID)
 
 	def ReadValueProcessingFromTreValues(self):
 		""" Чтение значения из дерева значений """
@@ -151,5 +151,5 @@ class C60_FormRecordFinactions(C50_FormRecordFinactions):
 
 	def LoadModelValuesFromFindescription(self):
 		""" Загрузка списка финсостава """
-		for findescription_name in self.findescription.Names(self._oid_processing):
+		for findescription_name in self.findescription.Names(self._ido_processing):
 			self.model_values.appendRow(C20_StandardItem(findescription_name, findescription_name))

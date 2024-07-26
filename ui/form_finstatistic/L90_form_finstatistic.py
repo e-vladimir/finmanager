@@ -29,7 +29,7 @@ class C90_FormFinstatistic(C80_FormFinstatistic):
 	def on_RequestExpandRecordFinstatistic(self):
 		""" Запрос на фрагментацию записи финстатистики """
 		self.ReadIndexProcessing()
-		self.CalcIdosStructProcessingFromSuboids()
+		self.CalcIdosStructProcessingFromSubidos()
 
 		self.ExpandRecordFinstatistic()
 

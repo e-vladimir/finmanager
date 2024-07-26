@@ -26,12 +26,12 @@ class C60_FormRecordFindata(C50_FormRecordFindata):
 
 	def ReadIdoProcessingFromTblData(self):
 		""" Чтение текущего OID """
-		self._oid_processing = ""
+		self._ido_processing = ""
 
 		index_selected : QModelIndex = self.table_data.currentIndex()
 		if not index_selected.isValid(): return
 
-		self._oid_processing = index_selected.data(ROLE_OID)
+		self._ido_processing = index_selected.data(ROLE_OID)
 
 	def ReadRowProcessingFromTblData(self):
 		""" Чтение текущей строки """
@@ -78,18 +78,18 @@ class C60_FormRecordFindata(C50_FormRecordFindata):
 
 	def LoadModelDataFromFinactions(self):
 		""" Отображение финдействий """
-		finactions_oids : list[str]     = self.record_findata.LinkedFinactionsIdos()
+		finactions_idos : list[str]     = self.record_findata.LinkedFinactionsIdos()
 
 		self.model_data.removeRows(7, self.model_data.rowCount() - 7)
 
-		if not finactions_oids:
+		if not finactions_idos:
 			self.model_data.setItem(7, 0, C20_StandardItem("Записей нет"))
 
 		else:
-			for index_record, oid in enumerate(finactions_oids):
-				record_finactions = C90_RecordFinactions(oid)
-				self.model_data.setItem(7 + index_record, 0, C20_StandardItem(AmountToString(record_finactions.Amount(), flag_sign=True), oid, True, True))
-				self.model_data.setItem(7 + index_record, 1, C20_StandardItem(record_finactions.Note(), oid))
+			for index_record, ido in enumerate(finactions_idos):
+				record_finactions = C90_RecordFinactions(ido)
+				self.model_data.setItem(7 + index_record, 0, C20_StandardItem(AmountToString(record_finactions.Amount(), flag_sign=True), ido, True, True))
+				self.model_data.setItem(7 + index_record, 1, C20_StandardItem(record_finactions.Note(), ido))
 
 	# Модель допустимых значений
 	def SetupValuesModel(self):
@@ -97,8 +97,8 @@ class C60_FormRecordFindata(C50_FormRecordFindata):
 
 	def LoadModelValues(self):
 		""" Загрузка допустимых значений """
-		if   self._oid_processing == DATE     : self.LoadModelValuesDd()
-		elif self._oid_processing == FINSTRUCT: self.LoadModelValuesFinstruct()
+		if   self._ido_processing == DATE     : self.LoadModelValuesDd()
+		elif self._ido_processing == FINSTRUCT: self.LoadModelValuesFinstruct()
 
 	def LoadModelValuesDd(self):
 		""" Загрузка списка допустимых дат """

@@ -44,8 +44,8 @@ class C70_FormRules(C60_FormRules):
 		self.menu_replace_text_record_header.setText("Запись правил замены текстового фрагмента")
 		self.menu_detect_findescription_record_header.setText("Запись правил определения финсостава")
 
-		if self._oid_processing:
-			record_rule = C90_RecordProcessingRules(self._oid_processing)
+		if self._ido_processing:
+			record_rule = C90_RecordProcessingRules(self._ido_processing)
 
 			self.menu_replace_text_record_header.setText(record_rule.OptionsOutputAsString())
 
@@ -54,7 +54,7 @@ class C70_FormRules(C60_FormRules):
 
 	def AdjustMenuEnable(self):
 		""" Настройка доступности меню """
-		flag_selected_record         : bool = bool(self._oid_processing)
+		flag_selected_record         : bool = bool(self._ido_processing)
 		flag_selected_findescription : bool = bool(self._name_processing)
 
 		self.menu_replace_text_record_delete.setEnabled(flag_selected_record)
@@ -70,6 +70,6 @@ class C70_FormRules(C60_FormRules):
 
 		record_findescription               = C90_RecordFindescription()
 		if not record_findescription.SwitchByName(self._name_processing): return
-		flag_suboids                 : bool = bool(record_findescription.SubIdos(True))
+		flag_subidos                 : bool = bool(record_findescription.SubIdos(True))
 
-		self.menu_detect_findescription_record_wrap.setEnabled(flag_suboids)
+		self.menu_detect_findescription_record_wrap.setEnabled(flag_subidos)

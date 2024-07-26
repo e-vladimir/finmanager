@@ -36,8 +36,8 @@ class C80_FormImport(C70_FormImport):
 		finstruct_record     = C90_RecordFinstruct()
 		finstruct_record.SwitchByName(dy, dm, self._findata_finstruct_name)
 
-		finstruct_oid : str  = finstruct_record.Ido().data
-		if not finstruct_oid                   : return
+		finstruct_ido : str  = finstruct_record.Ido().data
+		if not finstruct_ido                   : return
 
 		with open(self._findata_path_file, "r", encoding=file_encoding) as raw_file:
 			self.on_ImportStarted()
@@ -49,7 +49,7 @@ class C80_FormImport(C70_FormImport):
 			for raw_line in raw_data[1:]:
 				if not self._flag_processing: break
 
-				flag_imported : bool = self.findata.ImportFindataFromCsv(raw_line, self._findata_format, finstruct_oid, dy, dm)
+				flag_imported : bool = self.findata.ImportFindataFromCsv(raw_line, self._findata_format, finstruct_ido, dy, dm)
 
 				self.application.processEvents()
 

@@ -8,11 +8,11 @@ from L50_finstate   import C50_RecordFinstate, C50_Finstate
 class C60_RecordFinstate(C50_RecordFinstate):
 	""" Запись финсостояния: Механика данных """
 
-	def FinstructIdo(self, oid: str = None) -> str:
+	def FinstructIdo(self, ido: str = None) -> str:
 		""" OID записи финструктуры """
-		if oid is None: return self.f_finstruct_oid.ToString(CONTAINER_LOCAL).data
+		if ido is None: return self.f_finstruct_ido.ToString(CONTAINER_LOCAL).data
 
-		self.f_finstruct_oid.FromString(CONTAINER_LOCAL, oid)
+		self.f_finstruct_ido.FromString(CONTAINER_LOCAL, ido)
 
 	def RemainsInitial(self, amount: int = None) -> int:
 		""" Остаток начальный """

@@ -28,13 +28,13 @@ class C42_FormReset(C41_FormReset):
 		self._flag_rules_replace_text                  : bool = False
 		self._flag_rules_detect_findescription_by_text : bool = False
 
-		self._oids_finstruct                           : list[str] = []
-		self._oids_finactions                          : list[str] = []
-		self._oids_findescription                      : list[str] = []
-		self._oids_findescription_in_finactions        : list[str] = []
-		self._oids_finstate                            : list[str] = []
-		self._oids_findata                             : list[str] = []
-		self._oids_rules                               : list[str] = []
+		self._idos_finstruct                           : list[str] = []
+		self._idos_finactions                          : list[str] = []
+		self._idos_findescription                      : list[str] = []
+		self._idos_findescription_in_finactions        : list[str] = []
+		self._idos_finstate                            : list[str] = []
+		self._idos_findata                             : list[str] = []
+		self._idos_rules                               : list[str] = []
 
 	def Init_10(self):
 		super().Init_10()

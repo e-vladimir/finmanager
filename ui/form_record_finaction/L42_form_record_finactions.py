@@ -14,7 +14,7 @@ class C42_FormRecordFinactions(C41_FormRecordFinactions):
 	def Init_00(self):
 		super().Init_00()
 
-		self._oid_processing   : str = ""
+		self._ido_processing   : str = ""
 		self._name_processing  : str = ""
 		self._value_processing : str = ""
 

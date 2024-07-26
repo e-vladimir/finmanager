@@ -41,29 +41,29 @@ class C80_RecordFindata(C70_RecordFindata):
 		""" Взаимосвязи с финдействиями """
 		record_finactions = C40_RecordFinactions()
 		oci         : str = record_finactions.Idc().data
-		pid_findata : str = record_finactions.f_findata_oid.Idp().data
-		pid_amount  : str = record_finactions.f_amount.Idp().data
+		idp_findata : str = record_finactions.f_findata_ido.Idp().data
+		idp_amount  : str = record_finactions.f_amount.Idp().data
 
 		filter_findata    = C30_FilterLinear1D(oci)
-		filter_findata.FilterIdpVlpByEqual(pid_findata, self.Ido().data)
+		filter_findata.FilterIdpVlpByEqual(idp_findata, self.Ido().data)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return filter_findata.Idos(pid_amount).data
+		return filter_findata.Idos(idp_amount).data
 
 	def CalcAmountDeviationByLinks(self) -> int:
 		""" Расчёт суммы взаимосвязанных записей """
 		record_finactions = C40_RecordFinactions()
 		oci         : str = record_finactions.Idc().data
-		pid_findata : str = record_finactions.f_findata_oid.Idp().data
-		pid_amount  : str = record_finactions.f_amount.Idp().data
+		idp_findata : str = record_finactions.f_findata_ido.Idp().data
+		idp_amount  : str = record_finactions.f_amount.Idp().data
 
 		filter_findata    = C30_FilterLinear1D(oci)
-		filter_findata.FilterIdpVlpByEqual(pid_findata, self.Ido().data)
+		filter_findata.FilterIdpVlpByEqual(idp_findata, self.Ido().data)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		amounts : list[int] = filter_findata.ToIntegers(pid_amount).data
+		amounts : list[int] = filter_findata.ToIntegers(idp_amount).data
 
 		return int(self.Amount() - sum(amounts))
 
@@ -83,8 +83,8 @@ class C80_RecordFindata(C70_RecordFindata):
 		result : str = self.Note()
 
 		rules        = C90_ProcessingRules()
-		for oid in rules.IdosByType(RULE_REPLACE_TEXT):
-			record_rule = C90_RecordProcessingRules(oid)
+		for ido in rules.IdosByType(RULE_REPLACE_TEXT):
+			record_rule = C90_RecordProcessingRules(ido)
 			result      = record_rule.ExecReplaceText(result)
 
 		self.Note(result)
@@ -130,7 +130,7 @@ class C80_Findata(C70_Findata):
 		return not (filter_findata.Idos().data == [])
 
 	# Импорт финданных
-	def ImportFindataFromCsvTinkoff(self, data_raw: str, finstruct_oid: str, dy: int, dm: int, dd: int = None) -> bool:
+	def ImportFindataFromCsvTinkoff(self, data_raw: str, finstruct_ido: str, dy: int, dm: int, dd: int = None) -> bool:
 		""" Импорт записи финданных из формата Тинькофф CSV """
 		items_raw        : list[str] = data_raw.replace('"', '').split(';')
 
@@ -140,7 +140,7 @@ class C80_Findata(C70_Findata):
 		raw_amount       : str       = items_raw[ 4]
 		raw_note         : str       = items_raw[11]
 
-		uid_record       : str       = f"{finstruct_oid} {raw_dydmddthtmts} {raw_card} {raw_amount}"
+		uid_record       : str       = f"{finstruct_ido} {raw_dydmddthtmts} {raw_card} {raw_amount}"
 		uid_record                   = uid_record.replace('.', '')
 		uid_record                   = uid_record.replace(',', '')
 		uid_record                   = uid_record.replace(':', '')
@@ -170,14 +170,14 @@ class C80_Findata(C70_Findata):
 		findata_record.Dm(raw_dm)
 		findata_record.Dd(raw_dd)
 		findata_record.Amount(raw_amount)
-		findata_record.FinstructIdo(finstruct_oid)
+		findata_record.FinstructIdo(finstruct_ido)
 		findata_record.Note(raw_note)
 
 		findata_record.ApplyRulesReplaceText()
 
 		return True
 
-	def ImportFindataFromCsvSberbank(self, data_raw: str, finstruct_oid: str, dy: int, dm: int, dd: int = None) -> bool:
+	def ImportFindataFromCsvSberbank(self, data_raw: str, finstruct_ido: str, dy: int, dm: int, dd: int = None) -> bool:
 		""" Импорт записи финданных из формата Сбербанк CSV """
 		items_raw        : list[str] = data_raw.split(';')
 
@@ -214,23 +214,23 @@ class C80_Findata(C70_Findata):
 		findata_record.Dm(raw_dm)
 		findata_record.Dd(raw_dd)
 		findata_record.Amount(raw_amount)
-		findata_record.FinstructIdo(finstruct_oid)
+		findata_record.FinstructIdo(finstruct_ido)
 		findata_record.Note(raw_note)
 
 		findata_record.ApplyRulesReplaceText()
 
 		return True
 
-	def ImportFindataFromCsv(self, data_raw: str, format_csv: str, finstruct_oid: str, dy: int, dm: int, dd: int = None) -> bool:
+	def ImportFindataFromCsv(self, data_raw: str, format_csv: str, finstruct_ido: str, dy: int, dm: int, dd: int = None) -> bool:
 		""" Импорт финданных из формата CSV """
-		if   format_csv == FORMAT_TINKOFF : return self.ImportFindataFromCsvTinkoff(data_raw, finstruct_oid, dy, dm, dd)
-		elif format_csv == FORMAT_SBERBANK: return self.ImportFindataFromCsvSberbank(data_raw, finstruct_oid, dy, dm, dd)
+		if   format_csv == FORMAT_TINKOFF : return self.ImportFindataFromCsvTinkoff(data_raw, finstruct_ido, dy, dm, dd)
+		elif format_csv == FORMAT_SBERBANK: return self.ImportFindataFromCsvSberbank(data_raw, finstruct_ido, dy, dm, dd)
 
 		return False
 
 	# Удаление записей
-	def DeleteRecordsFindata(self, oids: list[str]):
+	def DeleteRecordsFindata(self, idos: list[str]):
 		""" Удаление записей финданных с зависимостями """
-		for oid in oids:
-			record_findata = C80_RecordFindata(oid)
+		for ido in idos:
+			record_findata = C80_RecordFindata(ido)
 			record_findata.DeleteObject(CONTAINER_LOCAL)

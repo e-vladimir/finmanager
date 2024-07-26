@@ -41,6 +41,8 @@ class C90_FormFindescription(C80_FormFindescription):
 		self.SetupModel()
 		self.LoadFindescription()
 
+		self.on_CategorySwitched()
+
 		self.ShowTitle()
 
 	def on_RequestMenuFindescription(self):
@@ -96,7 +98,7 @@ class C90_FormFindescription(C80_FormFindescription):
 		""" Удалена запись финсостава """
 		self.CleanModel()
 
-		if not self._oid_processing: self.LoadFindescription()
+		if not self._ido_processing: self.LoadFindescription()
 		else                       : self.LoadRecordFindescription()
 
 		self.ShowParents()

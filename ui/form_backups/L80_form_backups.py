@@ -1,4 +1,5 @@
 # ФОРМА РЕЗЕРВНЫЕ КОПИИ: ЛОГИКА ДАННЫХ
+from PySide6.QtCore import Qt
 
 from L20_PySide6      import RequestConfirm
 from L70_form_backups import C70_FormBackups
@@ -18,7 +19,7 @@ class C80_FormBackups(C70_FormBackups):
 
 		item_selected = self.model_backups.itemByIdo(self._filename_processing)
 
-		if not RequestConfirm("Резервные копии", f"Удаление резервной копии {item_selected.data()}"): return
+		if not RequestConfirm("Резервные копии", f"Удаление резервной копии {item_selected.data(Qt.ItemDataRole.DisplayRole)}"): return
 
 		self.application.DeleteBackup(self._filename_processing)
 		self.on_RequestShowBackups()

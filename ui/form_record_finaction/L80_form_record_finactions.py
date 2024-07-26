@@ -73,45 +73,45 @@ class C80_FormRecordFinactions(C70_FormRecordFinactions):
 		""" Обработка двойного клика по таблице данных """
 		self.SetupModelValues()
 
-		if   self._oid_processing == DATE      : self.LoadModelValuesFromDds()
+		if   self._ido_processing == DATE      : self.LoadModelValuesFromDds()
 
-		elif self._oid_processing == AMOUNT    : self.RequestAmount()
-		elif self._oid_processing == NOTE      : self.RequestNote()
+		elif self._ido_processing == AMOUNT    : self.RequestAmount()
+		elif self._ido_processing == NOTE      : self.RequestNote()
 
-		elif self._oid_processing == FINSTRUCT :
+		elif self._ido_processing == FINSTRUCT :
 			self._name_processing = ""
 			self.LoadModelValuesFromFinstruct()
 
-		elif self._oid_processing == OBJECT_INT: self.LoadModelValuesFromFindescription()
-		elif self._oid_processing == FREQUENCY : self.LoadModelValuesFromFindescription()
-		elif self._oid_processing == PRIORITY  : self.LoadModelValuesFromFindescription()
-		elif self._oid_processing == PROCESS   : self.LoadModelValuesFromFindescription()
-		elif self._oid_processing == CATEGORY  : self.LoadModelValuesFromFindescription()
-		elif self._oid_processing == OBJECT_EXT: self.LoadModelValuesFromFindescription()
+		elif self._ido_processing == OBJECT_INT: self.LoadModelValuesFromFindescription()
+		elif self._ido_processing == FREQUENCY : self.LoadModelValuesFromFindescription()
+		elif self._ido_processing == PRIORITY  : self.LoadModelValuesFromFindescription()
+		elif self._ido_processing == PROCESS   : self.LoadModelValuesFromFindescription()
+		elif self._ido_processing == CATEGORY  : self.LoadModelValuesFromFindescription()
+		elif self._ido_processing == OBJECT_EXT: self.LoadModelValuesFromFindescription()
 
 	# Дерево значений
 	def ProcessingTreValuesDbClick(self):
 		""" Обработка двойного клика по дереву значений """
-		if self._oid_processing == DATE: self.EditDd()
+		if self._ido_processing == DATE: self.EditDd()
 
 	def ProcessingIncludeValue(self):
 		""" Обработка добавления значения """
-		if   self._oid_processing == FINSTRUCT : self.IncludeFinstruct()
+		if   self._ido_processing == FINSTRUCT : self.IncludeFinstruct()
 
-		elif self._oid_processing == OBJECT_INT: self.IncludeFindescription()
-		elif self._oid_processing == FREQUENCY : self.IncludeFindescription()
-		elif self._oid_processing == PRIORITY  : self.IncludeFindescription()
-		elif self._oid_processing == PROCESS   : self.IncludeFindescription()
-		elif self._oid_processing == CATEGORY  : self.IncludeFindescription()
-		elif self._oid_processing == OBJECT_EXT: self.IncludeFindescription()
+		elif self._ido_processing == OBJECT_INT: self.IncludeFindescription()
+		elif self._ido_processing == FREQUENCY : self.IncludeFindescription()
+		elif self._ido_processing == PRIORITY  : self.IncludeFindescription()
+		elif self._ido_processing == PROCESS   : self.IncludeFindescription()
+		elif self._ido_processing == CATEGORY  : self.IncludeFindescription()
+		elif self._ido_processing == OBJECT_EXT: self.IncludeFindescription()
 
 	def ProcessingExcludeValue(self):
 		""" Обработка исключения значения """
-		if   self._oid_processing == FINSTRUCT : self.ExcludeFinstruct()
+		if   self._ido_processing == FINSTRUCT : self.ExcludeFinstruct()
 
-		elif self._oid_processing == OBJECT_INT: self.ExcludeFindescription()
-		elif self._oid_processing == FREQUENCY : self.ExcludeFindescription()
-		elif self._oid_processing == PRIORITY  : self.ExcludeFindescription()
-		elif self._oid_processing == PROCESS   : self.ExcludeFindescription()
-		elif self._oid_processing == CATEGORY  : self.ExcludeFindescription()
-		elif self._oid_processing == OBJECT_EXT: self.ExcludeFindescription()
+		elif self._ido_processing == OBJECT_INT: self.ExcludeFindescription()
+		elif self._ido_processing == FREQUENCY : self.ExcludeFindescription()
+		elif self._ido_processing == PRIORITY  : self.ExcludeFindescription()
+		elif self._ido_processing == PROCESS   : self.ExcludeFindescription()
+		elif self._ido_processing == CATEGORY  : self.ExcludeFindescription()
+		elif self._ido_processing == OBJECT_EXT: self.ExcludeFindescription()

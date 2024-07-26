@@ -1,5 +1,5 @@
 # КАКТУС: ЛИНЕЙНЫЕ ФИЛЬТРЫ ДАННЫХ
-# 26 июн 2024
+# 25 июн 2024
 
 import datetime
 
@@ -201,7 +201,7 @@ class C30_FilterLinear1D(C20_MetaFrame):
 		if not idos: return T20_StructResult(code     = CODES_COMPLETION.COMPLETED,
 		                                     subcodes = {CODES_DATA.NO_DATA})
 
-		self._data = list(filter(lambda cell: cell.ido in idos, container._s_cells.items()))
+		self._data = list(filter(lambda cell: cell.ido in idos, container._s_cells.values()))
 
 		return T20_StructResult(code = CODES_COMPLETION.COMPLETED)
 
@@ -384,9 +384,9 @@ class C30_FilterLinear1D(C20_MetaFrame):
 		if container is None                  : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
 		                                                                subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		if   container.Type_RAM().data       : return self._CaptureFromRam(container)
-		elif container.Type_SQLite().data    : return self._CaptureFromSqlite(container)
-		elif container.Type_PostgreSQL().data: return self._CaptureFromPostgresql(container)
+		if   container.Type_RAM().data        : return self._CaptureFromRam(container)
+		elif container.Type_SQLite().data     : return self._CaptureFromSqlite(container)
+		elif container.Type_PostgreSQL().data : return self._CaptureFromPostgresql(container)
 		else                                  : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
 		                                                                subcodes = {CODES_PROCESSING.SKIP})
 

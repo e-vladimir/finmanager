@@ -29,8 +29,8 @@ class C70_FormRecordFindata(C60_FormRecordFindata):
 		""" Подсветка текущего значения из записи """
 		value_current : str = ""
 
-		if   self._oid_processing == DATE     : value_current = self.record_findata.DdDmDyToString()
-		elif self._oid_processing == FINSTRUCT: value_current = C90_RecordFinstruct(self.record_findata.FinstructIdo()).Name()
+		if   self._ido_processing == DATE     : value_current = self.record_findata.DdDmDyToString()
+		elif self._ido_processing == FINSTRUCT: value_current = C90_RecordFinstruct(self.record_findata.FinstructIdo()).Name()
 
 		self.table_values.clearSelection()
 

@@ -20,7 +20,7 @@ class C40_RecordFindata(C30_StructFrame):
 
 		self.f_uid           = C30_StructField(self, "UID")
 
-		self.f_finstruct_oid = C30_StructField(self, "Финструктура")
+		self.f_finstruct_ido = C30_StructField(self, "Финструктура")
 
 		self.f_note          = C30_StructField(self, "Примечание")
 
@@ -39,7 +39,7 @@ class C40_Findata(C20_MetaFrame):
 
 		self._idp_uid           : str = ""
 
-		self._idp_finstruct_oid : str = ""
+		self._idp_finstruct_ido : str = ""
 
 		self._idp_note          : str = ""
 
@@ -56,6 +56,6 @@ class C40_Findata(C20_MetaFrame):
 
 		self._idp_uid           = record_finstruct.f_uid.Idp().data
 
-		self._idp_finstruct_oid = record_finstruct.f_finstruct_oid.Idp().data
+		self._idp_finstruct_ido = record_finstruct.f_finstruct_ido.Idp().data
 
 		self._idp_note          = record_finstruct.f_note.Idp().data

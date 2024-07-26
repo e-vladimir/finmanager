@@ -70,14 +70,14 @@ class C80_RecordFinactions(C70_RecordFinactions):
 		record_finstruct = C90_RecordFinstruct()
 		if not record_finstruct.SwitchByName(dy, dm, text): return
 
-		finstruct_oid  : str       = record_finstruct.Ido().data
-		finstruct_oids : list[str] = self.FinstructIdos()
+		finstruct_ido  : str       = record_finstruct.Ido().data
+		finstruct_idos : list[str] = self.FinstructIdos()
 
-		if finstruct_oid not in finstruct_oids: return
+		if finstruct_ido not in finstruct_idos: return
 
-		finstruct_oids.remove(finstruct_oid)
+		finstruct_idos.remove(finstruct_ido)
 
-		self.FinstructIdos(finstruct_oids)
+		self.FinstructIdos(finstruct_idos)
 
 	def IncludeFinstructByName(self, text: str):
 		""" Включение финструктуры в запись """
@@ -87,14 +87,14 @@ class C80_RecordFinactions(C70_RecordFinactions):
 		record_finstruct = C90_RecordFinstruct()
 		if not record_finstruct.SwitchByName(dy, dm, text): return
 
-		finstruct_oid  : str       = record_finstruct.Ido().data
-		finstruct_oids : list[str] = self.FinstructIdos()
+		finstruct_ido  : str       = record_finstruct.Ido().data
+		finstruct_idos : list[str] = self.FinstructIdos()
 
-		if finstruct_oid in finstruct_oids: return
+		if finstruct_ido in finstruct_idos: return
 
-		finstruct_oids.append(finstruct_oid)
+		finstruct_idos.append(finstruct_ido)
 
-		self.FinstructIdos(finstruct_oids)
+		self.FinstructIdos(finstruct_idos)
 
 	# Управление финсоставом
 	def ExcludeFindescriptionByName(self, text: str):
@@ -102,28 +102,28 @@ class C80_RecordFinactions(C70_RecordFinactions):
 		record_findescription = C90_RecordFindescription()
 		if not record_findescription.SwitchByName(text): return
 
-		findescription_oid  : str       = record_findescription.Ido().data
-		findescription_oids : list[str] = self.FindescriptionIdos()
+		findescription_ido  : str       = record_findescription.Ido().data
+		findescription_idos : list[str] = self.FindescriptionIdos()
 
-		if findescription_oid not in findescription_oids: return
+		if findescription_ido not in findescription_idos: return
 
-		findescription_oids.remove(findescription_oid)
+		findescription_idos.remove(findescription_ido)
 
-		self.FindescriptionIdos(findescription_oids)
+		self.FindescriptionIdos(findescription_idos)
 
 	def IncludeFindescriptionByName(self, text: str):
 		""" Включение финструктуры в запись """
 		record_findescription = C90_RecordFindescription()
 		if not record_findescription.SwitchByName(text): return
 
-		findescription_oid  : str       = record_findescription.Ido().data
-		findescription_oids : list[str] = self.FindescriptionIdos()
+		findescription_ido  : str       = record_findescription.Ido().data
+		findescription_idos : list[str] = self.FindescriptionIdos()
 
-		if findescription_oid in findescription_oids: return
+		if findescription_ido in findescription_idos: return
 
-		findescription_oids.append(findescription_oid)
+		findescription_idos.append(findescription_ido)
 
-		self.FindescriptionIdos(findescription_oids)
+		self.FindescriptionIdos(findescription_idos)
 
 	# Правила обработки данных
 	def ApplyRulesDetectFindescription(self):
@@ -131,12 +131,12 @@ class C80_RecordFinactions(C70_RecordFinactions):
 		result : list[str] = self.FindescriptionIdos()
 
 		rules        = C90_ProcessingRules()
-		for oid in rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
-			record_rule              = C90_RecordProcessingRules(oid)
-			oid_findescription : str = record_rule.ExecDetectFindescription(self.Note())
-			if not oid_findescription: continue
+		for ido in rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
+			record_rule              = C90_RecordProcessingRules(ido)
+			ido_findescription : str = record_rule.ExecDetectFindescription(self.Note())
+			if not ido_findescription: continue
 
-			result.append(oid_findescription)
+			result.append(ido_findescription)
 
 		result = list(set(result))
 
@@ -171,9 +171,9 @@ class C80_Finactions(C70_Finactions):
 		return filter_findata.ToIntegers(self._idp_dd, True, True).data
 
 	# Преобразование записей
-	def CreateFinactionsFromFindata(self, oid: str, amount: int = None) -> str:
+	def CreateFinactionsFromFindata(self, ido: str, amount: int = None) -> str:
 		""" Создание записи финдействий из записи финданных """
-		record_findata    = C60_RecordFindata(oid)
+		record_findata    = C60_RecordFindata(ido)
 		record_finactions = C80_RecordFinactions()
 
 		dy : int          = record_findata.Dy()
@@ -187,7 +187,7 @@ class C80_Finactions(C70_Finactions):
 		record_finactions.GenerateIdo()
 		record_finactions.RegisterObject(CONTAINER_LOCAL)
 
-		record_finactions.FindataIdo(oid)
+		record_finactions.FindataIdo(ido)
 
 		record_finactions.Dy(dy)
 		record_finactions.Dm(dm)

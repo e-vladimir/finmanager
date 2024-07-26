@@ -13,11 +13,11 @@ class C60_RecordFindescription(C50_RecordFindescription):
 
 		self.f_categories.FromStrings(CONTAINER_LOCAL, names)
 
-	def ParentIdo(self, oid: str = None) -> str:
+	def ParentIdo(self, ido: str = None) -> str:
 		""" OID родительского уровня """
-		if oid is None: return self.f_parent_oid.ToString(CONTAINER_LOCAL).data
+		if ido is None: return self.f_parent_ido.ToString(CONTAINER_LOCAL).data
 
-		self.f_parent_oid.FromString(CONTAINER_LOCAL, oid)
+		self.f_parent_ido.FromString(CONTAINER_LOCAL, ido)
 
 	def Name(self, text: str = None) -> str:
 		""" Наименование записи финсостава """

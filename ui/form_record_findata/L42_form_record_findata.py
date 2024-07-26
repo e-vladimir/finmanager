@@ -15,7 +15,7 @@ class C42_FormRecordFindata(C41_FormRecordFindata):
 
 		self._lock_reading     : bool = False
 		self._row_processing   : int  = -1
-		self._oid_processing   : str  = ""
+		self._ido_processing   : str  = ""
 
 	def Init_10(self):
 		super().Init_10()

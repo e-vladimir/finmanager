@@ -23,11 +23,11 @@ class C70_FormFindata(C60_FormFindata):
 		""" Обработка двойного клика по дереву данных """
 		flag_edit_note : bool = self._index_col_processing == 8
 
-		if   self._oid_processing_finactions and not flag_edit_note : self.on_RequestOpenRecordFinactions()
-		elif self._oid_processing_finactions and     flag_edit_note : self.on_RequestEditNoteRecordFinactions()
+		if   self._ido_processing_finactions and not flag_edit_note : self.on_RequestOpenRecordFinactions()
+		elif self._ido_processing_finactions and     flag_edit_note : self.on_RequestEditNoteRecordFinactions()
 
-		elif self._oid_processing_findata    and not flag_edit_note : self.on_RequestOpenRecordFindata()
-		elif self._oid_processing_findata    and     flag_edit_note : self.on_RequestEditNoteRecordFindata()
+		elif self._ido_processing_findata    and not flag_edit_note : self.on_RequestOpenRecordFindata()
+		elif self._ido_processing_findata    and     flag_edit_note : self.on_RequestEditNoteRecordFindata()
 
 	def AdjustTreeDataSize(self):
 		""" Настройка размера """
@@ -51,7 +51,7 @@ class C70_FormFindata(C60_FormFindata):
 		dy : int = self.workspace.Dy()
 		dm : int = self.workspace.Dm()
 
-		for self._oid_processing_findata in self.findata.IdosInDyDmDd(dy, dm): self.SetupRecordFindataColor()
+		for self._ido_processing_findata in self.findata.IdosInDyDmDd(dy, dm): self.SetupRecordFindataColor()
 
 	# Меню данных
 	def ShowMenuData(self):
@@ -61,24 +61,24 @@ class C70_FormFindata(C60_FormFindata):
 	def AdjustMenuDataText(self):
 		"""  """
 		self.menu_data_findata_record_header.setTitle("Запись финданных")
-		if self._oid_processing_findata:
-			record_findata    = C90_RecordFindata(self._oid_processing_findata)
+		if self._ido_processing_findata:
+			record_findata    = C90_RecordFindata(self._ido_processing_findata)
 
 			self.menu_data_findata_record_header.setTitle(f"Запись финданных: {AmountToString(record_findata.Amount(), False, True)} от {record_findata.DdDmDyToString()}")
 
 		self.menu_data_finactions_record_header.setTitle("Запись финдействий")
-		if self._oid_processing_finactions:
-			record_finactions = C90_RecordFinactions(self._oid_processing_finactions)
+		if self._ido_processing_finactions:
+			record_finactions = C90_RecordFinactions(self._ido_processing_finactions)
 
 			self.menu_data_finactions_record_header.setTitle(f"Запись финдействий: {AmountToString(record_finactions.Amount(), False, True)} от {record_finactions.DdDmDyToString()}")
 
 	def AdjustMenuDataEnable(self):
 		"""  """
-		flag_findata_selected             : bool = bool(self._oid_processing_findata)
-		flag_finactions_selected          : bool = bool(self._oid_processing_finactions)
+		flag_findata_selected             : bool = bool(self._ido_processing_findata)
+		flag_finactions_selected          : bool = bool(self._ido_processing_finactions)
 
-		flag_findata_selected_multiple    : bool = len(self._oids_processing_findata) > 0
-		flag_finactions_selected_multiple : bool = len(self._oids_processing_finactions) > 0
+		flag_findata_selected_multiple    : bool = len(self._idos_processing_findata) > 0
+		flag_finactions_selected_multiple : bool = len(self._idos_processing_finactions) > 0
 
 		self.menu_data_findata_create_finactions_quick.setEnabled(flag_findata_selected_multiple)
 

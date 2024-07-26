@@ -12,7 +12,7 @@ class C40_RecordFinstate(C30_StructFrame):
 	def Init_10(self):
 		""" Инициализация параметров """
 
-		self.f_finstruct_oid   = C30_StructField(self, "Финструктура")
+		self.f_finstruct_ido   = C30_StructField(self, "Финструктура")
 		self.f_remains_initial = C30_StructField(self, "ОстНач",     0)
 
 
@@ -22,7 +22,7 @@ class C40_Finstate(C20_MetaFrame):
 	def Init_00(self):
 		self._idc                : str = ""
 
-		self._idp_finstruct_oid  : str = ""
+		self._idp_finstruct_ido  : str = ""
 		self._idp_remain_initial : str = ""
 
 	def Init_01(self):
@@ -30,5 +30,5 @@ class C40_Finstate(C20_MetaFrame):
 
 		self._idc                = record_finstate.Idc().data
 
-		self._idp_finstruct_oid  = record_finstate.f_finstruct_oid.Idp().data
+		self._idp_finstruct_ido  = record_finstate.f_finstruct_ido.Idp().data
 		self._idp_remain_initial = record_finstate.f_remains_initial.Idp().data

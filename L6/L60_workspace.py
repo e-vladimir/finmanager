@@ -22,23 +22,23 @@ class C60_Workspace(C50_Workspace):
 
 		self.f_dm.FromInteger(CONTAINER_RAM, month)
 
-	def IdoRecordFindata(self, oid: int = None) -> int:
+	def IdoRecordFindata(self, ido: int = None) -> int:
 		""" OID записи финданных """
-		if oid is None: return self.f_record_findata_oid.ToString(CONTAINER_RAM).data
+		if ido is None: return self.f_record_findata_ido.ToString(CONTAINER_RAM).data
 
-		self.f_record_findata_oid.FromString(CONTAINER_RAM, oid)
+		self.f_record_findata_ido.FromString(CONTAINER_RAM, ido)
 
-	def IdoRecordFinactions(self, oid: int = None) -> int:
+	def IdoRecordFinactions(self, ido: int = None) -> int:
 		""" OID записи финдействий """
-		if oid is None: return self.f_record_finactions_oid.ToString(CONTAINER_RAM).data
+		if ido is None: return self.f_record_finactions_ido.ToString(CONTAINER_RAM).data
 
-		self.f_record_finactions_oid.FromString(CONTAINER_RAM, oid)
+		self.f_record_finactions_ido.FromString(CONTAINER_RAM, ido)
 
-	def IdoRecordRules(self, oid: int = None) -> int:
+	def IdoRecordRules(self, ido: int = None) -> int:
 		""" OID записи правил """
-		if oid is None: return self.f_record_rules_oid.ToString(CONTAINER_RAM).data
+		if ido is None: return self.f_record_rules_ido.ToString(CONTAINER_RAM).data
 
-		self.f_record_rules_oid.FromString(CONTAINER_RAM, oid)
+		self.f_record_rules_ido.FromString(CONTAINER_RAM, ido)
 
 	def ProcessingType(self, text: int = None) -> int:
 		""" Тип обработки """

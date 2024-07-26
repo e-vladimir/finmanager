@@ -42,49 +42,49 @@ class C60_FormFindata(C50_FormFindata):
 
 	def ReadIdoProcessingFindata(self):
 		""" Чтение OID записи финданных """
-		self._oid_processing_findata = ""
+		self._ido_processing_findata = ""
 
 		current_index : QModelIndex | None = self.tree_data.currentIndex()
 		if current_index is None: return
 
-		self._oid_processing_findata = current_index.data(ROLE_OID_FINDATA)
+		self._ido_processing_findata = current_index.data(ROLE_OID_FINDATA)
 
 	def ReadIdoProcessingFinactions(self):
 		""" Чтение OID записи финдействий """
-		self._oid_processing_finactions = ""
+		self._ido_processing_finactions = ""
 
 		current_index : QModelIndex | None = self.tree_data.currentIndex()
 		if current_index is None: return
 
-		self._oid_processing_finactions = current_index.data(ROLE_OID_FINACTIONS)
+		self._ido_processing_finactions = current_index.data(ROLE_OID_FINACTIONS)
 
 	def ReadIdosProcessingFindata(self):
 		""" Чтение выбранных записей финданных """
-		self._oids_processing_findata.clear()
+		self._idos_processing_findata.clear()
 
 		for index_data in self.model_data.indexes():
 			item_data  : QStandardItem = self.model_data.itemFromIndex(index_data)
 
-			oid_findata : str | None   = item_data.data(ROLE_OID_FINDATA)
-			if not oid_findata                         : continue
-			if     oid_findata is None                 : continue
+			ido_findata : str | None   = item_data.data(ROLE_OID_FINDATA)
+			if not ido_findata                         : continue
+			if     ido_findata is None                 : continue
 			if not item_data.checkState() == Qt.Checked: continue
 
-			self._oids_processing_findata.append(oid_findata)
+			self._idos_processing_findata.append(ido_findata)
 
 	def ReadIdosProcessingFinactions(self):
 		""" Чтение выбранных записей финдействий """
-		self._oids_processing_finactions.clear()
+		self._idos_processing_finactions.clear()
 
 		for index_data in self.model_data.indexes():
 			item_data  : QStandardItem = self.model_data.itemFromIndex(index_data)
 
-			oid_finactions : str | None   = item_data.data(ROLE_OID_FINACTIONS)
-			if not oid_finactions                      : continue
-			if     oid_finactions is None              : continue
+			ido_finactions : str | None   = item_data.data(ROLE_OID_FINACTIONS)
+			if not ido_finactions                      : continue
+			if     ido_finactions is None              : continue
 			if not item_data.checkState() == Qt.Checked: continue
 
-			self._oids_processing_finactions.append(oid_finactions)
+			self._idos_processing_finactions.append(ido_finactions)
 
 	def SwitchProcessingQuick_On(self):
 		""" Переключение флага ускорения """
@@ -168,9 +168,9 @@ class C60_FormFindata(C50_FormFindata):
 	# Запись финданных
 	def CleanRecordFindata(self):
 		""" Очистка записи финданных """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		index_record : QModelIndex | None = self.model_data.indexByData(self._oid_processing_findata, ROLE_OID_FINDATA)
+		index_record : QModelIndex | None = self.model_data.indexByData(self._ido_processing_findata, ROLE_OID_FINDATA)
 		if index_record is None: return
 
 		count        : int                = self.model_data.rowCount(index_record)
@@ -179,9 +179,9 @@ class C60_FormFindata(C50_FormFindata):
 
 	def LoadRecordFindata(self):
 		""" Загрузка записи финданных """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		record_findata                = C90_RecordFindata(self._oid_processing_findata)
+		record_findata                = C90_RecordFindata(self._ido_processing_findata)
 
 		self._dd_processing = record_findata.Dd()
 		self.LoadDd()
@@ -192,7 +192,7 @@ class C60_FormFindata(C50_FormFindata):
 		labels[8] = record_findata.Note()
 
 		index_dd      : QModelIndex   = self.model_data.indexByData(record_findata.DdDmDyToString())
-		index_findata : QModelIndex   = self.model_data.indexByData(self._oid_processing_findata, ROLE_OID_FINDATA)
+		index_findata : QModelIndex   = self.model_data.indexByData(self._ido_processing_findata, ROLE_OID_FINDATA)
 
 		index_row     : int           = self.model_data.rowCount(index_dd) if index_findata is None else index_findata.row()
 
@@ -202,17 +202,17 @@ class C60_FormFindata(C50_FormFindata):
 
 		for index_col, label in enumerate(labels):
 			item_data = C20_StandardItem(label, flag_align_right = index_col == 0, flag_checked = False if index_col == 0 else None)
-			item_data.setData(self._oid_processing_findata, ROLE_OID_FINDATA)
+			item_data.setData(self._ido_processing_findata, ROLE_OID_FINDATA)
 			item_data.setData(record_findata.Dd(), ROLE_DD)
 			item_parent.setChild(index_row, index_col, item_data)
 
 	def UpdateRecordFindata(self):
 		""" Обновление данных записи финданных """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		record_findata                    = C90_RecordFindata(self._oid_processing_findata)
+		record_findata                    = C90_RecordFindata(self._ido_processing_findata)
 
-		index_record : QModelIndex | None = self.model_data.indexByData(self._oid_processing_findata, ROLE_OID_FINDATA)
+		index_record : QModelIndex | None = self.model_data.indexByData(self._ido_processing_findata, ROLE_OID_FINDATA)
 		index_parent : QModelIndex        = index_record.parent()
 
 		index_row    : int                = index_record.row()
@@ -223,9 +223,9 @@ class C60_FormFindata(C50_FormFindata):
 
 	def RemoveRecordFindata(self):
 		""" Удаление записи финданных из дерева """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		index_record : QModelIndex | None = self.model_data.indexByData(self._oid_processing_findata, ROLE_OID_FINDATA)
+		index_record : QModelIndex | None = self.model_data.indexByData(self._ido_processing_findata, ROLE_OID_FINDATA)
 		if     index_record is None  : return
 		if not index_record.isValid(): return
 
@@ -236,9 +236,9 @@ class C60_FormFindata(C50_FormFindata):
 
 	def SetupRecordFindataColor(self):
 		""" Установка цвета записи финданных """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		index_record: QModelIndex = self.model_data.indexByData(self._oid_processing_findata, ROLE_OID_FINDATA)
+		index_record: QModelIndex = self.model_data.indexByData(self._ido_processing_findata, ROLE_OID_FINDATA)
 		if index_record is None: return
 
 		index_row: int = index_record.row()
@@ -248,7 +248,7 @@ class C60_FormFindata(C50_FormFindata):
 
 		color_fg: QColor = QColor(150, 150, 150)
 
-		record_findata = C90_RecordFindata(self._oid_processing_findata)
+		record_findata = C90_RecordFindata(self._ido_processing_findata)
 
 		if record_findata.LinkedFinactionsIdos():
 			color_fg: QColor = QColor(0, 0, 0)
@@ -260,11 +260,11 @@ class C60_FormFindata(C50_FormFindata):
 	# Запись финдействий
 	def LoadRecordFinactions(self):
 		""" Загрузка записи финдействий """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		record_findata                  = C90_RecordFindata(self._oid_processing_findata)
+		record_findata                  = C90_RecordFindata(self._ido_processing_findata)
 
-		oids_finactions : list[str]     = record_findata.LinkedFinactionsIdos()
+		idos_finactions : list[str]     = record_findata.LinkedFinactionsIdos()
 
 		index_findata   : QModelIndex   = self.model_data.indexByData(record_findata.Ido().data, ROLE_OID_FINDATA)
 		item_findata    : QStandardItem = self.model_data.itemFromIndex(index_findata)
@@ -272,13 +272,13 @@ class C60_FormFindata(C50_FormFindata):
 		index_dd        : QModelIndex   = index_findata.parent()
 		item_dd         : QStandardItem = self.model_data.itemFromIndex(index_dd)
 
-		if len(oids_finactions) == 0:
+		if len(idos_finactions) == 0:
 			return
 
-		elif len(oids_finactions) == 1:
+		elif len(idos_finactions) == 1:
 			index_row : int       = item_findata.row()
 
-			record_finactions     = C90_RecordFinactions(oids_finactions[0])
+			record_finactions     = C90_RecordFinactions(idos_finactions[0])
 
 			labels    : list[str] = [""] * 9
 			labels[0]             = AmountToString(record_finactions.Amount(), False, True)
@@ -299,9 +299,9 @@ class C60_FormFindata(C50_FormFindata):
 
 				item_dd.setChild(index_row, index_col, item_data)
 
-		elif len(oids_finactions) > 1:
-			for index_row, oid in enumerate(oids_finactions):
-				record_finactions = C90_RecordFinactions(oid)
+		elif len(idos_finactions) > 1:
+			for index_row, ido in enumerate(idos_finactions):
+				record_finactions = C90_RecordFinactions(ido)
 
 				labels: list[str] = [""] * 9
 				labels[0] = AmountToString(record_finactions.Amount(), False, True)
@@ -323,11 +323,11 @@ class C60_FormFindata(C50_FormFindata):
 
 	def UpdateRecordFinactions(self):
 		""" Обновление данных записи финдействий """
-		if not self._oid_processing_finactions: return
+		if not self._ido_processing_finactions: return
 
-		record_finactions                 = C90_RecordFinactions(self._oid_processing_finactions)
+		record_finactions                 = C90_RecordFinactions(self._ido_processing_finactions)
 
-		index_record : QModelIndex | None = self.model_data.indexByData(self._oid_processing_finactions, ROLE_OID_FINACTIONS)
+		index_record : QModelIndex | None = self.model_data.indexByData(self._ido_processing_finactions, ROLE_OID_FINACTIONS)
 		index_parent : QModelIndex        = index_record.parent()
 
 		index_row    : int                = index_record.row()

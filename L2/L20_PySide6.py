@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 2024-06-03
+# 26 июл 2024
 
 from pathlib           import Path
 from PySide6           import QtGui
@@ -231,7 +231,7 @@ class QMultipleItemsInputDialog(QDialog):
 			item_text : QListWidgetItem = self.list_items.item(index_row)
 			if item_text.checkState() == Qt.CheckState.Unchecked: continue
 
-			result.append(item_text.data())
+			result.append(item_text.data(Qt.ItemDataRole.DisplayRole))
 
 		return result
 
@@ -271,7 +271,7 @@ def RequestText(title: str, message: str, old_text: str = "") -> None | str:
 	dialog.setTextValue(old_text)
 
 	if not dialog.exec_(): return None
-	return dialog.dataValue()
+	return dialog.textValue()
 
 
 def RequestMultipleText(title: str, message: str, old_text: list[str] = []) -> None | list[str]:
@@ -279,7 +279,7 @@ def RequestMultipleText(title: str, message: str, old_text: list[str] = []) -> N
 	dialog = QMultipleTextInputDialog(title, message, old_text)
 
 	if not dialog.exec_(): return None
-	return dialog.dataValues()
+	return dialog.textValues()
 
 
 def RequestValue(title: str, message: str, value_old: int | float = None, value_min: int | float = None, value_max: int | float = None) -> None | int | float:
@@ -333,7 +333,7 @@ def RequestItem(title: str, message: str, items: list[str]) -> str | None:
 
 	if not dialog_items.exec_(): return None
 
-	return dialog_items.dataValue()
+	return dialog_items.textValue()
 
 
 def RequestItems(title: str, message: str, items: list[str]) -> list[str] | None:
@@ -451,7 +451,7 @@ class C20_StandardItemModel(QStandardItemModel):
 			self.dataChanged.emit()
 
 		elif role == Qt.ItemDataRole.CheckStateRole:
-			if value == Qt.CheckState.Checked.data : self.itemChecked.emit()
+			if value == Qt.CheckState.Checked.value : self.itemChecked.emit()
 			else                                    : self.itemUnchecked.emit()
 
 		return super().setData(index, value, role)

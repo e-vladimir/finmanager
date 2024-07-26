@@ -76,14 +76,14 @@ class C70_FormFinanalytics(C60_FormFinanalytics):
 		""" Настройка элементов меню """
 		self.menu_findescription_dynamic_record_header.setText("Запись финсостава")
 
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_findescription = C90_RecordFindescription(self._oid_processing)
+		record_findescription = C90_RecordFindescription(self._ido_processing)
 
 		self.menu_findescription_dynamic_record_header.setText(record_findescription.Name())
 
 	def AdjustMenuFindescriptionEnable(self):
 		""" Настройка доступности элементов """
-		flag_selected : bool = bool(self._oid_processing)
+		flag_selected : bool = bool(self._ido_processing)
 
 		self.menu_findescription_dynamic_record_dec.setEnabled(flag_selected)

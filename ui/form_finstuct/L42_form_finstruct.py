@@ -12,8 +12,8 @@ class C42_FormFinstruct(C41_FormFinstruct):
 	def Init_00(self):
 		super().Init_00()
 
-		self._oid_processing : str  = ""
-		self._oid_memory     : str  = ""
+		self._ido_processing : str  = ""
+		self._ido_memory     : str  = ""
 
 		self._col_processing : int = -1
 

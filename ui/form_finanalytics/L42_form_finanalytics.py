@@ -13,9 +13,9 @@ class C42_FormFinanalytics(C41_FormFinanalytics):
 	def Init_00(self):
 		super().Init_00()
 
-		self._oid_processing                      : str                  = ""
+		self._ido_processing                      : str                  = ""
 
-		self._oids_findescription_dynamic         : list[str]            = []
+		self._idos_findescription_dynamic         : list[str]            = []
 		self._data_findescription_dynamic_income  : dict[str, list[int]] = dict()
 		self._data_findescription_dynamic_outcome : dict[str, list[int]] = dict()
 

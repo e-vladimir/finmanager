@@ -32,23 +32,23 @@ class C60_RecordFinactions(C50_RecordFinactions):
 
 		self.f_amount.FromInteger(CONTAINER_LOCAL, amount)
 
-	def FindataIdo(self, oid: str = None) -> str:
+	def FindataIdo(self, ido: str = None) -> str:
 		""" OID записи финданных """
-		if oid is None: return self.f_findata_oid.ToString(CONTAINER_LOCAL).data
+		if ido is None: return self.f_findata_ido.ToString(CONTAINER_LOCAL).data
 
-		self.f_findata_oid.FromString(CONTAINER_LOCAL, oid)
+		self.f_findata_ido.FromString(CONTAINER_LOCAL, ido)
 
-	def FinstructIdos(self, oids: list[str] = None) -> list[str]:
+	def FinstructIdos(self, idos: list[str] = None) -> list[str]:
 		""" Список OID записей финструктуры """
-		if oids is None: return self.f_finstruct_oids.ToStrings(CONTAINER_LOCAL).data
+		if idos is None: return self.f_finstruct_idos.ToStrings(CONTAINER_LOCAL).data
 
-		self.f_finstruct_oids.FromStrings(CONTAINER_LOCAL, oids)
+		self.f_finstruct_idos.FromStrings(CONTAINER_LOCAL, idos)
 
-	def FindescriptionIdos(self, oids: list[str] = None) -> list[str]:
+	def FindescriptionIdos(self, idos: list[str] = None) -> list[str]:
 		""" Список OID записей финсостава """
-		if oids is None: return self.f_findescription_oids.ToStrings(CONTAINER_LOCAL).data
+		if idos is None: return self.f_findescription_idos.ToStrings(CONTAINER_LOCAL).data
 
-		self.f_findescription_oids.FromStrings(CONTAINER_LOCAL, oids)
+		self.f_findescription_idos.FromStrings(CONTAINER_LOCAL, idos)
 
 	def Note(self, text: str = None) -> str:
 		""" Примечание """

@@ -22,22 +22,22 @@ class C60_FormFinstatistic(C50_FormFinstatistic):
 
 		self._index_processing                      = None
 
-	def CalcIdosStructProcessingFromSuboids(self):
+	def CalcIdosStructProcessingFromSubidos(self):
 		""" Вычисление структуры записей финстатистики """
-		self._oids_struct_processing.clear()
+		self._idos_struct_processing.clear()
 
 		index_current : QModelIndex = self.tree_finstatistic.currentIndex()
 		if not index_current.isValid(): return
 
-		self._oids_struct_processing.append(index_current.data(ROLE_SUBOID))
+		self._idos_struct_processing.append(index_current.data(ROLE_SUBOID))
 
 		index_parent : QModelIndex = index_current.parent()
 
 		while index_parent.isValid():
-			sub_oid : str = index_parent.data(ROLE_SUBOID)
-			if not sub_oid: return
+			sub_ido : str = index_parent.data(ROLE_SUBOID)
+			if not sub_ido: return
 
-			self._oids_struct_processing.insert(0, sub_oid)
+			self._idos_struct_processing.insert(0, sub_ido)
 			index_parent  = index_parent.parent()
 
 	# Модель финстатистики
@@ -47,25 +47,25 @@ class C60_FormFinstatistic(C50_FormFinstatistic):
 
 	def LoadRecordFinstatistic(self):
 		""" Загрузка записи финстатистики в модель финстатистики за финпериод"""
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_findescription                 = C90_RecordFindescription(self._oid_processing)
+		record_findescription                 = C90_RecordFindescription(self._ido_processing)
 
 		dy             : int                  = self.workspace.Dy()
 		dm             : int                  = self.workspace.Dm()
-		amount_income  : int                  = self.finstatistic.CalcIncomeByFindescription(self._oid_processing, dy, dm)
-		amount_outcome : int                  = self.finstatistic.CalcOutcomeByFindescription(self._oid_processing, dy, dm)
+		amount_income  : int                  = self.finstatistic.CalcIncomeByFindescription(self._ido_processing, dy, dm)
+		amount_outcome : int                  = self.finstatistic.CalcOutcomeByFindescription(self._ido_processing, dy, dm)
 
-		suboids        : list[str]            = self.findescription.SubIdos(self._oid_processing)
+		subidos        : list[str]            = self.findescription.SubIdos(self._ido_processing)
 
 		item_parent    : QStandardItem | None = self.model_finstatistic.itemByData(record_findescription.ParentIdo(), ROLE_OID)
 		if item_parent is None: item_parent = self.model_finstatistic.invisibleRootItem()
 
 		item_record    : QStandardItem        = QStandardItem()
 		item_record.setText(record_findescription.Name())
-		item_record.setData(self._oid_processing, ROLE_OID)
+		item_record.setData(self._ido_processing, ROLE_OID)
 
-		if not suboids: item_record.setData(self._oid_processing, ROLE_SUBOID)
+		if not subidos: item_record.setData(self._ido_processing, ROLE_SUBOID)
 
 		item_income    : QStandardItem        = QStandardItem()
 		item_income.setText(AmountToString(amount_income, False, True))
@@ -77,20 +77,20 @@ class C60_FormFinstatistic(C50_FormFinstatistic):
 
 		item_parent.appendRow([item_record, item_income, item_outcome])
 
-		for self._oid_processing in suboids: self.LoadRecordFinstatistic()
+		for self._ido_processing in subidos: self.LoadRecordFinstatistic()
 
 	def LoadSubRecordFinstatistic(self):
 		""" Загрузка вложенной записи """
-		if     self._oid_processing in self._oids_struct_processing: return
+		if     self._ido_processing in self._idos_struct_processing: return
 		if not self._index_processing.isValid()                    : return
 
 		dy             : int = self.workspace.Dy()
 		dm             : int = self.workspace.Dm()
 
-		amount_income  : int = self.finstatistic.CalcIncomeByFindescriptions(self._oids_struct_processing + [self._oid_processing], dy, dm)
-		amount_outcome : int = self.finstatistic.CalcOutcomeByFindescriptions(self._oids_struct_processing + [self._oid_processing], dy, dm)
+		amount_income  : int = self.finstatistic.CalcIncomeByFindescriptions(self._idos_struct_processing + [self._ido_processing], dy, dm)
+		amount_outcome : int = self.finstatistic.CalcOutcomeByFindescriptions(self._idos_struct_processing + [self._ido_processing], dy, dm)
 
-		record_findescription = C90_RecordFindescription(self._oid_processing)
+		record_findescription = C90_RecordFindescription(self._ido_processing)
 
 		if not amount_income and not amount_outcome: return
 
@@ -98,7 +98,7 @@ class C60_FormFinstatistic(C50_FormFinstatistic):
 
 		item_record    : QStandardItem        = QStandardItem()
 		item_record.setText(record_findescription.Name())
-		item_record.setData(self._oid_processing, ROLE_SUBOID)
+		item_record.setData(self._ido_processing, ROLE_SUBOID)
 
 		item_income    : QStandardItem        = QStandardItem()
 		item_income.setText(AmountToString(amount_income, False, True))

@@ -24,7 +24,7 @@ class C40_Finstatistic(C20_MetaFrame):
 		record_finactions = C40_RecordFinactions()
 
 		self._idc                      = record_finactions.Idc().data
-		self._idp_findescription       = record_finactions.f_findescription_oids.Idp().data
+		self._idp_findescription       = record_finactions.f_findescription_idos.Idp().data
 		self._idp_dy                   = record_finactions.f_dy.Idp().data
 		self._idp_dm                   = record_finactions.f_dm.Idp().data
 		self._idp_amount               = record_finactions.f_amount.Idp().data

@@ -31,10 +31,10 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 	def CleanModel(self):
 		""" Зачистка модели от пустых записей """
-		oids : list[str] = C90_RecordFinstruct().Idos(CONTAINER_LOCAL).items
+		idos : list[str] = C90_RecordFinstruct().Idos(CONTAINER_LOCAL).items
 
 		for item in reversed(ItemsFromStandardModel(self.model_data)):
-			if item.data(ROLE_OID) in oids: continue
+			if item.data(ROLE_OID) in idos: continue
 
 			parent    : QStandardItem = item.parent()
 			if parent is None : parent = self.model_data.invisibleRootItem()
@@ -45,18 +45,18 @@ class C60_FormFinstruct(C50_FormFinstruct):
 	# Запись финструктуры
 	def LoadRecordFinstruct(self):
 		""" Загрузка записи финструктуры """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_finstruct                    = C90_RecordFinstruct(self._oid_processing)
+		record_finstruct                    = C90_RecordFinstruct(self._ido_processing)
 
 		record_finstate                     = C90_RecordFinstate()
 		record_finstate.SwitchByFinstructIdo(record_finstruct.Ido().data)
 
-		oid_parent   : str                  = record_finstruct.ParentIdo()
+		ido_parent   : str                  = record_finstruct.ParentIdo()
 
 		index_record : QModelIndex|None     = self.model_data.indexByData(record_finstruct.Ido().data, ROLE_OID)
 
-		item_parent  : QStandardItem | None = self.model_data.itemByData(oid_parent, ROLE_OID) if oid_parent else self.model_data.invisibleRootItem()
+		item_parent  : QStandardItem | None = self.model_data.itemByData(ido_parent, ROLE_OID) if ido_parent else self.model_data.invisibleRootItem()
 		if item_parent is None: return
 
 		index_row    : int                  = item_parent.rowCount() if index_record is None else index_record.row()
@@ -79,17 +79,17 @@ class C60_FormFinstruct(C50_FormFinstruct):
 			item_data = C20_StandardItem(label, record_finstruct.Ido().data, ROLE_OID, index_col > 0)
 			item_parent.setChild(index_row, index_col, item_data)
 
-		for self._oid_processing in record_finstruct.SubIdos(): self.LoadRecordFinstruct()
+		for self._ido_processing in record_finstruct.SubIdos(): self.LoadRecordFinstruct()
 
 	# Параметры
 	def ReadIdoProcessing(self):
 		""" Чтение OID выделенной записи """
-		self._oid_processing = ""
+		self._ido_processing = ""
 
 		index_selected : QModelIndex | None = self.tree_data.currentIndex()
 		if index_selected is None: return
 
-		self._oid_processing = index_selected.data(ROLE_OID)
+		self._ido_processing = index_selected.data(ROLE_OID)
 
 	def ReadColProcessing(self):
 		""" Чтение выбранной колонки """
@@ -102,4 +102,4 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 	def ReadIdoMemory(self):
 		""" Запомнить OID записи финсостава """
-		self._oid_memory = self._oid_processing
+		self._ido_memory = self._ido_processing

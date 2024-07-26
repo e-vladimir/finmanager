@@ -7,10 +7,10 @@ from L50_finstruct  import C50_RecordFinstruct, C50_Finstruct
 class C60_RecordFinstruct(C50_RecordFinstruct):
 	""" Запись финструктуры: Механика данных """
 
-	def ParentIdo(self, oid: str = None) -> str:
+	def ParentIdo(self, ido: str = None) -> str:
 		""" OID родительского уровня """
-		if oid is None  : return self.f_parent_oid.ToString(CONTAINER_LOCAL).data
-		else            :        self.f_parent_oid.FromString(CONTAINER_LOCAL, oid)
+		if ido is None  : return self.f_parent_ido.ToString(CONTAINER_LOCAL).data
+		else            :        self.f_parent_ido.FromString(CONTAINER_LOCAL, ido)
 
 	def Name(self, text: str = None) -> str:
 		""" Наименование записи финструктуры """

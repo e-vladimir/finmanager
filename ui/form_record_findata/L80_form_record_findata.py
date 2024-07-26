@@ -21,8 +21,8 @@ class C80_FormRecordFindata(C70_FormRecordFindata):
 	# Параметры
 	def ProcessingCurrentIdo(self):
 		""" Обработка выбранного параметра """
-		if   self._oid_processing == AMOUNT: self.RequestAmount()
-		elif self._oid_processing == NOTE  : self.RequestNote()
+		if   self._ido_processing == AMOUNT: self.RequestAmount()
+		elif self._ido_processing == NOTE  : self.RequestNote()
 		else                               : self.LoadModelValues()
 
 	def RequestAmount(self):
@@ -53,8 +53,8 @@ class C80_FormRecordFindata(C70_FormRecordFindata):
 	# Допустимые значения
 	def RequestApplyValue(self):
 		""" Запрос на применение значения """
-		if   self._oid_processing == DATE     : self.ApplyValueDate()
-		elif self._oid_processing == FINSTRUCT: self.ApplyFinstruct()
+		if   self._ido_processing == DATE     : self.ApplyValueDate()
+		elif self._ido_processing == FINSTRUCT: self.ApplyFinstruct()
 
 	def ApplyValueDate(self):
 		""" Применение даты записи """
@@ -85,7 +85,7 @@ class C80_FormRecordFindata(C70_FormRecordFindata):
 	# Переход в другие формы
 	def OpenRecordFinactions(self):
 		""" Открытие записи финдействий """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		self.workspace.IdoRecordFinactions(self._oid_processing)
+		self.workspace.IdoRecordFinactions(self._ido_processing)
 		self.application.form_record_finactions.Open()

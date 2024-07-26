@@ -22,11 +22,11 @@ class C42_FormFindata(C41_FormFindata):
 		self._flag_processing_dec        : bool      = False
 		self._flag_processing_skip       : bool      = False
 
-		self._oid_processing_findata     : str       = ""
-		self._oid_processing_finactions  : str       = ""
+		self._ido_processing_findata     : str       = ""
+		self._ido_processing_finactions  : str       = ""
 
-		self._oids_processing_findata    : list[str] = []
-		self._oids_processing_finactions : list[str] = []
+		self._idos_processing_findata    : list[str] = []
+		self._idos_processing_finactions : list[str] = []
 
 	def Init_10(self):
 		super().Init_10()

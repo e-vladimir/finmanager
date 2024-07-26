@@ -21,7 +21,7 @@ class C80_FormExport(C70_FormExport):
 		""" Выполнить экспорт финданных """
 		self.on_ExportStarted()
 
-		oids : list[str] = []
+		idos : list[str] = []
 
 		dys  : list[int] = [self._findata_dy]
 		dms  : list[int] = [1]
@@ -31,17 +31,17 @@ class C80_FormExport(C70_FormExport):
 		for dy in dys:
 			for dm in dms:
 				for dd in range(1, 31):
-					oids.extend(self.findata.IdosInDyDmDd(dy, dm, dd))
+					idos.extend(self.findata.IdosInDyDmDd(dy, dm, dd))
 
-		self._statistic_count_total = len(oids)
+		self._statistic_count_total = len(idos)
 
 		data : list[str] = []
 		data.append("Дата;Сумма;Примечание")
 
-		for oid in oids:
+		for ido in idos:
 			self._statistic_count_processed += 1
 
-			record_findata   = C90_RecordFindata(oid)
+			record_findata   = C90_RecordFindata(ido)
 			record_finstruct = C90_RecordFinstruct(record_findata.FinstructIdo())
 
 			if not record_finstruct.Name() == self._findata_finstruct: continue

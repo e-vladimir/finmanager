@@ -22,12 +22,12 @@ class C60_FormRules(C50_FormRules):
 
 	def ReadIdoProcessing(self):
 		""" Чтение OID записи правил """
-		self._oid_processing = ""
+		self._ido_processing = ""
 
 		index_record : QModelIndex = self.tree_data.currentIndex()
 		if not index_record.isValid(): return
 
-		self._oid_processing = index_record.data(ROLE_OID_RULES)
+		self._ido_processing = index_record.data(ROLE_OID_RULES)
 
 	def ReadColumnProcessing(self):
 		""" Чтение колонки """
@@ -63,12 +63,12 @@ class C60_FormRules(C50_FormRules):
 	# Запись замены текстовых фрагментов
 	def LoadRecordReplaceText(self):
 		""" Загрузка записи правил замены текстовых фрагментов """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_rule_processing       = C90_RecordProcessingRules(self._oid_processing)
+		record_rule_processing       = C90_RecordProcessingRules(self._ido_processing)
 
 		item_parent  : QStandardItem = self.model_data.invisibleRootItem()
-		index_record : QModelIndex   = self.model_data.indexByData(self._oid_processing, ROLE_OID_RULES)
+		index_record : QModelIndex   = self.model_data.indexByData(self._ido_processing, ROLE_OID_RULES)
 
 		index_row    : int           = self.model_data.rowCount() if index_record is None else index_record.row()
 
@@ -77,16 +77,16 @@ class C60_FormRules(C50_FormRules):
 		labels[1]          = record_rule_processing.OptionsOutputAsString()
 
 		for index_col, label in enumerate(labels):
-			item_data = C20_StandardItem(label, self._oid_processing, ROLE_OID_RULES)
+			item_data = C20_StandardItem(label, self._ido_processing, ROLE_OID_RULES)
 
 			item_parent.setChild(index_row, index_col, item_data)
 
 	# Запись определения финсостава по текстовым фрагментам
 	def LoadRecordDetectFindescriptionByText(self):
 		""" Загрузка записи правил определения финсостава по текстовому фрагменту """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_rule                       = C90_RecordProcessingRules(self._oid_processing)
+		record_rule                       = C90_RecordProcessingRules(self._ido_processing)
 		record_findescription             = C90_RecordFindescription(record_rule.OptionsOutputAsString())
 
 		index_findescription : QModelIndex | None = self.model_data.indexByData(record_findescription.Ido().data, ROLE_OID_FINDESCRIPTION)
@@ -116,9 +116,9 @@ class C60_FormRules(C50_FormRules):
 	# Запись финструктуры
 	def LoadRecordFindescription(self):
 		""" Загрузка записи финсостава """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_findescription             = C90_RecordFindescription(self._oid_processing)
+		record_findescription             = C90_RecordFindescription(self._ido_processing)
 
 		index_record : QModelIndex | None = self.model_data.indexByData(record_findescription.Ido().data, ROLE_OID_FINDESCRIPTION)
 		index_parent : QModelIndex | None = self.model_data.indexByData(record_findescription.ParentIdo(), ROLE_OID_FINDESCRIPTION)
@@ -135,4 +135,4 @@ class C60_FormRules(C50_FormRules):
 
 			item_parent.setChild(index_row, index_col, item_data)
 
-		for self._oid_processing in record_findescription.SubIdos(): self.LoadRecordFindescription()
+		for self._ido_processing in record_findescription.SubIdos(): self.LoadRecordFindescription()

@@ -75,7 +75,7 @@ class C70_FormRecordFinactions(C60_FormRecordFinactions):
 
 	def AdjustTreValuesCheckable(self):
 		""" Настройка дерева значений: Отметки """
-		if self._oid_processing == DATE: return
+		if self._ido_processing == DATE: return
 
 		for index_value in self.model_values.indexes():
 			item_value : QStandardItem = self.model_values.itemFromIndex(index_value)
@@ -83,16 +83,16 @@ class C70_FormRecordFinactions(C60_FormRecordFinactions):
 
 	def ShowCurrentValue(self):
 		""" Отображение текущего значения """
-		if   self._oid_processing == DATE      : self.ShowCurrentValueDd()
+		if   self._ido_processing == DATE      : self.ShowCurrentValueDd()
 
-		elif self._oid_processing == FINSTRUCT : self.ShowCurrentValueFinstruct()
+		elif self._ido_processing == FINSTRUCT : self.ShowCurrentValueFinstruct()
 
-		elif self._oid_processing == OBJECT_INT: self.ShowCurrentValueFindescription()
-		elif self._oid_processing == FREQUENCY : self.ShowCurrentValueFindescription()
-		elif self._oid_processing == PRIORITY  : self.ShowCurrentValueFindescription()
-		elif self._oid_processing == PROCESS   : self.ShowCurrentValueFindescription()
-		elif self._oid_processing == CATEGORY  : self.ShowCurrentValueFindescription()
-		elif self._oid_processing == OBJECT_EXT: self.ShowCurrentValueFindescription()
+		elif self._ido_processing == OBJECT_INT: self.ShowCurrentValueFindescription()
+		elif self._ido_processing == FREQUENCY : self.ShowCurrentValueFindescription()
+		elif self._ido_processing == PRIORITY  : self.ShowCurrentValueFindescription()
+		elif self._ido_processing == PROCESS   : self.ShowCurrentValueFindescription()
+		elif self._ido_processing == CATEGORY  : self.ShowCurrentValueFindescription()
+		elif self._ido_processing == OBJECT_EXT: self.ShowCurrentValueFindescription()
 
 	def ShowCurrentValueDd(self):
 		""" Отображение текущего дня месяца """

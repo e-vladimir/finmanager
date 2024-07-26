@@ -12,7 +12,7 @@ class C42_FormRules(C41_FormRules):
 	def Init_00(self):
 		super().Init_00()
 
-		self._oid_processing    : str = ""
+		self._ido_processing    : str = ""
 		self._type_processing   : str = ""
 		self._column_processing : int = -1
 		self._name_processing   : str = ""

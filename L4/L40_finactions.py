@@ -17,9 +17,9 @@ class C40_RecordFinactions(C30_StructFrame):
 
 		self.f_amount              = C30_StructField(self, "Сумма")
 
-		self.f_findata_oid         = C30_StructField(self, "Финданные")
-		self.f_finstruct_oids      = C30_StructField(self, "Финструктура")
-		self.f_findescription_oids = C30_StructField(self, "Финсостав")
+		self.f_findata_ido         = C30_StructField(self, "Финданные")
+		self.f_finstruct_idos      = C30_StructField(self, "Финструктура")
+		self.f_findescription_idos = C30_StructField(self, "Финсостав")
 
 		self.f_note                = C30_StructField(self, "Примечание")
 
@@ -38,9 +38,9 @@ class C40_Finactions(C20_MetaFrame):
 
 		self._idp_amount              : str = ""
 
-		self._idp_findata_oid         : str = ""
-		self._idp_finstruct_oids      : str = ""
-		self._idp_findescription_oids : str = ""
+		self._idp_findata_ido         : str = ""
+		self._idp_finstruct_idos      : str = ""
+		self._idp_findescription_idos : str = ""
 
 		self._idp_note                : str = ""
 
@@ -55,8 +55,8 @@ class C40_Finactions(C20_MetaFrame):
 
 		self._idp_amount              = record_finaction.f_amount.Idp().data
 
-		self._idp_findata_oid         = record_finaction.f_findata_oid.Idp().data
-		self._idp_finstruct_oids      = record_finaction.f_finstruct_oids.Idp().data
-		self._idp_findescription_oids = record_finaction.f_findescription_oids.Idp().data
+		self._idp_findata_ido         = record_finaction.f_findata_ido.Idp().data
+		self._idp_finstruct_idos      = record_finaction.f_finstruct_idos.Idp().data
+		self._idp_findescription_idos = record_finaction.f_findescription_idos.Idp().data
 
 		self._idp_note                = record_finaction.f_note.Idp().data

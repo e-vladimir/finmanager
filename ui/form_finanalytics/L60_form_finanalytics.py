@@ -21,7 +21,7 @@ class C60_FormFinanalytics(C50_FormFinanalytics):
 	# Параметры
 	def ReadIdoProcessingFromTableFindescriptionDynamic(self):
 		""" Чтение OID для обработки """
-		self._oid_processing = ""
+		self._ido_processing = ""
 
 		index_data : QModelIndex | None = self.table_findescription_dynamic.currentIndex()
 		if     index_data is None  : return
@@ -30,7 +30,7 @@ class C60_FormFinanalytics(C50_FormFinanalytics):
 		data       : str | None         = index_data.data(ROLE_OID)
 		if     data is None        : return
 
-		self._oid_processing = data
+		self._ido_processing = data
 
 	# Модель динамики финсостава
 	def SetupModelFindescriptionDynamic(self):

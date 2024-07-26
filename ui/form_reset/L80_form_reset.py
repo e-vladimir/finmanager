@@ -20,13 +20,13 @@ class C80_FormReset(C70_FormReset):
 	def ProcessingReset(self):
 		"""  """
 		count_total : int = 0
-		count_total      += len(self._oids_finstruct)
-		count_total      += len(self._oids_finactions)
-		count_total      += len(self._oids_findescription)
-		count_total      += len(self._oids_findescription_in_finactions)
-		count_total      += len(self._oids_finstate)
-		count_total      += len(self._oids_findata)
-		count_total      += len(self._oids_rules)
+		count_total      += len(self._idos_finstruct)
+		count_total      += len(self._idos_finactions)
+		count_total      += len(self._idos_findescription)
+		count_total      += len(self._idos_findescription_in_finactions)
+		count_total      += len(self._idos_finstate)
+		count_total      += len(self._idos_findata)
+		count_total      += len(self._idos_rules)
 
 		counter     : int = 0
 
@@ -41,7 +41,7 @@ class C80_FormReset(C70_FormReset):
 		record_findescription = C90_RecordFindescription()
 		record_rule           = C90_RecordProcessingRules()
 
-		for oid in self._oids_finstruct:
+		for ido in self._idos_finstruct:
 			if dialog_progress.wasCanceled(): break
 
 			counter += 1
@@ -51,10 +51,10 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finstruct.Ido(oid)
+			record_finstruct.Ido(ido)
 			record_finstruct.DeleteObject(CONTAINER_LOCAL)
 
-		for oid in self._oids_finstate:
+		for ido in self._idos_finstate:
 			if dialog_progress.wasCanceled(): break
 
 			counter += 1
@@ -64,10 +64,10 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finstate.Ido(oid)
+			record_finstate.Ido(ido)
 			record_finstate.DeleteObject(CONTAINER_LOCAL)
 
-		for oid in self._oids_findata:
+		for ido in self._idos_findata:
 			if dialog_progress.wasCanceled(): break
 
 			counter += 1
@@ -77,10 +77,10 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_findata.Ido(oid)
+			record_findata.Ido(ido)
 			record_findata.DeleteObject(CONTAINER_LOCAL)
 
-		for oid in self._oids_finactions:
+		for ido in self._idos_finactions:
 			if dialog_progress.wasCanceled(): break
 
 			counter += 1
@@ -90,10 +90,10 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finactions.Ido(oid)
+			record_finactions.Ido(ido)
 			record_finactions.DeleteObject(CONTAINER_LOCAL)
 
-		for oid in self._oids_findescription:
+		for ido in self._idos_findescription:
 			if dialog_progress.wasCanceled(): break
 
 			counter += 1
@@ -103,10 +103,10 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_findescription.Ido(oid)
+			record_findescription.Ido(ido)
 			record_findescription.DeleteObject(CONTAINER_LOCAL)
 
-		for oid in self._oids_rules:
+		for ido in self._idos_rules:
 			if dialog_progress.wasCanceled(): break
 
 			counter += 1
@@ -116,10 +116,10 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_rule.Ido(oid)
+			record_rule.Ido(ido)
 			record_rule.DeleteObject(CONTAINER_LOCAL)
 
-		for oid in self._oids_findescription_in_finactions:
+		for ido in self._idos_findescription_in_finactions:
 			if dialog_progress.wasCanceled(): break
 
 			counter += 1
@@ -129,7 +129,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finactions.Ido(oid)
+			record_finactions.Ido(ido)
 			record_finactions.FindescriptionIdos([])
 
 		dialog_progress.setValue(count_total)

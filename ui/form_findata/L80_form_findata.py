@@ -25,14 +25,14 @@ class C80_FormFindata(C70_FormFindata):
 			record_finactions = C90_RecordFinactions(self.workspace.IdoRecordFinactions())
 			record_findata    = C90_RecordFindata(record_finactions.FindataIdo())
 
-			self._oid_processing_findata = record_finactions.FindataIdo()
+			self._ido_processing_findata = record_finactions.FindataIdo()
 			self._dd_processing          = record_finactions.Dd()
 
 			self.CleanRecordFindata()
 
 			self.LoadRecordFindata()
 
-			for self._oid_processing_finactions in record_findata.LinkedFinactionsIdos(): self.LoadRecordFinactions()
+			for self._ido_processing_finactions in record_findata.LinkedFinactionsIdos(): self.LoadRecordFinactions()
 
 		if self.workspace.IdoRecordFindata():
 			record_findata    = C90_RecordFindata(self.workspace.IdoRecordFindata())
@@ -53,13 +53,13 @@ class C80_FormFindata(C70_FormFindata):
 		dialog_progress.setMinimumHeight(120)
 		dialog_progress.setWindowTitle("Загрузка данных")
 
-		for index_oid, self._dd_processing in enumerate(dds):
+		for index_ido, self._dd_processing in enumerate(dds):
 			dialog_progress.setLabelText(f"{self._dd_processing:02d} {self.workspace.DmDyToString()}")
-			dialog_progress.setValue(index_oid)
+			dialog_progress.setValue(index_ido)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
-			for self._oid_processing_findata in self.findata.IdosInDyDmDd(dy, dm, self._dd_processing):
+			for self._ido_processing_findata in self.findata.IdosInDyDmDd(dy, dm, self._dd_processing):
 				self.LoadRecordFindata()
 				self.LoadRecordFinactions()
 
@@ -71,15 +71,15 @@ class C80_FormFindata(C70_FormFindata):
 		dm : int       = self.workspace.Dm()
 		dd : int       = self._dd_processing
 
-		for self._oid_processing_findata in self.findata.IdosInDyDmDd(dy, dm, dd): self.ReloadRecordFindata()
+		for self._ido_processing_findata in self.findata.IdosInDyDmDd(dy, dm, dd): self.ReloadRecordFindata()
 
 	# Запись финданных
 	def ReloadRecordFindata(self):
 		""" Перезагрузка записи финданных """
 		self.LoadRecordFindata()
 
-		record_findata = C90_RecordFindata(self._oid_processing_findata)
-		for self._oid_processing_finactions in record_findata.LinkedFinactionsIdos(): self.LoadRecordFinactions()
+		record_findata = C90_RecordFindata(self._ido_processing_findata)
+		for self._ido_processing_finactions in record_findata.LinkedFinactionsIdos(): self.LoadRecordFinactions()
 
 	def CreateRecordFindata(self):
 		""" Запрос на создание записи финданных """
@@ -105,33 +105,33 @@ class C80_FormFindata(C70_FormFindata):
 
 	def OpenRecordFindata(self):
 		""" Открытие записи финданных """
-		self.workspace.IdoRecordFindata(self._oid_processing_findata)
+		self.workspace.IdoRecordFindata(self._ido_processing_findata)
 
 		self.application.form_record_findata.Open()
 
 	def DeleteRecordFindata(self):
 		""" Удаление записи финданных """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		record_findata = C90_RecordFindata(self._oid_processing_findata)
+		record_findata = C90_RecordFindata(self._ido_processing_findata)
 
 		if not RequestConfirm("Удаление записи финданных", f"Удаление записи финданных {AmountToString(record_findata.Amount())} от {record_findata.DdDmDyToString()}\n\n{record_findata.Note()}"): return
 
-		for oid_finactions in record_findata.LinkedFinactionsIdos():
-			record_finactions = C90_RecordFinactions(oid_finactions)
+		for ido_finactions in record_findata.LinkedFinactionsIdos():
+			record_finactions = C90_RecordFinactions(ido_finactions)
 			record_finactions.DeleteObject(CONTAINER_LOCAL)
 
 		record_findata.DeleteObject(CONTAINER_LOCAL)
 
-		self.workspace.IdoRecordFindata(self._oid_processing_findata)
+		self.workspace.IdoRecordFindata(self._ido_processing_findata)
 
 		self.on_RecordFindataDeleted()
 
 	def EditNoteRecordFindata(self):
 		""" Редактирование примечания записи финданных """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		record_findata    = C90_RecordFindata(self._oid_processing_findata)
+		record_findata    = C90_RecordFindata(self._ido_processing_findata)
 
 		note : str | None = RequestText("Редактирование записи финданных", f"{AmountToString(record_findata.Amount())} от {record_findata.DdDmDyToString()}\n{record_findata.Note()}", record_findata.Note())
 		if note is None: return
@@ -143,13 +143,13 @@ class C80_FormFindata(C70_FormFindata):
 	# Запись финдействий
 	def CreateRecordsFinactions(self):
 		""" Пакетное преобразование записей финданных """
-		dialog_progress = QProgressDialog("Создание финдействий", "Отмена", 0, len(self._oids_processing_findata))
+		dialog_progress = QProgressDialog("Создание финдействий", "Отмена", 0, len(self._idos_processing_findata))
 		dialog_progress.setMinimumWidth(480)
 		dialog_progress.setMinimumHeight(120)
 		dialog_progress.setWindowTitle("Обработка данных")
 
-		for index_oid, self._oid_processing_findata in enumerate(self._oids_processing_findata):
-			dialog_progress.setValue(index_oid)
+		for index_ido, self._ido_processing_findata in enumerate(self._idos_processing_findata):
+			dialog_progress.setValue(index_ido)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
@@ -157,9 +157,9 @@ class C80_FormFindata(C70_FormFindata):
 
 	def CreateRecordFinactions(self):
 		""" Создание записи финдействий """
-		if not self._oid_processing_findata: return
+		if not self._ido_processing_findata: return
 
-		record_findata = C90_RecordFindata(self._oid_processing_findata)
+		record_findata = C90_RecordFindata(self._ido_processing_findata)
 		remains : int  = record_findata.CalcAmountDeviationByLinks()
 
 		if self._flag_processing_skip and record_findata.LinkedFinactionsIdos(): return
@@ -197,29 +197,29 @@ class C80_FormFindata(C70_FormFindata):
 
 	def OpenRecordFinactions(self):
 		""" Открытие записи финдействий """
-		self.workspace.IdoRecordFinactions(self._oid_processing_finactions)
+		self.workspace.IdoRecordFinactions(self._ido_processing_finactions)
 
 		self.application.form_record_finactions.Open()
 
 	def DeleteRecordFinactions(self):
 		""" Удаление записи финдействий """
-		if not self._oid_processing_finactions: return
+		if not self._ido_processing_finactions: return
 
-		record_finactions = C90_RecordFinactions(self._oid_processing_finactions)
+		record_finactions = C90_RecordFinactions(self._ido_processing_finactions)
 
 		if not RequestConfirm("Удаление записи финдействий", f"Удаление записи финдействий {AmountToString(record_finactions.Amount())} от {record_finactions.DdDmDyToString()}\n\n{record_finactions.Note()}"): return
 
 		record_finactions.DeleteObject(CONTAINER_LOCAL)
 
-		self.workspace.IdoRecordFindata(self._oid_processing_findata)
+		self.workspace.IdoRecordFindata(self._ido_processing_findata)
 
 		self.on_UpdateDataPartial()
 
 	def EditNoteRecordFinactions(self):
 		""" Редактирование примечания записи финдействий """
-		if not self._oid_processing_finactions: return
+		if not self._ido_processing_finactions: return
 
-		record_finactions = C90_RecordFinactions(self._oid_processing_finactions)
+		record_finactions = C90_RecordFinactions(self._ido_processing_finactions)
 
 		note : str | None = RequestText("Редактирование записи финдействий", f"{AmountToString(record_finactions.Amount())} от {record_finactions.DdDmDyToString()}\n{record_finactions.Note()}", record_finactions.Note())
 		if note is None: return
@@ -231,15 +231,15 @@ class C80_FormFindata(C70_FormFindata):
 	# Выделение
 	def ProcessingSelectionByText(self):
 		""" Обработка выделение по текстовому фрагменту """
-		record_findata               = C90_RecordFindata(self._oid_processing_findata)
-		record_finactions            = C90_RecordFinactions(self._oid_processing_finactions)
+		record_findata               = C90_RecordFindata(self._ido_processing_findata)
+		record_finactions            = C90_RecordFinactions(self._ido_processing_finactions)
 
 		note_finactions : str        = record_finactions.Note()
 		note_findata    : str        = record_findata.Note()
 
 		text_src        : str        = note_findata if not note_finactions else note_finactions
 
-		if self._oid_processing_findata: text_src = C90_RecordFindata(self._oid_processing_findata).Note()
+		if self._ido_processing_findata: text_src = C90_RecordFindata(self._ido_processing_findata).Note()
 
 		text_search     : str | None = RequestText("Расширение выборки", "Текстовый фрагмент для расширения выборки", text_src)
 		if text_search is None: return
@@ -301,15 +301,15 @@ class C80_FormFindata(C70_FormFindata):
 	# Утилиты
 	def ReplaceText(self):
 		"""  """
-		record_findata               = C90_RecordFindata(self._oid_processing_findata)
-		record_finactions            = C90_RecordFinactions(self._oid_processing_finactions)
+		record_findata               = C90_RecordFindata(self._ido_processing_findata)
+		record_finactions            = C90_RecordFinactions(self._ido_processing_finactions)
 
 		note_finactions : str        = record_finactions.Note()
 		note_findata    : str        = record_findata.Note()
 
 		text_src        : str        = note_findata if not note_finactions else note_finactions
 
-		if self._oid_processing_findata: text_src = C90_RecordFindata(self._oid_processing_findata).Note()
+		if self._ido_processing_findata: text_src = C90_RecordFindata(self._ido_processing_findata).Note()
 
 		text_search     : str | None = RequestText("Поиск и замена текстового фрагмента", "Поиск", text_src)
 		if text_search is None : return
@@ -320,24 +320,24 @@ class C80_FormFindata(C70_FormFindata):
 		dy              : int        = self.workspace.Dy()
 		dm              : int        = self.workspace.Dm()
 
-		oids_findata    : list[str]  = self.findata.IdosInDyDmDd(dy, dm)
-		oids_finactions : list[str]  = self.finactions.IdosInDyDmDd(dy, dm)
+		idos_findata    : list[str]  = self.findata.IdosInDyDmDd(dy, dm)
+		idos_finactions : list[str]  = self.finactions.IdosInDyDmDd(dy, dm)
 
 		counter         : int        = 0
 
-		dialog_progress = QProgressDialog("Поиск и замена текстового фрагмента", "Отмена", 0, len(oids_findata) + len(oids_finactions))
+		dialog_progress = QProgressDialog("Поиск и замена текстового фрагмента", "Отмена", 0, len(idos_findata) + len(idos_finactions))
 		dialog_progress.setMinimumWidth(480)
 		dialog_progress.setMinimumHeight(120)
 		dialog_progress.setWindowTitle("Обработка данных")
 
-		for self._oid_processing_findata in oids_findata:
+		for self._ido_processing_findata in idos_findata:
 			counter += 1
 
 			dialog_progress.setValue(counter)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
-			record_findata = C90_RecordFindata(self._oid_processing_findata)
+			record_findata = C90_RecordFindata(self._ido_processing_findata)
 			note_src : str = record_findata.Note()
 
 			if text_search not in note_src: continue
@@ -346,14 +346,14 @@ class C80_FormFindata(C70_FormFindata):
 
 			self.UpdateRecordFindata()
 
-		for self._oid_processing_finactions in oids_finactions:
+		for self._ido_processing_finactions in idos_finactions:
 			counter += 1
 
 			dialog_progress.setValue(counter)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
-			record_finactions = C90_RecordFinactions(self._oid_processing_finactions)
+			record_finactions = C90_RecordFinactions(self._ido_processing_finactions)
 			note_src : str = record_finactions.Note()
 
 			if text_search not in note_src: continue
@@ -365,24 +365,24 @@ class C80_FormFindata(C70_FormFindata):
 	# Правила обработки данных
 	def ApplyRulesReplaceText(self):
 		""" Применение правил замены текстовых фрагментов """
-		if self._oids_processing_findata:
-			dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._oids_processing_findata))
+		if self._idos_processing_findata:
+			dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._idos_processing_findata))
 			dialog_progress.setMinimumWidth(480)
 			dialog_progress.setMinimumHeight(120)
 			dialog_progress.setWindowTitle("Обработка данных")
 
-			for index_oid, self._oid_processing_findata in enumerate(self._oids_processing_findata):
-				dialog_progress.setValue(index_oid + 1)
+			for index_ido, self._ido_processing_findata in enumerate(self._idos_processing_findata):
+				dialog_progress.setValue(index_ido + 1)
 				dialog_progress.forceShow()
 				self.application.processEvents()
 
-				record_findata = C90_RecordFindata(self._oid_processing_findata)
+				record_findata = C90_RecordFindata(self._ido_processing_findata)
 				record_findata.ApplyRulesReplaceText()
 
 				self.on_RecordFindataChanged()
 
-		elif self._oid_processing_findata:
-			record_findata = C90_RecordFindata(self._oid_processing_findata)
+		elif self._ido_processing_findata:
+			record_findata = C90_RecordFindata(self._ido_processing_findata)
 			record_findata.ApplyRulesReplaceText()
 
 			self.on_RecordFindataChanged()
@@ -392,41 +392,41 @@ class C80_FormFindata(C70_FormFindata):
 		dy : int        = self.workspace.Dy()
 		dm : int        = self.workspace.Dm()
 
-		dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._oids_processing_findata))
+		dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._idos_processing_findata))
 		dialog_progress.setMinimumWidth(480)
 		dialog_progress.setMinimumHeight(120)
 		dialog_progress.setWindowTitle("Обработка данных")
 
-		for index_oid, self._oid_processing_findata in enumerate(self.findata.IdosInDyDmDd(dy, dm)):
-			dialog_progress.setValue(index_oid + 1)
+		for index_ido, self._ido_processing_findata in enumerate(self.findata.IdosInDyDmDd(dy, dm)):
+			dialog_progress.setValue(index_ido + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
-			record_findata = C90_RecordFindata(self._oid_processing_findata)
+			record_findata = C90_RecordFindata(self._ido_processing_findata)
 			record_findata.ApplyRulesReplaceText()
 
 			self.on_RecordFindataChanged()
 
 	def ApplyRulesDetectFindescriptionByText(self):
 		""" Применение правил определения финсостава """
-		if self._oids_processing_finactions:
-			dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._oids_processing_findata))
+		if self._idos_processing_finactions:
+			dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._idos_processing_findata))
 			dialog_progress.setMinimumWidth(480)
 			dialog_progress.setMinimumHeight(120)
 			dialog_progress.setWindowTitle("Обработка данных")
 
-			for index_oid, self._oid_processing_finactions in enumerate(self._oids_processing_finactions):
-				dialog_progress.setValue(index_oid + 1)
+			for index_ido, self._ido_processing_finactions in enumerate(self._idos_processing_finactions):
+				dialog_progress.setValue(index_ido + 1)
 				dialog_progress.forceShow()
 				self.application.processEvents()
 
-				record_finactions = C90_RecordFinactions(self._oid_processing_finactions)
+				record_finactions = C90_RecordFinactions(self._ido_processing_finactions)
 				record_finactions.ApplyRulesDetectFindescription()
 
 				self.on_RecordFinactionsChanged()
 
-		elif self._oid_processing_finactions:
-			record_finactions = C90_RecordFinactions(self._oid_processing_finactions)
+		elif self._ido_processing_finactions:
+			record_finactions = C90_RecordFinactions(self._ido_processing_finactions)
 			record_finactions.ApplyRulesDetectFindescription()
 
 			self.on_RecordFinactionsChanged()
@@ -436,17 +436,17 @@ class C80_FormFindata(C70_FormFindata):
 		dy : int = self.workspace.Dy()
 		dm : int = self.workspace.Dm()
 
-		dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._oids_processing_findata))
+		dialog_progress = QProgressDialog("Применение правил замены текстовых фрагментов", "Отмена", 0, len(self._idos_processing_findata))
 		dialog_progress.setMinimumWidth(480)
 		dialog_progress.setMinimumHeight(120)
 		dialog_progress.setWindowTitle("Обработка данных")
 
-		for index_oid, self._oid_processing_finactions in enumerate(self.finactions.IdosInDyDmDd(dy, dm)):
-			dialog_progress.setValue(index_oid + 1)
+		for index_ido, self._ido_processing_finactions in enumerate(self.finactions.IdosInDyDmDd(dy, dm)):
+			dialog_progress.setValue(index_ido + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
-			record_finactions = C90_RecordFinactions(self._oid_processing_finactions)
+			record_finactions = C90_RecordFinactions(self._ido_processing_finactions)
 			record_finactions.ApplyRulesDetectFindescription()
 
 			self.on_RecordFinactionsChanged()

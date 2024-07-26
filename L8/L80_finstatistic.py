@@ -11,48 +11,48 @@ class C80_Finstatistic(C70_Finstatistic):
 	""" Финстатистика: Логика данных """
 
 	# Расчёты
-	def CalcIncomeByFindescription(self, oid: str, dy: int, dm: int) -> int:
+	def CalcIncomeByFindescription(self, ido: str, dy: int, dm: int) -> int:
 		""" Расчёт дохода за финпериод """
 		filter_findata = C30_FilterLinear1D(self._idc)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
-		filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		filter_findata.FilterIdpVlpByInclude(self._idp_findescription, ido)
 		filter_findata.FilterIdpVlpByMore(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
 		return sum(filter_findata.ToIntegers(self._idp_amount, False, False).data)
 
-	def CalcOutcomeByFindescription(self, oid: str, dy: int, dm: int) -> int:
+	def CalcOutcomeByFindescription(self, ido: str, dy: int, dm: int) -> int:
 		""" Расчёт расхода за финпериод """
 		filter_findata = C30_FilterLinear1D(self._idc)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
-		filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		filter_findata.FilterIdpVlpByInclude(self._idp_findescription, ido)
 		filter_findata.FilterIdpVlpByLess(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
 		return sum(filter_findata.ToIntegers(self._idp_amount, False, False).data)
 
-	def CalcIncomeByFindescriptions(self, oids: list[str], dy: int, dm: int) -> int:
+	def CalcIncomeByFindescriptions(self, idos: list[str], dy: int, dm: int) -> int:
 		""" Расчёт дохода за финпериод """
 		filter_findata = C30_FilterLinear1D(self._idc)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
-		for oid in oids: filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		for ido in idos: filter_findata.FilterIdpVlpByInclude(self._idp_findescription, ido)
 		filter_findata.FilterIdpVlpByMore(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
 		return sum(filter_findata.ToIntegers(self._idp_amount, False, False).data)
 
-	def CalcOutcomeByFindescriptions(self, oids: list[str], dy: int, dm: int) -> int:
+	def CalcOutcomeByFindescriptions(self, idos: list[str], dy: int, dm: int) -> int:
 		""" Расчёт расхода за финпериод """
 		filter_findata = C30_FilterLinear1D(self._idc)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
 		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
-		for oid in oids: filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		for ido in idos: filter_findata.FilterIdpVlpByInclude(self._idp_findescription, ido)
 		filter_findata.FilterIdpVlpByLess(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)

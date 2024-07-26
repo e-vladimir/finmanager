@@ -41,8 +41,8 @@ class C60_Report(C50_Report):
 		result : set[str] = set()
 
 		for index_shift in range(12 * 10):
-			oids  : list[str] = self.finstruct.IdosInDyDm(dy, dm)
-			names : list[str] = self.finstruct.IdosToNames(list(oids))
+			idos  : list[str] = self.finstruct.IdosInDyDm(dy, dm)
+			names : list[str] = self.finstruct.IdosToNames(list(idos))
 			result            = result.union(set(names))
 
 			dy, dm            = CalcDyDmByShiftDm(dy, dm, -1)
@@ -138,10 +138,10 @@ class C60_Report(C50_Report):
 			self._report_data.append(subdata[ 9])
 			self._report_data.append(subdata[10])
 
-			for findescription_oid in self.findescription.IdosByCategory(findescription_category):
-				record_findescription = C90_RecordFindescription(findescription_oid)
-				amount_income  : int  = self.finstatistic.CalcIncomeByFindescription(findescription_oid, dy, dm)
-				amount_outcome : int  = self.finstatistic.CalcOutcomeByFindescription(findescription_oid, dy, dm)
+			for findescription_ido in self.findescription.IdosByCategory(findescription_category):
+				record_findescription = C90_RecordFindescription(findescription_ido)
+				amount_income  : int  = self.finstatistic.CalcIncomeByFindescription(findescription_ido, dy, dm)
+				amount_outcome : int  = self.finstatistic.CalcOutcomeByFindescription(findescription_ido, dy, dm)
 
 				if (not amount_income) and (not amount_outcome): continue
 
@@ -182,8 +182,8 @@ class C60_Report(C50_Report):
 			self._report_data.append(subdata[ 8])
 			self._report_data.append(subdata[ 9])
 
-			for findata_oid in self.findata.IdosInDyDmDd(dy, dm, dd):
-				record_findata   = C90_RecordFindata(findata_oid)
+			for findata_ido in self.findata.IdosInDyDmDd(dy, dm, dd):
+				record_findata   = C90_RecordFindata(findata_ido)
 				record_finstruct = C90_RecordFinstruct(record_findata.FinstructIdo())
 
 				self._report_data.append(subdata[10])
@@ -220,8 +220,8 @@ class C60_Report(C50_Report):
 			self._report_data.append(subdata[ 9])
 			self._report_data.append(subdata[10])
 
-			for finactions_oid in self.finactions.IdosInDyDmDd(dy, dm, dd):
-				record_finactions                = C90_RecordFinactions(finactions_oid)
+			for finactions_ido in self.finactions.IdosInDyDmDd(dy, dm, dd):
+				record_finactions                = C90_RecordFinactions(finactions_ido)
 				finstruct_names      : list[str] = self.finstruct.IdosToNames(record_finactions.FinstructIdos())
 				findescription_names : list[str] = self.findescription.IdosToNames(record_finactions.FindescriptionIdos())
 

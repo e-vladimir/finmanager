@@ -34,10 +34,10 @@ class C60_RecordFindata(C50_RecordFindata):
 		if text is None  : return self.f_uid.ToString(CONTAINER_LOCAL).data
 		else             :        self.f_uid.FromString(CONTAINER_LOCAL, text)
 
-	def FinstructIdo(self, oid: str = None) -> str:
+	def FinstructIdo(self, ido: str = None) -> str:
 		""" OID записи финструктуры """
-		if oid is None   : return self.f_finstruct_oid.ToString(CONTAINER_LOCAL).data
-		else             :        self.f_finstruct_oid.FromString(CONTAINER_LOCAL, oid)
+		if ido is None   : return self.f_finstruct_ido.ToString(CONTAINER_LOCAL).data
+		else             :        self.f_finstruct_ido.FromString(CONTAINER_LOCAL, ido)
 
 	def Note(self, text: str = None) -> str:
 		""" Примечание """

@@ -24,7 +24,7 @@ class C70_FormFinstruct(C60_FormFinstruct):
 
 	def AdjustMenuFinstructText(self):
 		""" Настройка пунктов меню финструктуры """
-		record_finstruct = C90_RecordFinstruct(self._oid_processing)
+		record_finstruct = C90_RecordFinstruct(self._ido_processing)
 
 		self.menu_finstruct_record_header.setText(record_finstruct.Name())
 		self.menu_finstruct_move_move_up.setText(f"Перенести {record_finstruct.Name()} выше")
@@ -36,19 +36,19 @@ class C70_FormFinstruct(C60_FormFinstruct):
 			parent_name = record_finstruct.Name()
 		self.menu_finstruct_parent_header.setText(parent_name if parent_name else "Корневой уровень")
 
-		record_finstruct = C90_RecordFinstruct(self._oid_memory)
+		record_finstruct = C90_RecordFinstruct(self._ido_memory)
 		self.menu_finstruct_parent_paste.setText(f"Перенести {record_finstruct.Name()}")
 		self.menu_finstruct_record_paste.setText(f"Перенести {record_finstruct.Name()}")
 
 	def AdjustMenuFinstructEnable(self):
 		""" Установка доступности меню финструктуры """
-		record_finstruct          = C90_RecordFinstruct(self._oid_processing)
+		record_finstruct          = C90_RecordFinstruct(self._ido_processing)
 
-		flag_selected      : bool = bool(self._oid_processing)
+		flag_selected      : bool = bool(self._ido_processing)
 		flag_exist_root    : bool = bool(record_finstruct.ParentIdo())
-		flag_memory        : bool = bool(self._oid_memory)
-		flag_memory_self   : bool = self._oid_memory == self._oid_processing
-		flag_memory_parent : bool = self._oid_memory == record_finstruct.ParentIdo()
+		flag_memory        : bool = bool(self._ido_memory)
+		flag_memory_self   : bool = self._ido_memory == self._ido_processing
+		flag_memory_parent : bool = self._ido_memory == record_finstruct.ParentIdo()
 
 		self.menu_finstruct_parent_paste.setEnabled((flag_exist_root and flag_memory) and not flag_memory_parent)
 
@@ -70,12 +70,12 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		dy : int = self.workspace.Dy()
 		dm : int = self.workspace.Dm()
 
-		for oid in self.finstruct.IdosInDyDm(dy, dm):
-			record_finstruct = C90_RecordFinstruct(oid)
+		for ido in self.finstruct.IdosInDyDm(dy, dm):
+			record_finstruct = C90_RecordFinstruct(ido)
 
 			if not record_finstruct.Priority(): continue
 
-			item_record : QStandardItem | None = self.model_data.itemByData(oid, ROLE_OID)
+			item_record : QStandardItem | None = self.model_data.itemByData(ido, ROLE_OID)
 			item_record.setText(f"{record_finstruct.Name()} ★")
 
 	def AdjustTreeDataExpand(self):

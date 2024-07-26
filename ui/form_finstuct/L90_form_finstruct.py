@@ -90,7 +90,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		""" Удалена запись финсостава """
 		self.CleanModel()
 
-		if not self._oid_processing: self.LoadFinstruct()
+		if not self._ido_processing: self.LoadFinstruct()
 		else                       : self.LoadRecordFinstruct()
 
 		self.AdjustTreeDataColor()

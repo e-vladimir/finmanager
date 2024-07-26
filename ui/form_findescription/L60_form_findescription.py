@@ -20,46 +20,46 @@ class C60_FormFindescription(C50_FormFindescription):
 		""" Сброс модели """
 		self.model_findescription.removeRows(0, self.model_findescription.rowCount())
 
-	def ItemByIdo(self, oid: str) -> QStandardItem | None:
+	def ItemByIdo(self, ido: str) -> QStandardItem | None:
 		""" Поиск StandardItem по OID """
-		return FindItemFromStandardModelByData(self.model_findescription, oid, ROLE_OID)
+		return FindItemFromStandardModelByData(self.model_findescription, ido, ROLE_OID)
 
 	def LoadRecordFindescription(self):
 		""" Загрузка записи финсостава """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
 		self._flag_loading = True
 
-		record_findescription              = C90_RecordFindescription(self._oid_processing)
-		record_item : QStandardItem | None = self.ItemByIdo(self._oid_processing)
+		record_findescription              = C90_RecordFindescription(self._ido_processing)
+		record_item : QStandardItem | None = self.ItemByIdo(self._ido_processing)
 
 		if record_item is None:
 			record_item                        = QStandardItem()
 
-			parent_oid  : str                  = record_findescription.ParentIdo()
-			parent_item : QStandardItem | None = self.ItemByIdo(parent_oid)
+			parent_ido  : str                  = record_findescription.ParentIdo()
+			parent_item : QStandardItem | None = self.ItemByIdo(parent_ido)
 
 			if parent_item is None: parent_item = self.model_findescription.invisibleRootItem()
 
 			parent_item.appendRow(record_item)
 
 		record_item.setText(record_findescription.Name())
-		record_item.setData(self._oid_processing, ROLE_OID)
+		record_item.setData(self._ido_processing, ROLE_OID)
 		record_item.setCheckable(True)
 
 		self._flag_loading = False
 
-		for self._oid_processing in self.findescription.SubIdos(self._oid_processing): self.LoadRecordFindescription()
+		for self._ido_processing in self.findescription.SubIdos(self._ido_processing): self.LoadRecordFindescription()
 
 	def SortModel(self):
 		self.model_findescription.sort(0)
 
 	def CleanModel(self):
 		""" Зачистка модели от пустых записей """
-		oids : list[str] = C90_RecordFindescription().Idos(CONTAINER_LOCAL).items
+		idos : list[str] = C90_RecordFindescription().Idos(CONTAINER_LOCAL).data
 
 		for item in reversed(ItemsFromStandardModel(self.model_findescription)):
-			if item.data(ROLE_OID) in oids: continue
+			if item.data(ROLE_OID) in idos: continue
 
 			parent    : QStandardItem = item.parent()
 			if parent is None                    : parent = self.model_findescription.invisibleRootItem()
@@ -69,9 +69,9 @@ class C60_FormFindescription(C50_FormFindescription):
 
 	def ProcessingIncludeRecordInCategory(self):
 		""" Обработка вхождения записи в категорию финсостава """
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		record_findescription = C90_RecordFindescription(self._oid_processing)
+		record_findescription = C90_RecordFindescription(self._ido_processing)
 		if self._flag_checked: record_findescription.IncludeInCategory(self._category_processing)
 		else                 : record_findescription.ExcludeFromCategory(self._category_processing)
 
@@ -89,26 +89,26 @@ class C60_FormFindescription(C50_FormFindescription):
 
 	def ReadIdoProcessingFromItem(self):
 		""" Считывание OID записи финсостава в обработке """
-		self._oid_processing = ""
+		self._ido_processing = ""
 
 		if self._item_processing is None: return
 
-		self._oid_processing = self._item_processing.data(ROLE_OID)
+		self._ido_processing = self._item_processing.data(ROLE_OID)
 
 	def ReadFlagChecked(self):
 		""" Чтение текущего состояния галочки элемента """
 		self._flag_checked = False
 
-		if not self._oid_processing: return
+		if not self._ido_processing: return
 
-		item_record : QStandardItem | None = FindItemFromStandardModelByData(self.model_findescription, self._oid_processing, ROLE_OID)
+		item_record : QStandardItem | None = FindItemFromStandardModelByData(self.model_findescription, self._ido_processing, ROLE_OID)
 		if     item_record is None : return
 
-		self._flag_checked = item_record.checkState() == Qt.Checked
+		self._flag_checked = item_record.checkState() == Qt.CheckState.Checked
 
 	def MemorySelectedIdo(self):
 		""" Запомнить OID записи финсостава """
-		self._oid_memory = self._oid_processing
+		self._ido_memory = self._ido_processing
 
 	def ShowItemsInCategory(self):
 		""" Отображение значений в категории """
@@ -117,9 +117,9 @@ class C60_FormFindescription(C50_FormFindescription):
 		values : list[str] = self.findescription.Names(self._category_processing)
 
 		for item in ItemsFromStandardModel(self.model_findescription):
-			flag_in_category : bool = item.data() in values
+			flag_in_category : bool = item.data(Qt.ItemDataRole.DisplayRole) in values
 
-			item.setCheckState(Qt.Checked if flag_in_category else Qt.Unchecked)
+			item.setCheckState(Qt.CheckState.Checked if flag_in_category else Qt.CheckState.Unchecked)
 
 		self._flag_loading = False
 
