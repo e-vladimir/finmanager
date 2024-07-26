@@ -1,706 +1,871 @@
 # КАКТУС: СТРУКТУРНЫЙ КАРКАС
-# 2024-04-03
+# 25 июл 2024
 
 import datetime
 
-from   G00_cactus_codes                 import *
-from   G00_result_codes                 import *
-from   G10_cactus_convertors            import BooleanToString,       \
-											   DatetimeToString,      \
-											   StringsToFloats,       \
-											   StringsToIntegers,     \
-											   StringToBoolean,       \
-											   StringToDateTime,      \
-											   StringToFloat,         \
-											   StringToInteger,       \
-											   UnificationOci
-from   G10_cactus_generators            import GenerateID
-from   G10_cactus_validators            import ValidateOci,           \
-											   ValidateOid,           \
-											   ValidatePid
-from   G10_datetime                     import CurrentUTime
-from   G20_meta_frame                   import C20_MetaFrame
+from   G00_cactus_codes                 import  CACTUS_STRUCT_DATA
+from   G00_status_codes                 import (CODES_COMPLETION,
+				                                CODES_DATA,
+				                                CODES_PROCESSING,
+				                                CODES_CACTUS)
+
+from   G10_cactus_convertors            import  UnificationIdc
+from   G10_convertor_format             import (BooleanToString,
+										 	    DatetimeToString,
+											    StringsToFloats,
+											    StringsToIntegers,
+											    StringToBoolean,
+											    StringToDateTime,
+											    StringToFloat,
+											    StringToInteger)
+from   G10_cactus_generators            import  GenerateID
+from   G10_cactus_check                 import (CheckIdc,
+											    CheckIdo,
+											    CheckIdp)
+from   G10_datetime                     import  CurrentUTime
+
+from   G20_cactus_struct                import  T20_StructCell
+from   G20_meta_frame                   import  C20_MetaFrame
+from   G20_struct_result                import  T20_StructResult
+from   G21_cactus_struct                import (T21_StructResult_StructCell,
+                                                T21_StructResult_StructCells,
+                                                T21_VltRange,
+                                                T21_StructResult_VltRange)
+from   G21_struct_result                import (T21_StructResult_String,
+                                                T21_StructResult_List,
+                                                T21_StructResult_Bool,
+                                                T21_StructResult_DTime,
+                                                T21_StructResult_Int,
+                                                T21_StructResult_Float)
+
 from   G30_cactus_controller_containers import controller_containers
-from   G30_cactus_struct                import T30_StructCell,        \
-											   T30_ResultCode
-from   G31_cactus_struct                import T31_ResultBool,        \
-											   T31_ResultDatetime,    \
-											   T31_ResultDict,        \
-											   T31_ResultFloat,       \
-											   T31_ResultInt,         \
-											   T31_ResultList,        \
-											   T31_ResultRange,       \
-											   T31_ResultString,      \
-											   T31_ResultStructCell,  \
-											   T31_ResultStructCells, \
-											   T31_StructRange
+
 
 # Системные константы
 SEPARATOR_LIST : str = '\n'
 
 
 class C30_StructFrame(C20_MetaFrame):
-	""" КАКТУС: СТРУКТУРНЫЙ ОБЪЕКТ """
+	""" КАКТУС: Структурный объект """
 
-	_oci : str = ""
-
-	def __init__(self, oid: str = ""):
+	def __init__(self, ido: str = ""):
 		super().__init__()
 
-		self.Oid(oid)
+		self.Ido(ido)
 
-		self.InitFields()
+	# Модель данных
+	_idc : str = ""
 
 	def Init_00(self):
 		super().Init_00()
 
-		self._oid : str = ""
+		self._ido : str = ""
 
-	# УПРАВЛЕНИЕ OCI
+	# Модель событий
+	pass
+
+	# Механика данных: IDC
 	@classmethod
-	def Oci(cls) -> T31_ResultString:
-		""" Запрос oci """
-		translated_oci: str = UnificationOci(cls._oci)
-		result_code   : int = RESULT_ERROR_CHECK_VALIDATE if not ValidateOci(translated_oci) else RESULT_OK
+	def Idc(cls) -> T21_StructResult_String:
+		""" Запрос idc """
+		result      = T21_StructResult_String()
+		result.code = CODES_COMPLETION.COMPLETED
+		result.data = UnificationIdc(cls._idc)
 
-		return T31_ResultString(result_code, translated_oci)
+		if not CheckIdc(result.data): result.subcodes.add(CODES_DATA.ERROR_CHECK)
 
-	# УПРАВЛЕНИЕ OID
-	def Oid(self, oid: str = None) -> T31_ResultString:
-		""" Запрос/Установка oid """
-		if oid is None:
-			if not ValidateOid(self._oid): return T31_ResultString(RESULT_ERROR_CHECK_VALIDATE, self._oid)
+		return result
 
-			return T31_ResultString(RESULT_OK, self._oid)
+	# Механика данных: IDO
+	def Ido(self, ido: str = None) -> T21_StructResult_String:
+		""" Запрос/Установка ido """
+		result      = T21_StructResult_String()
+		result.code = CODES_COMPLETION.COMPLETED
 
-		if not ValidateOid(oid): return T31_ResultString(RESULT_ERROR_CHECK_VALIDATE, oid)
-		self._oid = oid
+		if ido is None:
+			if not self._ido          : result.subcodes.add(CODES_DATA.NO_DATA)
+			if not CheckIdo(self._ido): result.subcodes.add(CODES_DATA.ERROR_CHECK)
 
-		return T31_ResultString(RESULT_OK, self._oid)
+		else          :
+			if not CheckIdo(ido): return T21_StructResult_String(code     = CODES_COMPLETION.INTERRUPTED,
+			                                                     subcodes = {CODES_DATA.ERROR_CHECK},
+			                                                     data     = ido)
+			self._ido = ido
 
-	def GenerateOid(self) -> T31_ResultString:
-		""" Генерация OID """
-		return self.Oid(GenerateID())
+		result.data = self._ido
+		return result
 
-	# УПРАВЛЕНИЕ РЕГИСТРАЦИЕЙ ОБЪЕКТА
-	def RegisterObject(self, container_name: str) -> T30_ResultCode:
+	@classmethod
+	def Idos(self, container_name: str) -> T21_StructResult_List:
+		""" Запрос списка IDO объектов класса из контейнера """
+		container                                  = controller_containers.Container(container_name)
+		if container is None                                 : return T21_StructResult_List(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                                    subcodes = {CODES_CACTUS.NO_CONTAINER})
+
+		filter_cells                               = T20_StructCell(idc = self._idc)
+		result_read : T21_StructResult_StructCells = container.ReadSCells(filter_cells)
+
+		if not result_read.code == CODES_COMPLETION.COMPLETED: return T21_StructResult_List(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                    subcodes = result_read.subcodes)
+
+		idos        : list[str]                    = [cell.ido for cell in result_read.data]
+		idos                                       = list(set(idos))
+
+		result                                     = T21_StructResult_List()
+		result.code                                = CODES_COMPLETION.COMPLETED
+		result.data                                = idos
+
+		match len(result.data):
+			case 0: result.subcodes.add(CODES_DATA.NO_DATA)
+			case 1: result.subcodes.add(CODES_DATA.SINGLE)
+
+		return result
+
+	def GenerateIdo(self) -> T21_StructResult_String:
+		""" Генерация IDO """
+		return self.Ido(GenerateID())
+
+	# Механика данных: IDP
+	def Idps(self, container_name: str) -> T21_StructResult_List:
+		""" Запрос списка IDP S-Ячеек из контейнера """
+		if not CheckIdo(self._ido)                            : return T21_StructResult_List(code     =  CODES_COMPLETION.COMPLETED,
+		                                                                                     subcodes = {CODES_DATA.ERROR_CHECK})
+
+		container                                  = controller_containers.Container(container_name)
+		if container is None                                  : return T21_StructResult_List(code     =  CODES_COMPLETION.COMPLETED,
+		                                                                                     subcodes = {CODES_CACTUS.NO_CONTAINER})
+
+		filter_cells                               = T20_StructCell(idc = self._idc,
+		                                                            ido = self._ido)
+
+		result_read : T21_StructResult_StructCells = container.ReadSCells(filter_cells)
+		if not result_read.code == CODES_COMPLETION.COMPLETED : return T21_StructResult_List(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                     subcodes = result_read.subcodes)
+
+		idps        : list[str]                    = [cell.idp for cell in result_read.data]
+		idps                                       = list(set(idps))
+
+		result                                     = T21_StructResult_List()
+		result.code                                = CODES_COMPLETION.COMPLETED
+		result.data                                = idps
+
+		match len(result.data):
+			case 0: result.subcodes.add(CODES_DATA.NO_DATA)
+			case 1: result.subcodes.add(CODES_DATA.SINGLE)
+
+		return result
+
+	# Механика управления: Объект
+	def RegisterObject(self, container_name: str) -> T20_StructResult:
 		""" Регистрация объекта в контейнере """
-		cell      = T30_StructCell()
-		cell.oci  = self.Oci().text
-		cell.oid  = self.Oid().text
-		cell.pid  = OCI
-		cell.cvl  = self.Oci().text
-		cell.cut  = CurrentUTime()
+		if not CheckIdo(self._ido) : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                     subcodes = {CODES_DATA.ERROR_CHECK})
+		cell      = T20_StructCell()
+		cell.idc  = self._idc
+		cell.ido  = self._ido
+		cell.idp  = CACTUS_STRUCT_DATA.IDC.name_base
+		cell.vlp  = self._idc
+		cell.vlt  = CurrentUTime()
 
-		container = controller_containers.GetContainer(container_name)
-		if container is None: return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+		container = controller_containers.Container(container_name)
+		if container is None       : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                     subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		return T30_ResultCode(container.WriteSCell(cell, True).code)
+		result    = container.WriteSCell(cell, True)
+		return T20_StructResult(code     = result.code,
+		                        subcodes = result.subcodes)
 
-	def DeleteObject(self, container_name: str) -> T30_ResultCode:
+	def DeleteObject(self, container_name: str) -> T20_StructResult:
 		""" Удаление объекта из контейнера """
-		cell      = T30_StructCell()
-		cell.oci  = self.Oci().text
-		cell.oid  = self.Oid().text
+		if not CheckIdo(self._ido) : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                     subcodes = {CODES_DATA.ERROR_CHECK})
 
-		container = controller_containers.GetContainer(container_name)
+		filter_cells = T20_StructCell(idc = self._idc,
+		                                   ido = self._ido)
 
-		if container is None: return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+		container    = controller_containers.Container(container_name)
 
-		return T30_ResultCode(container.DeleteSCells(cell).code)
+		if container is None       : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                     subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-	# УПРАВЛЕНИЕ РЕГИСТРАЦИЕЙ КЛАССА
+		result       = container.DeleteSCells(filter_cells)
+		return T20_StructResult(code     = result.code,
+		                        subcodes = result.subcodes)
+
+	# Механика управления: Класс
 	@classmethod
-	def RegisterClass(cls, container_name: str) -> T30_ResultCode:
+	def RegisterClass(cls, container_name: str) -> T20_StructResult:
 		""" Регистрация класса в контейнере """
-		container = controller_containers.GetContainer(container_name)
-		code      = RESULT_WARNING_NOT_IMPLEMENTED
+		result      = T20_StructResult()
+		result.code = CODES_COMPLETION.COMPLETED
 
-		if   container is None                : code = RESULT_WARNING_NOT_IMPLEMENTED
-		elif container.TypeIsRAM().flag       : code = RESULT_WARNING_NOT_IMPLEMENTED
-		elif container.TypeIsSQLite().flag    : code = container.RegisterClass(cls.Oci().text).code
-		elif container.TypeIsPostgreSQL().flag: code = container.RegisterClass(cls.Oci().text).code
+		container   = controller_containers.Container(container_name)
 
-		return T30_ResultCode(code)
+		if   container is None               :
+			result.code = CODES_COMPLETION.INTERRUPTED
+			result.subcodes.add(CODES_DATA.NO_DATA)
 
-	# УПРАВЛЕНИЕ S-ДАННЫМИ
-	def CopyToContainer(self, container_name_src: str, container_name_dst: str) -> T30_ResultCode:
+		elif container.Type_RAM().flag       :
+			result.subcodes.add(CODES_PROCESSING.SKIP)
+
+		elif not CheckIdc(cls._idc):
+			result.code = CODES_COMPLETION.INTERRUPTED
+			result.subcodes.add(CODES_DATA.ERROR_CHECK)
+
+		elif container.Type_SQLite().flag    :
+			result_register = container.RegisterClass(cls._idc)
+
+			result.code     = result_register.code
+			result.subcodes = result_register.subcodes
+
+		elif container.Type_PostgreSQL().flag:
+			result_register = container.RegisterClass(cls._idc)
+
+			result.code     = result_register.code
+			result.subcodes = result_register.subcodes
+
+		return result
+
+	# Механика управления: Данные в контейнере
+	def CopyToContainer(self, container_name_src: str, container_name_dst: str) -> T20_StructResult:
 		""" Копирование S-Ячеек из контейнера в контейнер """
-		container_src                    = controller_containers.GetContainer(container_name_src)
-		if container_src is None          : return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+		container_src   = controller_containers.Container(container_name_src)
+		if container_src is None                             : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                               subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		container_dst                    = controller_containers.GetContainer(container_name_dst)
-		if container_dst is None          : return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+		container_dst   = controller_containers.Container(container_name_dst)
+		if container_dst is None                             : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                               subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		obj_cell : T30_StructCell        = T30_StructCell(oci=self.Oci().text, oid=self.Oid().text)
-		cells_src: T31_ResultStructCells = container_src.ReadSCells(obj_cell)
+		filter_cells    = T20_StructCell(idc = self.Idc().data,
+		                                 ido = self.Ido().data)
 
-		if not cells_src.code == RESULT_OK: return T30_ResultCode(cells_src.code)
+		result_read     = container_src.ReadSCells(filter_cells)
 
-		return T30_ResultCode(container_dst.WriteSCells(cells_src.cells).code)
+		if not result_read.code == CODES_COMPLETION.COMPLETED: return T20_StructResult(code     = result_read.code,
+		                                                                               subcodes = result_read.subcodes)
 
-	def SyncBetweenContainers(self, container_name_1: str, container_name_2: str) -> T30_ResultCode:
+		result_write    = container_dst.WriteSCells(result_read.data)
+
+		result          = T20_StructResult()
+		result.code     = result_write.code
+		result.subcodes = result_write.subcodes
+
+		return result
+
+	def SyncBetweenContainers(self, container_name_1: str, container_name_2: str) -> T20_StructResult:
 		""" Синхронизация S-Ячеек между контейнерами """
-		container_1                            = controller_containers.GetContainer(container_name_1)
-		if container_1 is None          : return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+		container_1                                  = controller_containers.Container(container_name_1)
+		if container_1 is None                                  : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = {CODES_CACTUS.NO_CONTAINER})
+		container_2                                  = controller_containers.Container(container_name_2)
+		if container_2 is None                                  : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = {CODES_CACTUS.NO_CONTAINER})
+		filter_cells                                 = T20_StructCell(idc = self.Idc().data,
+		                                                              ido = self.Ido().data)
 
-		container_2                            = controller_containers.GetContainer(container_name_2)
-		if container_2 is None          : return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+		result_read_1 : T21_StructResult_StructCells = container_1.ReadSCells(filter_cells)
+		if not result_read_1.code == CODES_COMPLETION.COMPLETED : return T20_StructResult(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = result_read_1.subcodes)
 
-		cell_object: T30_StructCell            = T30_StructCell(oci=self.Oci().text, oid=self.Oid().text)
+		result_read_2 : T21_StructResult_StructCells = container_2.ReadSCells(filter_cells)
+		if not result_read_2.code == CODES_COMPLETION.COMPLETED : return T20_StructResult(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = result_read_1.subcodes)
 
-		cells_1    : T31_ResultStructCells     = container_1.ReadSCells(cell_object)
-		if not cells_1.code == RESULT_OK: return T30_ResultCode(cells_1.code)
+		cells         : dict[str, T20_StructCell]    = dict()
 
-		cells_2    : T31_ResultStructCells     = container_2.ReadSCells(cell_object)
-		if not cells_2.code == RESULT_OK: return T30_ResultCode(cells_2.code)
+		for cell in result_read_1.data + result_read_2.data:
+			cell_exist = cells.get(cell.ids, T20_StructCell())
 
-		cells      : dict[str, T30_StructCell] = dict()
+			result_set: bool = cell.ids not in cells
+			result_set |= cell.vlt > cell_exist.vlt
 
-		for cell_raw in (cells_1.cells + cells_2.cells):
-			cell = cells.get(cell_raw.sid, cell_raw)
+			if not result_set: continue
+			cells[cell.ids] = cell
 
-			if cell_raw.cut > cell.cut:
-				cell.cvl = cell_raw.cvl
-				cell.cut = cell_raw.cut
+		result_sync_1 : T21_StructResult_StructCells = container_1.SyncSCells(cells.values())
+		if not result_sync_1.code == CODES_COMPLETION.COMPLETED : return T20_StructResult(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = result_read_1.subcodes)
 
-			cells[cell.sid] = cell
+		result_sync_2 : T21_StructResult_StructCells = container_2.SyncSCells(cells.values())
+		if not result_sync_2.code == CODES_COMPLETION.COMPLETED : return T20_StructResult(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = result_read_1.subcodes)
 
-		cells      : list[T30_StructCell]      = list(cells.values())
+		return T20_StructResult(code = CODES_COMPLETION.COMPLETED)
 
-		result     : T31_ResultStructCells     = container_1.SyncSCells(cells)
-		if not result.code == RESULT_OK: return T30_ResultCode(result.code)
+	# Логика данных
+	pass
 
-		result     : T31_ResultStructCells     = container_2.SyncSCells(cells)
-		if not result.code == RESULT_OK: return T30_ResultCode(result.code)
-
-		return T30_ResultCode(RESULT_OK)
-
-	# ЗАПРОСЫ OID
-	@classmethod
-	def Oids(self, container_name: str) -> T31_ResultList:
-		""" Запрос списка OID объектов класса из контейнера """
-		container                        = controller_containers.GetContainer(container_name)
-		if container is None              : return T31_ResultList(RESULT_ERROR_ACCESS_CONNECTION)
-
-		cls_cell : T30_StructCell        = T30_StructCell(oci=self.Oci().text)
-		cells_raw: T31_ResultStructCells = container.ReadSCells(cls_cell)
-		if not cells_raw.code == RESULT_OK: return T31_ResultList(cells_raw.code)
-
-		oids     : list[str]             = list(set(map(lambda cell: cell.oid, cells_raw.cells)))
-		if not oids                       : return T31_ResultList(RESULT_WARNING_NO_DATA)
-
-		return T31_ResultList(RESULT_OK, oids)
-
-	# ЗАПРОСЫ S-ДАННЫХ
-	def Pids(self, container_name: str) -> T31_ResultList:
-		""" Запрос списка PID S-Ячеек из контейнера """
-		if not ValidateOid(self._oid)     : return T31_ResultList(RESULT_ERROR_CHECK_VALIDATE)
-
-		container                        = controller_containers.GetContainer(container_name)
-		if container is None              : return T31_ResultList(RESULT_ERROR_ACCESS_CONNECTION)
-
-		cls_cell : T30_StructCell        = T30_StructCell(oci=self.Oci().text, oid=self.Oid().text)
-		cells_raw: T31_ResultStructCells = container.ReadSCells(cls_cell)
-		if not cells_raw.code == RESULT_OK: return T31_ResultList(cells_raw.code)
-
-		oids     : list[str]             = list(set(map(lambda cell: cell.pid, cells_raw.cells)))
-		if not oids                       : return T31_ResultList(RESULT_WARNING_NO_DATA)
-
-		return T31_ResultList(RESULT_OK, oids)
-
-	# УПРАВЛЕНИЕ СТРУКТУРНЫМИ ПАРАМЕТРАМИ
-	def InitFields(self):
-		""" Инициализация структурных параметров """
-		pass
+	# Логика управления
+	pass
 
 
 class C30_StructField(C20_MetaFrame):
-	""" КАКТУС: СТРУКТУРНЫЙ ПАРАМЕТР """
-	""" 2022-11-19 """
+	""" КАКТУС: Структурный параметр """
 
-	def __init__(self, struct_frame: C30_StructFrame, pid: str, default_cvl: any = None):
+	def __init__(self, struct_frame: C30_StructFrame, idp: str, default_vlp: any = None):
 		super().__init__()
 
-		self._pid         = pid
+		self._idp         = idp
 		self.struct_frame = struct_frame
 
-		if default_cvl is not None: self.DefaultCvl(default_cvl)
+		if default_vlp is not None: self.DefaultVlp(default_vlp)
 
+	# Модель данных
 	def Init_00(self):
 		super().Init_00()
-		self._default_cvl: str = ""
-		self._pid        : str = ""
+
+		self._default_vlp: str = ""
+		self._idp        : str = ""
 
 	def Init_10(self):
 		super().Init_10()
 		self.struct_frame : C30_StructFrame | None = None
 
-	# ЗАПРОСЫ ИДЕНТИФИКАТОРОВ
-	def Sid(self) -> T31_ResultString:
-		""" Запрос SID """
-		oid: T31_ResultString = T31_ResultString()
-		pid: T31_ResultString = self.Pid()
-		sid: str              = f"{oid.text}.{pid.text}"
+	# Механика данных: Параметры
+	def Ids(self) -> T21_StructResult_String:
+		""" Запрос IDS """
+		if self.struct_frame is None: return T21_StructResult_String(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                             subcodes = {CODES_DATA.NOT_ENOUGH})
 
-		if self.struct_frame is None: return T31_ResultString(RESULT_ERROR_DATA_STRUCT, sid)
+		ido          : str = self.struct_frame._ido
+		idp          : str = self._idp
+		ids          : str = f"{ido}.{idp}"
 
-		oid                   = self.struct_frame.Oid()
-		sid                   = f"{oid.text}.{pid.text}"
-		if not oid.code == RESULT_OK: return T31_ResultString(oid.code, sid)
+		result_check : bool = CheckIdo(ido)
+		result_check       &= CheckIdp(idp)
 
-		return T31_ResultString(RESULT_OK, sid)
+		if not result_check         : return T21_StructResult_String(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                             subcodes = {CODES_DATA.ERROR_CHECK})
 
-	def Cid(self) -> T31_ResultString:
-		""" Запрос CID """
-		oci: T31_ResultString = T31_ResultString()
-		oid: T31_ResultString = T31_ResultString()
-		pid: T31_ResultString = self.Pid()
-		cid: str              = f"{oci.text}.{oid.text}.{pid.text}"
+		return T21_StructResult_String(code = CODES_COMPLETION.COMPLETED,
+		                               data = ids)
 
-		if self.struct_frame is None: return T31_ResultString(RESULT_ERROR_DATA_STRUCT, cid)
+	def Idf(self) -> T21_StructResult_String:
+		""" Запрос IDF """
+		if self.struct_frame is None: return T21_StructResult_String(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                             subcodes = {CODES_DATA.NOT_ENOUGH})
 
-		oci                   = self.struct_frame.Oci()
-		oid                   = self.struct_frame.Oid()
-		cid: str              = f"{oci.text}.{oid.text}.{pid.text}"
-		if not oci.code == RESULT_OK: return T31_ResultString(oci.code, cid)
-		if not oid.code == RESULT_OK: return T31_ResultString(oid.code, cid)
+		idc          : str = self.struct_frame._idc
+		ido          : str = self.struct_frame._ido
+		idp          : str = self._idp
+		ids          : str = f"{idc}.{ido}.{idp}"
 
-		return T31_ResultString(RESULT_OK, cid)
+		result_check : bool = CheckIdc(idc)
+		result_check       &= CheckIdo(ido)
+		result_check       &= CheckIdp(idp)
 
-	def Pid(self) -> T31_ResultString:
-		""" Запрос PID """
-		if not ValidatePid(self._pid): return T31_ResultString(RESULT_ERROR_CHECK_VALIDATE, self._pid)
+		if not result_check         : return T21_StructResult_String(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                             subcodes = {CODES_DATA.ERROR_CHECK})
 
-		return T31_ResultString(RESULT_OK, self._pid)
+		return T21_StructResult_String(code = CODES_COMPLETION.COMPLETED,
+		                               data = ids)
 
-	# УПРАВЛЕНИЕ ЗНАЧЕНИЕМ ПО-УМОЛЧАНИЮ
-	def DefaultCvl(self, cvl: any = None) -> T31_ResultString:
+	def Idp(self) -> T21_StructResult_String:
+		""" Запрос IDP """
+		result      = T21_StructResult_String()
+		result.data = self._idp
+
+		if not CheckIdp(self._idp): result.subcodes.add(CODES_DATA.ERROR_CHECK)
+
+		return result
+
+	# Механика данных: Параметр по-умолчанию
+	def DefaultVlp(self, vlp: any = None) -> T21_StructResult_String:
 		""" Запрос/Установка значения параметра по умолчанию """
-		if cvl is None: return T31_ResultString(RESULT_OK, self._default_cvl)
+		if        vlp  is None : return T21_StructResult_String(code = CODES_COMPLETION.COMPLETED,
+		                                                        data = self._default_vlp)
 
-		if   type(cvl) is int  : self._default_cvl = f"{cvl}"
-		elif type(cvl) is float: self._default_cvl = f"{cvl:0.5f}"
-		elif type(cvl) is bool : self._default_cvl = BooleanToString(cvl)
-		elif type(cvl) is list : self._default_cvl = SEPARATOR_LIST.join(list(map(str, cvl)))
-		elif type(cvl) is str  : self._default_cvl = cvl
+		elif type(vlp) is int  : self._default_vlp = f"{vlp}"
+		elif type(vlp) is float: self._default_vlp = f"{vlp:0.5f}"
+		elif type(vlp) is bool : self._default_vlp = BooleanToString(vlp)
+		elif type(vlp) is list : self._default_vlp = SEPARATOR_LIST.join(list(map(str, vlp)))
+		elif type(vlp) is str  : self._default_vlp = vlp
 
-	# КОНВЕРТАЦИЯ ИЗ ТИПА ДАННЫХ
-	def _WriteCvlInSCell(self, container_name_dst: str, cvl: str, cut: int = 0) -> T30_ResultCode:
-		""" Системный метод записи данных для конверторов """
-		container = controller_containers.GetContainer(container_name_dst)
-		if container is None        : return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+	# Логика данных: Конвертация из формата
+	def _WriteVlpInSCell(self, container_name_dst: str, vlp: str, vlt: int = 0) -> T20_StructResult:
+		""" Служебный метод записи данных для конверторов """
+		container           = controller_containers.Container(container_name_dst)
+		if container is None        : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                      subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		if self.struct_frame is None: return T30_ResultCode(RESULT_ERROR_DATA_STRUCT)
+		if self.struct_frame is None: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                      subcodes = {CODES_DATA.NOT_ENOUGH})
 
-		oid       = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK: return T30_ResultCode(oid.code)
+		idc                 = self.struct_frame._idc
+		ido                 = self.struct_frame._ido
+		idp                 = self._idp
 
-		oci       = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK: return T30_ResultCode(oci.code)
+		if vlt == 0: vlt = CurrentUTime()
 
-		pid       = self.Pid()
-		if not pid.code == RESULT_OK: return T30_ResultCode(pid.code)
+		cell                = T20_StructCell(idc=idc, ido=ido, idp=idp, vlp=vlp, vlt=vlt)
+		result_write        = container.WriteSCell(cell)
 
-		if cut == 0: cut = CurrentUTime()
+		result              = T20_StructResult()
+		result.code         = result_write.code
+		result.subcodes     = result_write.subcodes
 
-		cell      = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text, cvl=cvl, cut=cut)
+		return result
 
-		return T30_ResultCode(container.WriteSCell(cell).code)
-
-	def FromBoolean(self, container_name_dst: str, flag: bool) -> T30_ResultCode:
+	def FromBoolean(self, container_name_dst: str, flag: bool) -> T20_StructResult:
 		""" Из логического значения """
 		try   : data = BooleanToString(flag)
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromDatetime(self, container_name_dst: str, dtime: datetime.datetime) -> T30_ResultCode:
+	def FromDatetime(self, container_name_dst: str, dtime: datetime.datetime) -> T20_StructResult:
 		""" Из логического значения """
 		try   : data = DatetimeToString(dtime)
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromInteger(self, container_name_dst: str, value: int) -> T30_ResultCode:
+	def FromInteger(self, container_name_dst: str, value: int) -> T20_StructResult:
 		""" Из целого числа """
 		try   : data = f"{value:d}"
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromFloat(self, container_name_dst: str, value: float) -> T30_ResultCode:
+	def FromFloat(self, container_name_dst: str, value: float) -> T20_StructResult:
 		""" Из дробного числа """
-		try               : data = f"{value:0.5f}"
-		except SyntaxError: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		try   : data = f"{value:0.5f}"
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromString(self, container_name_dst: str, text: str) -> T30_ResultCode:
+	def FromString(self, container_name_dst: str, text: str) -> T20_StructResult:
 		""" Из строки """
-		return self._WriteCvlInSCell(container_name_dst, text)
+		return self._WriteVlpInSCell(container_name_dst, text)
 
-	# КОНВЕРТАЦИЯ ИЗ СПИСКА ТИПА ДАННЫХ
-	def FromBooleans(self, container_name_dst: str, data: list[bool]) -> T30_ResultCode:
+	# Логика данных: Конвертация из списка формата
+	def FromBooleans(self, container_name_dst: str, data: list[bool]) -> T20_StructResult:
 		""" Из списка логических значений """
 		try   : data = SEPARATOR_LIST.join(list(map(BooleanToString, data)))
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromDatetimes(self, container_name_dst: str, data: list[datetime.datetime]) -> T30_ResultCode:
+	def FromDatetimes(self, container_name_dst: str, data: list[datetime.datetime]) -> T20_StructResult:
 		""" Из списка логических значений """
 		try   : data = SEPARATOR_LIST.join(list(map(DatetimeToString, data)))
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromIntegers(self, container_name_dst: str, data: list[int]) -> T30_ResultCode:
+	def FromIntegers(self, container_name_dst: str, data: list[int]) -> T20_StructResult:
 		""" Из списка целых чисел """
 		try   : data = SEPARATOR_LIST.join(list(map(format, data)))
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromFloats(self, container_name_dst: str, data: list[float]) -> T30_ResultCode:
+	def FromFloats(self, container_name_dst: str, data: list[float]) -> T20_StructResult:
 		""" Из списка дробных чисел """
 		try   : data = SEPARATOR_LIST.join(list(map("{:0.5f}".format, data)))
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	def FromStrings(self, container_name_dst: str, data: list[str]) -> T30_ResultCode:
+	def FromStrings(self, container_name_dst: str, data: list[str]) -> T20_StructResult:
 		""" Из списка строк """
 		try   : data = SEPARATOR_LIST.join(data)
-		except: return T30_ResultCode(RESULT_ERROR_CONVERT)
+		except: return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return self._WriteCvlInSCell(container_name_dst, data)
+		return self._WriteVlpInSCell(container_name_dst, data)
 
-	# КОНВЕРТАЦИЯ В ТИП ДАННЫХ
-	def _ReadCvlSCell(self, container_name_src: str) -> T31_ResultString:
+	# Логика данных: Конвертация в формат
+	def _ReadVlpSCell(self, container_name_src: str) -> T21_StructResult_String:
 		""" Системный метод чтения данных для конверторов """
-		container = controller_containers.GetContainer(container_name_src)
-		if container is None        : return T31_ResultString(RESULT_ERROR_ACCESS_CONNECTION)
+		container           = controller_containers.Container(container_name_src)
+		if container is None        : return T21_StructResult_String(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                             subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		if self.struct_frame is None: return T31_ResultString(RESULT_ERROR_DATA_STRUCT)
+		if self.struct_frame is None: return T21_StructResult_String(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                             subcodes = {CODES_DATA.NOT_ENOUGH})
 
-		oid       = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK: return T31_ResultString(oid.code)
+		idc                 = self.struct_frame._idc
+		ido                 = self.struct_frame._ido
+		idp                 = self._idp
 
-		oci       = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK: return T31_ResultString(oci.code)
+		cell                = T20_StructCell(idc=idc, ido=ido, idp=idp)
+		result_read         = container.ReadSCell(cell)
 
-		pid       = self.Pid()
-		if not pid.code == RESULT_OK: return T31_ResultString(pid.code)
+		result              = T21_StructResult_String()
+		result.code         = result_read.code
+		result.subcodes     = result_read.subcodes
+		result.data         = result_read.data.vlp
 
-		cell_src  = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text)
-		cell      = container.ReadSCell(cell_src)
+		return result
 
-		return T31_ResultString(cell.code, cell.cell.cvl)
-
-	def ToBoolean(self, container_name_src: str) -> T31_ResultBool:
+	def ToBoolean(self, container_name_src: str) -> T21_StructResult_Bool:
 		""" В логическое значение """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
 
-		try   : return T31_ResultBool(result.code, StringToBoolean(value))
-		except: return T31_ResultBool(RESULT_ERROR_CONVERT)
+		try   :
+			return T21_StructResult_Bool(code     = result_read.code,
+			                             subcodes = result_read.subcodes,
+		                                 data     = StringToBoolean(vlp))
 
-	def ToDatetime(self, container_name_src: str) -> T31_ResultDatetime:
+		except:
+			return T21_StructResult_Bool(code     = CODES_COMPLETION.INTERRUPTED,
+			                             subcodes = {CODES_DATA.ERROR_CONVERT})
+
+	def ToDatetime(self, container_name_src: str) -> T21_StructResult_DTime:
 		""" В Datetime """
-		result  = self._ReadCvlSCell(container_name_src)
-		value   = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
+		result_vlp  = StringToDateTime(vlp)
 
-		convert = StringToDateTime(value)
-		if convert is None:	return T31_ResultDatetime(RESULT_ERROR_CONVERT)
+		if result_vlp is None: return T21_StructResult_DTime(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                     subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		return T31_ResultDatetime(result.code, convert)
+		return T21_StructResult_DTime(code     = result_read.code,
+		                              subcodes = result_read.subcodes,
+		                              data     = result_vlp)
 
-	def ToInteger(self, container_name_src: str) -> T31_ResultInt:
+	def ToInteger(self, container_name_src: str) -> T21_StructResult_Int:
 		""" В целое число """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
 
-		try   : return T31_ResultInt(result.code, StringToInteger(value))
-		except: return T31_ResultInt(RESULT_ERROR_CONVERT)
+		try   :
+			return T21_StructResult_Int(code     = result_read.code,
+			                            subcodes = result_read.subcodes,
+		                                data     = StringToInteger(vlp))
 
-	def ToFloat(self, container_name_src: str) -> T31_ResultFloat:
+		except:
+			return T21_StructResult_Int(code     = CODES_COMPLETION.INTERRUPTED,
+			                            subcodes = {CODES_DATA.ERROR_CONVERT})
+
+	def ToFloat(self, container_name_src: str) -> T21_StructResult_Float:
 		""" В дробное число """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
 
-		try   : return T31_ResultFloat(result.code, StringToFloat(value))
-		except: return T31_ResultFloat(RESULT_ERROR_CONVERT)
+		try   :
+			return T21_StructResult_Float(code     = result_read.code,
+			                              subcodes = result_read.subcodes,
+		                                  data     = StringToFloat(vlp))
 
-	def ToString(self, container_name_src: str) -> T31_ResultString:
+		except:
+			return T21_StructResult_Float(code     = CODES_COMPLETION.INTERRUPTED,
+			                              subcodes = {CODES_DATA.ERROR_CONVERT})
+
+	def ToString(self, container_name_src: str) -> T21_StructResult_String:
 		""" В строку """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
 
-		return T31_ResultString(result.code, value)
+		return T21_StructResult_String(code     = result_read.code,
+		                               subcodes = result_read.subcodes,
+		                               data     = vlp)
 
-	# КОНВЕРТАЦИЯ В СПИСОК ТИПА ДАННЫХ
-	def ToBooleans(self, container_name_src : str) -> T31_ResultList:
+	# Логика данных: Конвертация в список формата
+	def ToBooleans(self, container_name_src : str) -> T21_StructResult_List:
 		""" В список логических значений """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
+		vlp         = vlp.strip()
 
-		if not value.strip(): return T31_ResultList(result.code, [])
+		try   :
+			return T21_StructResult_List(code     = result_read.code,
+			                             subcodes = result_read.subcodes,
+			                             data     = list(map(StringToBoolean, vlp.split(SEPARATOR_LIST))))
 
-		try   : return T31_ResultList(result.code, list(map(StringToBoolean, value.split(SEPARATOR_LIST))))
-		except: return T31_ResultList(RESULT_ERROR_CONVERT)
+		except:
+			return T21_StructResult_List(code     = CODES_COMPLETION.INTERRUPTED,
+			                             subcodes = {CODES_DATA.ERROR_CONVERT})
 
-	def ToDatetimes(self, container_name_src : str) -> T31_ResultList:
+	def ToDatetimes(self, container_name_src : str) -> T21_StructResult_List:
 		""" В список Datetime """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
+		vlp         = vlp.strip()
 
-		if not value.strip(): return T31_ResultList(result.code, [])
+		try   :
+			return T21_StructResult_List(code     = result_read.code,
+			                             subcodes = result_read.subcodes,
+			                             data     = list(map(StringToDateTime, vlp.split(SEPARATOR_LIST))))
 
-		try   : return T31_ResultList(result.code, list(map(StringToDateTime, value.split(SEPARATOR_LIST))))
-		except: return T31_ResultList(RESULT_ERROR_CONVERT)
+		except:
+			return T21_StructResult_List(code     = CODES_COMPLETION.INTERRUPTED,
+			                             subcodes = {CODES_DATA.ERROR_CONVERT})
 
-	def ToIntegers(self, container_name_src: str) -> T31_ResultList:
+	def ToIntegers(self, container_name_src: str) -> T21_StructResult_List:
 		""" В список целых чисел """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
+		vlp         = vlp.strip()
 
-		if not value.strip(): return T31_ResultList(result.code, [])
+		try   :
+			return T21_StructResult_List(code     = result_read.code,
+			                             subcodes = result_read.subcodes,
+			                             data     = StringsToIntegers(vlp.split(SEPARATOR_LIST)))
 
-		try   : return T31_ResultList(result.code, StringsToIntegers(value.split(SEPARATOR_LIST)))
-		except: return T31_ResultList(RESULT_ERROR_CONVERT)
+		except:
+			return T21_StructResult_List(code     = CODES_COMPLETION.INTERRUPTED,
+			                             subcodes = {CODES_DATA.ERROR_CONVERT})
 
-	def ToFloats(self, container_name_src: str) -> T31_ResultList:
+	def ToFloats(self, container_name_src: str) -> T21_StructResult_List:
 		""" В список дробных чисел """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
+		vlp         = vlp.strip()
 
-		if not value.strip(): return T31_ResultList(result.code, [])
+		try   :
+			return T21_StructResult_List(code     = result_read.code,
+			                             subcodes = result_read.subcodes,
+			                             data     = StringsToFloats(vlp.split(SEPARATOR_LIST)))
 
-		data   = value.replace(',', '.')
+		except:
+			return T21_StructResult_List(code     = CODES_COMPLETION.INTERRUPTED,
+			                             subcodes = {CODES_DATA.ERROR_CONVERT})
 
-		try   : return T31_ResultList(result.code, StringsToFloats(data.split(SEPARATOR_LIST)))
-		except: return T31_ResultList(RESULT_ERROR_CONVERT)
-
-	def ToStrings(self, container_name_src: str) -> T31_ResultList:
+	def ToStrings(self, container_name_src: str) -> T21_StructResult_List:
 		""" В список строк """
-		result = self._ReadCvlSCell(container_name_src)
-		value  = result.text if result.code == RESULT_OK else self.DefaultCvl().text
+		result_read = self._ReadVlpSCell(container_name_src)
+		vlp         = result_read.data if (result_read.code == CODES_COMPLETION.COMPLETED) else self._default_vlp
+		vlp         = vlp.strip()
 
-		if not value.strip(): return T31_ResultList(result.code, [])
+		try   :
+			return T21_StructResult_List(code     = result_read.code,
+			                             subcodes = result_read.subcodes,
+			                             data     = vlp.split(SEPARATOR_LIST))
 
-		try   : return T31_ResultList(result.code, list(value.split(SEPARATOR_LIST)))
-		except: return T31_ResultList(RESULT_ERROR_CONVERT)
+		except:
+			return T21_StructResult_List(code     = CODES_COMPLETION.INTERRUPTED,
+			                             subcodes = {CODES_DATA.ERROR_CONVERT})
 
-	# УПРАВЛЕНИЕ S-ДАННЫМИ
-	def Cut(self, container_name_src: str) -> T31_ResultInt:
-		""" Запрос cut """
-		container = controller_containers.GetContainer(container_name_src)
-		if container is None        : return T31_ResultInt(RESULT_ERROR_ACCESS_CONNECTION)
-
-		if self.struct_frame is None: return T31_ResultInt(RESULT_ERROR_DATA_STRUCT)
-
-		oid       = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK: return T31_ResultInt(oid.code)
-
-		oci       = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK: return T31_ResultInt(oci.code)
-
-		pid       = self.Pid()
-		if not pid.code == RESULT_OK: return T31_ResultInt(pid.code)
-
-		cell_src  = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text)
-		cell      = container.ReadSCell(cell_src)
-
-		return T31_ResultInt(cell.code, cell.cell.cut)
-
-	def CopyToContainer(self, container_name_src: str, container_name_dst: str) -> T30_ResultCode:
+	# Механика управления: Данные в контейнере
+	def CopyToContainer(self, container_name_src: str, container_name_dst: str) -> T20_StructResult:
 		""" Копирование S-Ячейки из контейнера в контейнер """
-		container_src                   = controller_containers.GetContainer(container_name_src)
-		if container_src is None         : return T31_ResultStructCell(RESULT_ERROR_ACCESS_CONNECTION)
+		container_src                              = controller_containers.Container(container_name_src)
+		if container_src is None                              : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                                subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		container_dst                   = controller_containers.GetContainer(container_name_dst)
-		if container_dst is None         : return T31_ResultStructCell(RESULT_ERROR_ACCESS_CONNECTION)
+		container_dst                              = controller_containers.Container(container_name_dst)
+		if container_dst is None                              : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                                subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		oid                             = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK     : return T31_ResultStructCell(oid.code)
+		idc                                        = self.struct_frame._idc
+		ido                                        = self.struct_frame._ido
+		idp                                        = self._idp
 
-		oci                             = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK     : return T31_ResultStructCell(oci.code)
+		cell         : T20_StructCell              = T20_StructCell(idc=idc, ido=ido, idp=idp)
+		result_read  : T21_StructResult_StructCell = container_src.ReadSCell(cell)
 
-		pid                             = self.Pid()
-		if not pid.code == RESULT_OK     : return T31_ResultStructCell(pid.code)
+		if not result_read.code == CODES_COMPLETION.COMPLETED : return T20_StructResult(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                subcodes = result_read.subcodes)
 
-		cell     : T30_StructCell       = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text)
-		cell_src : T31_ResultStructCell = container_src.ReadSCell(cell)
+		result_write : T21_StructResult_StructCell = container_src.WriteSCell(cell)
 
-		if not cell_src.code == RESULT_OK: return T31_ResultStructCell(cell_src.code)
+		result                                     = T20_StructResult()
+		result.code                                = result_write.code
+		result.subcodes                            = result_write.subcodes
 
-		return container_dst.WriteSCell(cell_src.cell, False)
+		return result
 
-	def SyncBetweenContainers(self, container_name_1: str, container_name_2: str) -> T30_ResultCode:
+	def SyncBetweenContainers(self, container_name_1: str, container_name_2: str) -> T20_StructResult:
 		""" Синхронизация S-Ячейки между контейнерами """
-		container_1                   = controller_containers.GetContainer(container_name_1)
-		if container_1 is None              : return T31_ResultStructCell(RESULT_ERROR_ACCESS_CONNECTION)
+		container_1                              = controller_containers.Container(container_name_1)
+		if container_1 is None                                  : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		container_2                   = controller_containers.GetContainer(container_name_2)
-		if container_2 is None              : return T31_ResultStructCell(RESULT_ERROR_ACCESS_CONNECTION)
+		container_2                              = controller_containers.Container(container_name_2)
+		if container_2 is None                                  : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		oid                           = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK        : return T31_ResultStructCell(oid.code)
+		idc                                        = self.struct_frame._idc
+		ido                                        = self.struct_frame._ido
+		idp                                        = self._idp
 
-		oci                           = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK        : return T31_ResultStructCell(oci.code)
+		cell   : T20_StructCell       = T20_StructCell(idc=idc, ido=ido, idp=idp)
 
-		pid                           = self.Pid()
-		if not pid.code == RESULT_OK        : return T31_ResultStructCell(pid.code)
+		result_cell_1 : T21_StructResult_StructCell = container_1.ReadSCell(cell)
+		if not result_cell_1.code == CODES_COMPLETION.COMPLETED : return T20_StructResult(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = result_cell_1.subcodes)
 
-		cell   : T30_StructCell       = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text)
-		cell_1 : T31_ResultStructCell = container_1.ReadSCell(cell)
-		if not cell_1.code == RESULT_OK     : return T31_ResultStructCell(cell_1.code)
+		result_cell_2 : T21_StructResult_StructCell = container_2.ReadSCell(cell)
+		if not result_cell_2.code == CODES_COMPLETION.COMPLETED : return T20_StructResult(code     = CODES_COMPLETION.INTERRUPTED,
+		                                                                                  subcodes = result_cell_2.subcodes)
 
-		cell_2 : T31_ResultStructCell = container_2.ReadSCell(cell)
-		if not cell_2.code == RESULT_OK     : return T31_ResultStructCell(cell_2.code)
+		result = T20_StructResult()
 
-		if cell_1.cell.cut > cell_2.cell.cut: return container_2.SyncSCell(cell_1.cell)
-		if cell_2.cell.cut > cell_1.cell.cut: return container_1.SyncSCell(cell_2.cell)
+		if   result_cell_1.data.vlt > result_cell_2.data.vlt:
+			result_sync     = container_2.SyncSCell(result_cell_1.data)
 
-		return T30_ResultCode(RESULT_OK)
+			result.code     = result_sync.code
+			result.subcodes = result_sync.subcodes
 
-	def DeleteFromContainer(self, container_name_src: str) -> T30_ResultCode:
+		elif result_cell_2.data.vlt > result_cell_1.data.vlt:
+			result_sync     = container_1.SyncSCell(result_cell_2.data)
+
+			result.code     = result_sync.code
+			result.subcodes = result_sync.subcodes
+
+		return result
+
+	def DeleteFromContainer(self, container_name_src: str) -> T20_StructResult:
 		""" Удаление S-Ячейки из контейнера """
-		container_src                   = controller_containers.GetContainer(container_name_src)
-		if container_src is None         : return T31_ResultStructCell(RESULT_ERROR_ACCESS_CONNECTION)
+		container_src                               = controller_containers.Container(container_name_src)
+		if container_src is None : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                   subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		oid                             = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK     : return T31_ResultStructCell(oid.code)
+		idc                                         = self.struct_frame._idc
+		ido                                         = self.struct_frame._ido
+		idp                                         = self._idp
 
-		oci                             = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK     : return T31_ResultStructCell(oci.code)
+		cell          : T20_StructCell              = T20_StructCell(idc=idc, ido=ido, idp=idp)
+		result_delete : T21_StructResult_StructCell = container_src.DeleteSCell(cell)
 
-		pid                             = self.Pid()
-		if not pid.code == RESULT_OK     : return T31_ResultStructCell(pid.code)
+		result                                      = T20_StructResult()
+		result.code                                 = result_delete.code
+		result.subcodes                             = result_delete.subcodes
 
-		cell     : T30_StructCell       = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text)
-		cell_src : T31_ResultStructCell = container_src.ReadSCell(cell)
+		return result
 
-		if not cell_src.code == RESULT_OK: return T31_ResultStructCell(cell_src.code)
-
-		return container_src.DeleteSCell(cell_src.cell)
-
-	# УПРАВЛЕНИЕ D-ДАННЫМИ
-	def WriteCvl(self, container_name_dst: str, cvl: str, cut: int = 0) -> T30_ResultCode:
+	# Механика управления: D-VLP
+	def WriteVlp(self, container_name_dst: str, vlp: str, vlt: int = 0) -> T20_StructResult:
 		""" Добавление записи D-Данных """
-		container = controller_containers.GetContainer(container_name_dst)
-		if container is None        : return T30_ResultCode(RESULT_ERROR_ACCESS_CONNECTION)
+		container_src                              = controller_containers.Container(container_name_dst)
+		if container_src is None : return T20_StructResult(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                   subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		if self.struct_frame is None: return T30_ResultCode(RESULT_ERROR_DATA_STRUCT)
+		idc                                        = self.struct_frame._idc
+		ido                                        = self.struct_frame._ido
+		idp                                        = self._idp
+		if vlt == 0: vlt = CurrentUTime()
 
-		oid       = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK: return T30_ResultCode(oid.code)
+		cell         : T20_StructCell              = T20_StructCell(idc=idc, ido=ido, idp=idp, vlp=vlp, vlt=vlt)
 
-		oci       = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK: return T30_ResultCode(oci.code)
+		result_write : T21_StructResult_StructCell = container_src.WriteDCell(cell)
 
-		pid       = self.Pid()
-		if not pid.code == RESULT_OK: return T30_ResultCode(pid.code)
+		result                                     = T20_StructResult()
+		result.code                                = result_write.code
+		result.subcodes                            = result_write.subcodes
 
-		if cut == 0: cut = CurrentUTime()
+		return result
 
-		cell      = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text, cvl=cvl, cut=cut)
-		result    = container.WriteDCell(cell)
-
-		return T30_ResultCode(result.code)
-
-	def ReadCvl(self, container_name_src: str, cut: int = 0) -> T31_ResultString:
+	def ReadVlp(self, container_name_src: str, vlt: int = 0) -> T21_StructResult_String:
 		""" Запрос записи D-Данных """
-		container = controller_containers.GetContainer(container_name_src)
-		if container is None        : return T31_ResultString(RESULT_ERROR_ACCESS_CONNECTION)
+		container_src                             = controller_containers.Container(container_name_src)
+		if container_src is None : return T21_StructResult_String(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                          subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		if self.struct_frame is None: return T31_ResultString(RESULT_ERROR_DATA_STRUCT)
+		idc                                       = self.struct_frame._idc
+		ido                                       = self.struct_frame._ido
+		idp                                       = self._idp
 
-		oid       = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK: return T31_ResultString(oid.code)
+		if not vlt:
+			cell_range  = T21_VltRange(idc=idc, ido=ido, idp=idp)
+			result_vlts = container_src.ReadVltRange(cell_range)
 
-		oci       = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK: return T31_ResultString(oci.code)
+			if   not result_vlts.code == CODES_COMPLETION.COMPLETED: return T21_StructResult_String(code     = CODES_COMPLETION.INTERRUPTED,
+			                                                                                        subcodes = result_vlts.subcodes)
 
-		pid       = self.Pid()
-		if not pid.code == RESULT_OK: return T31_ResultString(pid.code)
+			elif not result_vlts.data                              : return T21_StructResult_String(code     = CODES_COMPLETION.INTERRUPTED,
+			                                                                                        subcodes = {CODES_DATA.NO_DATA})
 
-		if cut == 0:
-			cuts = self.CutRange(container_name_src)
-			if not cuts.code == RESULT_OK: return T31_ResultString(cuts.code)
-			if not cuts                  : return T31_ResultString(RESULT_WARNING_NO_DATA)
+			vlt = result_vlts.data.vlt_r
 
-			cut = cuts.cut_r
+		cell                                      = T20_StructCell(idc=idc, ido=ido, idp=idp, vlt=vlt)
+		result_read : T21_StructResult_StructCell = container_src.ReadDCell(cell)
 
-		cell      = T30_StructCell(oci=oci.text, oid=oid.text, pid=pid.text, cut=cut)
-		result    = container.ReadDCell(cell)
+		result                                    = T21_StructResult_String()
+		result.code                               = result_read.code
+		result.subcodes                           = result_read.subcodes
+		result.data                               = result_read.data.vlp
 
-		return T31_ResultString(result.code, result.cell.cvl)
+		return result
 
-	def CutRange(self, container_name_src: str, cut_l: int = 0, cut_r: int = 0) -> T31_ResultRange:
-		""" Запрос границ cut D-Данных """
-		container = controller_containers.GetContainer(container_name_src)
-		if container is None          : return T31_ResultRange(RESULT_ERROR_ACCESS_CONNECTION)
+	# Логика данных: D-VLP
+	def Vlps(self, container_name_src: str, vlt_l: int = 0, vlt_r: int = 0) -> T21_StructResult_List:
+		""" Запрос vlp/vlt в диапазоне vlt D-Данных """
+		container_src                              = controller_containers.Container(container_name_src)
+		if container_src is None : return T21_StructResult_List(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                        subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		if self.struct_frame is None  : return T31_ResultRange(RESULT_ERROR_DATA_STRUCT)
+		idc                                        = self.struct_frame._idc
+		ido                                        = self.struct_frame._ido
+		idp                                        = self._idp
 
-		oid       = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK  : return T31_ResultRange(oid.code)
+		cell                                       = T21_VltRange(idc=idc, ido=ido, idp=idp, vlt_l=vlt_l, vlt_r=vlt_r)
+		result_read : T21_StructResult_StructCells = container_src.ReadDCells(cell)
 
-		oci       = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK  : return T31_ResultRange(oci.code)
+		result                                     = T21_StructResult_List()
 
-		pid       = self.Pid()
-		if not pid.code == RESULT_OK  : return T31_ResultRange(pid.code)
+		if result_read.code == CODES_COMPLETION.COMPLETED:
+			for dcell in result_read.data: result.data.append([dcell.vlt, dcell.vlp])
 
-		cell      = T31_StructRange(oci=oci.text, oid=oid.text, pid=pid.text, cut_l=cut_l, cut_r=cut_r)
-		result    = container.DCutRange(cell)
+			match len(result.data):
+				case 0: result.subcodes.add(CODES_DATA.NO_DATA)
+				case 1: result.subcodes.add(CODES_DATA.SINGLE)
 
-		return T31_ResultRange(result.code, cut_l=result.range.cut_l, cut_r=result.range.cut_r)
+		else                                             :
+			result.code     = CODES_COMPLETION.INTERRUPTED
+			result.subcodes = result_read.subcodes
 
-	def Cuts(self, container_name_src: str, cut_l: int = 0, cut_r: int = 0) -> T31_ResultList:
-		""" Запрос списка cut в диапазоне cut D-Данных """
-		container = controller_containers.GetContainer(container_name_src)
-		if container is None          : return T31_ResultList(RESULT_ERROR_ACCESS_CONNECTION)
+		return result
 
-		if self.struct_frame is None  : return T31_ResultList(RESULT_ERROR_DATA_STRUCT)
+	# Логика данных: D-VLT
+	def VltRange(self, container_name_src: str, vlt_l: int = 0, vlt_r: int = 0) -> T21_StructResult_VltRange:
+		""" Запрос границ vlt D-Данных """
+		container_src = controller_containers.Container(container_name_src)
+		if container_src is None : return T21_StructResult_VltRange(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                            subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		oid       = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK  : return T31_ResultList(oid.code)
+		idc           = self.struct_frame._idc
+		ido           = self.struct_frame._ido
+		idp           = self._idp
 
-		oci       = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK  : return T31_ResultList(oci.code)
+		cell          = T21_VltRange(idc=idc, ido=ido, idp=idp, vlt_l=vlt_l, vlt_r=vlt_r)
+		return container_src.ReadVltRange(cell)
 
-		pid       = self.Pid()
-		if not pid.code == RESULT_OK  : return T31_ResultList(pid.code)
+	def Vlts(self, container_name_src: str, vlt_l: int = 0, vlt_r: int = 0) -> T21_StructResult_List:
+		""" Запрос списка vlt в диапазоне vlt D-Данных """
+		container_src = controller_containers.Container(container_name_src)
+		if container_src is None : return T21_StructResult_List(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                        subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		cell      = T31_StructRange(oci=oci.text, oid=oid.text, pid=pid.text, cut_l=cut_l, cut_r=cut_r)
+		idc           = self.struct_frame._idc
+		ido           = self.struct_frame._ido
+		idp           = self._idp
 
-		return container.DCuts(cell)
+		cell          = T21_VltRange(idc=idc, ido=ido, idp=idp, vlt_l=vlt_l, vlt_r=vlt_r)
+		return container_src.ReadVlts(cell)
 
-	def Cvls(self, container_name_src: str, cut_l: int = 0, cut_r: int = 0) -> T31_ResultDict:
-		""" Запрос cvl/cut в диапазоне cut D-Данных """
-		container = controller_containers.GetContainer(container_name_src)
-		if container is None          : return T31_ResultDict(RESULT_ERROR_ACCESS_CONNECTION)
+	# Логика данных: S-VLT
+	def Vlt(self, container_name_src: str) -> T21_StructResult_Int:
+		""" Запрос vlt """
+		container           = controller_containers.Container(container_name_src)
+		if container is None        : return T21_StructResult_Int(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                          subcodes = {CODES_CACTUS.NO_CONTAINER})
 
-		if self.struct_frame is None  : return T31_ResultDict(RESULT_ERROR_DATA_STRUCT)
+		if self.struct_frame is None: return T21_StructResult_Int(code     =  CODES_COMPLETION.INTERRUPTED,
+		                                                          subcodes = {CODES_DATA.NOT_ENOUGH})
 
-		oid                     = self.struct_frame.Oid()
-		if not oid.code == RESULT_OK  : return T31_ResultDict(oid.code)
+		idc                 = self.struct_frame._idc
+		ido                 = self.struct_frame._ido
+		idp                 = self._idp
 
-		oci                     = self.struct_frame.Oci()
-		if not oci.code == RESULT_OK  : return T31_ResultDict(oci.code)
+		cell                = T20_StructCell(idc=idc, ido=ido, idp=idp)
+		result_read         = container.ReadSCell(cell)
 
-		pid                     = self.Pid()
-		if not pid.code == RESULT_OK  : return T31_ResultDict(pid.code)
+		result              = T21_StructResult_Int()
+		result.code         = result_read.code
+		result.subcodes     = result_read.subcodes
+		result.data         = result_read.data.vlt
 
-		cell                    = T31_StructRange(oci=oci.text, oid=oid.text, pid=pid.text, cut_l=cut_l, cut_r=cut_r)
-		dcells                  = container.ReadDCells(cell)
-		result : dict[int, str] = dict()
-
-		for cell in dcells.cells: result[cell.cut] = cell.cvl
-
-		return T31_ResultDict(dcells.code, result)
+		return result
