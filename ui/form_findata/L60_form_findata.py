@@ -40,7 +40,7 @@ class C60_FormFindata(C50_FormFindata):
 
 		self._dd_processing = dd
 
-	def ReadOidProcessingFindata(self):
+	def ReadIdoProcessingFindata(self):
 		""" Чтение OID записи финданных """
 		self._oid_processing_findata = ""
 
@@ -49,7 +49,7 @@ class C60_FormFindata(C50_FormFindata):
 
 		self._oid_processing_findata = current_index.data(ROLE_OID_FINDATA)
 
-	def ReadOidProcessingFinactions(self):
+	def ReadIdoProcessingFinactions(self):
 		""" Чтение OID записи финдействий """
 		self._oid_processing_finactions = ""
 
@@ -58,7 +58,7 @@ class C60_FormFindata(C50_FormFindata):
 
 		self._oid_processing_finactions = current_index.data(ROLE_OID_FINACTIONS)
 
-	def ReadOidsProcessingFindata(self):
+	def ReadIdosProcessingFindata(self):
 		""" Чтение выбранных записей финданных """
 		self._oids_processing_findata.clear()
 
@@ -72,7 +72,7 @@ class C60_FormFindata(C50_FormFindata):
 
 			self._oids_processing_findata.append(oid_findata)
 
-	def ReadOidsProcessingFinactions(self):
+	def ReadIdosProcessingFinactions(self):
 		""" Чтение выбранных записей финдействий """
 		self._oids_processing_finactions.clear()
 
@@ -188,7 +188,7 @@ class C60_FormFindata(C50_FormFindata):
 
 		labels        : list[str]     = [""] * 9
 		labels[0] = AmountToString(record_findata.Amount(), False, True)
-		labels[1] = ', '.join(self.finstruct.OidsToNames([record_findata.FinstructOid()]))
+		labels[1] = ', '.join(self.finstruct.IdosToNames([record_findata.FinstructIdo()]))
 		labels[8] = record_findata.Note()
 
 		index_dd      : QModelIndex   = self.model_data.indexByData(record_findata.DdDmDyToString())
@@ -250,7 +250,7 @@ class C60_FormFindata(C50_FormFindata):
 
 		record_findata = C90_RecordFindata(self._oid_processing_findata)
 
-		if record_findata.LinkedFinactionsOids():
+		if record_findata.LinkedFinactionsIdos():
 			color_fg: QColor = QColor(0, 0, 0)
 
 			if abs(record_findata.CalcAmountDeviationByLinks()) > 1: color_fg: QColor = QColor(200, 60, 60)
@@ -264,9 +264,9 @@ class C60_FormFindata(C50_FormFindata):
 
 		record_findata                  = C90_RecordFindata(self._oid_processing_findata)
 
-		oids_finactions : list[str]     = record_findata.LinkedFinactionsOids()
+		oids_finactions : list[str]     = record_findata.LinkedFinactionsIdos()
 
-		index_findata   : QModelIndex   = self.model_data.indexByData(record_findata.Oid().text, ROLE_OID_FINDATA)
+		index_findata   : QModelIndex   = self.model_data.indexByData(record_findata.Ido().data, ROLE_OID_FINDATA)
 		item_findata    : QStandardItem = self.model_data.itemFromIndex(index_findata)
 
 		index_dd        : QModelIndex   = index_findata.parent()
@@ -282,20 +282,20 @@ class C60_FormFindata(C50_FormFindata):
 
 			labels    : list[str] = [""] * 9
 			labels[0]             = AmountToString(record_finactions.Amount(), False, True)
-			labels[1]             = ', '.join(self.finstruct.OidsToNames(record_finactions.FinstructOids()))
-			labels[2]             = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), OBJECT_INT))
-			labels[3]             = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), FREQUENCY))
-			labels[4]             = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), PRIORITY))
-			labels[5]             = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), PROCESS))
-			labels[6]             = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), CATEGORY))
-			labels[7]             = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), OBJECT_EXT))
+			labels[1]             = ', '.join(self.finstruct.IdosToNames(record_finactions.FinstructIdos()))
+			labels[2]             = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), OBJECT_INT))
+			labels[3]             = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), FREQUENCY))
+			labels[4]             = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), PRIORITY))
+			labels[5]             = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), PROCESS))
+			labels[6]             = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), CATEGORY))
+			labels[7]             = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), OBJECT_EXT))
 			labels[8]             = record_finactions.Note()
 
 			for index_col, label in enumerate(labels):
 				item_data = C20_StandardItem(label, flag_align_right=index_col == 0, flag_checked = False if index_col == 0 else None)
 				item_data.setData(record_findata.Dd(),          ROLE_DD)
-				item_data.setData(record_findata.Oid().text,    ROLE_OID_FINDATA)
-				item_data.setData(record_finactions.Oid().text, ROLE_OID_FINACTIONS)
+				item_data.setData(record_findata.Ido().data,    ROLE_OID_FINDATA)
+				item_data.setData(record_finactions.Ido().data, ROLE_OID_FINACTIONS)
 
 				item_dd.setChild(index_row, index_col, item_data)
 
@@ -305,19 +305,19 @@ class C60_FormFindata(C50_FormFindata):
 
 				labels: list[str] = [""] * 9
 				labels[0] = AmountToString(record_finactions.Amount(), False, True)
-				labels[1] = ', '.join(self.finstruct.OidsToNames(record_finactions.FinstructOids()))
-				labels[2] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), OBJECT_INT))
-				labels[3] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), FREQUENCY))
-				labels[4] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), PRIORITY))
-				labels[5] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), PROCESS))
-				labels[6] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), CATEGORY))
-				labels[7] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), OBJECT_EXT))
+				labels[1] = ', '.join(self.finstruct.IdosToNames(record_finactions.FinstructIdos()))
+				labels[2] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), OBJECT_INT))
+				labels[3] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), FREQUENCY))
+				labels[4] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), PRIORITY))
+				labels[5] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), PROCESS))
+				labels[6] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), CATEGORY))
+				labels[7] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), OBJECT_EXT))
 				labels[8] = record_finactions.Note()
 
 				for index_col, label in enumerate(labels):
 					item_data = C20_StandardItem(label, flag_align_right = index_col == 0, flag_checked = False if index_col == 0 else None)
-					item_data.setData(record_findata.Oid().text, ROLE_OID_FINDATA)
-					item_data.setData(record_finactions.Oid().text, ROLE_OID_FINACTIONS)
+					item_data.setData(record_findata.Ido().data, ROLE_OID_FINDATA)
+					item_data.setData(record_finactions.Ido().data, ROLE_OID_FINACTIONS)
 
 					item_findata.setChild(index_row, index_col, item_data)
 
@@ -335,13 +335,13 @@ class C60_FormFindata(C50_FormFindata):
 
 		labels: list[str] = [""] * 9
 		labels[0] = AmountToString(record_finactions.Amount(), False, True)
-		labels[1] = ', '.join(self.finstruct.OidsToNames(record_finactions.FinstructOids()))
-		labels[2] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), OBJECT_INT))
-		labels[3] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), FREQUENCY))
-		labels[4] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), PRIORITY))
-		labels[5] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), PROCESS))
-		labels[6] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), CATEGORY))
-		labels[7] = ', '.join(self.findescription.OidsToNames(record_finactions.FindescriptionOids(), OBJECT_EXT))
+		labels[1] = ', '.join(self.finstruct.IdosToNames(record_finactions.FinstructIdos()))
+		labels[2] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), OBJECT_INT))
+		labels[3] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), FREQUENCY))
+		labels[4] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), PRIORITY))
+		labels[5] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), PROCESS))
+		labels[6] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), CATEGORY))
+		labels[7] = ', '.join(self.findescription.IdosToNames(record_finactions.FindescriptionIdos(), OBJECT_EXT))
 		labels[8] = record_finactions.Note()
 
 		for index_col, label in enumerate(labels):

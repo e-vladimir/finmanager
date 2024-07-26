@@ -12,31 +12,31 @@ class C80_RecordFindescription(C70_RecordFindescription):
 	# Переключение
 	def SwitchByName(self, name: str) -> bool:
 		""" Смена OID по значению """
-		filter_findescription = C30_FilterLinear1D(self.Oci().text)
-		filter_findescription.FilterPidCvlByEqual(self.f_name.Pid().text, name)
+		filter_findescription = C30_FilterLinear1D(self.Idc().data)
+		filter_findescription.FilterIdpVlpByEqual(self.f_name.Idp().data, name)
 		filter_findescription.Capture(CONTAINER_LOCAL)
 
-		oids : list[str]      = filter_findescription.Oids().items
+		oids : list[str]      = filter_findescription.Idos().data
 		if not oids: return False
 
-		self.Oid(oids[0])
+		self.Ido(oids[0])
 		return True
 
 	# Выборки данных
-	def SubOids(self, flag_all_suboids: bool = False) -> list[str]:
+	def SubIdos(self, flag_all_suboids: bool = False) -> list[str]:
 		""" Список OID """
-		filter_findescription = C30_FilterLinear1D(self.Oci().text)
-		filter_findescription.FilterPidCvlByEqual(self.f_parent_oid.Pid().text, self.Oid().text)
+		filter_findescription = C30_FilterLinear1D(self.Idc().data)
+		filter_findescription.FilterIdpVlpByEqual(self.f_parent_oid.Idp().data, self.Ido().data)
 		filter_findescription.Capture(CONTAINER_LOCAL)
 
-		result : list[str]    = filter_findescription.Oids(self.f_name.Pid().text).items
+		result : list[str]    = filter_findescription.Idos(self.f_name.Idp().data).data
 
 		if not flag_all_suboids: return result
 
 		for suboid in result:
 			subrecord = C80_RecordFindescription(suboid)
 
-			result.extend(subrecord.SubOids(flag_all_suboids))
+			result.extend(subrecord.SubIdos(flag_all_suboids))
 
 		return result
 
@@ -68,43 +68,43 @@ class C80_Findescription(C70_Findescription):
 	# Выборки данных
 	def Names(self, category: str = None) -> list[str]:
 		""" Список наименований записей финсостава с фильтрацией по категории """
-		filter_findescription = C30_FilterLinear1D(self._oci)
+		filter_findescription = C30_FilterLinear1D(self._idc)
 
-		if category: filter_findescription.FilterPidCvlByInclude(self._pid_categories, category)
+		if category: filter_findescription.FilterIdpVlpByInclude(self._idp_categories, category)
 
 		filter_findescription.Capture(CONTAINER_LOCAL)
 
-		return filter_findescription.ToStrings(self._pid_name, False, True).items
+		return filter_findescription.ToStrings(self._idp_name, False, True).data
 
 	def SubNames(self, parent_name: str = "") -> list[str]:
 		""" Получить список наименований подчинённых записей финсостава """
 		record_findescription = C80_RecordFindescription()
 		record_findescription.SwitchByName(parent_name)
 
-		filter_findescription = C30_FilterLinear1D(self._oci)
-		filter_findescription.FilterPidCvlByEqual(self._pid_parent_oid, record_findescription.Oid().text)
+		filter_findescription = C30_FilterLinear1D(self._idc)
+		filter_findescription.FilterIdpVlpByEqual(self._idp_parent_oid, record_findescription.Ido().data)
 
 		filter_findescription.Capture(CONTAINER_LOCAL)
 
-		return filter_findescription.ToStrings(self._pid_name, False, True).items
+		return filter_findescription.ToStrings(self._idp_name, False, True).data
 
-	def Oids(self) -> list[str]:
+	def Idos(self) -> list[str]:
 		""" Получить список OID значений финсостава """
-		filter_findescription = C30_FilterLinear1D(self._oci)
+		filter_findescription = C30_FilterLinear1D(self._idc)
 		filter_findescription.Capture(CONTAINER_LOCAL)
 
-		return filter_findescription.Oids(self._pid_name).items
+		return filter_findescription.Idos(self._idp_name).data
 
-	def SubOids(self, oid: str = "") -> list[str]:
+	def SubIdos(self, oid: str = "") -> list[str]:
 		""" Получить список OID подчинённых значений финсостава """
-		filter_findescription = C30_FilterLinear1D(self._oci)
-		filter_findescription.FilterPidCvlByEqual(self._pid_parent_oid, oid)
+		filter_findescription = C30_FilterLinear1D(self._idc)
+		filter_findescription.FilterIdpVlpByEqual(self._idp_parent_oid, oid)
 
 		filter_findescription.Capture(CONTAINER_LOCAL)
 
-		return filter_findescription.Oids(self._pid_name).items
+		return filter_findescription.Idos(self._idp_name).data
 
-	def OidsToNames(self, oids: list[str], category: str = None) -> list[str]:
+	def IdosToNames(self, oids: list[str], category: str = None) -> list[str]:
 		""" Имена финструктуры по списку OID """
 		result : list[str] = []
 
@@ -114,7 +114,7 @@ class C80_Findescription(C70_Findescription):
 				result.append(record_finstruct.Name())
 
 		else:
-			oids_category : list[str] = self.OidsByCategory(category)
+			oids_category : list[str] = self.IdosByCategory(category)
 
 			for oid in list(set(oids_category).intersection(set(oids))):
 				record_finstruct = C80_RecordFindescription(oid)
@@ -122,16 +122,16 @@ class C80_Findescription(C70_Findescription):
 
 		return sorted(result)
 
-	def OidsByCategory(self, category: str) -> list[str]:
+	def IdosByCategory(self, category: str) -> list[str]:
 		""" Получить список OID значений финсостава в указанной категории """
-		filter_findescription = C30_FilterLinear1D(self._oci)
-		filter_findescription.FilterPidCvlByInclude(self._pid_categories, category)
+		filter_findescription = C30_FilterLinear1D(self._idc)
+		filter_findescription.FilterIdpVlpByInclude(self._idp_categories, category)
 
 		filter_findescription.Capture(CONTAINER_LOCAL)
 
-		return filter_findescription.Oids(self._pid_name).items
+		return filter_findescription.Idos(self._idp_name).data
 
-	def NamesToOids(self, names: list[str]) -> list[str]:
+	def NamesToIdos(self, names: list[str]) -> list[str]:
 		""" Преобразование имён в OID """
 		result : list[str] = []
 
@@ -139,7 +139,7 @@ class C80_Findescription(C70_Findescription):
 			record_findescription = C80_RecordFindescription()
 			if not record_findescription.SwitchByName(name): continue
 
-			result.append(record_findescription.Oid().text)
+			result.append(record_findescription.Ido().data)
 
 		return result
 
@@ -152,12 +152,12 @@ class C80_Findescription(C70_Findescription):
 		record_parent    = C80_RecordFindescription()
 		record_parent.SwitchByName(parent_name)
 
-		parent_oid : str = record_parent.Oid().text
+		parent_oid : str = record_parent.Ido().data
 
 		record           = C80_RecordFindescription()
-		record.GenerateOid()
+		record.GenerateIdo()
 		record.RegisterObject(CONTAINER_LOCAL)
-		record.ParentOid(parent_oid)
+		record.ParentIdo(parent_oid)
 		record.Name(name)
 		record.Categories([])
 
@@ -181,12 +181,12 @@ class C80_Findescription(C70_Findescription):
 
 		if not record_findescription.SwitchByName(name): return False
 
-		parent_oid : str = record_findescription.ParentOid()
+		parent_oid : str = record_findescription.ParentIdo()
 
 		if delete_subrecords:
-			for suboid in record_findescription.SubOids(True) : C80_RecordFindescription(suboid).DeleteObject(CONTAINER_LOCAL)
+			for suboid in record_findescription.SubIdos(True) : C80_RecordFindescription(suboid).DeleteObject(CONTAINER_LOCAL)
 		else:
-			for suboid in record_findescription.SubOids(False):	C80_RecordFindescription(suboid).ParentOid(parent_oid)
+			for suboid in record_findescription.SubIdos(False):	C80_RecordFindescription(suboid).ParentIdo(parent_oid)
 
 		record_findescription.DeleteObject(CONTAINER_LOCAL)
 

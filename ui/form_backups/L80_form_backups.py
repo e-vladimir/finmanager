@@ -16,9 +16,9 @@ class C80_FormBackups(C70_FormBackups):
 		""" Удаление резервной копии """
 		if not self._filename_processing: return
 
-		item_selected = self.model_backups.itemByOid(self._filename_processing)
+		item_selected = self.model_backups.itemByIdo(self._filename_processing)
 
-		if not RequestConfirm("Резервные копии", f"Удаление резервной копии {item_selected.text()}"): return
+		if not RequestConfirm("Резервные копии", f"Удаление резервной копии {item_selected.data()}"): return
 
 		self.application.DeleteBackup(self._filename_processing)
 		self.on_RequestShowBackups()

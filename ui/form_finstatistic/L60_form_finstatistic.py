@@ -22,7 +22,7 @@ class C60_FormFinstatistic(C50_FormFinstatistic):
 
 		self._index_processing                      = None
 
-	def CalcOidsStructProcessingFromSuboids(self):
+	def CalcIdosStructProcessingFromSuboids(self):
 		""" Вычисление структуры записей финстатистики """
 		self._oids_struct_processing.clear()
 
@@ -56,9 +56,9 @@ class C60_FormFinstatistic(C50_FormFinstatistic):
 		amount_income  : int                  = self.finstatistic.CalcIncomeByFindescription(self._oid_processing, dy, dm)
 		amount_outcome : int                  = self.finstatistic.CalcOutcomeByFindescription(self._oid_processing, dy, dm)
 
-		suboids        : list[str]            = self.findescription.SubOids(self._oid_processing)
+		suboids        : list[str]            = self.findescription.SubIdos(self._oid_processing)
 
-		item_parent    : QStandardItem | None = self.model_finstatistic.itemByData(record_findescription.ParentOid(), ROLE_OID)
+		item_parent    : QStandardItem | None = self.model_finstatistic.itemByData(record_findescription.ParentIdo(), ROLE_OID)
 		if item_parent is None: item_parent = self.model_finstatistic.invisibleRootItem()
 
 		item_record    : QStandardItem        = QStandardItem()

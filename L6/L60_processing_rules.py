@@ -11,29 +11,29 @@ class C60_RecordProcessingRules(C50_RecordProcessingRules):
 	# Тип
 	def Type(self, text: str = None) -> str:
 		""" Тип """
-		if text is None: return self.f_type.ToString(CONTAINER_LOCAL).text
+		if text is None: return self.f_type.ToString(CONTAINER_LOCAL).data
 		else           :        self.f_type.FromString(CONTAINER_LOCAL, text)
 
 	# Параметры
 	def OptionsInputAsString(self, text: str = None) -> str:
 		""" Параметры (строка) """
-		if text is None: return self.f_options_input.ToString(CONTAINER_LOCAL).text
+		if text is None: return self.f_options_input.ToString(CONTAINER_LOCAL).data
 		else           :        self.f_options_input.FromString(CONTAINER_LOCAL, text)
 
 	def OptionsInputAsStrings(self, strings : list[str] = None) -> list[str]:
 		""" Параметры (список строк) """
-		if strings is None: return self.f_options_input.ToStrings(CONTAINER_LOCAL).items
+		if strings is None: return self.f_options_input.ToStrings(CONTAINER_LOCAL).data
 		else              :        self.f_options_input.FromStrings(CONTAINER_LOCAL, sorted(strings))
 
 	# Данные
 	def OptionsOutputAsString(self, text: str = None) -> str:
 		""" Данные (строка) """
-		if text is None: return self.f_options_output.ToString(CONTAINER_LOCAL).text
+		if text is None: return self.f_options_output.ToString(CONTAINER_LOCAL).data
 		else           :        self.f_options_output.FromString(CONTAINER_LOCAL, text)
 
 	def OptionsOutputAsStrings(self, strings : list[str] = None) -> list[str]:
 		""" Данные (список строк) """
-		if strings is None: return self.f_options_output.ToStrings(CONTAINER_LOCAL).items
+		if strings is None: return self.f_options_output.ToStrings(CONTAINER_LOCAL).data
 		else              :        self.f_options_output.FromStrings(CONTAINER_LOCAL, sorted(strings))
 
 

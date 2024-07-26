@@ -53,7 +53,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 	def on_RequestMenuFinstruct(self):
 		""" Запрос меню финструктуры """
-		self.ReadOidProcessing()
+		self.ReadIdoProcessing()
 
 		self.AdjustMenuFinstructText()
 		self.AdjustMenuFinstructEnable()
@@ -69,7 +69,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 	def on_RequestRenameRecord(self):
 		""" Запрос на переименование записи финструктуры """
-		self.ReadOidProcessing()
+		self.ReadIdoProcessing()
 		self.EditNameRecord()
 
 	def on_RequestDeleteRecord(self):
@@ -98,7 +98,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 	def on_RequestMemoryRecord(self):
 		""" Запрос на запоминание записи финсостава """
-		self.ReadOidMemory()
+		self.ReadIdoMemory()
 
 	def on_RequestMoveUp(self):
 		""" Запрос на перемещение записи уровнем выше """
@@ -126,7 +126,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.CopyRecordToPrevDm()
 
 	def on_RequestEditRecord(self):
-		self.ReadOidProcessing()
+		self.ReadIdoProcessing()
 		self.ReadColProcessing()
 
 		self.RequestEditRecord()

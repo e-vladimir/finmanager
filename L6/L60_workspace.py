@@ -12,44 +12,44 @@ class C60_Workspace(C50_Workspace):
 	# Параметры
 	def Dy(self, year: int = None) -> int:
 		""" Год """
-		if year is None: return self.f_dy.ToInteger(CONTAINER_RAM).value
+		if year is None: return self.f_dy.ToInteger(CONTAINER_RAM).data
 
 		self.f_dy.FromInteger(CONTAINER_RAM, year)
 
 	def Dm(self, month: int = None) -> int:
 		""" Месяц """
-		if month is None: return self.f_dm.ToInteger(CONTAINER_RAM).value
+		if month is None: return self.f_dm.ToInteger(CONTAINER_RAM).data
 
 		self.f_dm.FromInteger(CONTAINER_RAM, month)
 
-	def OidRecordFindata(self, oid: int = None) -> int:
+	def IdoRecordFindata(self, oid: int = None) -> int:
 		""" OID записи финданных """
-		if oid is None: return self.f_record_findata_oid.ToString(CONTAINER_RAM).text
+		if oid is None: return self.f_record_findata_oid.ToString(CONTAINER_RAM).data
 
 		self.f_record_findata_oid.FromString(CONTAINER_RAM, oid)
 
-	def OidRecordFinactions(self, oid: int = None) -> int:
+	def IdoRecordFinactions(self, oid: int = None) -> int:
 		""" OID записи финдействий """
-		if oid is None: return self.f_record_finactions_oid.ToString(CONTAINER_RAM).text
+		if oid is None: return self.f_record_finactions_oid.ToString(CONTAINER_RAM).data
 
 		self.f_record_finactions_oid.FromString(CONTAINER_RAM, oid)
 
-	def OidRecordRules(self, oid: int = None) -> int:
+	def IdoRecordRules(self, oid: int = None) -> int:
 		""" OID записи правил """
-		if oid is None: return self.f_record_rules_oid.ToString(CONTAINER_RAM).text
+		if oid is None: return self.f_record_rules_oid.ToString(CONTAINER_RAM).data
 
 		self.f_record_rules_oid.FromString(CONTAINER_RAM, oid)
 
 	def ProcessingType(self, text: int = None) -> int:
 		""" Тип обработки """
-		if text is None: return self.f_processing_type.ToString(CONTAINER_RAM).text
+		if text is None: return self.f_processing_type.ToString(CONTAINER_RAM).data
 
 		self.f_processing_type.FromString(CONTAINER_RAM, text)
 
 	# Переключение
 	def SwitchToMain(self):
 		""" Переключение на основное рабочее пространство """
-		self.Oid("MAIN_WORKSPACE")
+		self.Ido("MAIN_WORKSPACE")
 		self.RegisterObject(CONTAINER_RAM)
 
 	# Смещение

@@ -1,5 +1,6 @@
 # ФОРМА ОСНОВНАЯ: ЛОГИКА УПРАВЛЕНИЯ
-
+from G30_cactus_controller_containers import controller_containers
+from L00_containers import CONTAINER_RAM
 from L80_form_main import C80_FormMain
 
 

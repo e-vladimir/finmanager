@@ -20,11 +20,11 @@ class C80_FormRules(C70_FormRules):
 		self.SetupModelData()
 
 		if   self._type_processing == RULE_REPLACE_TEXT                 :
-			for self._oid_processing in self.rules.OidsByType(RULE_REPLACE_TEXT): self.LoadRecordReplaceText()
+			for self._oid_processing in self.rules.IdosByType(RULE_REPLACE_TEXT): self.LoadRecordReplaceText()
 
 		elif self._type_processing == RULE_DETECT_FINDESCRIPTION_BY_TEXT:
-			for self._oid_processing in self.findescription.SubOids()                            : self.LoadRecordFindescription()
-			for self._oid_processing in self.rules.OidsByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT): self.LoadRecordDetectFindescriptionByText()
+			for self._oid_processing in self.findescription.SubIdos()                            : self.LoadRecordFindescription()
+			for self._oid_processing in self.rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT): self.LoadRecordDetectFindescriptionByText()
 
 	# Дерево данных
 	def ProcessingTreeDataDbClick(self):
@@ -43,13 +43,13 @@ class C80_FormRules(C70_FormRules):
 		if options_output is None: return
 
 		record_rules = C90_RecordProcessingRules()
-		record_rules.GenerateOid()
+		record_rules.GenerateIdo()
 		record_rules.RegisterObject(CONTAINER_LOCAL)
 
 		record_rules.OptionsOutputAsString(options_output)
 		record_rules.Type(RULE_REPLACE_TEXT)
 
-		self._oid_processing = record_rules.Oid().text
+		self._oid_processing = record_rules.Ido().data
 
 		self.on_RecordReplaceTextCreated()
 
@@ -101,13 +101,13 @@ class C80_FormRules(C70_FormRules):
 			if not record_findescription.SwitchByName(self._name_processing): return
 
 			record_rules                     = C90_RecordProcessingRules()
-			record_rules.GenerateOid()
+			record_rules.GenerateIdo()
 			record_rules.RegisterObject(CONTAINER_LOCAL)
 
-			record_rules.OptionsOutputAsString(record_findescription.Oid().text)
+			record_rules.OptionsOutputAsString(record_findescription.Ido().data)
 			record_rules.Type(RULE_DETECT_FINDESCRIPTION_BY_TEXT)
 
-			self._oid_processing = record_rules.Oid().text
+			self._oid_processing = record_rules.Ido().data
 
 		if not self._oid_processing : return
 
@@ -140,9 +140,9 @@ class C80_FormRules(C70_FormRules):
 		if not record_findescription.SwitchByName(self._name_processing): return
 
 		options_input          : list[str] = []
-		findescription_suboids : list      = record_findescription.SubOids(True)
+		findescription_suboids : list      = record_findescription.SubIdos(True)
 
-		for rule_oid in self.rules.OidsByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
+		for rule_oid in self.rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
 			record_rule = C90_RecordProcessingRules(rule_oid)
 
 			if record_rule.OptionsOutputAsString() not in findescription_suboids: continue
@@ -151,13 +151,13 @@ class C80_FormRules(C70_FormRules):
 
 		if not self._oid_processing:
 			record_rule = C90_RecordProcessingRules()
-			record_rule.GenerateOid()
+			record_rule.GenerateIdo()
 			record_rule.RegisterObject(CONTAINER_LOCAL)
 
 			record_rule.Type(RULE_DETECT_FINDESCRIPTION_BY_TEXT)
-			record_rule.OptionsOutputAsString(record_findescription.Oid().text)
+			record_rule.OptionsOutputAsString(record_findescription.Ido().data)
 
-			self._oid_processing = record_rule.Oid().text
+			self._oid_processing = record_rule.Ido().data
 
 		else                       :
 			record_rule = C90_RecordProcessingRules(self._oid_processing)

@@ -51,7 +51,7 @@ class C70_FormFindata(C60_FormFindata):
 		dy : int = self.workspace.Dy()
 		dm : int = self.workspace.Dm()
 
-		for self._oid_processing_findata in self.findata.OidsInDyDmDd(dy, dm): self.SetupRecordFindataColor()
+		for self._oid_processing_findata in self.findata.IdosInDyDmDd(dy, dm): self.SetupRecordFindataColor()
 
 	# Меню данных
 	def ShowMenuData(self):

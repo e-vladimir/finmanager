@@ -58,7 +58,7 @@ class C90_FormRules(C80_FormRules):
 		""" Запрос отображению меню """
 		self.ReadNameProcessing()
 		self.ReadColumnProcessing()
-		self.ReadOidProcessing()
+		self.ReadIdoProcessing()
 
 		self.AdjustMenuEnable()
 		self.AdjustMenuText()
@@ -69,7 +69,7 @@ class C90_FormRules(C80_FormRules):
 	def on_RequestProcessingDbClickOnTreeData(self):
 		""" Запрос обработки двойного клика по дереву данных """
 		self.ReadNameProcessing()
-		self.ReadOidProcessing()
+		self.ReadIdoProcessing()
 		self.ReadColumnProcessing()
 
 		self.ProcessingTreeDataDbClick()

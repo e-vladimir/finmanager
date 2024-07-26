@@ -24,7 +24,7 @@ class C60_FormRecordFindata(C50_FormRecordFindata):
 		""" Отключение доступа обработки """
 		self._lock_reading = False
 
-	def ReadOidProcessingFromTblData(self):
+	def ReadIdoProcessingFromTblData(self):
 		""" Чтение текущего OID """
 		self._oid_processing = ""
 
@@ -44,7 +44,7 @@ class C60_FormRecordFindata(C50_FormRecordFindata):
 
 	def SetupRecordFindata(self):
 		""" Настройка записи финданных """
-		self.record_findata.Oid(self.workspace.OidRecordFindata())
+		self.record_findata.Ido(self.workspace.IdoRecordFindata())
 
 	# Модель данных
 	def SetupModelData(self):
@@ -63,7 +63,7 @@ class C60_FormRecordFindata(C50_FormRecordFindata):
 
 	def LoadModelDataFromFindata(self):
 		""" Отображение данных """
-		record_finstruct = C90_RecordFinstruct(self.record_findata.FinstructOid())
+		record_finstruct = C90_RecordFinstruct(self.record_findata.FinstructIdo())
 
 		item_date        = C20_StandardItem(f"{self.record_findata.DdDmDyToString()}",                      DATE)
 
@@ -78,7 +78,7 @@ class C60_FormRecordFindata(C50_FormRecordFindata):
 
 	def LoadModelDataFromFinactions(self):
 		""" Отображение финдействий """
-		finactions_oids : list[str]     = self.record_findata.LinkedFinactionsOids()
+		finactions_oids : list[str]     = self.record_findata.LinkedFinactionsIdos()
 
 		self.model_data.removeRows(7, self.model_data.rowCount() - 7)
 

@@ -17,7 +17,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		dy : int = self.workspace.Dy()
 		dm : int = self.workspace.Dm()
 
-		for self._oid_processing in self.finstruct.SubOids(dy, dm): self.LoadRecordFinstruct()
+		for self._oid_processing in self.finstruct.SubIdos(dy, dm): self.LoadRecordFinstruct()
 
 		self.on_FinstructLoaded()
 
@@ -27,7 +27,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		dy           : int        = self.workspace.Dy()
 		dm           : int        = self.workspace.Dm()
 		record_finstruct          = C90_RecordFinstruct(self._oid_processing)
-		parent_record             = C90_RecordFinstruct(record_finstruct.ParentOid())
+		parent_record             = C90_RecordFinstruct(record_finstruct.ParentIdo())
 		parent_value : str        = parent_record.Name()
 
 		group_text   : str        = f"{parent_value}" if parent_value else "Без группы"
@@ -80,12 +80,12 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		record_finstruct             = C90_RecordFinstruct(self._oid_processing)
 
 		confirm_delete : bool | None = RequestConfirm("Удаление записи финструктуры", f"Удалить {record_finstruct.Name()} как структуру?", True)
-		parent_oid     : str         = record_finstruct.ParentOid()
+		parent_oid     : str         = record_finstruct.ParentIdo()
 
 		if     confirm_delete is None: return
 
 		record_finstate              = C90_RecordFinstate()
-		if record_finstate.SwitchByFinstructOid(self._oid_processing): record_finstate.DeleteObject(CONTAINER_LOCAL)
+		if record_finstate.SwitchByFinstructIdo(self._oid_processing): record_finstate.DeleteObject(CONTAINER_LOCAL)
 
 		self.finstruct.DeleteRecordFinstruct(dy, dm, record_finstruct.Name(), confirm_delete)
 
@@ -98,11 +98,11 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		if not self._oid_processing  : return
 
 		record_finstruct = C90_RecordFinstruct(self._oid_processing)
-		parent_oid : str = record_finstruct.ParentOid()
+		parent_oid : str = record_finstruct.ParentIdo()
 		if not parent_oid: return
 
 		record_parent    = C90_RecordFinstruct(parent_oid)
-		record_finstruct.ParentOid(record_parent.ParentOid())
+		record_finstruct.ParentIdo(record_parent.ParentIdo())
 
 		self.on_RecordMoved()
 
@@ -111,7 +111,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		record_memory     = C90_RecordFinstruct(self._oid_memory)
 		record_processing = C90_RecordFinstruct(self._oid_processing)
 
-		record_memory.ParentOid(record_processing.ParentOid())
+		record_memory.ParentIdo(record_processing.ParentIdo())
 
 		self.on_RecordMoved()
 
@@ -119,7 +119,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		""" Перемещение записи в дочерний уровень """
 		record_memory = C90_RecordFinstruct(self._oid_memory)
 
-		record_memory.ParentOid(self._oid_processing)
+		record_memory.ParentIdo(self._oid_processing)
 
 		self.on_RecordMoved()
 
@@ -131,7 +131,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		record_finstruct.TransferToAnotherDm(1)
 
 		record_finstate  = C90_RecordFinstate()
-		record_finstate.SwitchByFinstructOid(self._oid_processing)
+		record_finstate.SwitchByFinstructIdo(self._oid_processing)
 		record_finstate.TransferToNextDm()
 
 	def CopyRecordToPrevDm(self):
@@ -157,10 +157,10 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		record_finstruct    = C90_RecordFinstruct(self._oid_processing)
 		record_finstate     = C90_RecordFinstate()
 
-		if not record_finstate.SwitchByFinstructOid(self._oid_processing):
-			record_finstate.GenerateOid()
+		if not record_finstate.SwitchByFinstructIdo(self._oid_processing):
+			record_finstate.GenerateIdo()
 			record_finstate.RegisterObject(CONTAINER_LOCAL)
-			record_finstate.FinstructOid(self._oid_processing)
+			record_finstate.FinstructIdo(self._oid_processing)
 			record_finstate.RemainsInitial(0)
 
 		remain : int | None = record_finstate.RemainsInitial()

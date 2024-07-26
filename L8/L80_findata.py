@@ -2,7 +2,7 @@
 
 from hashlib                import md5
 
-from G10_cactus_convertors  import StringToFloat
+from G10_convertor_format import StringToFloat
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINER_LOCAL
@@ -37,33 +37,33 @@ class C80_RecordFindata(C70_RecordFindata):
 		return not bool(self.UID())
 
 	# Выборки данных
-	def LinkedFinactionsOids(self) -> list[str]:
+	def LinkedFinactionsIdos(self) -> list[str]:
 		""" Взаимосвязи с финдействиями """
 		record_finactions = C40_RecordFinactions()
-		oci         : str = record_finactions.Oci().text
-		pid_findata : str = record_finactions.f_findata_oid.Pid().text
-		pid_amount  : str = record_finactions.f_amount.Pid().text
+		oci         : str = record_finactions.Idc().data
+		pid_findata : str = record_finactions.f_findata_oid.Idp().data
+		pid_amount  : str = record_finactions.f_amount.Idp().data
 
 		filter_findata    = C30_FilterLinear1D(oci)
-		filter_findata.FilterPidCvlByEqual(pid_findata, self.Oid().text)
+		filter_findata.FilterIdpVlpByEqual(pid_findata, self.Ido().data)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return filter_findata.Oids(pid_amount).items
+		return filter_findata.Idos(pid_amount).data
 
 	def CalcAmountDeviationByLinks(self) -> int:
 		""" Расчёт суммы взаимосвязанных записей """
 		record_finactions = C40_RecordFinactions()
-		oci         : str = record_finactions.Oci().text
-		pid_findata : str = record_finactions.f_findata_oid.Pid().text
-		pid_amount  : str = record_finactions.f_amount.Pid().text
+		oci         : str = record_finactions.Idc().data
+		pid_findata : str = record_finactions.f_findata_oid.Idp().data
+		pid_amount  : str = record_finactions.f_amount.Idp().data
 
 		filter_findata    = C30_FilterLinear1D(oci)
-		filter_findata.FilterPidCvlByEqual(pid_findata, self.Oid().text)
+		filter_findata.FilterIdpVlpByEqual(pid_findata, self.Ido().data)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		amounts : list[int] = filter_findata.ToIntegers(pid_amount).items
+		amounts : list[int] = filter_findata.ToIntegers(pid_amount).data
 
 		return int(self.Amount() - sum(amounts))
 
@@ -83,7 +83,7 @@ class C80_RecordFindata(C70_RecordFindata):
 		result : str = self.Note()
 
 		rules        = C90_ProcessingRules()
-		for oid in rules.OidsByType(RULE_REPLACE_TEXT):
+		for oid in rules.IdosByType(RULE_REPLACE_TEXT):
 			record_rule = C90_RecordProcessingRules(oid)
 			result      = record_rule.ExecReplaceText(result)
 
@@ -94,40 +94,40 @@ class C80_Findata(C70_Findata):
 	""" Финданные: Логика данных """
 
 	# Выборка данных
-	def OidsInDyDmDd(self, dy: int, dm: int = None, dd: int = None) -> list[str]:
+	def IdosInDyDmDd(self, dy: int, dm: int = None, dd: int = None) -> list[str]:
 		""" Выборка OID записей финданных """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
 
 		if dm is not None:
-			filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
+			filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
 
 		if dd is not None:
-			filter_findata.FilterPidCvlByEqual(self._pid_dd, dd)
+			filter_findata.FilterIdpVlpByEqual(self._idp_dd, dd)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return filter_findata.Oids(self._pid_amount).items
+		return filter_findata.Idos(self._idp_amount).data
 
 	def Dds(self, dy: int, dm: int) -> list[int]:
 		""" Выборка OID записей финданных """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return filter_findata.ToIntegers(self._pid_dd, True, True).items
+		return filter_findata.ToIntegers(self._idp_dd, True, True).data
 
 	# Запросы
 	def CheckFindataByUid(self, uid: str) -> bool:
 		""" Проверка наличия записи финданных по UID """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_uid, uid)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_uid, uid)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return not (filter_findata.Oids().items == [])
+		return not (filter_findata.Idos().data == [])
 
 	# Импорт финданных
 	def ImportFindataFromCsvTinkoff(self, data_raw: str, finstruct_oid: str, dy: int, dm: int, dd: int = None) -> bool:
@@ -162,7 +162,7 @@ class C80_Findata(C70_Findata):
 			if not dd == raw_dd                  : return False
 
 		findata_record               = C80_RecordFindata()
-		findata_record.GenerateOid()
+		findata_record.GenerateIdo()
 		findata_record.RegisterObject(CONTAINER_LOCAL)
 
 		findata_record.UID(uid_record)
@@ -170,7 +170,7 @@ class C80_Findata(C70_Findata):
 		findata_record.Dm(raw_dm)
 		findata_record.Dd(raw_dd)
 		findata_record.Amount(raw_amount)
-		findata_record.FinstructOid(finstruct_oid)
+		findata_record.FinstructIdo(finstruct_oid)
 		findata_record.Note(raw_note)
 
 		findata_record.ApplyRulesReplaceText()
@@ -206,7 +206,7 @@ class C80_Findata(C70_Findata):
 			if not dd == raw_dd                  : return False
 
 		findata_record               = C80_RecordFindata()
-		findata_record.GenerateOid()
+		findata_record.GenerateIdo()
 		findata_record.RegisterObject(CONTAINER_LOCAL)
 
 		findata_record.UID(uid_record)
@@ -214,7 +214,7 @@ class C80_Findata(C70_Findata):
 		findata_record.Dm(raw_dm)
 		findata_record.Dd(raw_dd)
 		findata_record.Amount(raw_amount)
-		findata_record.FinstructOid(finstruct_oid)
+		findata_record.FinstructIdo(finstruct_oid)
 		findata_record.Note(raw_note)
 
 		findata_record.ApplyRulesReplaceText()

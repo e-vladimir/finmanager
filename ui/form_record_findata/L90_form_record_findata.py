@@ -49,10 +49,10 @@ class C90_FormRecordFindata(C80_FormRecordFindata):
 		""" Запрос на отображение параметров """
 		self.EnableLockReading()
 
-		self.ReadOidProcessingFromTblData()
+		self.ReadIdoProcessingFromTblData()
 		self.SetupValuesModel()
 
-		self.ProcessingCurrentOid()
+		self.ProcessingCurrentIdo()
 
 		self.ShowValueFromRecord()
 
@@ -71,7 +71,7 @@ class C90_FormRecordFindata(C80_FormRecordFindata):
 	def on_RequestProcessingDataClicked(self):
 		"""  """
 		self.ReadRowProcessingFromTblData()
-		self.ReadOidProcessingFromTblData()
+		self.ReadIdoProcessingFromTblData()
 		self.ProcessingTblDataClicked()
 
 	def on_RequestProcessingValueClicked(self):

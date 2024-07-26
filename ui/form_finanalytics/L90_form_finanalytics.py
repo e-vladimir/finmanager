@@ -54,7 +54,7 @@ class C90_FormFinanalytics(C80_FormFinanalytics):
 	# Меню динамики финсостава
 	def on_RequestShowMenuFindescriptionDynamic(self):
 		""" Запрос вызова меню динамики финсостава """
-		self.ReadOidProcessingFromTableFindescriptionDynamic()
+		self.ReadIdoProcessingFromTableFindescriptionDynamic()
 
 		self.AdjustMenuFindescriptionText()
 		self.AdjustMenuFindescriptionEnable()

@@ -7,24 +7,24 @@ from L50_finstruct  import C50_RecordFinstruct, C50_Finstruct
 class C60_RecordFinstruct(C50_RecordFinstruct):
 	""" Запись финструктуры: Механика данных """
 
-	def ParentOid(self, oid: str = None) -> str:
+	def ParentIdo(self, oid: str = None) -> str:
 		""" OID родительского уровня """
-		if oid is None  : return self.f_parent_oid.ToString(CONTAINER_LOCAL).text
+		if oid is None  : return self.f_parent_oid.ToString(CONTAINER_LOCAL).data
 		else            :        self.f_parent_oid.FromString(CONTAINER_LOCAL, oid)
 
 	def Name(self, text: str = None) -> str:
 		""" Наименование записи финструктуры """
-		if text is None : return self.f_name.ToString(CONTAINER_LOCAL).text
+		if text is None : return self.f_name.ToString(CONTAINER_LOCAL).data
 		else            :        self.f_name.FromString(CONTAINER_LOCAL, text)
 
 	def Dy(self, year: int = None) -> int:
 		""" Год записи финструктуры """
-		if year is None : return self.f_dy.ToInteger(CONTAINER_LOCAL).value
+		if year is None : return self.f_dy.ToInteger(CONTAINER_LOCAL).data
 		else            :        self.f_dy.FromInteger(CONTAINER_LOCAL, year)
 
 	def Dm(self, month: int = None) -> int:
 		""" Месяц записи финструктуры """
-		if month is None: return self.f_dm.ToInteger(CONTAINER_LOCAL).value
+		if month is None: return self.f_dm.ToInteger(CONTAINER_LOCAL).data
 		else            :        self.f_dm.FromInteger(CONTAINER_LOCAL, month)
 
 	def Priority(self, flag: bool = None) -> bool:

@@ -89,8 +89,8 @@ class C90_FormFindata(C80_FormFindata):
 		""" Запрос обработки двойного клика по дереву """
 		self.ReadIndexColProcessing()
 		self.ReadDdProcessing()
-		self.ReadOidProcessingFindata()
-		self.ReadOidProcessingFinactions()
+		self.ReadIdoProcessingFindata()
+		self.ReadIdoProcessingFinactions()
 
 		self.ProcessingDbClickOnTreeData()
 
@@ -99,11 +99,11 @@ class C90_FormFindata(C80_FormFindata):
 		""" Запрос отображения меню данных """
 		self.ReadDdProcessing()
 
-		self.ReadOidProcessingFindata()
-		self.ReadOidProcessingFinactions()
+		self.ReadIdoProcessingFindata()
+		self.ReadIdoProcessingFinactions()
 
-		self.ReadOidsProcessingFindata()
-		self.ReadOidsProcessingFinactions()
+		self.ReadIdosProcessingFindata()
+		self.ReadIdosProcessingFinactions()
 
 		self.AdjustMenuDataText()
 		self.AdjustMenuDataEnable()

@@ -13,7 +13,7 @@ class C80_FormFinstatistic(C70_FormFinstatistic):
 		""" Отображение финстатистики за финпериод """
 		self.model_finstatistic.removeAll()
 
-		oids : list[str] = self.findescription.SubOids()
+		oids : list[str] = self.findescription.SubIdos()
 
 		dialog_progress = QProgressDialog("Загрузка финстатистики", "Отмена", 0, len(oids))
 		dialog_progress.setMinimumWidth(480)
@@ -21,7 +21,7 @@ class C80_FormFinstatistic(C70_FormFinstatistic):
 		dialog_progress.setWindowTitle("Финстатистика")
 
 		for self._oid_processing in oids:
-			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setValue(dialog_progress.data() + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
@@ -29,7 +29,7 @@ class C80_FormFinstatistic(C70_FormFinstatistic):
 
 	def ExpandRecordFinstatistic(self):
 		""" Фрагментация записи финстатистики """
-		oids : list[str] = self.findescription.Oids()
+		oids : list[str] = self.findescription.Idos()
 
 		dialog_progress = QProgressDialog("Загрузка финстатистики", "Отмена", 0, len(oids))
 		dialog_progress.setMinimumWidth(480)
@@ -37,7 +37,7 @@ class C80_FormFinstatistic(C70_FormFinstatistic):
 		dialog_progress.setWindowTitle("Финстатистика")
 
 		for self._oid_processing in oids:
-			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setValue(dialog_progress.data() + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 

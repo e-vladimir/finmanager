@@ -7,9 +7,9 @@ from G30_cactus_frame import C30_StructFrame, C30_StructField
 class C40_RecordFindata(C30_StructFrame):
 	""" Запись финданных: Модель данных """
 
-	_oci = "Финданные"
+	_idc = "Финданные"
 
-	def InitFields(self):
+	def Init_10(self):
 		""" Инициализация параметров """
 
 		self.f_dd            = C30_StructField(self, "Число")
@@ -29,33 +29,33 @@ class C40_Findata(C20_MetaFrame):
 	""" Финструктура: Модель данных """
 
 	def Init_00(self):
-		self._oci               : str = ""
+		self._idc               : str = ""
 
-		self._pid_dd            : str = ""
-		self._pid_dm            : str = ""
-		self._pid_dy            : str = ""
+		self._idp_dd            : str = ""
+		self._idp_dm            : str = ""
+		self._idp_dy            : str = ""
 
-		self._pid_amount        : str = ""
+		self._idp_amount        : str = ""
 
-		self._pid_uid           : str = ""
+		self._idp_uid           : str = ""
 
-		self._pid_finstruct_oid : str = ""
+		self._idp_finstruct_oid : str = ""
 
-		self._pid_note          : str = ""
+		self._idp_note          : str = ""
 
 	def Init_01(self):
 		record_finstruct = C40_RecordFindata()
 
-		self._oci               = record_finstruct.Oci().text
+		self._idc               = record_finstruct.Idc().data
 
-		self._pid_dd            = record_finstruct.f_dd.Pid().text
-		self._pid_dm            = record_finstruct.f_dm.Pid().text
-		self._pid_dy            = record_finstruct.f_dy.Pid().text
+		self._idp_dd            = record_finstruct.f_dd.Idp().data
+		self._idp_dm            = record_finstruct.f_dm.Idp().data
+		self._idp_dy            = record_finstruct.f_dy.Idp().data
 
-		self._pid_amount        = record_finstruct.f_amount.Pid().text
+		self._idp_amount        = record_finstruct.f_amount.Idp().data
 
-		self._pid_uid           = record_finstruct.f_uid.Pid().text
+		self._idp_uid           = record_finstruct.f_uid.Idp().data
 
-		self._pid_finstruct_oid = record_finstruct.f_finstruct_oid.Pid().text
+		self._idp_finstruct_oid = record_finstruct.f_finstruct_oid.Idp().data
 
-		self._pid_note          = record_finstruct.f_note.Pid().text
+		self._idp_note          = record_finstruct.f_note.Idp().data

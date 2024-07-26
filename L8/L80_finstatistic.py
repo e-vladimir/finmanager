@@ -13,48 +13,48 @@ class C80_Finstatistic(C70_Finstatistic):
 	# Расчёты
 	def CalcIncomeByFindescription(self, oid: str, dy: int, dm: int) -> int:
 		""" Расчёт дохода за финпериод """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
-		filter_findata.FilterPidCvlByInclude(self._pid_findescription, oid)
-		filter_findata.FilterPidCvlByMore(self._pid_amount, 0)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
+		filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		filter_findata.FilterIdpVlpByMore(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return sum(filter_findata.ToIntegers(self._pid_amount, False, False).items)
+		return sum(filter_findata.ToIntegers(self._idp_amount, False, False).data)
 
 	def CalcOutcomeByFindescription(self, oid: str, dy: int, dm: int) -> int:
 		""" Расчёт расхода за финпериод """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
-		filter_findata.FilterPidCvlByInclude(self._pid_findescription, oid)
-		filter_findata.FilterPidCvlByLess(self._pid_amount, 0)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
+		filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		filter_findata.FilterIdpVlpByLess(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return sum(filter_findata.ToIntegers(self._pid_amount, False, False).items)
+		return sum(filter_findata.ToIntegers(self._idp_amount, False, False).data)
 
 	def CalcIncomeByFindescriptions(self, oids: list[str], dy: int, dm: int) -> int:
 		""" Расчёт дохода за финпериод """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
-		for oid in oids: filter_findata.FilterPidCvlByInclude(self._pid_findescription, oid)
-		filter_findata.FilterPidCvlByMore(self._pid_amount, 0)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
+		for oid in oids: filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		filter_findata.FilterIdpVlpByMore(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return sum(filter_findata.ToIntegers(self._pid_amount, False, False).items)
+		return sum(filter_findata.ToIntegers(self._idp_amount, False, False).data)
 
 	def CalcOutcomeByFindescriptions(self, oids: list[str], dy: int, dm: int) -> int:
 		""" Расчёт расхода за финпериод """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
-		for oid in oids: filter_findata.FilterPidCvlByInclude(self._pid_findescription, oid)
-		filter_findata.FilterPidCvlByLess(self._pid_amount, 0)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
+		for oid in oids: filter_findata.FilterIdpVlpByInclude(self._idp_findescription, oid)
+		filter_findata.FilterIdpVlpByLess(self._idp_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return sum(filter_findata.ToIntegers(self._pid_amount, False, False).items)
+		return sum(filter_findata.ToIntegers(self._idp_amount, False, False).data)

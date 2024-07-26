@@ -2,8 +2,7 @@
 
 from PySide6.QtGui         import QIcon
 
-from G10_cactus_convertors import AnyToStrings
-
+from G10_convertor_format import AnyToStrings
 from L00_months            import MONTHS_SHORT
 
 from L60_form_main         import C60_FormMain

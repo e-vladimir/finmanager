@@ -7,11 +7,10 @@ from G30_cactus_frame   import C30_StructFrame, C30_StructField
 class C40_RecordFinactions(C30_StructFrame):
 	""" Запись финдействий: Модель данных """
 
-	_oci = "Финдействия"
+	_idc = "Финдействия"
 
-	def InitFields(self):
+	def Init_10(self):
 		""" Инициализация параметров """
-
 		self.f_dd                  = C30_StructField(self, "Число")
 		self.f_dm                  = C30_StructField(self, "Месяц")
 		self.f_dy                  = C30_StructField(self, "Год")
@@ -31,33 +30,33 @@ class C40_Finactions(C20_MetaFrame):
 	""" Финдействия: Модель данных """
 
 	def Init_00(self):
-		self._oci                     : str = ""
+		self._idc                     : str = ""
 
-		self._pid_dd                  : str = ""
-		self._pid_dm                  : str = ""
-		self._pid_dy                  : str = ""
+		self._idp_dd                  : str = ""
+		self._idp_dm                  : str = ""
+		self._idp_dy                  : str = ""
 
-		self._pid_amount              : str = ""
+		self._idp_amount              : str = ""
 
-		self._pid_findata_oid         : str = ""
-		self._pid_finstruct_oids      : str = ""
-		self._pid_findescription_oids : str = ""
+		self._idp_findata_oid         : str = ""
+		self._idp_finstruct_oids      : str = ""
+		self._idp_findescription_oids : str = ""
 
-		self._pid_note                : str = ""
+		self._idp_note                : str = ""
 
 	def Init_01(self):
 		record_finaction = C40_RecordFinactions()
 
-		self._oci                     = record_finaction.Oci().text
+		self._idc                     = record_finaction.Idc().data
 
-		self._pid_dd                  = record_finaction.f_dd.Pid().text
-		self._pid_dm                  = record_finaction.f_dm.Pid().text
-		self._pid_dy                  = record_finaction.f_dy.Pid().text
+		self._idp_dd                  = record_finaction.f_dd.Idp().data
+		self._idp_dm                  = record_finaction.f_dm.Idp().data
+		self._idp_dy                  = record_finaction.f_dy.Idp().data
 
-		self._pid_amount              = record_finaction.f_amount.Pid().text
+		self._idp_amount              = record_finaction.f_amount.Idp().data
 
-		self._pid_findata_oid         = record_finaction.f_findata_oid.Pid().text
-		self._pid_finstruct_oids      = record_finaction.f_finstruct_oids.Pid().text
-		self._pid_findescription_oids = record_finaction.f_findescription_oids.Pid().text
+		self._idp_findata_oid         = record_finaction.f_findata_oid.Idp().data
+		self._idp_finstruct_oids      = record_finaction.f_finstruct_oids.Idp().data
+		self._idp_findescription_oids = record_finaction.f_findescription_oids.Idp().data
 
-		self._pid_note                = record_finaction.f_note.Pid().text
+		self._idp_note                = record_finaction.f_note.Idp().data

@@ -11,20 +11,20 @@ class C40_Finstatistic(C20_MetaFrame):
 	def Init_00(self):
 		super().Init_00()
 
-		self._oci                : str = ""
+		self._idc                : str = ""
 
-		self._pid_findescription : str = ""
-		self._pid_dy             : str = ""
-		self._pid_dm             : str = ""
-		self._pid_amount         : str = ""
+		self._idp_findescription : str = ""
+		self._idp_dy             : str = ""
+		self._idp_dm             : str = ""
+		self._idp_amount         : str = ""
 
 	def Init_01(self):
 		super().Init_01()
 
 		record_finactions = C40_RecordFinactions()
 
-		self._oci                      = record_finactions.Oci().text
-		self._pid_findescription       = record_finactions.f_findescription_oids.Pid().text
-		self._pid_dy                   = record_finactions.f_dy.Pid().text
-		self._pid_dm                   = record_finactions.f_dm.Pid().text
-		self._pid_amount               = record_finactions.f_amount.Pid().text
+		self._idc                      = record_finactions.Idc().data
+		self._idp_findescription       = record_finactions.f_findescription_oids.Idp().data
+		self._idp_dy                   = record_finactions.f_dy.Idp().data
+		self._idp_dm                   = record_finactions.f_dm.Idp().data
+		self._idp_amount               = record_finactions.f_amount.Idp().data

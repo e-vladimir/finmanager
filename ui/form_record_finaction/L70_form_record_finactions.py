@@ -100,7 +100,7 @@ class C70_FormRecordFinactions(C60_FormRecordFinactions):
 
 	def ShowCurrentValueFinstruct(self):
 		""" Отображение текущей финструктуры """
-		finstruct_names : list[str] = self.finstruct.OidsToNames(self.record_finactions.FinstructOids())
+		finstruct_names : list[str] = self.finstruct.IdosToNames(self.record_finactions.FinstructIdos())
 
 		for finstruct_name in finstruct_names:
 			item_value : QStandardItem | None = self.model_values.itemByData(finstruct_name)
@@ -110,7 +110,7 @@ class C70_FormRecordFinactions(C60_FormRecordFinactions):
 
 	def ShowCurrentValueFindescription(self):
 		""" Отображение текущего финсостава """
-		findescription_names: list[str] = self.findescription.OidsToNames(self.record_finactions.FindescriptionOids())
+		findescription_names: list[str] = self.findescription.IdosToNames(self.record_finactions.FindescriptionIdos())
 
 		for findescription_name in findescription_names:
 			item_value: QStandardItem | None = self.model_values.itemByData(findescription_name)

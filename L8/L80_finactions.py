@@ -70,14 +70,14 @@ class C80_RecordFinactions(C70_RecordFinactions):
 		record_finstruct = C90_RecordFinstruct()
 		if not record_finstruct.SwitchByName(dy, dm, text): return
 
-		finstruct_oid  : str       = record_finstruct.Oid().text
-		finstruct_oids : list[str] = self.FinstructOids()
+		finstruct_oid  : str       = record_finstruct.Ido().data
+		finstruct_oids : list[str] = self.FinstructIdos()
 
 		if finstruct_oid not in finstruct_oids: return
 
 		finstruct_oids.remove(finstruct_oid)
 
-		self.FinstructOids(finstruct_oids)
+		self.FinstructIdos(finstruct_oids)
 
 	def IncludeFinstructByName(self, text: str):
 		""" Включение финструктуры в запись """
@@ -87,14 +87,14 @@ class C80_RecordFinactions(C70_RecordFinactions):
 		record_finstruct = C90_RecordFinstruct()
 		if not record_finstruct.SwitchByName(dy, dm, text): return
 
-		finstruct_oid  : str       = record_finstruct.Oid().text
-		finstruct_oids : list[str] = self.FinstructOids()
+		finstruct_oid  : str       = record_finstruct.Ido().data
+		finstruct_oids : list[str] = self.FinstructIdos()
 
 		if finstruct_oid in finstruct_oids: return
 
 		finstruct_oids.append(finstruct_oid)
 
-		self.FinstructOids(finstruct_oids)
+		self.FinstructIdos(finstruct_oids)
 
 	# Управление финсоставом
 	def ExcludeFindescriptionByName(self, text: str):
@@ -102,36 +102,36 @@ class C80_RecordFinactions(C70_RecordFinactions):
 		record_findescription = C90_RecordFindescription()
 		if not record_findescription.SwitchByName(text): return
 
-		findescription_oid  : str       = record_findescription.Oid().text
-		findescription_oids : list[str] = self.FindescriptionOids()
+		findescription_oid  : str       = record_findescription.Ido().data
+		findescription_oids : list[str] = self.FindescriptionIdos()
 
 		if findescription_oid not in findescription_oids: return
 
 		findescription_oids.remove(findescription_oid)
 
-		self.FindescriptionOids(findescription_oids)
+		self.FindescriptionIdos(findescription_oids)
 
 	def IncludeFindescriptionByName(self, text: str):
 		""" Включение финструктуры в запись """
 		record_findescription = C90_RecordFindescription()
 		if not record_findescription.SwitchByName(text): return
 
-		findescription_oid  : str       = record_findescription.Oid().text
-		findescription_oids : list[str] = self.FindescriptionOids()
+		findescription_oid  : str       = record_findescription.Ido().data
+		findescription_oids : list[str] = self.FindescriptionIdos()
 
 		if findescription_oid in findescription_oids: return
 
 		findescription_oids.append(findescription_oid)
 
-		self.FindescriptionOids(findescription_oids)
+		self.FindescriptionIdos(findescription_oids)
 
 	# Правила обработки данных
 	def ApplyRulesDetectFindescription(self):
 		""" Применить правила определения финсостава """
-		result : list[str] = self.FindescriptionOids()
+		result : list[str] = self.FindescriptionIdos()
 
 		rules        = C90_ProcessingRules()
-		for oid in rules.OidsByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
+		for oid in rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT):
 			record_rule              = C90_RecordProcessingRules(oid)
 			oid_findescription : str = record_rule.ExecDetectFindescription(self.Note())
 			if not oid_findescription: continue
@@ -140,35 +140,35 @@ class C80_RecordFinactions(C70_RecordFinactions):
 
 		result = list(set(result))
 
-		self.FindescriptionOids(result)
+		self.FindescriptionIdos(result)
 
 
 class C80_Finactions(C70_Finactions):
 	""" Финданные: Логика данных """
 
 	# Выборка данных
-	def OidsInDyDmDd(self, dy: int, dm: int, dd: int = None) -> list[str]:
+	def IdosInDyDmDd(self, dy: int, dm: int, dd: int = None) -> list[str]:
 		""" Выборка OID записей финданных """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
 
 		if dd is not None:
-			filter_findata.FilterPidCvlByEqual(self._pid_dd, dd)
+			filter_findata.FilterIdpVlpByEqual(self._idp_dd, dd)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return filter_findata.Oids(self._pid_amount).items
+		return filter_findata.Idos(self._idp_amount).data
 
 	def Dds(self, dy: int, dm: int) -> list[int]:
 		""" Выборка OID записей финданных """
-		filter_findata = C30_FilterLinear1D(self._oci)
-		filter_findata.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_findata.FilterPidCvlByEqual(self._pid_dm, dm)
+		filter_findata = C30_FilterLinear1D(self._idc)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_findata.FilterIdpVlpByEqual(self._idp_dm, dm)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return filter_findata.ToIntegers(self._pid_dd, True, True).items
+		return filter_findata.ToIntegers(self._idp_dd, True, True).data
 
 	# Преобразование записей
 	def CreateFinactionsFromFindata(self, oid: str, amount: int = None) -> str:
@@ -184,10 +184,10 @@ class C80_Finactions(C70_Finactions):
 		if not dm: return ""
 		if not dd: return ""
 
-		record_finactions.GenerateOid()
+		record_finactions.GenerateIdo()
 		record_finactions.RegisterObject(CONTAINER_LOCAL)
 
-		record_finactions.FindataOid(oid)
+		record_finactions.FindataIdo(oid)
 
 		record_finactions.Dy(dy)
 		record_finactions.Dm(dm)
@@ -200,4 +200,4 @@ class C80_Finactions(C70_Finactions):
 		if amount is not None:
 			record_finactions.Amount(amount)
 
-		return record_finactions.Oid().text
+		return record_finactions.Ido().data

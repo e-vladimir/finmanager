@@ -36,7 +36,7 @@ class C80_FormImport(C70_FormImport):
 		finstruct_record     = C90_RecordFinstruct()
 		finstruct_record.SwitchByName(dy, dm, self._findata_finstruct_name)
 
-		finstruct_oid : str  = finstruct_record.Oid().text
+		finstruct_oid : str  = finstruct_record.Ido().data
 		if not finstruct_oid                   : return
 
 		with open(self._findata_path_file, "r", encoding=file_encoding) as raw_file:

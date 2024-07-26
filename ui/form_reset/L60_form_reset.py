@@ -43,53 +43,53 @@ class C60_FormReset(C50_FormReset):
 		self._flag_rules_replace_text                  = item_rule_replace_text.checkState()                  == Qt.Checked
 		self._flag_rules_detect_findescription_by_text = item_rule_detect_findescription_by_text.checkState() == Qt.Checked
 
-	def ReadOidsFinstruct(self):
+	def ReadIdosFinstruct(self):
 		""" Сбор OID финструктуры """
 		self._oids_finstruct.clear()
 
 		if not self._flag_finstruct: return
 
 		if self._flag_all_periods:
-			self._oids_finstruct = C90_RecordFinstruct.Oids(CONTAINER_LOCAL).items
+			self._oids_finstruct = C90_RecordFinstruct.Idos(CONTAINER_LOCAL).items
 
 		else:
 			dy : int = self.workspace.Dy()
 			dm : int = self.workspace.Dm()
 
-			self._oids_finstruct = self.finstruct.OidsInDyDm(dy, dm)
+			self._oids_finstruct = self.finstruct.IdosInDyDm(dy, dm)
 
-	def ReadOidsFinactions(self):
+	def ReadIdosFinactions(self):
 		""" Сбор OID финдействий """
 		self._oids_finactions.clear()
 
 		if not (self._flag_finaction or self._flag_findata): return
 
 		if self._flag_all_periods:
-			self._oids_finactions = C90_RecordFinactions.Oids(CONTAINER_LOCAL).items
+			self._oids_finactions = C90_RecordFinactions.Idos(CONTAINER_LOCAL).items
 
 		else:
 			dy : int = self.workspace.Dy()
 			dm : int = self.workspace.Dm()
 
-			self._oids_finactions = self.finactions.OidsInDyDmDd(dy, dm)
+			self._oids_finactions = self.finactions.IdosInDyDmDd(dy, dm)
 
-	def ReadOidsFindescription(self):
+	def ReadIdosFindescription(self):
 		""" Сбор OID финсостава """
 		self._oids_findescription.clear()
 
 		if not self._flag_findescription: return
 
-		self._oids_findescription = C90_RecordFindescription.Oids(CONTAINER_LOCAL).items
+		self._oids_findescription = C90_RecordFindescription.Idos(CONTAINER_LOCAL).items
 
-	def ReadOidsFindescriptionInFinactions(self):
+	def ReadIdosFindescriptionInFinactions(self):
 		""" Сбор OID финсостава """
 		self._oids_findescription_in_finactions.clear()
 
 		if not self._flag_findescription_in_finactions: return
 
-		self._oids_findescription_in_finactions = C90_RecordFinactions.Oids(CONTAINER_LOCAL).items
+		self._oids_findescription_in_finactions = C90_RecordFinactions.Idos(CONTAINER_LOCAL).items
 
-	def ReadOidsFinstate(self):
+	def ReadIdosFinstate(self):
 		""" Сбор OID финсостояния """
 		self._oids_finstate.clear()
 
@@ -99,42 +99,42 @@ class C60_FormReset(C50_FormReset):
 			oids_finstruct : list[str] = self._oids_finstruct
 
 		elif self._flag_all_periods:
-			oids_finstruct : list[str] = C90_RecordFinstruct.Oids(CONTAINER_LOCAL).items
+			oids_finstruct : list[str] = C90_RecordFinstruct.Idos(CONTAINER_LOCAL).items
 
 		else                       :
 			dy             : int       = self.workspace.Dy()
 			dm             : int       = self.workspace.Dm()
 
-			oids_finstruct : list[str] = self.finstruct.OidsInDyDm(dy, dm)
+			oids_finstruct : list[str] = self.finstruct.IdosInDyDm(dy, dm)
 
 		record_finstate = C90_RecordFinstate()
 
 		for oid_finstruct in oids_finstruct:
-			if not record_finstate.SwitchByFinstructOid(oid_finstruct): continue
+			if not record_finstate.SwitchByFinstructIdo(oid_finstruct): continue
 
-			self._oids_finstate.append(record_finstate.Oid().text)
+			self._oids_finstate.append(record_finstate.Ido().data)
 
-	def ReadOidsFindata(self):
+	def ReadIdosFindata(self):
 		""" Сбор OID финданных """
 		self._oids_findata.clear()
 
 		if not self._flag_findata: return
 
 		if self._flag_all_periods:
-			self._oids_findata = C90_RecordFindata.Oids(CONTAINER_LOCAL).items
+			self._oids_findata = C90_RecordFindata.Idos(CONTAINER_LOCAL).items
 
 		else:
 			dy : int = self.workspace.Dy()
 			dm : int = self.workspace.Dm()
 
-			self._oids_findata = self.findata.OidsInDyDmDd(dy, dm)
+			self._oids_findata = self.findata.IdosInDyDmDd(dy, dm)
 
-	def ReadOidsRules(self):
+	def ReadIdosRules(self):
 		""" Сбор OID правил обработки данных """
 		self._oids_rules.clear()
 
-		if self._flag_rules_replace_text                 : self._oids_rules.extend(self.rules.OidsByType(RULE_REPLACE_TEXT))
-		if self._flag_rules_detect_findescription_by_text: self._oids_rules.extend(self.rules.OidsByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT))
+		if self._flag_rules_replace_text                 : self._oids_rules.extend(self.rules.IdosByType(RULE_REPLACE_TEXT))
+		if self._flag_rules_detect_findescription_by_text: self._oids_rules.extend(self.rules.IdosByType(RULE_DETECT_FINDESCRIPTION_BY_TEXT))
 
 	# Модель объектов
 	def SetupModelObjects(self):

@@ -11,7 +11,7 @@ class C80_FormFindescription(C70_FormFindescription):
 	# Финсостав
 	def LoadFindescription(self):
 		""" Отображение финсостава """
-		for self._oid_processing in self.findescription.SubOids(""): self.LoadRecordFindescription()
+		for self._oid_processing in self.findescription.SubIdos(""): self.LoadRecordFindescription()
 
 		self.on_FindescriptionLoaded()
 
@@ -19,7 +19,7 @@ class C80_FormFindescription(C70_FormFindescription):
 	def CreateRecord(self):
 		""" Создание записи финсостава """
 		record_findescription     = C90_RecordFindescription(self._oid_processing)
-		parent_record             = C90_RecordFindescription(record_findescription.ParentOid())
+		parent_record             = C90_RecordFindescription(record_findescription.ParentIdo())
 		parent_value : str        = parent_record.Name()
 
 		group_text   : str        = f"{parent_value}" if parent_value else "Без группы"
@@ -66,7 +66,7 @@ class C80_FormFindescription(C70_FormFindescription):
 		record_findescription        = C90_RecordFindescription(self._oid_processing)
 
 		confirm_delete : bool | None = RequestConfirm("Удаление записи финсостава", f"Удалить {record_findescription.Name()} как структуру?", True)
-		parent_oid     : str         = record_findescription.ParentOid()
+		parent_oid     : str         = record_findescription.ParentIdo()
 
 		if     confirm_delete is None: return
 
@@ -81,11 +81,11 @@ class C80_FormFindescription(C70_FormFindescription):
 		if not self._oid_processing  : return
 
 		record_findescription = C90_RecordFindescription(self._oid_processing)
-		parent_oid : str      = record_findescription.ParentOid()
+		parent_oid : str      = record_findescription.ParentIdo()
 		if not parent_oid            : return
 
 		record_parent         = C90_RecordFindescription(parent_oid)
-		record_findescription.ParentOid(record_parent.ParentOid())
+		record_findescription.ParentIdo(record_parent.ParentIdo())
 
 		self.on_RecordMoved()
 
@@ -94,7 +94,7 @@ class C80_FormFindescription(C70_FormFindescription):
 		record_memory     = C90_RecordFindescription(self._oid_memory)
 		record_processing = C90_RecordFindescription(self._oid_processing)
 
-		record_memory.ParentOid(record_processing.ParentOid())
+		record_memory.ParentIdo(record_processing.ParentIdo())
 
 		self.on_RecordMoved()
 
@@ -102,6 +102,6 @@ class C80_FormFindescription(C70_FormFindescription):
 		""" Перемещение записи в дочерний уровень """
 		record_memory     = C90_RecordFindescription(self._oid_memory)
 
-		record_memory.ParentOid(self._oid_processing)
+		record_memory.ParentIdo(self._oid_processing)
 
 		self.on_RecordMoved()

@@ -7,9 +7,9 @@ from G30_cactus_frame import C30_StructFrame, C30_StructField
 class C40_RecordFindescription(C30_StructFrame):
 	""" Запись финсостава: Модель данных """
 
-	_oci = "Финсостав"
+	_idc = "Финсостав"
 
-	def InitFields(self):
+	def Init_10(self):
 		""" Инициализация параметров """
 		self.f_categories = C30_StructField(self, "Категории")
 		self.f_name       = C30_StructField(self, "Наименование")
@@ -20,17 +20,17 @@ class C40_Findescription(C20_MetaFrame):
 	""" Финсостав: Модель данных """
 
 	def Init_00(self):
-		self._oci            : str = ""
+		self._idc            : str = ""
 
-		self._pid_categories : str = ""
-		self._pid_parent_oid : str = ""
-		self._pid_name       : str = ""
+		self._idp_categories : str = ""
+		self._idp_parent_oid : str = ""
+		self._idp_name       : str = ""
 
 	def Init_01(self):
 		record_findescription = C40_RecordFindescription()
 
-		self._oci             = record_findescription.Oci().text
+		self._idc             = record_findescription.Idc().data
 
-		self._pid_categories  = record_findescription.f_categories.Pid().text
-		self._pid_parent_oid  = record_findescription.f_parent_oid.Pid().text
-		self._pid_name        = record_findescription.f_name.Pid().text
+		self._idp_categories  = record_findescription.f_categories.Idp().data
+		self._idp_parent_oid  = record_findescription.f_parent_oid.Idp().data
+		self._idp_name        = record_findescription.f_name.Idp().data

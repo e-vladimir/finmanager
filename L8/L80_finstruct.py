@@ -14,35 +14,35 @@ class C80_RecordFinstruct(C70_RecordFinstruct):
 	# Переключение
 	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:
 		""" Смена OID по значению """
-		filter_finstruct = C30_FilterLinear1D(self.Oci().text)
-		filter_finstruct.FilterPidCvlByEqual(self.f_name.Pid().text, name)
-		filter_finstruct.FilterPidCvlByEqual(self.f_dy.Pid().text, dy)
-		filter_finstruct.FilterPidCvlByEqual(self.f_dm.Pid().text, dm)
+		filter_finstruct = C30_FilterLinear1D(self.Idc().data)
+		filter_finstruct.FilterIdpVlpByEqual(self.f_name.Idp().data, name)
+		filter_finstruct.FilterIdpVlpByEqual(self.f_dy.Idp().data, dy)
+		filter_finstruct.FilterIdpVlpByEqual(self.f_dm.Idp().data, dm)
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		oids : list[str] = filter_finstruct.Oids().items
+		oids : list[str] = filter_finstruct.Idos().data
 		if not oids: return False
 
-		self.Oid(oids[0])
+		self.Ido(oids[0])
 		return True
 
 	# Выборки данных
-	def SubOids(self, flag_all_suboids: bool = False) -> list[str]:
+	def SubIdos(self, flag_all_suboids: bool = False) -> list[str]:
 		""" Список OID """
-		filter_finstruct   = C30_FilterLinear1D(self.Oci().text)
-		filter_finstruct.FilterPidCvlByEqual(self.f_parent_oid.Pid().text, self.Oid().text)
-		filter_finstruct.FilterPidCvlByEqual(self.f_dy.Pid().text, self.Dy())
-		filter_finstruct.FilterPidCvlByEqual(self.f_dm.Pid().text, self.Dm())
+		filter_finstruct   = C30_FilterLinear1D(self.Idc().data)
+		filter_finstruct.FilterIdpVlpByEqual(self.f_parent_oid.Idp().data, self.Ido().data)
+		filter_finstruct.FilterIdpVlpByEqual(self.f_dy.Idp().data, self.Dy())
+		filter_finstruct.FilterIdpVlpByEqual(self.f_dm.Idp().data, self.Dm())
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		result : list[str] = filter_finstruct.Oids(self.f_name.Pid().text).items
+		result : list[str] = filter_finstruct.Idos(self.f_name.Idp().data).data
 
 		if not flag_all_suboids: return result
 
 		for suboid in result:
 			subrecord = C80_RecordFinstruct(suboid)
 
-			result.extend(subrecord.SubOids(flag_all_suboids))
+			result.extend(subrecord.SubIdos(flag_all_suboids))
 
 		return result
 
@@ -50,72 +50,72 @@ class C80_RecordFinstruct(C70_RecordFinstruct):
 	def TransferToAnotherDm(self, shift_dm: int):
 		""" Перенос в другой финпериод """
 		dy_next, dm_next = CalcDyDmByShiftDm(self.Dy(), self.Dm(), shift_dm)
-		parent_current   = C80_RecordFinstruct(self.ParentOid())
+		parent_current   = C80_RecordFinstruct(self.ParentIdo())
 
 		parent_next      = C80_RecordFinstruct()
 		parent_next.SwitchByName(dy_next, dm_next, parent_current.Name())
 
 		record_next      = C80_RecordFinstruct()
 		if not record_next.SwitchByName(dy_next, dm_next, self.Name()):
-			record_next.GenerateOid()
+			record_next.GenerateIdo()
 			record_next.RegisterObject(CONTAINER_LOCAL)
 			record_next.Name(self.Name())
 			record_next.Dy(dy_next)
 			record_next.Dm(dm_next)
 
-		record_next.ParentOid(parent_next.Oid().text)
+		record_next.ParentIdo(parent_next.Ido().data)
 
-		for sub_oid in self.SubOids(): C80_RecordFinstruct(sub_oid).TransferToAnotherDm(shift_dm)
+		for sub_oid in self.SubIdos(): C80_RecordFinstruct(sub_oid).TransferToAnotherDm(shift_dm)
 
 
 class C80_Finstruct(C70_Finstruct):
 	""" Финструктура: Логика данных """
 
 	# Выборки данных
-	def OidsInDyDm(self, dy: int, dm: int) -> list[str]:
+	def IdosInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Список OID всех записей финструктуры """
-		filter_finstruct = C30_FilterLinear1D(self._oci)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dm, dm)
+		filter_finstruct = C30_FilterLinear1D(self._idc)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dm, dm)
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		return filter_finstruct.Oids(self._pid_name).items
+		return filter_finstruct.Idos(self._idp_name).data
 
 	def NamesInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Список наименований всех записей финструктуры """
-		filter_finstruct = C30_FilterLinear1D(self._oci)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dm, dm)
+		filter_finstruct = C30_FilterLinear1D(self._idc)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dm, dm)
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		return filter_finstruct.ToStrings(self._pid_name, False, True).items
+		return filter_finstruct.ToStrings(self._idp_name, False, True).data
 
 	def SubNamesInDyDm(self, dy: int, dm: int, parent_name: str = "") -> list[str]:
 		""" Получить список наименований подчинённых записей финструктуры """
 		record_finstruct = C80_RecordFinstruct()
 		record_finstruct.SwitchByName(dy, dm, parent_name)
 
-		filter_finstruct = C30_FilterLinear1D(self._oci)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dm, dm)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_parent_oid, record_finstruct.Oid().text)
+		filter_finstruct = C30_FilterLinear1D(self._idc)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dm, dm)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_parent_oid, record_finstruct.Ido().data)
 
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		return filter_finstruct.ToStrings(self._pid_name, False, True).items
+		return filter_finstruct.ToStrings(self._idp_name, False, True).data
 
-	def SubOids(self, dy: int, dm: int, oid: str = "") -> list[str]:
+	def SubIdos(self, dy: int, dm: int, oid: str = "") -> list[str]:
 		""" Получить список OID подчинённых записей финструктуры """
-		filter_finstruct = C30_FilterLinear1D(self._oci)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dm, dm)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_parent_oid, oid)
+		filter_finstruct = C30_FilterLinear1D(self._idc)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dm, dm)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_parent_oid, oid)
 
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		return filter_finstruct.Oids(self._pid_name).items
+		return filter_finstruct.Idos(self._idp_name).data
 
-	def OidsToNames(self, oids: list[str]) -> list[str]:
+	def IdosToNames(self, oids: list[str]) -> list[str]:
 		""" Имена финструктуры по списку OID """
 		result : list[str] = []
 
@@ -145,11 +145,11 @@ class C80_Finstruct(C70_Finstruct):
 		record_parent.SwitchByName(dy, dm, parent_name)
 
 		record_finstruct = C80_RecordFinstruct()
-		record_finstruct.GenerateOid()
+		record_finstruct.GenerateIdo()
 		record_finstruct.RegisterObject(CONTAINER_LOCAL)
 
 		record_finstruct.Name(name)
-		record_finstruct.ParentOid(record_parent.Oid().text)
+		record_finstruct.ParentIdo(record_parent.Ido().data)
 		record_finstruct.Dy(dy)
 		record_finstruct.Dm(dm)
 
@@ -173,12 +173,12 @@ class C80_Finstruct(C70_Finstruct):
 
 		if not record_finstruct.SwitchByName(dy, dm, name): return False
 
-		parent_oid : str = record_finstruct.ParentOid()
+		parent_oid : str = record_finstruct.ParentIdo()
 
 		if delete_subrecords:
-			for suboid in record_finstruct.SubOids(True) : C80_RecordFinstruct(suboid).DeleteObject(CONTAINER_LOCAL)
+			for suboid in record_finstruct.SubIdos(True) : C80_RecordFinstruct(suboid).DeleteObject(CONTAINER_LOCAL)
 		else:
-			for suboid in record_finstruct.SubOids(False):	C80_RecordFinstruct(suboid).ParentOid(parent_oid)
+			for suboid in record_finstruct.SubIdos(False):	C80_RecordFinstruct(suboid).ParentIdo(parent_oid)
 
 		record_finstruct.DeleteObject(CONTAINER_LOCAL)
 
@@ -188,19 +188,19 @@ class C80_Finstruct(C70_Finstruct):
 	def SetPriorityRecord(self, oid: str):
 		""" Установка приоритетной записи """
 		if not oid                                                       : return
-		if     oid not in C80_RecordFinstruct.Oids(CONTAINER_LOCAL).items: return
+		if     oid not in C80_RecordFinstruct.Idos(CONTAINER_LOCAL).data: return
 
 		record_finstruct = C80_RecordFinstruct(oid)
 		dy   : int       = record_finstruct.Dy()
 		dm   : int       = record_finstruct.Dm()
 
-		filter_finstruct = C30_FilterLinear1D(self._oci)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dm, dm)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_priority, True)
+		filter_finstruct = C30_FilterLinear1D(self._idc)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dm, dm)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_priority, True)
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		priority_oids : list[str] = filter_finstruct.Oids().items
+		priority_oids : list[str] = filter_finstruct.Idos().data
 		for priority_oid in priority_oids:
 			record_finstruct = C80_RecordFinstruct(priority_oid)
 			record_finstruct.Priority(False)
@@ -210,13 +210,13 @@ class C80_Finstruct(C70_Finstruct):
 
 	def GetPriorityRecord(self, dy: int, dm: int) -> str:
 		""" Получение OID приоритетной записи """
-		filter_finstruct = C30_FilterLinear1D(self._oci)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dy, dy)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_dm, dm)
-		filter_finstruct.FilterPidCvlByEqual(self._pid_priority, True)
+		filter_finstruct = C30_FilterLinear1D(self._idc)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dy, dy)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_dm, dm)
+		filter_finstruct.FilterIdpVlpByEqual(self._idp_priority, True)
 		filter_finstruct.Capture(CONTAINER_LOCAL)
 
-		priority_oids : list[str] = filter_finstruct.Oids().items
+		priority_oids : list[str] = filter_finstruct.Idos().data
 		if not priority_oids: return ""
 
 		return priority_oids[0]

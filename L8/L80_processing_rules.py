@@ -34,12 +34,12 @@ class C80_ProcessingRules(C70_ProcessingRules):
 	""" Правила обработки: Логика данных """
 
 	# Выборки данных
-	def OidsByType(self, processing_type: str = "") -> list[str]:
+	def IdosByType(self, processing_type: str = "") -> list[str]:
 		""" Список OID записей правил с учётом типа обработки """
-		filter_findata = C30_FilterLinear1D(self._oci)
+		filter_findata = C30_FilterLinear1D(self._idc)
 
-		if processing_type: filter_findata.FilterPidCvlByEqual(self._pid_type, processing_type)
+		if processing_type: filter_findata.FilterIdpVlpByEqual(self._idp_type, processing_type)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return filter_findata.Oids(self._pid_options_output).items
+		return filter_findata.Idos(self._idp_options_output).data

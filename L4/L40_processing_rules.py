@@ -7,9 +7,9 @@ from G30_cactus_frame import C30_StructFrame, C30_StructField
 class C40_RecordProcessingRules(C30_StructFrame):
 	""" Правило обработки: Модель данных """
 
-	_oci = "Правила обработки данных"
+	_idc = "Правила обработки данных"
 
-	def InitFields(self):
+	def Init_10(self):
 		""" Инициализация параметров """
 		self.f_type           = C30_StructField(self, "Тип")
 
@@ -21,17 +21,17 @@ class C40_ProcessingRules(C20_MetaFrame):
 	""" Правила обработки: Модель данных """
 
 	def Init_00(self):
-		self._oci                : str = ""
+		self._idc                : str = ""
 
-		self._pid_type           : str = ""
-		self._pid_options_input  : str = ""
-		self._pid_options_output : str = ""
+		self._idp_type           : str = ""
+		self._idp_options_input  : str = ""
+		self._idp_options_output : str = ""
 
 	def Init_01(self):
 		record_rule = C40_RecordProcessingRules()
 
-		self._oci                      = record_rule.Oci().text
+		self._idc                      = record_rule.Idc().data
 
-		self._pid_type                 = record_rule.f_type.Pid().text
-		self._pid_options_input        = record_rule.f_options_input.Pid().text
-		self._pid_options_output       = record_rule.f_options_output.Pid().text
+		self._idp_type                 = record_rule.f_type.Idp().data
+		self._idp_options_input        = record_rule.f_options_input.Idp().data
+		self._idp_options_output       = record_rule.f_options_output.Idp().data

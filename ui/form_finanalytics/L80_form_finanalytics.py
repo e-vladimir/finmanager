@@ -25,7 +25,7 @@ class C80_FormFinanalytics(C70_FormFinanalytics):
 			record_findescription       = C90_RecordFindescription(findescription_oid)
 
 			dialog_progress.setLabelText(record_findescription.Name())
-			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setValue(dialog_progress.data() + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
@@ -49,7 +49,7 @@ class C80_FormFinanalytics(C70_FormFinanalytics):
 		findescription_names : list[str] | None = RequestItems("Динамика финсостава", "Расширение анализа финсостава", self.findescription.Names())
 		if findescription_names is None: return
 
-		findescription_oids  : list[str]        = self.findescription.NamesToOids(findescription_names)
+		findescription_oids  : list[str]        = self.findescription.NamesToIdos(findescription_names)
 
 		self._oids_findescription_dynamic = list(set(self._oids_findescription_dynamic).union(findescription_oids))
 

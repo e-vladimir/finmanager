@@ -29,8 +29,8 @@ class C70_FormFindescription(C60_FormFindescription):
 		self.mnu_findescription_move_memory.setText(f"Запомнить {record_findescription.Name()}")
 
 		parent_name = ""
-		if record_findescription.ParentOid():
-			record_findescription.Oid(record_findescription.ParentOid())
+		if record_findescription.ParentIdo():
+			record_findescription.Ido(record_findescription.ParentIdo())
 			parent_name = record_findescription.Name()
 		self.mnu_findescription_parent_header.setText(parent_name if parent_name else "Корневой уровень")
 
@@ -43,10 +43,10 @@ class C70_FormFindescription(C60_FormFindescription):
 		record_findescription     = C90_RecordFindescription(self._oid_processing)
 
 		flag_selected      : bool = bool(self._oid_processing)
-		flag_exist_root    : bool = bool(record_findescription.ParentOid())
+		flag_exist_root    : bool = bool(record_findescription.ParentIdo())
 		flag_memory        : bool = bool(self._oid_memory)
 		flag_memory_self   : bool = self._oid_memory == self._oid_processing
-		flag_memory_parent : bool = self._oid_memory == record_findescription.ParentOid()
+		flag_memory_parent : bool = self._oid_memory == record_findescription.ParentIdo()
 
 		self.mnu_findescription_parent_paste.setEnabled((flag_exist_root and flag_memory) and not flag_memory_parent)
 

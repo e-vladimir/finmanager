@@ -14,13 +14,13 @@ class C80_FormRecordFinactions(C70_FormRecordFinactions):
 	# Служебные действия
 	def PrepareUpdateDataPartial(self):
 		""" Подготовка данных для обновления данных (частичного) """
-		self.workspace.OidRecordFinactions(self.record_finactions.Oid().text)
-		self.workspace.OidRecordFindata("")
+		self.workspace.IdoRecordFinactions(self.record_finactions.Ido().data)
+		self.workspace.IdoRecordFindata("")
 
 	# Запись финдействий
 	def SetupRecordFinactions(self):
 		""" Настройка записи финдействий """
-		self.record_finactions.Oid(self.workspace.OidRecordFinactions())
+		self.record_finactions.Ido(self.workspace.IdoRecordFinactions())
 
 	def RequestAmount(self):
 		""" Запрос изменения суммы """

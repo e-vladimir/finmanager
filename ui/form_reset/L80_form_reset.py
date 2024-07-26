@@ -51,7 +51,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finstruct.Oid(oid)
+			record_finstruct.Ido(oid)
 			record_finstruct.DeleteObject(CONTAINER_LOCAL)
 
 		for oid in self._oids_finstate:
@@ -64,7 +64,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finstate.Oid(oid)
+			record_finstate.Ido(oid)
 			record_finstate.DeleteObject(CONTAINER_LOCAL)
 
 		for oid in self._oids_findata:
@@ -77,7 +77,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_findata.Oid(oid)
+			record_findata.Ido(oid)
 			record_findata.DeleteObject(CONTAINER_LOCAL)
 
 		for oid in self._oids_finactions:
@@ -90,7 +90,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finactions.Oid(oid)
+			record_finactions.Ido(oid)
 			record_finactions.DeleteObject(CONTAINER_LOCAL)
 
 		for oid in self._oids_findescription:
@@ -103,7 +103,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_findescription.Oid(oid)
+			record_findescription.Ido(oid)
 			record_findescription.DeleteObject(CONTAINER_LOCAL)
 
 		for oid in self._oids_rules:
@@ -116,7 +116,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_rule.Oid(oid)
+			record_rule.Ido(oid)
 			record_rule.DeleteObject(CONTAINER_LOCAL)
 
 		for oid in self._oids_findescription_in_finactions:
@@ -129,7 +129,7 @@ class C80_FormReset(C70_FormReset):
 
 			self.application.processEvents()
 
-			record_finactions.Oid(oid)
-			record_finactions.FindescriptionOids([])
+			record_finactions.Ido(oid)
+			record_finactions.FindescriptionIdos([])
 
 		dialog_progress.setValue(count_total)

@@ -41,8 +41,8 @@ class C60_Report(C50_Report):
 		result : set[str] = set()
 
 		for index_shift in range(12 * 10):
-			oids  : list[str] = self.finstruct.OidsInDyDm(dy, dm)
-			names : list[str] = self.finstruct.OidsToNames(list(oids))
+			oids  : list[str] = self.finstruct.IdosInDyDm(dy, dm)
+			names : list[str] = self.finstruct.IdosToNames(list(oids))
 			result            = result.union(set(names))
 
 			dy, dm            = CalcDyDmByShiftDm(dy, dm, -1)
@@ -90,7 +90,7 @@ class C60_Report(C50_Report):
 			record_finstruct.SwitchByName(dy, dm, finstruct_name.strip())
 
 			record_finstate        = C90_RecordFinstate()
-			record_finstate.SwitchByFinstructOid(record_finstruct.Oid().text)
+			record_finstate.SwitchByFinstructIdo(record_finstruct.Ido().data)
 
 			amount_income    : int = record_finstate.CalcIncome()
 			amount_outcome   : int = record_finstate.CalcOutcome()
@@ -138,7 +138,7 @@ class C60_Report(C50_Report):
 			self._report_data.append(subdata[ 9])
 			self._report_data.append(subdata[10])
 
-			for findescription_oid in self.findescription.OidsByCategory(findescription_category):
+			for findescription_oid in self.findescription.IdosByCategory(findescription_category):
 				record_findescription = C90_RecordFindescription(findescription_oid)
 				amount_income  : int  = self.finstatistic.CalcIncomeByFindescription(findescription_oid, dy, dm)
 				amount_outcome : int  = self.finstatistic.CalcOutcomeByFindescription(findescription_oid, dy, dm)
@@ -182,9 +182,9 @@ class C60_Report(C50_Report):
 			self._report_data.append(subdata[ 8])
 			self._report_data.append(subdata[ 9])
 
-			for findata_oid in self.findata.OidsInDyDmDd(dy, dm, dd):
+			for findata_oid in self.findata.IdosInDyDmDd(dy, dm, dd):
 				record_findata   = C90_RecordFindata(findata_oid)
-				record_finstruct = C90_RecordFinstruct(record_findata.FinstructOid())
+				record_finstruct = C90_RecordFinstruct(record_findata.FinstructIdo())
 
 				self._report_data.append(subdata[10])
 				self._report_data.append(subdata[11])
@@ -220,10 +220,10 @@ class C60_Report(C50_Report):
 			self._report_data.append(subdata[ 9])
 			self._report_data.append(subdata[10])
 
-			for finactions_oid in self.finactions.OidsInDyDmDd(dy, dm, dd):
+			for finactions_oid in self.finactions.IdosInDyDmDd(dy, dm, dd):
 				record_finactions                = C90_RecordFinactions(finactions_oid)
-				finstruct_names      : list[str] = self.finstruct.OidsToNames(record_finactions.FinstructOids())
-				findescription_names : list[str] = self.findescription.OidsToNames(record_finactions.FindescriptionOids())
+				finstruct_names      : list[str] = self.finstruct.IdosToNames(record_finactions.FinstructIdos())
+				findescription_names : list[str] = self.findescription.IdosToNames(record_finactions.FindescriptionIdos())
 
 				self._report_data.append(subdata[11])
 				self._report_data.append(subdata[12])
@@ -264,7 +264,7 @@ class C60_Report(C50_Report):
 			dy, dm               = CalcDyDmByShiftDm(dy, dm, -1 if index_shift > 0 else 0)
 
 			if not record_finstruct.SwitchByName(dy, dm, self._name_processing)     : continue
-			if not record_finstate.SwitchByFinstructOid(record_finstruct.Oid().text): continue
+			if not record_finstate.SwitchByFinstructIdo(record_finstruct.Ido().data): continue
 
 			dm_dy          : str = f"{MONTHS_SHORT[dm]} {dy}"
 

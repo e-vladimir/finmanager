@@ -15,11 +15,11 @@ class C80_FormRecordFindata(C70_FormRecordFindata):
 	# Служебные действия
 	def PrepareUpdateDataPartial(self):
 		""" Подготовка данных для обновления данных (частичного) """
-		self.workspace.OidRecordFindata(self.record_findata.Oid().text)
-		self.workspace.OidRecordFinactions("")
+		self.workspace.IdoRecordFindata(self.record_findata.Ido().data)
+		self.workspace.IdoRecordFinactions("")
 
 	# Параметры
-	def ProcessingCurrentOid(self):
+	def ProcessingCurrentIdo(self):
 		""" Обработка выбранного параметра """
 		if   self._oid_processing == AMOUNT: self.RequestAmount()
 		elif self._oid_processing == NOTE  : self.RequestNote()
@@ -78,7 +78,7 @@ class C80_FormRecordFindata(C70_FormRecordFindata):
 		record_finstruct             = C90_RecordFinstruct()
 		if not record_finstruct.SwitchByName(dy,dm, finstruct_name): return
 
-		self.record_findata.FinstructOid(record_finstruct.Oid().text)
+		self.record_findata.FinstructIdo(record_finstruct.Ido().data)
 
 		self.on_DataChanged()
 
@@ -87,5 +87,5 @@ class C80_FormRecordFindata(C70_FormRecordFindata):
 		""" Открытие записи финдействий """
 		if not self._oid_processing: return
 
-		self.workspace.OidRecordFinactions(self._oid_processing)
+		self.workspace.IdoRecordFinactions(self._oid_processing)
 		self.application.form_record_finactions.Open()

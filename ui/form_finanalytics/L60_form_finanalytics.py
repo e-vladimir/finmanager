@@ -19,7 +19,7 @@ class C60_FormFinanalytics(C50_FormFinanalytics):
 	""" Форма Финанализ: Механика данных """
 
 	# Параметры
-	def ReadOidProcessingFromTableFindescriptionDynamic(self):
+	def ReadIdoProcessingFromTableFindescriptionDynamic(self):
 		""" Чтение OID для обработки """
 		self._oid_processing = ""
 
@@ -79,12 +79,12 @@ class C60_FormFinanalytics(C50_FormFinanalytics):
 
 			item_record                = C20_StandardItem(findescription_name)
 			item_record.setData(FINDESCRIPTION, ROLE_TYPE)
-			item_record.setData(record_findescription.Oid().text, ROLE_OID)
+			item_record.setData(record_findescription.Ido().data, ROLE_OID)
 
 			self.model_findescription_dynamic.setItem(index_row, 0, item_record)
 
 			for index_shift, amount in enumerate(amounts_income):
-				self.model_findescription_dynamic.setItem(index_row, 1 + index_shift, C20_StandardItem(AmountToString(amount), record_findescription.Oid().text, ROLE_OID))
+				self.model_findescription_dynamic.setItem(index_row, 1 + index_shift, C20_StandardItem(AmountToString(amount), record_findescription.Ido().data, ROLE_OID))
 
 		index_row      : int       = self.model_findescription_dynamic.rowCount()
 		self.model_findescription_dynamic.setItem(index_row, 0, C20_StandardItem("СУММА", f"{FOOTER}_{INCOME}", ROLE_TYPE))
@@ -140,12 +140,12 @@ class C60_FormFinanalytics(C50_FormFinanalytics):
 
 			item_record                = C20_StandardItem(findescription_name)
 			item_record.setData(FINDESCRIPTION, ROLE_TYPE)
-			item_record.setData(record_findescription.Oid().text, ROLE_OID)
+			item_record.setData(record_findescription.Ido().data, ROLE_OID)
 
 			self.model_findescription_dynamic.setItem(index_row, 0, item_record)
 
 			for index_shift, amount in enumerate(amounts_outcome):
-				self.model_findescription_dynamic.setItem(index_row, 1 + index_shift, C20_StandardItem(AmountToString(amount), record_findescription.Oid().text, ROLE_OID))
+				self.model_findescription_dynamic.setItem(index_row, 1 + index_shift, C20_StandardItem(AmountToString(amount), record_findescription.Ido().data, ROLE_OID))
 
 		index_row      : int       = self.model_findescription_dynamic.rowCount()
 		self.model_findescription_dynamic.setItem(index_row, 0, C20_StandardItem("СУММА", f"{FOOTER}_{OUTCOME}", ROLE_TYPE))

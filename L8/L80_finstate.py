@@ -16,49 +16,49 @@ class C80_RecordFinstate(C70_RecordFinstate):
 	""" Запись финсостояния: Логика данных """
 
 	# Управление записью
-	def SwitchByFinstructOid(self, oid: str) -> bool:
+	def SwitchByFinstructIdo(self, oid: str) -> bool:
 		""" Переключение записи по OID финструктуры """
-		filter_finstate = C30_FilterLinear1D(self.Oci().text)
-		filter_finstate.FilterPidCvlByEqual(self.f_finstruct_oid.Pid().text, oid)
+		filter_finstate = C30_FilterLinear1D(self.Idc().data)
+		filter_finstate.FilterIdpVlpByEqual(self.f_finstruct_oid.Idp().data, oid)
 		filter_finstate.Capture(CONTAINER_LOCAL)
 
-		oids : list[str] = filter_finstate.Oids().items
+		oids : list[str] = filter_finstate.Idos().data
 		if not oids: return False
 
-		self.Oid(oids[0])
+		self.Ido(oids[0])
 		return True
 
 	# Калькуляция данных
 	def CalcIncomeOrOutcome(self, flag_income: bool = False) -> int:
 		""" Расчёт дохода/расхода """
-		record_finstruct      = C90_RecordFinstruct(self.FinstructOid())
-		flag_account_v : bool = bool(record_finstruct.ParentOid())
+		record_finstruct      = C90_RecordFinstruct(self.FinstructIdo())
+		flag_account_v : bool = bool(record_finstruct.ParentIdo())
 
 		findata               = C40_RecordFindata()
 		finactions            = C40_RecordFinactions()
 
-		oci_findata    : str  = findata.Oci().text
-		oci_finactions : str  = finactions.Oci().text
+		oci_findata    : str  = findata.Idc().data
+		oci_finactions : str  = finactions.Idc().data
 
 		filter_findata        = C30_FilterLinear1D(oci_finactions if flag_account_v else oci_findata)
 
 		if flag_account_v:
-			pid_amount    = finactions.f_amount.Pid().text
-			pid_finstruct = finactions.f_finstruct_oids.Pid().text
+			pid_amount    = finactions.f_amount.Idp().data
+			pid_finstruct = finactions.f_finstruct_oids.Idp().data
 
-			filter_findata.FilterPidCvlByInclude(pid_finstruct, record_finstruct.Oid().text)
+			filter_findata.FilterIdpVlpByInclude(pid_finstruct, record_finstruct.Ido().data)
 		else             :
-			pid_amount    = findata.f_amount.Pid().text
-			pid_finstruct = findata.f_finstruct_oid.Pid().text
+			pid_amount    = findata.f_amount.Idp().data
+			pid_finstruct = findata.f_finstruct_oid.Idp().data
 
-			filter_findata.FilterPidCvlByEqual(pid_finstruct, record_finstruct.Oid().text)
+			filter_findata.FilterIdpVlpByEqual(pid_finstruct, record_finstruct.Ido().data)
 
-		if flag_income:	filter_findata.FilterPidCvlByMore(pid_amount, 0)
-		else          : filter_findata.FilterPidCvlByLess(pid_amount, 0)
+		if flag_income:	filter_findata.FilterIdpVlpByMore(pid_amount, 0)
+		else          : filter_findata.FilterIdpVlpByLess(pid_amount, 0)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return sum(filter_findata.ToFloats(pid_amount).items)
+		return sum(filter_findata.ToFloats(pid_amount).data)
 
 	def CalcIncome(self) -> int:
 		""" Расчёт дохода """
@@ -70,37 +70,37 @@ class C80_RecordFinstate(C70_RecordFinstate):
 
 	def CalcRemainFinal(self) -> int:
 		""" Расчёт остатка конечного с учётом финданных - финструктуры """
-		record_finstruct      = C90_RecordFinstruct(self.FinstructOid())
-		flag_account_v : bool = bool(record_finstruct.ParentOid())
+		record_finstruct      = C90_RecordFinstruct(self.FinstructIdo())
+		flag_account_v : bool = bool(record_finstruct.ParentIdo())
 
 		findata               = C40_RecordFindata()
 		finactions            = C40_RecordFinactions()
 
-		oci_findata    : str  = findata.Oci().text
-		oci_finactions : str  = finactions.Oci().text
+		oci_findata    : str  = findata.Idc().data
+		oci_finactions : str  = finactions.Idc().data
 
 		filter_findata        = C30_FilterLinear1D(oci_finactions if flag_account_v else oci_findata)
 
 		if flag_account_v:
-			pid_amount    = finactions.f_amount.Pid().text
-			pid_finstruct = finactions.f_finstruct_oids.Pid().text
+			pid_amount    = finactions.f_amount.Idp().data
+			pid_finstruct = finactions.f_finstruct_oids.Idp().data
 
-			filter_findata.FilterPidCvlByInclude(pid_finstruct, record_finstruct.Oid().text)
+			filter_findata.FilterIdpVlpByInclude(pid_finstruct, record_finstruct.Ido().data)
 		else             :
-			pid_amount    = findata.f_amount.Pid().text
-			pid_finstruct = findata.f_finstruct_oid.Pid().text
+			pid_amount    = findata.f_amount.Idp().data
+			pid_finstruct = findata.f_finstruct_oid.Idp().data
 
-			filter_findata.FilterPidCvlByEqual(pid_finstruct, record_finstruct.Oid().text)
+			filter_findata.FilterIdpVlpByEqual(pid_finstruct, record_finstruct.Ido().data)
 
 		filter_findata.Capture(CONTAINER_LOCAL)
 
-		return int(self.RemainsInitial() + sum(filter_findata.ToFloats(pid_amount).items))
+		return int(self.RemainsInitial() + sum(filter_findata.ToFloats(pid_amount).data))
 
 	def TransferToNextDm(self):
 		""" Перенос остатка итогового в следующий финпериод """
-		if not self.FinstructOid(): return
+		if not self.FinstructIdo(): return
 
-		record_finstruct = C90_RecordFinstruct(self.FinstructOid())
+		record_finstruct = C90_RecordFinstruct(self.FinstructIdo())
 		name   : str     = record_finstruct.Name()
 		dy     : int     = record_finstruct.Dy()
 		dm     : int     = record_finstruct.Dm()
@@ -112,11 +112,11 @@ class C80_RecordFinstate(C70_RecordFinstate):
 
 		record_finstate = C80_RecordFinstate()
 
-		if not record_finstate.SwitchByFinstructOid(record_finstruct.Oid().text):
-			record_finstate.GenerateOid()
+		if not record_finstate.SwitchByFinstructIdo(record_finstruct.Ido().data):
+			record_finstate.GenerateIdo()
 			record_finstate.RegisterObject(CONTAINER_LOCAL)
 
-		record_finstate.FinstructOid(record_finstruct.Oid().text)
+		record_finstate.FinstructIdo(record_finstruct.Ido().data)
 		record_finstate.RemainsInitial(amount)
 
 

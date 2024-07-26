@@ -45,7 +45,7 @@ class C90_FormFindescription(C80_FormFindescription):
 
 	def on_RequestMenuFindescription(self):
 		""" Запрос отображения меню финсостава """
-		self.ReadOidProcessingFromSelected()
+		self.ReadIdoProcessingFromSelected()
 
 		self.SetupMenuFindescription()
 		self.EnabledMenuFindescription()
@@ -53,25 +53,25 @@ class C90_FormFindescription(C80_FormFindescription):
 
 	def on_RequestCreateRecord(self):
 		""" Запрос на создание записи финсостава """
-		self.ReadOidProcessingFromSelected()
+		self.ReadIdoProcessingFromSelected()
 
 		self.CreateRecord()
 
 	def on_RequestCreateSubRecord(self):
 		""" Запрос на создание вложенной записи финсостава """
-		self.ReadOidProcessingFromSelected()
+		self.ReadIdoProcessingFromSelected()
 
 		self.CreateSubRecord()
 
 	def on_RequestRenameRecord(self):
 		""" Запрос на редактирование записи финсостава """
-		self.ReadOidProcessingFromSelected()
+		self.ReadIdoProcessingFromSelected()
 
 		self.EditNameRecord()
 
 	def on_RequestDeleteRecord(self):
 		""" Запрос на удаление записи финсостава """
-		self.ReadOidProcessingFromSelected()
+		self.ReadIdoProcessingFromSelected()
 
 		self.DeleteRecord()
 
@@ -104,7 +104,7 @@ class C90_FormFindescription(C80_FormFindescription):
 
 	def on_RequestMemoryRecord(self):
 		""" Запрос на запоминание записи финсостава """
-		self.MemorySelectedOid()
+		self.MemorySelectedIdo()
 
 	def on_RequestMoveUp(self):
 		""" Запрос на перемещение записи уровнем выше """
@@ -139,7 +139,7 @@ class C90_FormFindescription(C80_FormFindescription):
 
 	def on_ItemCheckStateChanged(self):
 		""" Изменилось состояние галочки """
-		self.ReadOidProcessingFromItem()
+		self.ReadIdoProcessingFromItem()
 		self.ReadFlagChecked()
 		self.ReadCategoryProcessing()
 		self.ProcessingIncludeRecordInCategory()

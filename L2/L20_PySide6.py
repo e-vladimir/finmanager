@@ -231,7 +231,7 @@ class QMultipleItemsInputDialog(QDialog):
 			item_text : QListWidgetItem = self.list_items.item(index_row)
 			if item_text.checkState() == Qt.CheckState.Unchecked: continue
 
-			result.append(item_text.text())
+			result.append(item_text.data())
 
 		return result
 
@@ -271,7 +271,7 @@ def RequestText(title: str, message: str, old_text: str = "") -> None | str:
 	dialog.setTextValue(old_text)
 
 	if not dialog.exec_(): return None
-	return dialog.textValue()
+	return dialog.dataValue()
 
 
 def RequestMultipleText(title: str, message: str, old_text: list[str] = []) -> None | list[str]:
@@ -279,7 +279,7 @@ def RequestMultipleText(title: str, message: str, old_text: list[str] = []) -> N
 	dialog = QMultipleTextInputDialog(title, message, old_text)
 
 	if not dialog.exec_(): return None
-	return dialog.textValues()
+	return dialog.dataValues()
 
 
 def RequestValue(title: str, message: str, value_old: int | float = None, value_min: int | float = None, value_max: int | float = None) -> None | int | float:
@@ -333,7 +333,7 @@ def RequestItem(title: str, message: str, items: list[str]) -> str | None:
 
 	if not dialog_items.exec_(): return None
 
-	return dialog_items.textValue()
+	return dialog_items.dataValue()
 
 
 def RequestItems(title: str, message: str, items: list[str]) -> list[str] | None:
@@ -445,13 +445,13 @@ class C20_StandardItemModel(QStandardItemModel):
 		self.index_processing = index
 
 		if   role == Qt.ItemDataRole.DisplayRole:
-			self.textChanged.emit()
+			self.dataChanged.emit()
 
 		elif role == Qt.ItemDataRole.UserRole   :
 			self.dataChanged.emit()
 
 		elif role == Qt.ItemDataRole.CheckStateRole:
-			if value == Qt.CheckState.Checked.value : self.itemChecked.emit()
+			if value == Qt.CheckState.Checked.data : self.itemChecked.emit()
 			else                                    : self.itemUnchecked.emit()
 
 		return super().setData(index, value, role)

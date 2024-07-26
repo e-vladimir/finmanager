@@ -70,6 +70,6 @@ class C70_FormRules(C60_FormRules):
 
 		record_findescription               = C90_RecordFindescription()
 		if not record_findescription.SwitchByName(self._name_processing): return
-		flag_suboids                 : bool = bool(record_findescription.SubOids(True))
+		flag_suboids                 : bool = bool(record_findescription.SubIdos(True))
 
 		self.menu_detect_findescription_record_wrap.setEnabled(flag_suboids)

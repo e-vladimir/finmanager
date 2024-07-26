@@ -48,7 +48,7 @@ class C90_FormRecordFinactions(C80_FormRecordFinactions):
 
 	def on_RequestProcessingTblDataClick(self):
 		""" Запрос на обработку двойного клика по таблице данных """
-		self.ReadOidProcessingFromTblData()
+		self.ReadIdoProcessingFromTblData()
 		self.ProcessingTblDataDbClick()
 
 		self.AdjustTreValuesExpand()

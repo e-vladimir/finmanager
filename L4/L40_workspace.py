@@ -7,9 +7,9 @@ from L11_datetime     import CurrentDy, CurrentDm
 class C40_Workspace(C30_StructFrame):
 	""" Рабочее пространство: Модель данных """
 
-	_oci = "workspace"
+	_idc = "workspace"
 
-	def InitFields(self):
+	def Init_10(self):
 		""" Инициализация параметров """
 		self.f_dy                    = C30_StructField(self, "Год",   CurrentDy())
 		self.f_dm                    = C30_StructField(self, "Месяц", CurrentDm())

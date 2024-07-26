@@ -1,5 +1,5 @@
 # КАКТУС: СТРУКТУРНЫЙ КАРКАС
-# 25 июл 2024
+# 26 июл 2024
 
 import datetime
 
@@ -205,20 +205,20 @@ class C30_StructFrame(C20_MetaFrame):
 			result.code = CODES_COMPLETION.INTERRUPTED
 			result.subcodes.add(CODES_DATA.NO_DATA)
 
-		elif container.Type_RAM().flag       :
+		elif container.Type_RAM().data       :
 			result.subcodes.add(CODES_PROCESSING.SKIP)
 
 		elif not CheckIdc(cls._idc):
 			result.code = CODES_COMPLETION.INTERRUPTED
 			result.subcodes.add(CODES_DATA.ERROR_CHECK)
 
-		elif container.Type_SQLite().flag    :
+		elif container.Type_SQLite().data    :
 			result_register = container.RegisterClass(cls._idc)
 
 			result.code     = result_register.code
 			result.subcodes = result_register.subcodes
 
-		elif container.Type_PostgreSQL().flag:
+		elif container.Type_PostgreSQL().data:
 			result_register = container.RegisterClass(cls._idc)
 
 			result.code     = result_register.code
@@ -504,7 +504,8 @@ class C30_StructField(C20_MetaFrame):
 		result              = T21_StructResult_String()
 		result.code         = result_read.code
 		result.subcodes     = result_read.subcodes
-		result.data         = result_read.data.vlp
+
+		if result_read.data is not None: result.data         = result_read.data.vlp
 
 		return result
 

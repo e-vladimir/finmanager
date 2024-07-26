@@ -31,8 +31,8 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		self.menu_finstruct_move_memory.setText(f"Запомнить {record_finstruct.Name()}")
 
 		parent_name = ""
-		if record_finstruct.ParentOid():
-			record_finstruct.Oid(record_finstruct.ParentOid())
+		if record_finstruct.ParentIdo():
+			record_finstruct.Ido(record_finstruct.ParentIdo())
 			parent_name = record_finstruct.Name()
 		self.menu_finstruct_parent_header.setText(parent_name if parent_name else "Корневой уровень")
 
@@ -45,10 +45,10 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		record_finstruct          = C90_RecordFinstruct(self._oid_processing)
 
 		flag_selected      : bool = bool(self._oid_processing)
-		flag_exist_root    : bool = bool(record_finstruct.ParentOid())
+		flag_exist_root    : bool = bool(record_finstruct.ParentIdo())
 		flag_memory        : bool = bool(self._oid_memory)
 		flag_memory_self   : bool = self._oid_memory == self._oid_processing
-		flag_memory_parent : bool = self._oid_memory == record_finstruct.ParentOid()
+		flag_memory_parent : bool = self._oid_memory == record_finstruct.ParentIdo()
 
 		self.menu_finstruct_parent_paste.setEnabled((flag_exist_root and flag_memory) and not flag_memory_parent)
 
@@ -70,7 +70,7 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		dy : int = self.workspace.Dy()
 		dm : int = self.workspace.Dm()
 
-		for oid in self.finstruct.OidsInDyDm(dy, dm):
+		for oid in self.finstruct.IdosInDyDm(dy, dm):
 			record_finstruct = C90_RecordFinstruct(oid)
 
 			if not record_finstruct.Priority(): continue
@@ -114,9 +114,9 @@ class C70_FormFinstruct(C60_FormFinstruct):
 			item_remains_final   : QStandardItem = item_parent.child(index_row, 2)
 			item_remains_delta   : QStandardItem = item_parent.child(index_row, 3)
 
-			item_remains_initial.setForeground(color_red if '-' in item_remains_initial.text() else color_black)
-			item_remains_final.setForeground(color_red if '-' in item_remains_final.text() else color_black)
-			item_remains_delta.setForeground(color_red if '-' in item_remains_delta.text() else color_black)
+			item_remains_initial.setForeground(color_red if '-' in item_remains_initial.data() else color_black)
+			item_remains_final.setForeground(color_red if '-' in item_remains_final.data() else color_black)
+			item_remains_delta.setForeground(color_red if '-' in item_remains_delta.data() else color_black)
 
 	def RequestEditRecord(self):
 		""" Запрос на редактирование записи финструктуры """

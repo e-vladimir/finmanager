@@ -25,7 +25,7 @@ class C60_FormRecordFinactions(C50_FormRecordFinactions):
 		self._name_processing  = ""
 		self._value_processing = ""
 
-	def ReadOidProcessingFromTblData(self):
+	def ReadIdoProcessingFromTblData(self):
 		""" Считывание OID из таблицы данных """
 		self._oid_processing = ""
 
@@ -89,13 +89,13 @@ class C60_FormRecordFinactions(C50_FormRecordFinactions):
 
 	def LoadModelDataFromRecordFinactions(self):
 		""" Загрузка модели данных из записи финдействий """
-		finstruct_names : list[str] = self.finstruct.OidsToNames(self.record_finactions.FinstructOids())
-		categories      : list[str] = self.findescription.OidsToNames(self.record_finactions.FindescriptionOids(), CATEGORY)
-		frequencies     : list[str] = self.findescription.OidsToNames(self.record_finactions.FindescriptionOids(), FREQUENCY)
-		objects_int     : list[str] = self.findescription.OidsToNames(self.record_finactions.FindescriptionOids(), OBJECT_INT)
-		objects_ext     : list[str] = self.findescription.OidsToNames(self.record_finactions.FindescriptionOids(), OBJECT_EXT)
-		priorities      : list[str] = self.findescription.OidsToNames(self.record_finactions.FindescriptionOids(), PRIORITY)
-		processes       : list[str] = self.findescription.OidsToNames(self.record_finactions.FindescriptionOids(), PROCESS)
+		finstruct_names : list[str] = self.finstruct.IdosToNames(self.record_finactions.FinstructIdos())
+		categories      : list[str] = self.findescription.IdosToNames(self.record_finactions.FindescriptionIdos(), CATEGORY)
+		frequencies     : list[str] = self.findescription.IdosToNames(self.record_finactions.FindescriptionIdos(), FREQUENCY)
+		objects_int     : list[str] = self.findescription.IdosToNames(self.record_finactions.FindescriptionIdos(), OBJECT_INT)
+		objects_ext     : list[str] = self.findescription.IdosToNames(self.record_finactions.FindescriptionIdos(), OBJECT_EXT)
+		priorities      : list[str] = self.findescription.IdosToNames(self.record_finactions.FindescriptionIdos(), PRIORITY)
+		processes       : list[str] = self.findescription.IdosToNames(self.record_finactions.FindescriptionIdos(), PROCESS)
 
 		index_row : int = 6
 		self.model_data.setItem(index_row + 1, 1, C20_StandardItem(self.record_finactions.DdDmDyToString(),         DATE))
@@ -113,8 +113,8 @@ class C60_FormRecordFinactions(C50_FormRecordFinactions):
 
 	def LoadModelDataFromRecordFindata(self):
 		""" Загрузка модели данных из записи финдействий """
-		record_findata              = C90_RecordFindata(self.record_finactions.FindataOid())
-		record_finstruct            = C90_RecordFinstruct(record_findata.FinstructOid())
+		record_findata              = C90_RecordFindata(self.record_finactions.FindataIdo())
+		record_finstruct            = C90_RecordFinstruct(record_findata.FinstructIdo())
 
 		index_row       : int       = 0
 		self.model_data.setItem(index_row + 1, 1, C20_StandardItem(record_findata.DdDmDyToString()))

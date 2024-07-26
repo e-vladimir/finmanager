@@ -15,7 +15,7 @@ class C70_FormRecordFindata(C60_FormRecordFindata):
 	# Форма
 	def ShowTitle(self):
 		""" Отображение заголовка окна """
-		record_finstruct = C90_RecordFinstruct(self.record_findata.FinstructOid())
+		record_finstruct = C90_RecordFinstruct(self.record_findata.FinstructIdo())
 
 		self.setWindowTitle(f"{AmountToString(self.record_findata.Amount())} от {self.record_findata.DdDmDyToString()} ({record_finstruct.Name()})")
 
@@ -30,7 +30,7 @@ class C70_FormRecordFindata(C60_FormRecordFindata):
 		value_current : str = ""
 
 		if   self._oid_processing == DATE     : value_current = self.record_findata.DdDmDyToString()
-		elif self._oid_processing == FINSTRUCT: value_current = C90_RecordFinstruct(self.record_findata.FinstructOid()).Name()
+		elif self._oid_processing == FINSTRUCT: value_current = C90_RecordFinstruct(self.record_findata.FinstructIdo()).Name()
 
 		self.table_values.clearSelection()
 

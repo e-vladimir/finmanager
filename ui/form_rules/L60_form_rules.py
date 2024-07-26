@@ -20,7 +20,7 @@ class C60_FormRules(C50_FormRules):
 		""" Чтение типа обработки """
 		self._type_processing = self.cbbox_rules_types.currentText()
 
-	def ReadOidProcessing(self):
+	def ReadIdoProcessing(self):
 		""" Чтение OID записи правил """
 		self._oid_processing = ""
 
@@ -89,7 +89,7 @@ class C60_FormRules(C50_FormRules):
 		record_rule                       = C90_RecordProcessingRules(self._oid_processing)
 		record_findescription             = C90_RecordFindescription(record_rule.OptionsOutputAsString())
 
-		index_findescription : QModelIndex | None = self.model_data.indexByData(record_findescription.Oid().text, ROLE_OID_FINDESCRIPTION)
+		index_findescription : QModelIndex | None = self.model_data.indexByData(record_findescription.Ido().data, ROLE_OID_FINDESCRIPTION)
 		if index_findescription is None: return
 
 		index_parent : QModelIndex | None = index_findescription.parent()
@@ -105,12 +105,12 @@ class C60_FormRules(C50_FormRules):
 		for index_col, label in enumerate(labels):
 			if   index_col == 0:
 				item_data : QStandardItem = item_parent.child(index_row, 0)
-				item_data.setData(record_rule.Oid().text,            ROLE_OID_RULES)
+				item_data.setData(record_rule.Ido().data,            ROLE_OID_RULES)
 
 			elif index_col == 1:
 				item_data = C20_StandardItem(label)
-				item_data.setData(record_findescription.Oid().text, ROLE_OID_FINDESCRIPTION)
-				item_data.setData(record_rule.Oid().text,            ROLE_OID_RULES)
+				item_data.setData(record_findescription.Ido().data, ROLE_OID_FINDESCRIPTION)
+				item_data.setData(record_rule.Ido().data,            ROLE_OID_RULES)
 				item_parent.setChild(index_row, index_col, item_data)
 
 	# Запись финструктуры
@@ -120,8 +120,8 @@ class C60_FormRules(C50_FormRules):
 
 		record_findescription             = C90_RecordFindescription(self._oid_processing)
 
-		index_record : QModelIndex | None = self.model_data.indexByData(record_findescription.Oid().text, ROLE_OID_FINDESCRIPTION)
-		index_parent : QModelIndex | None = self.model_data.indexByData(record_findescription.ParentOid(), ROLE_OID_FINDESCRIPTION)
+		index_record : QModelIndex | None = self.model_data.indexByData(record_findescription.Ido().data, ROLE_OID_FINDESCRIPTION)
+		index_parent : QModelIndex | None = self.model_data.indexByData(record_findescription.ParentIdo(), ROLE_OID_FINDESCRIPTION)
 
 		item_parent : QStandardItem       = self.model_data.invisibleRootItem() if index_parent is None else self.model_data.itemFromIndex(index_parent)
 		index_row   : int                 = item_parent.rowCount()              if index_record is None else index_record.row()
@@ -131,8 +131,8 @@ class C60_FormRules(C50_FormRules):
 
 		for index_col, label in enumerate(labels):
 			item_data = C20_StandardItem(label)
-			item_data.setData(record_findescription.Oid().text, ROLE_OID_FINDESCRIPTION)
+			item_data.setData(record_findescription.Ido().data, ROLE_OID_FINDESCRIPTION)
 
 			item_parent.setChild(index_row, index_col, item_data)
 
-		for self._oid_processing in record_findescription.SubOids(): self.LoadRecordFindescription()
+		for self._oid_processing in record_findescription.SubIdos(): self.LoadRecordFindescription()
