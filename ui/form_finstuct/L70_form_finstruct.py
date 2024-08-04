@@ -1,6 +1,6 @@
 # ФОРМА ФИНСТРУКТУРЫ: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtCore     import QModelIndex
+from PySide6.QtCore import QModelIndex, Qt
 from PySide6.QtGui      import QCursor, QStandardItem, QColor
 from PySide6.QtWidgets  import QHeaderView
 
@@ -114,9 +114,9 @@ class C70_FormFinstruct(C60_FormFinstruct):
 			item_remains_final   : QStandardItem = item_parent.child(index_row, 2)
 			item_remains_delta   : QStandardItem = item_parent.child(index_row, 3)
 
-			item_remains_initial.setForeground(color_red if '-' in item_remains_initial.data() else color_black)
-			item_remains_final.setForeground(color_red if '-' in item_remains_final.data() else color_black)
-			item_remains_delta.setForeground(color_red if '-' in item_remains_delta.data() else color_black)
+			item_remains_initial.setForeground(color_red if '-' in item_remains_initial.data(Qt.ItemDataRole.DisplayRole) else color_black)
+			item_remains_final.setForeground(color_red if '-' in item_remains_final.data(Qt.ItemDataRole.DisplayRole) else color_black)
+			item_remains_delta.setForeground(color_red if '-' in item_remains_delta.data(Qt.ItemDataRole.DisplayRole) else color_black)
 
 	def RequestEditRecord(self):
 		""" Запрос на редактирование записи финструктуры """

@@ -25,7 +25,7 @@ class C80_FormFinanalytics(C70_FormFinanalytics):
 			record_findescription       = C90_RecordFindescription(findescription_ido)
 
 			dialog_progress.setLabelText(record_findescription.Name())
-			dialog_progress.setValue(dialog_progress.data() + 1)
+			dialog_progress.setValue(dialog_progress.value() + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 

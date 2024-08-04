@@ -21,7 +21,7 @@ class C80_FormFinstatistic(C70_FormFinstatistic):
 		dialog_progress.setWindowTitle("Финстатистика")
 
 		for self._ido_processing in idos:
-			dialog_progress.setValue(dialog_progress.data() + 1)
+			dialog_progress.setValue(dialog_progress.value() + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 
@@ -37,7 +37,7 @@ class C80_FormFinstatistic(C70_FormFinstatistic):
 		dialog_progress.setWindowTitle("Финстатистика")
 
 		for self._ido_processing in idos:
-			dialog_progress.setValue(dialog_progress.data() + 1)
+			dialog_progress.setValue(dialog_progress.value() + 1)
 			dialog_progress.forceShow()
 			self.application.processEvents()
 

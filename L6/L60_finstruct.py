@@ -28,8 +28,8 @@ class C60_RecordFinstruct(C50_RecordFinstruct):
 		else            :        self.f_dm.FromInteger(CONTAINER_LOCAL, month)
 
 	def Priority(self, flag: bool = None) -> bool:
-		"""  """
-		if flag is None : return self.f_priority.ToBoolean(CONTAINER_LOCAL).flag
+		""" Признак приоритета записи финструктуры """
+		if flag is None : return self.f_priority.ToBoolean(CONTAINER_LOCAL).data
 		else            :        self.f_priority.FromBoolean(CONTAINER_LOCAL, flag)
 
 

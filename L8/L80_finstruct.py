@@ -187,7 +187,7 @@ class C80_Finstruct(C70_Finstruct):
 	# Управление приоритетом записей
 	def SetPriorityRecord(self, ido: str):
 		""" Установка приоритетной записи """
-		if not ido                                                       : return
+		if not ido                                                      : return
 		if     ido not in C80_RecordFinstruct.Idos(CONTAINER_LOCAL).data: return
 
 		record_finstruct = C80_RecordFinstruct(ido)
