@@ -181,24 +181,42 @@ class C80_Findata(C70_Findata):
 		""" Импорт записи финданных из формата Сбербанк CSV """
 		items_raw        : list[str] = data_raw.split(';')
 
-		raw_card         : str       = items_raw[ 1]
-		raw_dydmdd       : str       = items_raw[ 3]
-		raw_code         : str       = items_raw[ 3]
-		raw_note         : str       = items_raw[ 8]
-		raw_amount       : str       = items_raw[11]
+		raw_number       : str       = items_raw[ 0]
+		raw_dydmddthtm   : str       = items_raw[ 1]
+		raw_type         : str       = items_raw[ 2]
+		raw_amount       : str       = items_raw[ 4]
+		raw_note         : str       = items_raw[ 7]
+		raw_code         : str       = items_raw[ 8]
 
-		uid_record       : str       = f"{raw_dydmdd} {raw_card} {raw_code} {raw_amount}"
+		uid_record       : str       = f"{raw_number}{raw_dydmddthtm}{raw_amount}"
 		uid_record                   = uid_record.replace('.', '')
 		uid_record                   = uid_record.replace(':', '')
 		uid_record                   = uid_record.replace(' ', '')
 
 		if     self.CheckFindataByUid(uid_record): return False
+		if not raw_code == "Активная"            : return False
 
-		raw_dydmdd       : list[str] = raw_dydmdd.split('.')
-		raw_dy           : int       = int(raw_dydmdd[2])
-		raw_dm           : int       = int(raw_dydmdd[1])
-		raw_dd           : int       = int(raw_dydmdd[0])
-		raw_amount       : float     = StringToFloat(raw_amount)
+		months : dict[str, int] = {"января"  :  1,
+		                           "февраля" :  2,
+		                           "марта"   :  3,
+		                           "апреля"  :  4,
+		                           "мая"     :  5,
+		                           "июня"    :  6,
+		                           "июля"    :  7,
+		                           "августа" :  8,
+		                           "сентября":  9,
+		                           "октября" : 10,
+		                           "ноября"  : 11,
+		                           "декабря" : 12}
+
+		raw_dddmdy       : list[str] = raw_dydmddthtm.split(',')[0].split(' ')
+		raw_dd           : int       = int(raw_dddmdy[0])
+		raw_dm           : int       = months.get(raw_dddmdy[1], 0)
+		raw_dy           : int       = int(raw_dddmdy[2])
+
+		if     raw_dm == 0                       : return False
+
+		raw_amount       : float     = StringToFloat(raw_amount) * -1 if raw_type == "Расходы" else 1
 
 		if not dy == raw_dy                      : return False
 		if not dm == raw_dm                      : return False

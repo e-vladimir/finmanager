@@ -101,7 +101,7 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_15">
           <property name="text">
-           <string>CSV-файл</string>
+           <string>Файл</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

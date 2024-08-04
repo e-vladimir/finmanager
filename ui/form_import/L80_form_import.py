@@ -26,7 +26,7 @@ class C80_FormImport(C70_FormImport):
 		if not self._findata_path_file.exists(): return
 		if     self._findata_path_file.is_dir(): return
 
-		if   self._findata_format == FORMAT_TINKOFF : file_encoding = "1251"
+		if   self._findata_format == FORMAT_TINKOFF : file_encoding = "utf-8"
 		elif self._findata_format == FORMAT_SBERBANK: file_encoding = "utf-8"
 		else                                        : return
 
