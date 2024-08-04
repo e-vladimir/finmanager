@@ -216,7 +216,7 @@ class C80_Findata(C70_Findata):
 
 		if     raw_dm == 0                       : return False
 
-		raw_amount       : float     = StringToFloat(raw_amount) * -1 if raw_type == "Расходы" else 1
+		raw_amount       : float     = StringToFloat(raw_amount) * (-1 if raw_type == "Расходы" else 1)
 
 		if not dy == raw_dy                      : return False
 		if not dm == raw_dm                      : return False
