@@ -141,6 +141,10 @@ class C90_FormFindescription(C80_FormFindescription):
 
 	def on_ItemCheckStateChanged(self):
 		""" Изменилось состояние галочки """
+		if self._flag_loading: return
+
+		print("Change")
+
 		self.ReadIdoProcessingFromItem()
 		self.ReadFlagChecked()
 		self.ReadCategoryProcessing()
@@ -148,6 +152,10 @@ class C90_FormFindescription(C80_FormFindescription):
 
 	def on_FindescriptionLoaded(self):
 		""" Финсостав загружен """
+		self._flag_loading = True
+
 		self.SortModel()
 		self.ExpandTreFindescription()
 		self.ShowParents()
+
+		self._flag_loading = True

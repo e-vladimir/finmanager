@@ -250,16 +250,16 @@ class C80_FormFindata(C70_FormFindata):
 			index_parent   : QModelIndex   = index_record.parent()
 			index_row      : int           = index_record.row()
 
-			index_note     : QModelIndex   = index_parent.child(index_row, 8)
+			index_note     : QModelIndex   = index_parent.sibling(index_row, 8)
 
-			data_note      : str           = index_note.data(Qt.DisplayRole)
+			data_note      : str           = index_note.data(Qt.ItemDataRole.DisplayRole)
 			if data_note       is None     : continue
 
 			data_note                      = data_note.lower()
 			if text_search not in data_note: continue
 
 			item_data      : QStandardItem = self.model_data.itemFromIndex(index_record)
-			item_data.setCheckState(Qt.Unchecked if self._flag_processing_dec else Qt.Checked)
+			item_data.setCheckState(Qt.CheckState.Unchecked if self._flag_processing_dec else Qt.CheckState.Checked)
 
 	def ProcessingSelectionByFindescription(self):
 		""" Обработка выделения по финсоставу """
@@ -275,18 +275,18 @@ class C80_FormFindata(C70_FormFindata):
 			text_data      : str           = ""
 
 			for index_col in range(2, 8):
-				index_data : QModelIndex | None = index_parent.child(index_row, index_col)
+				index_data : QModelIndex | None = index_parent.sibling(index_row, index_col)
 				if     index_data is None  : continue
 				if not index_data.isValid(): continue
 
-				text_data += index_data.data(Qt.DisplayRole)
+				text_data += index_data.data(Qt.ItemDataRole.DisplayRole)
 
 			text_data = text_data.lower()
 
 			if text_search not in text_data: continue
 
 			item_data      : QStandardItem = self.model_data.itemFromIndex(index_record)
-			item_data.setCheckState(Qt.Unchecked if self._flag_processing_dec else Qt.Checked)
+			item_data.setCheckState(Qt.CheckState.Unchecked if self._flag_processing_dec else Qt.CheckState.Checked)
 
 	def CleanSelection(self):
 		""" Сброс выделения """
@@ -296,7 +296,7 @@ class C80_FormFindata(C70_FormFindata):
 			index_parent : QModelIndex   = index_data.parent()
 			if not index_parent.isValid(): continue
 
-			item_data.setCheckState(Qt.Unchecked)
+			item_data.setCheckState(Qt.CheckState.Unchecked)
 
 	# Утилиты
 	def ReplaceText(self):
