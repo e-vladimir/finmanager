@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainuVXOwf.ui'
+## Form generated from reading UI file 'form_mainIolnEE.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QHBoxLayout, QMainWindow,
-    QPushButton, QSizePolicy, QSpacerItem, QStatusBar,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QGridLayout, QHBoxLayout,
+    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
+    QStatusBar, QVBoxLayout, QWidget)
 
 class Ui_form_main(object):
     def setupUi(self, form_main):
@@ -60,7 +60,25 @@ class Ui_form_main(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
-        self.verticalSpacer = QSpacerItem(20, 411, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_2)
+
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.btn_fincomposition = QPushButton(self.centralwidget)
+        self.btn_fincomposition.setObjectName(u"btn_fincomposition")
+
+        self.gridLayout.addWidget(self.btn_fincomposition, 0, 0, 1, 1)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout.addItem(self.horizontalSpacer_2, 0, 1, 1, 1)
+
+
+        self.verticalLayout.addLayout(self.gridLayout)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
@@ -78,5 +96,6 @@ class Ui_form_main(object):
         form_main.setWindowTitle(QCoreApplication.translate("form_main", u"MainWindow", None))
         self.btn_dm_prev.setText("")
         self.btn_dm_next.setText("")
+        self.btn_fincomposition.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u043e\u0441\u0442\u0430\u0432", None))
     # retranslateUi
 
