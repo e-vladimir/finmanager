@@ -8,4 +8,6 @@ class C90_Application(C80_Application):
 
 	def on_Start(self):
 		""" Запуск приложения """
+		self.SetupContainerLocal()
+
 		self.form_main.Open()

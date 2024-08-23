@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 18 авг 2024
+# 23 авг 2024
 
 from pathlib           import Path
 from PySide6           import QtGui
@@ -26,7 +26,7 @@ from PySide6.QtWidgets import (QApplication,
                                QPlainTextEdit)
 
 
-ROLE_OID : int = 100
+ROLE_IDO : int = 100
 
 
 # ИНСТРУМЕНТАРИЙ ПРИЛОЖЕНИЯ
@@ -73,6 +73,10 @@ class C20_PySideApplication(QApplication):
 		""" Запуск приложения """
 		self.on_Start()
 		self.exec_()
+
+	def Close(self):
+		""" Завершение приложения """
+		self.quit()
 
 
 # ИНСТРУМЕНТАРИЙ ФОРМ
@@ -563,7 +567,7 @@ class C20_StandardItemModel(QStandardItemModel):
 
 
 class C20_StandardItem(QStandardItem):
-	def __init__(self, title: str, data = "", data_role : int = ROLE_OID, flag_align_right : bool = False, flag_bold: bool = False, flag_checked : bool = None):
+	def __init__(self, title: str, data = "", data_role : int = ROLE_IDO, flag_align_right : bool = False, flag_bold: bool = False, flag_checked : bool = None):
 		"""  """
 		super().__init__()
 

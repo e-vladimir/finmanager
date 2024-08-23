@@ -16,6 +16,9 @@ class C90_FormMain(C80_FormMain):
 		self.cbbox_dy.activated.connect(self.on_RequestSetDyDm)
 		self.cbbox_dm.activated.connect(self.on_RequestSetDyDm)
 
+		# Панель форм
+		self.btn_fincomposition.clicked.connect(self.on_RequestOpenFincomposition)
+
 	# Форма
 	def on_Show(self):
 		""" Отображение формы """
@@ -27,7 +30,10 @@ class C90_FormMain(C80_FormMain):
 		self.ShowDm()
 		self.ShowDy()
 
-	# Финперид
+	def on_Close(self):
+		self.application.Close()
+
+	# Финпериод
 	def on_RequestPrevDm(self):
 		""" Смена финпериода на прошлый месяц """
 		self.workspace.ShiftDmToPrevDm()
@@ -54,3 +60,8 @@ class C90_FormMain(C80_FormMain):
 		self.SetDyDm()
 
 		self.ShowTitle()
+
+	# Переход в другие формы
+	def on_RequestOpenFincomposition(self):
+		""" Открытие формы финсостава """
+		self.application.form_fincomposition.Open()

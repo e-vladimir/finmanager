@@ -10,3 +10,6 @@ class C50_FormMain(C42_FormMain):
 	def on_RequestNextDm(self): pass
 	def on_RequestPrevDm(self): pass
 	def on_RequestSetDyDm(self): pass
+
+	# Переход в другие формы
+	def on_RequestOpenFincomposition(self): pass

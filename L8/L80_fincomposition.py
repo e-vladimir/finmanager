@@ -1,8 +1,75 @@
 # ФИНСОСТАВ: ЛОГИКА ДАННЫХ
 
-from L70_fincomposition import C70_Fincomposition
+from G30_cactus_datafilters import C30_FilterLinear1D
+
+from L00_containers         import CONTAINER_LOCAL
+from L70_fincomposition     import C70_Fincomposition, C70_FincompositionRecord
+
+
+class C80_FincompositionRecord(C70_FincompositionRecord):
+	""" Запись финсостава: Логика данных """
+
+	# Выборки данных
+	def SubNames(self) -> list[str]:
+		""" Наименования вложенных записей """
+		filter_data = C30_FilterLinear1D(self.Idc().data)
+		filter_data.FilterIdpVlpByEqual(self.f_parent_ido.Idp().data, self.Ido().data)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		return filter_data.ToStrings(self.f_name.Idp().data, flag_sort=True).data
+
+	def SubIdos(self) -> list[str]:
+		""" IDO вложенных записей """
+		filter_data = C30_FilterLinear1D(self.Idc().data)
+		filter_data.FilterIdpVlpByEqual(self.f_parent_ido.Idp().data, self.Ido().data)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		return filter_data.Idos(self.f_name.Idp().data).data
 
 
 class C80_Fincomposition(C70_Fincomposition):
 	""" Финсостав: Логика данных """
-	pass
+
+	# Выборки данных
+	def Names(self) -> list[str]:
+		""" Список наименований """
+		record = C80_FincompositionRecord()
+
+		filter_data = C30_FilterLinear1D(record.Idc().data)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		return filter_data.ToStrings(record.f_name.Idp().data, flag_sort=True).data
+
+	def TopNames(self) -> list[str]:
+		""" Список наименований верхнего уровня """
+		record = C80_FincompositionRecord()
+
+		filter_data = C30_FilterLinear1D(record.Idc().data)
+		filter_data.FilterIdpVlpByEqual(record.f_parent_ido.Idp().data, "")
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		return filter_data.ToStrings(record.f_name.Idp().data, flag_sort=True).data
+
+	def TopIdos(self) -> list[str]:
+		""" Список IDO верхнего уровня """
+		record = C80_FincompositionRecord()
+
+		filter_data = C30_FilterLinear1D(record.Idc().data)
+		filter_data.FilterIdpVlpByEqual(record.f_parent_ido.Idp().data, "")
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		return filter_data.Idos(record.f_name.Idp().data).data
+
+	# Управление записями
+	def CreateRecord(self, record_name: str, parent_ido: str = "") -> bool:
+		""" Создание записи """
+		if record_name in self.Names(): return False
+
+		record = C80_FincompositionRecord()
+		record.GenerateIdo()
+		record.RegisterObject(CONTAINER_LOCAL)
+
+		record.Name(record_name)
+		record.ParentIdo(parent_ido)
+
+		return True
