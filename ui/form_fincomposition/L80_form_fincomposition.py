@@ -26,3 +26,10 @@ class C80_FormFincomposition(C70_FormFincomposition):
 		if record_name is None: return
 
 		self.fincomposition.Append(record_name, self._name_processing)
+
+	def RenameRecordFincomposition(self):
+		""" Изменение наименования записи финсостава """
+		record_name : str | None = RequestText("Управление финсоставом", f"Изменение наименования [{self._name_processing}]", self._name_processing)
+		if record_name is None: return
+
+		self.fincomposition.Rename(self._name_processing, record_name)

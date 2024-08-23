@@ -82,3 +82,13 @@ class C80_Fincomposition(C70_Fincomposition):
 		record.ParentIdo(parent_ido)
 
 		return True
+
+	def Rename(self, name_old: str, name_new: str) -> bool:
+		""" Изменение наименования записи """
+		if name_new in self.Names(): return False
+
+		record = C80_FincompositionRecord()
+		record.SwitchByName(name_old)
+		record.Name(name_new)
+
+		return True

@@ -14,7 +14,9 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		# Меню финсостава
 		self.menu_fincomposition_append.triggered.connect(self.on_RequestAppendFincompositionRecordToTop)
+
 		self.menu_fincomposition_record_append.triggered.connect(self.on_RequestAppendFincompositionRecord)
+		self.menu_fincomposition_record_rename.triggered.connect(self.on_RequestRenameFincompositionRecord)
 
 	# Форма
 	def on_Show(self):
@@ -50,6 +52,15 @@ class C90_FormFincomposition(C80_FormFincomposition):
 	def on_RequestAppendFincompositionRecord(self):
 		""" Запрос на добавление вложенной записи финсостава """
 		self.AppendRecordFincomposition()
+
+		self.LoadFincomposition()
+
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+
+	def on_RequestRenameFincompositionRecord(self):
+		""" Запрос на изменение наименования записи финсостава """
+		self.RenameRecordFincomposition()
 
 		self.LoadFincomposition()
 
