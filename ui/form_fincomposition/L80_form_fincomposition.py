@@ -1,6 +1,6 @@
 # ФОРМА ФИНСОСТАВ: ЛОГИКА ДАННЫХ
 
-from L20_PySide6             import RequestText
+from L20_PySide6 import RequestText, RequestConfirm, RequestItem
 from L70_form_fincomposition import C70_FormFincomposition
 
 
@@ -33,3 +33,15 @@ class C80_FormFincomposition(C70_FormFincomposition):
 		if record_name is None: return
 
 		self.fincomposition.Rename(self._name_processing, record_name)
+
+	def DeleteRecordFincomposition(self):
+		""" Удаление записи финсостава """
+		mode_move   : str        = "Сместить вложенные записи уровнем выше"
+		mode_struct : str        = "Удалить все вложенные записи"
+
+		if not RequestConfirm("Управление финсоставом", f"Подтверждение удаления записи финсостава [{self._name_processing}]"): return
+
+		delete_mode : str | None = RequestItem("Управление финсоставом", "Режим удаления записи финсостава", [mode_move, mode_struct])
+		if     delete_mode is None                                                                                            : return
+
+		self.fincomposition.Delete(self._name_processing, delete_mode == mode_struct)

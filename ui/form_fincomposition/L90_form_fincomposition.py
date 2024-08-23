@@ -17,6 +17,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		self.menu_fincomposition_record_append.triggered.connect(self.on_RequestAppendFincompositionRecord)
 		self.menu_fincomposition_record_rename.triggered.connect(self.on_RequestRenameFincompositionRecord)
+		self.menu_fincomposition_record_delete.triggered.connect(self.on_RequestDeleteFincompositionRecord)
 
 	# Форма
 	def on_Show(self):
@@ -62,6 +63,16 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		""" Запрос на изменение наименования записи финсостава """
 		self.RenameRecordFincomposition()
 
+		self.LoadFincomposition()
+
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+
+	def on_RequestDeleteFincompositionRecord(self):
+		""" Запрос на удаление записи финсостава """
+		self.DeleteRecordFincomposition()
+
+		self.InitModelData()
 		self.LoadFincomposition()
 
 		self.AdjustTreeDataSort()

@@ -18,13 +18,22 @@ class C80_FincompositionRecord(C70_FincompositionRecord):
 
 		return filter_data.ToStrings(self.f_name.Idp().data, flag_sort=True).data
 
-	def SubIdos(self) -> list[str]:
+	def SubIdos(self, flag_include_struct: bool = False) -> list[str]:
 		""" IDO вложенных записей """
 		filter_data = C30_FilterLinear1D(self.Idc().data)
 		filter_data.FilterIdpVlpByEqual(self.f_parent_ido.Idp().data, self.Ido().data)
 		filter_data.Capture(CONTAINER_LOCAL)
 
-		return filter_data.Idos(self.f_name.Idp().data).data
+		idos : list[str] = filter_data.Idos(self.f_name.Idp().data).data
+
+		if not flag_include_struct: return idos
+
+		for ido in idos.copy():
+			subrecord = C80_FincompositionRecord(ido)
+
+			idos.extend(subrecord.SubIdos(flag_include_struct))
+
+		return idos
 
 
 class C80_Fincomposition(C70_Fincomposition):
@@ -90,5 +99,23 @@ class C80_Fincomposition(C70_Fincomposition):
 		record = C80_FincompositionRecord()
 		record.SwitchByName(name_old)
 		record.Name(name_new)
+
+		return True
+
+	def Delete(self, record_name: str, flag_delete_struct: bool = False) -> bool:
+		""" Удаление записи финсостава """
+		record                 = C80_FincompositionRecord()
+		if not record.SwitchByName(record_name): return False
+
+		parent_ido : str       = record.ParentIdo()
+		oids       : list[str] = record.SubIdos(flag_delete_struct)
+
+		record.DeleteObject(CONTAINER_LOCAL)
+
+		for oid in oids:
+			record = C80_FincompositionRecord(oid)
+
+			if flag_delete_struct: record.DeleteObject(CONTAINER_LOCAL)
+			else                 : record.ParentIdo(parent_ido)
 
 		return True

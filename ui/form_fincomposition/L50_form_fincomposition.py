@@ -13,3 +13,4 @@ class C50_FormFincomposition(C42_FormFincomposition):
 	def on_RequestAppendFincompositionRecordToTop(self): pass
 	def on_RequestAppendFincompositionRecord(self): pass
 	def on_RequestRenameFincompositionRecord(self): pass
+	def on_RequestDeleteFincompositionRecord(self): pass
