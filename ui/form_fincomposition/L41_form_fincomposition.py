@@ -22,11 +22,10 @@ class C41_FormFincomposition(C20_PySideForm, Ui_frm_fincomposition):
 		icon_delete = QIcon("./ui/icons/item_delete.svg")
 
 		self.menu_fincomposition = QMenu()
-		self.menu_fincomposition_header           : QAction = self.menu_fincomposition.addSection("ФИНСОСТАВ")
-		self.menu_fincomposition_append           : QAction = self.menu_fincomposition.addAction(icon_plus,   "Добавить")
+		self.menu_fincomposition_header        : QAction = self.menu_fincomposition.addSection("ФИНСОСТАВ")
+		self.menu_fincomposition_append        : QAction = self.menu_fincomposition.addAction(icon_plus,   "Добавить")
 
-		self.menu_fincomposition_record_header    : QAction = self.menu_fincomposition.addSection("ЗАПИСЬ ФИНСОСТАВА")
-		self.menu_fincomposition_record_append    : QAction = self.menu_fincomposition.addAction(icon_plus,   "Добавить рядом")
-		self.menu_fincomposition_record_subappend : QAction = self.menu_fincomposition.addAction(icon_plus,   "Добавить")
-		self.menu_fincomposition_record_rename    : QAction = self.menu_fincomposition.addAction(icon_edit,   "Переименовать")
-		self.menu_fincomposition_record_delete    : QAction = self.menu_fincomposition.addAction(icon_delete, "Удалить")
+		self.menu_fincomposition_record_header : QAction = self.menu_fincomposition.addSection("ЗАПИСЬ ФИНСОСТАВА")
+		self.menu_fincomposition_record_append : QAction = self.menu_fincomposition.addAction(icon_plus, "Добавить")
+		self.menu_fincomposition_record_rename : QAction = self.menu_fincomposition.addAction(icon_edit,   "Переименовать")
+		self.menu_fincomposition_record_delete : QAction = self.menu_fincomposition.addAction(icon_delete, "Удалить")

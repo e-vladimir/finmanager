@@ -14,8 +14,15 @@ class C80_FormFincomposition(C70_FormFincomposition):
 
 	# Запись финсостава
 	def AppendRecordFincompositionToTop(self):
-		""" Создание записи финсостава корневого уровня """
+		""" Добавление записи финсостава верхнего уровня """
 		record_name : str | None = RequestText("Управление финсоставом", "Добавление записи финсостава верхнего уровня")
 		if record_name is None: return
 
 		self.fincomposition.Append(record_name, "")
+
+	def AppendRecordFincomposition(self):
+		""" Добавление вложенной записи финсостава """
+		record_name : str | None = RequestText("Управление финсоставом", f"Добавление записи финсостава в [{self._name_processing}]")
+		if record_name is None: return
+
+		self.fincomposition.Append(record_name, self._name_processing)

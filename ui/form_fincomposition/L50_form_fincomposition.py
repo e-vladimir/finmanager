@@ -11,3 +11,4 @@ class C50_FormFincomposition(C42_FormFincomposition):
 
 	# Запись финсостава
 	def on_RequestAppendFincompositionRecordToTop(self): pass
+	def on_RequestAppendFincompositionRecord(self): pass
