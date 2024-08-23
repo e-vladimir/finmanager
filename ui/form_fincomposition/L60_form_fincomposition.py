@@ -1,5 +1,7 @@
 # ФОРМА ФИНСОСТАВ: МЕХАНИКА ДАННЫХ
 
+from PySide6.QtCore          import Qt
+
 from L20_PySide6             import ROLE_IDO, C20_StandardItem
 from L50_form_fincomposition import C50_FormFincomposition
 from L90_fincomposition      import C90_FincompositionRecord
@@ -13,6 +15,11 @@ class C60_FormFincomposition(C50_FormFincomposition):
 		""" Чтение IDO текущей записи """
 		index_current = self.tree_data.currentIndex()
 		self._ido_processing = index_current.data(ROLE_IDO)
+
+	def ReadNameProcessingFromTreeData(self):
+		""" Чтение наименование текущей записи """
+		index_current = self.tree_data.currentIndex()
+		self._name_processing = index_current.data(Qt.ItemDataRole.DisplayRole)
 
 	# Модель данных
 	def InitModelData(self):

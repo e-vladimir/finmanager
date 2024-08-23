@@ -31,6 +31,13 @@ class C80_Fincomposition(C70_Fincomposition):
 	""" Финсостав: Логика данных """
 
 	# Выборки данных
+	def NameToIdo(self, record_name: str) -> str:
+		""" Преобразование наименования в IDO """
+		record = C80_FincompositionRecord()
+		record.SwitchByName(record_name)
+
+		return record.Ido().data
+
 	def Names(self) -> list[str]:
 		""" Список наименований """
 		record = C80_FincompositionRecord()
@@ -61,9 +68,11 @@ class C80_Fincomposition(C70_Fincomposition):
 		return filter_data.Idos(record.f_name.Idp().data).data
 
 	# Управление записями
-	def CreateRecord(self, record_name: str, parent_ido: str = "") -> bool:
-		""" Создание записи """
+	def Append(self, record_name: str, parent_name: str = "") -> bool:
+		""" Добавление записи """
 		if record_name in self.Names(): return False
+
+		parent_ido : str = self.NameToIdo(parent_name)
 
 		record = C80_FincompositionRecord()
 		record.GenerateIdo()

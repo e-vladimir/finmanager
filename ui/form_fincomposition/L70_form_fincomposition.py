@@ -4,7 +4,6 @@ from PySide6.QtCore          import Qt
 from PySide6.QtGui           import QCursor
 
 from L60_form_fincomposition import C60_FormFincomposition
-from L90_fincomposition      import C90_FincompositionRecord
 
 
 class C70_FormFincomposition(C60_FormFincomposition):
@@ -20,7 +19,7 @@ class C70_FormFincomposition(C60_FormFincomposition):
 		""" Меню финсостава: Настройка доступности """
 		flag_selected : bool = bool(self._ido_processing)
 
-		self.menu_fincomposition_record_create.setEnabled(flag_selected)
+		self.menu_fincomposition_record_append.setEnabled(flag_selected)
 		self.menu_fincomposition_record_rename.setEnabled(flag_selected)
 		self.menu_fincomposition_record_delete.setEnabled(flag_selected)
 
@@ -28,9 +27,8 @@ class C70_FormFincomposition(C60_FormFincomposition):
 		""" Меню финсостава: Настройка наименования """
 		self.menu_fincomposition_record_header.setText("ЗАПИСЬ ФИНСОСТАВА")
 
-		if not self._ido_processing: return
-		record_fincomposition = C90_FincompositionRecord(self._ido_processing)
-		self.menu_fincomposition_record_header.setText(record_fincomposition.Name().upper())
+		if not self._name_processing: return
+		self.menu_fincomposition_record_header.setText(self._name_processing.upper())
 
 	def ShowMenuFincomposition(self):
 		""" Меню финсостава: Отображение """

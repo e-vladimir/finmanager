@@ -10,5 +10,4 @@ class C50_FormFincomposition(C42_FormFincomposition):
 	def on_RequestMenuFincomposition(self): pass
 
 	# Запись финсостава
-	def on_RequestCreateTopFincompositionRecord(self): pass
-	def on_RequestCreateFincompositionRecord(self): pass
+	def on_RequestAppendFincompositionRecordToTop(self): pass
