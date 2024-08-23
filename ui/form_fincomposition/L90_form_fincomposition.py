@@ -10,7 +10,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		super().InitEvents()
 
 		# Дерево финсостава
-		self.tree_data.customContextMenuRequested.connect(self.on_RequestMenuFincomposition)
+		self.tree_data.customContextMenuRequested.connect(self.on_RequestShowMenuFincomposition)
 
 		# Меню финсостава
 		self.menu_fincomposition_append.triggered.connect(self.on_RequestAppendFincompositionRecordToTop)
@@ -18,6 +18,9 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		self.menu_fincomposition_record_append.triggered.connect(self.on_RequestAppendFincompositionRecord)
 		self.menu_fincomposition_record_rename.triggered.connect(self.on_RequestRenameFincompositionRecord)
 		self.menu_fincomposition_record_delete.triggered.connect(self.on_RequestDeleteFincompositionRecord)
+		self.menu_fincomposition_record_up.triggered.connect(self.on_RequestMoveUpFincompositionRecord)
+		self.menu_fincomposition_record_copy.triggered.connect(self.on_RequestMemoryFincompositionRecord)
+		self.menu_fincomposition_record_paste.triggered.connect(self.on_RequestPasteFincompositionRecord)
 
 	# Форма
 	def on_Show(self):
@@ -30,7 +33,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		self.AdjustTreeDataExpand()
 
 	# Меню финсостава
-	def on_RequestMenuFincomposition(self):
+	def on_RequestShowMenuFincomposition(self):
 		""" Запрос на отображение меню финсостава """
 		self.ReadIdoProcessingFromTreeData()
 		self.ReadNameProcessingFromTreeData()
@@ -43,7 +46,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 	# Запись финсостава
 	def on_RequestAppendFincompositionRecordToTop(self):
 		""" Запрос на добавление записи финсостава верхнего уровня """
-		self.AppendRecordFincompositionToTop()
+		self.AppendFincompositionRecordToTop()
 
 		self.LoadFincomposition()
 
@@ -52,7 +55,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 	def on_RequestAppendFincompositionRecord(self):
 		""" Запрос на добавление вложенной записи финсостава """
-		self.AppendRecordFincomposition()
+		self.AppendFincompositionRecord()
 
 		self.LoadFincomposition()
 
@@ -61,7 +64,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 	def on_RequestRenameFincompositionRecord(self):
 		""" Запрос на изменение наименования записи финсостава """
-		self.RenameRecordFincomposition()
+		self.RenameFincompositionRecord()
 
 		self.LoadFincomposition()
 
@@ -70,7 +73,31 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 	def on_RequestDeleteFincompositionRecord(self):
 		""" Запрос на удаление записи финсостава """
-		self.DeleteRecordFincomposition()
+		self.DeleteFincompositionRecord()
+
+		self.InitModelData()
+		self.LoadFincomposition()
+
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+
+	def on_RequestMoveUpFincompositionRecord(self):
+		""" Запрос на перемещение записи финсостава уровнем выше """
+		self.MoveUpFincompositionRecord()
+
+		self.InitModelData()
+		self.LoadFincomposition()
+
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+
+	def on_RequestMemoryFincompositionRecord(self):
+		""" Запрос на запоминание записи финсостава """
+		self.MemoryNameProcessing()
+
+	def on_RequestPasteFincompositionRecord(self):
+		""" Вставка записи финсостава """
+		self.PasteFincompositionRecord()
 
 		self.InitModelData()
 		self.LoadFincomposition()

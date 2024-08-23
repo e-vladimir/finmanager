@@ -13,7 +13,9 @@ class C42_FormFincomposition(C41_FormFincomposition):
 		super().Init_00()
 
 		self._ido_processing  : str = ""
+
 		self._name_processing : str = ""
+		self._name_memory     : str = ""
 
 	def Init_10(self):
 		super().Init_10()

@@ -35,6 +35,13 @@ class C80_FincompositionRecord(C70_FincompositionRecord):
 
 		return idos
 
+	def MoveUp(self):
+		""" Перемещение вверх """
+		if not self.ParentIdo(): return
+
+		parent = C80_FincompositionRecord(self.ParentIdo())
+		self.ParentIdo(parent.ParentIdo())
+
 
 class C80_Fincomposition(C70_Fincomposition):
 	""" Финсостав: Логика данных """

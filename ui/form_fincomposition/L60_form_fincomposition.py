@@ -21,6 +21,10 @@ class C60_FormFincomposition(C50_FormFincomposition):
 		index_current = self.tree_data.currentIndex()
 		self._name_processing = index_current.data(Qt.ItemDataRole.DisplayRole)
 
+	def MemoryNameProcessing(self):
+		""" Запоминание наименования текущей записи """
+		self._name_memory = self._name_processing
+
 	# Модель данных
 	def InitModelData(self):
 		""" Инициализация модели данных """
