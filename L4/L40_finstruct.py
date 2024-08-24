@@ -17,6 +17,8 @@ class C40_FinstructRecord(C30_StructFrame):
 
 		self.f_name       = C30_StructField(self, "Наименование")
 
+		self.f_group      = C30_StructField(self, "Группа счетов")
+
 
 class C40_Finstruct(C20_MetaFrame):
 	""" Финструктура: Модель данных """

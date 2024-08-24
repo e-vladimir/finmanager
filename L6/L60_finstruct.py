@@ -23,6 +23,11 @@ class C60_FinstructRecord(C50_FinstructRecord):
 		if text is None: return self.f_name.ToString(CONTAINER_LOCAL).data
 		else           :        self.f_name.FromString(CONTAINER_LOCAL, text)
 
+	def Group(self, text: str = None) -> str:
+		""" Группа счетов """
+		if text is None: return self.f_group.ToString(CONTAINER_LOCAL).data
+		else           :        self.f_group.FromString(CONTAINER_LOCAL, text)
+
 
 class C60_Finstruct(C50_Finstruct):
 	""" Финструктура: Механика данных """
