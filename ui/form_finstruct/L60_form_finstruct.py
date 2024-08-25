@@ -56,6 +56,14 @@ class C60_FormFinstruct(C50_FormFinstruct):
 				self.model_data.removeRow(index_row)
 				continue
 
+			for index_subrow in reversed(range(self.model_data.rowCount(index_group))):
+				index_record = self.model_data.index(index_subrow, 0, index_group)
+				ido          = index_record.data(ROLE_IDO)
+
+				if ido in idos: continue
+
+				self.model_data.removeRow(index_subrow, index_group)
+
 	def LoadFinstructGroup(self):
 		""" Загрузка группы счетов """
 		if not self._name_processing  : return

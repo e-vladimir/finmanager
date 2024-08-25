@@ -13,3 +13,4 @@ class C50_FormFinstruct(C42_FormFinstruct):
 	def on_RequestCreateFinstructRecord(self): pass
 	def on_RequestCreateFinstructRecordInGroup(self): pass
 	def on_RequestRenameFinstructRecord(self): pass
+	def on_RequestDeleteFinstructRecord(self): pass

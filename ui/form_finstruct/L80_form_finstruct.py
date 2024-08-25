@@ -1,7 +1,8 @@
 # ФОРМА ФИНСТРУКТУРА: ЛОГИКА ДАННЫХ
-
-from L20_PySide6        import RequestText
+from L00_containers import CONTAINER_LOCAL
+from L20_PySide6 import RequestText, RequestConfirm
 from L70_form_finstruct import C70_FormFinstruct
+from L90_finstruct import C90_FinstructRecord
 
 
 class C80_FormFinstruct(C70_FormFinstruct):
@@ -46,3 +47,12 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 		dy, dm = self.workspace.DyDm()
 		self.finstruct.Rename(dy, dm, self._name_processing, record_name)
+
+	def DeleteFinstructRecord(self):
+		""" Удаление записи финструктуры """
+		if not self._ido_processing: return
+
+		if not RequestConfirm("Управление финструктурой", f"Удаление счёта {self._name_processing}"): return
+
+		record = C90_FinstructRecord(self._ido_processing)
+		record.DeleteObject(CONTAINER_LOCAL)

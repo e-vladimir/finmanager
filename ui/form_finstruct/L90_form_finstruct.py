@@ -18,6 +18,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.menu_finstruct_group_create.triggered.connect(self.on_RequestCreateFinstructRecordInGroup)
 
 		self.menu_finstruct_record_rename.triggered.connect(self.on_RequestRenameFinstructRecord)
+		self.menu_finstruct_record_delete.triggered.connect(self.on_RequestDeleteFinstructRecord)
 
 	# Форма
 	def on_Show(self):
@@ -31,6 +32,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataColors()
+
+		self.CleanModel()
 
 	# Меню финструктуры
 	def on_RequestMenuFinstruct(self):
@@ -74,3 +77,9 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataColors()
+
+	def on_RequestDeleteFinstructRecord(self):
+		""" Запрос на удаление записи финструктуры """
+		self.DeleteFinstructRecord()
+
+		self.CleanModel()
