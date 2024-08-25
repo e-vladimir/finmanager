@@ -27,6 +27,11 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		""" Настройка цветовой схемы дерева финструктуры """
 		self.model_data.setGroupsView(True, True)
 
+	def ProcessingTreeDataDbClick(self):
+		""" Обработка двойного клика по дереву данных """
+		if   self._name_processing : self.on_RequestRenameFinstructRecord()
+		elif self._group_processing: self.on_RequestRenameGroupFinstruct()
+
 	# Меню финструктуры
 	def AdjustMenuFinstructEnable(self):
 		""" Меню финсостава: Настройка доступности """

@@ -11,6 +11,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 		# Дерево данных
 		self.tree_data.customContextMenuRequested.connect(self.on_RequestMenuFinstruct)
+		self.tree_data.doubleClicked.connect(self.on_RequestProcessingTreeDataDbClick)
 
 		# Меню финструктуры
 		self.menu_finstruct_create.triggered.connect(self.on_RequestCreateFinstructRecord)
@@ -48,6 +49,15 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.AdjustMenuFinstructText()
 
 		self.ShowMenuFinstruct()
+
+	# Дерево финструктуры
+	def on_RequestProcessingTreeDataDbClick(self):
+		""" Реакция действия на двойной клик по дереву данных """
+		self.ReadIdoProcessing()
+		self.ReadNameProcessing()
+		self.ReadGroupProcessing()
+
+		self.ProcessingTreeDataDbClick()
 
 	# Запись финструктуры
 	def on_RequestCreateFinstructRecord(self):
