@@ -60,3 +60,18 @@ class C80_Finstruct(C70_Finstruct):
 		filter_data.Capture(CONTAINER_LOCAL)
 
 		return filter_data.Idos(record.f_name.Idp().data).data
+
+	# Управление записью финструктуры
+	def Create(self, dy: int, dm: int, record_name: str, group_name: str) -> bool:
+		""" Создание записи финструктуры """
+		if record_name in self.Groups(dy, dm): return False
+
+		record = C80_FinstructRecord()
+		record.GenerateIdo()
+		record.RegisterObject(CONTAINER_LOCAL)
+		record.Dy(dy)
+		record.Dm(dm)
+		record.Name(record_name)
+		record.Group(group_name)
+
+		return True

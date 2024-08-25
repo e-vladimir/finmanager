@@ -6,4 +6,9 @@ from L42_form_finstruct import C42_FormFinstruct
 class C50_FormFinstruct(C42_FormFinstruct):
 	""" Форма Финструктура: Модель событий """
 
-	pass
+	# Меню финструктуры
+	def on_RequestMenuFinstruct(self): pass
+
+	# Запись финструктуры
+	def on_RequestCreateFinstructRecord(self): pass
+	def on_RequestCreateFinstructRecordInGroup(self): pass

@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 23 авг 2024
+# 25 авг 2024
 
 from pathlib           import Path
 from PySide6           import QtGui
@@ -266,13 +266,17 @@ class QMultipleTextInputDialog(QDialog):
 		return self.edit_text.toPlainText().split('\n')
 
 
-def RequestText(title: str, message: str, old_text: str = "") -> None | str:
+def RequestText(title: str, message: str, old_text: str = "", items: list[str] | None = None) -> None | str:
 	""" Запрос текста """
 	dialog = QInputDialog(None)
 	dialog.setWindowTitle(title)
 	dialog.setLabelText(message)
 	dialog.resize(480, 150)
 	dialog.setTextValue(old_text)
+
+	if items is not None:
+		dialog.setComboBoxItems(items)
+		dialog.setComboBoxEditable(True)
 
 	if not dialog.exec_(): return None
 	return dialog.textValue()

@@ -14,8 +14,9 @@ class C42_FormFinstruct(C41_FormFinstruct):
 	def Init_00(self):
 		super().Init_00()
 
-		self._name_processing : str = ""
-		self._ido_processing  : str = ""
+		self._group_processing : str = ""
+		self._name_processing  : str = ""
+		self._ido_processing   : str = ""
 
 	def Init_10(self):
 		super().Init_10()
