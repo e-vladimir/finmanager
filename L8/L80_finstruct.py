@@ -75,7 +75,7 @@ class C80_Finstruct(C70_Finstruct):
 	# Управление записью финструктуры
 	def Create(self, dy: int, dm: int, record_name: str, group_name: str) -> bool:
 		""" Создание записи финструктуры """
-		if record_name in self.Groups(dy, dm): return False
+		if record_name in self.Names(dy, dm): return False
 
 		record = C80_FinstructRecord()
 		record.GenerateIdo()
@@ -89,11 +89,21 @@ class C80_Finstruct(C70_Finstruct):
 
 	def Rename(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
 		""" Изменение наименования записи финструктуры """
-		if     name_new in self.Groups(dy, dm)      : return False
+		if     name_new in self.Names(dy, dm)      : return False
 
 		record = C80_FinstructRecord()
 		if not record.SwitchByName(dy, dm, name_old): return False
 
 		record.Name(name_new)
+
+		return True
+
+	def Regroup(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
+		""" Изменение наименования группы финструктуры """
+		if name_new in self.Groups(dy, dm): return False
+
+		for ido in self.IdosInGroup(dy, dm ,name_old):
+			record = C80_FinstructRecord(ido)
+			record.Group(name_new)
 
 		return True

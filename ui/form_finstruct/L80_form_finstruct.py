@@ -66,7 +66,15 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", old_text=self._group_processing, items=self.finstruct.Groups(dy, dm))
 		if group_name is None: return
 
-		if group_name in self.finstruct.Names(dy, dm): return
+		if group_name in self.finstruct.Groups(dy, dm): return
 
 		record = C90_FinstructRecord(self._ido_processing)
 		record.Group(group_name)
+
+	def RenameGroupFinstruct(self):
+		""" Изменение наименования группы счетов """
+		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", self._group_processing)
+		if group_name is None: return
+
+		dy, dm = self.workspace.DyDm()
+		self.finstruct.Regroup(dy, dm, self._group_processing, group_name)

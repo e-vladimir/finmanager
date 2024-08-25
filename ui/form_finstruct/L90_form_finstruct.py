@@ -16,6 +16,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.menu_finstruct_create.triggered.connect(self.on_RequestCreateFinstructRecord)
 
 		self.menu_finstruct_group_create.triggered.connect(self.on_RequestCreateFinstructRecordInGroup)
+		self.menu_finstruct_group_rename.triggered.connect(self.on_RequestRenameGroupFinstruct)
 
 		self.menu_finstruct_record_rename.triggered.connect(self.on_RequestRenameFinstructRecord)
 		self.menu_finstruct_record_delete.triggered.connect(self.on_RequestDeleteFinstructRecord)
@@ -88,6 +89,17 @@ class C90_FormFinstruct(C80_FormFinstruct):
 	def on_RequestRegroupFinstructRecord(self):
 		""" Запрос на изменение группы счета """
 		self.RegroupFinstructRecord()
+
+		self.CleanModel()
+		self.LoadFinstruct()
+
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
+
+	def on_RequestRenameGroupFinstruct(self):
+		""" Запрос на изменение группы счетов """
+		self.RenameGroupFinstruct()
 
 		self.CleanModel()
 		self.LoadFinstruct()
