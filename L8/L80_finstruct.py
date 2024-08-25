@@ -26,6 +26,17 @@ class C80_Finstruct(C70_Finstruct):
 
 		return filter_data.ToStrings(record.f_group.Idp().data, flag_distinct=True, flag_sort=True).data
 
+	def Names(self, dy: int, dm: int) -> list[str]:
+		""" Наименования записей финструктуры """
+		record      = C80_FinstructRecord()
+
+		filter_data = C30_FilterLinear1D(record.Idc().data)
+		filter_data.FilterIdpVlpByEqual(record.f_dy.Idp().data, dy)
+		filter_data.FilterIdpVlpByEqual(record.f_dm.Idp().data, dm)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		return filter_data.ToStrings(record.f_name.Idp().data, flag_distinct=True, flag_sort=True).data
+
 	def Idos(self, dy: int, dm: int) -> list[str]:
 		""" Список IDO записей финструктуры """
 		record      = C80_FinstructRecord()

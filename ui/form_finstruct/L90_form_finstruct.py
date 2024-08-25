@@ -19,6 +19,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 		self.menu_finstruct_record_rename.triggered.connect(self.on_RequestRenameFinstructRecord)
 		self.menu_finstruct_record_delete.triggered.connect(self.on_RequestDeleteFinstructRecord)
+		self.menu_finstruct_record_regroup.triggered.connect(self.on_RequestRegroupFinstructRecord)
 
 	# Форма
 	def on_Show(self):
@@ -83,3 +84,14 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.DeleteFinstructRecord()
 
 		self.CleanModel()
+
+	def on_RequestRegroupFinstructRecord(self):
+		""" Запрос на изменение группы счета """
+		self.RegroupFinstructRecord()
+
+		self.CleanModel()
+		self.LoadFinstruct()
+
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()

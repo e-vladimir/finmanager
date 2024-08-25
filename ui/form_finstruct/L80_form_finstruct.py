@@ -1,8 +1,9 @@
 # ФОРМА ФИНСТРУКТУРА: ЛОГИКА ДАННЫХ
-from L00_containers import CONTAINER_LOCAL
-from L20_PySide6 import RequestText, RequestConfirm
+
+from L00_containers     import CONTAINER_LOCAL
+from L20_PySide6        import RequestText, RequestConfirm
 from L70_form_finstruct import C70_FormFinstruct
-from L90_finstruct import C90_FinstructRecord
+from L90_finstruct      import C90_FinstructRecord
 
 
 class C80_FormFinstruct(C70_FormFinstruct):
@@ -19,8 +20,8 @@ class C80_FormFinstruct(C70_FormFinstruct):
 	# Запись финструктуры
 	def CreateFinstructRecord(self):
 		""" Создание записи финструктуры """
-		dy, dm = self.workspace.DyDm()
-		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", items=self.finstruct.Groups(dy, dm))
+		dy, dm                    = self.workspace.DyDm()
+		group_name   : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", items=self.finstruct.Groups(dy, dm))
 		if group_name is None: return
 
 		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {group_name}")
@@ -56,3 +57,16 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 		record = C90_FinstructRecord(self._ido_processing)
 		record.DeleteObject(CONTAINER_LOCAL)
+
+	def RegroupFinstructRecord(self):
+		""" Изменение группы счета """
+		if not self._ido_processing: return
+
+		dy, dm = self.workspace.DyDm()
+		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", old_text=self._group_processing, items=self.finstruct.Groups(dy, dm))
+		if group_name is None: return
+
+		if group_name in self.finstruct.Names(dy, dm): return
+
+		record = C90_FinstructRecord(self._ido_processing)
+		record.Group(group_name)
