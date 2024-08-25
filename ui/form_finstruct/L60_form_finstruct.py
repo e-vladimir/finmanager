@@ -29,7 +29,7 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 	def ReadGroupProcessing(self):
 		""" Чтение группы счетов """
-		self._name_processing = ""
+		self._group_processing = ""
 
 		index_current : QModelIndex = self.tree_data.currentIndex()
 		ido           : str         = index_current.data(ROLE_IDO)
@@ -44,7 +44,17 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 	def CleanModel(self):
 		""" Очистка модели от несуществующих данных """
-		pass
+		dy, dm = self.workspace.DyDm()
+		groups = self.finstruct.Groups(dy, dm)
+		idos   = self.finstruct.Idos(dy, dm)
+
+		for index_row in reversed(range(self.model_data.rowCount())):
+			index_group = self.model_data.index(index_row, 0)
+			group_name  = index_group.data(Qt.ItemDataRole.DisplayRole)
+
+			if group_name not in groups:
+				self.model_data.removeRow(index_row)
+				continue
 
 	def LoadFinstructGroup(self):
 		""" Загрузка группы счетов """
@@ -53,8 +63,8 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		index_group : QModelIndex | None = self.model_data.itemByData(self._name_processing)
 		if     index_group is not None: return
 
-		item_group  = C20_StandardItem(self._name_processing)
-		item_parent = self.model_data.invisibleRootItem()
+		item_group                       = C20_StandardItem(self._name_processing)
+		item_parent                      = self.model_data.invisibleRootItem()
 
 		item_parent.appendRow(item_group)
 

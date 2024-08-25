@@ -36,3 +36,13 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		if record_name is None: return
 
 		self.finstruct.Create(dy, dm, record_name, self._group_processing)
+
+	def RenameFinstructRecord(self):
+		""" Изменение наименования записи финструктуры """
+		if not self._ido_processing: return
+
+		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {self._group_processing}", self._name_processing)
+		if record_name is None: return
+
+		dy, dm = self.workspace.DyDm()
+		self.finstruct.Rename(dy, dm, self._name_processing, record_name)

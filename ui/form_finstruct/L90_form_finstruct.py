@@ -17,6 +17,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 		self.menu_finstruct_group_create.triggered.connect(self.on_RequestCreateFinstructRecordInGroup)
 
+		self.menu_finstruct_record_rename.triggered.connect(self.on_RequestRenameFinstructRecord)
+
 	# Форма
 	def on_Show(self):
 		super().on_Show()
@@ -56,6 +58,16 @@ class C90_FormFinstruct(C80_FormFinstruct):
 	def on_RequestCreateFinstructRecordInGroup(self):
 		""" Запрос на создание записи финструктуры в группе """
 		self.CreateFinstructRecordInGroup()
+
+		self.LoadFinstruct()
+
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
+
+	def on_RequestRenameFinstructRecord(self):
+		""" Запрос на изменение наименования записи финструктуры """
+		self.RenameFinstructRecord()
 
 		self.LoadFinstruct()
 

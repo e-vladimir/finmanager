@@ -11,6 +11,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		# Дерево финсостава
 		self.tree_data.customContextMenuRequested.connect(self.on_RequestShowMenuFincomposition)
+		self.tree_data.doubleClicked.connect(self.on_RequestRenameFincompositionRecord)
 
 		# Меню финсостава
 		self.menu_fincomposition_append.triggered.connect(self.on_RequestAppendFincompositionRecordToTop)

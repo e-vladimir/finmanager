@@ -1,5 +1,5 @@
 # ФИНСТРУКТУРА: МЕХАНИКА ДАННЫХ
-
+from G30_cactus_datafilters import C30_FilterLinear1D
 from L00_containers import CONTAINER_LOCAL
 from L50_finstruct  import C50_FinstructRecord, C50_Finstruct
 
@@ -27,6 +27,21 @@ class C60_FinstructRecord(C50_FinstructRecord):
 		""" Группа счетов """
 		if text is None: return self.f_group.ToString(CONTAINER_LOCAL).data
 		else           :        self.f_group.FromString(CONTAINER_LOCAL, text)
+
+	# Переключение
+	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:
+		""" Переключение по Наименованию """
+		filter_select        = C30_FilterLinear1D(self.Idc().data)
+		filter_select.FilterIdpVlpByEqual(self.f_name.Idp().data, name)
+		filter_select.FilterIdpVlpByEqual(self.f_dy.Idp().data, dy)
+		filter_select.FilterIdpVlpByEqual(self.f_dm.Idp().data, dm)
+		filter_select.Capture(CONTAINER_LOCAL)
+
+		idos     : list[str] = filter_select.Idos().data
+		if not idos: return False
+
+		self.Ido(idos[0])
+		return True
 
 
 class C60_Finstruct(C50_Finstruct):

@@ -75,3 +75,14 @@ class C80_Finstruct(C70_Finstruct):
 		record.Group(group_name)
 
 		return True
+
+	def Rename(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
+		""" Изменение наименования записи финструктуры """
+		if     name_new in self.Groups(dy, dm)      : return False
+
+		record = C80_FinstructRecord()
+		if not record.SwitchByName(dy, dm, name_old): return False
+
+		record.Name(name_new)
+
+		return True
