@@ -10,6 +10,10 @@ class C80_Workspace(C70_Workspace):
 	""" Рабочее пространство: Логика данных """
 
 	# Конвертация данных
+	def DyDm(self) -> [int, int]:
+		""" Вывод год-месяц в виде набора """
+		return self.Dy(), self.Dm()
+
 	def DmDyToString(self) -> str:
 		""" Вывод Месяц-Год в текстовом формате """
 		return f"{MONTHS_SHORT[self.Dm()]} {self.Dy():04d}"

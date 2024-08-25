@@ -18,5 +18,6 @@ export PYTHONPATH=$PYTHONPATH:./L9
 
 export PYTHONPATH=$PYTHONPATH:./ui/form_main
 export PYTHONPATH=$PYTHONPATH:./ui/form_fincomposition
+export PYTHONPATH=$PYTHONPATH:./ui/form_finstruct
 
 python3 -u gui_finmanager.py

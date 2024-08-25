@@ -12,7 +12,7 @@ class C70_FormMain(C60_FormMain):
 	# Форма
 	def ShowTitle(self):
 		""" Отображение заголовка окна """
-		self.setWindowTitle(f"Финменеджер-19: {self.workspace.DmDyToString()}")
+		self.setWindowTitle(f"Финменеджер.19 - {self.workspace.DmDyToString()}")
 
 	# Панель финпериода
 	def FillCbboxDy(self):

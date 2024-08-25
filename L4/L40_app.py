@@ -3,7 +3,10 @@
 from G30_cactus_controller_containers import controller_containers
 
 from L00_containers                   import CONTAINER_RAM, CONTAINER_LOCAL
+
 from L20_PySide6                      import C20_PySideApplication
+
+from L90_form_finstruct               import C90_FormFinstruct
 from L90_form_main                    import C90_FormMain
 from L90_form_fincomposition          import C90_FormFincomposition
 
@@ -19,6 +22,7 @@ class C40_Application(C20_PySideApplication):
 
 		self.form_main           = C90_FormMain(self)
 		self.form_fincomposition = C90_FormFincomposition(self)
+		self.form_finstruct      = C90_FormFinstruct(self)
 
 	def Init_11(self):
 		super().Init_11()

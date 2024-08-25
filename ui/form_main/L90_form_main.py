@@ -18,6 +18,7 @@ class C90_FormMain(C80_FormMain):
 
 		# Панель форм
 		self.btn_fincomposition.clicked.connect(self.on_RequestOpenFincomposition)
+		self.btn_finstruct.clicked.connect(self.on_RequestOpenFinstruct)
 
 	# Форма
 	def on_Show(self):
@@ -65,3 +66,7 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFincomposition(self):
 		""" Открытие формы финсостава """
 		self.application.form_fincomposition.Open()
+
+	def on_RequestOpenFinstruct(self):
+		""" Открытие формы финструктуры """
+		self.application.form_finstruct.Open()
