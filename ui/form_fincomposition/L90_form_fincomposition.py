@@ -32,6 +32,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		self.LoadFincomposition()
 
 		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
 
 	# Меню финсостава
 	def on_RequestShowMenuFincomposition(self):
@@ -53,6 +54,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
 
 	def on_RequestAppendFincompositionRecord(self):
 		""" Запрос на добавление вложенной записи финсостава """
@@ -62,6 +64,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
 
 	def on_RequestRenameFincompositionRecord(self):
 		""" Запрос на изменение наименования записи финсостава """
@@ -71,6 +74,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
 
 	def on_RequestDeleteFincompositionRecord(self):
 		""" Запрос на удаление записи финсостава """
@@ -81,6 +85,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
 
 	def on_RequestMoveUpFincompositionRecord(self):
 		""" Запрос на перемещение записи финсостава уровнем выше """
@@ -91,6 +96,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
 
 	def on_RequestMemoryFincompositionRecord(self):
 		""" Запрос на запоминание записи финсостава """
@@ -105,3 +111,4 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()

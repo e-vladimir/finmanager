@@ -51,3 +51,7 @@ class C70_FormFincomposition(C60_FormFincomposition):
 	def AdjustTreeDataExpand(self):
 		""" Настройка раскрытия данных в дереве финсостава """
 		self.tree_data.expandAll()
+
+	def AdjustTreeDataColors(self):
+		""" Настройка цветовой схемы дерева Финсостава """
+		self.model_data.setGroupsView(flag_only_top=False, flag_setup_h=False, flag_apply_bg=False)
