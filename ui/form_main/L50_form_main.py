@@ -14,3 +14,4 @@ class C50_FormMain(C42_FormMain):
 	# Переход в другие формы
 	def on_RequestOpenFincomposition(self): pass
 	def on_RequestOpenFinstruct(self): pass
+	def on_RequestOpenFinactions(self): pass

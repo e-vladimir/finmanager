@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_maineqElUe.ui'
+## Form generated from reading UI file 'form_mainUwvvxH.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -151,6 +151,12 @@ class Ui_form_main(object):
 
         self.horizontalLayout_5.addWidget(self.btn_finstruct)
 
+        self.btn_finactions = QPushButton(self.centralwidget)
+        self.btn_finactions.setObjectName(u"btn_finactions")
+        self.btn_finactions.setMinimumSize(QSize(120, 0))
+
+        self.horizontalLayout_5.addWidget(self.btn_finactions)
+
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_5.addItem(self.horizontalSpacer_5)
@@ -180,5 +186,6 @@ class Ui_form_main(object):
         self.btn_fincomposition.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u043e\u0441\u0442\u0430\u0432", None))
         self.label_2.setText(QCoreApplication.translate("form_main", u"\u0414\u0410\u041d\u041d\u042b\u0415", None))
         self.btn_finstruct.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430", None))
+        self.btn_finactions.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f", None))
     # retranslateUi
 
