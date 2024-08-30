@@ -23,10 +23,10 @@ class C41_FormFinstruct(C20_PySideForm, Ui_frm_finstruct):
 
 		self.menu_finstruct                          = QMenu()
 		self.menu_finstruct_header         : QAction = self.menu_finstruct.addSection("ФИНСТРУКТУРА")
-		self.menu_finstruct_create         : QAction = self.menu_finstruct.addAction(icon_plus,   "Добавить счёт")
+		self.menu_finstruct_create         : QAction = self.menu_finstruct.addAction(icon_plus,   "Создать счёт")
 
 		self.menu_finstruct_group_header   : QAction = self.menu_finstruct.addSection("ГРУППА СЧЕТОВ")
-		self.menu_finstruct_group_create   : QAction = self.menu_finstruct.addAction(icon_plus,   "Добавить счёт")
+		self.menu_finstruct_group_create   : QAction = self.menu_finstruct.addAction(icon_plus,   "Создать подсчёт")
 		self.menu_finstruct_group_rename   : QAction = self.menu_finstruct.addAction(icon_edit,   "Переименовать")
 
 		self.menu_finstruct_record_header  : QAction = self.menu_finstruct.addSection("СЧЕТ")

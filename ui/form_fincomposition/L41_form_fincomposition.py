@@ -26,10 +26,10 @@ class C41_FormFincomposition(C20_PySideForm, Ui_frm_fincomposition):
 
 		self.menu_fincomposition = QMenu()
 		self.menu_fincomposition_header        : QAction = self.menu_fincomposition.addSection("ФИНСОСТАВ")
-		self.menu_fincomposition_append        : QAction = self.menu_fincomposition.addAction(icon_plus,   "Добавить")
+		self.menu_fincomposition_create        : QAction = self.menu_fincomposition.addAction(icon_plus,   "Создать")
 
 		self.menu_fincomposition_record_header : QAction = self.menu_fincomposition.addSection("ЗАПИСЬ ФИНСОСТАВА")
-		self.menu_fincomposition_record_append : QAction = self.menu_fincomposition.addAction(icon_plus,   "Добавить")
+		self.menu_fincomposition_record_create : QAction = self.menu_fincomposition.addAction(icon_plus,   "Создать внутри")
 		self.menu_fincomposition_record_rename : QAction = self.menu_fincomposition.addAction(icon_edit,   "Переименовать")
 		self.menu_fincomposition_record_delete : QAction = self.menu_fincomposition.addAction(icon_delete, "Удалить")
 		self.menu_fincomposition_record_up     : QAction = self.menu_fincomposition.addAction(icon_up,     "Перенести уровнем выше")

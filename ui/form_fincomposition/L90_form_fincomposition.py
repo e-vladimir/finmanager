@@ -14,9 +14,9 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		self.tree_data.doubleClicked.connect(self.on_RequestRenameFincompositionRecord)
 
 		# Меню финсостава
-		self.menu_fincomposition_append.triggered.connect(self.on_RequestAppendFincompositionRecordToTop)
+		self.menu_fincomposition_create.triggered.connect(self.on_RequestAppendFincompositionRecordToTop)
 
-		self.menu_fincomposition_record_append.triggered.connect(self.on_RequestAppendFincompositionRecord)
+		self.menu_fincomposition_record_create.triggered.connect(self.on_RequestAppendFincompositionRecord)
 		self.menu_fincomposition_record_rename.triggered.connect(self.on_RequestRenameFincompositionRecord)
 		self.menu_fincomposition_record_delete.triggered.connect(self.on_RequestDeleteFincompositionRecord)
 		self.menu_fincomposition_record_up.triggered.connect(self.on_RequestMoveUpFincompositionRecord)

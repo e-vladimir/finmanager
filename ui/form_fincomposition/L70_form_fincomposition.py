@@ -19,7 +19,7 @@ class C70_FormFincomposition(C60_FormFincomposition):
 	def AdjustMenuFincompositionEnable(self):
 		""" Меню финсостава: Настройка доступности """
 		flag_selected : bool = bool(self._ido_processing)
-		self.menu_fincomposition_record_append.setEnabled(flag_selected)
+		self.menu_fincomposition_record_create.setEnabled(flag_selected)
 		self.menu_fincomposition_record_rename.setEnabled(flag_selected)
 		self.menu_fincomposition_record_delete.setEnabled(flag_selected)
 
