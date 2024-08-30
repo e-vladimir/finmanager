@@ -46,14 +46,8 @@ class C70_FormFinstruct(C60_FormFinstruct):
 
 	def AdjustMenuFinstructText(self):
 		""" Меню финсостава: Настройка наименования """
-		self.menu_finstruct_group_header.setText("ГРУППА СЧЕТОВ")
-		self.menu_finstruct_record_header.setText("СЧЕТ")
-
-		if self._group_processing:
-			self.menu_finstruct_group_header.setText(self._group_processing.upper())
-
-		if self._name_processing:
-			self.menu_finstruct_record_header.setText(self._name_processing.upper())
+		self.menu_finstruct_group_header.setTitle("Группа счетов" if not self._group_processing else self._group_processing)
+		self.menu_finstruct_record_header.setTitle("Счёт" if not self._name_processing else self._name_processing)
 
 	def ShowMenuFinstruct(self):
 		""" Меню финсостава: Отображение """

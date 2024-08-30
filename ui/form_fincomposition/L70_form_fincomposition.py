@@ -29,10 +29,10 @@ class C70_FormFincomposition(C60_FormFincomposition):
 
 	def AdjustMenuFincompositionText(self):
 		""" Меню финсостава: Настройка наименования """
-		self.menu_fincomposition_record_header.setText("ЗАПИСЬ ФИНСОСТАВА")
+		self.menu_fincomposition_record_header.setTitle("Запись финсостава")
 
 		if self._name_processing:
-			self.menu_fincomposition_record_header.setText(self._name_processing.upper())
+			self.menu_fincomposition_record_header.setTitle(self._name_processing)
 
 		self.menu_fincomposition_record_paste.setText("Вставить")
 

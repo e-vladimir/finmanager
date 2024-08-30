@@ -10,4 +10,5 @@ class C90_Application(C80_Application):
 		""" Запуск приложения """
 		self.SetupContainerLocal()
 
+		# self.form_finactions_record.Open()
 		self.form_main.Open()
