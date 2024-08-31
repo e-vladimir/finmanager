@@ -11,8 +11,10 @@ class C90_FormFinactionsRecord(C80_FormFinactionsRecord):
 		self.ShowTitle()
 
 		self.InitModel()
-		self.AdjustTableData_Size()
+
+		self.AdjustTableData_Font()
 		self.AdjustTableData_Alignment()
+		self.AdjustTableData_Size()
 		self.AdjustTableData_Color()
 
 		self.LoadFinactionsRecord()

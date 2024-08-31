@@ -1,5 +1,7 @@
 # ФОРМА ЗАПИСЬ ФИНДЕЙСТВИЙ: МЕХАНИКА ДАННЫХ
-from G11_convertor_data import AmountToString
+
+from G11_convertor_data         import AmountToString
+
 from L00_months                 import MONTHS_SHORT
 from L20_PySide6                import C20_StandardItem
 from L50_form_finactions_record import C50_FormFinactionsRecord
