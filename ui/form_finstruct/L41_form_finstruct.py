@@ -34,6 +34,5 @@ class C41_FormFinstruct(C20_PySideForm, Ui_frm_finstruct):
 
 		self.menu_finstruct_record_header  : QMenu   = self.menu_finstruct.addMenu(icon_grid_33, "Счёт")
 		self.menu_finstruct_record_rename  : QAction = self.menu_finstruct_record_header.addAction(icon_edit,   "Переименовать")
-		self.menu_finstruct_record_delete  : QAction = self.menu_finstruct_record_header.addAction(icon_delete, "Удалить счёт")
-		self.menu_finstruct_record_header.addSeparator()
 		self.menu_finstruct_record_regroup : QAction = self.menu_finstruct_record_header.addAction(icon_edit,   "Изменить группу")
+		self.menu_finstruct_record_delete  : QAction = self.menu_finstruct_record_header.addAction(icon_delete, "Удалить")

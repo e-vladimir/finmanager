@@ -26,7 +26,7 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 	def SrcNote(self, text: str = None) -> str:
 		""" Исходные данные: Примечание """
 		if text   is None: return self.f_src_note.ToString(CONTAINER_LOCAL).data
-		else             :        self.f_src_note.FromString(CONTAINER_LOCAL)
+		else             :        self.f_src_note.FromString(CONTAINER_LOCAL, text)
 
 	def SrcAmount(self, amount: float = None) -> float:
 		""" Исходные данные: Сумма """
@@ -36,7 +36,7 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 	def Note(self, text: str = None) -> str:
 		""" Примечание """
 		if text   is None: return self.f_note.ToString(CONTAINER_LOCAL).data
-		else             :        self.f_note.FromString(CONTAINER_LOCAL)
+		else             :        self.f_note.FromString(CONTAINER_LOCAL, text)
 
 	def Amount(self, amount: float = None) -> float:
 		""" Сумма """
@@ -56,7 +56,7 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 	def Uid(self, text: str = None) -> str:
 		""" UDI записи """
 		if text   is None: return self.f_uid.ToString(CONTAINER_LOCAL).data
-		else             :        self.f_uid.FromString(CONTAINER_LOCAL)
+		else             :        self.f_uid.FromString(CONTAINER_LOCAL, text)
 
 
 class C60_Finactions(C50_Finactions):

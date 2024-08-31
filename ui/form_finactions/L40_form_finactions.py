@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_finactionsanSQWd.ui'
+## Form generated from reading UI file 'form_finactionsPGWDBb.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -37,7 +37,8 @@ class Ui_frm_finactions(object):
         self.tree_data.setAlternatingRowColors(True)
         self.tree_data.setRootIsDecorated(False)
         self.tree_data.setExpandsOnDoubleClick(False)
-        self.tree_data.header().setVisible(False)
+        self.tree_data.header().setVisible(True)
+        self.tree_data.header().setMinimumSectionSize(20)
 
         self.verticalLayout.addWidget(self.tree_data)
 

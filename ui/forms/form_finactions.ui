@@ -48,7 +48,10 @@
        <bool>false</bool>
       </property>
       <attribute name="headerVisible">
-       <bool>false</bool>
+       <bool>true</bool>
+      </attribute>
+      <attribute name="headerMinimumSectionSize">
+       <number>20</number>
       </attribute>
      </widget>
     </item>

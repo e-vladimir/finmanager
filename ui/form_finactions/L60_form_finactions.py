@@ -33,7 +33,7 @@ class C60_FormFinactions(C50_FormFinactions):
 		item_dd                           = C20_StandardItem(dd_name)
 		item_parent                       = self.model_data.invisibleRootItem()
 
-		item_parent.appendRow(item_dd)
+		item_parent.appendRow([item_dd, C20_StandardItem(""), C20_StandardItem(""), C20_StandardItem("")])
 
 	def LoadRecordFinactions(self):
 		""" Загрузка записи финдействий """
@@ -41,13 +41,15 @@ class C60_FormFinactions(C50_FormFinactions):
 
 		record                                = C90_FinactionsRecord(self._ido_processing)
 
-		item_dd     : C20_StandardItem | None = self.model_data.itemFromIndex(record.Dd(), Qt.ItemDataRole.DisplayRole)
+		dm          : str                     = MONTHS_SHORT[self.workspace.Dm()]
+		dd_name     : str                     = f"{record.Dd():02d} {dm}"
+		item_dd     : C20_StandardItem | None = self.model_data.itemByData(dd_name, Qt.ItemDataRole.DisplayRole)
 		item_amount : C20_StandardItem | None = self.model_data.itemByData(self._ido_processing, ROLE_IDO)
 
 		if     item_dd is None     : return
 
 		if item_amount is None:
-			item_amount     = C20_StandardItem(AmountToString(record.Amount(), flag_point=False, flag_sign=True), self._ido_processing, ROLE_IDO)
+			item_amount     = C20_StandardItem(AmountToString(record.Amount(), flag_point=False, flag_sign=True), self._ido_processing, ROLE_IDO, flag_align_right=True)
 			item_finstruct  = C20_StandardItem("")
 			item_labels     = C20_StandardItem("")
 			item_note       = C20_StandardItem("")
@@ -60,5 +62,5 @@ class C60_FormFinactions(C50_FormFinactions):
 			item_note       = item_dd.child(index_row, 3)
 
 		item_finstruct.setText('\n'.join(record.FinstructIdos()))
-		item_labels.setText('\n'.join(record.Labels()))
+		item_labels.setText(' '.join(record.Labels()))
 		item_note.setText(record.Note())

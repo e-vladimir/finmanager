@@ -7,6 +7,7 @@ from L00_containers                   import CONTAINER_RAM, CONTAINER_LOCAL
 from L20_PySide6                      import C20_PySideApplication
 
 from L90_form_finactions              import C90_FormFinactions
+from L90_form_finactions_record       import C90_FormFinactionsRecord
 from L90_form_finstruct               import C90_FormFinstruct
 from L90_form_main                    import C90_FormMain
 from L90_form_fincomposition          import C90_FormFincomposition
@@ -21,10 +22,11 @@ class C40_Application(C20_PySideApplication):
 		controller_containers.RegisterContainerRAM(CONTAINER_RAM)
 		controller_containers.RegisterContainerSQLite(CONTAINER_LOCAL)
 
-		self.form_main           = C90_FormMain(self)
-		self.form_fincomposition = C90_FormFincomposition(self)
-		self.form_finstruct      = C90_FormFinstruct(self)
-		self.form_finactions     = C90_FormFinactions(self)
+		self.form_main              = C90_FormMain(self)
+		self.form_fincomposition    = C90_FormFincomposition(self)
+		self.form_finstruct         = C90_FormFinstruct(self)
+		self.form_finactions        = C90_FormFinactions(self)
+		self.form_finactions_record = C90_FormFinactionsRecord(self)
 
 	def Init_11(self):
 		super().Init_11()
