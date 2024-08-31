@@ -10,8 +10,8 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 	# Параметры
 	def Dy(self, year: int = None) -> int:
 		""" Год """
-		if year is None: return self.f_dy.ToInteger(CONTAINER_LOCAL).data
-		else           :        self.f_dy.FromInteger(CONTAINER_LOCAL, year)
+		if year   is None: return self.f_dy.ToInteger(CONTAINER_LOCAL).data
+		else             :        self.f_dy.FromInteger(CONTAINER_LOCAL, year)
 
 	def Dm(self, month: int = None) -> int:
 		""" Месяц """

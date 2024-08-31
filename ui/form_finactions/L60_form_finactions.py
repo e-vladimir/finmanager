@@ -40,7 +40,16 @@ class C60_FormFinactions(C50_FormFinactions):
 
 	def ReadIdoProcessing(self):
 		""" Чтение IDO """
-		self._ido_processing = ""
+		current_index  : QModelIndex = self.tree_data.currentIndex()
+		if not current_index.isValid(): return
+
+		current_row    : int         = current_index.row()
+		parent_index   : QModelIndex = current_index.parent()
+		if not parent_index.isValid(): parent_index = QModelIndex()
+
+		current_index                = self.model_data.index(current_row, 0, parent_index)
+
+		self._ido_processing = current_index.data(ROLE_IDO)
 
 	# Модель данных
 	def InitModel(self):

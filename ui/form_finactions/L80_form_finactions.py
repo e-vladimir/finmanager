@@ -19,7 +19,7 @@ class C80_FormFinactions(C70_FormFinactions):
 			for self._ido_processing in self.finactions.IdosInDyDmDd(dy, dm, self._dd_processing): self.LoadRecordFinactions()
 
 	# Запись финдействий
-	def CreateRecord(self):
+	def CreateRecordFinactions(self):
 		""" Создание записи финдействий """
 		dy, dm = self.workspace.DyDm()
 		dd     = CalcBetween(1, self._dd_processing, 31)
@@ -27,3 +27,9 @@ class C80_FormFinactions(C70_FormFinactions):
 
 		self._dd_processing  = dd
 		self._ido_processing = ido
+
+	def OpenRecordFinactions(self):
+		""" Открытие записи финдействий """
+		self.workspace.IdoFinactionsRecord(self._ido_processing)
+
+		self.application.form_finactions_record.Open()

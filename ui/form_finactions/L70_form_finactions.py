@@ -3,8 +3,11 @@
 from PySide6.QtGui       import QCursor
 
 from G10_math_linear     import CalcBetween
+from G11_convertor_data import AmountToString
+from L00_months import MONTHS_SHORT
 
 from L60_form_finactions import C60_FormFinactions
+from L90_finactions      import C90_FinactionsRecord
 
 
 class C70_FormFinactions(C60_FormFinactions):
@@ -18,11 +21,22 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Меню финдействий
 	def AdjustMenuFinactionsEnable(self):
 		""" Меню финдействий: Настройка доступности """
-		pass
+		flag_selected_record : bool = bool(self._ido_processing)
+
+		self.menu_finactions_record_open.setEnabled(flag_selected_record)
 
 	def AdjustMenuFinactionsText(self):
 		""" Меню финдействий: Настройка наименования """
-		pass
+		self.menu_finactions_record_header.setTitle("Запись финдействий")
+
+		if self._ido_processing:
+			self.menu_finactions_record_open.setEnabled(True)
+
+			record       = C90_FinactionsRecord(self._ido_processing)
+			dm     : str = MONTHS_SHORT[self.workspace.Dm()]
+			dd_name: str = f"{record.Dd():02d} {dm}"
+
+			self.menu_finactions_record_header.setTitle(f"{AmountToString(record.Amount(), False, True)} от {dd_name}")
 
 	def ShowMenuFinactions(self):
 		""" Меню финдействий: Отображение """
