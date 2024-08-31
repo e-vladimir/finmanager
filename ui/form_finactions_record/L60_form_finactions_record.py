@@ -28,8 +28,10 @@ class C60_FormFinactionsRecord(C50_FormFinactionsRecord):
 		self.model_data.fastAppendRow(["Счета", ""])
 		self.model_data.fastAppendRow(["Метки", ""])
 
-	def ShowFinactionsRecord(self):
+	def LoadFinactionsRecord(self):
 		""" Загрузка данных записи финдействий """
+		self.finactions_record.Ido(self.workspace.IdoFinactionsRecord())
+
 		item_dy         : C20_StandardItem = self.model_data.item(1, 1)
 		item_dm         : C20_StandardItem = self.model_data.item(2, 1)
 		item_dd         : C20_StandardItem = self.model_data.item(3, 1)

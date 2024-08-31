@@ -29,6 +29,9 @@ class C90_FormFinactions(C80_FormFinactions):
 	# Меню финдействий
 	def on_RequestMenuFinactions(self):
 		""" Запрос отображению меню финдействий """
+		self.ReadDdProcessing()
+		self.ReadIdoProcessing()
+
 		self.AdjustMenuFinactionsEnable()
 		self.AdjustMenuFinactionsText()
 
@@ -37,4 +40,6 @@ class C90_FormFinactions(C80_FormFinactions):
 	# Запись финдействий
 	def on_RequestCreateFinactionsRecord(self):
 		""" Запрос на создание записи финдействий """
-		self.application.form_finactions_record.CreateFinactionsRecord()
+		self.CreateRecord()
+		self.LoadDd()
+		self.LoadRecordFinactions()

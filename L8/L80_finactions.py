@@ -40,3 +40,22 @@ class C80_Finactions(C70_Finactions):
 		filter_finactions.Capture(CONTAINER_LOCAL)
 
 		return filter_finactions.ToIntegers(record.f_dd.Idp().data, flag_distinct=True, flag_sort=True).data
+
+	# Запись финданных
+	def CreateRecord(self, dy: int, dm: int, dd: int) -> str:
+		""" Создание записи финдействий """
+		record = C80_FinactionsRecord()
+		record.GenerateIdo()
+		record.RegisterObject(CONTAINER_LOCAL)
+
+		record.Dy(dy)
+		record.Dm(dm)
+		record.Dd(dd)
+		record.SrcNote("")
+		record.SrcAmount(0.00)
+		record.Note("")
+		record.Amount(0.00)
+		record.Labels([])
+		record.FinstructIdos([])
+
+		return record.Ido().data

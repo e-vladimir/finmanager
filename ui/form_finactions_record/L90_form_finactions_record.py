@@ -15,4 +15,4 @@ class C90_FormFinactionsRecord(C80_FormFinactionsRecord):
 		self.AdjustTableData_Alignment()
 		self.AdjustTableData_Color()
 
-		self.ShowFinactionsRecord()
+		self.LoadFinactionsRecord()

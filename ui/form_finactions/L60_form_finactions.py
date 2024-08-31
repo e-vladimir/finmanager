@@ -1,6 +1,6 @@
 # ФОРМА ФИНДЕЙСТВИЯ: МЕХАНИКА ДАННЫХ
 
-from PySide6.QtCore      import Qt
+from PySide6.QtCore      import Qt, QModelIndex
 
 from G11_convertor_data  import AmountToString
 
@@ -12,6 +12,35 @@ from L90_finactions      import C90_FinactionsRecord
 
 class C60_FormFinactions(C50_FormFinactions):
 	""" Форма Финдействия: Механика данных """
+
+	# Параметры
+	def ReadDdProcessing(self):
+		""" Чтение дня месяца """
+		self._dd_processing = 0
+
+		current_index  : QModelIndex = self.tree_data.currentIndex()
+		if not current_index.isValid(): return
+
+		current_row    : int         = current_index.row()
+		parent_index   : QModelIndex = current_index.parent()
+		if not parent_index.isValid(): parent_index = QModelIndex()
+
+		current_index                = self.model_data.index(current_row, 0, parent_index)
+		parent_index                 = current_index.parent()
+
+		parent_name    : str         = parent_index.data(Qt.ItemDataRole.DisplayRole)
+		current_name   : str         = current_index.data(Qt.ItemDataRole.DisplayRole)
+
+		dd_name        : str         = parent_name if parent_index.isValid() else current_name
+
+		try   :
+			items : list[str] = dd_name.split(' ')
+			self._dd_processing = int(items[0])
+		except: pass
+
+	def ReadIdoProcessing(self):
+		""" Чтение IDO """
+		self._ido_processing = ""
 
 	# Модель данных
 	def InitModel(self):

@@ -2,6 +2,8 @@
 
 from PySide6.QtGui       import QCursor
 
+from G10_math_linear     import CalcBetween
+
 from L60_form_finactions import C60_FormFinactions
 
 
@@ -29,7 +31,16 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Дерево данных
 	def AdjustTreeData_Size(self):
 		""" Дерево данных: Настройка размера """
-		for index_col in range(self.model_data.columnCount()): self.tree_data.resizeColumnToContents(index_col)
+		sizes_min : list[int] = [100, 100, 100]
+		sizes_max : list[int] = [100, 200, 250]
+
+		for index_col in range(self.model_data.columnCount() - 1):
+			self.tree_data.resizeColumnToContents(index_col)
+
+			col_size : int = self.tree_data.columnWidth(index_col)
+			col_size       = CalcBetween(sizes_min[index_col], col_size, sizes_max[index_col])
+
+			self.tree_data.setColumnWidth(index_col, col_size)
 
 	def AdjustTreeData_Expand(self):
 		""" Дерево данных: Настройка раскрытия """

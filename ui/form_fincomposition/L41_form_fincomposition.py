@@ -32,7 +32,7 @@ class C41_FormFincomposition(C20_PySideForm, Ui_frm_fincomposition):
 		self.menu_fincomposition_create        : QAction = self.menu_fincomposition_header.addAction(icon_plus,   "Создать запись")
 
 		self.menu_fincomposition_record_header : QMenu   = self.menu_fincomposition.addMenu(icon_grid_33, "Запись финсостава")
-		self.menu_fincomposition_record_create : QAction = self.menu_fincomposition_record_header.addAction(icon_plus,   "Создать подзапись")
+		self.menu_fincomposition_record_create : QAction = self.menu_fincomposition_record_header.addAction(icon_plus,   "Создать запись")
 		self.menu_fincomposition_record_rename : QAction = self.menu_fincomposition_record_header.addAction(icon_edit,   "Переименовать")
 		self.menu_fincomposition_record_delete : QAction = self.menu_fincomposition_record_header.addAction(icon_delete, "Удалить")
 		self.menu_fincomposition_record_header.addSeparator()
