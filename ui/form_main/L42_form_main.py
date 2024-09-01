@@ -10,8 +10,8 @@ class C42_FormMain(C41_FormMain):
 	def Init_00(self):
 		super().Init_00()
 
-		self._dy_processing : int = 0
-		self._dm_processing : int = 0
+		self._processing_dy : int = 0
+		self._processing_dm : int = 0
 
 	def Init_10(self):
 		super().Init_10()

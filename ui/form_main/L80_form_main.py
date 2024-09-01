@@ -8,5 +8,5 @@ class C80_FormMain(C70_FormMain):
 
 	def SetDyDm(self):
 		""" Установка года и месяца """
-		self.workspace.Dy(self._dy_processing)
-		self.workspace.Dm(self._dm_processing)
+		self.workspace.Dy(self._processing_dy)
+		self.workspace.Dm(self._processing_dm)

@@ -56,8 +56,8 @@ class C90_FormMain(C80_FormMain):
 
 	def on_RequestSetDyDm(self):
 		""" Ручной выбор финпериода """
-		self.ReadDmProcessingFromCbboxDm()
-		self.ReadDyProcessingFromCbboxDy()
+		self.ReadProcessingDmFromCbboxDm()
+		self.ReadProcessingDyFromCbboxDy()
 
 		self.SetDyDm()
 

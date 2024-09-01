@@ -7,10 +7,10 @@ from L50_form_main import C50_FormMain
 class C60_FormMain(C50_FormMain):
 	""" Форма основная: Механика данных """
 
-	def ReadDyProcessingFromCbboxDy(self):
+	def ReadProcessingDyFromCbboxDy(self):
 		""" Считывание года из панели финпериода """
-		self._dy_processing = int(self.cbbox_dy.currentText())
+		self._processing_dy = int(self.cbbox_dy.currentText())
 
-	def ReadDmProcessingFromCbboxDm(self):
+	def ReadProcessingDmFromCbboxDm(self):
 		""" Считывание месяца из панели финпериода """
-		self._dm_processing = MONTHS_SHORT.index(self.cbbox_dm.currentText())
+		self._processing_dm = MONTHS_SHORT.index(self.cbbox_dm.currentText())
