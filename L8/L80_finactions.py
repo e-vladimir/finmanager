@@ -62,5 +62,6 @@ class C80_Finactions(C70_Finactions):
 		record.Amount(0.00)
 		record.Labels([])
 		record.FinstructIdos([])
+		record.Uid("")
 
 		return record.Ido().data
