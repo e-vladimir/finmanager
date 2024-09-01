@@ -45,8 +45,8 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 
 	def Labels(self, items: list[str] = None) -> list[str]:
 		""" Метки """
-		if items  is None: return self.f_labels.ToStrings(CONTAINER_LOCAL).data
-		else             :        self.f_labels.FromStrings(CONTAINER_LOCAL, items)
+		if items  is None: return sorted(self.f_labels.ToStrings(CONTAINER_LOCAL).data)
+		else             :               self.f_labels.FromStrings(CONTAINER_LOCAL, sorted(items))
 
 	def FinstructIdos(self, items: list[str] = None) -> list[str]:
 		""" Список записей финструктуры """
