@@ -15,6 +15,30 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 		""" Число Месяц Год в строку """
 		return f"{self.Dd():02d} {MONTHS_SHORT[self.Dm()]} {self.Dy()}"
 
+	# Действия
+	def SplitAmount(self, amount: int) -> str:
+		""" Разделение записи финдействий """
+		self.Amount(self.Amount() - amount)
+
+		record = C80_FinactionsRecord()
+		record.GenerateIdo()
+		record.RegisterObject(CONTAINER_LOCAL)
+
+		record.Dy(self.Dy())
+		record.Dm(self.Dm())
+		record.Dd(self.Dd())
+
+		record.SrcAmount(self.SrcAmount())
+		record.SrcNote(self.SrcNote())
+
+		record.Amount(amount)
+
+		record.Note(self.Note())
+		record.FinstructIdos(self.FinstructIdos())
+		record.Labels(self.Labels())
+
+		return record.Ido().data
+
 
 class C80_Finactions(C70_Finactions):
 	""" Финдействия: Логика данных """

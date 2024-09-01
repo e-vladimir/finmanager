@@ -25,6 +25,7 @@ class C70_FormFinactions(C60_FormFinactions):
 
 		self.menu_finactions_record_open.setEnabled(flag_selected_record)
 		self.menu_finactions_record_delete.setEnabled(flag_selected_record)
+		self.menu_finactions_record_split.setEnabled(flag_selected_record)
 
 	def AdjustMenuFinactionsText(self):
 		""" Меню финдействий: Настройка наименования """

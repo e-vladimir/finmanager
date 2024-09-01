@@ -17,6 +17,7 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_create.triggered.connect(self.on_RequestCreateFinactionsRecord)
 		self.menu_finactions_record_open.triggered.connect(self.on_RequestOpenFinactionsRecord)
 		self.menu_finactions_record_delete.triggered.connect(self.on_RequestDeleteFinactionsRecord)
+		self.menu_finactions_record_split.triggered.connect(self.on_RequestSplitFinactionsRecord)
 
 	def on_Show(self):
 		""" Отображение формы """
@@ -70,6 +71,10 @@ class C90_FormFinactions(C80_FormFinactions):
 	def on_RequestDeleteFinactionsRecord(self):
 		""" Запрос на удаление записи финдействий """
 		self.DeleteFinactionsRecord()
+
+	def on_RequestSplitFinactionsRecord(self):
+		""" Запрос на разделение записи финдействий """
+		self.SplitFinactionsRecord()
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):

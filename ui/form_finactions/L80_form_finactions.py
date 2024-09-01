@@ -4,7 +4,7 @@ from G10_math_linear     import CalcBetween
 from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINER_LOCAL
-from L20_PySide6         import RequestConfirm
+from L20_PySide6         import RequestConfirm, RequestValue
 from L70_form_finactions import C70_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
 
@@ -47,3 +47,16 @@ class C80_FormFinactions(C70_FormFinactions):
 		record.DeleteObject(CONTAINER_LOCAL)
 
 		self.CleanFinactionsRecord()
+
+	def SplitFinactionsRecord(self):
+		""" Разделение записи финдействий """
+		record               = C90_FinactionsRecord(self._processing_ido)
+		amount  : int | None = RequestValue("Разделение записи", f"{AmountToString(record.Amount(), False, True)} от {record.DdDmDyToString()}", int(record.Amount()), -99999999, 99999999)
+		if amount is None: return
+
+		ido_new : str        = record.SplitAmount(amount)
+
+		self.LoadFinactionsRecord()
+
+		self._processing_ido = ido_new
+		self.LoadFinactionsRecord()

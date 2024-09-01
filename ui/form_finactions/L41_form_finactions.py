@@ -17,11 +17,12 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 
 	def InitMenuFinstruct(self):
 		""" Инициализацию меню финсостава """
-		icon_plus    = QIcon("./ui/icons/item_plus.svg")
-		icon_open    = QIcon("./ui/icons/open.svg")
-		icon_delete  = QIcon("./ui/icons/item_delete.svg")
-		icon_grid_22 = QIcon("./ui/icons/grid_2_2.svg")
-		icon_grid_33 = QIcon("./ui/icons/grid_3_3.svg")
+		icon_plus      = QIcon("./ui/icons/item_plus.svg")
+		icon_open      = QIcon("./ui/icons/open.svg")
+		icon_delete    = QIcon("./ui/icons/item_delete.svg")
+		icon_grid_22   = QIcon("./ui/icons/grid_2_2.svg")
+		icon_grid_33   = QIcon("./ui/icons/grid_3_3.svg")
+		icon_arrpw_l_r = QIcon("./ui/icons/arrow_left_right.svg")
 
 		self.menu_finactions                         = QMenu()
 		self.menu_finactions_header        : QMenu   = self.menu_finactions.addMenu(icon_grid_22, "Финдействия")
@@ -30,3 +31,5 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 		self.menu_finactions_record_header : QMenu   = self.menu_finactions.addMenu(icon_grid_33, "Запись финдействий")
 		self.menu_finactions_record_open   : QAction = self.menu_finactions_record_header.addAction(icon_open,   "Открыть запись")
 		self.menu_finactions_record_delete : QAction = self.menu_finactions_record_header.addAction(icon_delete, "Удалить запись")
+		self.menu_finactions_record_header.addSeparator()
+		self.menu_finactions_record_split  : QAction = self.menu_finactions_record_header.addAction(icon_arrpw_l_r, "Разделить запись")
