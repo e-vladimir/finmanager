@@ -31,8 +31,16 @@ class C90_FormFinactions(C80_FormFinactions):
 	def on_UpdateDataPartial(self):
 		""" Частичное обновление данных """
 		self.ReadProcessingIdoFromWorkspace()
+		self.ReadProcessingDdFromRecordFinactions()
 
-		self.LoadRecordFinactions()
+		self.CleanFinactionsRecord()
+
+		self.LoadDd()
+		self.LoadFinactionsRecord()
+
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Color()
 
 	# Меню финдействий
 	def on_RequestMenuFinactions(self):
@@ -51,7 +59,7 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.CreateRecordFinactions()
 
 		self.LoadDd()
-		self.LoadRecordFinactions()
+		self.LoadFinactionsRecord()
 
 	def on_RequestOpenFinactionsRecord(self):
 		""" Запрос на открытие записи финдействий """

@@ -51,6 +51,12 @@ class C60_FormFinactions(C50_FormFinactions):
 
 		self._processing_ido = current_index.data(ROLE_IDO)
 
+	def ReadProcessingDdFromRecordFinactions(self):
+		""" Чтение числа месяца из записи финдействий """
+		if not self._processing_ido: return
+
+		self._processing_dd = C90_FinactionsRecord(self._processing_ido).Dd()
+
 	def ReadProcessingIdoFromWorkspace(self):
 		""" Чтение IDO из рабочего пространства """
 		self._processing_ido = self.workspace.IdoFinactionsRecord()
@@ -77,7 +83,7 @@ class C60_FormFinactions(C50_FormFinactions):
 
 		item_parent.appendRow([item_dd, C20_StandardItem(""), C20_StandardItem(""), C20_StandardItem("")])
 
-	def LoadRecordFinactions(self):
+	def LoadFinactionsRecord(self):
 		""" Загрузка записи финдействий """
 		if not self._processing_ido: return
 
@@ -106,3 +112,19 @@ class C60_FormFinactions(C50_FormFinactions):
 		item_finstruct.setText('\n'.join(self.finstruct.IdosToNames(record.FinstructIdos())))
 		item_labels.setText(', '.join(record.Labels()))
 		item_note.setText(record.Note())
+
+	def CleanFinactionsRecord(self):
+		""" Очистка записи финдействий """
+		if not self._processing_ido: return
+
+		record                                = C90_FinactionsRecord(self._processing_ido)
+
+		dm          : str                     = MONTHS_SHORT[self.workspace.Dm()]
+		dd_name     : str                     = f"{record.Dd():02d} {dm}"
+		item_dd     : C20_StandardItem | None = self.model_data.itemByData(dd_name, Qt.ItemDataRole.DisplayRole)
+		item_amount : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
+		item_parent : C20_StandardItem | None = item_amount.parent()
+
+		if item_parent == item_dd: return
+
+		item_parent.removeRow(item_amount.row())
