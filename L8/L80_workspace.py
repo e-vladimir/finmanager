@@ -1,6 +1,6 @@
 # РАБОЧЕЕ ПРОСТРАНСТВО: ЛОГИКА ДАННЫХ
 
-from G10_datetime  import CalcDyDmByShiftDm
+from G10_datetime  import CalcDyDmByShiftDm, CurrentDy
 
 from L00_months    import MONTHS_SHORT
 from L70_workspace import C70_Workspace
@@ -32,3 +32,8 @@ class C80_Workspace(C70_Workspace):
 
 		self.Dy(dy)
 		self.Dm(dm)
+
+	# Генерация данных
+	def AvailableDys(self) -> list[int]:
+		""" Список доступных годов """
+		return list(range(CurrentDy() - 5, CurrentDy() + 1))

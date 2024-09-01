@@ -11,19 +11,19 @@ class C60_FormFincomposition(C50_FormFincomposition):
 	""" Форма Финсостав: Механика данных """
 
 	# Параметры
-	def ReadIdoProcessingFromTreeData(self):
+	def ReadProcessingIdoFromTreeData(self):
 		""" Чтение IDO текущей записи """
 		index_current = self.tree_data.currentIndex()
-		self._ido_processing = index_current.data(ROLE_IDO)
+		self._processing_ido = index_current.data(ROLE_IDO)
 
-	def ReadNameProcessingFromTreeData(self):
+	def ReadProcessingNameFromTreeData(self):
 		""" Чтение наименование текущей записи """
 		index_current = self.tree_data.currentIndex()
-		self._name_processing = index_current.data(Qt.ItemDataRole.DisplayRole)
+		self._processing_name = index_current.data(Qt.ItemDataRole.DisplayRole)
 
-	def MemoryNameProcessing(self):
+	def MemoryProcessingName(self):
 		""" Запоминание наименования текущей записи """
-		self._name_memory = self._name_processing
+		self._name_memory = self._processing_name
 
 	# Модель данных
 	def InitModelData(self):
@@ -32,11 +32,11 @@ class C60_FormFincomposition(C50_FormFincomposition):
 
 	def LoadRecordFincomposition(self):
 		""" Загрузка записи финсостава """
-		if not self._ido_processing: return
+		if not self._processing_ido: return
 
-		record                                = C90_FincompositionRecord(self._ido_processing)
+		record                                = C90_FincompositionRecord(self._processing_ido)
 
-		item_record : C20_StandardItem | None = self.model_data.itemByData(self._ido_processing, ROLE_IDO)
+		item_record : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
 
 		if item_record is None:
 			item_record                           = C20_StandardItem(record.Name(), record.Ido().data)
@@ -48,4 +48,4 @@ class C60_FormFincomposition(C50_FormFincomposition):
 
 		item_record.setText(record.Name())
 
-		for self._ido_processing in record.SubIdos(): self.LoadRecordFincomposition()
+		for self._processing_ido in record.SubIdos(): self.LoadRecordFincomposition()

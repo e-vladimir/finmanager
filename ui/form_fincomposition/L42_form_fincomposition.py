@@ -12,9 +12,9 @@ class C42_FormFincomposition(C41_FormFincomposition):
 	def Init_00(self):
 		super().Init_00()
 
-		self._ido_processing  : str = ""
+		self._processing_ido  : str = ""
 
-		self._name_processing : str = ""
+		self._processing_name : str = ""
 		self._name_memory     : str = ""
 
 	def Init_10(self):

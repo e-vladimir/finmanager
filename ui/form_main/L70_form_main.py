@@ -1,7 +1,5 @@
 # ФОРМА ОСНОВНАЯ: МЕХАНИКА УПРАВЛЕНИЯ
 
-from G10_datetime  import CurrentDy
-
 from L00_months    import MONTHS_SHORT
 from L60_form_main import C60_FormMain
 
@@ -18,7 +16,7 @@ class C70_FormMain(C60_FormMain):
 	def FillCbboxDy(self):
 		""" Заполнение списка годов """
 		self.cbbox_dy.clear()
-		self.cbbox_dy.addItems([str(dy) for dy in range(CurrentDy() - 5, CurrentDy() + 1)])
+		self.cbbox_dy.addItems(list(map(str, self.workspace.AvailableDys())))
 
 	def FillCbboxDm(self):
 		""" Заполнение списка месяцев """

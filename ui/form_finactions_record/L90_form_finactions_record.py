@@ -8,13 +8,34 @@ class C90_FormFinactionsRecord(C80_FormFinactionsRecord):
 
 	def on_Open(self):
 		""" Открытие формы """
+		self.InitModelFinstruct()
+
+		self.LoadFinstruct()
+		self.AdjustTreeDataColors()
+		self.AdjustTreeDataExpand()
+
+		self.FillCbboxDy()
+		self.FillCbboxDm()
+
+		self.ReadFinactionsRecordIdo()
+
 		self.ShowTitle()
 
-		self.InitModel()
+		self.ShowDy()
+		self.ShowDm()
+		self.ShowDd()
 
-		self.AdjustTableData_Font()
-		self.AdjustTableData_Alignment()
-		self.AdjustTableData_Size()
-		self.AdjustTableData_Color()
+		self.ShowAmount()
 
-		self.LoadFinactionsRecord()
+		self.ShowSrcNote()
+		self.ShowSrcAmount()
+
+		self.ShowNote()
+		self.ShowFinstruct()
+		self.ShowLabels()
+
+	def on_Close(self):
+		self.SaveFinactionsRecord()
+		self.SendFinactionsRecordIdo()
+
+		self.application.form_finactions.UpdateDataPartial()

@@ -1,8 +1,10 @@
 # ФОРМА ЗАПИСЬ ФИНДЕЙСТВИЙ: МЕХАНИКА УПРАВЛЕНИЯ
+from PySide6.QtCore import Qt
 
-from PySide6.QtCore             import Qt
-from PySide6.QtGui              import QColor
+from G11_convertor_data         import AmountToString
 
+from L00_months                 import MONTHS_SHORT
+from L20_PySide6 import ROLE_IDO, C20_StandardItem
 from L60_form_finactions_record import C60_FormFinactionsRecord
 
 
@@ -12,69 +14,75 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 	# Форма
 	def ShowTitle(self):
 		""" Заголовок окна """
-		self.setWindowTitle(f"Запись финдействий")
+		dm : str = MONTHS_SHORT[self.finactions_record.Dm()]
+		self.setWindowTitle(f"Запись финдействий {AmountToString(self.finactions_record.Amount(), False, True)} от {self.finactions_record.Dd():02d} {dm} {self.finactions_record.Dy():04d}")
 
-	# Таблица данных
-	def AdjustTableData_Size(self):
-		""" Таблица данных: Настройка размеров """
-		self.table_data.resizeColumnsToContents()
-		self.table_data.resizeRowsToContents()
+	# Основные данные: Год
+	def FillCbboxDy(self):
+		""" Заполнение списка годов """
+		self.cbbox_dy.clear()
+		self.cbbox_dy.addItems(list(map(str, self.workspace.AvailableDys())))
 
-		for index_row in range(self.model_data.rowCount()):
-			row_size   = self.table_data.rowHeight(index_row)
-			row_size //= 20
-			row_size  *= 20
+	def ShowDy(self):
+		""" Отображение года """
+		self.cbbox_dy.setCurrentText(f"{self.finactions_record.Dy()}")
 
-			self.table_data.setRowHeight(index_row, row_size)
+	# Основные данные: Месяц
+	def FillCbboxDm(self):
+		""" Заполнение списка месяцев """
+		self.cbbox_dm.clear()
+		self.cbbox_dm.addItems(MONTHS_SHORT[1:])
 
-	def AdjustTableData_Alignment(self):
-		""" Таблица данных: Настройка выравнивания """
-		for index_row in range(self.model_data.rowCount()):
-			item_data = self.model_data.item(index_row, 0)
-			item_data.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+	def ShowDm(self):
+		""" Отображение месяца """
+		self.cbbox_dm.setCurrentIndex(self.finactions_record.Dm() - 1)
 
-	def AdjustTableData_Color(self):
-		""" Таблица данных: Настройка цветов """
-		item_root           = self.model_data.invisibleRootItem()
+	# Основные данные: Число
+	def ShowDd(self):
+		""" Отображение числа месяца """
+		self.edit_dd.setValue(self.finactions_record.Dd())
 
-		color_group         = QColor( 38,  38,  38, 255)
-		color_item          = QColor( 38,  38,  38,  30)
-		color_subitem       = QColor( 38,  38,  38,  20)
-		self.model_data.setRowColor(item_root,  0, color_group,    Qt.GlobalColor.white)
-		self.model_data.setRowColor(item_root,  1, color_item,     Qt.GlobalColor.black)
-		self.model_data.setRowColor(item_root,  2, color_subitem,  Qt.GlobalColor.black)
-		self.model_data.setRowColor(item_root,  3, color_item,     Qt.GlobalColor.black)
+	# Основные данные: Сумма
+	def ShowAmount(self):
+		""" Отображение суммы """
+		self.edit_amount.setValue(int(self.finactions_record.Amount()))
 
-		color_group         = QColor( 65,  36,  20, 255)
-		color_item          = QColor( 65,  36,  20,  30)
-		color_subitem       = QColor( 65,  36,  20,  20)
-		self.model_data.setRowColor(item_root,  4, color_group,    Qt.GlobalColor.white)
-		self.model_data.setRowColor(item_root,  5, color_item,     Qt.GlobalColor.gray)
-		self.model_data.setRowColor(item_root,  6, color_subitem,  Qt.GlobalColor.gray)
+	# Исходные данные: Примечание
+	def ShowSrcNote(self):
+		""" Отображение исходного примечания """
+		self.label_src_note.setText(self.finactions_record.SrcNote())
 
-		color_group         = QColor( 38,  33,  99, 255)
-		color_item          = QColor( 38,  33,  99,  30)
-		color_subitem       = QColor( 38,  33,  99,  20)
-		self.model_data.setRowColor(item_root,  7, color_group,    Qt.GlobalColor.white)
-		self.model_data.setRowColor(item_root,  8, color_item,     Qt.GlobalColor.black)
-		self.model_data.setRowColor(item_root,  9, color_subitem,  Qt.GlobalColor.black)
-		self.model_data.setRowColor(item_root, 10, color_item,     Qt.GlobalColor.black)
-		self.model_data.setRowColor(item_root, 11, color_subitem,  Qt.GlobalColor.black)
+	# Исходные данные: Сумма
+	def ShowSrcAmount(self):
+		""" Отображение исходной суммы """
+		self.label_src_amount.setText(AmountToString(self.finactions_record.SrcAmount(), False, True))
 
-		headers : list[int] = [0, 4, 7]
+	# Рабочие данные: Примечание
+	def ShowNote(self):
+		""" Отображение рабочего примечания """
+		self.edit_note.setText(self.finactions_record.Note())
 
-		for index_row in range(self.model_data.rowCount()):
-			if index_row in headers: continue
+	# Рабочие данные: Финструктура
+	def ShowFinstruct(self):
+		""" Отображение счетов """
+		for self._processing_ido in self.finactions_record.FinstructIdos():
+			if not self._processing_ido: continue
 
-			item_data = self.model_data.item(index_row, 0)
-			item_data.setForeground(Qt.GlobalColor.gray)
+			item_record : C20_StandardItem | None = self.model_finstruct.itemByData(self._processing_ido, ROLE_IDO)
+			if item_record is None: continue
 
-	def AdjustTableData_Font(self):
-		""" Таблица данных: Настройка шрифтов """
-		headers : list[int] = [0, 4, 7]
+			item_record.setCheckState(Qt.CheckState.Checked)
 
-		for index_row in headers:
-			item_data = self.model_data.item(index_row, 0)
-			font_data = item_data.font()
-			font_data.setBold(True)
-			item_data.setFont(font_data)
+	# Рабочие данные: Метки
+	def ShowLabels(self):
+		""" Отображение меток """
+		self.edit_labels.setPlainText('\n'.join(self.finactions_record.Labels()))
+
+	# Дерево финструктуры
+	def AdjustTreeDataExpand(self):
+		""" Дерево финструктуры: Настройка  """
+		self.tree_finstruct.expandAll()
+
+	def AdjustTreeDataColors(self):
+		""" Настройка цветовой схемы дерева финструктуры """
+		self.model_finstruct.setGroupsView(True, True)

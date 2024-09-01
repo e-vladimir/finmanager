@@ -37,8 +37,8 @@ class C90_FormFincomposition(C80_FormFincomposition):
 	# Меню финсостава
 	def on_RequestShowMenuFincomposition(self):
 		""" Запрос на отображение меню финсостава """
-		self.ReadIdoProcessingFromTreeData()
-		self.ReadNameProcessingFromTreeData()
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingNameFromTreeData()
 
 		self.AdjustMenuFincompositionText()
 		self.AdjustMenuFincompositionEnable()
@@ -100,7 +100,7 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 	def on_RequestMemoryFincompositionRecord(self):
 		""" Запрос на запоминание записи финсостава """
-		self.MemoryNameProcessing()
+		self.MemoryProcessingName()
 
 	def on_RequestPasteFincompositionRecord(self):
 		""" Вставка записи финсостава """

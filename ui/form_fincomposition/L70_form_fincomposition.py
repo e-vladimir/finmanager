@@ -18,12 +18,12 @@ class C70_FormFincomposition(C60_FormFincomposition):
 	# Меню финсостава
 	def AdjustMenuFincompositionEnable(self):
 		""" Меню финсостава: Настройка доступности """
-		flag_selected : bool = bool(self._ido_processing)
+		flag_selected : bool = bool(self._processing_ido)
 		self.menu_fincomposition_record_create.setEnabled(flag_selected)
 		self.menu_fincomposition_record_rename.setEnabled(flag_selected)
 		self.menu_fincomposition_record_delete.setEnabled(flag_selected)
 
-		record               = C90_FincompositionRecord(self._ido_processing)
+		record               = C90_FincompositionRecord(self._processing_ido)
 		flag_top      : bool = not bool(record.ParentIdo())
 		self.menu_fincomposition_record_up.setEnabled(not flag_top)
 
@@ -31,8 +31,8 @@ class C70_FormFincomposition(C60_FormFincomposition):
 		""" Меню финсостава: Настройка наименования """
 		self.menu_fincomposition_record_header.setTitle("Запись финсостава")
 
-		if self._name_processing:
-			self.menu_fincomposition_record_header.setTitle(self._name_processing)
+		if self._processing_name:
+			self.menu_fincomposition_record_header.setTitle(self._processing_name)
 
 		self.menu_fincomposition_record_paste.setText("Вставить")
 

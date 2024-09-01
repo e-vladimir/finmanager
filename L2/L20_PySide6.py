@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 25 авг 2024
+# 01 сен 2024
 
 from pathlib           import Path
 from PySide6           import QtGui
@@ -544,7 +544,7 @@ class C20_StandardItemModel(QStandardItemModel):
 		""" Список всех индексов в колонке 0 """
 		return IndexesFromStandardModel(self)
 
-	def indexByData(self, text: str, role=Qt.ItemDataRole.DisplayRole) -> QModelIndex | None:
+	def indexByData(self, text: str, role = Qt.ItemDataRole.DisplayRole) -> QModelIndex | None:
 		""" Поиск индекса по данным """
 		return FindIndexFromStandardModelByData(self, text, role)
 
@@ -554,6 +554,19 @@ class C20_StandardItemModel(QStandardItemModel):
 		if index_data is None: return None
 
 		return self.itemFromIndex(index_data)
+
+	def dataByChecked(self, role = Qt.ItemDataRole.DisplayRole) -> list:
+		""" Выборка данных для выбранных элементов """
+		result = []
+
+		for index_data in self.indexes():
+			item_data = self.itemFromIndex(index_data)
+
+			if not item_data.checkState() == Qt.CheckState.Checked: continue
+
+			result.append(item_data.data(role))
+
+		return result
 
 	# Инструменты
 	def fastAppendRow(self, label_labels : str | list[str]):

@@ -13,23 +13,23 @@ class C80_FormFinactions(C70_FormFinactions):
 		""" Загрузка финдействий """
 		dy, dm = self.workspace.DyDm()
 
-		for self._dd_processing in self.finactions.DdsInDyDm(dy, dm):
+		for self._processing_dd in self.finactions.DdsInDyDm(dy, dm):
 			self.LoadDd()
 
-			for self._ido_processing in self.finactions.IdosInDyDmDd(dy, dm, self._dd_processing): self.LoadRecordFinactions()
+			for self._processing_ido in self.finactions.IdosInDyDmDd(dy, dm, self._processing_dd): self.LoadRecordFinactions()
 
 	# Запись финдействий
 	def CreateRecordFinactions(self):
 		""" Создание записи финдействий """
 		dy, dm = self.workspace.DyDm()
-		dd     = CalcBetween(1, self._dd_processing, 31)
+		dd     = CalcBetween(1, self._processing_dd, 31)
 		ido    = self.finactions.CreateRecord(dy, dm, dd)
 
-		self._dd_processing  = dd
-		self._ido_processing = ido
+		self._processing_dd  = dd
+		self._processing_ido = ido
 
 	def OpenRecordFinactions(self):
 		""" Открытие записи финдействий """
-		self.workspace.IdoFinactionsRecord(self._ido_processing)
+		self.workspace.IdoFinactionsRecord(self._processing_ido)
 
 		self.application.form_finactions_record.Open()

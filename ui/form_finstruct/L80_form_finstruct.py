@@ -14,8 +14,8 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		""" Загрузка финструктуры """
 		dy, dm = self.workspace.DyDm()
 
-		for self._name_processing in self.finstruct.Groups(dy, dm): self.LoadFinstructGroup()
-		for self._ido_processing  in self.finstruct.Idos(dy, dm)  : self.LoadFinstructRecord()
+		for self._processing_name in self.finstruct.Groups(dy, dm): self.LoadFinstructGroup()
+		for self._processing_ido  in self.finstruct.Idos(dy, dm)  : self.LoadFinstructRecord()
 
 	# Запись финструктуры
 	def CreateFinstructRecord(self):
@@ -41,26 +41,26 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 	def RenameFinstructRecord(self):
 		""" Изменение наименования записи финструктуры """
-		if not self._ido_processing: return
+		if not self._processing_ido: return
 
-		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {self._group_processing}", self._name_processing)
+		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {self._group_processing}", self._processing_name)
 		if record_name is None: return
 
 		dy, dm = self.workspace.DyDm()
-		self.finstruct.Rename(dy, dm, self._name_processing, record_name)
+		self.finstruct.Rename(dy, dm, self._processing_name, record_name)
 
 	def DeleteFinstructRecord(self):
 		""" Удаление записи финструктуры """
-		if not self._ido_processing: return
+		if not self._processing_ido: return
 
-		if not RequestConfirm("Управление финструктурой", f"Удаление счёта {self._name_processing}"): return
+		if not RequestConfirm("Управление финструктурой", f"Удаление счёта {self._processing_name}"): return
 
-		record = C90_FinstructRecord(self._ido_processing)
+		record = C90_FinstructRecord(self._processing_ido)
 		record.DeleteObject(CONTAINER_LOCAL)
 
 	def RegroupFinstructRecord(self):
 		""" Изменение группы счета """
-		if not self._ido_processing: return
+		if not self._processing_ido: return
 
 		dy, dm = self.workspace.DyDm()
 		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", old_text=self._group_processing, items=self.finstruct.Groups(dy, dm))
@@ -68,7 +68,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 		if group_name in self.finstruct.Groups(dy, dm): return
 
-		record = C90_FinstructRecord(self._ido_processing)
+		record = C90_FinstructRecord(self._processing_ido)
 		record.Group(group_name)
 
 	def RenameGroupFinstruct(self):

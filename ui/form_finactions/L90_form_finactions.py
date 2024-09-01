@@ -27,11 +27,18 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Color()
 
+	# Данные
+	def on_UpdateDataPartial(self):
+		""" Частичное обновление данных """
+		self.ReadProcessingIdoFromWorkspace()
+
+		self.LoadRecordFinactions()
+
 	# Меню финдействий
 	def on_RequestMenuFinactions(self):
 		""" Запрос отображению меню финдействий """
-		self.ReadDdProcessing()
-		self.ReadIdoProcessing()
+		self.ReadProcessingDd()
+		self.ReadProcessingIdo()
 
 		self.AdjustMenuFinactionsEnable()
 		self.AdjustMenuFinactionsText()

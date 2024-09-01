@@ -29,7 +29,7 @@ class C70_FormFinstruct(C60_FormFinstruct):
 
 	def ProcessingTreeDataDbClick(self):
 		""" Обработка двойного клика по дереву данных """
-		if   self._name_processing : self.on_RequestRenameFinstructRecord()
+		if   self._processing_name : self.on_RequestRenameFinstructRecord()
 		elif self._group_processing: self.on_RequestRenameGroupFinstruct()
 
 	# Меню финструктуры
@@ -39,7 +39,7 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		self.menu_finstruct_group_create.setEnabled(flag_selected_group)
 		self.menu_finstruct_group_rename.setEnabled(flag_selected_group)
 
-		flag_selected_record : bool = bool(self._ido_processing)
+		flag_selected_record : bool = bool(self._processing_ido)
 		self.menu_finstruct_record_rename.setEnabled(flag_selected_record)
 		self.menu_finstruct_record_regroup.setEnabled(flag_selected_record)
 		self.menu_finstruct_record_delete.setEnabled(flag_selected_record)
@@ -47,7 +47,7 @@ class C70_FormFinstruct(C60_FormFinstruct):
 	def AdjustMenuFinstructText(self):
 		""" Меню финсостава: Настройка наименования """
 		self.menu_finstruct_group_header.setTitle("Группа счетов" if not self._group_processing else self._group_processing)
-		self.menu_finstruct_record_header.setTitle("Счёт" if not self._name_processing else self._name_processing)
+		self.menu_finstruct_record_header.setTitle("Счёт" if not self._processing_name else self._processing_name)
 
 	def ShowMenuFinstruct(self):
 		""" Меню финсостава: Отображение """

@@ -72,6 +72,11 @@ class C80_Finstruct(C70_Finstruct):
 
 		return filter_data.Idos(record.f_name.Idp().data).data
 
+	# Конвертация данных
+	def IdosToNames(self, idos: list[str]) -> list[str]:
+		""" IDO в названия """
+		return list(sorted([C80_FinstructRecord(ido).Name() for ido in idos]))
+
 	# Управление записью финструктуры
 	def Create(self, dy: int, dm: int, record_name: str, group_name: str) -> bool:
 		""" Создание записи финструктуры """

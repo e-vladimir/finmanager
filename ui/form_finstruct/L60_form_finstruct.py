@@ -11,21 +11,21 @@ class C60_FormFinstruct(C50_FormFinstruct):
 	""" Форма Финструктура: Механика данных """
 
 	# Параметры
-	def ReadIdoProcessing(self):
+	def ReadProcessingIdo(self):
 		""" Чтение IDO счёта """
 		index_current : QModelIndex = self.tree_data.currentIndex()
-		self._ido_processing = index_current.data(ROLE_IDO)
+		self._processing_ido = index_current.data(ROLE_IDO)
 
-	def ReadNameProcessing(self):
+	def ReadProcessingName(self):
 		""" Чтение наименование счёта """
-		self._name_processing = ""
+		self._processing_name = ""
 
 		index_current : QModelIndex = self.tree_data.currentIndex()
 		ido           : str         = index_current.data(ROLE_IDO)
 
 		if not ido: return
 
-		self._name_processing = index_current.data(Qt.ItemDataRole.DisplayRole)
+		self._processing_name = index_current.data(Qt.ItemDataRole.DisplayRole)
 
 	def ReadGroupProcessing(self):
 		""" Чтение группы счетов """
@@ -66,29 +66,29 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 	def LoadFinstructGroup(self):
 		""" Загрузка группы счетов """
-		if not self._name_processing  : return
+		if not self._processing_name  : return
 
-		index_group : QModelIndex | None = self.model_data.itemByData(self._name_processing)
+		index_group : QModelIndex | None = self.model_data.itemByData(self._processing_name)
 		if     index_group is not None: return
 
-		item_group                       = C20_StandardItem(self._name_processing)
+		item_group                       = C20_StandardItem(self._processing_name)
 		item_parent                      = self.model_data.invisibleRootItem()
 
 		item_parent.appendRow(item_group)
 
 	def LoadFinstructRecord(self):
 		""" Загрузка счета """
-		if not self._ido_processing: return
+		if not self._processing_ido: return
 
-		record                                = C90_FinstructRecord(self._ido_processing)
+		record                                = C90_FinstructRecord(self._processing_ido)
 		item_group  : C20_StandardItem | None = self.model_data.itemByData(record.Group(), Qt.ItemDataRole.DisplayRole)
 
 		if     item_group is None  : return
 
-		item_record : C20_StandardItem | None = self.model_data.itemByData(self._ido_processing, ROLE_IDO)
+		item_record : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
 
 		if item_record is None:
-			item_record = C20_StandardItem(record.Name(), self._ido_processing, ROLE_IDO)
+			item_record = C20_StandardItem(record.Name(), self._processing_ido, ROLE_IDO)
 			item_group.appendRow(item_record)
 
 		item_record.setText(record.Name())

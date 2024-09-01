@@ -21,7 +21,7 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Меню финдействий
 	def AdjustMenuFinactionsEnable(self):
 		""" Меню финдействий: Настройка доступности """
-		flag_selected_record : bool = bool(self._ido_processing)
+		flag_selected_record : bool = bool(self._processing_ido)
 
 		self.menu_finactions_record_open.setEnabled(flag_selected_record)
 
@@ -29,10 +29,10 @@ class C70_FormFinactions(C60_FormFinactions):
 		""" Меню финдействий: Настройка наименования """
 		self.menu_finactions_record_header.setTitle("Запись финдействий")
 
-		if self._ido_processing:
+		if self._processing_ido:
 			self.menu_finactions_record_open.setEnabled(True)
 
-			record       = C90_FinactionsRecord(self._ido_processing)
+			record       = C90_FinactionsRecord(self._processing_ido)
 			dm     : str = MONTHS_SHORT[self.workspace.Dm()]
 			dd_name: str = f"{record.Dd():02d} {dm}"
 
@@ -45,8 +45,8 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Дерево данных
 	def AdjustTreeData_Size(self):
 		""" Дерево данных: Настройка размера """
-		sizes_min : list[int] = [100, 100, 100]
-		sizes_max : list[int] = [100, 200, 250]
+		sizes_min : list[int] = [100, 200, 300]
+		sizes_max : list[int] = [100, 300, self.tree_data.width() // 2]
 
 		for index_col in range(self.model_data.columnCount() - 1):
 			self.tree_data.resizeColumnToContents(index_col)

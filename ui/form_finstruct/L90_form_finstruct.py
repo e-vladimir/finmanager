@@ -41,8 +41,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 	# Меню финструктуры
 	def on_RequestMenuFinstruct(self):
 		""" Запрос на отображение меню финструктуры """
-		self.ReadIdoProcessing()
-		self.ReadNameProcessing()
+		self.ReadProcessingIdo()
+		self.ReadProcessingName()
 		self.ReadGroupProcessing()
 
 		self.AdjustMenuFinstructEnable()
@@ -53,8 +53,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 	# Дерево финструктуры
 	def on_RequestProcessingTreeDataDbClick(self):
 		""" Реакция действия на двойной клик по дереву данных """
-		self.ReadIdoProcessing()
-		self.ReadNameProcessing()
+		self.ReadProcessingIdo()
+		self.ReadProcessingName()
 		self.ReadGroupProcessing()
 
 		self.ProcessingTreeDataDbClick()
