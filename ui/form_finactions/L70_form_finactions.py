@@ -25,6 +25,7 @@ class C70_FormFinactions(C60_FormFinactions):
 
 		self.menu_finactions_record_open.setEnabled(flag_selected_record)
 		self.menu_finactions_record_delete.setEnabled(flag_selected_record)
+		self.menu_finactions_record_edit_note.setEnabled(flag_selected_record)
 		self.menu_finactions_record_split.setEnabled(flag_selected_record)
 
 	def AdjustMenuFinactionsText(self):
@@ -71,4 +72,5 @@ class C70_FormFinactions(C60_FormFinactions):
 		match self._processing_column:
 			case 0: self.on_RequestOpenFinactionsRecord()
 			case 1: self.on_RequestOpenFinactionsRecord()
+			case 2: self.on_RequestEditNoteFinactionsRecord()
 			case 3: self.on_RequestOpenFinactionsRecord()

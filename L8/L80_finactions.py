@@ -31,6 +31,8 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 		record.SrcAmount(self.SrcAmount())
 		record.SrcNote(self.SrcNote())
 
+		record.Uid(self.Uid())
+
 		record.Amount(amount)
 
 		record.Note(self.Note())

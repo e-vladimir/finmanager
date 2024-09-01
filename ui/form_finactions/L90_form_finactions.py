@@ -18,6 +18,7 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_record_open.triggered.connect(self.on_RequestOpenFinactionsRecord)
 		self.menu_finactions_record_delete.triggered.connect(self.on_RequestDeleteFinactionsRecord)
 		self.menu_finactions_record_split.triggered.connect(self.on_RequestSplitFinactionsRecord)
+		self.menu_finactions_record_edit_note.triggered.connect(self.on_RequestEditNoteFinactionsRecord)
 
 	def on_Show(self):
 		""" Отображение формы """
@@ -96,3 +97,11 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.ReadProcessingIdo()
 
 		self.ProcessingTreeData_DbClick()
+
+	def on_RequestEditNoteFinactionsRecord(self):
+		""" Запрос на редактирование примечания записи финдействий """
+		self.EditNoteFinactionsRecord()
+
+		self.LoadFinactionsRecord()
+
+		self.AdjustTreeData_Size()
