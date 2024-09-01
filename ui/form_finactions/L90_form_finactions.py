@@ -11,6 +11,7 @@ class C90_FormFinactions(C80_FormFinactions):
 
 		# Дерево финдействий
 		self.tree_data.customContextMenuRequested.connect(self.on_RequestMenuFinactions)
+		self.tree_data.doubleClicked.connect(self.on_RequestProcessingTreeDataDbClick)
 
 		# Меню финдействий
 		self.menu_finactions_create.triggered.connect(self.on_RequestCreateFinactionsRecord)
@@ -64,3 +65,12 @@ class C90_FormFinactions(C80_FormFinactions):
 	def on_RequestOpenFinactionsRecord(self):
 		""" Запрос на открытие записи финдействий """
 		self.OpenRecordFinactions()
+
+	# Дерево данных
+	def on_RequestProcessingTreeDataDbClick(self):
+		""" Запрос на обработку двойного клика по дереву данных """
+		self.ReadProcessingColumn()
+		self.ReadProcessingDd()
+		self.ReadProcessingIdo()
+
+		self.ProcessingTreeData_DbClick()

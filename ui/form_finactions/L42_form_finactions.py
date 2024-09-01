@@ -13,8 +13,9 @@ class C42_FormFinactions(C41_FormFinactions):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_dd  : int = 0
-		self._processing_ido : str = ""
+		self._processing_dd     : int = 0
+		self._processing_ido    : str = ""
+		self._processing_column : int = -1
 
 	def Init_10(self):
 		super().Init_10()

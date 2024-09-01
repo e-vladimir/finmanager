@@ -61,6 +61,11 @@ class C60_FormFinactions(C50_FormFinactions):
 		""" Чтение IDO из рабочего пространства """
 		self._processing_ido = self.workspace.IdoFinactionsRecord()
 
+	def ReadProcessingColumn(self):
+		""" Чтение колонки """
+		current_index : QModelIndex = self.tree_data.currentIndex()
+		self._processing_column = current_index.column()
+
 	# Модель данных
 	def InitModel(self):
 		""" Инициализация модели """
@@ -109,6 +114,7 @@ class C60_FormFinactions(C50_FormFinactions):
 			item_labels     = item_dd.child(index_row, 2)
 			item_note       = item_dd.child(index_row, 3)
 
+		item_amount.setText(AmountToString(record.Amount(), flag_point=False, flag_sign=True))
 		item_finstruct.setText('\n'.join(self.finstruct.IdosToNames(record.FinstructIdos())))
 		item_labels.setText(', '.join(record.Labels()))
 		item_note.setText(record.Note())

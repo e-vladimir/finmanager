@@ -3,9 +3,9 @@
 from PySide6.QtGui       import QCursor
 
 from G10_math_linear     import CalcBetween
-from G11_convertor_data import AmountToString
-from L00_months import MONTHS_SHORT
+from G11_convertor_data  import AmountToString
 
+from L00_months          import MONTHS_SHORT
 from L60_form_finactions import C60_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
 
@@ -63,3 +63,10 @@ class C70_FormFinactions(C60_FormFinactions):
 	def AdjustTreeData_Color(self):
 		""" Дерево данных: Настройка цветовой палитры """
 		self.model_data.setGroupsView(True, True, True)
+
+	def ProcessingTreeData_DbClick(self):
+		""" Обработка двойного клика по дереву данных """
+		match self._processing_column:
+			case 0: self.on_RequestOpenFinactionsRecord()
+			case 1: self.on_RequestOpenFinactionsRecord()
+			case 2: self.on_RequestOpenFinactionsRecord()
