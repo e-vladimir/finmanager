@@ -16,6 +16,7 @@ class C90_FormFinactions(C80_FormFinactions):
 		# Меню финдействий
 		self.menu_finactions_create.triggered.connect(self.on_RequestCreateFinactionsRecord)
 		self.menu_finactions_record_open.triggered.connect(self.on_RequestOpenFinactionsRecord)
+		self.menu_finactions_record_delete.triggered.connect(self.on_RequestDeleteFinactionsRecord)
 
 	def on_Show(self):
 		""" Отображение формы """
@@ -57,14 +58,18 @@ class C90_FormFinactions(C80_FormFinactions):
 	# Запись финдействий
 	def on_RequestCreateFinactionsRecord(self):
 		""" Запрос на создание записи финдействий """
-		self.CreateRecordFinactions()
+		self.CreateFinactionsRecord()
 
 		self.LoadDd()
 		self.LoadFinactionsRecord()
 
 	def on_RequestOpenFinactionsRecord(self):
 		""" Запрос на открытие записи финдействий """
-		self.OpenRecordFinactions()
+		self.OpenFinactionsRecord()
+
+	def on_RequestDeleteFinactionsRecord(self):
+		""" Запрос на удаление записи финдействий """
+		self.DeleteFinactionsRecord()
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):

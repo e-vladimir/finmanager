@@ -12,6 +12,7 @@ class C50_FormFinactions(C42_FormFinactions):
 	# Запись финдействий
 	def on_RequestCreateFinactionsRecord(self): pass
 	def on_RequestOpenFinactionsRecord(self): pass
+	def on_RequestDeleteFinactionsRecord(self): pass
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self): pass

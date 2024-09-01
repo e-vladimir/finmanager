@@ -61,6 +61,10 @@ class C60_FormFinactions(C50_FormFinactions):
 		""" Чтение IDO из рабочего пространства """
 		self._processing_ido = self.workspace.IdoFinactionsRecord()
 
+	def SendProcessingIdoToWorkspace(self):
+		""" Отправка IDO записи финдействий в рабочее пространство """
+		self.workspace.IdoFinactionsRecord(self._processing_ido)
+
 	def ReadProcessingColumn(self):
 		""" Чтение колонки """
 		current_index : QModelIndex = self.tree_data.currentIndex()

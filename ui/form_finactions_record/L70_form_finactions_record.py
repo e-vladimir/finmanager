@@ -1,10 +1,11 @@
 # ФОРМА ЗАПИСЬ ФИНДЕЙСТВИЙ: МЕХАНИКА УПРАВЛЕНИЯ
-from PySide6.QtCore import Qt
+
+from PySide6.QtCore             import Qt
 
 from G11_convertor_data         import AmountToString
 
 from L00_months                 import MONTHS_SHORT
-from L20_PySide6 import ROLE_IDO, C20_StandardItem
+from L20_PySide6                import ROLE_IDO, C20_StandardItem
 from L60_form_finactions_record import C60_FormFinactionsRecord
 
 
@@ -14,8 +15,7 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 	# Форма
 	def ShowTitle(self):
 		""" Заголовок окна """
-		dm : str = MONTHS_SHORT[self.finactions_record.Dm()]
-		self.setWindowTitle(f"Запись финдействий {AmountToString(self.finactions_record.Amount(), False, True)} от {self.finactions_record.Dd():02d} {dm} {self.finactions_record.Dy():04d}")
+		self.setWindowTitle(f"Запись финдействий {AmountToString(self.finactions_record.Amount(), False, True)} от {self.finactions_record.DdDmDyToString()}")
 
 	# Основные данные: Год
 	def FillCbboxDy(self):

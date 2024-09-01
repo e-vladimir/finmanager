@@ -3,12 +3,17 @@
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINER_LOCAL
+from L00_months             import MONTHS_SHORT
 from L70_finactions         import C70_FinactionsRecord, C70_Finactions
 
 
 class C80_FinactionsRecord(C70_FinactionsRecord):
 	""" Запись финдействий: Логика данных """
-	pass
+
+	# Генерация данных
+	def DdDmDyToString(self) -> str:
+		""" Число Месяц Год в строку """
+		return f"{self.Dd():02d} {MONTHS_SHORT[self.Dm()]} {self.Dy()}"
 
 
 class C80_Finactions(C70_Finactions):
