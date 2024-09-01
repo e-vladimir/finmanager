@@ -64,6 +64,10 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.LoadDd()
 		self.LoadFinactionsRecord()
 
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Color()
+
 	def on_RequestOpenFinactionsRecord(self):
 		""" Запрос на открытие записи финдействий """
 		self.OpenFinactionsRecord()
@@ -72,9 +76,17 @@ class C90_FormFinactions(C80_FormFinactions):
 		""" Запрос на удаление записи финдействий """
 		self.DeleteFinactionsRecord()
 
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Color()
+
 	def on_RequestSplitFinactionsRecord(self):
 		""" Запрос на разделение записи финдействий """
 		self.SplitFinactionsRecord()
+
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Color()
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):

@@ -74,7 +74,7 @@ class C60_FormFinactions(C50_FormFinactions):
 	def InitModel(self):
 		""" Инициализация модели """
 		self.model_data.removeAll()
-		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт", "Метки", "Примечание"])
+		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт", "Примечание", "Метки"])
 
 	def LoadDd(self):
 		""" Загрузка дня """
@@ -111,12 +111,12 @@ class C60_FormFinactions(C50_FormFinactions):
 			item_labels     = C20_StandardItem("")
 			item_note       = C20_StandardItem("")
 
-			item_dd.appendRow([item_amount, item_finstruct, item_labels, item_note])
+			item_dd.appendRow([item_amount, item_finstruct, item_note, item_labels])
 		else:
 			index_row : int = item_amount.row()
 			item_finstruct  = item_dd.child(index_row, 1)
-			item_labels     = item_dd.child(index_row, 2)
-			item_note       = item_dd.child(index_row, 3)
+			item_note       = item_dd.child(index_row, 2)
+			item_labels     = item_dd.child(index_row, 3)
 
 		item_amount.setText(AmountToString(record.Amount(), flag_point=False, flag_sign=True))
 		item_finstruct.setText('\n'.join(self.finstruct.IdosToNames(record.FinstructIdos())))

@@ -47,7 +47,7 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Дерево данных
 	def AdjustTreeData_Size(self):
 		""" Дерево данных: Настройка размера """
-		sizes_min : list[int] = [100, 200, 300]
+		sizes_min : list[int] = [100, 200, 200]
 		sizes_max : list[int] = [100, 300, self.tree_data.width() // 2]
 
 		for index_col in range(self.model_data.columnCount() - 1):
@@ -71,4 +71,4 @@ class C70_FormFinactions(C60_FormFinactions):
 		match self._processing_column:
 			case 0: self.on_RequestOpenFinactionsRecord()
 			case 1: self.on_RequestOpenFinactionsRecord()
-			case 2: self.on_RequestOpenFinactionsRecord()
+			case 3: self.on_RequestOpenFinactionsRecord()

@@ -71,7 +71,7 @@ class C80_Finactions(C70_Finactions):
 		return filter_finactions.ToIntegers(record.f_dd.Idp().data, flag_distinct=True, flag_sort=True).data
 
 	# Запись финданных
-	def CreateRecord(self, dy: int, dm: int, dd: int) -> str:
+	def CreateRecord(self, dy: int, dm: int, dd: int, amount: float = 0.00) -> str:
 		""" Создание записи финдействий """
 		record = C80_FinactionsRecord()
 		record.GenerateIdo()
@@ -83,7 +83,7 @@ class C80_Finactions(C70_Finactions):
 		record.SrcNote("")
 		record.SrcAmount(0.00)
 		record.Note("")
-		record.Amount(0.00)
+		record.Amount(amount)
 		record.Labels([])
 		record.FinstructIdos([])
 		record.Uid("")
