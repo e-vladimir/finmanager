@@ -9,8 +9,11 @@ class C50_FormFinactions(C42_FormFinactions):
 	# Меню финдействий
 	def on_RequestMenuFinactions(self): pass
 
-	# Запись финдействий
+	# Финдействия
 	def on_RequestCreateFinactionsRecord(self): pass
+	def on_RequestImportFinactions(self): pass
+
+	# Запись финдействий
 	def on_RequestOpenFinactionsRecord(self): pass
 	def on_RequestDeleteFinactionsRecord(self): pass
 	def on_RequestSplitFinactionsRecord(self): pass

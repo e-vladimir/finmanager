@@ -15,6 +15,8 @@ class C90_FormFinactions(C80_FormFinactions):
 
 		# Меню финдействий
 		self.menu_finactions_create.triggered.connect(self.on_RequestCreateFinactionsRecord)
+		self.menu_finactions_import.triggered.connect(self.on_RequestImportFinactions)
+
 		self.menu_finactions_record_open.triggered.connect(self.on_RequestOpenFinactionsRecord)
 		self.menu_finactions_record_delete.triggered.connect(self.on_RequestDeleteFinactionsRecord)
 		self.menu_finactions_record_split.triggered.connect(self.on_RequestSplitFinactionsRecord)
@@ -57,7 +59,7 @@ class C90_FormFinactions(C80_FormFinactions):
 
 		self.ShowMenuFinactions()
 
-	# Запись финдействий
+	# Финдействия
 	def on_RequestCreateFinactionsRecord(self):
 		""" Запрос на создание записи финдействий """
 		self.CreateFinactionsRecord()
@@ -69,6 +71,11 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Color()
 
+	def on_RequestImportFinactions(self):
+		""" Запрос на импорт финдействий """
+		self.application.form_import.Open()
+
+	# Запись финдействий
 	def on_RequestOpenFinactionsRecord(self):
 		""" Запрос на открытие записи финдействий """
 		self.OpenFinactionsRecord()

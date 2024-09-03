@@ -20,6 +20,7 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 		icon_plus      = QIcon("./ui/icons/item_plus.svg")
 		icon_open      = QIcon("./ui/icons/open.svg")
 		icon_edit      = QIcon("./ui/icons/edit.svg")
+		icon_download  = QIcon("./ui/icons/download.svg")
 		icon_delete    = QIcon("./ui/icons/item_delete.svg")
 		icon_grid_22   = QIcon("./ui/icons/grid_2_2.svg")
 		icon_grid_33   = QIcon("./ui/icons/grid_3_3.svg")
@@ -27,7 +28,9 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 
 		self.menu_finactions                            = QMenu()
 		self.menu_finactions_header           : QMenu   = self.menu_finactions.addMenu(icon_grid_22, "Финдействия")
-		self.menu_finactions_create           : QAction = self.menu_finactions_header.addAction(icon_plus, "Создать запись")
+		self.menu_finactions_create           : QAction = self.menu_finactions_header.addAction(icon_plus,     "Создать запись")
+		self.menu_finactions_header.addSeparator()
+		self.menu_finactions_import           : QAction = self.menu_finactions_header.addAction(icon_download, "Импорт финдействий")
 
 		self.menu_finactions_record_header    : QMenu   = self.menu_finactions.addMenu(icon_grid_33, "Запись финдействий")
 		self.menu_finactions_record_open      : QAction = self.menu_finactions_record_header.addAction(icon_open,      "Открыть запись")

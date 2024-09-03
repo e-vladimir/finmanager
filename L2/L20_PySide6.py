@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 01 сен 2024
+# 02 сен 2024
 
 from pathlib           import Path
 from PySide6           import QtGui
@@ -555,14 +555,14 @@ class C20_StandardItemModel(QStandardItemModel):
 
 		return self.itemFromIndex(index_data)
 
-	def dataByChecked(self, role = Qt.ItemDataRole.DisplayRole) -> list:
+	def dataByCheckState(self, role = Qt.ItemDataRole.DisplayRole, check_state = Qt.CheckState.Checked) -> list:
 		""" Выборка данных для выбранных элементов """
 		result = []
 
 		for index_data in self.indexes():
 			item_data = self.itemFromIndex(index_data)
 
-			if not item_data.checkState() == Qt.CheckState.Checked: continue
+			if not item_data.checkState() == check_state: continue
 
 			result.append(item_data.data(role))
 
