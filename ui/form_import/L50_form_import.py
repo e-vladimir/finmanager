@@ -11,3 +11,8 @@ class C50_FormImport(C42_FormImport):
 
 	# Импорт финдействий
 	def on_RequestOpenImportFinactionsFile(self): pass
+
+	# Таблица данных импорта финдействий
+	def on_RequestSetFieldImportFinactions(self): pass
+	def on_RequestResetFieldImportFinactions(self): pass
+	def on_RequestSelectSetImportFinactions(self): pass

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_importOIUDoJ.ui'
+## Form generated from reading UI file 'form_importGMsQaH.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -45,7 +45,7 @@ class Ui_form_import(object):
         self.table_import_finactions_data.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table_import_finactions_data.setAlternatingRowColors(True)
         self.table_import_finactions_data.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
-        self.table_import_finactions_data.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table_import_finactions_data.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectColumns)
         self.table_import_finactions_data.setShowGrid(False)
         self.table_import_finactions_data.horizontalHeader().setVisible(True)
         self.table_import_finactions_data.horizontalHeader().setMinimumSectionSize(20)

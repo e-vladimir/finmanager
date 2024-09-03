@@ -3,13 +3,9 @@
 import enum
 
 
-class FIELDS(enum.Enum):
+class FIELDS(enum.StrEnum):
 	""" Каталог полей """
 	AMOUNT    = "Сумма",
-
-	DATE      = "Дата",
-	TIME      = "Время",
-	DATE_TIME = "Дата и время",
-
+	DATE_TIME = "Дата/время",
 	NOTE      = "Описание",
 	CONTROL   = "Контроль"

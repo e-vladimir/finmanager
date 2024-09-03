@@ -479,6 +479,15 @@ class C20_StandardItemModel(QStandardItemModel):
 			item_child.setBackground(color_bg)
 			item_child.setForeground(color_fg)
 
+	def setColColor(self, parent: QStandardItem, col: int, color_bg: QColor = Qt.GlobalColor.white, color_fg: QColor = Qt.GlobalColor.black):
+		""" Установка цвета колонки """
+		for index_row in range(self.rowCount()):
+			item_child : QStandardItem | None = parent.child(index_row, col)
+			if item_child is None: continue
+
+			item_child.setBackground(color_bg)
+			item_child.setForeground(color_fg)
+
 	def setCellColor(self, parent: QStandardItem, row: int, col: int, color_bg: QColor = Qt.GlobalColor.white, color_fg: QColor = Qt.GlobalColor.black):
 		""" Установка цвета ячейки """
 		item_child: QStandardItem | None = parent.child(row, col)
