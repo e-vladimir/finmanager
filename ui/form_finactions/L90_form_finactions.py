@@ -33,6 +33,17 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Color()
 
+	def on_UpdateData(self):
+		""" Обновление данных """
+		self.ShowTitle()
+
+		self.InitModel()
+		self.LoadFinactions()
+
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Color()
+
 	# Данные
 	def on_UpdateDataPartial(self):
 		""" Частичное обновление данных """

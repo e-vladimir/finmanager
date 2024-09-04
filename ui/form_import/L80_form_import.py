@@ -6,7 +6,7 @@ from PySide6.QtCore    import Qt
 from PySide6.QtWidgets import QFileDialog, QProgressDialog
 
 from L00_fields        import FIELDS
-from L20_PySide6       import RequestItem
+from L20_PySide6 import RequestItem, ShowMessage
 from L70_form_import   import C70_FormImport
 from L90_finstruct     import C90_FinstructRecord
 
@@ -81,3 +81,7 @@ class C80_FormImport(C70_FormImport):
 			self.finactions.ImportRecord(finstruct_ido, src_date_time, src_amount, src_note, src_control, dy, dm)
 
 		dialog_progress.setValue(dialog_progress.maximum())
+
+		ShowMessage("Импорт финдействий", "Импорт завершён")
+
+		self.application.form_finactions.UpdateData()
