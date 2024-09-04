@@ -48,8 +48,8 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Дерево данных
 	def AdjustTreeData_Size(self):
 		""" Дерево данных: Настройка размера """
-		sizes_min : list[int] = [100, 200, 200]
-		sizes_max : list[int] = [100, 300, self.tree_data.width() // 2]
+		sizes_min : list[int] = [100, 200, 300]
+		sizes_max : list[int] = [100, 200, 500]
 
 		for index_col in range(self.model_data.columnCount() - 1):
 			self.tree_data.resizeColumnToContents(index_col)

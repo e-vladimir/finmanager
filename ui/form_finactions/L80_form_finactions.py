@@ -5,7 +5,7 @@ from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINER_LOCAL
 from L00_months          import MONTHS_SHORT
-from L20_PySide6 import RequestConfirm, RequestValue, RequestText
+from L20_PySide6         import RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog
 from L70_form_finactions import C70_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
 
@@ -73,3 +73,25 @@ class C80_FormFinactions(C70_FormFinactions):
 		if note is None: return
 
 		record.Note(note)
+
+	# Утилиты поиска и замены
+	def ReplaceText(self):
+		""" Замена текстового фрагмента """
+		record         = C90_FinactionsRecord(self._processing_ido)
+
+		dialog_replace = QFindReplaceTextDialog("Утилиты поиска и замены", "Фрагмент поиска -> Фрагмент замены", record.Note(), record.Note(), self)
+		if not dialog_replace.exec_(): return
+
+		dy, dm         = self.workspace.DyDm()
+
+		for self._processing_ido in self.finactions.IdosInDyDmDd(dy, dm):
+			record     = C90_FinactionsRecord(self._processing_ido)
+
+			note : str = record.Note()
+
+			if dialog_replace.textFind() not in note: continue
+
+			note       = note.replace(dialog_replace.textFind(), dialog_replace.textReplace())
+			record.Note(note)
+
+			self.LoadFinactionsRecord()

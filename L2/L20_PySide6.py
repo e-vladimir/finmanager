@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 02 сен 2024
+# 03 сен 2024
 
 from pathlib           import Path
 from PySide6           import QtGui
@@ -23,7 +23,7 @@ from PySide6.QtWidgets import (QApplication,
                                QDialogButtonBox,
                                QListWidget,
                                QListWidgetItem,
-                               QPlainTextEdit)
+                               QPlainTextEdit, QLineEdit)
 
 
 ROLE_IDO : int = 100
@@ -240,6 +240,44 @@ class QMultipleItemsInputDialog(QDialog):
 		return result
 
 
+class QFindReplaceTextDialog(QDialog):
+	def __init__(self,  title, message, text_find: str = "", text_replace: str = "", parent=None):
+		super().__init__(parent)
+
+		self.setMinimumWidth(480)
+
+		self.setWindowTitle(title)
+
+		layout_form       = QFormLayout(self)
+		layout_form.addRow(QLabel(message))
+
+		self.edit_find    = QLineEdit()
+		self.edit_find.setText(text_find)
+
+		self.edit_replace = QLineEdit()
+		self.edit_replace.setText(text_replace)
+
+		layout_form.addRow(QLabel("Фрагмент поиска"))
+		layout_form.addRow(self.edit_find)
+
+		layout_form.addRow(QLabel("Фрагмент замены"))
+		layout_form.addRow(self.edit_replace)
+
+		btn_box           = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, Qt.Orientation.Horizontal, self)
+		layout_form.addRow(btn_box)
+
+		btn_box.accepted.connect(self.accept)
+		btn_box.rejected.connect(self.reject)
+
+	def textFind(self) -> str:
+		""" Фрагмент поиска """
+		return self.edit_find.text()
+
+	def textReplace(self) -> str:
+		""" Фрагмент замены """
+		return self.edit_replace.text()
+
+
 class QMultipleTextInputDialog(QDialog):
 	def __init__(self,  title, message, items: list[any], parent=None):
 		super().__init__(parent)
@@ -262,7 +300,7 @@ class QMultipleTextInputDialog(QDialog):
 		btn_box.rejected.connect(self.reject)
 
 	def textValues(self) -> list[str]:
-		"""  """
+		""" Список строк  """
 		return self.edit_text.toPlainText().split('\n')
 
 

@@ -22,6 +22,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_record_split.triggered.connect(self.on_RequestSplitFinactionsRecord)
 		self.menu_finactions_record_edit_note.triggered.connect(self.on_RequestEditNoteFinactionsRecord)
 
+		self.menu_finactions_tools_replace_text.triggered.connect(self.on_RequestReplaceText)
+
 	def on_Show(self):
 		""" Отображение формы """
 		self.ShowTitle()
@@ -29,8 +31,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.InitModel()
 		self.LoadFinactions()
 
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
 	def on_UpdateData(self):
@@ -40,8 +42,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.InitModel()
 		self.LoadFinactions()
 
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
 	# Данные
@@ -55,8 +57,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.LoadDd()
 		self.LoadFinactionsRecord()
 
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
 	# Меню финдействий
@@ -78,8 +80,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.LoadDd()
 		self.LoadFinactionsRecord()
 
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
 	def on_RequestImportFinactions(self):
@@ -95,16 +97,16 @@ class C90_FormFinactions(C80_FormFinactions):
 		""" Запрос на удаление записи финдействий """
 		self.DeleteFinactionsRecord()
 
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
 	def on_RequestSplitFinactionsRecord(self):
 		""" Запрос на разделение записи финдействий """
 		self.SplitFinactionsRecord()
 
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
 	# Дерево данных
@@ -123,3 +125,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.LoadFinactionsRecord()
 
 		self.AdjustTreeData_Size()
+
+	# Утилиты поиска и замены
+	def on_RequestReplaceText(self):
+		""" Замена текстового фрагмента """
+		self.ReplaceText()

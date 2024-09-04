@@ -21,3 +21,6 @@ class C50_FormFinactions(C42_FormFinactions):
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self): pass
+
+	# Утилиты поиска и замены
+	def on_RequestReplaceText(self): pass
