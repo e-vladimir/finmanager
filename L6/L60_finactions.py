@@ -53,11 +53,6 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 		if items  is None: return self.f_finstruct_idos.ToStrings(CONTAINER_LOCAL).data
 		else             :        self.f_finstruct_idos.FromStrings(CONTAINER_LOCAL, items)
 
-	def Uid(self, text: str = None) -> str:
-		""" UDI записи """
-		if text   is None: return self.f_uid.ToString(CONTAINER_LOCAL).data
-		else             :        self.f_uid.FromString(CONTAINER_LOCAL, text)
-
 
 class C60_Finactions(C50_Finactions):
 	""" Финдействия: Механика данных """

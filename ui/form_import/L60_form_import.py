@@ -1,7 +1,8 @@
 # ФОРМА ИМПОРТ ДАННЫХ: МЕХАНИКА ДАННЫХ
 
 import pyexcel
-from PySide6.QtCore import QModelIndex
+
+from   PySide6.QtCore       import QModelIndex
 
 from   G10_convertor_format import AnyToStrings
 from   L50_form_import      import C50_FormImport
@@ -70,7 +71,7 @@ class C60_FormImport(C50_FormImport):
 
 		if not self._import_finactions_data: return
 
-		for subdata in self._import_finactions_data[1:21]:
+		for subdata in self._import_finactions_data[1:]:
 			self.model_import_finactions_data.fastAppendRow(subdata)
 
 		header : list[str] = ['' for _ in range(self.model_import_finactions_data.columnCount())]

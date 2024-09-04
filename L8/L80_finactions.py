@@ -88,6 +88,74 @@ class C80_Finactions(C70_Finactions):
 		record.Amount(amount)
 		record.Labels([])
 		record.FinstructIdos([])
-		record.Uid("")
 
 		return record.Ido().data
+
+	def ImportRecord(self, finstruct_ido: str, src_date_time: str, src_amount: str, src_note: str, src_control: str, control_dy: int = 0, control_dm: int = 0, control_dd: int = 0):
+		""" Импорт записи финдействий """
+		if not src_date_time: return
+
+		dy     : int   = 0
+		dm     : int   = 0
+		dd     : int   = 0
+
+		amount : float = 0.00
+
+		try   : amount = float(src_amount.replace(',', '.'))
+		except: pass
+
+		try:
+			raw   : str    = src_date_time.lower()
+			raw            = raw.replace(',', '')
+			raw            = raw.replace('.', ' ')
+			raw            = raw.replace('ё', 'е')
+
+			months         = []
+			months.append(["январь",   "января",   "янв"])
+			months.append(["февраль",  "февраля",  "фев"])
+			months.append(["марта",    "март",     "мар"])
+			months.append(["апрель",   "апреля",   "апр"])
+			months.append(["май",      "мая",      "май"])
+			months.append(["июнь",     "июня",     "июн"])
+			months.append(["июль",     "июля",     "июл"])
+			months.append(["августа",  "август",   "авг"])
+			months.append(["сентябрь", "сентября", "сен"])
+			months.append(["октябрь",  "октября",  "окт"])
+			months.append(["ноябрь",   "ноября",   "ноя"])
+			months.append(["декабрь",  "декабря",  "дек"])
+
+			for index_month, submonths in enumerate(months):
+				for month in submonths: raw = raw.replace(month, f"{index_month + 1:02d}")
+
+			dddmdy : list[str] = raw.split(' ')
+			dddmdy             = list(filter(lambda subraw: len(subraw) < 5, dddmdy))
+
+			dd                 = int(dddmdy[0])
+			dm                 = int(dddmdy[1])
+			dy                 = int(dddmdy[2])
+
+			if   dy <  50: dy += 2000
+			elif dy < 100: dy += 1900
+		except: pass
+
+		if not dy           : return
+		if not dm           : return
+		if not dd           : return
+
+		if control_dy and not (control_dy == dy): return
+		if control_dm and not (control_dm == dm): return
+		if control_dd and not (control_dm == dd): return
+
+		record         = C80_FinactionsRecord()
+		record.GenerateIdo()
+		record.RegisterObject(CONTAINER_LOCAL)
+
+		record.Dy(dy)
+		record.Dm(dm)
+		record.Dd(dd)
+		record.SrcNote(src_note)
+		record.SrcAmount(amount)
+		record.Note("")
+		record.Amount(amount)
+		record.Labels([])
+		record.FinstructIdos([finstruct_ido])

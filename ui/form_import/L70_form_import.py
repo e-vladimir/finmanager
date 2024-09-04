@@ -25,9 +25,11 @@ class C70_FormImport(C60_FormImport):
 	def AdjustMenuImportFinactions_Enable(self):
 		""" Меню импорта финдействий: Настройка доступности """
 		flag_selected : bool = self._processing_column >= 0
-
 		self.menu_import_finactions_column_set_field.setEnabled(flag_selected)
 		self.menu_import_finactions_column_reset_field.setEnabled(flag_selected)
+
+		flag_data     : bool = len(self._import_finactions_data) > 0
+		self.menu_import_finactions_exec_import.setEnabled(flag_data)
 
 	def AdjustMenuImportFinactions_Text(self):
 		""" Меню импорта финдействий: Настройка наименований """

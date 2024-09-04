@@ -26,8 +26,6 @@ class C40_FinactionsRecord(C30_StructFrame):
 
 		self.f_finstruct_idos = C30_StructField(self, "Записи финструктуры")
 
-		self.f_uid            = C30_StructField(self, "UID")
-
 
 class C40_Finactions(C20_MetaFrame):
 	""" Финдействия: Модель данных """
