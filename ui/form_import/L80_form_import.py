@@ -73,10 +73,10 @@ class C80_FormImport(C70_FormImport):
 
 			for index_col, field in self._import_finactions_header.items():
 				match field:
-					case FIELDS.DATE_TIME: src_date_time = row_data[index_col]
-					case FIELDS.AMOUNT   : src_amount    = row_data[index_col]
-					case FIELDS.NOTE     : src_note      = row_data[index_col]
-					case FIELDS.CONTROL  : src_control   = row_data[index_col]
+					case FIELDS.DATE_TIME: src_date_time  = row_data[index_col]
+					case FIELDS.AMOUNT   : src_amount     = row_data[index_col]
+					case FIELDS.NOTE     : src_note      += row_data[index_col]
+					case FIELDS.CONTROL  : src_control    = row_data[index_col]
 
 			self.finactions.ImportRecord(finstruct_ido, src_date_time, src_amount, src_note, src_control, dy, dm)
 

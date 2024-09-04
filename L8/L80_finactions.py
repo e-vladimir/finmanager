@@ -146,16 +146,24 @@ class C80_Finactions(C70_Finactions):
 		if control_dm and not (control_dm == dm): return
 		if control_dd and not (control_dm == dd): return
 
+		control_text = src_control.lower()
+
+		if   "err"    in control_text: return
+		elif "ошибка" in control_text: return
+		elif "отказ"  in control_text: return
+
 		record         = C80_FinactionsRecord()
 		record.GenerateIdo()
 		record.RegisterObject(CONTAINER_LOCAL)
 
+		note = src_note.replace('  ', ' ')
+
 		record.Dy(dy)
 		record.Dm(dm)
 		record.Dd(dd)
-		record.SrcNote(src_note)
+		record.SrcNote(note)
 		record.SrcAmount(amount)
-		record.Note("")
+		record.Note(note)
 		record.Amount(amount)
 		record.Labels([])
 		record.FinstructIdos([finstruct_ido])
