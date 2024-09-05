@@ -38,6 +38,11 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 		if text   is None: return self.f_note.ToString(CONTAINER_LOCAL).data
 		else             :        self.f_note.FromString(CONTAINER_LOCAL, text)
 
+	def Color(self, text: str = None) -> str:
+		""" Цветовая метка """
+		if text   is None: return self.f_color.ToString(CONTAINER_LOCAL).data
+		else             :        self.f_color.FromString(CONTAINER_LOCAL, text)
+
 	def Amount(self, amount: float = None) -> float:
 		""" Сумма """
 		if amount is None: return self.f_amount.ToFloat(CONTAINER_LOCAL).data

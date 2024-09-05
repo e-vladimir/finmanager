@@ -1,5 +1,6 @@
 # ФОРМА ФИНДЕЙСТВИЯ: МОДЕЛЬ ДАННЫХ
 
+from L00_colors          import COLORS
 from L20_PySide6         import C20_StandardItemModel
 from L41_form_finactions import C41_FormFinactions
 from L90_finactions      import C90_Finactions
@@ -13,9 +14,10 @@ class C42_FormFinactions(C41_FormFinactions):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_dd     : int = 0
-		self._processing_ido    : str = ""
-		self._processing_column : int = -1
+		self._processing_dd     : int           = 0
+		self._processing_ido    : str           = ""
+		self._processing_column : int           = -1
+		self._processing_color  : COLORS | None = None
 
 	def Init_10(self):
 		super().Init_10()

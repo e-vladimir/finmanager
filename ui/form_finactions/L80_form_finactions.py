@@ -1,5 +1,8 @@
 # ФОРМА ФИНДЕЙСТВИЯ: ЛОГИКА ДАННЫХ
 
+from PySide6.QtCore      import Qt
+from PySide6.QtWidgets   import QProgressDialog
+
 from G10_math_linear     import CalcBetween
 from G11_convertor_data  import AmountToString
 
@@ -77,16 +80,25 @@ class C80_FormFinactions(C70_FormFinactions):
 	# Утилиты поиска и замены
 	def ReplaceText(self):
 		""" Замена текстового фрагмента """
-		record         = C90_FinactionsRecord(self._processing_ido)
+		record           = C90_FinactionsRecord(self._processing_ido)
 
-		dialog_replace = QFindReplaceTextDialog("Утилиты поиска и замены", "Фрагмент поиска -> Фрагмент замены", record.Note(), record.Note(), self)
+		dialog_replace   = QFindReplaceTextDialog("Утилиты поиска и замены", "Фрагмент поиска -> Фрагмент замены", record.Note(), record.Note(), self)
 		if not dialog_replace.exec_(): return
 
-		dy, dm         = self.workspace.DyDm()
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = self.finactions.IdosInDyDmDd(dy, dm)
 
-		for self._processing_ido in self.finactions.IdosInDyDmDd(dy, dm):
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Замена текстового фрагмента")
+
+		for index_ido, self._processing_ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
 			record     = C90_FinactionsRecord(self._processing_ido)
-
 			note : str = record.Note()
 
 			if dialog_replace.textFind() not in note: continue
@@ -95,3 +107,13 @@ class C80_FormFinactions(C70_FormFinactions):
 			record.Note(note)
 
 			self.LoadFinactionsRecord()
+
+		dialog_progress.setValue(dialog_progress.maximum())
+
+	# Цветовая метка
+	def SetColor(self):
+		""" Установка цветовой метки """
+		if not self._processing_ido: return
+
+		record = C90_FinactionsRecord(self._processing_ido)
+		record.Color(self._processing_color)

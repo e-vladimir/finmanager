@@ -22,6 +22,8 @@ class C40_FinactionsRecord(C30_StructFrame):
 		self.f_note           = C30_StructField(self, "Примечание")
 		self.f_amount         = C30_StructField(self, "Сумма")
 
+		self.f_color          = C30_StructField(self, "Цветовая метка")
+
 		self.f_labels         = C30_StructField(self, "Метки")
 
 		self.f_finstruct_idos = C30_StructField(self, "Записи финструктуры")

@@ -1,5 +1,6 @@
 # ФОРМА ФИНДЕЙСТВИЯ: ЛОГИКА УПРАВЛЕНИЯ
 
+from L00_colors          import COLORS
 from L80_form_finactions import C80_FormFinactions
 
 
@@ -21,6 +22,12 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_record_delete.triggered.connect(self.on_RequestDeleteFinactionsRecord)
 		self.menu_finactions_record_split.triggered.connect(self.on_RequestSplitFinactionsRecord)
 		self.menu_finactions_record_edit_note.triggered.connect(self.on_RequestEditNoteFinactionsRecord)
+
+		self.menu_finactions_colors_black.triggered.connect(self.on_RequestSetColorBlack)
+		self.menu_finactions_colors_gray.triggered.connect(self.on_RequestSetColorGray)
+		self.menu_finactions_colors_blue.triggered.connect(self.on_RequestSetColorBlue)
+		self.menu_finactions_colors_green.triggered.connect(self.on_RequestSetColorGreen)
+		self.menu_finactions_colors_red.triggered.connect(self.on_RequestSetColorRed)
 
 		self.menu_finactions_tools_replace_text.triggered.connect(self.on_RequestReplaceText)
 
@@ -125,6 +132,42 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.LoadFinactionsRecord()
 
 		self.AdjustTreeData_Size()
+
+	# Цветовая метка
+	def on_RequestSetColorBlack(self):
+		""" Установка цветовой метки: Черный """
+		self._processing_color = COLORS.BLACK
+
+		self.SetColor()
+		self.LoadFinactionsRecord()
+
+	def on_RequestSetColorGray(self):
+		""" Установка цветовой метки: Серый """
+		self._processing_color = COLORS.GRAY
+
+		self.SetColor()
+		self.LoadFinactionsRecord()
+
+	def on_RequestSetColorBlue(self):
+		""" Установка цветовой метки: Синий """
+		self._processing_color = COLORS.BLUE
+
+		self.SetColor()
+		self.LoadFinactionsRecord()
+
+	def on_RequestSetColorGreen(self):
+		""" Установка цветовой метки: Зелёный """
+		self._processing_color = COLORS.GREEN
+
+		self.SetColor()
+		self.LoadFinactionsRecord()
+
+	def on_RequestSetColorRed(self):
+		""" Установка цветовой метки: Красный """
+		self._processing_color = COLORS.RED
+
+		self.SetColor()
+		self.LoadFinactionsRecord()
 
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self):

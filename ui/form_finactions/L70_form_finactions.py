@@ -21,12 +21,18 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Меню финдействий
 	def AdjustMenuFinactionsEnable(self):
 		""" Меню финдействий: Настройка доступности """
-		flag_selected_record : bool = bool(self._processing_ido)
+		flag_selected_signle : bool = bool(self._processing_ido)
 
-		self.menu_finactions_record_open.setEnabled(flag_selected_record)
-		self.menu_finactions_record_delete.setEnabled(flag_selected_record)
-		self.menu_finactions_record_edit_note.setEnabled(flag_selected_record)
-		self.menu_finactions_record_split.setEnabled(flag_selected_record)
+		self.menu_finactions_record_open.setEnabled(flag_selected_signle)
+		self.menu_finactions_record_delete.setEnabled(flag_selected_signle)
+		self.menu_finactions_record_edit_note.setEnabled(flag_selected_signle)
+		self.menu_finactions_record_split.setEnabled(flag_selected_signle)
+
+		self.menu_finactions_colors_black.setEnabled(flag_selected_signle)
+		self.menu_finactions_colors_gray.setEnabled(flag_selected_signle)
+		self.menu_finactions_colors_blue.setEnabled(flag_selected_signle)
+		self.menu_finactions_colors_green.setEnabled(flag_selected_signle)
+		self.menu_finactions_colors_red.setEnabled(flag_selected_signle)
 
 	def AdjustMenuFinactionsText(self):
 		""" Меню финдействий: Настройка наименования """

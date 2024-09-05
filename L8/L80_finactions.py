@@ -88,6 +88,7 @@ class C80_Finactions(C70_Finactions):
 		record.Amount(amount)
 		record.Labels([])
 		record.FinstructIdos([])
+		record.Color("")
 
 		return record.Ido().data
 
@@ -167,3 +168,4 @@ class C80_Finactions(C70_Finactions):
 		record.Amount(amount)
 		record.Labels([])
 		record.FinstructIdos([finstruct_ido])
+		record.Color("")

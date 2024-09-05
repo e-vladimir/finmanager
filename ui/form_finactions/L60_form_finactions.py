@@ -1,8 +1,10 @@
 # ФОРМА ФИНДЕЙСТВИЯ: МЕХАНИКА ДАННЫХ
 
 from PySide6.QtCore      import Qt, QModelIndex
+from PySide6.QtGui       import QColor
 
 from G11_convertor_data  import AmountToString
+from L00_colors import COLORS
 
 from L00_months          import MONTHS_SHORT
 from L20_PySide6         import C20_StandardItem, ROLE_IDO
@@ -122,6 +124,19 @@ class C60_FormFinactions(C50_FormFinactions):
 		item_finstruct.setText('\n'.join(self.finstruct.IdosToNames(record.FinstructIdos())))
 		item_labels.setText(', '.join(record.Labels()))
 		item_note.setText(record.Note())
+
+		color_black = QColor(  0,   0,   0)
+		color_gray  = QColor(200, 200, 200)
+		color_blue  = QColor(  0,   0, 100)
+		color_green = QColor(  0, 100,   0)
+		color_red   = QColor(100,   0,   0)
+
+		match record.Color():
+			case COLORS.BLACK: self.model_data.setRowColor(item_dd, item_amount.row(), Qt.GlobalColor.white, color_black)
+			case COLORS.GRAY : self.model_data.setRowColor(item_dd, item_amount.row(), Qt.GlobalColor.white, color_gray)
+			case COLORS.BLUE : self.model_data.setRowColor(item_dd, item_amount.row(), Qt.GlobalColor.white, color_blue)
+			case COLORS.GREEN: self.model_data.setRowColor(item_dd, item_amount.row(), Qt.GlobalColor.white, color_green)
+			case COLORS.RED  : self.model_data.setRowColor(item_dd, item_amount.row(), Qt.GlobalColor.white, color_red)
 
 	def CleanFinactionsRecord(self):
 		""" Очистка записи финдействий """
