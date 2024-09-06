@@ -113,6 +113,15 @@ class C80_FormFinactions(C70_FormFinactions):
 	# Цветовая метка
 	def SetColor(self):
 		""" Установка цветовой метки """
+		if self._processing_idos:
+			for self._processing_ido in self._processing_idos:
+				record = C90_FinactionsRecord(self._processing_ido)
+				record.Color(self._processing_color)
+
+				self.LoadFinactionsRecord()
+
+			return
+
 		if not self._processing_ido: return
 
 		record = C90_FinactionsRecord(self._processing_ido)

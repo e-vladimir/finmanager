@@ -21,20 +21,20 @@ class C70_FormFinactions(C60_FormFinactions):
 	# Меню финдействий
 	def AdjustMenuFinactionsEnable(self):
 		""" Меню финдействий: Настройка доступности """
-		flag_selected_signle : bool = bool(self._processing_ido)
-
-		self.menu_finactions_record_open.setEnabled(flag_selected_signle)
-		self.menu_finactions_record_delete.setEnabled(flag_selected_signle)
-		self.menu_finactions_record_edit_note.setEnabled(flag_selected_signle)
-		self.menu_finactions_record_split.setEnabled(flag_selected_signle)
-
-		self.menu_finactions_colors_black.setEnabled(flag_selected_signle)
-		self.menu_finactions_colors_gray.setEnabled(flag_selected_signle)
-		self.menu_finactions_colors_blue.setEnabled(flag_selected_signle)
-		self.menu_finactions_colors_green.setEnabled(flag_selected_signle)
-		self.menu_finactions_colors_red.setEnabled(flag_selected_signle)
-
+		flag_selected_single   : bool = bool(self._processing_ido)
 		flag_selected_multiple : bool = len(self._processing_idos) > 0
+
+		self.menu_finactions_record_open.setEnabled(flag_selected_single)
+		self.menu_finactions_record_delete.setEnabled(flag_selected_single)
+		self.menu_finactions_record_edit_note.setEnabled(flag_selected_single)
+		self.menu_finactions_record_split.setEnabled(flag_selected_single)
+
+		self.menu_finactions_colors_black.setEnabled(flag_selected_single or flag_selected_multiple)
+		self.menu_finactions_colors_gray.setEnabled(flag_selected_single or flag_selected_multiple)
+		self.menu_finactions_colors_blue.setEnabled(flag_selected_single or flag_selected_multiple)
+		self.menu_finactions_colors_green.setEnabled(flag_selected_single or flag_selected_multiple)
+		self.menu_finactions_colors_red.setEnabled(flag_selected_single or flag_selected_multiple)
+
 		self.menu_finactions_pack_reset.setEnabled(flag_selected_multiple)
 
 	def AdjustMenuFinactionsText(self):
@@ -60,7 +60,7 @@ class C70_FormFinactions(C60_FormFinactions):
 	def AdjustTreeData_Size(self):
 		""" Дерево данных: Настройка размера """
 		sizes_min : list[int] = [100, 200, 300]
-		sizes_max : list[int] = [100, 200, 500]
+		sizes_max : list[int] = [150, 200, 500]
 
 		for index_col in range(self.model_data.columnCount() - 1):
 			self.tree_data.resizeColumnToContents(index_col)
