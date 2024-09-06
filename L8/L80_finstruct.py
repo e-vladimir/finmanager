@@ -3,12 +3,27 @@
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINER_LOCAL
+from L40_finactions         import C40_FinactionsRecord
 from L70_finstruct          import C70_FinstructRecord, C70_Finstruct
 
 
 class C80_FinstructRecord(C70_FinstructRecord):
 	""" Запись финструктуры: Логика данных """
-	pass
+
+	# Финсостояние
+	def CalcBalanceCalc(self) -> float:
+		""" Расчёт Остатка расчётного """
+		finactions_record     = C40_FinactionsRecord()
+
+		filter_data           = C30_FilterLinear1D(finactions_record.Idc().data)
+		filter_data.FilterIdpVlpByEqual(finactions_record.f_dy.Idp().data, self.Dy())
+		filter_data.FilterIdpVlpByEqual(finactions_record.f_dm.Idp().data, self.Dm())
+		filter_data.FilterIdpVlpByInclude(finactions_record.f_finstruct_idos.Idp().data, self.Ido().data)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		amounts : list[float] = [0] + filter_data.ToFloats(finactions_record.f_amount.Idp().data).data
+
+		return self.BalanceStart() + sum(amounts)
 
 
 class C80_Finstruct(C70_Finstruct):
