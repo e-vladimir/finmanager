@@ -31,6 +31,8 @@ class C50_FormFinactions(C42_FormFinactions):
 
 	# Пакетный режим
 	def on_RequestResetPack(self): pass
+	def on_RequestExpandPackByText(self): pass
+	def on_RequestReducePackByText(self): pass
 
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self): pass

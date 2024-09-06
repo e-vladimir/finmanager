@@ -56,6 +56,9 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 
 		self.menu_finactions_pack_header          : QMenu   = self.menu_finactions.addMenu(icon_checked, "Пакетный режим")
 		self.menu_finactions_pack_reset           : QAction = self.menu_finactions_pack_header.addAction(icon_unchecked, "Снять выбор")
+		self.menu_finactions_pack_header.addSection("Текстовый фрагмент")
+		self.menu_finactions_pack_expand_by_text  : QAction = self.menu_finactions_pack_header.addAction(icon_checked,   "Расширить пакет")
+		self.menu_finactions_pack_reduce_by_text  : QAction = self.menu_finactions_pack_header.addAction(icon_unchecked, "Сократить пакет")
 
 		self.menu_finactions_tools_replace_header : QMenu   = self.menu_finactions.addMenu(icon_replace, "Поиск и замена")
 		self.menu_finactions_tools_replace_text   : QAction = self.menu_finactions_tools_replace_header.addAction(icon_replace, "Замена текстового фрагмента")

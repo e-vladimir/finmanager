@@ -30,6 +30,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_colors_red.triggered.connect(self.on_RequestSetColorRed)
 
 		self.menu_finactions_pack_reset.triggered.connect(self.on_RequestResetPack)
+		self.menu_finactions_pack_expand_by_text.triggered.connect(self.on_RequestExpandPackByText)
+		self.menu_finactions_pack_reduce_by_text.triggered.connect(self.on_RequestReducePackByText)
 
 		self.menu_finactions_tools_replace_text.triggered.connect(self.on_RequestReplaceText)
 
@@ -176,6 +178,14 @@ class C90_FormFinactions(C80_FormFinactions):
 	def on_RequestResetPack(self):
 		""" Запрос на сброс пакетного режима """
 		self.ResetPack()
+
+	def on_RequestExpandPackByText(self):
+		""" Запрос на расширение пакета """
+		self.ExpandPackByText()
+
+	def on_RequestReducePackByText(self):
+		""" Запрос на сокращение пакета """
+		self.ReducePackByText()
 
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self):

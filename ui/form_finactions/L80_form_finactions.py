@@ -126,4 +126,47 @@ class C80_FormFinactions(C70_FormFinactions):
 			if item_record is None: continue
 
 			item_record.setCheckState(Qt.CheckState.Unchecked)
-	
+
+	def ExpandPackByText(self):
+		""" Расширение пакета по текстовому фрагменту """
+		record            = C90_FinactionsRecord(self._processing_ido)
+
+		text : str | None = RequestText("Пакетный режим", "Расширение пакета", record.Note())
+		if text is None: return
+
+		text              = text.lower()
+
+		item_root  = self.model_data.invisibleRootItem()
+
+		for index_row_dd in range(self.model_data.rowCount()):
+			item_dd = item_root.child(index_row_dd, 0)
+
+			for index_row_record in range(item_dd.rowCount()):
+				item_amount = item_dd.child(index_row_record, 0)
+				item_note   = item_dd.child(index_row_record, 2)
+
+				if text not in item_note.text().lower(): continue
+
+				item_amount.setCheckState(Qt.CheckState.Checked)
+
+	def ReducePackByText(self):
+		""" Сокращение пакета по текстовому фрагменту """
+		record            = C90_FinactionsRecord(self._processing_ido)
+
+		text : str | None = RequestText("Пакетный режим", "Сокращение пакета", record.Note())
+		if text is None: return
+
+		text              = text.lower()
+
+		item_root  = self.model_data.invisibleRootItem()
+
+		for index_row_dd in range(self.model_data.rowCount()):
+			item_dd = item_root.child(index_row_dd, 0)
+
+			for index_row_record in range(item_dd.rowCount()):
+				item_amount = item_dd.child(index_row_record, 0)
+				item_note   = item_dd.child(index_row_record, 2)
+
+				if text not in item_note.text().lower(): continue
+
+				item_amount.setCheckState(Qt.CheckState.Unchecked)
