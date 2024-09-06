@@ -29,5 +29,8 @@ class C50_FormFinactions(C42_FormFinactions):
 	def on_RequestSetColorGreen(self): pass
 	def on_RequestSetColorRed(self): pass
 
+	# Пакетный режим
+	def on_RequestResetPack(self): pass
+
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self): pass

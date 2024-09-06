@@ -34,18 +34,23 @@ class C70_FormFinactions(C60_FormFinactions):
 		self.menu_finactions_colors_green.setEnabled(flag_selected_signle)
 		self.menu_finactions_colors_red.setEnabled(flag_selected_signle)
 
+		flag_selected_multiple : bool = len(self._processing_idos) > 0
+		self.menu_finactions_pack_reset.setEnabled(flag_selected_multiple)
+
 	def AdjustMenuFinactionsText(self):
 		""" Меню финдействий: Настройка наименования """
 		self.menu_finactions_record_header.setTitle("Запись финдействий")
 
 		if self._processing_ido:
-			self.menu_finactions_record_open.setEnabled(True)
-
 			record       = C90_FinactionsRecord(self._processing_ido)
 			dm     : str = MONTHS_SHORT[self.workspace.Dm()]
 			dd_name: str = f"{record.Dd():02d} {dm}"
 
 			self.menu_finactions_record_header.setTitle(f"{AmountToString(record.Amount(), False, True)} от {dd_name}")
+
+		self.menu_finactions_pack_header.setTitle("Пакетный режим")
+		if self._processing_idos:
+			self.menu_finactions_pack_header.setTitle(f"Пакетный режим ({len(self._processing_idos)})")
 
 	def ShowMenuFinactions(self):
 		""" Меню финдействий: Отображение """

@@ -8,7 +8,7 @@ from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINER_LOCAL
 from L00_months          import MONTHS_SHORT
-from L20_PySide6         import RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog
+from L20_PySide6         import RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog, ROLE_IDO, C20_StandardItem
 from L70_form_finactions import C70_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
 
@@ -117,3 +117,13 @@ class C80_FormFinactions(C70_FormFinactions):
 
 		record = C90_FinactionsRecord(self._processing_ido)
 		record.Color(self._processing_color)
+
+	# Пакетный режим
+	def ResetPack(self):
+		""" Сброс пакетного режима """
+		for ido in self._processing_idos:
+			item_record : C20_StandardItem | None = self.model_data.itemByData(ido, ROLE_IDO)
+			if item_record is None: continue
+
+			item_record.setCheckState(Qt.CheckState.Unchecked)
+	

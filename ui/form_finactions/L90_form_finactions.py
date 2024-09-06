@@ -29,6 +29,8 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_colors_green.triggered.connect(self.on_RequestSetColorGreen)
 		self.menu_finactions_colors_red.triggered.connect(self.on_RequestSetColorRed)
 
+		self.menu_finactions_pack_reset.triggered.connect(self.on_RequestResetPack)
+
 		self.menu_finactions_tools_replace_text.triggered.connect(self.on_RequestReplaceText)
 
 	def on_Show(self):
@@ -169,6 +171,11 @@ class C90_FormFinactions(C80_FormFinactions):
 
 		self.SetColor()
 		self.LoadFinactionsRecord()
+
+	# Пакетный режим
+	def on_RequestResetPack(self):
+		""" Запрос на сброс пакетного режима """
+		self.ResetPack()
 
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self):
