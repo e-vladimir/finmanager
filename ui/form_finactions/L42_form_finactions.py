@@ -16,6 +16,7 @@ class C42_FormFinactions(C41_FormFinactions):
 
 		self._processing_dd     : int           = 0
 		self._processing_ido    : str           = ""
+		self._processing_idos   : list[str]     = []
 		self._processing_column : int           = -1
 		self._processing_color  : COLORS | None = None
 

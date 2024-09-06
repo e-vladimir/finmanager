@@ -73,6 +73,7 @@ class C90_FormFinactions(C80_FormFinactions):
 		""" Запрос отображению меню финдействий """
 		self.ReadProcessingDd()
 		self.ReadProcessingIdo()
+		self.ReadProcessingIdos()
 
 		self.AdjustMenuFinactionsEnable()
 		self.AdjustMenuFinactionsText()

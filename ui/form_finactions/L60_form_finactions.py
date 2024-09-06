@@ -53,6 +53,10 @@ class C60_FormFinactions(C50_FormFinactions):
 
 		self._processing_ido = current_index.data(ROLE_IDO)
 
+	def ReadProcessingIdos(self):
+		""" Чтение списка IDO отмеченных записей """
+		self._processing_idos = self.model_data.dataByCheckState(ROLE_IDO)
+
 	def ReadProcessingDdFromRecordFinactions(self):
 		""" Чтение числа месяца из записи финдействий """
 		if not self._processing_ido: return
@@ -109,6 +113,8 @@ class C60_FormFinactions(C50_FormFinactions):
 
 		if item_amount is None:
 			item_amount     = C20_StandardItem(AmountToString(record.Amount(), flag_point=False, flag_sign=True), self._processing_ido, ROLE_IDO, flag_align_right=True)
+			item_amount.setCheckable(True)
+
 			item_finstruct  = C20_StandardItem("")
 			item_labels     = C20_StandardItem("")
 			item_note       = C20_StandardItem("")
