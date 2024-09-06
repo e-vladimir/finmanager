@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_finstructatiEsN.ui'
+## Form generated from reading UI file 'form_finstructpQwnvx.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -19,12 +19,12 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHeaderView, QMa
     QSizePolicy, QStatusBar, QTreeView, QVBoxLayout,
     QWidget)
 
-class Ui_frm_finstruct(object):
-    def setupUi(self, frm_finstruct):
-        if not frm_finstruct.objectName():
-            frm_finstruct.setObjectName(u"frm_finstruct")
-        frm_finstruct.resize(800, 600)
-        self.centralwidget = QWidget(frm_finstruct)
+class Ui_form_finstruct(object):
+    def setupUi(self, form_finstruct):
+        if not form_finstruct.objectName():
+            form_finstruct.setObjectName(u"form_finstruct")
+        form_finstruct.resize(800, 600)
+        self.centralwidget = QWidget(form_finstruct)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setSpacing(3)
@@ -37,21 +37,23 @@ class Ui_frm_finstruct(object):
         self.tree_data.setAlternatingRowColors(True)
         self.tree_data.setRootIsDecorated(False)
         self.tree_data.setExpandsOnDoubleClick(False)
-        self.tree_data.header().setVisible(False)
+        self.tree_data.header().setVisible(True)
+        self.tree_data.header().setMinimumSectionSize(20)
+        self.tree_data.header().setStretchLastSection(False)
 
         self.verticalLayout.addWidget(self.tree_data)
 
-        frm_finstruct.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(frm_finstruct)
+        form_finstruct.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(form_finstruct)
         self.statusbar.setObjectName(u"statusbar")
-        frm_finstruct.setStatusBar(self.statusbar)
+        form_finstruct.setStatusBar(self.statusbar)
 
-        self.retranslateUi(frm_finstruct)
+        self.retranslateUi(form_finstruct)
 
-        QMetaObject.connectSlotsByName(frm_finstruct)
+        QMetaObject.connectSlotsByName(form_finstruct)
     # setupUi
 
-    def retranslateUi(self, frm_finstruct):
-        frm_finstruct.setWindowTitle(QCoreApplication.translate("frm_finstruct", u"MainWindow", None))
+    def retranslateUi(self, form_finstruct):
+        form_finstruct.setWindowTitle(QCoreApplication.translate("form_finstruct", u"MainWindow", None))
     # retranslateUi
 

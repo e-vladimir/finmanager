@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>frm_finstruct</class>
- <widget class="QMainWindow" name="frm_finstruct">
+ <class>form_finstruct</class>
+ <widget class="QMainWindow" name="form_finstruct">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -48,6 +48,12 @@
        <bool>false</bool>
       </property>
       <attribute name="headerVisible">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="headerMinimumSectionSize">
+       <number>20</number>
+      </attribute>
+      <attribute name="headerStretchLastSection">
        <bool>false</bool>
       </attribute>
      </widget>

@@ -4,10 +4,10 @@ from PySide6.QtGui      import QIcon, QAction
 from PySide6.QtWidgets  import QMenu
 
 from L20_PySide6        import C20_PySideForm
-from L40_form_finstruct import Ui_frm_finstruct
+from L40_form_finstruct import Ui_form_finstruct
 
 
-class C41_FormFinstruct(C20_PySideForm, Ui_frm_finstruct):
+class C41_FormFinstruct(C20_PySideForm, Ui_form_finstruct):
 	""" Форма Финструктура: Модель UI """
 
 	def InitUi(self): self.setupUi(self)

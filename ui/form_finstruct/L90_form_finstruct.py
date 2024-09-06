@@ -32,6 +32,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.InitModel()
 		self.LoadFinstruct()
 
+		self.AdjustTreeDataSize()
+		self.AdjustTreeDataAlign()
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataColors()

@@ -2,6 +2,7 @@
 
 from PySide6.QtCore     import Qt
 from PySide6.QtGui      import QCursor
+from PySide6.QtWidgets  import QHeaderView
 
 from L60_form_finstruct import C60_FormFinstruct
 
@@ -26,6 +27,18 @@ class C70_FormFinstruct(C60_FormFinstruct):
 	def AdjustTreeDataColors(self):
 		""" Настройка цветовой схемы дерева финструктуры """
 		self.model_data.setGroupsView(True, True)
+
+	def AdjustTreeDataSize(self):
+		""" Дерево данных: Настройка размера """
+		self.tree_data.header().setStretchLastSection(False)
+		self.tree_data.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+
+		for index_col in range(1, self.tree_data.header().count()): self.tree_data.setColumnWidth(index_col, 100)
+
+	def AdjustTreeDataAlign(self):
+		""" Дерево данных: Настройка выравнивания """
+		for index_col in range(1, self.tree_data.header().count()):
+			self.model_data.horizontalHeaderItem(index_col).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
 	def ProcessingTreeDataDbClick(self):
 		""" Обработка двойного клика по дереву данных """

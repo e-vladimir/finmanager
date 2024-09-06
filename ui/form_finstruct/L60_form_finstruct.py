@@ -2,6 +2,7 @@
 
 from PySide6.QtCore     import QModelIndex, Qt
 
+from G11_convertor_data import AmountToString
 from L20_PySide6        import C20_StandardItem, ROLE_IDO
 from L50_form_finstruct import C50_FormFinstruct
 from L90_finstruct      import C90_FinstructRecord
@@ -42,6 +43,8 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		""" Инициализация модели данных """
 		self.model_data.removeAll()
 
+		self.model_data.setHorizontalHeaderLabels(["Счёт", "Ост-Н", "Ост-К", "Изменение", "Поступило", "Выбыло"])
+
 	def CleanModel(self):
 		""" Очистка модели от несуществующих данных """
 		dy, dm = self.workspace.DyDm()
@@ -74,7 +77,7 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		item_group                       = C20_StandardItem(self._processing_name)
 		item_parent                      = self.model_data.invisibleRootItem()
 
-		item_parent.appendRow(item_group)
+		item_parent.appendRow([item_group, C20_StandardItem(""), C20_StandardItem(""), C20_StandardItem(""), C20_StandardItem(""), C20_StandardItem("")])
 
 	def LoadFinstructRecord(self):
 		""" Загрузка счета """
@@ -88,7 +91,23 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		item_record : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
 
 		if item_record is None:
-			item_record = C20_StandardItem(record.Name(), self._processing_ido, ROLE_IDO)
-			item_group.appendRow(item_record)
+			item_record         = C20_StandardItem(record.Name(), self._processing_ido, ROLE_IDO)
+			item_balance_start  = C20_StandardItem("0", flag_align_right=True)
+			item_balance_end    = C20_StandardItem("0", flag_align_right=True)
+			item_balance_delta  = C20_StandardItem("0", flag_align_right=True)
+			item_amount_income  = C20_StandardItem("0", flag_align_right=True)
+			item_amount_outcome = C20_StandardItem("0", flag_align_right=True)
+
+			item_group.appendRow([item_record, item_balance_start, item_balance_end, item_balance_delta, item_amount_income, item_amount_outcome])
+
+		index_row   : int                     = item_record.row()
 
 		item_record.setText(record.Name())
+
+		item_balance_start                    = item_group.child(index_row, 1)
+		item_balance_start.setText(AmountToString(record.BalanceStart()))
+
+		item_balance_end                      = item_group.child(index_row, 2)
+		item_balance_delta                    = item_group.child(index_row, 3)
+		item_amount_income                    = item_group.child(index_row, 4)
+		item_amount_outcome                   = item_group.child(index_row, 5)
