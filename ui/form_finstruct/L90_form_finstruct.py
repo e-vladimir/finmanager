@@ -23,6 +23,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.menu_finstruct_record_delete.triggered.connect(self.on_RequestDeleteFinstructRecord)
 		self.menu_finstruct_record_regroup.triggered.connect(self.on_RequestRegroupFinstructRecord)
 
+		self.menu_finstruct_record_edit_balance_start.triggered.connect(self.on_RequestEditBalanceStartFinstructRecord)
+
 	# Форма
 	def on_Show(self):
 		super().on_Show()
@@ -43,9 +45,11 @@ class C90_FormFinstruct(C80_FormFinstruct):
 	# Меню финструктуры
 	def on_RequestMenuFinstruct(self):
 		""" Запрос на отображение меню финструктуры """
+		self.ReadProcessingRow()
+		self.ReadProcessingColumn()
 		self.ReadProcessingIdo()
 		self.ReadProcessingName()
-		self.ReadGroupProcessing()
+		self.ReadProcessingGroup()
 
 		self.AdjustMenuFinstructEnable()
 		self.AdjustMenuFinstructText()
@@ -55,9 +59,11 @@ class C90_FormFinstruct(C80_FormFinstruct):
 	# Дерево финструктуры
 	def on_RequestProcessingTreeDataDbClick(self):
 		""" Реакция действия на двойной клик по дереву данных """
+		self.ReadProcessingRow()
+		self.ReadProcessingColumn()
 		self.ReadProcessingIdo()
 		self.ReadProcessingName()
-		self.ReadGroupProcessing()
+		self.ReadProcessingGroup()
 
 		self.ProcessingTreeDataDbClick()
 
@@ -119,3 +125,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataColors()
+
+	def on_RequestEditBalanceStartFinstructRecord(self):
+		""" Запрос на установку баланса начального  """
+		self.EditBalanceStartFinstructRecord()
+		self.LoadFinstructRecord()

@@ -30,8 +30,8 @@ class C60_FinstructRecord(C50_FinstructRecord):
 
 	def BalanceStart(self, value: float = None) -> float:
 		""" Баланс начальный """
-		if value is None: return self.f_group.ToFloat(CONTAINER_LOCAL).data
-		else            :        self.f_group.FromFloat(CONTAINER_LOCAL, value)
+		if value is None: return self.f_balance_start.ToFloat(CONTAINER_LOCAL).data
+		else            :        self.f_balance_start.FromFloat(CONTAINER_LOCAL, value)
 
 	# Переключение
 	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:

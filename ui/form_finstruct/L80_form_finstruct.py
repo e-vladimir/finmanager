@@ -1,7 +1,7 @@
 # ФОРМА ФИНСТРУКТУРА: ЛОГИКА ДАННЫХ
 
 from L00_containers     import CONTAINER_LOCAL
-from L20_PySide6        import RequestText, RequestConfirm
+from L20_PySide6        import RequestText, RequestConfirm, RequestValue
 from L70_form_finstruct import C70_FormFinstruct
 from L90_finstruct      import C90_FinstructRecord
 
@@ -78,3 +78,13 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 		dy, dm = self.workspace.DyDm()
 		self.finstruct.Regroup(dy, dm, self._group_processing, group_name)
+
+	# Финсостояние
+	def EditBalanceStartFinstructRecord(self):
+		""" Редактирование баланса начального """
+		if not self._processing_ido: return
+
+		record              = C90_FinstructRecord(self._processing_ido)
+		amount : int | None = RequestValue("Финсостояние", f"{record.Name()}\nБаланс счёта на начало {self.workspace.DmDyToString()}", int(record.BalanceStart()), -99999999, 99999999)
+
+		record.BalanceStart(amount)

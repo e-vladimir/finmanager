@@ -19,3 +19,5 @@ class C50_FormFinstruct(C42_FormFinstruct):
 	def on_RequestDeleteFinstructRecord(self): pass
 	def on_RequestRegroupFinstructRecord(self): pass
 	def on_RequestRenameGroupFinstruct(self): pass
+
+	def on_RequestEditBalanceStartFinstructRecord(self): pass

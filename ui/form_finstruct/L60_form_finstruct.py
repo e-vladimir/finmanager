@@ -3,6 +3,7 @@
 from PySide6.QtCore     import QModelIndex, Qt
 
 from G11_convertor_data import AmountToString
+
 from L20_PySide6        import C20_StandardItem, ROLE_IDO
 from L50_form_finstruct import C50_FormFinstruct
 from L90_finstruct      import C90_FinstructRecord
@@ -14,29 +15,65 @@ class C60_FormFinstruct(C50_FormFinstruct):
 	# Параметры
 	def ReadProcessingIdo(self):
 		""" Чтение IDO счёта """
-		index_current : QModelIndex = self.tree_data.currentIndex()
-		self._processing_ido = index_current.data(ROLE_IDO)
+		self._processing_ido = ""
+
+		current_index : QModelIndex = self.tree_data.currentIndex()
+		if not current_index.isValid(): return
+
+		current_item                = self.model_data.itemFromIndex(current_index)
+		current_row                 = current_item.row()
+		parent_item                 = current_item.parent()
+		if     parent_item is None    : return
+
+		current_item                = parent_item.child(current_row, 0)
+
+		self._processing_ido = current_item.data(ROLE_IDO)
 
 	def ReadProcessingName(self):
 		""" Чтение наименование счёта """
 		self._processing_name = ""
 
-		index_current : QModelIndex = self.tree_data.currentIndex()
-		ido           : str         = index_current.data(ROLE_IDO)
+		current_index : QModelIndex = self.tree_data.currentIndex()
+		if not current_index.isValid(): return
 
-		if not ido: return
+		current_item                = self.model_data.itemFromIndex(current_index)
+		current_row                 = current_item.row()
+		parent_item                 = current_item.parent()
+		if     parent_item is None    : return
 
-		self._processing_name = index_current.data(Qt.ItemDataRole.DisplayRole)
+		current_item                = parent_item.child(current_row, 0)
 
-	def ReadGroupProcessing(self):
+		self._processing_name = current_item.text()
+
+	def ReadProcessingGroup(self):
 		""" Чтение группы счетов """
 		self._group_processing = ""
 
-		index_current : QModelIndex = self.tree_data.currentIndex()
-		ido           : str         = index_current.data(ROLE_IDO)
+		current_index : QModelIndex = self.tree_data.currentIndex()
+		if not current_index.isValid(): return
 
-		if not ido: self._group_processing = index_current.data(Qt.ItemDataRole.DisplayRole)
-		else      :	self._group_processing = index_current.parent().data(Qt.ItemDataRole.DisplayRole)
+		current_item                = self.model_data.itemFromIndex(current_index)
+		current_row                 = current_item.row()
+		parent_item                 = current_item.parent()
+
+		if parent_item is None:	parent_item = self.model_data.invisibleRootItem()
+
+		current_item                = parent_item.child(current_row, 0)
+
+		result_top    : bool        = parent_item == self.model_data.invisibleRootItem()
+
+		if result_top: self._group_processing = current_item.text()
+		else         : self._group_processing = parent_item.text()
+
+	def ReadProcessingRow(self):
+		""" Чтение рабочей строки """
+		index_index : QModelIndex = self.tree_data.currentIndex()
+		self._processing_row = index_index.row()
+
+	def ReadProcessingColumn(self):
+		""" Чтение рабочей колонки """
+		index_index : QModelIndex = self.tree_data.currentIndex()
+		self._processing_column = index_index.column()
 
 	# Модель данных
 	def InitModel(self):
