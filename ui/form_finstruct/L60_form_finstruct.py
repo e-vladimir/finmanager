@@ -139,9 +139,11 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 		index_row   : int                     = item_record.row()
 
-		balance_start = record.BalanceStart()
-		balance_calc  = record.CalcBalanceCalc()
-		balance_delta = balance_calc - balance_start
+		balance_start                         = record.BalanceStart()
+		balance_calc                          = record.CalcBalanceCalc()
+		balance_delta                         = balance_calc - balance_start
+		amount_income                         = record.CalcAmountIncome()
+		amount_outcome                        = record.CalcAmountOutcome()
 
 		item_record.setText(record.Name())
 
@@ -155,4 +157,7 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		item_balance_delta.setText(AmountToString(balance_delta))
 
 		item_amount_income                    = item_group.child(index_row, 4)
+		item_amount_income.setText(AmountToString(amount_income))
+
 		item_amount_outcome                   = item_group.child(index_row, 5)
+		item_amount_outcome.setText(AmountToString(amount_outcome))

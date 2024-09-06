@@ -25,6 +25,36 @@ class C80_FinstructRecord(C70_FinstructRecord):
 
 		return self.BalanceStart() + sum(amounts)
 
+	def CalcAmountIncome(self) -> float:
+		""" Расчёт Объёма поступлений """
+		finactions_record     = C40_FinactionsRecord()
+
+		filter_data           = C30_FilterLinear1D(finactions_record.Idc().data)
+		filter_data.FilterIdpVlpByEqual(finactions_record.f_dy.Idp().data, self.Dy())
+		filter_data.FilterIdpVlpByEqual(finactions_record.f_dm.Idp().data, self.Dm())
+		filter_data.FilterIdpVlpByInclude(finactions_record.f_finstruct_idos.Idp().data, self.Ido().data)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		amounts : list[float] = [0] + filter_data.ToFloats(finactions_record.f_amount.Idp().data).data
+		amounts               = filter(lambda amount: amount > 0, amounts)
+
+		return sum(amounts)
+
+	def CalcAmountOutcome(self) -> float:
+		""" Расчёт Объёма расхода """
+		finactions_record     = C40_FinactionsRecord()
+
+		filter_data           = C30_FilterLinear1D(finactions_record.Idc().data)
+		filter_data.FilterIdpVlpByEqual(finactions_record.f_dy.Idp().data, self.Dy())
+		filter_data.FilterIdpVlpByEqual(finactions_record.f_dm.Idp().data, self.Dm())
+		filter_data.FilterIdpVlpByInclude(finactions_record.f_finstruct_idos.Idp().data, self.Ido().data)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		amounts : list[float] = [0] + filter_data.ToFloats(finactions_record.f_amount.Idp().data).data
+		amounts               = filter(lambda amount: amount < 0, amounts)
+
+		return sum(amounts)
+
 
 class C80_Finstruct(C70_Finstruct):
 	""" Финструктура: Логика данных """
