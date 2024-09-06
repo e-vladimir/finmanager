@@ -89,6 +89,7 @@ class C80_Finstruct(C70_Finstruct):
 		record.Dm(dm)
 		record.Name(record_name)
 		record.Group(group_name)
+		record.BalanceStart(0.00)
 
 		return True
 

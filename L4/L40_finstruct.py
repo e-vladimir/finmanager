@@ -12,12 +12,14 @@ class C40_FinstructRecord(C30_StructFrame):
 	def Init_10(self):
 		super().Init_10()
 
-		self.f_dy         = C30_StructField(self, "Год")
-		self.f_dm         = C30_StructField(self, "Месяц")
+		self.f_dy            = C30_StructField(self, "Год")
+		self.f_dm            = C30_StructField(self, "Месяц")
 
-		self.f_name       = C30_StructField(self, "Наименование")
+		self.f_name          = C30_StructField(self, "Наименование")
 
-		self.f_group      = C30_StructField(self, "Группа счетов")
+		self.f_group         = C30_StructField(self, "Группа счетов")
+
+		self.f_balance_start = C30_StructField(self, "Остаток начальный")
 
 
 class C40_Finstruct(C20_MetaFrame):

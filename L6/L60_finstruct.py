@@ -10,8 +10,8 @@ class C60_FinstructRecord(C50_FinstructRecord):
 	# Параметры
 	def Dy(self, year: int = None) -> int:
 		""" Год """
-		if year is None: return self.f_dy.ToInteger(CONTAINER_LOCAL).data
-		else           :        self.f_dy.FromInteger(CONTAINER_LOCAL, year)
+		if year  is None: return self.f_dy.ToInteger(CONTAINER_LOCAL).data
+		else            :        self.f_dy.FromInteger(CONTAINER_LOCAL, year)
 
 	def Dm(self, month: int = None) -> int:
 		""" Месяц """
@@ -20,13 +20,18 @@ class C60_FinstructRecord(C50_FinstructRecord):
 
 	def Name(self, text: str = None) -> str:
 		""" Наименование """
-		if text is None: return self.f_name.ToString(CONTAINER_LOCAL).data
-		else           :        self.f_name.FromString(CONTAINER_LOCAL, text)
+		if text  is None: return self.f_name.ToString(CONTAINER_LOCAL).data
+		else            :        self.f_name.FromString(CONTAINER_LOCAL, text)
 
 	def Group(self, text: str = None) -> str:
 		""" Группа счетов """
-		if text is None: return self.f_group.ToString(CONTAINER_LOCAL).data
-		else           :        self.f_group.FromString(CONTAINER_LOCAL, text)
+		if text  is None: return self.f_group.ToString(CONTAINER_LOCAL).data
+		else            :        self.f_group.FromString(CONTAINER_LOCAL, text)
+
+	def BalanceStart(self, value: float = None) -> float:
+		""" Баланс начальный """
+		if value is None: return self.f_group.ToFloat(CONTAINER_LOCAL).data
+		else            :        self.f_group.FromFloat(CONTAINER_LOCAL, value)
 
 	# Переключение
 	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:
