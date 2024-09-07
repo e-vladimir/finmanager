@@ -140,10 +140,10 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		index_row   : int                     = item_record.row()
 
 		balance_start                         = record.BalanceStart()
-		balance_calc                          = record.CalcBalanceCalc()
+		balance_calc                          = record.BalanceCalc()
 		balance_delta                         = balance_calc - balance_start
-		amount_income                         = record.CalcAmountIncome()
-		amount_outcome                        = record.CalcAmountOutcome()
+		amount_income                         = record.AmountIncome()
+		amount_outcome                        = record.AmountOutcome()
 
 		item_record.setText(record.Name())
 

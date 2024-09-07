@@ -11,8 +11,8 @@ class C80_FinstructRecord(C70_FinstructRecord):
 	""" Запись финструктуры: Логика данных """
 
 	# Финсостояние
-	def CalcBalanceCalc(self) -> float:
-		""" Расчёт Остатка расчётного """
+	def BalanceCalc(self) -> float:
+		""" Остаток расчётный """
 		finactions_record     = C40_FinactionsRecord()
 
 		filter_data           = C30_FilterLinear1D(finactions_record.Idc().data)
@@ -25,7 +25,7 @@ class C80_FinstructRecord(C70_FinstructRecord):
 
 		return self.BalanceStart() + sum(amounts)
 
-	def CalcAmountIncome(self) -> float:
+	def AmountIncome(self) -> float:
 		""" Расчёт Объёма поступлений """
 		finactions_record     = C40_FinactionsRecord()
 
@@ -40,7 +40,7 @@ class C80_FinstructRecord(C70_FinstructRecord):
 
 		return sum(amounts)
 
-	def CalcAmountOutcome(self) -> float:
+	def AmountOutcome(self) -> float:
 		""" Расчёт Объёма расхода """
 		finactions_record     = C40_FinactionsRecord()
 
