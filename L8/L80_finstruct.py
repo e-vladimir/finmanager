@@ -1,5 +1,6 @@
 # ФИНСТРУКТУРА: ЛОГИКА ДАННЫХ
-from G10_datetime import CalcDyDmByShiftDm
+
+from G10_datetime           import CalcDyDmByShiftDm
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINER_LOCAL
