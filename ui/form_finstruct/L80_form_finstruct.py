@@ -17,6 +17,27 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		for self._processing_name in self.finstruct.Groups(dy, dm): self.LoadFinstructGroup()
 		for self._processing_ido  in self.finstruct.Idos(dy, dm)  : self.LoadFinstructRecord()
 
+	# Группа финструктуры
+	def CopyToNextDmGroupFinstructRecords(self):
+		""" Перенос группы счетов в следующий месяц """
+		if not self._processing_group: return
+
+		dy, dm = self.workspace.DyDm()
+
+		for ido in self.finstruct.IdosInGroup(dy, dm, self._processing_group):
+			record_finstruct = C90_FinstructRecord(ido)
+			record_finstruct.CopyToNextDm()
+
+	def CopyToPrevDmGroupFinstructRecords(self):
+		""" Перенос группы счетов в предыдущий месяц """
+		if not self._processing_group: return
+
+		dy, dm = self.workspace.DyDm()
+
+		for ido in self.finstruct.IdosInGroup(dy, dm, self._processing_group):
+			record_finstruct = C90_FinstructRecord(ido)
+			record_finstruct.CopyToPrevDm()
+
 	# Запись финструктуры
 	def CreateFinstructRecord(self):
 		""" Создание записи финструктуры """
@@ -31,19 +52,19 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 	def CreateFinstructRecordInGroup(self):
 		""" Создание записи финструктуры в текущей группе """
-		if not self._group_processing: return
+		if not self._processing_group: return
 
 		dy, dm = self.workspace.DyDm()
-		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {self._group_processing}")
+		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {self._processing_group}")
 		if record_name is None: return
 
-		self.finstruct.Create(dy, dm, record_name, self._group_processing)
+		self.finstruct.Create(dy, dm, record_name, self._processing_group)
 
 	def RenameFinstructRecord(self):
 		""" Изменение наименования записи финструктуры """
 		if not self._processing_ido: return
 
-		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {self._group_processing}", self._processing_name)
+		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {self._processing_group}", self._processing_name)
 		if record_name is None: return
 
 		dy, dm = self.workspace.DyDm()
@@ -63,7 +84,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		if not self._processing_ido: return
 
 		dy, dm = self.workspace.DyDm()
-		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", old_text=self._group_processing, items=self.finstruct.Groups(dy, dm))
+		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", old_text=self._processing_group, items=self.finstruct.Groups(dy, dm))
 		if group_name is None: return
 
 		if group_name in self.finstruct.Groups(dy, dm): return
@@ -73,11 +94,11 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 	def RenameGroupFinstruct(self):
 		""" Изменение наименования группы счетов """
-		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", self._group_processing)
+		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", self._processing_group)
 		if group_name is None: return
 
 		dy, dm = self.workspace.DyDm()
-		self.finstruct.Regroup(dy, dm, self._group_processing, group_name)
+		self.finstruct.Regroup(dy, dm, self._processing_group, group_name)
 
 	def CopyToNextDmFinstructRecord(self):
 		""" Копирование записи финструктуры в следующий месяц """

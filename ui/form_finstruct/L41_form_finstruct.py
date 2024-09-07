@@ -33,6 +33,9 @@ class C41_FormFinstruct(C20_PySideForm, Ui_form_finstruct):
 		self.menu_finstruct_group_header              : QMenu   = self.menu_finstruct.addMenu(icon_blocks, "Группа счетов")
 		self.menu_finstruct_group_create              : QAction = self.menu_finstruct_group_header.addAction(icon_plus,   "Создать счёт")
 		self.menu_finstruct_group_rename              : QAction = self.menu_finstruct_group_header.addAction(icon_edit,   "Переименовать")
+		self.menu_finstruct_group_header.addSeparator()
+		self.menu_finstruct_group_copy_prev_dm        : QAction = self.menu_finstruct_group_header.addAction(icon_arrow_l_1, "Перенести группу счетов в предыдущий месяц")
+		self.menu_finstruct_group_copy_next_dm        : QAction = self.menu_finstruct_group_header.addAction(icon_arrow_r_1, "Перенести группу счетов в следующий месяц")
 
 		self.menu_finstruct_record_header             : QMenu   = self.menu_finstruct.addMenu(icon_grid_33, "Счёт")
 		self.menu_finstruct_record_rename             : QAction = self.menu_finstruct_record_header.addAction(icon_edit,   "Переименовать")
@@ -41,5 +44,5 @@ class C41_FormFinstruct(C20_PySideForm, Ui_form_finstruct):
 		self.menu_finstruct_record_header.addSeparator()
 		self.menu_finstruct_record_edit_balance_start : QAction = self.menu_finstruct_record_header.addAction(icon_edit,   "Установить баланс начальный")
 		self.menu_finstruct_record_header.addSeparator()
-		self.menu_finstruct_record_copy_prev_dm       : QAction = self.menu_finstruct_record_header.addAction(icon_arrow_l_1, "Перенести в предыдущий месяц")
-		self.menu_finstruct_record_copy_next_dm       : QAction = self.menu_finstruct_record_header.addAction(icon_arrow_r_1, "Перенести в следующий месяц")
+		self.menu_finstruct_record_copy_prev_dm       : QAction = self.menu_finstruct_record_header.addAction(icon_arrow_l_1, "Перенести счёт в предыдущий месяц")
+		self.menu_finstruct_record_copy_next_dm       : QAction = self.menu_finstruct_record_header.addAction(icon_arrow_r_1, "Перенести счёт в следующий месяц")

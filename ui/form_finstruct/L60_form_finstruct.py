@@ -47,7 +47,7 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 	def ReadProcessingGroup(self):
 		""" Чтение группы счетов """
-		self._group_processing = ""
+		self._processing_group = ""
 
 		current_index : QModelIndex = self.tree_data.currentIndex()
 		if not current_index.isValid(): return
@@ -62,8 +62,8 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 		result_top    : bool        = parent_item == self.model_data.invisibleRootItem()
 
-		if result_top: self._group_processing = current_item.text()
-		else         : self._group_processing = parent_item.text()
+		if result_top: self._processing_group = current_item.text()
+		else         : self._processing_group = parent_item.text()
 
 	def ReadProcessingRow(self):
 		""" Чтение рабочей строки """

@@ -18,6 +18,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 		self.menu_finstruct_group_create.triggered.connect(self.on_RequestCreateFinstructRecordInGroup)
 		self.menu_finstruct_group_rename.triggered.connect(self.on_RequestRenameGroupFinstruct)
+		self.menu_finstruct_group_copy_next_dm.triggered.connect(self.on_RequestCopyToNextDmGroupFinstructRecords)
+		self.menu_finstruct_group_copy_prev_dm.triggered.connect(self.on_RequestCopyToPrevDmGroupFinstructRecords)
 
 		self.menu_finstruct_record_rename.triggered.connect(self.on_RequestRenameFinstructRecord)
 		self.menu_finstruct_record_delete.triggered.connect(self.on_RequestDeleteFinstructRecord)
@@ -69,6 +71,15 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.ReadProcessingGroup()
 
 		self.ProcessingTreeDataDbClick()
+
+	# Группа финструктуры
+	def on_RequestCopyToNextDmGroupFinstructRecords(self):
+		""" Запрос на перенос группы финструктуры в следующий финпериод """
+		self.CopyToNextDmGroupFinstructRecords()
+
+	def on_RequestCopyToPrevDmGroupFinstructRecords(self):
+		""" Запрос на перенос группы финструктуры в предыдущий финпериод """
+		self.CopyToPrevDmGroupFinstructRecords()
 
 	# Запись финструктуры
 	def on_RequestCreateFinstructRecord(self):

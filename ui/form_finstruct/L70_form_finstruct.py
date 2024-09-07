@@ -4,8 +4,6 @@ from PySide6.QtCore     import Qt
 from PySide6.QtGui      import QCursor
 from PySide6.QtWidgets  import QHeaderView
 
-from G10_datetime import CalcDyDmByShiftDm
-from L00_months import MONTHS_SHORT
 from L60_form_finstruct import C60_FormFinstruct
 
 
@@ -48,15 +46,18 @@ class C70_FormFinstruct(C60_FormFinstruct):
 			if self._processing_column == 1: self.on_RequestEditBalanceStartFinstructRecord()
 			else                           : self.on_RequestRenameFinstructRecord()
 
-		elif self._group_processing:
+		elif self._processing_group:
 			self.on_RequestRenameGroupFinstruct()
 
 	# Меню финструктуры
 	def AdjustMenuFinstructEnable(self):
 		""" Меню финсостава: Настройка доступности """
-		flag_selected_group  : bool = bool(self._group_processing)
+		flag_selected_group  : bool = bool(self._processing_group)
 		self.menu_finstruct_group_create.setEnabled(flag_selected_group)
 		self.menu_finstruct_group_rename.setEnabled(flag_selected_group)
+
+		self.menu_finstruct_group_copy_next_dm.setEnabled(flag_selected_group)
+		self.menu_finstruct_group_copy_prev_dm.setEnabled(flag_selected_group)
 
 		flag_selected_record : bool = bool(self._processing_ido)
 		self.menu_finstruct_record_rename.setEnabled(flag_selected_record)
@@ -70,7 +71,7 @@ class C70_FormFinstruct(C60_FormFinstruct):
 
 	def AdjustMenuFinstructText(self):
 		""" Меню финсостава: Настройка наименования """
-		self.menu_finstruct_group_header.setTitle("Группа счетов" if not self._group_processing else self._group_processing)
+		self.menu_finstruct_group_header.setTitle("Группа счетов" if not self._processing_group else self._processing_group)
 		self.menu_finstruct_record_header.setTitle("Счёт" if not self._processing_name else self._processing_name)
 
 	def ShowMenuFinstruct(self):
