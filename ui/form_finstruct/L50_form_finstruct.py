@@ -21,3 +21,6 @@ class C50_FormFinstruct(C42_FormFinstruct):
 	def on_RequestRenameGroupFinstruct(self): pass
 
 	def on_RequestEditBalanceStartFinstructRecord(self): pass
+
+	def on_RequestCopyToPrevDmFinstructRecord(self): pass
+	def on_RequestCopyToNextDmFinstructRecord(self): pass

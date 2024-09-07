@@ -25,6 +25,9 @@ class C90_FormFinstruct(C80_FormFinstruct):
 
 		self.menu_finstruct_record_edit_balance_start.triggered.connect(self.on_RequestEditBalanceStartFinstructRecord)
 
+		self.menu_finstruct_record_copy_prev_dm.triggered.connect(self.on_RequestCopyToPrevDmFinstructRecord)
+		self.menu_finstruct_record_copy_next_dm.triggered.connect(self.on_RequestCopyToNextDmFinstructRecord)
+
 	# Форма
 	def on_Show(self):
 		super().on_Show()
@@ -130,3 +133,11 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		""" Запрос на установку баланса начального  """
 		self.EditBalanceStartFinstructRecord()
 		self.LoadFinstructRecord()
+
+	def on_RequestCopyToPrevDmFinstructRecord(self):
+		""" Запрос на перенос записи финструктуры в прошлый месяц """
+		self.CopyToPrevDmFinstructRecord()
+
+	def on_RequestCopyToNextDmFinstructRecord(self):
+		""" Запрос на перенос записи финструктуры в следующий месяц """
+		self.CopyToNextDmFinstructRecord()

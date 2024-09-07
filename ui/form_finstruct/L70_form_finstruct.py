@@ -4,6 +4,8 @@ from PySide6.QtCore     import Qt
 from PySide6.QtGui      import QCursor
 from PySide6.QtWidgets  import QHeaderView
 
+from G10_datetime import CalcDyDmByShiftDm
+from L00_months import MONTHS_SHORT
 from L60_form_finstruct import C60_FormFinstruct
 
 
@@ -62,6 +64,9 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		self.menu_finstruct_record_delete.setEnabled(flag_selected_record)
 
 		self.menu_finstruct_record_edit_balance_start.setEnabled(flag_selected_record)
+
+		self.menu_finstruct_record_copy_prev_dm.setEnabled(flag_selected_record)
+		self.menu_finstruct_record_copy_next_dm.setEnabled(flag_selected_record)
 
 	def AdjustMenuFinstructText(self):
 		""" Меню финсостава: Настройка наименования """

@@ -79,6 +79,20 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		dy, dm = self.workspace.DyDm()
 		self.finstruct.Regroup(dy, dm, self._group_processing, group_name)
 
+	def CopyToNextDmFinstructRecord(self):
+		""" Копирование записи финструктуры в следующий месяц """
+		if not self._processing_ido: return
+
+		record = C90_FinstructRecord(self._processing_ido)
+		record.CopyToNextDm()
+
+	def CopyToPrevDmFinstructRecord(self):
+		""" Копирование записи финструктуры в предыдущий месяц """
+		if not self._processing_ido: return
+
+		record = C90_FinstructRecord(self._processing_ido)
+		record.CopyToPrevDm()
+
 	# Финсостояние
 	def EditBalanceStartFinstructRecord(self):
 		""" Редактирование баланса начального """

@@ -1,5 +1,5 @@
 # ФИНСТРУКТУРА: ЛОГИКА ДАННЫХ
-
+from G10_datetime import CalcDyDmByShiftDm
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINER_LOCAL
@@ -54,6 +54,49 @@ class C80_FinstructRecord(C70_FinstructRecord):
 		amounts               = filter(lambda amount: amount < 0, amounts)
 
 		return sum(amounts)
+
+	# Переносы в смежные периоды
+	def CopyToPrevDm(self):
+		""" Копирование в предыдущий месяц """
+		dm            = self.Dm()
+		dy            = self.Dy()
+		name          = self.Name()
+		group         = self.Group()
+		balance_start = self.BalanceStart()
+
+		dy, dm        = CalcDyDmByShiftDm(dy, dm, -1)
+
+		record_prev   = C80_FinstructRecord()
+		if record_prev.SwitchByName(dy, dm, name): return
+
+		record_prev.GenerateIdo()
+		record_prev.RegisterObject(CONTAINER_LOCAL)
+		record_prev.Dy(dy)
+		record_prev.Dm(dm)
+		record_prev.Name(name)
+		record_prev.Group(group)
+		record_prev.BalanceStart(0.00)
+
+	def CopyToNextDm(self):
+		""" Копирование в предыдущий месяц """
+		dm            = self.Dm()
+		dy            = self.Dy()
+		name          = self.Name()
+		group         = self.Group()
+		balance_start = self.BalanceStart()
+
+		dy, dm        = CalcDyDmByShiftDm(dy, dm, 1)
+
+		record_prev   = C80_FinstructRecord()
+		if record_prev.SwitchByName(dy, dm, name): return
+
+		record_prev.GenerateIdo()
+		record_prev.RegisterObject(CONTAINER_LOCAL)
+		record_prev.Dy(dy)
+		record_prev.Dm(dm)
+		record_prev.Name(name)
+		record_prev.Group(group)
+		record_prev.BalanceStart(self.BalanceCalc())
 
 
 class C80_Finstruct(C70_Finstruct):
