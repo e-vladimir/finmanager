@@ -17,6 +17,22 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		for self._processing_name in self.finstruct.Groups(dy, dm): self.LoadFinstructGroup()
 		for self._processing_ido  in self.finstruct.Idos(dy, dm)  : self.LoadFinstructRecord()
 
+	def CopyToNextDmFinstruct(self):
+		""" Перенос всех счетов в следующий месяц """
+		dy, dm = self.workspace.DyDm()
+
+		for ido in self.finstruct.Idos(dy, dm):
+			record_finstruct = C90_FinstructRecord(ido)
+			record_finstruct.CopyToNextDm()
+
+	def CopyToPrevDmFinstruct(self):
+		""" Перенос всех счетов в предыдущий месяц """
+		dy, dm = self.workspace.DyDm()
+
+		for ido in self.finstruct.Idos(dy, dm):
+			record_finstruct = C90_FinstructRecord(ido)
+			record_finstruct.CopyToPrevDm()
+
 	# Группа финструктуры
 	def CopyToNextDmGroupFinstructRecords(self):
 		""" Перенос группы счетов в следующий месяц """

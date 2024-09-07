@@ -12,6 +12,10 @@ class C50_FormFinstruct(C42_FormFinstruct):
 	# Дерево финструктуры
 	def on_RequestProcessingTreeDataDbClick(self): pass
 
+	# Финструктура
+	def on_RequestCopyToPrevDmFinstruct(self): pass
+	def on_RequestCopyToNextDmFinstruct(self): pass
+
 	# Группа финструктуры
 	def on_RequestCopyToPrevDmGroupFinstructRecords(self): pass
 	def on_RequestCopyToNextDmGroupFinstructRecords(self): pass

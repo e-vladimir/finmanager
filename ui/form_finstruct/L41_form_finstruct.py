@@ -29,6 +29,9 @@ class C41_FormFinstruct(C20_PySideForm, Ui_form_finstruct):
 		self.menu_finstruct                                     = QMenu()
 		self.menu_finstruct_header                    : QMenu   = self.menu_finstruct.addMenu(icon_grid_22, "Финструктура")
 		self.menu_finstruct_create                    : QAction = self.menu_finstruct_header.addAction(icon_plus,   "Создать счёт")
+		self.menu_finstruct_header.addSeparator()
+		self.menu_finstruct_copy_prev_dm              : QAction = self.menu_finstruct_header.addAction(icon_arrow_l_1, "Перенести все счета в предыдущий месяц")
+		self.menu_finstruct_copy_next_dm              : QAction = self.menu_finstruct_header.addAction(icon_arrow_r_1, "Перенести все счета в следующий месяц")
 
 		self.menu_finstruct_group_header              : QMenu   = self.menu_finstruct.addMenu(icon_blocks, "Группа счетов")
 		self.menu_finstruct_group_create              : QAction = self.menu_finstruct_group_header.addAction(icon_plus,   "Создать счёт")
