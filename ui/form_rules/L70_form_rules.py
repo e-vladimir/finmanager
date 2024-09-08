@@ -30,12 +30,30 @@ class C70_FormRules(C60_FormRules):
 	def AdjustMenuRulesText(self):
 		""" Меню правил обработки данных: Настройка текста """
 		self.menu_rules_header.setTitle("Правила")
-
 		if self._processing_type: self.menu_rules_header.setTitle(self._processing_type)
+
+		self.menu_rule_header.setTitle("Правило")
+		if self._processing_name: self.menu_rule_header.setTitle(self._processing_name)
+
+		self.menu_rule_edit_input.setText("Редактировать вход")
+		self.menu_rule_edit_output.setText("Редактировать выход")
+
+		match self._processing_type:
+			case RULES.REPLACE_TEXT:
+				self.menu_rule_edit_input.setText("Редактировать фрагмент поиска")
+				self.menu_rule_edit_output.setText("Редактировать фрагмент замены")
+
+			case RULES.DETECT_LABEL:
+				self.menu_rule_edit_input.setText("Редактировать фрагмент поиска")
+				self.menu_rule_edit_output.setText("Редактировать метку")
 
 	def AdjustMenuRulesEnable(self):
 		""" Меню правил обработки данных: Настройка доступности """
-		pass
+		flag_selected : bool = bool(self._processing_ido)
+
+		self.menu_rule_edit_input.setEnabled(flag_selected)
+		self.menu_rule_edit_output.setEnabled(flag_selected)
+		self.menu_rule_delete.setEnabled(flag_selected)
 
 	def ShowMenuRules(self):
 		""" Отображение меню правил обработки данных """
@@ -51,6 +69,8 @@ class C70_FormRules(C60_FormRules):
 			column_size       = max((self.table_data.width() - 10) // 2, column_size)
 
 			self.table_data.setColumnWidth(index_col, column_size)
+
+		self.table_data.resizeRowsToContents()
 
 	def AdjustTableDataSort(self):
 		""" Таблица данных: Настройка сортировки """

@@ -1,5 +1,6 @@
 # ФОРМА ПРАВИЛА ОБРАБОТКИ ДАННЫХ: МЕХАНИКА ДАННЫХ
 
+from PySide6.QtCore    import QModelIndex, Qt
 from PySide6.QtWidgets import QListWidgetItem
 
 from L00_rules         import RULES
@@ -20,6 +21,46 @@ class C60_FormRules(C50_FormRules):
 		if current_item is None: return
 
 		self._processing_type = RULES(current_item.text())
+
+	def ReadProcessingIdo(self):
+		""" Чтение IDO выбранной записи """
+		self._processing_ido = ""
+
+		current_index : QModelIndex = self.table_data.currentIndex()
+		if not current_index.isValid(): return
+
+		row           : int         = current_index.row()
+
+		index_root                  = QModelIndex()
+		index_item                  = self.model_data.index(row, 0, index_root)
+
+		self._processing_ido = index_item.data(ROLE_IDO)
+
+	def ReadProcessingName(self):
+		""" Чтение наименования выбранной записи """
+		self._processing_name = ""
+
+		current_index : QModelIndex = self.table_data.currentIndex()
+		if not current_index.isValid(): return
+
+		row           : int         = current_index.row()
+
+		index_column  : int         = 0
+
+		match self._processing_type:
+			case RULES.REPLACE_TEXT: index_column = 1
+			case RULES.DETECT_LABEL: index_column = 1
+
+		index_root                  = QModelIndex()
+		index_item                  = self.model_data.index(row, index_column, index_root)
+
+		self._processing_name = index_item.data(Qt.ItemDataRole.DisplayRole)
+
+	def ReadProcessingColumn(self):
+		""" Чтение колонки """
+		current_index : QModelIndex = self.table_data.currentIndex()
+
+		self._processing_column = current_index.column()
 
 	# Модель данных
 	def InitModelData(self):

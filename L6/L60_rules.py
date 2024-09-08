@@ -19,7 +19,7 @@ class C60_ProcessingRulesRecord(C50_ProcessingRulesRecord):
 
 	def OptionsInputAsStrings(self, texts: list[str] = None) -> list[str]:
 		""" Вход как список строк """
-		if texts is None: return self.f_options_input.ToStrings(CONTAINER_LOCAL).data
+		if texts is None: return sorted(self.f_options_input.ToStrings(CONTAINER_LOCAL).data)
 		else            :        self.f_options_input.FromStrings(CONTAINER_LOCAL, texts)
 
 	def OptionsOutputAsString(self, text: str = None) -> str:
@@ -29,7 +29,7 @@ class C60_ProcessingRulesRecord(C50_ProcessingRulesRecord):
 
 	def OptionsOutputAsStrings(self, texts: list[str] = None) -> list[str]:
 		""" Выход как список строк """
-		if texts is None: return self.f_options_output.ToStrings(CONTAINER_LOCAL).data
+		if texts is None: return sorted(self.f_options_output.ToStrings(CONTAINER_LOCAL).data)
 		else            :        self.f_options_output.FromStrings(CONTAINER_LOCAL, texts)
 
 
