@@ -21,6 +21,7 @@ class C90_FormRules(C80_FormRules):
 		self.menu_rules_create.triggered.connect(self.on_RequestCreateRule)
 		self.menu_rule_edit_input.triggered.connect(self.on_RequestEditInputRule)
 		self.menu_rule_edit_output.triggered.connect(self.on_RequestEditOutputRule)
+		self.menu_rule_delete.triggered.connect(self.on_RequestDeleteRule)
 
 	# Форма
 	def on_Open(self):
@@ -88,6 +89,19 @@ class C90_FormRules(C80_FormRules):
 			case _                 : return
 
 		self.LoadRulesRecord()
+
+		self.AdjustTableDataSort()
+		self.AdjustTableDataSize()
+
+	def on_RequestDeleteRule(self):
+		""" Запрос на удаление  """
+		match self._processing_type:
+			case RULES.REPLACE_TEXT: self.DeleteRuleReplaceText()
+			case RULES.DETECT_LABEL: self.DeleteRuleDetectLabel()
+			case _                 : return
+
+		self.InitModelData()
+		self.LoadRules()
 
 		self.AdjustTableDataSort()
 		self.AdjustTableDataSize()

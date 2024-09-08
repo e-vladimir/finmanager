@@ -2,7 +2,8 @@
 
 from L00_containers import CONTAINER_LOCAL
 from L00_rules      import RULES
-from L20_PySide6    import RequestText, RequestMultipleText
+
+from L20_PySide6    import RequestText, RequestMultipleText, RequestConfirm
 from L70_form_rules import C70_FormRules
 from L90_rules      import C90_ProcessingRulesRecord
 
@@ -54,6 +55,16 @@ class C80_FormRules(C70_FormRules):
 
 		record.OptionsOutputAsString(text)
 
+	def DeleteRuleReplaceText(self):
+		""" Удаление правила замены текста """
+		if not self._processing_ido: return
+
+		record = C90_ProcessingRulesRecord(self._processing_ido)
+
+		if not RequestConfirm("Удаление правила замены текста", f"Замена на {record.OptionsOutputAsString()}"): return
+
+		record.DeleteObject(CONTAINER_LOCAL)
+
 	# Правило определения метки
 	def CreateRuleDetectLabel(self):
 		""" Создание правила определения метки """
@@ -90,3 +101,13 @@ class C80_FormRules(C70_FormRules):
 		if text is None: return
 
 		record.OptionsOutputAsString(text)
+
+	def DeleteRuleDetectLabel(self):
+		""" Удаление правила определения метки """
+		if not self._processing_ido: return
+
+		record = C90_ProcessingRulesRecord(self._processing_ido)
+
+		if not RequestConfirm("Удаление правила определения метки", f"Определение метки {record.OptionsOutputAsString()}"): return
+
+		record.DeleteObject(CONTAINER_LOCAL)

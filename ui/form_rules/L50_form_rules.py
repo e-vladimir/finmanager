@@ -19,3 +19,4 @@ class C50_FormRules(C42_FormRules):
 	def on_RequestCreateRule(self): pass
 	def on_RequestEditInputRule(self): pass
 	def on_RequestEditOutputRule(self): pass
+	def on_RequestDeleteRule(self): pass
