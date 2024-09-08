@@ -114,18 +114,26 @@ class C80_FormFinactions(C70_FormFinactions):
 	def SetColor(self):
 		""" Установка цветовой метки """
 		if self._processing_idos:
-			for self._processing_ido in self._processing_idos:
+			dialog_progress = QProgressDialog(self)
+			dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+			dialog_progress.setMaximum(len(self._processing_idos))
+			dialog_progress.setMinimumWidth(480)
+			dialog_progress.setWindowTitle("Установка цветовой метки")
+
+			for index_ido, self._processing_ido in enumerate(self._processing_idos):
+				dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+				dialog_progress.setValue(index_ido + 1)
+
 				record = C90_FinactionsRecord(self._processing_ido)
 				record.Color(self._processing_color)
 
 				self.LoadFinactionsRecord()
 
-			return
+			dialog_progress.setValue(dialog_progress.maximum())
 
-		if not self._processing_ido: return
-
-		record = C90_FinactionsRecord(self._processing_ido)
-		record.Color(self._processing_color)
+		elif self._processing_ido:
+			record = C90_FinactionsRecord(self._processing_ido)
+			record.Color(self._processing_color)
 
 	# Пакетный режим
 	def ResetPack(self):
@@ -179,3 +187,53 @@ class C80_FormFinactions(C70_FormFinactions):
 				if text not in item_note.text().lower(): continue
 
 				item_amount.setCheckState(Qt.CheckState.Unchecked)
+
+	# Правила обработки данных
+	def ApplyRulesToSelection(self):
+		""" Применение правил обработки данных к выбранным записям """
+		if self._processing_idos:
+			dialog_progress = QProgressDialog(self)
+			dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+			dialog_progress.setMaximum(len(self._processing_idos))
+			dialog_progress.setMinimumWidth(480)
+			dialog_progress.setWindowTitle("Применение правил обрабоки данных")
+
+			for index_ido, self._processing_ido in enumerate(self._processing_idos):
+				dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+				dialog_progress.setValue(index_ido + 1)
+
+				record = C90_FinactionsRecord(self._processing_ido)
+				record.ApplyProcessingRulesReplaceText()
+				record.ApplyProcessingRulesDetectLabel()
+
+				self.LoadFinactionsRecord()
+
+			dialog_progress.setValue(dialog_progress.maximum())
+
+		elif self._processing_ido:
+			record = C90_FinactionsRecord(self._processing_ido)
+			record.ApplyProcessingRulesReplaceText()
+			record.ApplyProcessingRulesDetectLabel()
+
+	def ApplyRulesToAll(self):
+		""" Применение правил обработки данных ко всем записям """
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = self.finactions.IdosInDyDmDd(dy, dm)
+
+		dialog_progress = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Применение правил обрабоки данных")
+
+		for index_ido, self._processing_ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
+			record = C90_FinactionsRecord(self._processing_ido)
+			record.ApplyProcessingRulesReplaceText()
+			record.ApplyProcessingRulesDetectLabel()
+
+			self.LoadFinactionsRecord()
+
+		dialog_progress.setValue(dialog_progress.maximum())

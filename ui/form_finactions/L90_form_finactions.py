@@ -33,6 +33,9 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_pack_expand_by_text.triggered.connect(self.on_RequestExpandPackByText)
 		self.menu_finactions_pack_reduce_by_text.triggered.connect(self.on_RequestReducePackByText)
 
+		self.menu_finactions_rules_apply.triggered.connect(self.on_RequestApplyRulesToSelections)
+		self.menu_finactions_rules_apply_global.triggered.connect(self.on_RequestApplyRulesToAll)
+
 		self.menu_finactions_tools_replace_text.triggered.connect(self.on_RequestReplaceText)
 
 	def on_Show(self):
@@ -186,6 +189,15 @@ class C90_FormFinactions(C80_FormFinactions):
 	def on_RequestReducePackByText(self):
 		""" Запрос на сокращение пакета """
 		self.ReducePackByText()
+
+	# Правила обработки данных
+	def on_RequestApplyRulesToSelections(self):
+		""" Запрос применения правил обработки данных к выбраным записям """
+		self.ApplyRulesToSelection()
+
+	def on_RequestApplyRulesToAll(self):
+		""" Запрос применения правил обработки данных ко всем записям """
+		self.ApplyRulesToAll()
 
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self):

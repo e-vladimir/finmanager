@@ -37,6 +37,8 @@ class C70_FormFinactions(C60_FormFinactions):
 
 		self.menu_finactions_pack_reset.setEnabled(flag_selected_multiple)
 
+		self.menu_finactions_rules_apply.setEnabled(flag_selected_single or flag_selected_multiple)
+
 	def AdjustMenuFinactionsText(self):
 		""" Меню финдействий: Настройка наименования """
 		self.menu_finactions_record_header.setTitle("Запись финдействий")

@@ -4,7 +4,9 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINER_LOCAL
 from L00_months             import MONTHS_SHORT
+from L00_rules              import RULES
 from L70_finactions         import C70_FinactionsRecord, C70_Finactions
+from L90_rules              import C90_ProcessingRules, C90_ProcessingRulesRecord
 
 
 class C80_FinactionsRecord(C70_FinactionsRecord):
@@ -38,6 +40,45 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 		record.Labels(self.Labels())
 
 		return record.Ido().data
+
+	# Правила обработки данных
+	def ApplyProcessingRulesReplaceText(self):
+		""" Применить правила замены текстовых фрагментов """
+		note : str = self.Note()
+		rules      = C90_ProcessingRules()
+
+		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
+			rule                  = C90_ProcessingRulesRecord(ido_rule)
+			fragment_output : str = rule.OptionsOutputAsString()
+
+			for fragment_input in rule.OptionsInputAsStrings():
+				if not fragment_input            : continue
+				if     fragment_input not in note: continue
+
+				note = note.replace(fragment_input, fragment_output)
+
+		if note == self.Note(): return
+
+		self.Note(note)
+
+	def ApplyProcessingRulesDetectLabel(self):
+		""" Применить правила определения метки """
+		note   : str       = self.Note()
+		labels : list[str] = self.Labels()
+		rules              = C90_ProcessingRules()
+
+		for ido_rule in rules.IdosByType(RULES.DETECT_LABEL):
+			rule        = C90_ProcessingRulesRecord(ido_rule)
+			label : str = rule.OptionsOutputAsString()
+
+			for fragment_input in rule.OptionsInputAsStrings():
+				if not fragment_input              : continue
+				if     fragment_input not in note  : continue
+				if     label              in labels: continue
+
+				labels.append(label)
+
+		self.Labels(labels)
 
 
 class C80_Finactions(C70_Finactions):

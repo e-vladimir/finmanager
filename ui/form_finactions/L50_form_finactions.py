@@ -34,5 +34,9 @@ class C50_FormFinactions(C42_FormFinactions):
 	def on_RequestExpandPackByText(self): pass
 	def on_RequestReducePackByText(self): pass
 
+	# Правила обработки данных
+	def on_RequestApplyRulesToSelections(self): pass
+	def on_RequestApplyRulesToAll(self): pass
+
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self): pass
