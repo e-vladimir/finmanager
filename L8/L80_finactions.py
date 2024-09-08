@@ -208,3 +208,6 @@ class C80_Finactions(C70_Finactions):
 		record.Labels([])
 		record.FinstructIdos([finstruct_ido])
 		record.Color("")
+
+		record.ApplyProcessingRulesReplaceText()
+		record.ApplyProcessingRulesDetectLabel()
