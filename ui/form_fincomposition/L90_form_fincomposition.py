@@ -68,6 +68,9 @@ class C90_FormFincomposition(C80_FormFincomposition):
 
 	def on_RequestRenameFincompositionRecord(self):
 		""" Запрос на изменение наименования записи финсостава """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingNameFromTreeData()
+
 		self.RenameFincompositionRecord()
 
 		self.LoadFincomposition()

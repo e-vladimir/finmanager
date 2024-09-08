@@ -4,7 +4,7 @@ from PySide6.QtCore          import Qt
 from PySide6.QtGui           import QCursor
 
 from L60_form_fincomposition import C60_FormFincomposition
-from L90_fincomposition import C90_FincompositionRecord
+from L90_fincomposition      import C90_FincompositionRecord
 
 
 class C70_FormFincomposition(C60_FormFincomposition):
@@ -22,6 +22,8 @@ class C70_FormFincomposition(C60_FormFincomposition):
 		self.menu_fincomposition_record_create.setEnabled(flag_selected)
 		self.menu_fincomposition_record_rename.setEnabled(flag_selected)
 		self.menu_fincomposition_record_delete.setEnabled(flag_selected)
+		self.menu_fincomposition_record_copy.setEnabled(flag_selected)
+		self.menu_fincomposition_record_paste.setEnabled(flag_selected and bool(self._name_memory))
 
 		record               = C90_FincompositionRecord(self._processing_ido)
 		flag_top      : bool = not bool(record.ParentIdo())

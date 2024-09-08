@@ -20,6 +20,7 @@ class C90_FormMain(C80_FormMain):
 		self.btn_fincomposition.clicked.connect(self.on_RequestOpenFincomposition)
 		self.btn_finstruct.clicked.connect(self.on_RequestOpenFinstruct)
 		self.btn_finactions.clicked.connect(self.on_RequestOpenFinactions)
+		self.btn_rules.clicked.connect(self.on_RequestOpenRules)
 
 	# Форма
 	def on_Show(self):
@@ -75,3 +76,7 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFinactions(self):
 		""" Открытие формы финдейсвтий """
 		self.application.form_finactions.Open()
+
+	def on_RequestOpenRules(self):
+		""" Открытие формы Правила """
+		self.application.form_rules.Open()

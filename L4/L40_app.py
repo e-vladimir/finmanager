@@ -12,6 +12,7 @@ from L90_form_finstruct               import C90_FormFinstruct
 from L90_form_import                  import C90_FormImport
 from L90_form_main                    import C90_FormMain
 from L90_form_fincomposition          import C90_FormFincomposition
+from L90_form_rules                   import C90_FormRules
 
 
 class C40_Application(C20_PySideApplication):
@@ -29,6 +30,7 @@ class C40_Application(C20_PySideApplication):
 		self.form_finactions        = C90_FormFinactions(self)
 		self.form_finactions_record = C90_FormFinactionsRecord(self)
 		self.form_import            = C90_FormImport(self)
+		self.form_rules             = C90_FormRules(self)
 
 	def Init_11(self):
 		super().Init_11()
