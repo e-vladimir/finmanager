@@ -48,10 +48,12 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 		rules      = C90_ProcessingRules()
 
 		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
-			rule                  = C90_ProcessingRulesRecord(ido_rule)
-			fragment_output : str = rule.OptionsOutputAsString()
+			rule                        = C90_ProcessingRulesRecord(ido_rule)
+			fragment_output : str       = rule.OptionsOutputAsString()
+			fragments_input : list[str] = rule.OptionsInputAsStrings()
+			fragments_input.sort(key=len)
 
-			for fragment_input in rule.OptionsInputAsStrings():
+			for fragment_input in fragments_input:
 				if not fragment_input            : continue
 				if     fragment_input not in note: continue
 
@@ -68,10 +70,12 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 		rules              = C90_ProcessingRules()
 
 		for ido_rule in rules.IdosByType(RULES.DETECT_LABEL):
-			rule        = C90_ProcessingRulesRecord(ido_rule)
-			label : str = rule.OptionsOutputAsString()
+			rule                        = C90_ProcessingRulesRecord(ido_rule)
+			label           : str       = rule.OptionsOutputAsString()
+			fragments_input : list[str] = rule.OptionsInputAsStrings()
+			fragments_input.sort(key=len)
 
-			for fragment_input in rule.OptionsInputAsStrings():
+			for fragment_input in fragments_input:
 				if not fragment_input              : continue
 				if     fragment_input not in note  : continue
 				if     label              in labels: continue
