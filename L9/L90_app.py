@@ -8,7 +8,8 @@ class C90_Application(C80_Application):
 
 	def on_Start(self):
 		""" Запуск приложения """
+		self.InitBackup()
+
 		self.SetupContainerLocal()
 
-		# self.form_finactions_record.Open()
 		self.form_main.Open()

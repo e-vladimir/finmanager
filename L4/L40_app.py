@@ -1,5 +1,7 @@
 # ПРИЛОЖЕНИЕ: МОДЕЛЬ ДАННЫХ
 
+from pathlib                          import Path
+
 from G30_cactus_controller_containers import controller_containers
 
 from L00_containers                   import CONTAINER_RAM, CONTAINER_LOCAL
@@ -17,6 +19,11 @@ from L90_form_rules                   import C90_FormRules
 
 class C40_Application(C20_PySideApplication):
 	""" Приложение: Модель данных """
+
+	def Init_00(self):
+		super().Init_00()
+
+		self._path_backup : Path = self._path_common.joinpath("backups")
 
 	def Init_10(self):
 		super().Init_10()
