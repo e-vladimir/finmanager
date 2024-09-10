@@ -16,3 +16,4 @@ class C50_FormMain(C42_FormMain):
 	def on_RequestOpenFinstruct(self): pass
 	def on_RequestOpenFinactions(self): pass
 	def on_RequestOpenRules(self): pass
+	def on_RequestOpenBackups(self): pass

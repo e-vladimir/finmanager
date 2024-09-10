@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainvxrJLS.ui'
+## Form generated from reading UI file 'form_mainOKcLOK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -27,9 +27,7 @@ class Ui_form_main(object):
         self.centralwidget = QWidget(form_main)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setSpacing(4)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(-1, 8, -1, -1)
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(3)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -60,15 +58,12 @@ class Ui_form_main(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout)
 
+        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_4)
+
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.line = QFrame(self.centralwidget)
-        self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.Shape.HLine)
-        self.line.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.horizontalLayout_2.addWidget(self.line)
-
         self.label = QLabel(self.centralwidget)
         self.label.setObjectName(u"label")
         font = QFont()
@@ -84,17 +79,12 @@ class Ui_form_main(object):
 
         self.horizontalLayout_2.addWidget(self.line_2)
 
-        self.horizontalLayout_2.setStretch(0, 1)
-        self.horizontalLayout_2.setStretch(2, 1)
+        self.horizontalLayout_2.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_4.addItem(self.horizontalSpacer_2)
-
         self.btn_fincomposition = QPushButton(self.centralwidget)
         self.btn_fincomposition.setObjectName(u"btn_fincomposition")
         self.btn_fincomposition.setMinimumSize(QSize(120, 0))
@@ -114,19 +104,12 @@ class Ui_form_main(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_4)
 
-        self.verticalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.verticalSpacer_6 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
-        self.verticalLayout.addItem(self.verticalSpacer_4)
+        self.verticalLayout.addItem(self.verticalSpacer_6)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.line_3 = QFrame(self.centralwidget)
-        self.line_3.setObjectName(u"line_3")
-        self.line_3.setFrameShape(QFrame.Shape.HLine)
-        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.horizontalLayout_3.addWidget(self.line_3)
-
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setFont(font)
@@ -140,17 +123,12 @@ class Ui_form_main(object):
 
         self.horizontalLayout_3.addWidget(self.line_4)
 
-        self.horizontalLayout_3.setStretch(0, 1)
-        self.horizontalLayout_3.setStretch(2, 1)
+        self.horizontalLayout_3.setStretch(1, 1)
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_5.addItem(self.horizontalSpacer_4)
-
         self.btn_finstruct = QPushButton(self.centralwidget)
         self.btn_finstruct.setObjectName(u"btn_finstruct")
         self.btn_finstruct.setMinimumSize(QSize(120, 0))
@@ -170,7 +148,45 @@ class Ui_form_main(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_5)
 
-        self.verticalSpacer_5 = QSpacerItem(20, 212, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.verticalSpacer_7 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_7)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.label_3 = QLabel(self.centralwidget)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setFont(font)
+
+        self.horizontalLayout_6.addWidget(self.label_3)
+
+        self.line_5 = QFrame(self.centralwidget)
+        self.line_5.setObjectName(u"line_5")
+        self.line_5.setFrameShape(QFrame.Shape.HLine)
+        self.line_5.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.horizontalLayout_6.addWidget(self.line_5)
+
+        self.horizontalLayout_6.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.horizontalLayout_6)
+
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.btn_backup = QPushButton(self.centralwidget)
+        self.btn_backup.setObjectName(u"btn_backup")
+        self.btn_backup.setMinimumSize(QSize(120, 0))
+
+        self.horizontalLayout_7.addWidget(self.btn_backup)
+
+        self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_6)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_7)
+
+        self.verticalSpacer_5 = QSpacerItem(17, 120, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer_5)
 
@@ -194,5 +210,7 @@ class Ui_form_main(object):
         self.label_2.setText(QCoreApplication.translate("form_main", u"\u0414\u0410\u041d\u041d\u042b\u0415", None))
         self.btn_finstruct.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430", None))
         self.btn_finactions.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f", None))
+        self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))
+        self.btn_backup.setText(QCoreApplication.translate("form_main", u"\u0410\u0440\u0445\u0438\u0432\u0430\u0446\u0438\u044f", None))
     # retranslateUi
 

@@ -21,6 +21,7 @@ class C90_FormMain(C80_FormMain):
 		self.btn_finstruct.clicked.connect(self.on_RequestOpenFinstruct)
 		self.btn_finactions.clicked.connect(self.on_RequestOpenFinactions)
 		self.btn_rules.clicked.connect(self.on_RequestOpenRules)
+		self.btn_backup.clicked.connect(self.on_RequestOpenBackups)
 
 	# Форма
 	def on_Show(self):
@@ -80,3 +81,7 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenRules(self):
 		""" Открытие формы Правила """
 		self.application.form_rules.Open()
+
+	def on_RequestOpenBackups(self):
+		""" Открытие формы Архивирования """
+		self.application.form_backup.Open()
