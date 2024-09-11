@@ -8,6 +8,11 @@ from L60_form_backup import C60_FormBackup
 class C70_FormBackup(C60_FormBackup):
 	""" Форма Резервное копирование: Механика управления """
 
+	# Форма
+	def ShowTitle(self):
+		""" Отображение заголовка окна """
+		self.setWindowTitle("Резервное копирование")
+
 	# Меню резервных копий
 	def AdjustMenuBackupText(self):
 		""" Меню резервных копий: Настойка текста """

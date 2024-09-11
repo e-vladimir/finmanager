@@ -20,6 +20,8 @@ class C90_FormBackup(C80_FormBackup):
 
 	def on_Open(self):
 		""" Открытие формы """
+		self.ShowTitle()
+
 		self.LoadModelData()
 
 	# Меню резервных копий

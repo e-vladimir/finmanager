@@ -1,10 +1,11 @@
 # ПРИЛОЖЕНИЕ: МЕХАНИКА ДАННЫХ
-
+import datetime
 from os                               import mkdir, remove
 from pathlib                          import Path
 from shutil                           import copy
 
-from G10_datetime                     import CurrentUTime
+from G10_convertor_format             import UTimeToDTime
+from G10_datetime                     import CurrentUTime, CurrentDy, CurrentDm, CurrentDd
 from G10_files                        import FileNamesInDirectory
 from G30_cactus_controller_containers import controller_containers
 
@@ -19,6 +20,30 @@ class C60_Application(C50_Application):
 	def InitBackup(self):
 		""" Инициализация директории резервных копий """
 		if not self._path_backup.exists(): mkdir(self._path_backup)
+
+	def AutoCreateBackup(self):
+		""" Создание резервной копии БД в автоматическом режиме """
+		current_dy          = CurrentDy()
+		current_dm          = CurrentDm()
+		current_dd          = CurrentDd()
+
+		result_exist : bool = False
+
+		for filename in self.Backups():
+			try   :
+				dtime_backup : datetime.datetime = UTimeToDTime(int(filename))
+
+				if not dtime_backup.year  == current_dy: continue
+				if not dtime_backup.month == current_dm: continue
+				if not dtime_backup.day   == current_dd: continue
+
+				result_exist = True
+				break
+			except: pass
+
+		if result_exist: return
+
+		self.CreateBackup()
 
 	def CreateBackup(self):
 		""" Создание резервной копии БД """

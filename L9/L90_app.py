@@ -9,6 +9,7 @@ class C90_Application(C80_Application):
 	def on_Start(self):
 		""" Запуск приложения """
 		self.InitBackup()
+		self.AutoCreateBackup()
 
 		self.SetupContainerLocal()
 
