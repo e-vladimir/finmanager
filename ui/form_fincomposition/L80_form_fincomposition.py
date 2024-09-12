@@ -81,7 +81,7 @@ class C80_FormFincomposition(C70_FormFincomposition):
 		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_progress.setMaximum(len(idos))
 		dialog_progress.setMinimumWidth(480)
-		dialog_progress.setWindowTitle("Импорт финсостава")
+		dialog_progress.setWindowTitle("Сброс финсостава")
 
 		for index_ido, ido in enumerate(idos):
 			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")

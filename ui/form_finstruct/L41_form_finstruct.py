@@ -17,14 +17,15 @@ class C41_FormFinstruct(C20_PySideForm, Ui_form_finstruct):
 
 	def InitMenuFinstruct(self):
 		""" Инициализацию меню финсостава """
-		icon_plus      = QIcon("./ui/icons/item_plus.svg")
-		icon_edit      = QIcon("./ui/icons/edit.svg")
-		icon_delete    = QIcon("./ui/icons/item_delete.svg")
-		icon_blocks    = QIcon("./ui/icons/blocks.svg")
-		icon_grid_22   = QIcon("./ui/icons/grid_2_2.svg")
-		icon_grid_33   = QIcon("./ui/icons/grid_3_3.svg")
 		icon_arrow_l_2 = QIcon("./ui/icons/arrow_left_2.svg")
 		icon_arrow_r_2 = QIcon("./ui/icons/arrow_right_2.svg")
+		icon_blocks    = QIcon("./ui/icons/blocks.svg")
+		icon_delete    = QIcon("./ui/icons/item_delete.svg")
+		icon_edit      = QIcon("./ui/icons/edit.svg")
+		icon_grid_22   = QIcon("./ui/icons/grid_2_2.svg")
+		icon_grid_33   = QIcon("./ui/icons/grid_3_3.svg")
+		icon_plus      = QIcon("./ui/icons/item_plus.svg")
+		icon_reload    = QIcon("./ui/icons/reload.svg")
 
 		self.menu_finstruct                                     = QMenu()
 		self.menu_finstruct_header                    : QMenu   = self.menu_finstruct.addMenu(icon_grid_22, "Финструктура")
@@ -49,3 +50,6 @@ class C41_FormFinstruct(C20_PySideForm, Ui_form_finstruct):
 		self.menu_finstruct_record_header.addSeparator()
 		self.menu_finstruct_record_copy_prev_dm       : QAction = self.menu_finstruct_record_header.addAction(icon_arrow_l_2, "Перенести счёт в предыдущий месяц")
 		self.menu_finstruct_record_copy_next_dm       : QAction = self.menu_finstruct_record_header.addAction(icon_arrow_r_2, "Перенести счёт в следующий месяц")
+
+		self.menu_finstruct_reset_header              : QMenu   = self.menu_finstruct.addMenu(icon_reload, "Сброс данных")
+		self.menu_finstruct_reset_by_dm               : QAction = self.menu_finstruct_reset_header.addAction(icon_reload,  "Сбросить финструктуру за месяц")

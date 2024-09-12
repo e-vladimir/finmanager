@@ -32,3 +32,5 @@ class C50_FormFinstruct(C42_FormFinstruct):
 
 	def on_RequestCopyToPrevDmFinstructRecord(self): pass
 	def on_RequestCopyToNextDmFinstructRecord(self): pass
+
+	def on_RequestResetFinstructByDm(self): pass

@@ -1,4 +1,6 @@
 # ФОРМА ФИНСТРУКТУРА: ЛОГИКА ДАННЫХ
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QProgressDialog
 
 from L00_containers     import CONTAINER_LOCAL
 from L20_PySide6        import RequestText, RequestConfirm, RequestValue
@@ -139,3 +141,27 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		amount : int | None = RequestValue("Финсостояние", f"{record.Name()}\nБаланс счёта на начало {self.workspace.DmDyToString()}", int(record.BalanceStart()), -99999999, 99999999)
 
 		record.BalanceStart(amount)
+
+	# Сброс данных
+	def ResetFinstructByDm(self):
+		""" Сброс финструктуры за месяц """
+		dy, dm          = self.workspace.DyDm()
+		idos: list[str] = self.finstruct.Idos(dy, dm)
+
+		if not idos: return
+		if not RequestConfirm("Сброс финструктуры", f"Записей финструктуры: {len(idos)}"): return
+
+		dialog_progress = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Сброс финструктуры")
+
+		for index_ido, ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
+			record = C90_FinstructRecord(ido)
+			record.DeleteObject(CONTAINER_LOCAL)
+
+		dialog_progress.setValue(dialog_progress.maximum())

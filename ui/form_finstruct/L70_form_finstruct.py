@@ -73,6 +73,7 @@ class C70_FormFinstruct(C60_FormFinstruct):
 		""" Меню финсостава: Настройка наименования """
 		self.menu_finstruct_group_header.setTitle("Группа счетов" if not self._processing_group else self._processing_group)
 		self.menu_finstruct_record_header.setTitle("Счёт" if not self._processing_name else self._processing_name)
+		self.menu_finstruct_reset_by_dm.setText(f"Сброс финструктуры за {self.workspace.DmDyToString()}")
 
 	def ShowMenuFinstruct(self):
 		""" Меню финсостава: Отображение """

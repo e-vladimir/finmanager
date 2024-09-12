@@ -32,6 +32,8 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.menu_finstruct_record_copy_prev_dm.triggered.connect(self.on_RequestCopyToPrevDmFinstructRecord)
 		self.menu_finstruct_record_copy_next_dm.triggered.connect(self.on_RequestCopyToNextDmFinstructRecord)
 
+		self.menu_finstruct_reset_by_dm.triggered.connect(self.on_RequestResetFinstructByDm)
+
 	# Форма
 	def on_Show(self):
 		super().on_Show()
@@ -47,7 +49,7 @@ class C90_FormFinstruct(C80_FormFinstruct):
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataColors()
 
-		self.CleanModel()
+		# self.CleanModel()
 
 	# Меню финструктуры
 	def on_RequestMenuFinstruct(self):
@@ -163,3 +165,16 @@ class C90_FormFinstruct(C80_FormFinstruct):
 	def on_RequestCopyToNextDmFinstructRecord(self):
 		""" Запрос на перенос записи финструктуры в следующий месяц """
 		self.CopyToNextDmFinstructRecord()
+
+	def on_RequestResetFinstructByDm(self):
+		""" Сброс финструктуры за месяц """
+		self.ResetFinstructByDm()
+
+		self.InitModel()
+		self.LoadFinstruct()
+
+		self.AdjustTreeDataSize()
+		self.AdjustTreeDataAlign()
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
