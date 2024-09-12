@@ -85,8 +85,8 @@ class C60_FormFinstruct(C50_FormFinstruct):
 	def CleanModel(self):
 		""" Очистка модели от несуществующих данных """
 		dy, dm = self.workspace.DyDm()
-		groups = self.finstruct.Groups(dy, dm)
-		idos   = self.finstruct.Idos(dy, dm)
+		groups = self.finstruct.GroupsInDyDm(dy, dm)
+		idos   = self.finstruct.IdosInDyDm(dy, dm)
 
 		for index_row in reversed(range(self.model_data.rowCount())):
 			index_group = self.model_data.index(index_row, 0)

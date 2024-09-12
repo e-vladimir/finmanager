@@ -237,3 +237,31 @@ class C80_FormFinactions(C70_FormFinactions):
 			self.LoadFinactionsRecord()
 
 		dialog_progress.setValue(dialog_progress.maximum())
+
+	# Сброс данных
+	def ResetFinactionsByDm(self):
+		""" Сброс финдействий за месяц """
+		dy, dm          = self.workspace.DyDm()
+		idos: list[str] = self.finactions.IdosInDyDmDd(dy, dm)
+
+		if not idos: return
+		if not RequestConfirm("Сброс финдействий", f"Записей финдействий: {len(idos)}"): return
+
+		dialog_progress = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Сброс финдействий")
+
+		for index_ido, ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
+			record = C90_FinactionsRecord(ido)
+			record.DeleteObject(CONTAINER_LOCAL)
+
+		dialog_progress.setValue(dialog_progress.maximum())
+
+	def ResetFinactionsByFinstruct(self):
+		""" Сброс финдействий по счёту """
+		pass

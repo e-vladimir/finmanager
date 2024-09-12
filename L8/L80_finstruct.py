@@ -104,7 +104,7 @@ class C80_Finstruct(C70_Finstruct):
 	""" Финструктура: Логика данных """
 
 	# Выборки данных
-	def Groups(self, dy: int, dm: int) -> list[str]:
+	def GroupsInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Группы записей финструктуры """
 		record      = C80_FinstructRecord()
 
@@ -115,7 +115,7 @@ class C80_Finstruct(C70_Finstruct):
 
 		return filter_data.ToStrings(record.f_group.Idp().data, flag_distinct=True, flag_sort=True).data
 
-	def Names(self, dy: int, dm: int) -> list[str]:
+	def NamesInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Наименования записей финструктуры """
 		record      = C80_FinstructRecord()
 
@@ -126,7 +126,7 @@ class C80_Finstruct(C70_Finstruct):
 
 		return filter_data.ToStrings(record.f_name.Idp().data, flag_distinct=True, flag_sort=True).data
 
-	def Idos(self, dy: int, dm: int) -> list[str]:
+	def IdosInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Список IDO записей финструктуры """
 		record      = C80_FinstructRecord()
 
@@ -137,7 +137,7 @@ class C80_Finstruct(C70_Finstruct):
 
 		return filter_data.Idos(record.f_name.Idp().data).data
 
-	def NamesInGroup(self, dy: int, dm: int, group: str) -> list[str]:
+	def NamesInGroupInDyDm(self, dy: int, dm: int, group: str) -> list[str]:
 		""" Список наименований счетов в группе """
 		record      = C80_FinstructRecord()
 
@@ -149,7 +149,7 @@ class C80_Finstruct(C70_Finstruct):
 
 		return filter_data.ToStrings(record.f_name.Idp().data, flag_distinct=True, flag_sort=True).data
 
-	def IdosInGroup(self, dy: int, dm: int, group: str) -> list[str]:
+	def IdosInGroupInDyDm(self, dy: int, dm: int, group: str) -> list[str]:
 		""" Список IDO счетов в группе """
 		record      = C80_FinstructRecord()
 
@@ -169,7 +169,7 @@ class C80_Finstruct(C70_Finstruct):
 	# Управление записью финструктуры
 	def Create(self, dy: int, dm: int, record_name: str, group_name: str) -> bool:
 		""" Создание записи финструктуры """
-		if record_name in self.Names(dy, dm): return False
+		if record_name in self.NamesInDyDm(dy, dm): return False
 
 		record = C80_FinstructRecord()
 		record.GenerateIdo()
@@ -182,9 +182,9 @@ class C80_Finstruct(C70_Finstruct):
 
 		return True
 
-	def Rename(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
+	def RenameInDyDm(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
 		""" Изменение наименования записи финструктуры """
-		if     name_new in self.Names(dy, dm)      : return False
+		if     name_new in self.NamesInDyDm(dy, dm)      : return False
 
 		record = C80_FinstructRecord()
 		if not record.SwitchByName(dy, dm, name_old): return False
@@ -193,11 +193,11 @@ class C80_Finstruct(C70_Finstruct):
 
 		return True
 
-	def Regroup(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
+	def RegroupInDyDm(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
 		""" Изменение наименования группы финструктуры """
-		if name_new in self.Groups(dy, dm): return False
+		if name_new in self.GroupsInDyDm(dy, dm): return False
 
-		for ido in self.IdosInGroup(dy, dm ,name_old):
+		for ido in self.IdosInGroupInDyDm(dy, dm , name_old):
 			record = C80_FinstructRecord(ido)
 			record.Group(name_new)
 

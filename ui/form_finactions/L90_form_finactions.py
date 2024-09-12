@@ -38,6 +38,9 @@ class C90_FormFinactions(C80_FormFinactions):
 
 		self.menu_finactions_tools_replace_text.triggered.connect(self.on_RequestReplaceText)
 
+		self.menu_finactions_reset_by_dm.triggered.connect(self.on_RequestResetFinactionsByDm)
+		self.menu_finactions_reset_by_finstruct.triggered.connect(self.on_RequestResetFinactionsByFinstruct)
+
 	def on_Show(self):
 		""" Отображение формы """
 		self.ShowTitle()
@@ -203,3 +206,26 @@ class C90_FormFinactions(C80_FormFinactions):
 	def on_RequestReplaceText(self):
 		""" Замена текстового фрагмента """
 		self.ReplaceText()
+
+	# Сброс данных
+	def on_RequestResetFinactionsByDm(self):
+		""" Сброс финдействий за месяц """
+		self.ResetFinactionsByDm()
+
+		self.InitModel()
+		self.LoadFinactions()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestResetFinactionsByFinstruct(self):
+		""" Сброс финдействий по счёту """
+		self.ResetFinactionsByFinstruct()
+
+		self.InitModel()
+		self.LoadFinactions()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()

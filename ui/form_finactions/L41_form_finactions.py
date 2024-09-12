@@ -32,6 +32,7 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 		icon_plus       = QIcon("./ui/icons/item_plus.svg")
 		icon_processing = QIcon("./ui/icons/processing.svg")
 		icon_red        = QIcon("./ui/icons/square_red.svg")
+		icon_reload    = QIcon("./ui/icons/reload.svg")
 		icon_replace    = QIcon("./ui/icons/replace.svg")
 		icon_unchecked  = QIcon("./ui/icons/checked_uncheck.svg")
 
@@ -67,3 +68,7 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 
 		self.menu_finactions_tools_replace_header : QMenu   = self.menu_finactions.addMenu(icon_replace, "Поиск и замена")
 		self.menu_finactions_tools_replace_text   : QAction = self.menu_finactions_tools_replace_header.addAction(icon_replace, "Замена текстового фрагмента")
+
+		self.menu_finactions_reset_header         : QMenu   = self.menu_finactions.addMenu(icon_reload, "Сброс данных")
+		self.menu_finactions_reset_by_dm          : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить финдействия за месяц")
+		self.menu_finactions_reset_by_finstruct   : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить финдействия по счёту")

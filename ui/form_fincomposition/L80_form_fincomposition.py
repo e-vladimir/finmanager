@@ -37,7 +37,7 @@ class C80_FormFincomposition(C70_FormFincomposition):
 		record_name : str | None = RequestText("Управление финсоставом", f"Изменение наименования [{self._processing_name}]", self._processing_name)
 		if record_name is None: return
 
-		self.fincomposition.Rename(self._processing_name, record_name)
+		self.fincomposition.RenameInDyDm(self._processing_name, record_name)
 
 	def DeleteFincompositionRecord(self):
 		""" Удаление записи финсостава """

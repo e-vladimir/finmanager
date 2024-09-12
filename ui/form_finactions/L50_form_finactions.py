@@ -40,3 +40,7 @@ class C50_FormFinactions(C42_FormFinactions):
 
 	# Утилиты поиска и замены
 	def on_RequestReplaceText(self): pass
+
+	# Сброс данных
+	def on_RequestResetFinactionsByDm(self): pass
+	def on_RequestResetFinactionsByFinstruct(self): pass

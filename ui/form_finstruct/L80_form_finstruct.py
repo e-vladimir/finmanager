@@ -16,14 +16,14 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		""" Загрузка финструктуры """
 		dy, dm = self.workspace.DyDm()
 
-		for self._processing_name in self.finstruct.Groups(dy, dm): self.LoadFinstructGroup()
-		for self._processing_ido  in self.finstruct.Idos(dy, dm)  : self.LoadFinstructRecord()
+		for self._processing_name in self.finstruct.GroupsInDyDm(dy, dm): self.LoadFinstructGroup()
+		for self._processing_ido  in self.finstruct.IdosInDyDm(dy, dm)  : self.LoadFinstructRecord()
 
 	def CopyToNextDmFinstruct(self):
 		""" Перенос всех счетов в следующий месяц """
 		dy, dm = self.workspace.DyDm()
 
-		for ido in self.finstruct.Idos(dy, dm):
+		for ido in self.finstruct.IdosInDyDm(dy, dm):
 			record_finstruct = C90_FinstructRecord(ido)
 			record_finstruct.CopyToNextDm()
 
@@ -31,7 +31,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		""" Перенос всех счетов в предыдущий месяц """
 		dy, dm = self.workspace.DyDm()
 
-		for ido in self.finstruct.Idos(dy, dm):
+		for ido in self.finstruct.IdosInDyDm(dy, dm):
 			record_finstruct = C90_FinstructRecord(ido)
 			record_finstruct.CopyToPrevDm()
 
@@ -42,7 +42,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 		dy, dm = self.workspace.DyDm()
 
-		for ido in self.finstruct.IdosInGroup(dy, dm, self._processing_group):
+		for ido in self.finstruct.IdosInGroupInDyDm(dy, dm, self._processing_group):
 			record_finstruct = C90_FinstructRecord(ido)
 			record_finstruct.CopyToNextDm()
 
@@ -52,7 +52,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 
 		dy, dm = self.workspace.DyDm()
 
-		for ido in self.finstruct.IdosInGroup(dy, dm, self._processing_group):
+		for ido in self.finstruct.IdosInGroupInDyDm(dy, dm, self._processing_group):
 			record_finstruct = C90_FinstructRecord(ido)
 			record_finstruct.CopyToPrevDm()
 
@@ -60,7 +60,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 	def CreateFinstructRecord(self):
 		""" Создание записи финструктуры """
 		dy, dm                    = self.workspace.DyDm()
-		group_name   : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", items=self.finstruct.Groups(dy, dm))
+		group_name   : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", items=self.finstruct.GroupsInDyDm(dy, dm))
 		if group_name is None: return
 
 		record_name : str | None = RequestText("Управление финструктурой", f"Наименование счёта в группе {group_name}")
@@ -86,7 +86,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		if record_name is None: return
 
 		dy, dm = self.workspace.DyDm()
-		self.finstruct.Rename(dy, dm, self._processing_name, record_name)
+		self.finstruct.RenameInDyDm(dy, dm, self._processing_name, record_name)
 
 	def DeleteFinstructRecord(self):
 		""" Удаление записи финструктуры """
@@ -102,10 +102,10 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		if not self._processing_ido: return
 
 		dy, dm = self.workspace.DyDm()
-		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", old_text=self._processing_group, items=self.finstruct.Groups(dy, dm))
+		group_name : str | None = RequestText("Управление финструктурой", f"Наименование группы счетов", old_text=self._processing_group, items=self.finstruct.GroupsInDyDm(dy, dm))
 		if group_name is None: return
 
-		if group_name in self.finstruct.Groups(dy, dm): return
+		if group_name in self.finstruct.GroupsInDyDm(dy, dm): return
 
 		record = C90_FinstructRecord(self._processing_ido)
 		record.Group(group_name)
@@ -116,7 +116,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 		if group_name is None: return
 
 		dy, dm = self.workspace.DyDm()
-		self.finstruct.Regroup(dy, dm, self._processing_group, group_name)
+		self.finstruct.RegroupInDyDm(dy, dm, self._processing_group, group_name)
 
 	def CopyToNextDmFinstructRecord(self):
 		""" Копирование записи финструктуры в следующий месяц """
@@ -146,7 +146,7 @@ class C80_FormFinstruct(C70_FormFinstruct):
 	def ResetFinstructByDm(self):
 		""" Сброс финструктуры за месяц """
 		dy, dm          = self.workspace.DyDm()
-		idos: list[str] = self.finstruct.Idos(dy, dm)
+		idos: list[str] = self.finstruct.IdosInDyDm(dy, dm)
 
 		if not idos: return
 		if not RequestConfirm("Сброс финструктуры", f"Записей финструктуры: {len(idos)}"): return

@@ -48,7 +48,7 @@ class C80_FormImport(C70_FormImport):
 		""" Выполнение импорта финдействий """
 		dy, dm                      = self.workspace.DyDm()
 
-		finstruct_name : str | None = RequestItem("Импорт финдействий", "Счёт импорта", self.finstruct.Names(dy, dm))
+		finstruct_name : str | None = RequestItem("Импорт финдействий", "Счёт импорта", self.finstruct.NamesInDyDm(dy, dm))
 		if finstruct_name is None: return
 
 		finstruct_record            = C90_FinstructRecord()

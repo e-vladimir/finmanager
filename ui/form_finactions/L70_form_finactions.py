@@ -54,6 +54,8 @@ class C70_FormFinactions(C60_FormFinactions):
 		if self._processing_idos:
 			self.menu_finactions_pack_header.setTitle(f"Пакетный режим ({len(self._processing_idos)})")
 
+		self.menu_finactions_reset_by_dm.setText(f"Сброс финдействий за {self.workspace.DmDyToString()}")
+
 	def ShowMenuFinactions(self):
 		""" Меню финдействий: Отображение """
 		self.menu_finactions.exec_(QCursor().pos())
