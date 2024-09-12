@@ -1,4 +1,6 @@
 # ФОРМА ПРАВИЛА ОБРАБОТКИ ДАННЫХ: ЛОГИКА ДАННЫХ
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QProgressDialog
 
 from L00_containers import CONTAINER_LOCAL
 from L00_rules      import RULES
@@ -111,3 +113,26 @@ class C80_FormRules(C70_FormRules):
 		if not RequestConfirm("Удаление правила определения метки", f"Определение метки {record.OptionsOutputAsString()}"): return
 
 		record.DeleteObject(CONTAINER_LOCAL)
+
+	# Сброс данных
+	def ResetRulesByType(self):
+		""" Сброс правил обработки данных """
+		idos: list[str] = self.rules.IdosByType(self._processing_type)
+
+		if not idos: return
+		if not RequestConfirm("Сброс правил обработки данных", f"Правил обработки данных: {len(idos)}"): return
+
+		dialog_progress = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Сброс правил обработки данных")
+
+		for index_ido, ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
+			record = C90_ProcessingRulesRecord(ido)
+			record.DeleteObject(CONTAINER_LOCAL)
+
+		dialog_progress.setValue(dialog_progress.maximum())

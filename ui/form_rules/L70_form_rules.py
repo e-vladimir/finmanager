@@ -47,13 +47,23 @@ class C70_FormRules(C60_FormRules):
 				self.menu_rule_edit_input.setText("Редактировать фрагмент поиска")
 				self.menu_rule_edit_output.setText("Редактировать метку")
 
+		self.menu_rules_reset_by_type.setText("Сброс типа правил")
+		match self._processing_type:
+			case RULES.REPLACE_TEXT:
+				self.menu_rules_reset_by_type.setText(f"Сбросить правила Замены фрагмента текста")
+
+			case RULES.DETECT_LABEL:
+				self.menu_rules_reset_by_type.setText(f"Сбросить правила Определения метки")
+
 	def AdjustMenuRulesEnable(self):
 		""" Меню правил обработки данных: Настройка доступности """
 		flag_selected : bool = bool(self._processing_ido)
-
 		self.menu_rule_edit_input.setEnabled(flag_selected)
 		self.menu_rule_edit_output.setEnabled(flag_selected)
 		self.menu_rule_delete.setEnabled(flag_selected)
+
+		flag_type     : bool = bool(self._processing_type)
+		self.menu_rules_reset_by_type.setEnabled(flag_type)
 
 	def ShowMenuRules(self):
 		""" Отображение меню правил обработки данных """

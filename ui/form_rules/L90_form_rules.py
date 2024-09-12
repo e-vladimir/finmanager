@@ -23,6 +23,8 @@ class C90_FormRules(C80_FormRules):
 		self.menu_rule_edit_output.triggered.connect(self.on_RequestEditOutputRule)
 		self.menu_rule_delete.triggered.connect(self.on_RequestDeleteRule)
 
+		self.menu_rules_reset_by_type.triggered.connect(self.on_RequestResetRulesByType)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -115,3 +117,14 @@ class C90_FormRules(C80_FormRules):
 		match self._processing_column:
 			case 0: self.on_RequestEditInputRule()
 			case 1: self.on_RequestEditOutputRule()
+
+	# Сброс данных
+	def on_RequestResetRulesByType(self):
+		""" Запрос на сброс правил обработки данных по типу """
+		self.ResetRulesByType()
+
+		self.InitModelData()
+		self.LoadRules()
+
+		self.AdjustTableDataSort()
+		self.AdjustTableDataSize()
