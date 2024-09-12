@@ -12,7 +12,7 @@ class C80_FormFinactionsRecord(C70_FormFinactionsRecord):
 		""" Загрузка финструктуры """
 		dy, dm = self.workspace.DyDm()
 		
-		for self._processing_name in self.finstruct.Groups(dy, dm): self.LoadFinstructGroup()
+		for self._processing_name in self.finstruct.GroupsInDyDm(dy, dm): self.LoadFinstructGroup()
 		for self._processing_ido  in self.finstruct.IdosInDyDm(dy, dm)  : self.LoadFinstructRecord()
 
 	# Запись финдействий
