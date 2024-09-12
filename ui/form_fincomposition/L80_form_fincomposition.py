@@ -1,5 +1,9 @@
 # ФОРМА ФИНСОСТАВ: ЛОГИКА ДАННЫХ
 
+from PySide6.QtCore          import Qt
+from PySide6.QtWidgets       import QProgressDialog
+
+from L00_containers          import CONTAINER_LOCAL
 from L20_PySide6             import RequestText, RequestConfirm, RequestItem
 from L70_form_fincomposition import C70_FormFincomposition
 from L90_fincomposition      import C90_FincompositionRecord
@@ -64,3 +68,26 @@ class C80_FormFincomposition(C70_FormFincomposition):
 		record = C90_FincompositionRecord()
 		record.SwitchByName(self._name_memory)
 		record.ParentIdo(self._processing_ido)
+
+	# Сброс данных
+	def ResetFincomposition(self):
+		""" Сброс финсостава """
+		idos : list[str] = C90_FincompositionRecord.Idos(CONTAINER_LOCAL).data
+
+		if not idos                                                                  : return
+		if not RequestConfirm("Сброс финсостава", f"Записей финсостава: {len(idos)}"): return
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Импорт финсостава")
+
+		for index_ido, ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
+			record = C90_FincompositionRecord(ido)
+			record.DeleteObject(CONTAINER_LOCAL)
+
+		dialog_progress.setValue(dialog_progress.maximum())

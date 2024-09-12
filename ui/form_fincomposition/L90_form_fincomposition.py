@@ -23,6 +23,8 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		self.menu_fincomposition_record_copy.triggered.connect(self.on_RequestMemoryFincompositionRecord)
 		self.menu_fincomposition_record_paste.triggered.connect(self.on_RequestPasteFincompositionRecord)
 
+		self.menu_fincomposition_reset_all.triggered.connect(self.on_RequestResetFincomposition)
+
 	# Форма
 	def on_Show(self):
 		""" Открытие """
@@ -113,5 +115,15 @@ class C90_FormFincomposition(C80_FormFincomposition):
 		self.LoadFincomposition()
 
 		self.AdjustTreeDataSort()
+		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataColors()
+
+	def on_RequestResetFincomposition(self):
+		""" Запрос сброса финсостава """
+		self.ResetFincomposition()
+
+		self.InitModelData()
+		self.LoadFincomposition()
+
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataColors()

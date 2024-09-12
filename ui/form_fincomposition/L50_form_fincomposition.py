@@ -18,3 +18,5 @@ class C50_FormFincomposition(C42_FormFincomposition):
 	def on_RequestMoveUpFincompositionRecord(self): pass
 	def on_RequestMemoryFincompositionRecord(self): pass
 	def on_RequestPasteFincompositionRecord(self): pass
+
+	def on_RequestResetFincomposition(self): pass
