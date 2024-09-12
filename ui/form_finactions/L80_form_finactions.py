@@ -8,9 +8,10 @@ from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINER_LOCAL
 from L00_months          import MONTHS_SHORT
-from L20_PySide6         import RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog, ROLE_IDO, C20_StandardItem
+from L20_PySide6         import RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog, ROLE_IDO, C20_StandardItem, RequestItem
 from L70_form_finactions import C70_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
+from L90_finstruct       import C90_FinstructRecord
 
 
 class C80_FormFinactions(C70_FormFinactions):
@@ -264,4 +265,34 @@ class C80_FormFinactions(C70_FormFinactions):
 
 	def ResetFinactionsByFinstruct(self):
 		""" Сброс финдействий по счёту """
-		pass
+		dy, dm                      = self.workspace.DyDm()
+		idos           : list[str]  = self.finactions.IdosInDyDmDd(dy, dm)
+
+		if not idos                                                                      : return
+
+		finstruct_name : str | None = RequestItem("Сброс финструктуры", "Счёт финдействий", self.finstruct.NamesInDyDm(dy, dm))
+		if     finstruct_name is None                                                    : return
+
+		if not RequestConfirm("Сброс финструктуры", f"Записей потенциальных финдействий: {len(idos)}"): return
+
+		finstruct_record            = C90_FinstructRecord()
+		if not finstruct_record.SwitchByName(dy, dm, finstruct_name)                     : return
+		finstruct_ido  : str        = finstruct_record.Ido().data
+
+		dialog_progress             = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Сброс финструктуры")
+
+		for index_ido, ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
+			record = C90_FinactionsRecord(ido)
+
+			if finstruct_ido not in record.FinstructIdos(): continue
+
+			record.DeleteObject(CONTAINER_LOCAL)
+
+		dialog_progress.setValue(dialog_progress.maximum())
