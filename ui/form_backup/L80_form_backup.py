@@ -12,8 +12,8 @@ class C80_FormBackup(C70_FormBackup):
 		""" Восстановление резервной копии """
 		if not self._processing_filename: return
 
-		if self.application.RestoreBackup(self._processing_filename): ShowMessage("Резервное копирование", "Восстановление резервной копии завершено успешно", f"Резервная копия от {self._processing_name}")
-		else                                                        : ShowMessage("Резервное копирование", "Ошибка восстановления резервной копии",            f"Резервная копия от {self._processing_name}")
+		if self.application.RestoreBackup(self._processing_filename): ShowMessage("Резервное копирование", "Восстановление выполнено")
+		else                                                        : ShowMessage("Резервное копирование", "Ошибка восстановления")
 
 	def DeleteBackup(self):
 		""" Удаление резервной копии """
