@@ -77,7 +77,7 @@ class C80_FormExport(C70_FormExport):
 
 				subdata_date    : str = f"{record_finactions.DdDmDyToString()}"
 				subdata_account : str = f"{finstruct_name}"
-				subdata_amount  : str = f"{AmountToString(record_finactions.Amount(), True)}"
+				subdata_amount  : str = f"{record_finactions.Amount():.02f}"
 				subdata_note    : str = f"{record_finactions.Note()}"
 				subdata_labels  : str = ', '.join(record_finactions.Labels())
 

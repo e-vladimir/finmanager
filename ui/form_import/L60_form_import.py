@@ -44,7 +44,8 @@ class C60_FormImport(C50_FormImport):
 
 		if data is None: return
 
-		self._import_finactions_data = [AnyToStrings(list(subdata)) for subdata in data.rows()]
+		for subdata in data.rows():
+			self._import_finactions_data.append([str(item) for item in list(subdata)])
 
 	def ReadProcessingColumnFromTableImportFinactionsData(self):
 		""" Чтение индекса колонки из таблицы данных импорта финдействий """
