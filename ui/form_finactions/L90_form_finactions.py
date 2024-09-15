@@ -17,6 +17,7 @@ class C90_FormFinactions(C80_FormFinactions):
 		# Меню финдействий
 		self.menu_finactions_create.triggered.connect(self.on_RequestCreateFinactionsRecord)
 		self.menu_finactions_import.triggered.connect(self.on_RequestImportFinactions)
+		self.menu_finactions_export.triggered.connect(self.on_RequestExportFinactions)
 
 		self.menu_finactions_record_open.triggered.connect(self.on_RequestOpenFinactionsRecord)
 		self.menu_finactions_record_delete.triggered.connect(self.on_RequestDeleteFinactionsRecord)
@@ -105,6 +106,10 @@ class C90_FormFinactions(C80_FormFinactions):
 	def on_RequestImportFinactions(self):
 		""" Запрос на импорт финдействий """
 		self.application.form_import.Open()
+
+	def on_RequestExportFinactions(self):
+		""" Запрос на импорт финдействий """
+		self.application.form_export.Open()
 
 	# Запись финдействий
 	def on_RequestOpenFinactionsRecord(self):
@@ -195,7 +200,7 @@ class C90_FormFinactions(C80_FormFinactions):
 
 	# Правила обработки данных
 	def on_RequestApplyRulesToSelections(self):
-		""" Запрос применения правил обработки данных к выбраным записям """
+		""" Запрос применения правил обработки данных к выбранным записям """
 		self.ApplyRulesToSelection()
 
 	def on_RequestApplyRulesToAll(self):

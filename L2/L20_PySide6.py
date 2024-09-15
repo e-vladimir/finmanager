@@ -373,7 +373,9 @@ def RequestItem(title: str, message: str, items: list[str]) -> str | None:
 	max_length : int = max(list(map(len, items)))
 
 	size_w     : int = min(480, max_length * 15)
-	size_h     : int = min(640, len(items) * 55)
+	size_w           = max(360, size_w)
+	size_h     : int = min(640, len(items) * 40)
+	size_h           = max(240, size_h)
 
 	dialog_items.resize(size_w, size_h)
 
@@ -388,7 +390,9 @@ def RequestItems(title: str, message: str, items: list[str]) -> list[str] | None
 	
 	max_length : int = max(list(map(len, items)))
 	size_w     : int = min(480, max_length * 15)
+	size_w           = max(360, size_w)
 	size_h     : int = min(640, len(items) * 55)
+	size_h           = max(240, size_h)
 
 	dialog_items     = QMultipleItemsInputDialog(title, message, items)
 	dialog_items.resize(size_w, size_h)

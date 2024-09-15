@@ -9,6 +9,7 @@ from L00_containers                   import CONTAINER_RAM, CONTAINER_LOCAL
 from L20_PySide6                      import C20_PySideApplication
 
 from L90_form_backup                  import C90_FormBackup
+from L90_form_export                  import C90_FormExport
 from L90_form_finactions              import C90_FormFinactions
 from L90_form_finactions_record       import C90_FormFinactionsRecord
 from L90_form_finstruct               import C90_FormFinstruct
@@ -40,6 +41,7 @@ class C40_Application(C20_PySideApplication):
 		self.form_import            = C90_FormImport(self)
 		self.form_rules             = C90_FormRules(self)
 		self.form_backup            = C90_FormBackup(self)
+		self.form_export            = C90_FormExport(self)
 
 	def Init_11(self):
 		super().Init_11()

@@ -12,6 +12,7 @@ class C50_FormFinactions(C42_FormFinactions):
 	# Финдействия
 	def on_RequestCreateFinactionsRecord(self): pass
 	def on_RequestImportFinactions(self): pass
+	def on_RequestExportFinactions(self): pass
 
 	# Запись финдействий
 	def on_RequestOpenFinactionsRecord(self): pass

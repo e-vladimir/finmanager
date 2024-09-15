@@ -89,15 +89,16 @@ class C80_Finactions(C70_Finactions):
 	""" Финдействия: Логика данных """
 
 	# Выборки данных
-	def IdosInDyDmDd(self, dy: int, dm: int = None, dd: int = None) -> list[str]:
+	def IdosInDyDmDd(self, dy: int, dm: int = None, dd: int = None, finstruct_ido: str = None) -> list[str]:
 		""" Список IDO в указанном периоде """
 		record            = C80_FinactionsRecord()
 
 		filter_finactions = C30_FilterLinear1D(record.Idc().data)
 		filter_finactions.FilterIdpVlpByEqual(record.f_dy.Idp().data, dy)
 
-		if dm is not None: filter_finactions.FilterIdpVlpByEqual(record.f_dm.Idp().data, dm)
-		if dd is not None: filter_finactions.FilterIdpVlpByEqual(record.f_dd.Idp().data, dd)
+		if dm            is not None: filter_finactions.FilterIdpVlpByEqual(record.f_dm.Idp().data, dm)
+		if dd            is not None: filter_finactions.FilterIdpVlpByEqual(record.f_dd.Idp().data, dd)
+		if finstruct_ido is not None: filter_finactions.FilterIdpVlpByInclude(record.f_finstruct_idos.Idp().data, finstruct_ido)
 
 		filter_finactions.Capture(CONTAINER_LOCAL)
 
@@ -114,6 +115,15 @@ class C80_Finactions(C70_Finactions):
 		filter_finactions.Capture(CONTAINER_LOCAL)
 
 		return filter_finactions.ToIntegers(record.f_dd.Idp().data, flag_distinct=True, flag_sort=True).data
+
+	def AvailableDys(self) -> list[int]:
+		""" Список годов для записей финдействий """
+		record      = C80_FinactionsRecord()
+
+		filter_data = C30_FilterLinear1D(record.Idc().data)
+		filter_data.Capture(CONTAINER_LOCAL)
+
+		return filter_data.ToIntegers(record.f_dy.Idp().data, True, True).data
 
 	# Запись финданных
 	def CreateRecord(self, dy: int, dm: int, dd: int, amount: float = 0.00) -> str:
