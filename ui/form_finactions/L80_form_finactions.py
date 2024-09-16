@@ -11,7 +11,7 @@ from L00_months          import MONTHS_SHORT
 from L20_PySide6         import RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog, ROLE_IDO, C20_StandardItem, RequestItem
 from L70_form_finactions import C70_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
-from L90_finstruct       import C90_FinstructRecord
+from L90_finstructs       import C90_FinstructRecord
 
 
 class C80_FormFinactions(C70_FormFinactions):

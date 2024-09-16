@@ -1,16 +1,16 @@
 # ФИНСТАТИСТИКА: ЛОГИКА ДАННЫХ
 
-from L20_stucts       import T20_FinstatisticItem
-from L70_finstatistic import C70_Finstatistic
-from L90_finactions   import C90_FinactionsRecord
+from L20_stucts        import T20_FinstatisticsItem
+from L70_finstatistics import C70_Finstatistics
+from L90_finactions    import C90_FinactionsRecord
 
 
-class C80_Finstatistic(C70_Finstatistic):
+class C80_Finstatistics(C70_Finstatistics):
 	""" Финстатистика: Логика данных """
 
-	def CaptureStatistic(self, dy: int, dm: int) -> dict[str, T20_FinstatisticItem]:
+	def CaptureStatistic(self, dy: int, dm: int) -> dict[str, T20_FinstatisticsItem]:
 		""" Захват поступлений """
-		result : dict[str, T20_FinstatisticItem] = dict()
+		result : dict[str, T20_FinstatisticsItem] = dict()
 
 		for ido in self.finactions.IdosInDyDmDd(dy, dm):
 			finactions_record = C90_FinactionsRecord(ido)
@@ -20,7 +20,7 @@ class C80_Finstatistic(C70_Finstatistic):
 			amount_outcome    = min(0, amount)
 
 			for label in finactions_record.Labels():
-				item          = result.get(label, T20_FinstatisticItem())
+				item          = result.get(label, T20_FinstatisticsItem())
 				item.income  += amount_income
 				item.outcome += amount_outcome
 

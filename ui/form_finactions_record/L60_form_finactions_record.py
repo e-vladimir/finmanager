@@ -4,7 +4,7 @@ from PySide6.QtGui              import QStandardItem, Qt
 
 from L20_PySide6                import ROLE_IDO, C20_StandardItem
 from L50_form_finactions_record import C50_FormFinactionsRecord
-from L90_finstruct              import C90_FinstructRecord
+from L90_finstructs              import C90_FinstructRecord
 
 
 class C60_FormFinactionsRecord(C50_FormFinactionsRecord):

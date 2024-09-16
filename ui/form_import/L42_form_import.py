@@ -6,7 +6,7 @@ from L00_fields      import FIELDS
 from L20_PySide6     import C20_StandardItemModel
 from L41_form_import import C41_FormImport
 from L90_finactions  import C90_Finactions
-from L90_finstruct   import C90_Finstruct
+from L90_finstructs   import C90_Finstruct
 from L90_workspace   import C90_Workspace
 
 

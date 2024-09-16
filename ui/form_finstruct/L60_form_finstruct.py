@@ -6,7 +6,7 @@ from G11_convertor_data import AmountToString
 
 from L20_PySide6        import C20_StandardItem, ROLE_IDO
 from L50_form_finstruct import C50_FormFinstruct
-from L90_finstruct      import C90_FinstructRecord
+from L90_finstructs      import C90_FinstructRecord
 
 
 class C60_FormFinstruct(C50_FormFinstruct):

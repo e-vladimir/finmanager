@@ -173,11 +173,11 @@ class Ui_form_main(object):
 
         self.horizontalLayout_9 = QHBoxLayout()
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.btn_finstatistic = QPushButton(self.centralwidget)
-        self.btn_finstatistic.setObjectName(u"btn_finstatistic")
-        self.btn_finstatistic.setMinimumSize(QSize(120, 0))
+        self.btn_finstatistics = QPushButton(self.centralwidget)
+        self.btn_finstatistics.setObjectName(u"btn_finstatistics")
+        self.btn_finstatistics.setMinimumSize(QSize(120, 0))
 
-        self.horizontalLayout_9.addWidget(self.btn_finstatistic)
+        self.horizontalLayout_9.addWidget(self.btn_finstatistics)
 
         self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -249,7 +249,7 @@ class Ui_form_main(object):
         self.btn_finstruct.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430", None))
         self.btn_finactions.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f", None))
         self.label_4.setText(QCoreApplication.translate("form_main", u"\u0410\u041d\u0410\u041b\u0418\u0422\u0418\u041a\u0410", None))
-        self.btn_finstatistic.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
+        self.btn_finstatistics.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
         self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))
         self.btn_backup.setText(QCoreApplication.translate("form_main", u"\u041a\u043e\u043f\u0438\u0438 \u0434\u0430\u043d\u043d\u044b\u0445", None))
     # retranslateUi

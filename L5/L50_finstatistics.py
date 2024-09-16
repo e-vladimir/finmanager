@@ -1,8 +1,8 @@
 # ФИНСТАТИСТИКА: МОДЕЛЬ СОБЫТИЙ
 
-from L40_finstatistic import C40_Finstatistic
+from L40_finstatistics import C40_Finstatistics
 
 
-class C50_Finstatistic(C40_Finstatistic):
+class C50_Finstatistics(C40_Finstatistics):
 	""" Финстатистика: Модель событий """
 	pass

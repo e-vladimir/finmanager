@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QProgressDialog
 from L00_containers     import CONTAINER_LOCAL
 from L20_PySide6        import RequestText, RequestConfirm, RequestValue
 from L70_form_finstruct import C70_FormFinstruct
-from L90_finstruct      import C90_FinstructRecord
+from L90_finstructs      import C90_FinstructRecord
 
 
 class C80_FormFinstruct(C70_FormFinstruct):

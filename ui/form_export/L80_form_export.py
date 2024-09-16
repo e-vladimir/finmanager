@@ -7,7 +7,7 @@ from L00_options        import OPTIONS
 from L20_PySide6        import ShowMessage
 from L70_form_export    import C70_FormExport
 from L90_finactions     import C90_FinactionsRecord
-from L90_finstruct      import C90_FinstructRecord
+from L90_finstructs      import C90_FinstructRecord
 
 
 class C80_FormExport(C70_FormExport):

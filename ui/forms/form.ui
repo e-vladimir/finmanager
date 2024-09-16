@@ -202,14 +202,14 @@
        <number>3</number>
       </property>
       <item row="6" column="1">
-       <widget class="QLabel" name="lbl_statistic_time_remained">
+       <widget class="QLabel" name="lbl_statistics_time_remained">
         <property name="text">
          <string>00ч 00м 00с</string>
         </property>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLabel" name="lbl_statistic_skipped">
+       <widget class="QLabel" name="lbl_statistics_skipped">
         <property name="text">
          <string>0</string>
         </property>
@@ -226,7 +226,7 @@
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QLabel" name="lbl_statistic_time_passed">
+       <widget class="QLabel" name="lbl_statistics_time_passed">
         <property name="text">
          <string>00ч 00м 00с</string>
         </property>
@@ -243,21 +243,21 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLabel" name="lbl_statistic_processed">
+       <widget class="QLabel" name="lbl_statistics_processed">
         <property name="text">
          <string>0</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLabel" name="lbl_statistic_unprocessed">
+       <widget class="QLabel" name="lbl_statistics_unprocessed">
         <property name="text">
          <string>0</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLabel" name="lbl_statistic_imported">
+       <widget class="QLabel" name="lbl_statistics_imported">
         <property name="text">
          <string>0</string>
         </property>

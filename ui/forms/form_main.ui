@@ -261,7 +261,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_9">
       <item>
-       <widget class="QPushButton" name="btn_finstatistic">
+       <widget class="QPushButton" name="btn_finstatistics">
         <property name="minimumSize">
          <size>
           <width>120</width>

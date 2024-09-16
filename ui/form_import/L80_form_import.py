@@ -8,7 +8,7 @@ from PySide6.QtWidgets import QFileDialog, QProgressDialog
 from L00_fields        import FIELDS
 from L20_PySide6       import RequestItem, ShowMessage
 from L70_form_import   import C70_FormImport
-from L90_finstruct     import C90_FinstructRecord
+from L90_finstructs     import C90_FinstructRecord
 
 
 class C80_FormImport(C70_FormImport):

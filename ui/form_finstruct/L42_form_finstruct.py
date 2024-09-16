@@ -4,7 +4,7 @@ from L20_PySide6        import C20_StandardItemModel
 
 from L41_form_finstruct import C41_FormFinstruct
 
-from L90_finstruct      import C90_Finstruct
+from L90_finstructs      import C90_Finstruct
 from L90_workspace      import C90_Workspace
 
 

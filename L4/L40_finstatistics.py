@@ -5,7 +5,7 @@ from G20_meta_frame import C20_MetaFrame
 from L90_finactions import C90_Finactions
 
 
-class C40_Finstatistic(C20_MetaFrame):
+class C40_Finstatistics(C20_MetaFrame):
 	""" Финстатистика: Модель данных """
 
 	def Init_10(self):

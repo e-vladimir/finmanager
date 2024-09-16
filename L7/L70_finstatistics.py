@@ -1,8 +1,8 @@
 # ФИНСТАТИСТИКА: МЕХАНИКА УПРАВЛЕНИЯ
 
-from L60_finstatistic import C60_Finstatistic
+from L60_finstatistics import C60_Finstatistics
 
 
-class C70_Finstatistic(C60_Finstatistic):
+class C70_Finstatistics(C60_Finstatistics):
 	""" Финстатистика: Механика управления """
 	pass

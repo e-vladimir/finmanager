@@ -1,8 +1,8 @@
 # ФИНСТАТИСТИКА: МЕХАНИКА ДАННЫХ
 
-from L50_finstatistic import C50_Finstatistic
+from L50_finstatistics import C50_Finstatistics
 
 
-class C60_Finstatistic(C50_Finstatistic):
+class C60_Finstatistics(C50_Finstatistics):
 	""" Финстатистика: Механика данных """
 	pass
