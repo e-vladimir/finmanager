@@ -20,6 +20,7 @@ class C90_FormMain(C80_FormMain):
 		self.btn_fincomposition.clicked.connect(self.on_RequestOpenFincomposition)
 		self.btn_finstruct.clicked.connect(self.on_RequestOpenFinstruct)
 		self.btn_finactions.clicked.connect(self.on_RequestOpenFinactions)
+		self.btn_finstatistic.clicked.connect(self.on_RequestOpenFinstatistic)
 		self.btn_rules.clicked.connect(self.on_RequestOpenRules)
 		self.btn_backup.clicked.connect(self.on_RequestOpenBackups)
 
@@ -85,3 +86,7 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenBackups(self):
 		""" Открытие формы Архивирования """
 		self.application.form_backup.Open()
+
+	def on_RequestOpenFinstatistic(self):
+		"""  """
+		pass

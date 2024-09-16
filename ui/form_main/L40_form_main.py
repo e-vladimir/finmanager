@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainBaFctm.ui'
+## Form generated from reading UI file 'form_mainDwGoiv.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -152,6 +152,44 @@ class Ui_form_main(object):
 
         self.verticalLayout.addItem(self.verticalSpacer_7)
 
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.label_4 = QLabel(self.centralwidget)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setFont(font)
+
+        self.horizontalLayout_8.addWidget(self.label_4)
+
+        self.line_6 = QFrame(self.centralwidget)
+        self.line_6.setObjectName(u"line_6")
+        self.line_6.setFrameShape(QFrame.Shape.HLine)
+        self.line_6.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.horizontalLayout_8.addWidget(self.line_6)
+
+        self.horizontalLayout_8.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.horizontalLayout_8)
+
+        self.horizontalLayout_9 = QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.btn_finstatistic = QPushButton(self.centralwidget)
+        self.btn_finstatistic.setObjectName(u"btn_finstatistic")
+        self.btn_finstatistic.setMinimumSize(QSize(120, 0))
+
+        self.horizontalLayout_9.addWidget(self.btn_finstatistic)
+
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_9.addItem(self.horizontalSpacer_7)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_9)
+
+        self.verticalSpacer_8 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_8)
+
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.label_3 = QLabel(self.centralwidget)
@@ -210,6 +248,8 @@ class Ui_form_main(object):
         self.label_2.setText(QCoreApplication.translate("form_main", u"\u0414\u0410\u041d\u041d\u042b\u0415", None))
         self.btn_finstruct.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430", None))
         self.btn_finactions.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f", None))
+        self.label_4.setText(QCoreApplication.translate("form_main", u"\u0410\u041d\u0410\u041b\u0418\u0422\u0418\u041a\u0410", None))
+        self.btn_finstatistic.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
         self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))
         self.btn_backup.setText(QCoreApplication.translate("form_main", u"\u041a\u043e\u043f\u0438\u0438 \u0434\u0430\u043d\u043d\u044b\u0445", None))
     # retranslateUi
