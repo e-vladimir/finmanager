@@ -1,16 +1,18 @@
 # ПРИЛОЖЕНИЕ: МЕХАНИКА ДАННЫХ
+
 import datetime
-from os                               import mkdir, remove
-from pathlib                          import Path
-from shutil                           import copy
 
-from G10_convertor_format             import UTimeToDTime
-from G10_datetime                     import CurrentUTime, CurrentDy, CurrentDm, CurrentDd
-from G10_files                        import FileNamesInDirectory
-from G30_cactus_controller_containers import controller_containers
+from   os                               import mkdir, remove
+from   pathlib                          import Path
+from   shutil                           import copy
 
-from L00_containers                   import CONTAINER_LOCAL
-from L50_app                          import C50_Application
+from   G10_convertor_format             import UTimeToDTime
+from   G10_datetime                     import CurrentUTime, CurrentDy, CurrentDm, CurrentDd
+from   G10_files                        import FileNamesInDirectory
+from   G30_cactus_controller_containers import controller_containers
+
+from   L00_containers                   import CONTAINER_LOCAL
+from   L50_app                          import C50_Application
 
 
 class C60_Application(C50_Application):
@@ -81,3 +83,8 @@ class C60_Application(C50_Application):
 	def Backups(self) -> list[str]:
 		""" Список резервных копий """
 		return [file_name.split('.')[0] for file_name in FileNamesInDirectory(self._path_backup)]
+
+	# Отчётность
+	def InitReports(self):
+		""" Инициализация директории отчётности """
+		if not self._path_reports.exists(): mkdir(self._path_reports)

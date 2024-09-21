@@ -26,7 +26,8 @@ class C40_Application(C20_PySideApplication):
 	def Init_00(self):
 		super().Init_00()
 
-		self._path_backup : Path = self._path_common.joinpath("backups")
+		self._path_backup  : Path = self._path_common.joinpath("backups")
+		self._path_reports : Path = self._path_common.joinpath("reports")
 
 	def Init_10(self):
 		super().Init_10()

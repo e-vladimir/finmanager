@@ -11,6 +11,8 @@ class C90_Application(C80_Application):
 		self.InitBackup()
 		self.AutoCreateBackup()
 
+		self.InitReports()
+
 		self.SetupContainerLocal()
 
 		self.form_main.Open()

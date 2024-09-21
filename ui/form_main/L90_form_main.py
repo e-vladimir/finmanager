@@ -24,6 +24,9 @@ class C90_FormMain(C80_FormMain):
 		self.btn_rules.clicked.connect(self.on_RequestOpenRules)
 		self.btn_backup.clicked.connect(self.on_RequestOpenBackups)
 
+		# Панель отчётности
+		self.cbbox_reports.activated.connect(self.on_RequestReport)
+
 	# Форма
 	def on_Show(self):
 		""" Отображение формы """
@@ -31,6 +34,8 @@ class C90_FormMain(C80_FormMain):
 
 		self.FillCbboxDm()
 		self.FillCbboxDy()
+
+		self.FillCbbReports()
 
 		self.ShowDm()
 		self.ShowDy()
@@ -90,3 +95,13 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFinstatistics(self):
 		""" Открытие формы Финстатистика """
 		self.application.form_finstatistics.Open()
+
+	def on_RequestReport(self):
+		""" Запрос формирования отчёта """
+		self.ReadProcessingReport()
+		self.ProcessingRequestReport()
+		self.ResetCbbReport()
+
+	def on_RequestReportHistoryFinstate(self):
+		""" Запрос формирования отчёта: Хронология финсостояния """
+		self.GenerateReportHistoryFinstate()

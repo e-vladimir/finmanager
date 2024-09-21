@@ -1,6 +1,7 @@
 # ФОРМА ОСНОВНАЯ: МЕХАНИКА УПРАВЛЕНИЯ
 
 from L00_months    import MONTHS_SHORT
+from L00_reports   import REPORTS
 from L60_form_main import C60_FormMain
 
 
@@ -31,3 +32,19 @@ class C70_FormMain(C60_FormMain):
 		""" Отображение месяца """
 		self.cbbox_dm.setCurrentText(f"{MONTHS_SHORT[self.workspace.Dm()]}")
 
+	# Панель отчётности
+	def FillCbbReports(self):
+		""" Заполнение списка доступной отчётности """
+		self.cbbox_reports.clear()
+
+		self.cbbox_reports.addItem(REPORTS.HISTORY_FINSTATE)
+
+	def ResetCbbReport(self):
+		""" Сброс списка доступных отчётов """
+		self.cbbox_reports.setCurrentIndex(-1)
+
+	# Отчётность
+	def ProcessingRequestReport(self):
+		""" Обработка запроса отчёта """
+		match self._processing_report:
+			case REPORTS.HISTORY_FINSTATE: self.on_RequestReportHistoryFinstate()
