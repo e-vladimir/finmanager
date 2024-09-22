@@ -113,7 +113,7 @@ class C60_Finreports(C50_Finreports):
 				table.add(cell_text)
 
 		table.set_padding_on_all_cells(Decimal(3), Decimal(2), Decimal(-1), Decimal(2))
-		# table.set_borders_on_all_cells(False, False, True, False)
+		table.set_borders_on_all_cells(False, False, True, False)
 		table.set_border_width_on_all_cells(Decimal(0.1))
 		table.set_border_color_on_all_cells(HexColor("#AAAAAA"))
 

@@ -47,8 +47,8 @@ class C80_Finreports(C70_Finreports):
 				subdata.append(f"{MONTHS_SHORT[dm]} {dy}")
 				subdata.append(f"{AmountToString(balance_start)}")
 				subdata.append(f"{AmountToString(balance_calc)}")
-				subdata.append(f"{AmountToString(balance_delta)}")
-				subdata.append(f"{AmountToString(amount_income)}")
+				subdata.append(f"{AmountToString(balance_delta, False, True)}")
+				subdata.append(f"{AmountToString(amount_income, False, True)}")
 				subdata.append(f"{AmountToString(amount_outcome)}")
 
 				data.append(subdata)
