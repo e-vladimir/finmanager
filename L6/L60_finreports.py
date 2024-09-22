@@ -57,15 +57,20 @@ class C60_Finreports(C50_Finreports):
 	# Разметка
 	def SetupLayoutSingle(self):
 		""" Установка линейной разметки """
-		margin_l = Decimal(30 * K_PAGE_MM)
-		margin_r = Decimal(15 * K_PAGE_MM)
-		margin_t = Decimal(10 * K_PAGE_MM)
-		margin_b = Decimal(10 * K_PAGE_MM)
+		margin_l = Decimal(15 * K_PAGE_MM)
+		margin_r = margin_l
+		margin_t = margin_l
+		margin_b = margin_l
+
 		self.layout                = SingleColumnLayout(self.page)
 		self.layout._margin_left   = margin_l
 		self.layout._margin_right  = margin_r
 		self.layout._margin_top    = margin_t
 		self.layout._margin_bottom = margin_b
+
+		page_sizes = self.page["MediaBox"]
+
+		self.layout._column_widths = [Decimal(page_sizes[2]) - margin_l - margin_r]
 
 	# Блоки отчёта
 	def AppendReportHeader(self):
@@ -78,16 +83,16 @@ class C60_Finreports(C50_Finreports):
 		if not header: return
 
 		block_header = Paragraph(header,
-		                         font          = self.font_bold,
-		                         font_size     = Decimal(16))
+								 font          = self.font_bold,
+								 font_size     = Decimal(16))
 
 		self.layout.add(block_header)
 
 	def AppendFinstructHistory(self, finstruct_name: str, data: list):
 		""" Добавление таблицы хронологии финструктуры """
 		block_header = Paragraph(finstruct_name,
-		                         font          = self.font_bold,
-		                         font_size     = Decimal(12))
+								 font          = self.font_bold,
+								 font_size     = Decimal(12))
 
 		table        = FixedColumnWidthTable(number_of_columns=6, number_of_rows=len(data) + 1)
 		table.add(TableCell(block_header, column_span=6))
@@ -108,7 +113,7 @@ class C60_Finreports(C50_Finreports):
 				table.add(cell_text)
 
 		table.set_padding_on_all_cells(Decimal(3), Decimal(2), Decimal(-1), Decimal(2))
-		table.set_borders_on_all_cells(False, False, True, False)
+		# table.set_borders_on_all_cells(False, False, True, False)
 		table.set_border_width_on_all_cells(Decimal(0.1))
 		table.set_border_color_on_all_cells(HexColor("#AAAAAA"))
 
