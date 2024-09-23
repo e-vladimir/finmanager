@@ -105,3 +105,7 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestReportHistoryFinstate(self):
 		""" Запрос формирования отчёта: Хронология финсостояния """
 		self.GenerateReportHistoryFinstate()
+
+	def on_RequestReportSummaryMonth(self):
+		""" Запрос формирования отчёта: Сводный отчёт за месяц """
+		self.GenerateReportSummaryMonth()

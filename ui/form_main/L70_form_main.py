@@ -38,6 +38,7 @@ class C70_FormMain(C60_FormMain):
 		self.cbbox_reports.clear()
 
 		self.cbbox_reports.addItem(REPORTS.HISTORY_FINSTATE)
+		self.cbbox_reports.addItem(REPORTS.SUMMARY_MONTH)
 
 	def ResetCbbReport(self):
 		""" Сброс списка доступных отчётов """
@@ -48,3 +49,4 @@ class C70_FormMain(C60_FormMain):
 		""" Обработка запроса отчёта """
 		match self._processing_report:
 			case REPORTS.HISTORY_FINSTATE: self.on_RequestReportHistoryFinstate()
+			case REPORTS.SUMMARY_MONTH   : self.on_RequestReportSummaryMonth()

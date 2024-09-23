@@ -21,5 +21,11 @@ class C80_FormMain(C70_FormMain):
 
 		self.finreports.GenerateReportHistoryFinstate()
 
-		self.finreports.CalcFilename()
-		self.finreports.SaveDocument()
+	def GenerateReportSummaryMonth(self):
+		""" Генерация сводного отчёта за месяц """
+		self.finreports.DirectoryPath(self.application._path_reports)
+		self.finreports.ReportType(REPORTS.SUMMARY_MONTH)
+		self.finreports.Dy(self.workspace.Dy())
+		self.finreports.Dm(self.workspace.Dm())
+
+		self.finreports.GenerateReportSummaryMonth()

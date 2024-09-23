@@ -1,10 +1,12 @@
 # ФИНОТЧЁТНОСТЬ: ЛОГИКА ДАННЫХ
 
 from itertools          import product
+from pathlib            import Path
 
 from G11_convertor_data import AmountToString
+from L00_months import MONTHS_SHORT
 
-from L00_months         import MONTHS_SHORT
+from L30_reports_fpdf   import C30_ProcessorReportsFpdf2
 from L70_finreports     import C70_Finreports
 from L90_finstructs     import C90_FinstructRecord
 
@@ -15,45 +17,47 @@ class C80_Finreports(C70_Finreports):
 	# Генератор отчётов
 	def GenerateReportHistoryFinstate(self):
 		""" Генерация отчёта: Хронология финсостояния """
-		self.CreateDocument()
+		report           = C30_ProcessorReportsFpdf2()
+		report._header_l = "Хронология финсостояния".upper()
+		report._header_r = ""
+		report._header_b = ""
 
-		dys  : list[int]       = self.finactions.AvailableDys()
+		report.LoadFonts(Path("./L0/fonts/"))
+
+		dys : list[int]  = self.finactions.AvailableDys()
+
 		for finstruct_name in self.finstruct.Names():
-			data    : list[list[str]] = []
+			data : list[list[str]] = []
 
-			subdata : list[str]       = []
-			subdata.append("Период")
-			subdata.append("Остаток-Н")
-			subdata.append("Остаток-К")
-			subdata.append("Изменение")
-			subdata.append("Поступило")
-			subdata.append("Выбыло")
+			report._header_b = finstruct_name
+			report.AppendPage()
 
-			data.append(subdata)
+			header : list[str] = ["Месяц/Год", "Остаток-Н", "Остаток-К", "Изменение", "Поступило", "Выбыло"]
+			sizes  : list[int] = [25, 15, 15, 15, 15, 15]
+			aligns : list[str] = [        "L",         "R",         "R",         "R",         "R",      "R"]
 
 			for dy, dm in product(dys, range(1, 13)):
-				if     finstruct_name not in self.finstruct.NamesInDyDm(dy, dm): continue
-
 				finstruct_record = C90_FinstructRecord()
-				if not finstruct_record.SwitchByName(dy, dm, finstruct_name)   : continue
+				if not finstruct_record.SwitchByName(dy, dm, finstruct_name): continue
 
-				balance_start  : float = finstruct_record.BalanceStart()
-				balance_calc   : float = finstruct_record.BalanceCalc()
 				amount_income  : float = finstruct_record.AmountIncome()
 				amount_outcome : float = finstruct_record.AmountOutcome()
+				balance_start  : float = finstruct_record.BalanceStart()
 				balance_delta  : float = amount_income + amount_outcome
+				balance_end    : float = balance_start + balance_delta
 
-				subdata        : list[str] = []
-				subdata.append(f"{MONTHS_SHORT[dm]} {dy}")
-				subdata.append(f"{AmountToString(balance_start)}")
-				subdata.append(f"{AmountToString(balance_calc)}")
-				subdata.append(f"{AmountToString(balance_delta, False, True)}")
-				subdata.append(f"{AmountToString(amount_income, False, True)}")
-				subdata.append(f"{AmountToString(amount_outcome)}")
+				data.append([f"{MONTHS_SHORT[dm]} {dy}",
+				             f"{AmountToString(balance_start)}",
+				             f"{AmountToString(balance_end)}",
+				             f"{AmountToString(balance_delta, flag_sign=True)}",
+				             f"{AmountToString(amount_income, flag_sign=True)}",
+				             f"{AmountToString(amount_outcome)}",
+				             ])
 
-				data.append(subdata)
+			report.AppendTable(header, data, sizes, aligns)
 
-			self.CreatePage()
-			self.SetupLayoutSingle()
-			self.AppendReportHeader()
-			self.AppendFinstructHistory(finstruct_name, data)
+		report.ExportReportToPdf(Path("./reports/Хронология финсостояния.pdf"))
+
+	def GenerateReportSummaryMonth(self):
+		""" Генерация отчёта: Сводный отчёт за месяц """
+		pass

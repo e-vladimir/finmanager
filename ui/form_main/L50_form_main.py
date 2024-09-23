@@ -22,3 +22,4 @@ class C50_FormMain(C42_FormMain):
 	# Формирование отчётности
 	def on_RequestReport(self): pass
 	def on_RequestReportHistoryFinstate(self): pass
+	def on_RequestReportSummaryMonth(self): pass
