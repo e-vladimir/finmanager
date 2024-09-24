@@ -1,7 +1,7 @@
 # ГЕНЕРАТОР ОТЧЁТОВ НА БАЗЕ FPDF
 
 from pathlib import Path
-from fpdf    import FPDF
+from fpdf import FPDF, YPos
 
 
 class C30_ProcessorReportsFpdf2(FPDF):
@@ -52,6 +52,8 @@ class C30_ProcessorReportsFpdf2(FPDF):
 		self.AppendHeader()
 		self.AppendFooter()
 
+		self.set_auto_page_break(True, self._margin_b)
+
 	def AppendText(self):
 		""" Вставка текста """
 		pass
@@ -70,80 +72,108 @@ class C30_ProcessorReportsFpdf2(FPDF):
 		self.set_text_color(255, 255, 255)
 		self.set_fill_color(26, 26, 26)
 
-		widths       : list[int] = [(self.w - self._margin_l - self._margin_r) // len(header)] * len(header)
-		if column_sizes: widths  = [round((self.w - self._margin_l - self._margin_r) * column_size / 100) for column_size in column_sizes]
+		cell_h_base = self._size_text * 0.35 + 1
 
-		aligns       : list[str] = ["J"] * len(header)
-		if column_aligns: aligns = column_aligns.copy()
+		widths       : list[float] = [(self.w - self._margin_l - self._margin_r) / len(header)] * len(header)
+		if column_sizes: widths    = [(self.w - self._margin_l - self._margin_r) * column_size / 100 for column_size in column_sizes]
 
-		processing_y : float     = self.y
-		processing_x : float     = self._margin_l
-		cell_h       : float     = self._size_text * 0.35 + 1
+		aligns       : list[str]   = ["J"] * len(header)
+		if column_aligns: aligns   = column_aligns.copy()
+
 		for column_index, header_item in enumerate(header):
 			cell_w : float = widths[column_index]
 
-			self.multi_cell(w = cell_w, h=cell_h, text=header_item, border=0, align=aligns[column_index], fill=True)
+			self.multi_cell(w = cell_w, h=cell_h_base, text=header_item, border=0, align=aligns[column_index], fill=True, new_y=YPos.LAST)
 
-			processing_x += cell_w
-			self.set_xy(processing_x, processing_y)
-
-		self.set_font("R", "", self._size_text)
+		self.ln()
 		self.set_draw_color(200, 200, 200)
 		self.set_text_color(  0,   0,   0)
 		for row in data:
-			processing_x = self._margin_l
-			processing_y += cell_h
-			self.set_xy(processing_x, processing_y)
+			cell_h_max : int = 1
 
-			for column_index, header_item in enumerate(header):
-				cell_w: float = widths[column_index]
+			for column_index, subdata in enumerate(row):
+				cell_w : float = widths[column_index]
+				text_w : float = self.get_string_width(subdata)
 
-				self.multi_cell(w=cell_w, h=cell_h, text=row[column_index], border="B", align=aligns[column_index], fill=False)
+				cell_h_max = max(cell_h_max, 1 + int(text_w // (cell_w - 1)))
 
-				processing_x += cell_w
-				self.set_xy(processing_x, processing_y)
+			for column_index, subdata in enumerate(row):
+				cell_w : float = widths[column_index]
+				text_w : float = self.get_string_width(subdata)
+
+				self.multi_cell(w=cell_w, h=cell_h_base * (cell_h_max - text_w // (cell_w - 1)), text=subdata, border="B", align=aligns[column_index], fill=False, new_y=YPos.LAST)
+
+			self.ln()
+
+		self.ln()
 
 	def AppendHeader(self):
 		""" Вставка верхнего колонтитула """
 		if self._header_l:
 			self.set_font("R", "B", self._size_header)
-			self.set_x(self._margin_l)
-			self.set_y(self._margin_t)
+			self.set_xy(self._margin_l, self._margin_t)
 
 			self.cell(text=self._header_l)
 
 		if self._header_r:
 			self.set_font("R", "B", self._size_header)
-			self.set_x(self.w - self.get_string_width(self._header_r) - self._margin_r)
-			self.set_y(self._margin_t)
+			self.set_xy(self.w - self.get_string_width(self._header_r) - self._margin_r, self._margin_t)
 
 			self.cell(text=self._header_r)
 
 		if self._header_b:
 			self.set_font("R", "B", self._size_header * 0.75)
-			self.set_x(self._margin_l)
-			self.set_y(self._margin_t + self.font_size + self.font_size * 0.75)
+			self.set_xy(self._margin_l, self._margin_t + self.font_size + self.font_size * 0.75)
 
 			self.cell(text=self._header_b)
 
 		self.ln()
-		self.set_y(self.y + self._padding_header)
 
 	def AppendFooter(self):
 		""" Вставка нижнего колонтитула """
 		pass
 
-	def AppendH1(self):
+	def AppendH1(self, text: str):
 		""" Вставка заголовка 1 """
-		pass
+		self.set_font("R", "B", self._size_H1)
 
-	def AppendH2(self):
+		self.ln()
+		self.ln()
+
+		w : float = self.w
+		w        -= self._margin_l
+		w        -= self._margin_r
+
+		self.multi_cell(w, text=text)
+		self.ln()
+
+	def AppendH2(self, text: str):
 		""" Вставка заголовка 2 """
-		pass
+		self.set_font("R", "B", self._size_H2)
 
-	def AppendH3(self):
+		self.ln()
+		self.ln()
+
+		w : float = self.w
+		w        -= self._margin_l
+		w        -= self._margin_r
+
+		self.multi_cell(w, text=text)
+		self.ln()
+
+	def AppendH3(self, text: str):
 		""" Вставка заголовка 3 """
-		pass
+		self.set_font("R", "B", self._size_H3)
+
+		self.ln()
+		self.ln()
+
+		w : float = self.w
+		w        -= self._margin_l
+		w        -= self._margin_r
+
+		self.multi_cell(w, text=text)
+		self.ln()
 
 	# Логика данных
 	def ExportReportToPdf(self, file_path: Path):
