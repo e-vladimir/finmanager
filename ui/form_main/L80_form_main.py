@@ -1,6 +1,7 @@
 # ФОРМА ОСНОВНАЯ: ЛОГИКА ДАННЫХ
 
 from L00_reports   import REPORTS
+from L20_PySide6 import ShowMessage
 from L70_form_main import C70_FormMain
 
 
@@ -21,6 +22,8 @@ class C80_FormMain(C70_FormMain):
 
 		self.finreports.GenerateReportHistoryFinstate()
 
+		ShowMessage("Финотчётность", f"Отчёт ""{self.finreports.ReportType()}"" сформирован.")
+
 	def GenerateReportSummaryMonth(self):
 		""" Генерация сводного отчёта за месяц """
 		self.finreports.DirectoryPath(self.application._path_reports)
@@ -29,3 +32,5 @@ class C80_FormMain(C70_FormMain):
 		self.finreports.Dm(self.workspace.Dm())
 
 		self.finreports.GenerateReportSummaryMonth()
+
+		ShowMessage("Финотчётность", f"Отчёт ""{self.finreports.ReportType()}"" сформирован.")
