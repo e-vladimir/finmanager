@@ -1,7 +1,8 @@
 # ГЕНЕРАТОР ОТЧЁТОВ НА БАЗЕ FPDF
+# 24 сен 2024
 
 from pathlib import Path
-from fpdf import FPDF, YPos
+from fpdf    import FPDF, YPos
 
 
 class C30_ProcessorReportsFpdf2(FPDF):
