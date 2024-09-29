@@ -7,7 +7,7 @@ from G11_convertor_data  import AmountToString
 from L00_colors import COLORS
 
 from L00_months          import MONTHS_SHORT
-from L20_PySide6         import C20_StandardItem, ROLE_IDO
+from L20_PySide6         import ROLES, C20_StandardItem
 from L50_form_finactions import C50_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
 
@@ -51,11 +51,11 @@ class C60_FormFinactions(C50_FormFinactions):
 
 		current_index                = self.model_data.index(current_row, 0, parent_index)
 
-		self._processing_ido = current_index.data(ROLE_IDO)
+		self._processing_ido = current_index.data(ROLES.ROLE_IDO)
 
 	def ReadProcessingIdos(self):
 		""" Чтение списка IDO отмеченных записей """
-		self._processing_idos = self.model_data.dataByCheckState(ROLE_IDO)
+		self._processing_idos = self.model_data.dataByCheckState(ROLES.ROLE_IDO)
 
 	def ReadProcessingDdFromRecordFinactions(self):
 		""" Чтение числа месяца из записи финдействий """
@@ -107,12 +107,12 @@ class C60_FormFinactions(C50_FormFinactions):
 		dm          : str                     = MONTHS_SHORT[self.workspace.Dm()]
 		dd_name     : str                     = f"{record.Dd():02d} {dm}"
 		item_dd     : C20_StandardItem | None = self.model_data.itemByData(dd_name, Qt.ItemDataRole.DisplayRole)
-		item_amount : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
+		item_amount : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLES.ROLE_IDO)
 
 		if     item_dd is None     : return
 
 		if item_amount is None:
-			item_amount     = C20_StandardItem(AmountToString(record.Amount(), flag_point=False, flag_sign=True), self._processing_ido, ROLE_IDO, flag_align_right=True)
+			item_amount     = C20_StandardItem(AmountToString(record.Amount(), flag_point=False, flag_sign=True), self._processing_ido, ROLES.ROLE_IDO, flag_align_right=True)
 			item_amount.setCheckable(True)
 
 			item_finstruct  = C20_StandardItem("")
@@ -153,7 +153,7 @@ class C60_FormFinactions(C50_FormFinactions):
 		dm          : str                     = MONTHS_SHORT[self.workspace.Dm()]
 		dd_name     : str                     = f"{record.Dd():02d} {dm}"
 		item_dd     : C20_StandardItem | None = self.model_data.itemByData(dd_name, Qt.ItemDataRole.DisplayRole)
-		item_amount : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
+		item_amount : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLES.ROLE_IDO)
 		item_parent : C20_StandardItem | None = item_amount.parent()
 
 		if item_parent == item_dd: return

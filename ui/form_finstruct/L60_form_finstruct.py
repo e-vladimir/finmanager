@@ -4,9 +4,9 @@ from PySide6.QtCore     import QModelIndex, Qt
 
 from G11_convertor_data import AmountToString
 
-from L20_PySide6        import C20_StandardItem, ROLE_IDO
+from L20_PySide6        import ROLES, C20_StandardItem
 from L50_form_finstruct import C50_FormFinstruct
-from L90_finstructs      import C90_FinstructRecord
+from L90_finstructs     import C90_FinstructRecord
 
 
 class C60_FormFinstruct(C50_FormFinstruct):
@@ -27,7 +27,7 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 		current_item                = parent_item.child(current_row, 0)
 
-		self._processing_ido = current_item.data(ROLE_IDO)
+		self._processing_ido = current_item.data(ROLES.ROLE_IDO)
 
 	def ReadProcessingName(self):
 		""" Чтение наименование счёта """
@@ -80,7 +80,7 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		""" Инициализация модели данных """
 		self.model_data.removeAll()
 
-		self.model_data.setHorizontalHeaderLabels(["Счёт", "Ост-Н", "Ост-К", "Изменение", "Поступило", "Выбыло"])
+		self.model_data.setHorizontalHeaderLabels(["Счёт", "Ост-Н", "Ост-К", "Изменение", "Поступило", "Списано"])
 
 	def CleanModel(self):
 		""" Очистка модели от несуществующих данных """
@@ -98,7 +98,7 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 			for index_subrow in reversed(range(self.model_data.rowCount(index_group))):
 				index_record = self.model_data.index(index_subrow, 0, index_group)
-				ido          = index_record.data(ROLE_IDO)
+				ido          = index_record.data(ROLES.ROLE_IDO)
 
 				if ido in idos: continue
 
@@ -125,10 +125,10 @@ class C60_FormFinstruct(C50_FormFinstruct):
 
 		if     item_group is None  : return
 
-		item_record : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
+		item_record : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLES.ROLE_IDO)
 
 		if item_record is None:
-			item_record         = C20_StandardItem(record.Name(), self._processing_ido, ROLE_IDO)
+			item_record         = C20_StandardItem(record.Name(), self._processing_ido, ROLES.ROLE_IDO)
 			item_balance_start  = C20_StandardItem("0", flag_align_right=True)
 			item_balance_calc   = C20_StandardItem("0", flag_align_right=True)
 			item_balance_delta  = C20_StandardItem("0", flag_align_right=True)
@@ -154,10 +154,10 @@ class C60_FormFinstruct(C50_FormFinstruct):
 		item_balance_calc.setText(AmountToString(balance_calc))
 
 		item_balance_delta                    = item_group.child(index_row, 3)
-		item_balance_delta.setText(AmountToString(balance_delta))
+		item_balance_delta.setText(AmountToString(balance_delta, flag_sign=True))
 
 		item_amount_income                    = item_group.child(index_row, 4)
-		item_amount_income.setText(AmountToString(amount_income))
+		item_amount_income.setText(AmountToString(amount_income, flag_sign=True))
 
 		item_amount_outcome                   = item_group.child(index_row, 5)
 		item_amount_outcome.setText(AmountToString(amount_outcome))

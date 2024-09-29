@@ -16,8 +16,8 @@ class C41_FormMain(C20_PySideForm, Ui_form_main):
 
 	def AdjustBtns(self):
 		""" Настройка кнопок """
-		icon_prev = QIcon(f"{self.application._path_ui.joinpath("icons", "arrow_left.svg")}")
-		icon_next = QIcon(f"{self.application._path_ui.joinpath("icons", "arrow_right.svg")}")
+		icon_prev = QIcon(f"./L0/icons/arrow_left.svg")
+		icon_next = QIcon(f"./L0/icons/arrow_right.svg")
 
 		self.btn_dm_prev.setIcon(icon_prev)
 		self.btn_dm_next.setIcon(icon_next)

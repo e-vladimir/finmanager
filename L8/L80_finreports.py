@@ -33,7 +33,7 @@ class C80_Finreports(C70_Finreports):
 			report.AppendPage()
 			report.AppendH1(finstruct_name)
 
-			header : list[str] = ["Месяц/Год", "Было", "Стало", "Изменение", "Поступило", "Выбыло"]
+			header : list[str] = ["Месяц/Год", "Было", "Стало", "Изменение", "Поступило", "Списано"]
 			sizes  : list[int] = [25, 15, 15, 15, 15, 15]
 			aligns : list[str] = [        "L",         "R",         "R",         "R",         "R",      "R"]
 
@@ -72,7 +72,7 @@ class C80_Finreports(C70_Finreports):
 
 		report.AppendH1("ОСТАТОК ПО СЧЕТАМ")
 		data   : list[list[str]] = []
-		header : list[str]       = ["Счёт", "Было", "Стало", "Изменение", "Поступило", "Выбыло"]
+		header : list[str]       = ["Счёт", "Было", "Стало", "Изменение", "Поступило", "Списано"]
 		sizes  : list[int]       = [25, 15, 15, 15, 15, 15]
 		aligns : list[str]       = ["L", "R", "R", "R", "R", "R"]
 
@@ -98,7 +98,7 @@ class C80_Finreports(C70_Finreports):
 
 		report.AppendH1("СТАТИСТИКА ПО МЕТКАМ")
 		data   : list[list[str]] = []
-		header : list[str]       = ["Метка", "Поступило", "Выбыло"]
+		header : list[str]       = ["Метка", "Поступило", "Списано"]
 		sizes  : list[int]       = [70, 15, 15]
 		aligns : list[str]       = ["L", "R", "R"]
 

@@ -17,12 +17,12 @@ class C41_FormExport(C20_PySideForm, Ui_form_export):
 
 	def InitMenuExportFinactions(self):
 		""" Инициализацию меню финсостава """
-		icon_open      = QIcon("./ui/icons/open.svg")
-		icon_list      = QIcon("./ui/icons/list.svg")
-		icon_upload    = QIcon("./ui/icons/upload.svg")
-		icon_grid_33   = QIcon("./ui/icons/grid_3_3.svg")
-		icon_grid_22   = QIcon("./ui/icons/grid_2_2.svg")
-		icon_grid_13   = QIcon("./ui/icons/grid_1_3.svg")
+		icon_open      = QIcon("./L0/icons/open.svg")
+		icon_list      = QIcon("./L0/icons/list.svg")
+		icon_upload    = QIcon("./L0/icons/upload.svg")
+		icon_grid_33   = QIcon("./L0/icons/grid_3_3.svg")
+		icon_grid_22   = QIcon("./L0/icons/grid_2_2.svg")
+		icon_grid_13   = QIcon("./L0/icons/grid_1_3.svg")
 
 		self.menu_export_finactions                          = QMenu()
 		self.menu_export_finactions_period_mode    : QAction = self.menu_export_finactions.addAction(icon_grid_13, "Режим выборки периода экспорта")

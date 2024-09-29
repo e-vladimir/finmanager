@@ -5,13 +5,12 @@ from pathlib                          import Path
 from G30_cactus_controller_containers import controller_containers
 
 from L00_containers                   import CONTAINER_RAM, CONTAINER_LOCAL
-
 from L20_PySide6                      import C20_PySideApplication
-
 from L90_form_backup                  import C90_FormBackup
 from L90_form_export                  import C90_FormExport
 from L90_form_finactions              import C90_FormFinactions
 from L90_form_finactions_record       import C90_FormFinactionsRecord
+from L90_form_finanalitics            import C90_FormFinanalitics
 from L90_form_finstatistics           import C90_FormFinstatistics
 from L90_form_finstruct               import C90_FormFinstruct
 from L90_form_import                  import C90_FormImport
@@ -45,6 +44,7 @@ class C40_Application(C20_PySideApplication):
 		self.form_backup            = C90_FormBackup(self)
 		self.form_export            = C90_FormExport(self)
 		self.form_finstatistics     = C90_FormFinstatistics(self)
+		self.form_finanalitics      = C90_FormFinanalitics(self)
 
 	def Init_11(self):
 		super().Init_11()

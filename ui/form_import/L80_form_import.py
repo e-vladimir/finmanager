@@ -62,9 +62,9 @@ class C80_FormImport(C70_FormImport):
 		dialog_progress.setMinimumWidth(480)
 		dialog_progress.setWindowTitle("Импорт финдействий")
 
-		for row_index, row_data in enumerate(self._import_finactions_data[1:]):
+		for index_row, row_data in enumerate(self._import_finactions_data[1:]):
 			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
-			dialog_progress.setValue(row_index + 1)
+			dialog_progress.setValue(index_row + 1)
 
 			src_date_time : str = ""
 			src_amount    : str = ""

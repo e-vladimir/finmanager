@@ -17,11 +17,11 @@ class C41_FormBackup(C20_PySideForm, Ui_form_backup):
 
 	def InitMenuBackup(self):
 		""" Инициализацию меню финсостава """
-		icon_blocks   = QIcon("./ui/icons/blocks.svg")
-		icon_delete   = QIcon("./ui/icons/item_delete.svg")
-		icon_download = QIcon("./ui/icons/download.svg")
-		icon_grid_13  = QIcon("./ui/icons/grid_1_3.svg")
-		icon_upload   = QIcon("./ui/icons/upload.svg")
+		icon_blocks   = QIcon("./L0/icons/blocks.svg")
+		icon_delete   = QIcon("./L0/icons/item_delete.svg")
+		icon_download = QIcon("./L0/icons/download.svg")
+		icon_grid_13  = QIcon("./L0/icons/grid_1_3.svg")
+		icon_upload   = QIcon("./L0/icons/upload.svg")
 
 		self.menu_backup = QMenu()
 		self.menu_backups_header : QMenu   = self.menu_backup.addMenu(icon_grid_13, "Резервные копии")

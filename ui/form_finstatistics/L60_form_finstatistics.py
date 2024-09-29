@@ -18,7 +18,7 @@ class C60_FormFinstatistics(C50_FormFinstatistics):
 		header_labels.append("Показатель")
 
 		header_labels.append(f"Поступило")
-		header_labels.append(f"Выбыло")
+		header_labels.append(f"Списано")
 		header_labels.append(f"Баланс")
 
 		self.model_data.setHorizontalHeaderLabels(header_labels)

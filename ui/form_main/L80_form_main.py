@@ -22,7 +22,7 @@ class C80_FormMain(C70_FormMain):
 
 		self.finreports.GenerateReportHistoryFinstate()
 
-		ShowMessage("Финотчётность", f"Отчёт ""{self.finreports.ReportType()}"" сформирован.")
+		ShowMessage("Финотчётность", f"Отчёт \"{self.finreports.ReportType()}\" сформирован.")
 
 	def GenerateReportSummaryMonth(self):
 		""" Генерация сводного отчёта за месяц """
@@ -33,4 +33,4 @@ class C80_FormMain(C70_FormMain):
 
 		self.finreports.GenerateReportSummaryMonth()
 
-		ShowMessage("Финотчётность", f"Отчёт ""{self.finreports.ReportType()}"" сформирован.")
+		ShowMessage("Финотчётность", f"Отчёт \"{self.finreports.ReportType()}\" сформирован.")

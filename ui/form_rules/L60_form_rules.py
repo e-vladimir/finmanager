@@ -4,7 +4,7 @@ from PySide6.QtCore    import QModelIndex, Qt
 from PySide6.QtWidgets import QListWidgetItem
 
 from L00_rules         import RULES
-from L20_PySide6       import C20_StandardItem, ROLE_IDO
+from L20_PySide6       import ROLES, C20_StandardItem
 from L50_form_rules    import C50_FormRules
 from L90_rules         import C90_ProcessingRulesRecord
 
@@ -34,7 +34,7 @@ class C60_FormRules(C50_FormRules):
 		index_root                  = QModelIndex()
 		index_item                  = self.model_data.index(row, 0, index_root)
 
-		self._processing_ido = index_item.data(ROLE_IDO)
+		self._processing_ido = index_item.data(ROLES.ROLE_IDO)
 
 	def ReadProcessingName(self):
 		""" Чтение наименования выбранной записи """
@@ -78,10 +78,10 @@ class C60_FormRules(C50_FormRules):
 		record                               = C90_ProcessingRulesRecord(self._processing_ido)
 
 		item_parent = self.model_data.invisibleRootItem()
-		item_input : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
+		item_input : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLES.ROLE_IDO)
 
 		if item_input is None:
-			item_input  = C20_StandardItem("", self._processing_ido, ROLE_IDO)
+			item_input  = C20_StandardItem("", self._processing_ido, ROLES.ROLE_IDO)
 			item_output = C20_StandardItem("")
 
 			item_parent.appendRow([item_input, item_output])

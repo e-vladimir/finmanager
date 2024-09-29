@@ -8,10 +8,10 @@ from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINER_LOCAL
 from L00_months          import MONTHS_SHORT
-from L20_PySide6         import RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog, ROLE_IDO, C20_StandardItem, RequestItem
+from L20_PySide6         import ROLES, RequestConfirm, RequestValue, RequestText, QFindReplaceTextDialog, C20_StandardItem, RequestItem
 from L70_form_finactions import C70_FormFinactions
 from L90_finactions      import C90_FinactionsRecord
-from L90_finstructs       import C90_FinstructRecord
+from L90_finstructs      import C90_FinstructRecord
 
 
 class C80_FormFinactions(C70_FormFinactions):
@@ -140,7 +140,7 @@ class C80_FormFinactions(C70_FormFinactions):
 	def ResetPack(self):
 		""" Сброс пакетного режима """
 		for ido in self._processing_idos:
-			item_record : C20_StandardItem | None = self.model_data.itemByData(ido, ROLE_IDO)
+			item_record : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.ROLE_IDO)
 			if item_record is None: continue
 
 			item_record.setCheckState(Qt.CheckState.Unchecked)

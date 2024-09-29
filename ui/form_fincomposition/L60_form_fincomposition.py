@@ -2,7 +2,7 @@
 
 from PySide6.QtCore          import Qt
 
-from L20_PySide6             import ROLE_IDO, C20_StandardItem
+from L20_PySide6             import ROLES, C20_StandardItem
 from L50_form_fincomposition import C50_FormFincomposition
 from L90_fincomposition      import C90_FincompositionRecord
 
@@ -14,7 +14,7 @@ class C60_FormFincomposition(C50_FormFincomposition):
 	def ReadProcessingIdoFromTreeData(self):
 		""" Чтение IDO текущей записи """
 		index_current = self.tree_data.currentIndex()
-		self._processing_ido = index_current.data(ROLE_IDO)
+		self._processing_ido = index_current.data(ROLES.ROLE_IDO)
 
 	def ReadProcessingNameFromTreeData(self):
 		""" Чтение наименование текущей записи """
@@ -36,11 +36,11 @@ class C60_FormFincomposition(C50_FormFincomposition):
 
 		record                                = C90_FincompositionRecord(self._processing_ido)
 
-		item_record : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLE_IDO)
+		item_record : C20_StandardItem | None = self.model_data.itemByData(self._processing_ido, ROLES.ROLE_IDO)
 
 		if item_record is None:
 			item_record                           = C20_StandardItem(record.Name(), record.Ido().data)
-			item_parent : C20_StandardItem | None = self.model_data.itemByData(record.ParentIdo(), ROLE_IDO)
+			item_parent : C20_StandardItem | None = self.model_data.itemByData(record.ParentIdo(), ROLES.ROLE_IDO)
 
 			if item_parent is None: item_parent = self.model_data.invisibleRootItem()
 

@@ -17,12 +17,12 @@ class C41_FormImport(C20_PySideForm, Ui_form_import):
 
 	def InitMenuImportFinactionsData(self):
 		""" Инициализацию меню финсостава """
-		icon_file      = QIcon("./ui/icons/file.svg")
-		icon_open      = QIcon("./ui/icons/open.svg")
-		icon_delete    = QIcon("./ui/icons/item_delete.svg")
-		icon_download  = QIcon("./ui/icons/download.svg")
-		icon_grid_33   = QIcon("./ui/icons/grid_3_3.svg")
-		icon_grid_13   = QIcon("./ui/icons/grid_1_3.svg")
+		icon_file      = QIcon("./L0/icons/file.svg")
+		icon_open      = QIcon("./L0/icons/open.svg")
+		icon_delete    = QIcon("./L0/icons/item_delete.svg")
+		icon_download  = QIcon("./L0/icons/download.svg")
+		icon_grid_33   = QIcon("./L0/icons/grid_3_3.svg")
+		icon_grid_13   = QIcon("./L0/icons/grid_1_3.svg")
 
 		self.menu_import_finactions                                    = QMenu()
 		self.menu_import_finactions_source_header                      = self.menu_import_finactions.addMenu(icon_open, "Источник данных")

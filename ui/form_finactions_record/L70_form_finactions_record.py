@@ -5,7 +5,7 @@ from PySide6.QtCore             import Qt
 from G11_convertor_data         import AmountToString
 
 from L00_months                 import MONTHS_SHORT
-from L20_PySide6                import ROLE_IDO, C20_StandardItem
+from L20_PySide6                import ROLES, C20_StandardItem
 from L60_form_finactions_record import C60_FormFinactionsRecord
 
 
@@ -68,7 +68,7 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 		for self._processing_ido in self.finactions_record.FinstructIdos():
 			if not self._processing_ido: continue
 
-			item_record : C20_StandardItem | None = self.model_finstruct.itemByData(self._processing_ido, ROLE_IDO)
+			item_record : C20_StandardItem | None = self.model_finstruct.itemByData(self._processing_ido, ROLES.ROLE_IDO)
 			if item_record is None: continue
 
 			item_record.setCheckState(Qt.CheckState.Checked)
