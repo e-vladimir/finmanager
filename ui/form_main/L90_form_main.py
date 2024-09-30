@@ -21,7 +21,6 @@ class C90_FormMain(C80_FormMain):
 		self.btn_finstruct.clicked.connect(self.on_RequestOpenFinstruct)
 		self.btn_finactions.clicked.connect(self.on_RequestOpenFinactions)
 		self.btn_finstatistics.clicked.connect(self.on_RequestOpenFinstatistics)
-		self.btn_finanalitics.clicked.connect(self.on_RequestOpenFinanalitics)
 		self.btn_rules.clicked.connect(self.on_RequestOpenRules)
 		self.btn_backup.clicked.connect(self.on_RequestOpenBackups)
 
@@ -96,10 +95,6 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFinstatistics(self):
 		""" Открытие формы Финстатистика """
 		self.application.form_finstatistics.Open()
-
-	def on_RequestOpenFinanalitics(self):
-		""" Открытие формы Финаналитика """
-		self.application.form_finanalitics.Open()
 
 	def on_RequestReport(self):
 		""" Запрос формирования отчёта """

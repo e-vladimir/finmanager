@@ -274,19 +274,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_finanalitics">
-        <property name="minimumSize">
-         <size>
-          <width>120</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Финаналитика</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="horizontalSpacer_7">
         <property name="orientation">
          <enum>Qt::Orientation::Horizontal</enum>

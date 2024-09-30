@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainXwAKaV.ui'
+## Form generated from reading UI file 'form_mainarhcCB.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -179,12 +179,6 @@ class Ui_form_main(object):
 
         self.horizontalLayout_9.addWidget(self.btn_finstatistics)
 
-        self.btn_finanalitics = QPushButton(self.centralwidget)
-        self.btn_finanalitics.setObjectName(u"btn_finanalitics")
-        self.btn_finanalitics.setMinimumSize(QSize(120, 0))
-
-        self.horizontalLayout_9.addWidget(self.btn_finanalitics)
-
         self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_9.addItem(self.horizontalSpacer_7)
@@ -294,7 +288,6 @@ class Ui_form_main(object):
         self.btn_finactions.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f", None))
         self.label_4.setText(QCoreApplication.translate("form_main", u"\u0410\u041d\u0410\u041b\u0418\u0422\u0418\u041a\u0410", None))
         self.btn_finstatistics.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
-        self.btn_finanalitics.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0430\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430", None))
         self.label_8.setText(QCoreApplication.translate("form_main", u"\u041e\u0422\u0427\u0401\u0422\u041d\u041e\u0421\u0422\u042c", None))
         self.cbbox_reports.setPlaceholderText(QCoreApplication.translate("form_main", u"\u0414\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0435 \u043e\u0442\u0447\u0451\u0442\u044b", None))
         self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))

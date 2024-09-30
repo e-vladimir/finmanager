@@ -61,13 +61,13 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_result_dm">
+      <widget class="QWidget" name="tab_result_volume">
        <attribute name="title">
-        <string>Анализ месяца</string>
+        <string>Объёмный анализ</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QTableView" name="table_data_dm">
+         <widget class="QTableView" name="table_data_volumetric">
           <property name="contextMenuPolicy">
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
@@ -105,14 +105,9 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_result_12_dm">
+      <widget class="QWidget" name="tab_result_discrete">
        <attribute name="title">
-        <string>Анализ 12 месяцев</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_result_summary">
-       <attribute name="title">
-        <string>Общий анализ</string>
+        <string>Дискретный анализ</string>
        </attribute>
       </widget>
      </widget>
