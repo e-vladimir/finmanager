@@ -54,6 +54,8 @@ class C60_Application(C50_Application):
 		path_file : Path = self._path_backup.joinpath(filename)
 		db_path   : Path = self._path_common.joinpath("data.sqlite")
 
+		if not db_path.exists(): return
+
 		copy(db_path, path_file)
 
 	def RestoreBackup(self, filename: str) -> bool:
