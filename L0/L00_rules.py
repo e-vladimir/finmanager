@@ -4,5 +4,5 @@ import enum
 
 
 class RULES(enum.StrEnum):
-	REPLACE_TEXT = "Замена текстового фрагмента"
-	DETECT_LABEL = "Определение метки"
+	REPLACE_TEXT  = "Замена текстового фрагмента"
+	DETECT_LABELS = "Определение меток"

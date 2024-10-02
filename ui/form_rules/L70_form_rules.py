@@ -24,7 +24,7 @@ class C70_FormRules(C60_FormRules):
 		self.list_types.clear()
 
 		self.list_types.addItem(RULES.REPLACE_TEXT)
-		self.list_types.addItem(RULES.DETECT_LABEL)
+		self.list_types.addItem(RULES.DETECT_LABELS)
 
 	# Меню правил обработки данных
 	def AdjustMenuRulesText(self):
@@ -43,7 +43,7 @@ class C70_FormRules(C60_FormRules):
 				self.menu_rule_edit_input.setText("Редактировать фрагмент поиска")
 				self.menu_rule_edit_output.setText("Редактировать фрагмент замены")
 
-			case RULES.DETECT_LABEL:
+			case RULES.DETECT_LABELS:
 				self.menu_rule_edit_input.setText("Редактировать фрагмент поиска")
 				self.menu_rule_edit_output.setText("Редактировать метку")
 
@@ -52,7 +52,7 @@ class C70_FormRules(C60_FormRules):
 			case RULES.REPLACE_TEXT:
 				self.menu_rules_reset_by_type.setText(f"Сбросить правила Замены фрагмента текста")
 
-			case RULES.DETECT_LABEL:
+			case RULES.DETECT_LABELS:
 				self.menu_rules_reset_by_type.setText(f"Сбросить правила Определения метки")
 
 	def AdjustMenuRulesEnable(self):
@@ -86,4 +86,4 @@ class C70_FormRules(C60_FormRules):
 		""" Таблица данных: Настройка сортировки """
 		match self._processing_type:
 			case RULES.REPLACE_TEXT: self.table_data.sortByColumn(1, Qt.SortOrder.AscendingOrder)
-			case RULES.DETECT_LABEL: self.table_data.sortByColumn(1, Qt.SortOrder.AscendingOrder)
+			case RULES.DETECT_LABELS: self.table_data.sortByColumn(1, Qt.SortOrder.AscendingOrder)

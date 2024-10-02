@@ -48,13 +48,15 @@ class C60_FormRules(C50_FormRules):
 		index_column  : int         = 0
 
 		match self._processing_type:
-			case RULES.REPLACE_TEXT: index_column = 1
-			case RULES.DETECT_LABEL: index_column = 1
+			case RULES.REPLACE_TEXT : index_column = 1
+			case RULES.DETECT_LABELS: index_column = 1
 
 		index_root                  = QModelIndex()
 		index_item                  = self.model_data.index(row, index_column, index_root)
 
 		self._processing_name = index_item.data(Qt.ItemDataRole.DisplayRole)
+		self._processing_name = self._processing_name.replace('\n', ', ')
+		self._processing_name = self._processing_name[:50]
 
 	def ReadProcessingColumn(self):
 		""" Чтение колонки """
@@ -69,7 +71,7 @@ class C60_FormRules(C50_FormRules):
 
 		match self._processing_type:
 			case RULES.REPLACE_TEXT: self.model_data.setHorizontalHeaderLabels(["Фрагмент поиска", "Фрагмент замены"])
-			case RULES.DETECT_LABEL: self.model_data.setHorizontalHeaderLabels(["Фрагмент поиска", "Метка"])
+			case RULES.DETECT_LABELS: self.model_data.setHorizontalHeaderLabels(["Фрагмент поиска", "Метки"])
 
 	def LoadRulesRecord(self):
 		""" Загрузка правила обработки данных """
@@ -90,4 +92,4 @@ class C60_FormRules(C50_FormRules):
 		item_output                          = item_parent.child(row, 1)
 
 		item_input.setText('\n'.join(record.OptionsInputAsStrings()))
-		item_output.setText(record.OptionsOutputAsString())
+		item_output.setText('\n'.join(record.OptionsOutputAsStrings()))

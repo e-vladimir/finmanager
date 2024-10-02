@@ -66,23 +66,22 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 	def ApplyProcessingRulesDetectLabel(self):
 		""" Применить правила определения метки """
 		note   : str       = self.Note()
-		labels : list[str] = self.Labels()
+		labels : set[str]  = set(self.Labels())
 		rules              = C90_ProcessingRules()
 
-		for ido_rule in rules.IdosByType(RULES.DETECT_LABEL):
+		for ido_rule in rules.IdosByType(RULES.DETECT_LABELS):
 			rule                        = C90_ProcessingRulesRecord(ido_rule)
-			label           : str       = rule.OptionsOutputAsString()
+			new_labels      : list[str] = rule.OptionsOutputAsStrings()
 			fragments_input : list[str] = rule.OptionsInputAsStrings()
 			fragments_input.sort(key=len)
 
 			for fragment_input in fragments_input:
 				if not fragment_input              : continue
 				if     fragment_input not in note  : continue
-				if     label              in labels: continue
 
-				labels.append(label)
+				labels = labels.union(new_labels)
 
-		self.Labels(labels)
+		self.Labels(list(labels))
 
 
 class C80_Finactions(C70_Finactions):
