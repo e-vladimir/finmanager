@@ -240,6 +240,31 @@ class C80_FormFinactions(C70_FormFinactions):
 		dialog_progress.setValue(dialog_progress.maximum())
 
 	# Сброс данных
+	def ResetLabels(self):
+		""" Сброс меток """
+		dy, dm          = self.workspace.DyDm()
+		idos: list[str] = self.finactions.IdosInDyDmDd(dy, dm)
+
+		if not idos: return
+		if not RequestConfirm("Сброс меток", f"Сброс меток для записей финдействий: {len(idos)}"): return
+
+		dialog_progress = QProgressDialog(self)
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.setWindowTitle("Сброс меток")
+
+		for index_ido, self._processing_ido in enumerate(idos):
+			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
+			dialog_progress.setValue(index_ido + 1)
+
+			record = C90_FinactionsRecord(self._processing_ido)
+			record.Labels([])
+
+			self.LoadFinactionsRecord()
+
+		dialog_progress.setValue(dialog_progress.maximum())
+
 	def ResetFinactionsByDm(self):
 		""" Сброс финдействий за месяц """
 		dy, dm          = self.workspace.DyDm()

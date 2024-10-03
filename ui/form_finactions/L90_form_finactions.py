@@ -39,6 +39,7 @@ class C90_FormFinactions(C80_FormFinactions):
 
 		self.menu_finactions_tools_replace_text.triggered.connect(self.on_RequestReplaceText)
 
+		self.menu_finactions_reset_all_labels.triggered.connect(self.on_RequestResetLabels)
 		self.menu_finactions_reset_by_dm.triggered.connect(self.on_RequestResetFinactionsByDm)
 		self.menu_finactions_reset_by_finstruct.triggered.connect(self.on_RequestResetFinactionsByFinstruct)
 
@@ -213,6 +214,12 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.ReplaceText()
 
 	# Сброс данных
+	def on_RequestResetLabels(self):
+		""" Запрос на сброс меток """
+		self.ResetLabels()
+
+		self.AdjustTreeData_Size()
+
 	def on_RequestResetFinactionsByDm(self):
 		""" Сброс финдействий за месяц """
 		self.ResetFinactionsByDm()

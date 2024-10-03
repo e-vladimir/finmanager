@@ -72,5 +72,7 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 		self.menu_finactions_tools_replace_text   : QAction = self.menu_finactions_tools_replace_header.addAction(icon_replace, "Замена текстового фрагмента")
 
 		self.menu_finactions_reset_header         : QMenu   = self.menu_finactions.addMenu(icon_reload, "Сброс данных")
+		self.menu_finactions_reset_all_labels     : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить метки всех записей")
+		self.menu_finactions_reset_header.addSeparator()
 		self.menu_finactions_reset_by_dm          : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить финдействия за месяц")
 		self.menu_finactions_reset_by_finstruct   : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить финдействия по счёту")
