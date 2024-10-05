@@ -17,10 +17,8 @@ class C90_FormMain(C80_FormMain):
 		self.cbbox_dm.activated.connect(self.on_RequestSetDyDm)
 
 		# Панель форм
-		self.btn_fincomposition.clicked.connect(self.on_RequestOpenFincomposition)
 		self.btn_finstruct.clicked.connect(self.on_RequestOpenFinstruct)
 		self.btn_finactions.clicked.connect(self.on_RequestOpenFinactions)
-		self.btn_finstatistics.clicked.connect(self.on_RequestOpenFinstatistics)
 		self.btn_rules.clicked.connect(self.on_RequestOpenRules)
 		self.btn_backup.clicked.connect(self.on_RequestOpenBackups)
 
@@ -72,10 +70,6 @@ class C90_FormMain(C80_FormMain):
 		self.ShowTitle()
 
 	# Переход в другие формы
-	def on_RequestOpenFincomposition(self):
-		""" Открытие формы финсостава """
-		self.application.form_fincomposition.Open()
-
 	def on_RequestOpenFinstruct(self):
 		""" Открытие формы финструктуры """
 		self.application.form_finstruct.Open()
@@ -91,10 +85,6 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenBackups(self):
 		""" Открытие формы Архивирования """
 		self.application.form_backup.Open()
-
-	def on_RequestOpenFinstatistics(self):
-		""" Открытие формы Финстатистика """
-		self.application.form_finstatistics.Open()
 
 	def on_RequestReport(self):
 		""" Запрос формирования отчёта """

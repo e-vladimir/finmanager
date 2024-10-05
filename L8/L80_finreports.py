@@ -4,11 +4,11 @@ from itertools          import product
 from pathlib            import Path
 
 from G11_convertor_data import AmountToString
-from L00_months import MONTHS_SHORT
 
+from L00_months         import MONTHS_SHORT
 from L30_reports_fpdf   import C30_ProcessorReportsFpdf2
 from L70_finreports     import C70_Finreports
-from L90_finactions import C90_FinactionsRecord
+from L90_finactions     import C90_FinactionsRecord
 from L90_finstructs     import C90_FinstructRecord
 
 
@@ -92,22 +92,6 @@ class C80_Finreports(C70_Finreports):
 			             f"{AmountToString(balance_delta, flag_sign=True)}",
 			             f"{AmountToString(amount_income, flag_sign=True)}",
 			             f"{AmountToString(amount_outcome)}"
-			             ])
-
-		report.AppendTable(header, data, sizes, aligns)
-
-		report.AppendH1("СТАТИСТИКА ПО МЕТКАМ")
-		data   : list[list[str]] = []
-		header : list[str]       = ["Метка", "Поступило", "Списано"]
-		sizes  : list[int]       = [70, 15, 15]
-		aligns : list[str]       = ["L", "R", "R"]
-
-		data_raw                 = self.finstatistics.CaptureStatistic(self._dy, self._dm)
-
-		for label in sorted(data_raw.keys()):
-			data.append([f"{label}",
-			             f"{AmountToString(data_raw[label].income, flag_sign=True)}",
-			             f"{AmountToString(data_raw[label].outcome, flag_sign=True)}",
 			             ])
 
 		report.AppendTable(header, data, sizes, aligns)

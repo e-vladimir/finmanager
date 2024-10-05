@@ -10,11 +10,9 @@ from L90_form_backup                  import C90_FormBackup
 from L90_form_export                  import C90_FormExport
 from L90_form_finactions              import C90_FormFinactions
 from L90_form_finactions_record       import C90_FormFinactionsRecord
-from L90_form_finstatistics           import C90_FormFinstatistics
 from L90_form_finstruct               import C90_FormFinstruct
 from L90_form_import                  import C90_FormImport
 from L90_form_main                    import C90_FormMain
-from L90_form_fincomposition          import C90_FormFincomposition
 from L90_form_rules                   import C90_FormRules
 
 
@@ -34,7 +32,6 @@ class C40_Application(C20_PySideApplication):
 		controller_containers.RegisterContainerSQLite(CONTAINER_LOCAL)
 
 		self.form_main              = C90_FormMain(self)
-		self.form_fincomposition    = C90_FormFincomposition(self)
 		self.form_finstruct         = C90_FormFinstruct(self)
 		self.form_finactions        = C90_FormFinactions(self)
 		self.form_finactions_record = C90_FormFinactionsRecord(self)
@@ -42,7 +39,6 @@ class C40_Application(C20_PySideApplication):
 		self.form_rules             = C90_FormRules(self)
 		self.form_backup            = C90_FormBackup(self)
 		self.form_export            = C90_FormExport(self)
-		self.form_finstatistics     = C90_FormFinstatistics(self)
 
 	def Init_11(self):
 		super().Init_11()
