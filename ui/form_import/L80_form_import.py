@@ -8,7 +8,7 @@ from PySide6.QtWidgets import QFileDialog, QProgressDialog
 from L00_fields        import FIELDS
 from L20_PySide6       import RequestItem, ShowMessage
 from L70_form_import   import C70_FormImport
-from L90_finstructs     import C90_FinstructRecord
+from L90_finstructs    import C90_FinstructRecord
 
 
 class C80_FormImport(C70_FormImport):
@@ -31,7 +31,7 @@ class C80_FormImport(C70_FormImport):
 		field_types : list[str]  = []
 		field_types.append(FIELDS.DATE_TIME)
 		field_types.append(FIELDS.AMOUNT)
-		field_types.append(FIELDS.NOTE)
+		field_types.append(FIELDS.DESCRIPTION)
 		field_types.append(FIELDS.CONTROL)
 
 		field_type  : str | None = RequestItem("Импорт финдействий", f"Колонка: {self._processing_name}", field_types)
@@ -66,19 +66,19 @@ class C80_FormImport(C70_FormImport):
 			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
 			dialog_progress.setValue(index_row + 1)
 
-			src_date_time : str = ""
-			src_amount    : str = ""
-			src_note      : str = ""
-			src_control   : str = ""
+			src_date_time   : str = ""
+			src_amount      : str = ""
+			src_description : str = ""
+			src_control     : str = ""
 
 			for index_col, field in self._import_finactions_header.items():
 				match field:
-					case FIELDS.DATE_TIME: src_date_time  = row_data[index_col]
-					case FIELDS.AMOUNT   : src_amount     = row_data[index_col]
-					case FIELDS.NOTE     : src_note      += row_data[index_col] + ' '
-					case FIELDS.CONTROL  : src_control    = row_data[index_col]
+					case FIELDS.DATE_TIME   : src_date_time    = row_data[index_col]
+					case FIELDS.AMOUNT      : src_amount       = row_data[index_col]
+					case FIELDS.DESCRIPTION : src_description += row_data[index_col] + ' '
+					case FIELDS.CONTROL     : src_control      = row_data[index_col]
 
-			self.finactions.ImportRecord(finstruct_ido, src_date_time, src_amount, src_note, src_control, dy, dm)
+			self.finactions.ImportRecord(finstruct_ido, src_date_time, src_amount, src_description, src_control, dy, dm)
 
 		dialog_progress.setValue(dialog_progress.maximum())
 
