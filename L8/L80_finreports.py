@@ -109,7 +109,7 @@ class C80_Finreports(C70_Finreports):
 			data.append([f"{finactions_record.DdDmDyToString()}",
 			             f"{AmountToString(finactions_record.Amount(), flag_sign=True)}",
 			             f"{'\n'.join(self.finstruct.IdosToNames(finactions_record.FinstructIdos()))}",
-			             f"{finactions_record.Note()}",
+			             f"{finactions_record.Description()}",
 			             ])
 
 		report.AppendTable(header, data, sizes, aligns)

@@ -129,7 +129,7 @@ class C60_FormFinactions(C50_FormFinactions):
 		item_amount.setText(AmountToString(record.Amount(), flag_point=False, flag_sign=True))
 		item_finstruct.setText('\n'.join(self.finstruct.IdosToNames(record.FinstructIdos())))
 		item_labels.setText(', '.join(record.Labels()))
-		item_note.setText(record.Note())
+		item_note.setText(record.Description())
 
 		color_black = QColor(  0,   0,   0)
 		color_gray  = QColor(200, 200, 200)

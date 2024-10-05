@@ -31,11 +31,11 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 		record.Dd(self.Dd())
 
 		record.SrcAmount(self.SrcAmount())
-		record.SrcNote(self.SrcNote())
+		record.SrcDescription(self.SrcDescription())
 
 		record.Amount(amount)
 
-		record.Note(self.Note())
+		record.Description(self.Description())
 		record.FinstructIdos(self.FinstructIdos())
 		record.Labels(self.Labels())
 
@@ -44,7 +44,7 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 	# Правила обработки данных
 	def ApplyProcessingRulesReplaceText(self):
 		""" Применить правила замены текстовых фрагментов """
-		note : str = self.Note()
+		note : str = self.Description()
 		rules      = C90_ProcessingRules()
 
 		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
@@ -59,13 +59,13 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 
 				note = note.replace(fragment_input, fragment_output)
 
-		if note == self.Note(): return
+		if note == self.Description(): return
 
-		self.Note(note)
+		self.Description(note)
 
 	def ApplyProcessingRulesDetectLabel(self):
 		""" Применить правила определения метки """
-		note   : str       = self.Note()
+		note   : str       = self.Description()
 		labels : set[str]  = set(self.Labels())
 		rules              = C90_ProcessingRules()
 
@@ -134,9 +134,9 @@ class C80_Finactions(C70_Finactions):
 		record.Dy(dy)
 		record.Dm(dm)
 		record.Dd(dd)
-		record.SrcNote("")
+		record.SrcDescription("")
 		record.SrcAmount(0.00)
-		record.Note("")
+		record.Description("")
 		record.Amount(amount)
 		record.Labels([])
 		record.FinstructIdos([])
@@ -214,9 +214,9 @@ class C80_Finactions(C70_Finactions):
 		record.Dy(dy)
 		record.Dm(dm)
 		record.Dd(dd)
-		record.SrcNote(note)
+		record.SrcDescription(note)
 		record.SrcAmount(amount)
-		record.Note(note)
+		record.Description(note)
 		record.Amount(amount)
 		record.Labels([])
 		record.FinstructIdos([finstruct_ido])

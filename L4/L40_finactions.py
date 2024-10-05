@@ -12,21 +12,19 @@ class C40_FinactionsRecord(C30_StructFrame):
 	def Init_10(self):
 		super().Init_10()
 
-		self.f_dy             = C30_StructField(self, "Год")
-		self.f_dm             = C30_StructField(self, "Месяц")
-		self.f_dd             = C30_StructField(self, "День")
+		self.f_dy              = C30_StructField(self, "Год")
+		self.f_dm              = C30_StructField(self, "Месяц")
+		self.f_dd              = C30_StructField(self, "День")
 
-		self.f_src_note       = C30_StructField(self, "Исходное примечание")
-		self.f_src_amount     = C30_StructField(self, "Исходная сумма")
+		self.f_src_description = C30_StructField(self, "Исходное описание")
+		self.f_src_amount      = C30_StructField(self, "Исходная сумма")
 
-		self.f_note           = C30_StructField(self, "Примечание")
-		self.f_amount         = C30_StructField(self, "Сумма")
+		self.f_description     = C30_StructField(self, "Описание")
+		self.f_amount          = C30_StructField(self, "Сумма")
 
-		self.f_color          = C30_StructField(self, "Цветовая метка")
+		self.f_color           = C30_StructField(self, "Цветовая метка")
 
-		self.f_labels         = C30_StructField(self, "Метки")
-
-		self.f_finstruct_idos = C30_StructField(self, "Записи финструктуры")
+		self.f_finstruct_idos  = C30_StructField(self, "Записи финструктуры")
 
 
 class C40_Finactions(C20_MetaFrame):

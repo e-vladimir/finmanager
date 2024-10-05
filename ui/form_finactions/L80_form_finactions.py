@@ -73,17 +73,17 @@ class C80_FormFinactions(C70_FormFinactions):
 		""" Редактирование примечания записи финдействия """
 		record            = C90_FinactionsRecord(self._processing_ido)
 
-		note : str | None = RequestText("Запись финдействий", f"Запись {AmountToString(record.Amount(), False, True)} от {record.DdDmDyToString()}", record.Note())
+		note : str | None = RequestText("Запись финдействий", f"Запись {AmountToString(record.Amount(), False, True)} от {record.DdDmDyToString()}", record.Description())
 		if note is None: return
 
-		record.Note(note)
+		record.Description(note)
 
 	# Утилиты поиска и замены
 	def ReplaceText(self):
 		""" Замена текстового фрагмента """
 		record           = C90_FinactionsRecord(self._processing_ido)
 
-		dialog_replace   = QFindReplaceTextDialog("Утилиты поиска и замены", "Фрагмент поиска -> Фрагмент замены", record.Note(), record.Note(), self)
+		dialog_replace   = QFindReplaceTextDialog("Утилиты поиска и замены", "Фрагмент поиска -> Фрагмент замены", record.Description(), record.Description(), self)
 		if not dialog_replace.exec_(): return
 
 		dy, dm           = self.workspace.DyDm()
@@ -100,12 +100,12 @@ class C80_FormFinactions(C70_FormFinactions):
 			dialog_progress.setValue(index_ido + 1)
 
 			record     = C90_FinactionsRecord(self._processing_ido)
-			note : str = record.Note()
+			note : str = record.Description()
 
 			if dialog_replace.textFind() not in note: continue
 
 			note       = note.replace(dialog_replace.textFind(), dialog_replace.textReplace())
-			record.Note(note)
+			record.Description(note)
 
 			self.LoadFinactionsRecord()
 
@@ -149,7 +149,7 @@ class C80_FormFinactions(C70_FormFinactions):
 		""" Расширение пакета по текстовому фрагменту """
 		record            = C90_FinactionsRecord(self._processing_ido)
 
-		text : str | None = RequestText("Пакетный режим", "Расширение пакета", record.Note())
+		text : str | None = RequestText("Пакетный режим", "Расширение пакета", record.Description())
 		if text is None: return
 
 		text              = text.lower()
@@ -171,7 +171,7 @@ class C80_FormFinactions(C70_FormFinactions):
 		""" Сокращение пакета по текстовому фрагменту """
 		record            = C90_FinactionsRecord(self._processing_ido)
 
-		text : str | None = RequestText("Пакетный режим", "Сокращение пакета", record.Note())
+		text : str | None = RequestText("Пакетный режим", "Сокращение пакета", record.Description())
 		if text is None: return
 
 		text              = text.lower()

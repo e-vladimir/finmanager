@@ -23,20 +23,20 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 		if day    is None: return self.f_dd.ToInteger(CONTAINER_LOCAL).data
 		else             :        self.f_dd.FromInteger(CONTAINER_LOCAL, day)
 
-	def SrcNote(self, text: str = None) -> str:
-		""" Исходные данные: Примечание """
-		if text   is None: return self.f_src_note.ToString(CONTAINER_LOCAL).data
-		else             :        self.f_src_note.FromString(CONTAINER_LOCAL, text)
+	def SrcDescription(self, text: str = None) -> str:
+		""" Исходные данные: Описание """
+		if text   is None: return self.f_src_description.ToString(CONTAINER_LOCAL).data
+		else             :        self.f_src_description.FromString(CONTAINER_LOCAL, text)
 
 	def SrcAmount(self, amount: float = None) -> float:
 		""" Исходные данные: Сумма """
 		if amount is None: return self.f_src_amount.ToFloat(CONTAINER_LOCAL).data
 		else             :        self.f_src_amount.FromFloat(CONTAINER_LOCAL, amount)
 
-	def Note(self, text: str = None) -> str:
-		""" Примечание """
-		if text   is None: return self.f_note.ToString(CONTAINER_LOCAL).data
-		else             :        self.f_note.FromString(CONTAINER_LOCAL, text)
+	def Description(self, text: str = None) -> str:
+		""" Описание """
+		if text   is None: return self.f_description.ToString(CONTAINER_LOCAL).data
+		else             :        self.f_description.FromString(CONTAINER_LOCAL, text)
 
 	def Color(self, text: str = None) -> str:
 		""" Цветовая метка """
@@ -47,11 +47,6 @@ class C60_FinactionsRecord(C50_FinactionsRecord):
 		""" Сумма """
 		if amount is None: return self.f_amount.ToFloat(CONTAINER_LOCAL).data
 		else             :        self.f_amount.FromFloat(CONTAINER_LOCAL, amount)
-
-	def Labels(self, items: list[str] = None) -> list[str]:
-		""" Метки """
-		if items  is None: return sorted(self.f_labels.ToStrings(CONTAINER_LOCAL).data)
-		else             :               self.f_labels.FromStrings(CONTAINER_LOCAL, sorted(items))
 
 	def FinstructIdos(self, items: list[str] = None) -> list[str]:
 		""" Список записей финструктуры """

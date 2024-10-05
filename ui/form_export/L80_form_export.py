@@ -1,13 +1,11 @@
 # ФОРМА ЭКСПОРТ ДАННЫХ: ЛОГИКА ДАННЫХ
 
-from G11_convertor_data import AmountToString
-
-from L00_months         import MONTHS_SHORT
-from L00_options        import OPTIONS
-from L20_PySide6        import ShowMessage
-from L70_form_export    import C70_FormExport
-from L90_finactions     import C90_FinactionsRecord
-from L90_finstructs      import C90_FinstructRecord
+from L00_months      import MONTHS_SHORT
+from L00_options     import OPTIONS
+from L20_PySide6     import ShowMessage
+from L70_form_export import C70_FormExport
+from L90_finactions  import C90_FinactionsRecord
+from L90_finstructs  import C90_FinstructRecord
 
 
 class C80_FormExport(C70_FormExport):
@@ -70,7 +68,7 @@ class C80_FormExport(C70_FormExport):
 					idos.extend(self.finactions.IdosInDyDmDd(dy, dm, finstruct_ido=finstruct_record.Ido().data))
 
 			data : list[list[str]] = []
-			data.append(["Дата", "Счёт", "Сумма", "Примечание", "Метки"])
+			data.append(["Дата", "Счёт", "Сумма", "Описание"])
 
 			for ido in idos:
 				record_finactions = C90_FinactionsRecord(ido)
@@ -78,10 +76,9 @@ class C80_FormExport(C70_FormExport):
 				subdata_date    : str = f"{record_finactions.DdDmDyToString()}"
 				subdata_account : str = f"{finstruct_name}"
 				subdata_amount  : str = f"{record_finactions.Amount():.02f}"
-				subdata_note    : str = f"{record_finactions.Note()}"
-				subdata_labels  : str = ', '.join(record_finactions.Labels())
+				subdata_note    : str = f"{record_finactions.Description()}"
 
-				data.append([subdata_date, subdata_account, subdata_amount, subdata_note, subdata_labels])
+				data.append([subdata_date, subdata_account, subdata_amount, subdata_note])
 
 			file_name = f"{prefix}{finstruct_name}{postfix}"
 			file_path = self._options_finactions_folder.joinpath(file_name)

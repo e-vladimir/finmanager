@@ -50,7 +50,7 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 	# Исходные данные: Примечание
 	def ShowSrcNote(self):
 		""" Отображение исходного примечания """
-		self.label_src_note.setText(self.finactions_record.SrcNote())
+		self.label_src_note.setText(self.finactions_record.SrcDescription())
 
 	# Исходные данные: Сумма
 	def ShowSrcAmount(self):
@@ -60,7 +60,7 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 	# Рабочие данные: Примечание
 	def ShowNote(self):
 		""" Отображение рабочего примечания """
-		self.edit_note.setText(self.finactions_record.Note())
+		self.edit_note.setText(self.finactions_record.Description())
 
 	# Рабочие данные: Финструктура
 	def ShowFinstruct(self):
