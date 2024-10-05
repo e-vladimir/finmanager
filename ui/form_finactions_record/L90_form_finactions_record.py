@@ -32,7 +32,6 @@ class C90_FormFinactionsRecord(C80_FormFinactionsRecord):
 
 		self.ShowDescription()
 		self.ShowFinstruct()
-		self.ShowLabels()
 
 	def on_Close(self):
 		self.SaveFinactionsRecord()

@@ -73,11 +73,6 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 
 			item_record.setCheckState(Qt.CheckState.Checked)
 
-	# Рабочие данные: Метки
-	def ShowLabels(self):
-		""" Отображение меток """
-		self.edit_labels.setPlainText('\n'.join(self.finactions_record.Labels()))
-
 	# Дерево финструктуры
 	def AdjustTreeDataExpand(self):
 		""" Дерево финструктуры: Настройка  """

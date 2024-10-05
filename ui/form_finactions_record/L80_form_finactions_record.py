@@ -26,4 +26,3 @@ class C80_FormFinactionsRecord(C70_FormFinactionsRecord):
 
 		self.finactions_record.Description(self.edit_description.text())
 		self.finactions_record.FinstructIdos(self.model_finstruct.dataByCheckState(ROLES.ROLE_IDO))
-		self.finactions_record.Labels(self.edit_labels.toPlainText().split('\n'))
