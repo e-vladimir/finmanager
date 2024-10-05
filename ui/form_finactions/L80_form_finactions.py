@@ -69,14 +69,14 @@ class C80_FormFinactions(C70_FormFinactions):
 		self._processing_ido = ido_new
 		self.LoadFinactionsRecord()
 
-	def EditNoteFinactionsRecord(self):
+	def EditDescriptionFinactionsRecord(self):
 		""" Редактирование примечания записи финдействия """
 		record            = C90_FinactionsRecord(self._processing_ido)
 
-		note : str | None = RequestText("Запись финдействий", f"Запись {AmountToString(record.Amount(), False, True)} от {record.DdDmDyToString()}", record.Description())
-		if note is None: return
+		description : str | None = RequestText("Запись финдействий", f"Запись {AmountToString(record.Amount(), False, True)} от {record.DdDmDyToString()}", record.Description())
+		if description is None: return
 
-		record.Description(note)
+		record.Description(description)
 
 	# Утилиты поиска и замены
 	def ReplaceText(self):
@@ -100,12 +100,12 @@ class C80_FormFinactions(C70_FormFinactions):
 			dialog_progress.setValue(index_ido + 1)
 
 			record     = C90_FinactionsRecord(self._processing_ido)
-			note : str = record.Description()
+			description : str = record.Description()
 
-			if dialog_replace.textFind() not in note: continue
+			if dialog_replace.textFind() not in description: continue
 
-			note       = note.replace(dialog_replace.textFind(), dialog_replace.textReplace())
-			record.Description(note)
+			description       = description.replace(dialog_replace.textFind(), dialog_replace.textReplace())
+			record.Description(description)
 
 			self.LoadFinactionsRecord()
 
@@ -161,9 +161,9 @@ class C80_FormFinactions(C70_FormFinactions):
 
 			for index_row_record in range(item_dd.rowCount()):
 				item_amount = item_dd.child(index_row_record, 0)
-				item_note   = item_dd.child(index_row_record, 2)
+				item_description   = item_dd.child(index_row_record, 2)
 
-				if text not in item_note.text().lower(): continue
+				if text not in item_description.text().lower(): continue
 
 				item_amount.setCheckState(Qt.CheckState.Checked)
 
@@ -183,9 +183,9 @@ class C80_FormFinactions(C70_FormFinactions):
 
 			for index_row_record in range(item_dd.rowCount()):
 				item_amount = item_dd.child(index_row_record, 0)
-				item_note   = item_dd.child(index_row_record, 2)
+				item_description   = item_dd.child(index_row_record, 2)
 
-				if text not in item_note.text().lower(): continue
+				if text not in item_description.text().lower(): continue
 
 				item_amount.setCheckState(Qt.CheckState.Unchecked)
 
@@ -205,7 +205,6 @@ class C80_FormFinactions(C70_FormFinactions):
 
 				record = C90_FinactionsRecord(self._processing_ido)
 				record.ApplyProcessingRulesReplaceText()
-				record.ApplyProcessingRulesDetectLabel()
 
 				self.LoadFinactionsRecord()
 
@@ -214,7 +213,6 @@ class C80_FormFinactions(C70_FormFinactions):
 		elif self._processing_ido:
 			record = C90_FinactionsRecord(self._processing_ido)
 			record.ApplyProcessingRulesReplaceText()
-			record.ApplyProcessingRulesDetectLabel()
 
 	def ApplyRulesToAll(self):
 		""" Применение правил обработки данных ко всем записям """
@@ -225,7 +223,7 @@ class C80_FormFinactions(C70_FormFinactions):
 		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_progress.setMaximum(len(idos))
 		dialog_progress.setMinimumWidth(480)
-		dialog_progress.setWindowTitle("Применение правил обрабоки данных")
+		dialog_progress.setWindowTitle("Применение правил обработки данных")
 
 		for index_ido, self._processing_ido in enumerate(idos):
 			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
@@ -233,38 +231,12 @@ class C80_FormFinactions(C70_FormFinactions):
 
 			record = C90_FinactionsRecord(self._processing_ido)
 			record.ApplyProcessingRulesReplaceText()
-			record.ApplyProcessingRulesDetectLabel()
 
 			self.LoadFinactionsRecord()
 
 		dialog_progress.setValue(dialog_progress.maximum())
 
 	# Сброс данных
-	def ResetLabels(self):
-		""" Сброс меток """
-		dy, dm          = self.workspace.DyDm()
-		idos: list[str] = self.finactions.IdosInDyDmDd(dy, dm)
-
-		if not idos: return
-		if not RequestConfirm("Сброс меток", f"Сброс меток для записей финдействий: {len(idos)}"): return
-
-		dialog_progress = QProgressDialog(self)
-		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
-		dialog_progress.setMaximum(len(idos))
-		dialog_progress.setMinimumWidth(480)
-		dialog_progress.setWindowTitle("Сброс меток")
-
-		for index_ido, self._processing_ido in enumerate(idos):
-			dialog_progress.setLabelText(f"Ожидает обработки: {dialog_progress.maximum() - dialog_progress.value()}")
-			dialog_progress.setValue(index_ido + 1)
-
-			record = C90_FinactionsRecord(self._processing_ido)
-			record.Labels([])
-
-			self.LoadFinactionsRecord()
-
-		dialog_progress.setValue(dialog_progress.maximum())
-
 	def ResetFinactionsByDm(self):
 		""" Сброс финдействий за месяц """
 		dy, dm          = self.workspace.DyDm()

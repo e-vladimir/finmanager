@@ -76,9 +76,9 @@ class C80_FormExport(C70_FormExport):
 				subdata_date    : str = f"{record_finactions.DdDmDyToString()}"
 				subdata_account : str = f"{finstruct_name}"
 				subdata_amount  : str = f"{record_finactions.Amount():.02f}"
-				subdata_note    : str = f"{record_finactions.Description()}"
+				subdata_description    : str = f"{record_finactions.Description()}"
 
-				data.append([subdata_date, subdata_account, subdata_amount, subdata_note])
+				data.append([subdata_date, subdata_account, subdata_amount, subdata_description])
 
 			file_name = f"{prefix}{finstruct_name}{postfix}"
 			file_path = self._options_finactions_folder.joinpath(file_name)

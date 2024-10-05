@@ -46,7 +46,7 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 
 		self.menu_finactions_record_header        : QMenu   = self.menu_finactions.addMenu(icon_grid_33, "Запись финдействий")
 		self.menu_finactions_record_open          : QAction = self.menu_finactions_record_header.addAction(icon_open,      "Открыть запись")
-		self.menu_finactions_record_edit_note     : QAction = self.menu_finactions_record_header.addAction(icon_edit,      "Редактировать примечание")
+		self.menu_finactions_record_edit_description     : QAction = self.menu_finactions_record_header.addAction(icon_edit,      "Редактировать описание")
 		self.menu_finactions_record_delete        : QAction = self.menu_finactions_record_header.addAction(icon_delete,    "Удалить запись")
 		self.menu_finactions_record_header.addSeparator()
 		self.menu_finactions_record_split         : QAction = self.menu_finactions_record_header.addAction(icon_arrow_l_r, "Разделить запись")
@@ -72,7 +72,5 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 		self.menu_finactions_tools_replace_text   : QAction = self.menu_finactions_tools_replace_header.addAction(icon_replace, "Замена текстового фрагмента")
 
 		self.menu_finactions_reset_header         : QMenu   = self.menu_finactions.addMenu(icon_reload, "Сброс данных")
-		self.menu_finactions_reset_all_labels     : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить метки всех записей")
-		self.menu_finactions_reset_header.addSeparator()
 		self.menu_finactions_reset_by_dm          : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить финдействия за месяц")
 		self.menu_finactions_reset_by_finstruct   : QAction = self.menu_finactions_reset_header.addAction(icon_reload,  "Сбросить финдействия по счёту")

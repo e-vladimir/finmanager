@@ -27,10 +27,10 @@ class C90_FormFinactionsRecord(C80_FormFinactionsRecord):
 
 		self.ShowAmount()
 
-		self.ShowSrcNote()
+		self.ShowSrcDescription()
 		self.ShowSrcAmount()
 
-		self.ShowNote()
+		self.ShowDescription()
 		self.ShowFinstruct()
 		self.ShowLabels()
 

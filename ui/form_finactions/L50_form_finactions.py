@@ -18,7 +18,7 @@ class C50_FormFinactions(C42_FormFinactions):
 	def on_RequestOpenFinactionsRecord(self): pass
 	def on_RequestDeleteFinactionsRecord(self): pass
 	def on_RequestSplitFinactionsRecord(self): pass
-	def on_RequestEditNoteFinactionsRecord(self): pass
+	def on_RequestEditDescriptionFinactionsRecord(self): pass
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self): pass
@@ -43,6 +43,5 @@ class C50_FormFinactions(C42_FormFinactions):
 	def on_RequestReplaceText(self): pass
 
 	# Сброс данных
-	def on_RequestResetLabels(self): pass
 	def on_RequestResetFinactionsByDm(self): pass
 	def on_RequestResetFinactionsByFinstruct(self): pass
