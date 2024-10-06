@@ -73,7 +73,7 @@ class C80_Finreports(C70_Finreports):
 		report.AppendH1("ОСТАТОК ПО СЧЕТАМ")
 		data   : list[list[str]] = []
 		header : list[str]       = ["Счёт", "Было", "Стало", "Изменение", "Поступило", "Списано"]
-		sizes  : list[int]       = [25, 15, 15, 15, 15, 15]
+		sizes  : list[int]       = [35, 13, 13, 13, 13, 13]
 		aligns : list[str]       = ["L", "R", "R", "R", "R", "R"]
 
 		for finstruct_name in self.finstruct.NamesInDyDm(self._dy, self._dm):
@@ -100,7 +100,7 @@ class C80_Finreports(C70_Finreports):
 
 		report.AppendH1("ФИНДЕЙСТВИЯ")
 		data   : list[list[str]] = []
-		header : list[str]       = ["Дата", "Сумма", "Счёт", "Примечание"]
+		header : list[str]       = ["Дата", "Сумма", "Счёт", "Описание"]
 		sizes  : list[int]       = [15, 10, 30, 45]
 		aligns : list[str]       = ["L", "R", "L", "L"]
 
