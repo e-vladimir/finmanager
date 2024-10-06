@@ -63,7 +63,6 @@ class C90_FormRules(C80_FormRules):
 		""" Запрос создания правила обработки данных """
 		match self._processing_type:
 			case RULES.REPLACE_TEXT: self.CreateRuleReplaceText()
-			case RULES.DETECT_LABELS: self.CreateRuleDetectLabels()
 			case _                 : return
 
 		self.LoadRules()
@@ -75,7 +74,6 @@ class C90_FormRules(C80_FormRules):
 		""" Запрос на редактирование входа """
 		match self._processing_type:
 			case RULES.REPLACE_TEXT: self.EditInputRuleReplaceText()
-			case RULES.DETECT_LABELS: self.EditInputRuleDetectLabels()
 			case _                 : return
 
 		self.LoadRulesRecord()
@@ -87,7 +85,6 @@ class C90_FormRules(C80_FormRules):
 		""" Запрос на редактирование выхода """
 		match self._processing_type:
 			case RULES.REPLACE_TEXT: self.EditOutputRuleReplaceText()
-			case RULES.DETECT_LABELS: self.EditOutputRuleDetectLabels()
 			case _                 : return
 
 		self.LoadRulesRecord()
@@ -99,7 +96,6 @@ class C90_FormRules(C80_FormRules):
 		""" Запрос на удаление  """
 		match self._processing_type:
 			case RULES.REPLACE_TEXT: self.DeleteRuleReplaceText()
-			case RULES.DETECT_LABELS: self.DeleteRuleDetectLabels()
 			case _                 : return
 
 		self.InitModelData()
