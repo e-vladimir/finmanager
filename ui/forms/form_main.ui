@@ -97,19 +97,6 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <widget class="QPushButton" name="btn_fincomposition">
-        <property name="minimumSize">
-         <size>
-          <width>120</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Финсостав</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="btn_rules">
         <property name="minimumSize">
          <size>
@@ -260,19 +247,6 @@
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_9">
-      <item>
-       <widget class="QPushButton" name="btn_finstatistics">
-        <property name="minimumSize">
-         <size>
-          <width>120</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>Финстатистика</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <spacer name="horizontalSpacer_7">
         <property name="orientation">

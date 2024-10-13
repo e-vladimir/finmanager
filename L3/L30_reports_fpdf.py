@@ -73,40 +73,34 @@ class C30_ProcessorReportsFpdf2(FPDF):
 		self.set_text_color(255, 255, 255)
 		self.set_fill_color(26, 26, 26)
 
-		cell_h_base = self._size_text * 0.35 + 1
-
 		widths       : list[float] = [(self.w - self._margin_l - self._margin_r) / len(header)] * len(header)
 		if column_sizes: widths    = [(self.w - self._margin_l - self._margin_r) * column_size / 100 for column_size in column_sizes]
 
 		aligns       : list[str]   = ["J"] * len(header)
 		if column_aligns: aligns   = column_aligns.copy()
 
+		line_height = self.font_size + 2
+
 		for column_index, header_item in enumerate(header):
 			cell_w : float = widths[column_index]
 
-			self.multi_cell(w = cell_w, h=cell_h_base, text=header_item, border=0, align=aligns[column_index], fill=True, new_y=YPos.LAST)
+			self.multi_cell(w = cell_w, h=line_height, text=header_item, border=0, align=aligns[column_index], fill=True, new_y=YPos.LAST)
 
 		self.ln()
 		self.set_draw_color(200, 200, 200)
 		self.set_text_color(  0,   0,   0)
+
 		for row in data:
-			cell_h_max : int = 1
+			row_y  = self.get_y()
 
 			for column_index, subdata in enumerate(row):
 				cell_w : float = widths[column_index]
-				text_w : float = self.get_string_width(subdata)
 
-				cell_h_max = max(cell_h_max, 1 + int(text_w // (cell_w - 1)))
+				self.multi_cell(w=cell_w, h=line_height, text=subdata, border=0, align=aligns[column_index], fill=False, new_y=YPos.LAST)
 
-			for column_index, subdata in enumerate(row):
-				cell_w : float = widths[column_index]
-				text_w : float = self.get_string_width(subdata)
-
-				self.multi_cell(w=cell_w, h=cell_h_base * (cell_h_max - text_w // (cell_w - 1)), text=subdata, border="B", align=aligns[column_index], fill=False, new_y=YPos.LAST)
+			self.line(self._margin_l, row_y, self.w - self._margin_r, row_y)
 
 			self.ln()
-
-		self.ln()
 
 	def AppendHeader(self):
 		""" Вставка верхнего колонтитула """

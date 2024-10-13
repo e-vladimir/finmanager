@@ -4,8 +4,8 @@ from PySide6.QtCore      import Qt, QModelIndex
 from PySide6.QtGui       import QColor
 
 from G11_convertor_data  import AmountToString
-from L00_colors import COLORS
 
+from L00_colors          import COLORS
 from L00_months          import MONTHS_SHORT
 from L20_PySide6         import ROLES, C20_StandardItem
 from L50_form_finactions import C50_FormFinactions
@@ -80,7 +80,7 @@ class C60_FormFinactions(C50_FormFinactions):
 	def InitModel(self):
 		""" Инициализация модели """
 		self.model_data.removeAll()
-		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт", "Примечание", "Метки"])
+		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт", "Описание"])
 
 	def LoadDd(self):
 		""" Загрузка дня """
@@ -96,7 +96,7 @@ class C60_FormFinactions(C50_FormFinactions):
 		item_dd                           = C20_StandardItem(dd_name)
 		item_parent                       = self.model_data.invisibleRootItem()
 
-		item_parent.appendRow([item_dd, C20_StandardItem(""), C20_StandardItem(""), C20_StandardItem("")])
+		item_parent.appendRow([item_dd, C20_StandardItem(""), C20_StandardItem("")])
 
 	def LoadFinactionsRecord(self):
 		""" Загрузка записи финдействий """
@@ -112,24 +112,21 @@ class C60_FormFinactions(C50_FormFinactions):
 		if     item_dd is None     : return
 
 		if item_amount is None:
-			item_amount     = C20_StandardItem(AmountToString(record.Amount(), flag_point=False, flag_sign=True), self._processing_ido, ROLES.ROLE_IDO, flag_align_right=True)
+			item_amount      = C20_StandardItem(AmountToString(record.Amount(), flag_point=False, flag_sign=True), self._processing_ido, ROLES.ROLE_IDO, flag_align_right=True)
 			item_amount.setCheckable(True)
 
-			item_finstruct  = C20_StandardItem("")
-			item_labels     = C20_StandardItem("")
-			item_note       = C20_StandardItem("")
+			item_finstruct   = C20_StandardItem("")
+			item_description = C20_StandardItem("")
 
-			item_dd.appendRow([item_amount, item_finstruct, item_note, item_labels])
+			item_dd.appendRow([item_amount, item_finstruct, item_description])
 		else:
 			index_row : int = item_amount.row()
 			item_finstruct  = item_dd.child(index_row, 1)
-			item_note       = item_dd.child(index_row, 2)
-			item_labels     = item_dd.child(index_row, 3)
+			item_description       = item_dd.child(index_row, 2)
 
 		item_amount.setText(AmountToString(record.Amount(), flag_point=False, flag_sign=True))
 		item_finstruct.setText('\n'.join(self.finstruct.IdosToNames(record.FinstructIdos())))
-		item_labels.setText(', '.join(record.Labels()))
-		item_note.setText(record.Note())
+		item_description.setText(record.Description())
 
 		color_black = QColor(  0,   0,   0)
 		color_gray  = QColor(200, 200, 200)

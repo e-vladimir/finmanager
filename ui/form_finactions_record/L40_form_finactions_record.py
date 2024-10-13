@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_finactions_recordkFXUlH.ui'
+## Form generated from reading UI file 'form_finactions_recordgTGspF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -17,9 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QGroupBox,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QMainWindow, QPlainTextEdit, QSizePolicy, QSpacerItem,
-    QSpinBox, QStatusBar, QTreeView, QVBoxLayout,
-    QWidget)
+    QMainWindow, QSizePolicy, QSpacerItem, QSpinBox,
+    QStatusBar, QTreeView, QVBoxLayout, QWidget)
 
 class Ui_form_finactions_record(object):
     def setupUi(self, form_finactions_record):
@@ -90,11 +89,11 @@ class Ui_form_finactions_record(object):
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(6, 6, 6, 6)
-        self.label_src_note = QLabel(self.group_src)
-        self.label_src_note.setObjectName(u"label_src_note")
-        self.label_src_note.setWordWrap(True)
+        self.label_src_description = QLabel(self.group_src)
+        self.label_src_description.setObjectName(u"label_src_description")
+        self.label_src_description.setWordWrap(True)
 
-        self.horizontalLayout_2.addWidget(self.label_src_note)
+        self.horizontalLayout_2.addWidget(self.label_src_description)
 
         self.label_src_amount = QLabel(self.group_src)
         self.label_src_amount.setObjectName(u"label_src_amount")
@@ -112,10 +111,10 @@ class Ui_form_finactions_record(object):
         self.verticalLayout.setSpacing(6)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(6, 6, 6, 6)
-        self.edit_note = QLineEdit(self.group_record)
-        self.edit_note.setObjectName(u"edit_note")
+        self.edit_description = QLineEdit(self.group_record)
+        self.edit_description.setObjectName(u"edit_description")
 
-        self.verticalLayout.addWidget(self.edit_note)
+        self.verticalLayout.addWidget(self.edit_description)
 
         self.tree_finstruct = QTreeView(self.group_record)
         self.tree_finstruct.setObjectName(u"tree_finstruct")
@@ -133,20 +132,7 @@ class Ui_form_finactions_record(object):
 
         self.verticalLayout.addWidget(self.tree_finstruct)
 
-        self.edit_labels = QPlainTextEdit(self.group_record)
-        self.edit_labels.setObjectName(u"edit_labels")
-        self.edit_labels.setStyleSheet(u"QPlainTextEdit {\n"
-"	border: 1px solid #CCCCCC;\n"
-"	border-radius: 3px;\n"
-"	padding: 1px;\n"
-"}")
-        self.edit_labels.setOverwriteMode(False)
-        self.edit_labels.setBackgroundVisible(False)
-
-        self.verticalLayout.addWidget(self.edit_labels)
-
         self.verticalLayout.setStretch(1, 2)
-        self.verticalLayout.setStretch(2, 1)
 
         self.verticalLayout_4.addWidget(self.group_record)
 
@@ -168,10 +154,9 @@ class Ui_form_finactions_record(object):
         self.cbbox_dy.setPlaceholderText(QCoreApplication.translate("form_finactions_record", u"2024", None))
         self.edit_amount.setSpecialValueText("")
         self.group_src.setTitle(QCoreApplication.translate("form_finactions_record", u"\u0418\u0421\u0425\u041e\u0414\u041d\u042b\u0415 \u0414\u0410\u041d\u041d\u042b\u0415", None))
-        self.label_src_note.setText(QCoreApplication.translate("form_finactions_record", u"\u041d\u0435\u0442 \u043f\u0440\u0438\u043c\u0435\u0447\u0430\u043d\u0438\u044f", None))
+        self.label_src_description.setText(QCoreApplication.translate("form_finactions_record", u"\u041d\u0435\u0442 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u044f", None))
         self.label_src_amount.setText(QCoreApplication.translate("form_finactions_record", u"+3927", None))
         self.group_record.setTitle(QCoreApplication.translate("form_finactions_record", u"\u0420\u0410\u0411\u041e\u0427\u0418\u0415 \u0414\u0410\u041d\u041d\u042b\u0415", None))
-        self.edit_note.setPlaceholderText(QCoreApplication.translate("form_finactions_record", u"\u0417\u0430\u043c\u0435\u0442\u043a\u0430", None))
-        self.edit_labels.setPlaceholderText(QCoreApplication.translate("form_finactions_record", u"\u041c\u0435\u0442\u043a\u0438", None))
+        self.edit_description.setPlaceholderText(QCoreApplication.translate("form_finactions_record", u"\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435", None))
     # retranslateUi
 

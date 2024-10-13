@@ -4,7 +4,6 @@ import pyexcel
 
 from   PySide6.QtCore       import QModelIndex
 
-from   G10_convertor_format import AnyToStrings
 from   L50_form_import      import C50_FormImport
 
 

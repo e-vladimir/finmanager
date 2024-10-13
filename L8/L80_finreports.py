@@ -4,11 +4,11 @@ from itertools          import product
 from pathlib            import Path
 
 from G11_convertor_data import AmountToString
-from L00_months import MONTHS_SHORT
 
+from L00_months         import MONTHS_SHORT
 from L30_reports_fpdf   import C30_ProcessorReportsFpdf2
 from L70_finreports     import C70_Finreports
-from L90_finactions import C90_FinactionsRecord
+from L90_finactions     import C90_FinactionsRecord
 from L90_finstructs     import C90_FinstructRecord
 
 
@@ -73,7 +73,7 @@ class C80_Finreports(C70_Finreports):
 		report.AppendH1("ОСТАТОК ПО СЧЕТАМ")
 		data   : list[list[str]] = []
 		header : list[str]       = ["Счёт", "Было", "Стало", "Изменение", "Поступило", "Списано"]
-		sizes  : list[int]       = [25, 15, 15, 15, 15, 15]
+		sizes  : list[int]       = [35, 13, 13, 13, 13, 13]
 		aligns : list[str]       = ["L", "R", "R", "R", "R", "R"]
 
 		for finstruct_name in self.finstruct.NamesInDyDm(self._dy, self._dm):
@@ -96,27 +96,11 @@ class C80_Finreports(C70_Finreports):
 
 		report.AppendTable(header, data, sizes, aligns)
 
-		report.AppendH1("СТАТИСТИКА ПО МЕТКАМ")
-		data   : list[list[str]] = []
-		header : list[str]       = ["Метка", "Поступило", "Списано"]
-		sizes  : list[int]       = [70, 15, 15]
-		aligns : list[str]       = ["L", "R", "R"]
-
-		data_raw                 = self.finstatistics.CaptureStatistic(self._dy, self._dm)
-
-		for label in sorted(data_raw.keys()):
-			data.append([f"{label}",
-			             f"{AmountToString(data_raw[label].income, flag_sign=True)}",
-			             f"{AmountToString(data_raw[label].outcome, flag_sign=True)}",
-			             ])
-
-		report.AppendTable(header, data, sizes, aligns)
-
 		report.AppendPage()
 
 		report.AppendH1("ФИНДЕЙСТВИЯ")
 		data   : list[list[str]] = []
-		header : list[str]       = ["Дата", "Сумма", "Счёт", "Примечание"]
+		header : list[str]       = ["Дата", "Сумма", "Счёт", "Описание"]
 		sizes  : list[int]       = [15, 10, 30, 45]
 		aligns : list[str]       = ["L", "R", "L", "L"]
 
@@ -125,7 +109,7 @@ class C80_Finreports(C70_Finreports):
 			data.append([f"{finactions_record.DdDmDyToString()}",
 			             f"{AmountToString(finactions_record.Amount(), flag_sign=True)}",
 			             f"{'\n'.join(self.finstruct.IdosToNames(finactions_record.FinstructIdos()))}",
-			             f"{finactions_record.Note()}",
+			             f"{finactions_record.Description()}",
 			             ])
 
 		report.AppendTable(header, data, sizes, aligns)

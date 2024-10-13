@@ -22,7 +22,7 @@ class C90_FormFinactions(C80_FormFinactions):
 		self.menu_finactions_record_open.triggered.connect(self.on_RequestOpenFinactionsRecord)
 		self.menu_finactions_record_delete.triggered.connect(self.on_RequestDeleteFinactionsRecord)
 		self.menu_finactions_record_split.triggered.connect(self.on_RequestSplitFinactionsRecord)
-		self.menu_finactions_record_edit_note.triggered.connect(self.on_RequestEditNoteFinactionsRecord)
+		self.menu_finactions_record_edit_description.triggered.connect(self.on_RequestEditDescriptionFinactionsRecord)
 
 		self.menu_finactions_colors_black.triggered.connect(self.on_RequestSetColorBlack)
 		self.menu_finactions_colors_gray.triggered.connect(self.on_RequestSetColorGray)
@@ -141,9 +141,9 @@ class C90_FormFinactions(C80_FormFinactions):
 
 		self.ProcessingTreeData_DbClick()
 
-	def on_RequestEditNoteFinactionsRecord(self):
+	def on_RequestEditDescriptionFinactionsRecord(self):
 		""" Запрос на редактирование примечания записи финдействий """
-		self.EditNoteFinactionsRecord()
+		self.EditDescriptionFinactionsRecord()
 
 		self.LoadFinactionsRecord()
 

@@ -68,59 +68,6 @@ class C80_FormRules(C70_FormRules):
 
 		record.DeleteObject(CONTAINER_LOCAL)
 
-	# Правило определения метки
-	def CreateRuleDetectLabels(self):
-		""" Создание правила определения меток """
-		if self._processing_type is None: return
-
-		labels : list[str] | None = RequestMultipleText("Создание правила", "Метки")
-		if labels is None: return
-
-		rule_record               = C90_ProcessingRulesRecord()
-		rule_record.GenerateIdo()
-		rule_record.RegisterObject(CONTAINER_LOCAL)
-		rule_record.Type(RULES.DETECT_LABELS)
-		rule_record.OptionsInputAsString("")
-		rule_record.OptionsOutputAsStrings(labels)
-
-	def EditInputRuleDetectLabels(self):
-		""" Редактирование фрагмента поиска определения меток """
-		if not self._processing_ido: return
-
-		record                   = C90_ProcessingRulesRecord(self._processing_ido)
-		labels : str             = ', '.join(record.OptionsOutputAsStrings())
-		labels                   = labels[:50]
-
-		texts : list[str] | None = RequestMultipleText("Правило определения меток", f"Поиск меток {labels}", record.OptionsInputAsStrings())
-		if texts is None: return
-
-		record.OptionsInputAsStrings(texts)
-
-	def EditOutputRuleDetectLabels(self):
-		""" Редактирование меток правила определения меток """
-		if not self._processing_ido: return
-
-		record                    = C90_ProcessingRulesRecord(self._processing_ido)
-		labels : str              = ', '.join(record.OptionsOutputAsStrings())
-		labels                    = labels[:50]
-
-		labels : list[str] | None = RequestMultipleText("Правило определения меток", f"Поиск меток {labels}", record.OptionsOutputAsStrings())
-		if labels is None: return
-
-		record.OptionsOutputAsStrings(labels)
-
-	def DeleteRuleDetectLabels(self):
-		""" Удаление правила определения меток """
-		if not self._processing_ido: return
-
-		record       = C90_ProcessingRulesRecord(self._processing_ido)
-		labels : str = ', '.join(record.OptionsOutputAsStrings())
-		labels       = labels[:50]
-
-		if not RequestConfirm("Удаление правила определения метки", f"Определение меток {labels}"): return
-
-		record.DeleteObject(CONTAINER_LOCAL)
-
 	# Сброс данных
 	def ResetRulesByType(self):
 		""" Сброс правил обработки данных """

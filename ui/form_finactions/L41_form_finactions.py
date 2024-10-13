@@ -46,7 +46,7 @@ class C41_FormFinactions(C20_PySideForm, Ui_frm_finactions):
 
 		self.menu_finactions_record_header        : QMenu   = self.menu_finactions.addMenu(icon_grid_33, "Запись финдействий")
 		self.menu_finactions_record_open          : QAction = self.menu_finactions_record_header.addAction(icon_open,      "Открыть запись")
-		self.menu_finactions_record_edit_note     : QAction = self.menu_finactions_record_header.addAction(icon_edit,      "Редактировать примечание")
+		self.menu_finactions_record_edit_description     : QAction = self.menu_finactions_record_header.addAction(icon_edit,      "Редактировать описание")
 		self.menu_finactions_record_delete        : QAction = self.menu_finactions_record_header.addAction(icon_delete,    "Удалить запись")
 		self.menu_finactions_record_header.addSeparator()
 		self.menu_finactions_record_split         : QAction = self.menu_finactions_record_header.addAction(icon_arrow_l_r, "Разделить запись")

@@ -31,20 +31,19 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 		record.Dd(self.Dd())
 
 		record.SrcAmount(self.SrcAmount())
-		record.SrcNote(self.SrcNote())
+		record.SrcDescription(self.SrcDescription())
 
 		record.Amount(amount)
 
-		record.Note(self.Note())
+		record.Description(self.Description())
 		record.FinstructIdos(self.FinstructIdos())
-		record.Labels(self.Labels())
 
 		return record.Ido().data
 
 	# Правила обработки данных
 	def ApplyProcessingRulesReplaceText(self):
 		""" Применить правила замены текстовых фрагментов """
-		note : str = self.Note()
+		description : str = self.Description()
 		rules      = C90_ProcessingRules()
 
 		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
@@ -55,33 +54,13 @@ class C80_FinactionsRecord(C70_FinactionsRecord):
 
 			for fragment_input in fragments_input:
 				if not fragment_input            : continue
-				if     fragment_input not in note: continue
+				if     fragment_input not in description: continue
 
-				note = note.replace(fragment_input, fragment_output)
+				description = description.replace(fragment_input, fragment_output)
 
-		if note == self.Note(): return
+		if description == self.Description(): return
 
-		self.Note(note)
-
-	def ApplyProcessingRulesDetectLabel(self):
-		""" Применить правила определения метки """
-		note   : str       = self.Note()
-		labels : set[str]  = set(self.Labels())
-		rules              = C90_ProcessingRules()
-
-		for ido_rule in rules.IdosByType(RULES.DETECT_LABELS):
-			rule                        = C90_ProcessingRulesRecord(ido_rule)
-			new_labels      : list[str] = rule.OptionsOutputAsStrings()
-			fragments_input : list[str] = rule.OptionsInputAsStrings()
-			fragments_input.sort(key=len)
-
-			for fragment_input in fragments_input:
-				if not fragment_input              : continue
-				if     fragment_input not in note  : continue
-
-				labels = labels.union(new_labels)
-
-		self.Labels(list(labels))
+		self.Description(description)
 
 
 class C80_Finactions(C70_Finactions):
@@ -134,17 +113,16 @@ class C80_Finactions(C70_Finactions):
 		record.Dy(dy)
 		record.Dm(dm)
 		record.Dd(dd)
-		record.SrcNote("")
+		record.SrcDescription("")
 		record.SrcAmount(0.00)
-		record.Note("")
+		record.Description("")
 		record.Amount(amount)
-		record.Labels([])
 		record.FinstructIdos([])
 		record.Color("")
 
 		return record.Ido().data
 
-	def ImportRecord(self, finstruct_ido: str, src_date_time: str, src_amount: str, src_note: str, src_control: str, control_dy: int = 0, control_dm: int = 0, control_dd: int = 0):
+	def ImportRecord(self, finstruct_ido: str, src_date_time: str, src_amount: str, src_description: str, src_control: str, control_dy: int = 0, control_dm: int = 0, control_dd: int = 0):
 		""" Импорт записи финдействий """
 		if not src_date_time: return
 
@@ -209,18 +187,16 @@ class C80_Finactions(C70_Finactions):
 		record.GenerateIdo()
 		record.RegisterObject(CONTAINER_LOCAL)
 
-		note = src_note.replace('  ', ' ')
+		description = src_description.replace('  ', ' ')
 
 		record.Dy(dy)
 		record.Dm(dm)
 		record.Dd(dd)
-		record.SrcNote(note)
+		record.SrcDescription(description)
 		record.SrcAmount(amount)
-		record.Note(note)
+		record.Description(description)
 		record.Amount(amount)
-		record.Labels([])
 		record.FinstructIdos([finstruct_ido])
 		record.Color("")
 
 		record.ApplyProcessingRulesReplaceText()
-		record.ApplyProcessingRulesDetectLabel()

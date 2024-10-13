@@ -47,20 +47,20 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 		""" Отображение суммы """
 		self.edit_amount.setValue(int(self.finactions_record.Amount()))
 
-	# Исходные данные: Примечание
-	def ShowSrcNote(self):
+	# Исходные данные: Описание
+	def ShowSrcDescription(self):
 		""" Отображение исходного примечания """
-		self.label_src_note.setText(self.finactions_record.SrcNote())
+		self.label_src_description.setText(self.finactions_record.SrcDescription())
 
 	# Исходные данные: Сумма
 	def ShowSrcAmount(self):
 		""" Отображение исходной суммы """
 		self.label_src_amount.setText(AmountToString(self.finactions_record.SrcAmount(), False, True))
 
-	# Рабочие данные: Примечание
-	def ShowNote(self):
+	# Рабочие данные: Описание
+	def ShowDescription(self):
 		""" Отображение рабочего примечания """
-		self.edit_note.setText(self.finactions_record.Note())
+		self.edit_description.setText(self.finactions_record.Description())
 
 	# Рабочие данные: Финструктура
 	def ShowFinstruct(self):
@@ -72,11 +72,6 @@ class C70_FormFinactionsRecord(C60_FormFinactionsRecord):
 			if item_record is None: continue
 
 			item_record.setCheckState(Qt.CheckState.Checked)
-
-	# Рабочие данные: Метки
-	def ShowLabels(self):
-		""" Отображение меток """
-		self.edit_labels.setPlainText('\n'.join(self.finactions_record.Labels()))
 
 	# Дерево финструктуры
 	def AdjustTreeDataExpand(self):

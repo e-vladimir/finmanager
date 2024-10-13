@@ -49,7 +49,6 @@ class C60_FormRules(C50_FormRules):
 
 		match self._processing_type:
 			case RULES.REPLACE_TEXT : index_column = 1
-			case RULES.DETECT_LABELS: index_column = 1
 
 		index_root                  = QModelIndex()
 		index_item                  = self.model_data.index(row, index_column, index_root)
@@ -71,7 +70,6 @@ class C60_FormRules(C50_FormRules):
 
 		match self._processing_type:
 			case RULES.REPLACE_TEXT: self.model_data.setHorizontalHeaderLabels(["Фрагмент поиска", "Фрагмент замены"])
-			case RULES.DETECT_LABELS: self.model_data.setHorizontalHeaderLabels(["Фрагмент поиска", "Метки"])
 
 	def LoadRulesRecord(self):
 		""" Загрузка правила обработки данных """
