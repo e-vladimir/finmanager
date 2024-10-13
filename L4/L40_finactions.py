@@ -16,10 +16,10 @@ class C40_FinactionsRecord(C30_StructFrame):
 		self.f_dm             = C30_StructField(self, "Месяц")
 		self.f_dd             = C30_StructField(self, "День")
 
-		self.f_src_note       = C30_StructField(self, "Исходное примечание")
+		self.f_src_note       = C30_StructField(self, "Исходное описание")
 		self.f_src_amount     = C30_StructField(self, "Исходная сумма")
 
-		self.f_note           = C30_StructField(self, "Примечание")
+		self.f_note           = C30_StructField(self, "Описание")
 		self.f_amount         = C30_StructField(self, "Сумма")
 
 		self.f_color          = C30_StructField(self, "Цветовая метка")
