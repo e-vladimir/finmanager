@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainoNjpim.ui'
+## Form generated from reading UI file 'form_mainieYvZb.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -123,17 +123,17 @@ class Ui_form_main(object):
 
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.btn_finstruct = QPushButton(self.centralwidget)
-        self.btn_finstruct.setObjectName(u"btn_finstruct")
-        self.btn_finstruct.setMinimumSize(QSize(120, 0))
+        self.btn_accounts = QPushButton(self.centralwidget)
+        self.btn_accounts.setObjectName(u"btn_accounts")
+        self.btn_accounts.setMinimumSize(QSize(120, 0))
 
-        self.horizontalLayout_5.addWidget(self.btn_finstruct)
+        self.horizontalLayout_5.addWidget(self.btn_accounts)
 
-        self.btn_finactions = QPushButton(self.centralwidget)
-        self.btn_finactions.setObjectName(u"btn_finactions")
-        self.btn_finactions.setMinimumSize(QSize(120, 0))
+        self.btn_transactions = QPushButton(self.centralwidget)
+        self.btn_transactions.setObjectName(u"btn_transactions")
+        self.btn_transactions.setMinimumSize(QSize(120, 0))
 
-        self.horizontalLayout_5.addWidget(self.btn_finactions)
+        self.horizontalLayout_5.addWidget(self.btn_transactions)
 
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -177,44 +177,6 @@ class Ui_form_main(object):
         self.verticalSpacer_8 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.verticalLayout.addItem(self.verticalSpacer_8)
-
-        self.horizontalLayout_17 = QHBoxLayout()
-        self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.label_8 = QLabel(self.centralwidget)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setFont(font)
-
-        self.horizontalLayout_17.addWidget(self.label_8)
-
-        self.line_10 = QFrame(self.centralwidget)
-        self.line_10.setObjectName(u"line_10")
-        self.line_10.setFrameShape(QFrame.Shape.HLine)
-        self.line_10.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.horizontalLayout_17.addWidget(self.line_10)
-
-        self.horizontalLayout_17.setStretch(1, 1)
-
-        self.verticalLayout.addLayout(self.horizontalLayout_17)
-
-        self.horizontalLayout_16 = QHBoxLayout()
-        self.horizontalLayout_16.setObjectName(u"horizontalLayout_16")
-        self.cbbox_reports = QComboBox(self.centralwidget)
-        self.cbbox_reports.setObjectName(u"cbbox_reports")
-        self.cbbox_reports.setMinimumSize(QSize(247, 0))
-
-        self.horizontalLayout_16.addWidget(self.cbbox_reports)
-
-        self.horizontalSpacer_11 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_16.addItem(self.horizontalSpacer_11)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_16)
-
-        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.verticalLayout.addItem(self.verticalSpacer_9)
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
@@ -271,12 +233,10 @@ class Ui_form_main(object):
         self.label.setText(QCoreApplication.translate("form_main", u"\u041a\u0410\u0422\u0410\u041b\u041e\u0413\u0418", None))
         self.btn_rules.setText(QCoreApplication.translate("form_main", u"\u041f\u0440\u0430\u0432\u0438\u043b\u0430", None))
         self.label_2.setText(QCoreApplication.translate("form_main", u"\u0414\u0410\u041d\u041d\u042b\u0415", None))
-        self.btn_finstruct.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430", None))
-        self.btn_finactions.setText(QCoreApplication.translate("form_main", u"\u0424\u0438\u043d\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f", None))
+        self.btn_accounts.setText(QCoreApplication.translate("form_main", u"\u0421\u0447\u0435\u0442\u0430", None))
+        self.btn_transactions.setText(QCoreApplication.translate("form_main", u"\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438", None))
         self.label_4.setText(QCoreApplication.translate("form_main", u"\u0410\u041d\u0410\u041b\u0418\u0422\u0418\u041a\u0410", None))
-        self.label_8.setText(QCoreApplication.translate("form_main", u"\u041e\u0422\u0427\u0401\u0422\u041d\u041e\u0421\u0422\u042c", None))
-        self.cbbox_reports.setPlaceholderText(QCoreApplication.translate("form_main", u"\u0414\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u0435 \u043e\u0442\u0447\u0451\u0442\u044b", None))
         self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))
-        self.btn_backup.setText(QCoreApplication.translate("form_main", u"\u041a\u043e\u043f\u0438\u0438 \u0434\u0430\u043d\u043d\u044b\u0445", None))
+        self.btn_backup.setText(QCoreApplication.translate("form_main", u"\u041a\u043e\u043f\u0438\u0438 \u0411\u0414", None))
     # retranslateUi
 

@@ -166,7 +166,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QPushButton" name="btn_finstruct">
+       <widget class="QPushButton" name="btn_accounts">
         <property name="minimumSize">
          <size>
           <width>120</width>
@@ -174,12 +174,12 @@
          </size>
         </property>
         <property name="text">
-         <string>Финструктура</string>
+         <string>Счета</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_finactions">
+       <widget class="QPushButton" name="btn_transactions">
         <property name="minimumSize">
          <size>
           <width>120</width>
@@ -187,7 +187,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Финдействия</string>
+         <string>Операции</string>
         </property>
        </widget>
       </item>
@@ -279,75 +279,6 @@
      </spacer>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="0,1">
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="font">
-         <font>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>ОТЧЁТНОСТЬ</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="Line" name="line_10">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_16">
-      <item>
-       <widget class="QComboBox" name="cbbox_reports">
-        <property name="minimumSize">
-         <size>
-          <width>247</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="placeholderText">
-         <string>Доступные отчёты</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_11">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <spacer name="verticalSpacer_9">
-      <property name="orientation">
-       <enum>Qt::Orientation::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Policy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1">
       <item>
        <widget class="QLabel" name="label_3">
@@ -381,7 +312,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Копии данных</string>
+         <string>Копии БД</string>
         </property>
        </widget>
       </item>

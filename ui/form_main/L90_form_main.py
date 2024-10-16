@@ -17,13 +17,10 @@ class C90_FormMain(C80_FormMain):
 		self.cbbox_dm.activated.connect(self.on_RequestSetDyDm)
 
 		# Панель форм
-		self.btn_finstruct.clicked.connect(self.on_RequestOpenFinstruct)
-		self.btn_finactions.clicked.connect(self.on_RequestOpenFinactions)
+		self.btn_accounts.clicked.connect(self.on_RequestOpenFinstruct)
+		self.btn_transactions.clicked.connect(self.on_RequestOpenFinactions)
 		self.btn_rules.clicked.connect(self.on_RequestOpenRules)
 		self.btn_backup.clicked.connect(self.on_RequestOpenBackups)
-
-		# Панель отчётности
-		self.cbbox_reports.activated.connect(self.on_RequestReport)
 
 	# Форма
 	def on_Show(self):
@@ -32,8 +29,6 @@ class C90_FormMain(C80_FormMain):
 
 		self.FillCbboxDm()
 		self.FillCbboxDy()
-
-		self.FillCbbReports()
 
 		self.ShowDm()
 		self.ShowDy()
