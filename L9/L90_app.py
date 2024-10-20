@@ -8,4 +8,12 @@ class C90_Application(C80_Application):
 
 	def on_Init(self):
 		""" Инициализация приложения """
+		super().on_Init()
+
 		self.InitBackups()
+
+	def on_Start(self):
+		""" Запуск приложения """
+		super().on_Start()
+
+		self.form_main.Open()

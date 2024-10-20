@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>form_backup</class>
- <widget class="QMainWindow" name="form_backup">
+ <class>form_backups</class>
+ <widget class="QMainWindow" name="form_backups">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,26 +14,18 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="0">
-    <property name="spacing">
-     <number>3</number>
-    </property>
-    <property name="leftMargin">
-     <number>3</number>
-    </property>
-    <property name="topMargin">
-     <number>3</number>
-    </property>
-    <property name="rightMargin">
-     <number>3</number>
-    </property>
-    <property name="bottomMargin">
-     <number>3</number>
-    </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QListView" name="list_data">
       <property name="contextMenuPolicy">
        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QListView {
+border: 1px solid lightgray;
+border-radius: 5px;
+padding: 1px;
+}</string>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
