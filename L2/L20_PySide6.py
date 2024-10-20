@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 29 сен 2024
+# 14 окт 2024
 
 import enum
 
@@ -29,9 +29,10 @@ from   PySide6.QtWidgets import (QApplication,
 
 
 class ROLES(enum.IntEnum):
-	ROLE_IDO               = 100
-	ROLE_VISUAL_STYLE_CELL = 200
-	ROLE_VISUAL_STYLE_ROW  = 201
+	TEXT              = Qt.ItemDataRole.DisplayRole
+	IDO               = 100
+	VISUAL_STYLE_CELL = 200
+	VISUAL_STYLE_ROW  = 201
 
 
 class VISUAL_STYLE(enum.StrEnum):
@@ -196,7 +197,7 @@ class C20_PySideForm(QMainWindow):
 
 # UI-Компоненты
 class C20_DiaFrame(QWidget):
-	""" UI-компонент диаграмма """
+	""" UI-компонент область отрисовки """
 	def DrawBackground(self, painter: QPainter):
 		pass
 
@@ -249,7 +250,7 @@ class QMultipleItemsInputDialog(QDialog):
 		btn_box.accepted.connect(self.accept)
 		btn_box.rejected.connect(self.reject)
 
-	def itemsSelected(self) -> list[str]:
+	def selectedItems(self) -> list[str]:
 		result : list[str] = []
 
 		for index_row in range(self.list_items.count()):
@@ -570,7 +571,7 @@ class C20_StandardItemModel(QStandardItemModel):
 
 			item_child.setFont(font_item)
 
-	def setGroupsView(self, flag_only_top: bool = True, flag_setup_h: bool = True, flag_apply_bg: bool = False):
+	def adjustGroupView(self, flag_only_top: bool = True, flag_setup_h: bool = True, flag_apply_bg: bool = False):
 		""" Настройка отображения групп """
 		color_bg_top = QColor(220, 220, 220)
 		color_bg     = QColor(235, 235, 235)
@@ -663,7 +664,7 @@ class C20_StandardItemModel(QStandardItemModel):
 
 
 class C20_StandardItem(QStandardItem):
-	def __init__(self, title: str, data = "", data_role : int | ROLES = ROLES.ROLE_IDO, flag_align_right : bool = False, flag_bold: bool = False, flag_checked : bool = None):
+	def __init__(self, title: str, data = "", data_role : int | ROLES = ROLES.IDO, flag_align_right : bool = False, flag_bold: bool = False, flag_checked : bool = None):
 		"""  """
 		super().__init__()
 
