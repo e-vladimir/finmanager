@@ -15,6 +15,7 @@ class C90_FormArchives(C80_FormArchives):
 		# Меню архива данных
 		self.menu_archives_copy_to_archive.triggered.connect(self.on_RequestCopyDataToArchive)
 		self.menu_archive_copy_from_archive.triggered.connect(self.on_RequestCopyDataFromArchive)
+		self.menu_archive_delete.triggered.connect(self.on_RequestDeleteArchive)
 
 	# Форма
 	def on_Open(self):
@@ -45,3 +46,10 @@ class C90_FormArchives(C80_FormArchives):
 
 	def on_RequestCopyDataFromArchive(self):
 		self.CopyDataFromArchive()
+
+	def on_RequestDeleteArchive(self):
+		""" Запрос на удаление архива данных """
+		self.DeleteArchive()
+
+		self.InitModelData()
+		self.LoadModelData()

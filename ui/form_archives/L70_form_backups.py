@@ -1,7 +1,10 @@
 # ФОРМА АРХИВЫ ДАННЫХ: МЕХАНИКА УПРАВЛЕНИЯ
+import os
+from pathlib          import Path
 
 from PySide6.QtGui    import QCursor
 
+from L20_PySide6      import ShowMessage
 from L60_form_backups import C60_FormArchives
 
 
@@ -32,3 +35,22 @@ class C70_FormArchives(C60_FormArchives):
 	def ShowMenuArchives(self):
 		""" Отображение меню архива данных """
 		self.menu_data.exec_(QCursor().pos())
+
+	# Архив данных
+	def CopyDataFromArchive(self):
+		""" Копирование данных из архива """
+		if not self.application.CopyDataFromArchive(self._processing_filename): return
+
+		ShowMessage("Архив данных", f"Копирование данных от {self._processing_name} из архива завершено.")
+
+	def DeleteArchive(self):
+		""" Удаление архива данных """
+		path_archives : Path = self.application._path_common.joinpath("archives")
+		path_archive  : Path = path_archives.joinpath(self._processing_filename)
+
+		if not path_archive.exists(): return
+
+		try   : os.remove(path_archive)
+		except: pass
+
+		ShowMessage("Архив данных", f"Архив данных от {self._processing_name} удалён.")
