@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>form_backups</class>
- <widget class="QMainWindow" name="form_backups">
+ <class>form_archives</class>
+ <widget class="QMainWindow" name="form_archives">
   <property name="geometry">
    <rect>
     <x>0</x>

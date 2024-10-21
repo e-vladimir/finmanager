@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_backupsdCKWzG.ui'
+## Form generated from reading UI file 'form_archivesvTqFon.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -18,12 +18,12 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QListView, QMainWindow,
     QSizePolicy, QStatusBar, QVBoxLayout, QWidget)
 
-class Ui_form_backups(object):
-    def setupUi(self, form_backups):
-        if not form_backups.objectName():
-            form_backups.setObjectName(u"form_backups")
-        form_backups.resize(480, 640)
-        self.centralwidget = QWidget(form_backups)
+class Ui_form_archives(object):
+    def setupUi(self, form_archives):
+        if not form_archives.objectName():
+            form_archives.setObjectName(u"form_archives")
+        form_archives.resize(480, 640)
+        self.centralwidget = QWidget(form_archives)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -41,17 +41,17 @@ class Ui_form_backups(object):
 
         self.verticalLayout.addWidget(self.list_data)
 
-        form_backups.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(form_backups)
+        form_archives.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(form_archives)
         self.statusbar.setObjectName(u"statusbar")
-        form_backups.setStatusBar(self.statusbar)
+        form_archives.setStatusBar(self.statusbar)
 
-        self.retranslateUi(form_backups)
+        self.retranslateUi(form_archives)
 
-        QMetaObject.connectSlotsByName(form_backups)
+        QMetaObject.connectSlotsByName(form_archives)
     # setupUi
 
-    def retranslateUi(self, form_backups):
-        form_backups.setWindowTitle(QCoreApplication.translate("form_backups", u"MainWindow", None))
+    def retranslateUi(self, form_archives):
+        form_archives.setWindowTitle(QCoreApplication.translate("form_archives", u"MainWindow", None))
     # retranslateUi
 

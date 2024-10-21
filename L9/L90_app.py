@@ -10,7 +10,7 @@ class C90_Application(C80_Application):
 		""" Инициализация приложения """
 		super().on_Init()
 
-		self.InitBackups()
+		self.InitArchives()
 
 	def on_Start(self):
 		""" Запуск приложения """

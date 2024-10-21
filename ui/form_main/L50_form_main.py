@@ -7,4 +7,4 @@ class C50_FormMain(C42_FormMain):
 	""" Форма Основная: Модель событий """
 
 	# Переход в другие формы
-	def on_RequestOpenFormBackups(self): pass
+	def on_RequestOpenFormArchives(self): pass

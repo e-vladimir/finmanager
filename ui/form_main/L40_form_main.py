@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_maindrXUEN.ui'
+## Form generated from reading UI file 'form_mainKYjkGw.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -81,11 +81,11 @@ class Ui_form_main(object):
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.btn_backups = QPushButton(self.centralwidget)
-        self.btn_backups.setObjectName(u"btn_backups")
-        self.btn_backups.setMinimumSize(QSize(120, 0))
+        self.btn_archives = QPushButton(self.centralwidget)
+        self.btn_archives.setObjectName(u"btn_archives")
+        self.btn_archives.setMinimumSize(QSize(120, 0))
 
-        self.horizontalLayout_7.addWidget(self.btn_backups)
+        self.horizontalLayout_7.addWidget(self.btn_archives)
 
         self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -114,6 +114,6 @@ class Ui_form_main(object):
         self.btn_dm_prev.setText("")
         self.btn_dm_next.setText("")
         self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))
-        self.btn_backups.setText(QCoreApplication.translate("form_main", u"\u0410\u0440\u0445\u0438\u0432 \u0434\u0430\u043d\u043d\u044b\u0445", None))
+        self.btn_archives.setText(QCoreApplication.translate("form_main", u"\u0410\u0440\u0445\u0438\u0432\u044b \u0434\u0430\u043d\u043d\u044b\u0445", None))
     # retranslateUi
 

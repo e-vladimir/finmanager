@@ -13,22 +13,37 @@ class C60_Application(C50_Application):
 	""" Приложение: Механика данных """
 
 	# Каталоги
-	def InitBackups(self):
+	def InitArchives(self):
 		""" Инициализация архива данных """
-		path_backups : Path = self._path_common.joinpath("backups")
+		path_archives : Path = self._path_common.joinpath("archives")
 
-		if path_backups.exists(): return
+		if path_archives.exists(): return
 
-		mkdir(path_backups)
+		mkdir(path_archives)
 
-	def CreateBackup(self):
+	def CopyDataToArchive(self):
 		""" Создание архива данных """
 		path_data    : Path = self._path_common.joinpath("data.sqlite")
-		path_backups : Path = self._path_common.joinpath("backups")
-		path_backup  : Path = path_backups.joinpath(f"{CurrentUTime()}.7z")
+		path_archives : Path = self._path_common.joinpath("archives")
+		path_archive  : Path = path_archives.joinpath(f"{CurrentUTime()}.7z")
 
 		if not path_data.exists(): return
 
-		cmd          : str  = f"7z a {path_backup} {path_data}"
+		cmd          : str  = f"7z a {path_archive} {path_data}"
 
 		ExecSingleCmdInShell(cmd)
+
+	def CopyDataFromArchive(self, filename: str) -> bool:
+		""" Восстановление из архива данных """
+		if not filename: return False
+
+		path_archives : Path = self._path_common.joinpath("archives")
+		path_archive  : Path = path_archives.joinpath(filename)
+
+		if not path_archive.exists(): return False
+
+		cmd          : str  = f"7z x -y -o{self._path_common} {path_archive}"
+
+		ExecSingleCmdInShell(cmd)
+
+		return True

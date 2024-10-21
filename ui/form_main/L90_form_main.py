@@ -10,9 +10,9 @@ class C90_FormMain(C80_FormMain):
 		super().InitEvents()
 
 		# Панель Утилиты
-		self.btn_backups.clicked.connect(self.on_RequestOpenFormBackups)
+		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
 
 	# Переход в другие формы
-	def on_RequestOpenFormBackups(self):
+	def on_RequestOpenFormArchives(self):
 		""" Запрос на открытие формы Архив данных """
-		self.application.form_backups.Open()
+		self.application.form_archives.Open()

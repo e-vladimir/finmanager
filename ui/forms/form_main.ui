@@ -104,7 +104,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
-       <widget class="QPushButton" name="btn_backups">
+       <widget class="QPushButton" name="btn_archives">
         <property name="minimumSize">
          <size>
           <width>120</width>
@@ -112,7 +112,7 @@
          </size>
         </property>
         <property name="text">
-         <string>Архив данных</string>
+         <string>Архивы данных</string>
         </property>
        </widget>
       </item>
