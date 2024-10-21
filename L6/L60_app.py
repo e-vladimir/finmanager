@@ -2,24 +2,38 @@
 
 import datetime
 
-from os                   import  mkdir
-from pathlib              import  Path
+from os                               import  mkdir
+from pathlib                          import  Path
 
-from G10_convertor_format import  UTimeToDTime
-from G10_datetime         import (CurrentUTime,
-                                  CurrentDy,
-                                  CurrentDm,
-                                  CurrentDd)
-from G10_files            import  FileNamesInDirectory
-from G10_shell_os         import  ExecSingleCmdInShell
+from G10_convertor_format             import  UTimeToDTime
+from G10_datetime                     import (CurrentUTime,
+                                              CurrentDy,
+			                                  CurrentDm,
+			                                  CurrentDd)
+from G10_files                        import  FileNamesInDirectory
+from G10_shell_os                     import  ExecSingleCmdInShell
+from G30_cactus_controller_containers import  controller_containers
 
-from L50_app              import  C50_Application
+from L00_containers                   import  CONTAINERS
+from L50_app                          import  C50_Application
 
 
 class C60_Application(C50_Application):
 	""" Приложение: Механика данных """
 
-	# Каталоги
+	# Контейнеры
+	def InitContainers(self):
+		""" Инициализация контейнеров """
+		controller_containers.RegisterContainerRAM(CONTAINERS.MEMORY)
+		controller_containers.RegisterContainerSQLite(CONTAINERS.DISK)
+
+	def SetupContainers(self):
+		""" Настройка контейнеров """
+		container_disk = controller_containers.Container(CONTAINERS.DISK)
+		container_disk.OptionsFilename("data")
+		container_disk.Connect()
+
+	# Архивы данных
 	def InitArchives(self):
 		""" Инициализация архива данных """
 		path_archives : Path = self._path_common.joinpath("archives")

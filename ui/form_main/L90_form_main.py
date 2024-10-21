@@ -12,6 +12,13 @@ class C90_FormMain(C80_FormMain):
 		# Панель Утилиты
 		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
 
+	# Форма
+	def on_Open(self):
+		""" Открытие формы """
+		super().on_Open()
+
+		self.AdjustBtnDyDm_Text()
+
 	# Переход в другие формы
 	def on_RequestOpenFormArchives(self):
 		""" Запрос на открытие формы Архив данных """
