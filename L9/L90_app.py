@@ -11,6 +11,7 @@ class C90_Application(C80_Application):
 		super().on_Init()
 
 		self.InitArchives()
+		self.CopyDataToArchive(True)
 
 	def on_Start(self):
 		""" Запуск приложения """
