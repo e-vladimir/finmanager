@@ -1,5 +1,7 @@
 # РАБОЧЕЕ ПРОСТРАНСТВО: МЕХАНИКА ДАННЫХ
 
+from G10_datetime   import CalcDyDmByShiftDm
+
 from L00_containers import CONTAINERS
 from L50_workspace  import C50_Workspace
 
@@ -22,3 +24,18 @@ class C60_Workspace(C50_Workspace):
 		""" Месяц """
 		if month is None: return self.f_dm.ToInteger(CONTAINERS.DISK).data
 		else            :        self.f_dm.FromInteger(CONTAINERS.DISK, month)
+
+	# Смещение рабочего периода
+	def ShiftDmToNext(self):
+		""" Смещение рабочего периода в следующий месяц """
+		dy, dm = CalcDyDmByShiftDm(self.Dy(), self.Dm(), 1)
+
+		self.Dy(dy)
+		self.Dm(dm)
+
+	def ShiftDmToPrev(self):
+		""" Смещение рабочего периода в предыдущий месяц """
+		dy, dm = CalcDyDmByShiftDm(self.Dy(), self.Dm(), -1)
+
+		self.Dy(dy)
+		self.Dm(dm)
