@@ -9,6 +9,10 @@ class C90_FormMain(C80_FormMain):
 	def InitEvents(self):
 		super().InitEvents()
 
+		# Панель рабочего периода
+		self.btn_dm_next.clicked.connect(self.on_RequestShiftDmToNext)
+		self.btn_dm_prev.clicked.connect(self.on_RequestShiftDmToPrev)
+
 		# Панель Утилиты
 		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
 
@@ -23,3 +27,16 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFormArchives(self):
 		""" Запрос на открытие формы Архив данных """
 		self.application.form_archives.Open()
+
+	# Панель рабочего периода
+	def on_RequestShiftDmToNext(self):
+		""" Запрос на смещение рабочего периода в следующий месяц """
+		self.workspace.ShiftDmToNext()
+
+		self.AdjustBtnDyDm_Text()
+
+	def on_RequestShiftDmToPrev(self):
+		""" Запрос на смещение рабочего периода в предыдущий месяц """
+		self.workspace.ShiftDmToPrev()
+
+		self.AdjustBtnDyDm_Text()

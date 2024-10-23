@@ -8,3 +8,7 @@ class C50_FormMain(C42_FormMain):
 
 	# Переход в другие формы
 	def on_RequestOpenFormArchives(self): pass
+
+	# Панель рабочего периода
+	def on_RequestShiftDmToPrev(self): pass
+	def on_RequestShiftDmToNext(self): pass

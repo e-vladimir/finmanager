@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainKYjkGw.ui'
+## Form generated from reading UI file 'form_mainCmDEIN.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -43,11 +43,15 @@ class Ui_form_main(object):
 
         self.btn_dm_prev = QPushButton(self.centralwidget)
         self.btn_dm_prev.setObjectName(u"btn_dm_prev")
+        self.btn_dm_prev.setMinimumSize(QSize(32, 0))
+        self.btn_dm_prev.setMaximumSize(QSize(48, 16777215))
 
         self.horizontalLayout.addWidget(self.btn_dm_prev)
 
         self.btn_dm_next = QPushButton(self.centralwidget)
         self.btn_dm_next.setObjectName(u"btn_dm_next")
+        self.btn_dm_next.setMinimumSize(QSize(32, 0))
+        self.btn_dm_next.setMaximumSize(QSize(48, 16777215))
 
         self.horizontalLayout.addWidget(self.btn_dm_next)
 

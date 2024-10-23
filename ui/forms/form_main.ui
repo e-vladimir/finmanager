@@ -48,6 +48,18 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_dm_prev">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>48</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -55,6 +67,18 @@
       </item>
       <item>
        <widget class="QPushButton" name="btn_dm_next">
+        <property name="minimumSize">
+         <size>
+          <width>32</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>48</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string/>
         </property>

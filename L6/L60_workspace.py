@@ -17,32 +17,30 @@ class C60_Workspace(C50_Workspace):
 	# Параметры
 	def Dy(self, year: int = None) -> int:
 		""" Год """
-		if year is None: return self.f_dy.ToInteger(CONTAINERS.DISK).data
-		else           :        self.f_dy.FromInteger(CONTAINERS.DISK, year)
+		if year is None: return self.f_dy.ToInteger(CONTAINERS.MEMORY).data
+		else           :        self.f_dy.FromInteger(CONTAINERS.MEMORY, year)
 
 	def Dm(self, month: int = None) -> int:
 		""" Месяц """
-		if month is None: return self.f_dm.ToInteger(CONTAINERS.DISK).data
-		else            :        self.f_dm.FromInteger(CONTAINERS.DISK, month)
+		if month is None: return self.f_dm.ToInteger(CONTAINERS.MEMORY).data
+		else            :        self.f_dm.FromInteger(CONTAINERS.MEMORY, month)
 
 	# Смещение рабочего периода
 	def ShiftDmToNext(self):
 		""" Смещение рабочего периода в следующий месяц """
 		dy, dm = CalcDyDmByShiftDm(self.Dy(), self.Dm(), 1)
 
-		self.Dy(dy)
-		self.Dm(dm)
+		self.DyDm(dy, dm)
 
 	def ShiftDmToPrev(self):
 		""" Смещение рабочего периода в предыдущий месяц """
 		dy, dm = CalcDyDmByShiftDm(self.Dy(), self.Dm(), -1)
 
-		self.Dy(dy)
-		self.Dm(dm)
+		self.DyDm(dy, dm)
 
 	def DyDm(self, year: int = None, month: int = None) -> [int, int]:
 		""" Смещение рабочего периода на произвольный месяц """
-		if   year  is     None or month is None: return self.Dy(), self.Dm()
-		else                                   :
-			if year  is not None: self.Dy(year)
-			if month is not None: self.Dm(month)
+		if year  is     None or month is None: return self.Dy(), self.Dm()
+
+		if year  is not None                 : self.Dy(year)
+		if month is not None                 : self.Dm(month)
