@@ -12,3 +12,4 @@ class C50_FormMain(C42_FormMain):
 	# Панель рабочего периода
 	def on_RequestShiftDmToPrev(self): pass
 	def on_RequestShiftDmToNext(self): pass
+	def on_RequestSetDyDm(self): pass

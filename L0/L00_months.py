@@ -22,9 +22,15 @@ class MONTHS(enum.Enum):
 	NOV = 11
 	DEC = 12
 
-	def __str__(self) -> str:
-		return self.name_s
-
 	def __init__(self, code: int):
 		self.code   = code
 		self.name_s = MONTHS_S[code]
+
+	def __str__(self) -> str:
+		return self.name_s
+
+	@classmethod
+	def FindByNameS(cls, text: str) -> 'MONTHS':
+		""" Поиск по имени """
+		try   : return MONTHS(MONTHS_S.index(text))
+		except: raise
