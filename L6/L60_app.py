@@ -57,7 +57,7 @@ class C60_Application(C50_Application):
 		if not path_data.exists(): return
 
 		cmd          : str  = f"7z a {path_archive} {path_data}"
-		result_skip  : bool = not flag_skip_by_dd
+		result_skip  : bool = False and flag_skip_by_dd
 
 		if flag_skip_by_dd:
 			current_dy : int = CurrentDy()
@@ -88,6 +88,9 @@ class C60_Application(C50_Application):
 		""" Восстановление из архива данных """
 		if not filename: return False
 
+		container = controller_containers.Container(CONTAINERS.DISK)
+		container.Disconnect()
+
 		path_archives : Path = self._path_common.joinpath("archives")
 		path_archive  : Path = path_archives.joinpath(filename)
 
@@ -96,5 +99,7 @@ class C60_Application(C50_Application):
 		cmd          : str  = f"7z x -y -o{self._path_common} {path_archive}"
 
 		ExecSingleCmdInShell(cmd)
+
+		container.Connect()
 
 		return True
