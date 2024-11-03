@@ -10,3 +10,11 @@ class C90_FormAccounts(C80_FormAccounts):
 		super().on_Open()
 
 		self.ShowTitle()
+
+		self.InitModelData()
+		self.ShowAccounts()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()

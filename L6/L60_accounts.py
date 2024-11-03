@@ -1,7 +1,7 @@
 # СЧЕТА: МЕХАНИКА ДАННЫХ
 
 from L00_containers import CONTAINERS
-from L50_accounts   import C50_AccountStruct, C50_AccountGroup, C50_Account
+from L50_accounts   import C50_AccountsStruct, C50_AccountsGroup, C50_Account
 
 
 class C60_Account(C50_Account):
@@ -29,11 +29,11 @@ class C60_Account(C50_Account):
 		else            :        self.f_group.FromString(CONTAINERS.DISK, text)
 
 
-class C60_AccountGroup(C50_AccountGroup):
+class C60_AccountsGroup(C50_AccountsGroup):
 	""" Группа счетов: Механика данных """
 	pass
 
 
-class C60_AccountStruct(C50_AccountStruct):
+class C60_AccountsStruct(C50_AccountsStruct):
 	""" Структура счетов: Механика данных """
 	pass

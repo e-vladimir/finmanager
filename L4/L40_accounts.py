@@ -20,11 +20,11 @@ class C40_Account(C31_StructFrameWithEvents):
 		self.f_group = C30_StructField(self, "Группа счетов")
 
 
-class C40_AccountGroup(C20_MetaFrame):
+class C40_AccountsGroup(C20_MetaFrame):
 	""" Группа счетов: Модель данных """
 	pass
 
 
-class C40_AccountStruct(C20_MetaFrame):
+class C40_AccountsStruct(C20_MetaFrame):
 	""" Структура счетов: Модель данных """
 	pass
