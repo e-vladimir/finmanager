@@ -22,9 +22,11 @@ class C80_FormAccounts(C70_FormAccounts):
 		""" Смена наименования группы счетов """
 		self.accounts_group.ProcessingGroup(self._processing_group)
 
-		dy, dm                  = self.workspace.DyDm()
+		dy, dm                    = self.workspace.DyDm()
 
-		group_name : str | None = RequestText("Переименовывание группы счетов", self._processing_group, self._processing_group)
+		groups_names : list[str]  = self.accounts_struct.GroupsNamesInDyDm(dy, dm)
+		group_name   : str | None = self._processing_group
+		group_name   : str | None = RequestText("Переименовывание группы счетов", group_name, group_name, groups_names)
 		if group_name is None: return
 
 		self.accounts_group.Rename(dy, dm, group_name)
