@@ -12,8 +12,9 @@ class C42_FormAccounts(C41_FormAccounts):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_name : str = ""
-		self._processing_ido  : str = ""
+		self._processing_name  : str = ""
+		self._processing_group : str = ""
+		self._processing_ido   : str = ""
 
 	def Init_10(self):
 		super().Init_10()

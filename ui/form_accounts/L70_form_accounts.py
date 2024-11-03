@@ -1,6 +1,6 @@
 # ФОРМА СЧЕТА: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtGui     import Qt
+from PySide6.QtGui     import Qt, QCursor
 
 from L60_form_accounts import C60_FormAccounts
 
@@ -29,3 +29,16 @@ class C70_FormAccounts(C60_FormAccounts):
 	def AdjustTreeData_Expand(self):
 		""" Дерево данных: Настройка раскрытия структуры """
 		self.tree_data.expandAll()
+
+	# Меню Счета
+	def AdjustMenuAccounts_Text(self):
+		""" Меню Счета: Настройка наименования """
+		pass
+
+	def AdjustMenuAccounts_Enable(self):
+		""" Меню Счета: Настройка доступности """
+		pass
+
+	def ShowMenuAccounts(self):
+		""" Отображение меню Счета """
+		self.menu_accounts.exec_(QCursor().pos())
