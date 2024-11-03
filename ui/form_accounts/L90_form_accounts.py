@@ -14,6 +14,7 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Структура счетов
 		self.menu_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
+		self.menu_accounts_struct_reset.triggered.connect(self.on_RequestResetData)
 
 		# Группа счетов
 		self.menu_account_group_rename.triggered.connect(self.on_RequestRenameAccountsGroup)
@@ -58,6 +59,18 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		self.LoadAccountsGroup()
 		self.LoadAccount()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestResetData(self):
+		""" Запрос сброса данных """
+		self.ResetData()
+
+		self.InitModelData()
+		self.ShowAccounts()
 
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Sort()

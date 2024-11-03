@@ -17,6 +17,31 @@ class C80_FormAccounts(C70_FormAccounts):
 		for self._processing_group in self.accounts_struct.GroupsNamesInDyDm(dy, dm) : self.LoadAccountsGroup()
 		for self._processing_ido   in self.accounts_struct.AccountsIdosInDyDm(dy, dm): self.LoadAccount()
 
+	# Структура счётов
+	def CreateAccount(self):
+		""" Создание счёта в структуре счетов """
+		dy, dm                    = self.workspace.DyDm()
+		groups_names : list[str]  = self.accounts_struct.GroupsNamesInDyDm(dy, dm)
+		group_name   : str | None = self._processing_group
+		group_name                = RequestText("Создание счёта", "Группа счетов", group_name, groups_names)
+		if group_name   is None: return
+
+		account_name : str | None = RequestText("Создание счёта", f"Наименование счёта в группе {group_name}", "")
+		if account_name is None: return
+
+		self._processing_ido = self.accounts_struct.CreateAccountInDyDm(dy, dm, group_name, account_name)
+
+	def ResetData(self):
+		""" Сброс данных """
+		if not RequestConfirm("Сброс данных", f"Сброс данных за {self.workspace.DmDyToString()}"): return
+
+		account = C90_Account()
+		dy, dm  = self.workspace.DyDm()
+
+		for ido in self.accounts_struct.AccountsIdosInDyDm(dy, dm):
+			account.Ido(ido)
+			account.DeleteObject(CONTAINERS.DISK)
+
 	# Группа счетов
 	def RenameAccountsGroup(self):
 		""" Смена наименования группы счетов """
@@ -32,19 +57,6 @@ class C80_FormAccounts(C70_FormAccounts):
 		self.accounts_group.Rename(dy, dm, group_name)
 
 	# Счёт
-	def CreateAccount(self):
-		""" Создание счёта в структуре счетов """
-		dy, dm                    = self.workspace.DyDm()
-		groups_names : list[str]  = self.accounts_struct.GroupsNamesInDyDm(dy, dm)
-		group_name   : str | None = self._processing_group
-		group_name                = RequestText("Создание счёта", "Группа счетов", group_name, groups_names)
-		if group_name   is None: return
-
-		account_name : str | None = RequestText("Создание счёта", f"Наименование счёта в группе {group_name}", "")
-		if account_name is None: return
-
-		self._processing_ido = self.accounts_struct.CreateAccountInDyDm(dy, dm, group_name, account_name)
-
 	def RenameAccount(self):
 		""" Переименование счёта """
 		account_name : str | None = RequestText("Переименование счёта", f"{self._processing_group}\n{self._processing_name}", self._processing_name)
