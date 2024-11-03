@@ -8,7 +8,29 @@ from L70_accounts           import C70_AccountsStruct, C70_AccountsGroup, C70_Ac
 
 class C80_Account(C70_Account):
 	""" Счёт: Логика данных """
-	pass
+
+	# Управление группой счетов
+	def ChangeGroup(self, group_name: str) -> bool:
+		""" Смена группы счетов """
+		if not group_name: return False
+
+		idc       : str = self.Idc().data
+		idp_dy    : str = self.f_dy.Idp().data
+		idp_dm    : str = self.f_dm.Idp().data
+		idp_name  : str = self.f_name.Idp().data
+
+		filter_accounts = C30_FilterLinear1D(idc)
+		filter_accounts.FilterIdpVlpByEqual(idp_dy, self.Dy())
+		filter_accounts.FilterIdpVlpByEqual(idp_dm, self.Dm())
+		filter_accounts.Capture(CONTAINERS.DISK)
+
+		accounts_names : list[str] = filter_accounts.ToStrings(idp_name, True, True).data
+
+		if group_name in accounts_names: return False
+
+		self.Group(group_name)
+
+		return True
 
 
 class C80_AccountsGroup(C70_AccountsGroup):

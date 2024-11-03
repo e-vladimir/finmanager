@@ -21,6 +21,7 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 		""" Инициализация меню Счёта """
 		icon_blocks      = QIcon("./L0/icons/blocks.svg")
 		icon_edit        = QIcon("./L0/icons/edit.svg")
+		icon_arrow_lr    = QIcon("./L0/icons/arrow_left_right.svg")
 		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_grid_2_2    = QIcon("./L0/icons/grid_2_2.svg")
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
@@ -36,3 +37,5 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 		self.menu_account                                  = self.menu_accounts.addMenu(icon_grid_3_3, "Счет")
 		self.menu_account_rename                 : QAction = self.menu_account.addAction(icon_edit,        "Переименовать счёт")
 		self.menu_account_delete                 : QAction = self.menu_account.addAction(icon_item_delete, "Удалить счёт")
+		self.menu_account.addSeparator()
+		self.menu_account_change_group           : QAction = self.menu_account.addAction(icon_arrow_lr,    "Переместить в другую группу")

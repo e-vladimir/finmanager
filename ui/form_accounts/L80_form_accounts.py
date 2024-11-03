@@ -46,3 +46,14 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		account = C90_Account(self._processing_ido)
 		account.DeleteObject(CONTAINERS.DISK)
+
+	def ChangeGroupForAccount(self):
+		""" Перемещение счёта в другую группу """
+		dy, dm                    = self.workspace.DyDm()
+		groups_names : list[str]  = self.accounts_struct.GroupsNamesInDyDm(dy, dm)
+		group_name   : str | None = self._processing_group
+		group_name                = RequestText("Перемещение счёта", f"{self._processing_name}", group_name, groups_names)
+		if group_name   is None: return
+
+		account                   = C90_Account(self._processing_ido)
+		account.ChangeGroup(group_name)

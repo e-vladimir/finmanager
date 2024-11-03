@@ -18,6 +18,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		# Счёт
 		self.menu_account_rename.triggered.connect(self.on_RequestRenameAccount)
 		self.menu_account_delete.triggered.connect(self.on_RequestDeleteAccount)
+		self.menu_account_change_group.triggered.connect(self.on_RequestChangeGroupForAccount)
 
 	# Форма
 	def on_Open(self):
@@ -78,6 +79,18 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestDeleteAccount(self):
 		""" Запрос удаления счёта """
 		self.DeleteAccount()
+
+		self.InitModelData()
+		self.ShowAccounts()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestChangeGroupForAccount(self):
+		""" Запрос на перемещение счёта в другую группу """
+		self.ChangeGroupForAccount()
 
 		self.InitModelData()
 		self.ShowAccounts()
