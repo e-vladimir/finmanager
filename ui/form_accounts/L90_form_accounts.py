@@ -15,6 +15,9 @@ class C90_FormAccounts(C80_FormAccounts):
 		# Структура счетов
 		self.menu_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
 
+		# Счёт
+		self.menu_account_rename.triggered.connect(self.on_RequestRenameAccount)
+
 	# Форма
 	def on_Open(self):
 		super().on_Open()
@@ -32,6 +35,10 @@ class C90_FormAccounts(C80_FormAccounts):
 	# Меню Счета
 	def on_RequestShowMenuAccounts(self):
 		""" Запрос меню Счета """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingGroupFromTreeData()
+		self.ReadProcessingNameFromTreeData()
+
 		self.AdjustMenuAccounts_Enable()
 		self.AdjustMenuAccounts_Text()
 
@@ -41,6 +48,21 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestCreateAccount(self):
 		""" Запрос создания счёта в структуре счетов """
 		self.CreateAccount()
+
+		self.ReadProcessingGroupFromAccount()
+
+		self.LoadAccountsGroup()
+		self.LoadAccount()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	# Меню Счета: Счёт
+	def on_RequestRenameAccount(self):
+		""" Запрос на переименование счёта """
+		self.RenameAccount()
 
 		self.ReadProcessingGroupFromAccount()
 

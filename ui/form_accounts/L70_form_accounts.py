@@ -33,11 +33,21 @@ class C70_FormAccounts(C60_FormAccounts):
 	# Меню Счета
 	def AdjustMenuAccounts_Text(self):
 		""" Меню Счета: Настройка наименования """
-		pass
+		self.menu_accounts_group.setTitle("Группа счетов")
+		self.menu_account.setTitle("Счёт")
+
+		if bool(self._processing_group):
+			self.menu_accounts_group.setTitle(self._processing_group)
+
+		if bool(self._processing_name):
+			self.menu_account.setTitle(self._processing_name)
 
 	def AdjustMenuAccounts_Enable(self):
 		""" Меню Счета: Настройка доступности """
-		pass
+		flag_selected_group   : bool = bool(self._processing_group)
+		flag_selected_account : bool = bool(self._processing_name)
+
+		self.menu_account_rename.setEnabled(flag_selected_account)
 
 	def ShowMenuAccounts(self):
 		""" Отображение меню Счета """

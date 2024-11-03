@@ -1,5 +1,5 @@
-# ПАКЕТ ДЛЯ РАБОТЫ С PySide-6
-# 21 окт 2024
+# ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
+# 03 ноя 2024
 
 import enum
 
@@ -368,6 +368,7 @@ def RequestValue(title: str, message: str, value_old: int | float = None, value_
 	elif type(value_old) is float: dialog.setDoubleValue(value_old)
 
 	if not dialog.exec_(): return None
+
 	if   type(value_old) is int  : return dialog.intValue()
 	elif type(value_old) is float: return dialog.doubleValue()
 
@@ -534,6 +535,10 @@ class C20_StandardItemModel(QStandardItemModel):
 		""" Удаление всех данных из модели """
 		self.removeRows(0, self.rowCount())
 
+	def checkIdo(self, ido: str) -> bool:
+		""" Проверка наличия данных с указанным IDO """
+		return self.indexByData(ido, ROLES.IDO) is not None
+
 	# Инструментарий отображения
 	def setRowColor(self, parent: QStandardItem, row: int, color_bg: QColor = Qt.GlobalColor.white, color_fg: QColor = Qt.GlobalColor.black):
 		""" Установка цвета строки """
@@ -618,18 +623,18 @@ class C20_StandardItemModel(QStandardItemModel):
 		""" Список всех индексов в колонке 0 """
 		return IndexesFromStandardModel(self)
 
-	def indexByData(self, text: str, role = Qt.ItemDataRole.DisplayRole) -> QModelIndex | None:
+	def indexByData(self, text: str, role : Qt.ItemDataRole | ROLES = Qt.ItemDataRole.DisplayRole) -> QModelIndex | None:
 		""" Поиск индекса по данным """
 		return FindIndexFromStandardModelByData(self, text, role)
 
-	def itemByData(self, text: str, role = Qt.ItemDataRole.DisplayRole) -> QStandardItem | None:
+	def itemByData(self, text: str, role : Qt.ItemDataRole | ROLES = Qt.ItemDataRole.DisplayRole) -> QStandardItem | None:
 		""" Поиск элемента по данным """
 		index_data = self.indexByData(text, role)
 		if index_data is None: return None
 
 		return self.itemFromIndex(index_data)
 
-	def dataByCheckState(self, role = Qt.ItemDataRole.DisplayRole, check_state = Qt.CheckState.Checked) -> list:
+	def dataByCheckState(self, role : Qt.ItemDataRole | ROLES = Qt.ItemDataRole.DisplayRole, check_state = Qt.CheckState.Checked) -> list:
 		""" Выборка данных для выбранных элементов """
 		result = []
 
@@ -639,6 +644,20 @@ class C20_StandardItemModel(QStandardItemModel):
 			if not item_data.checkState() == check_state: continue
 
 			result.append(item_data.data(role))
+
+		return result
+
+	def indexesInRowByIdo(self, ido: str) -> list[QModelIndex]:
+		""" Индексы в строке с указанным IDO """
+		result       : list[QModelIndex]  = []
+
+		index_row    : QModelIndex | None = self.indexByData(ido, ROLES.IDO)
+		if index_row is None: return result
+
+		index_parent : QModelIndex        = index_row.parent()
+
+		for index_col in range(self.columnCount()):
+			result.append(self.index(index_row.row(), index_col, index_parent))
 
 		return result
 
