@@ -33,6 +33,7 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 		self.menu_accounts_struct_create_account : QAction = self.menu_accounts_struct.addAction(icon_item_plus, "Создать счёт")
 
 		self.menu_accounts_group                           = self.menu_accounts.addMenu(icon_grid_2_2, "Группа счетов")
+		self.menu_account_group_rename           : QAction = self.menu_accounts_group.addAction(icon_edit, "Переименовать группу")
 
 		self.menu_account                                  = self.menu_accounts.addMenu(icon_grid_3_3, "Счет")
 		self.menu_account_rename                 : QAction = self.menu_account.addAction(icon_edit,        "Переименовать счёт")

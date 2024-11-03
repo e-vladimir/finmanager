@@ -17,6 +17,18 @@ class C80_FormAccounts(C70_FormAccounts):
 		for self._processing_group in self.accounts_struct.GroupsNamesInDyDm(dy, dm) : self.LoadAccountsGroup()
 		for self._processing_ido   in self.accounts_struct.AccountsIdosInDyDm(dy, dm): self.LoadAccount()
 
+	# Группа счетов
+	def RenameAccountsGroup(self):
+		""" Смена наименования группы счетов """
+		self.accounts_group.ProcessingGroup(self._processing_group)
+
+		dy, dm                  = self.workspace.DyDm()
+
+		group_name : str | None = RequestText("Переименовывание группы счетов", self._processing_group, self._processing_group)
+		if group_name is None: return
+
+		self.accounts_group.Rename(dy, dm, group_name)
+
 	# Счёт
 	def CreateAccount(self):
 		""" Создание счёта в структуре счетов """
@@ -29,7 +41,7 @@ class C80_FormAccounts(C70_FormAccounts):
 		account_name : str | None = RequestText("Создание счёта", f"Наименование счёта в группе {group_name}", "")
 		if account_name is None: return
 
-		self._processing_ido = self.accounts_struct.CreateAccount(dy, dm, group_name, account_name)
+		self._processing_ido = self.accounts_struct.CreateAccountInDyDm(dy, dm, group_name, account_name)
 
 	def RenameAccount(self):
 		""" Переименование счёта """
@@ -38,7 +50,7 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		dy, dm                    = self.workspace.DyDm()
 
-		self.accounts_struct.RenameAccount(dy, dm, self._processing_name, account_name)
+		self.accounts_struct.RenameAccountInDyDm(dy, dm, self._processing_name, account_name)
 
 	def DeleteAccount(self):
 		""" Удаление счёта """

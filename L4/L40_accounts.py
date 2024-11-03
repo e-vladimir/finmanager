@@ -22,7 +22,11 @@ class C40_Account(C31_StructFrameWithEvents):
 
 class C40_AccountsGroup(C20_MetaFrame):
 	""" Группа счетов: Модель данных """
-	pass
+
+	def Init_00(self):
+		super().Init_00()
+
+		self._processing_group : str = ""
 
 
 class C40_AccountsStruct(C20_MetaFrame):

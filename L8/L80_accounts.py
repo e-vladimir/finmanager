@@ -35,7 +35,35 @@ class C80_Account(C70_Account):
 
 class C80_AccountsGroup(C70_AccountsGroup):
 	""" Группа счетов: Логика данных """
-	pass
+
+	def Rename(self, dy: int, dm: int, group_name: str) -> bool:
+		""" Переименование группы счетов """
+		if not self.ProcessingGroup()    : return False
+		if not group_name                : return False
+
+		account                  = C80_Account()
+
+		idc          : str       = account.Idc().data
+		idp_dy       : str       = account.f_dy.Idp().data
+		idp_dm       : str       = account.f_dm.Idp().data
+		idp_group    : str       = account.f_group.Idp().data
+
+		filter_accounts          = C30_FilterLinear1D(idc)
+		filter_accounts.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_accounts.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_accounts.Capture(CONTAINERS.DISK)
+
+		groups_names : list[str] = filter_accounts.ToStrings(idp_group, True, True).data
+		if     group_name in groups_names: return False
+
+		filter_accounts.FilterIdpVlpByEqual(idp_group, self.ProcessingGroup())
+		filter_accounts.Capture(CONTAINERS.DISK)
+
+		idos         : list[str] = filter_accounts.Idos().data
+
+		for ido in idos:
+			account.Ido(ido)
+			account.Group(group_name)
 
 
 class C80_AccountsStruct(C70_AccountsStruct):
@@ -92,7 +120,7 @@ class C80_AccountsStruct(C70_AccountsStruct):
 		return filter_accounts.ToStrings(idp_group, True, True).data
 
 	# Счёт
-	def CreateAccount(self, dy: int, dm: int, group_name: str, account_name: str) -> str:
+	def CreateAccountInDyDm(self, dy: int, dm: int, group_name: str, account_name: str) -> str:
 		""" Создание счёта """
 		if not account_name                                    : return ""
 		if not group_name                                      : return ""
@@ -111,7 +139,7 @@ class C80_AccountsStruct(C70_AccountsStruct):
 
 		return account.Ido().data
 
-	def RenameAccount(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
+	def RenameAccountInDyDm(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
 		""" Переименование счёта """
 		if     name_new in self.AccountsNamesInDyDm(dy, dm): return False
 

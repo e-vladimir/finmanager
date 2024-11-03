@@ -47,7 +47,10 @@ class C70_FormAccounts(C60_FormAccounts):
 		flag_selected_group   : bool = bool(self._processing_group)
 		flag_selected_account : bool = bool(self._processing_name)
 
+		self.menu_account_group_rename.setEnabled(flag_selected_group)
+
 		self.menu_account_rename.setEnabled(flag_selected_account)
+		self.menu_account_delete.setEnabled(flag_selected_account)
 
 	def ShowMenuAccounts(self):
 		""" Отображение меню Счета """

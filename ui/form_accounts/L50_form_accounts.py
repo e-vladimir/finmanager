@@ -12,6 +12,9 @@ class C50_FormAccounts(C42_FormAccounts):
 	# Структура счетов
 	def on_RequestCreateAccount(self): pass
 
+	# Группа счетов
+	def on_RequestRenameAccountsGroup(self): pass
+
 	# Счёт
 	def on_RequestRenameAccount(self): pass
 	def on_RequestDeleteAccount(self): pass

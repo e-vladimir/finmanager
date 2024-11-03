@@ -54,7 +54,12 @@ class C60_Account(C50_Account):
 
 class C60_AccountsGroup(C50_AccountsGroup):
 	""" Группа счетов: Механика данных """
-	pass
+
+	# Параметры
+	def ProcessingGroup(self, name: str = None) -> str:
+		""" Имя группы """
+		if name is None: return self._processing_group
+		else           :        self._processing_group = name
 
 
 class C60_AccountsStruct(C50_AccountsStruct):

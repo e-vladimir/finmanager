@@ -15,6 +15,9 @@ class C90_FormAccounts(C80_FormAccounts):
 		# Структура счетов
 		self.menu_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
 
+		# Группа счетов
+		self.menu_account_group_rename.triggered.connect(self.on_RequestRenameAccountsGroup)
+
 		# Счёт
 		self.menu_account_rename.triggered.connect(self.on_RequestRenameAccount)
 		self.menu_account_delete.triggered.connect(self.on_RequestDeleteAccount)
@@ -55,6 +58,19 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		self.LoadAccountsGroup()
 		self.LoadAccount()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	# Меню Счета: Группа счетов
+	def on_RequestRenameAccountsGroup(self):
+		""" Запрос на переименование группы счетов """
+		self.RenameAccountsGroup()
+
+		self.InitModelData()
+		self.ShowAccounts()
 
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Sort()
