@@ -17,6 +17,7 @@ class C90_FormMain(C80_FormMain):
 
 		# Панель Утилиты
 		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
+		self.btn_accounts.clicked.connect(self.on_RequestOpenFormAccounts)
 
 	# Форма
 	def on_Open(self):
@@ -29,6 +30,10 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFormArchives(self):
 		""" Запрос на открытие формы Архив данных """
 		self.application.form_archives.Open()
+
+	def on_RequestOpenFormAccounts(self):
+		""" Запрос на открытие формы Счета """
+		self.application.form_accounts.Open()
 
 	# Панель рабочего периода
 	def on_RequestShiftDmToNext(self):

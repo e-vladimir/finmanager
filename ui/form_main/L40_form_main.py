@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainCmDEIN.ui'
+## Form generated from reading UI file 'form_mainlVCzdX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -62,12 +62,50 @@ class Ui_form_main(object):
 
         self.verticalLayout.addItem(self.verticalSpacer_8)
 
+        self.horizontalLayout_9 = QHBoxLayout()
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.label_4 = QLabel(self.centralwidget)
+        self.label_4.setObjectName(u"label_4")
+        font = QFont()
+        font.setBold(True)
+        self.label_4.setFont(font)
+
+        self.horizontalLayout_9.addWidget(self.label_4)
+
+        self.line_6 = QFrame(self.centralwidget)
+        self.line_6.setObjectName(u"line_6")
+        self.line_6.setFrameShape(QFrame.Shape.HLine)
+        self.line_6.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.horizontalLayout_9.addWidget(self.line_6)
+
+        self.horizontalLayout_9.setStretch(1, 1)
+
+        self.verticalLayout.addLayout(self.horizontalLayout_9)
+
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.btn_accounts = QPushButton(self.centralwidget)
+        self.btn_accounts.setObjectName(u"btn_accounts")
+        self.btn_accounts.setMinimumSize(QSize(120, 0))
+
+        self.horizontalLayout_8.addWidget(self.btn_accounts)
+
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_8.addItem(self.horizontalSpacer_7)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_8)
+
+        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_9)
+
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
-        font = QFont()
-        font.setBold(True)
         self.label_3.setFont(font)
 
         self.horizontalLayout_6.addWidget(self.label_3)
@@ -117,6 +155,8 @@ class Ui_form_main(object):
         self.btn_dmdy.setText(QCoreApplication.translate("form_main", u"\u043c\u0435\u0441 \u0413\u0413\u0413\u0413", None))
         self.btn_dm_prev.setText("")
         self.btn_dm_next.setText("")
+        self.label_4.setText(QCoreApplication.translate("form_main", u"\u0414\u0410\u041d\u041d\u042b\u0415", None))
+        self.btn_accounts.setText(QCoreApplication.translate("form_main", u"\u0421\u0447\u0435\u0442\u0430", None))
         self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))
         self.btn_archives.setText(QCoreApplication.translate("form_main", u"\u0410\u0440\u0445\u0438\u0432\u044b \u0434\u0430\u043d\u043d\u044b\u0445", None))
     # retranslateUi

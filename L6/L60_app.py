@@ -2,20 +2,21 @@
 
 import datetime
 
-from os                               import  mkdir
-from pathlib                          import  Path
+from   os                               import  mkdir
+from   pathlib                          import  Path
 
-from G10_convertor_format             import  UTimeToDTime
-from G10_datetime                     import (CurrentUTime,
-                                              CurrentDy,
-			                                  CurrentDm,
-			                                  CurrentDd)
-from G10_files                        import  FileNamesInDirectory
-from G10_shell_os                     import  ExecSingleCmdInShell
-from G30_cactus_controller_containers import  controller_containers
+from   G10_convertor_format             import  UTimeToDTime
+from   G10_datetime                     import (CurrentUTime,
+                                                CurrentDy,
+		  	                                    CurrentDm,
+			                                    CurrentDd)
+from   G10_files                        import  FileNamesInDirectory
+from   G10_shell_os                     import  ExecSingleCmdInShell
+from   G30_cactus_controller_containers import  controller_containers
 
-from L00_containers                   import  CONTAINERS
-from L50_app                          import  C50_Application
+from   L00_containers                   import  CONTAINERS
+from   L40_accounts                     import C40_Account
+from   L50_app                          import  C50_Application
 
 
 class C60_Application(C50_Application):
@@ -32,6 +33,11 @@ class C60_Application(C50_Application):
 		container_disk = controller_containers.Container(CONTAINERS.DISK)
 		container_disk.OptionsFilename("data")
 		container_disk.Connect()
+
+	# Структура данных
+	def InitData(self):
+		""" Инициализация данных """
+		C40_Account.RegisterClass(CONTAINERS.DISK)
 
 	# Архивы данных
 	def InitArchives(self):

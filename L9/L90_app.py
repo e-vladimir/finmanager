@@ -16,6 +16,8 @@ class C90_Application(C80_Application):
 		self.InitContainers()
 		self.SetupContainers()
 
+		self.InitData()
+
 	def on_Start(self):
 		""" Запуск приложения """
 		super().on_Start()
