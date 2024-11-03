@@ -1,7 +1,9 @@
 # СЧЕТА: МЕХАНИКА ДАННЫХ
 
-from L00_containers import CONTAINERS
-from L50_accounts   import C50_AccountsStruct, C50_AccountsGroup, C50_Account
+from G30_cactus_datafilters import C30_FilterLinear1D
+
+from L00_containers         import CONTAINERS
+from L50_accounts           import C50_AccountsStruct, C50_AccountsGroup, C50_Account
 
 
 class C60_Account(C50_Account):
@@ -27,6 +29,27 @@ class C60_Account(C50_Account):
 		""" Группа счетов """
 		if text is None : return self.f_group.ToString(CONTAINERS.DISK).data
 		else            :        self.f_group.FromString(CONTAINERS.DISK, text)
+
+	# Переключение
+	def SwitchByNameInDyDm(self, dy: int, dm: int, name: str) -> bool:
+		""" Переключение по наименованию в указанном периоде """
+		idc       : str       = self.Idc().data
+		idp_dy    : str       = self.f_dy.Idp().data
+		idp_dm    : str       = self.f_dm.Idp().data
+		idp_name  : str       = self.f_name.Idp().data
+
+		filter_accounts       = C30_FilterLinear1D(idc)
+		filter_accounts.FilterIdpVlpByEqual(idp_dy,   dy)
+		filter_accounts.FilterIdpVlpByEqual(idp_dm,   dm)
+		filter_accounts.FilterIdpVlpByEqual(idp_name, name)
+		filter_accounts.Capture(CONTAINERS.DISK)
+
+		idos      : list[str] = filter_accounts.Idos().data
+		if not idos: return False
+
+		self.Ido(idos[0])
+
+		return True
 
 
 class C60_AccountsGroup(C50_AccountsGroup):

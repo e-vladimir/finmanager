@@ -88,3 +88,14 @@ class C80_AccountsStruct(C70_AccountsStruct):
 		account.Group(group_name)
 
 		return account.Ido().data
+
+	def RenameAccount(self, dy: int, dm: int, name_old: str, name_new: str) -> bool:
+		""" Переименование счёта """
+		if     name_new in self.AccountsNamesInDyDm(dy, dm): return False
+
+		account = C80_Account()
+		if not account.SwitchByNameInDyDm(dy, dm, name_old): return False
+
+		account.Name(name_new)
+
+		return True
