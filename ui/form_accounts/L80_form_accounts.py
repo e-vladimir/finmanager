@@ -1,7 +1,9 @@
 # ФОРМА СЧЕТА: ЛОГИКА ДАННЫХ
 
-from L20_PySide6       import RequestText
+from L00_containers    import CONTAINERS
+from L20_PySide6       import RequestText, RequestConfirm
 from L70_form_accounts import C70_FormAccounts
+from L90_accounts      import C90_Account
 
 
 class C80_FormAccounts(C70_FormAccounts):
@@ -31,9 +33,16 @@ class C80_FormAccounts(C70_FormAccounts):
 
 	def RenameAccount(self):
 		""" Переименование счёта """
-		account_name : str | None = RequestText("Переименование счёта", f"{self._processing_group}/{self._processing_name}", self._processing_name)
+		account_name : str | None = RequestText("Переименование счёта", f"{self._processing_group}\n{self._processing_name}", self._processing_name)
 		if account_name is None: return
 
 		dy, dm                    = self.workspace.DyDm()
 
 		self.accounts_struct.RenameAccount(dy, dm, self._processing_name, account_name)
+
+	def DeleteAccount(self):
+		""" Удаление счёта """
+		if not RequestConfirm("Удаление счёта", f"{self._processing_group}\n{self._processing_name}"): return
+
+		account = C90_Account(self._processing_ido)
+		account.DeleteObject(CONTAINERS.DISK)

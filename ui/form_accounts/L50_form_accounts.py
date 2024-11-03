@@ -14,3 +14,4 @@ class C50_FormAccounts(C42_FormAccounts):
 
 	# Счёт
 	def on_RequestRenameAccount(self): pass
+	def on_RequestDeleteAccount(self): pass
