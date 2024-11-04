@@ -23,6 +23,7 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 		icon_edit        = QIcon("./L0/icons/edit.svg")
 		icon_reload      = QIcon("./L0/icons/reload.svg")
 		icon_arrow_lr    = QIcon("./L0/icons/arrow_left_right.svg")
+		icon_arrow_l    = QIcon("./L0/icons/arrow_left.svg")
 		icon_arrow_r    = QIcon("./L0/icons/arrow_right.svg")
 		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_grid_2_2    = QIcon("./L0/icons/grid_2_2.svg")
@@ -45,4 +46,5 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 		self.menu_account.addSeparator()
 		self.menu_account_change_group           : QAction = self.menu_account.addAction(icon_arrow_lr,    "Переместить в другую группу")
 		self.menu_account.addSeparator()
+		self.menu_account_transfer_prev_dm       : QAction = self.menu_account.addAction(icon_arrow_l,     "Перенос счёта в прошлый месяц")
 		self.menu_account_transfer_next_dm       : QAction = self.menu_account.addAction(icon_arrow_r,     "Перенос счёта в следующий месяц")

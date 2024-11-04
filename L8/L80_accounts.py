@@ -26,6 +26,21 @@ class C80_Account(C70_Account):
 
 		account.Group(self.Group())
 
+	def TransferToPrevDm(self):
+		""" Перенос месяца в предыдущий месяц """
+		dy, dm = self.DyDm()
+		dy, dm = CalcDyDmByShiftDm(dy, dm, -1)
+
+		account = C80_Account()
+		if not account.SwitchByNameInDyDm(dy, dm, self.Name()):
+			account.GenerateIdo()
+			account.RegisterObject(CONTAINERS.DISK)
+			account.Name(self.Name())
+			account.Dy(dy)
+			account.Dm(dm)
+
+		account.Group(self.Group())
+
 	# Управление группой счетов
 	def ChangeGroup(self, group_name: str) -> bool:
 		""" Смена группы счетов """

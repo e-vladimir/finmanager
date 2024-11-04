@@ -23,6 +23,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.menu_account_rename.triggered.connect(self.on_RequestRenameAccount)
 		self.menu_account_delete.triggered.connect(self.on_RequestDeleteAccount)
 		self.menu_account_change_group.triggered.connect(self.on_RequestChangeGroupForAccount)
+		self.menu_account_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountToPrevDm)
 		self.menu_account_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountToNextDm)
 
 	# Форма
@@ -129,6 +130,10 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
+
+	def on_RequestTransferAccountToPrevDm(self):
+		""" Запрос на перенос счёта в прошлый месяц """
+		self.TransferAccountToPrevDm()
 
 	def on_RequestTransferAccountToNextDm(self):
 		""" Запрос на перенос счёта в следующий месяц """

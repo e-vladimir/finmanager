@@ -88,3 +88,8 @@ class C80_FormAccounts(C70_FormAccounts):
 		""" Перенос счёта в следующий месяц """
 		account = C90_Account(self._processing_ido)
 		account.TransferToNextDm()
+
+	def TransferAccountToPrevDm(self):
+		""" Перенос счёта в прошлый месяц """
+		account = C90_Account(self._processing_ido)
+		account.TransferToPrevDm()
