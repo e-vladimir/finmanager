@@ -20,3 +20,4 @@ class C50_FormAccounts(C42_FormAccounts):
 	def on_RequestRenameAccount(self): pass
 	def on_RequestDeleteAccount(self): pass
 	def on_RequestChangeGroupForAccount(self): pass
+	def on_RequestTransferAccountToNextDm(self): pass

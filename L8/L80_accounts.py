@@ -1,5 +1,6 @@
 # СЧЕТА: ЛОГИКА ДАННЫХ
 
+from G10_datetime           import CalcDyDmByShiftDm
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -8,6 +9,22 @@ from L70_accounts           import C70_AccountsStruct, C70_AccountsGroup, C70_Ac
 
 class C80_Account(C70_Account):
 	""" Счёт: Логика данных """
+
+	# Перенос в смежные периоды
+	def TransferToNextDm(self):
+		""" Перенос месяца в следующий месяц """
+		dy, dm = self.DyDm()
+		dy, dm = CalcDyDmByShiftDm(dy, dm, 1)
+
+		account = C80_Account()
+		if not account.SwitchByNameInDyDm(dy, dm, self.Name()):
+			account.GenerateIdo()
+			account.RegisterObject(CONTAINERS.DISK)
+			account.Name(self.Name())
+			account.Dy(dy)
+			account.Dm(dm)
+
+		account.Group(self.Group())
 
 	# Управление группой счетов
 	def ChangeGroup(self, group_name: str) -> bool:

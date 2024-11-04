@@ -38,7 +38,7 @@ class C60_Workspace(C50_Workspace):
 
 		self.DyDm(dy, dm)
 
-	def DyDm(self, year: int = None, month: int = None) -> [int, int]:
+	def DyDm(self, year: int = None, month: int = None) -> (int, int):
 		""" Смещение рабочего периода на произвольный месяц """
 		if year  is     None or month is None: return self.Dy(), self.Dm()
 

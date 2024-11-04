@@ -52,6 +52,7 @@ class C70_FormAccounts(C60_FormAccounts):
 		self.menu_account_rename.setEnabled(flag_selected_account)
 		self.menu_account_delete.setEnabled(flag_selected_account)
 		self.menu_account_change_group.setEnabled(flag_selected_account)
+		self.menu_account_transfer_next_dm.setEnabled(flag_selected_account)
 
 	def ShowMenuAccounts(self):
 		""" Отображение меню Счета """

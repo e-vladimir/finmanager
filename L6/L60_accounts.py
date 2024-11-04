@@ -30,6 +30,11 @@ class C60_Account(C50_Account):
 		if text is None : return self.f_group.ToString(CONTAINERS.DISK).data
 		else            :        self.f_group.FromString(CONTAINERS.DISK, text)
 
+	# Упаковка данных
+	def DyDm(self) -> (int, int):
+		""" Год - Месяц """
+		return self.Dy(), self.Dm()
+
 	# Переключение
 	def SwitchByNameInDyDm(self, dy: int, dm: int, name: str) -> bool:
 		""" Переключение по наименованию в указанном периоде """
