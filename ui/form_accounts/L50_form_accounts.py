@@ -15,6 +15,8 @@ class C50_FormAccounts(C42_FormAccounts):
 
 	# Группа счетов
 	def on_RequestRenameAccountsGroup(self): pass
+	def on_RequestTransferAccountsGroupToNextDm(self): pass
+	def on_RequestTransferAccountsGroupToPrevDm(self): pass
 
 	# Счёт
 	def on_RequestRenameAccount(self): pass

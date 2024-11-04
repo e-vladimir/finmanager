@@ -56,6 +56,20 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		self.accounts_group.Rename(dy, dm, group_name)
 
+	def TransferAccountsGroupToNextDm(self):
+		""" Перенос группы счётов в следующий месяц """
+		dy, dm = self.workspace.DyDm()
+
+		self.accounts_group.ProcessingGroup(self._processing_group)
+		self.accounts_group.TransferToNextDm(dy, dm)
+
+	def TransferAccountsGroupToPrevDm(self):
+		""" Перенос группы счётов в прошлый месяц """
+		dy, dm = self.workspace.DyDm()
+
+		self.accounts_group.ProcessingGroup(self._processing_group)
+		self.accounts_group.TransferToPrevDm(dy, dm)
+
 	# Счёт
 	def RenameAccount(self):
 		""" Переименование счёта """

@@ -17,7 +17,9 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.menu_accounts_struct_reset.triggered.connect(self.on_RequestResetData)
 
 		# Группа счетов
-		self.menu_account_group_rename.triggered.connect(self.on_RequestRenameAccountsGroup)
+		self.menu_accounts_group_rename.triggered.connect(self.on_RequestRenameAccountsGroup)
+		self.menu_accounts_group_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsGroupToPrevDm)
+		self.menu_accounts_group_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsGroupToNextDm)
 
 		# Счёт
 		self.menu_account_rename.triggered.connect(self.on_RequestRenameAccount)
@@ -91,6 +93,14 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
+
+	def on_RequestTransferAccountsGroupToPrevDm(self):
+		""" Запрос на перенос группы счетов в прошлый месяц """
+		self.TransferAccountsGroupToPrevDm()
+
+	def on_RequestTransferAccountsGroupToNextDm(self):
+		""" Запрос на перенос группы счетов в следующий месяц """
+		self.TransferAccountsGroupToNextDm()
 
 	# Меню Счета: Счёт
 	def on_RequestRenameAccount(self):
