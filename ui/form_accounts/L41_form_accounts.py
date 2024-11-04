@@ -19,16 +19,16 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 
 	def Init_MenuAccounts(self):
 		""" Инициализация меню Счёта """
+		icon_arrow_l     = QIcon("./L0/icons/arrow_left.svg")
+		icon_arrow_lr    = QIcon("./L0/icons/arrow_left_right.svg")
+		icon_arrow_r     = QIcon("./L0/icons/arrow_right.svg")
 		icon_blocks      = QIcon("./L0/icons/blocks.svg")
 		icon_edit        = QIcon("./L0/icons/edit.svg")
-		icon_reload      = QIcon("./L0/icons/reload.svg")
-		icon_arrow_lr    = QIcon("./L0/icons/arrow_left_right.svg")
-		icon_arrow_l    = QIcon("./L0/icons/arrow_left.svg")
-		icon_arrow_r    = QIcon("./L0/icons/arrow_right.svg")
-		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_grid_2_2    = QIcon("./L0/icons/grid_2_2.svg")
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
+		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
+		icon_reload      = QIcon("./L0/icons/reload.svg")
 
 		self.menu_accounts                                 = QMenu("Счета")
 
@@ -38,13 +38,13 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 		self.menu_accounts_struct_reset          : QAction = self.menu_accounts_struct.addAction(icon_reload, "Сброс данных")
 
 		self.menu_accounts_group                           = self.menu_accounts.addMenu(icon_grid_2_2, "Группа счетов")
-		self.menu_account_group_rename           : QAction = self.menu_accounts_group.addAction(icon_edit, "Переименовать группу")
+		self.menu_account_group_rename           : QAction = self.menu_accounts_group.addAction(icon_edit, "Переименовать")
 
 		self.menu_account                                  = self.menu_accounts.addMenu(icon_grid_3_3, "Счет")
-		self.menu_account_rename                 : QAction = self.menu_account.addAction(icon_edit,        "Переименовать счёт")
-		self.menu_account_delete                 : QAction = self.menu_account.addAction(icon_item_delete, "Удалить счёт")
+		self.menu_account_rename                 : QAction = self.menu_account.addAction(icon_edit,        "Переименовать")
+		self.menu_account_delete                 : QAction = self.menu_account.addAction(icon_item_delete, "Удалить")
 		self.menu_account.addSeparator()
-		self.menu_account_change_group           : QAction = self.menu_account.addAction(icon_arrow_lr,    "Переместить в другую группу")
+		self.menu_account_change_group           : QAction = self.menu_account.addAction(icon_arrow_lr,    "Перенести в другую группу")
 		self.menu_account.addSeparator()
-		self.menu_account_transfer_prev_dm       : QAction = self.menu_account.addAction(icon_arrow_l,     "Перенос счёта в прошлый месяц")
-		self.menu_account_transfer_next_dm       : QAction = self.menu_account.addAction(icon_arrow_r,     "Перенос счёта в следующий месяц")
+		self.menu_account_transfer_prev_dm       : QAction = self.menu_account.addAction(icon_arrow_l,     "Перенести в прошлый месяц")
+		self.menu_account_transfer_next_dm       : QAction = self.menu_account.addAction(icon_arrow_r,     "Перенести в следующий месяц")
