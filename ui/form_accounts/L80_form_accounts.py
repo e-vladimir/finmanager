@@ -31,6 +31,18 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		self._processing_ido = self.accounts_struct.CreateAccountInDyDm(dy, dm, group_name, account_name)
 
+	def TransferAccountsStructToNextDm(self):
+		""" Перенос структуры счётов в следующий месяц """
+		dy, dm = self.workspace.DyDm()
+
+		self.accounts_struct.TransferToNextDm(dy, dm)
+
+	def TransferAccountsStructToPrevDm(self):
+		""" Перенос структуры счётов в прошлый месяц """
+		dy, dm = self.workspace.DyDm()
+
+		self.accounts_struct.TransferToPrevDm(dy, dm)
+
 	def ResetData(self):
 		""" Сброс данных """
 		if not RequestConfirm("Сброс данных", f"Сброс данных за {self.workspace.DmDyToString()}"): return

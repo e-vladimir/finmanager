@@ -14,6 +14,8 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Структура счетов
 		self.menu_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
+		self.menu_accounts_struct_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsStructToPrevDm)
+		self.menu_accounts_struct_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsStructToNextDm)
 		self.menu_accounts_struct_reset.triggered.connect(self.on_RequestResetData)
 
 		# Группа счетов
@@ -68,6 +70,14 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
+
+	def on_RequestTransferAccountsStructToPrevDm(self):
+		""" Запрос на перенос структуры счетов в прошлый месяц """
+		self.TransferAccountsStructToPrevDm()
+
+	def on_RequestTransferAccountsStructToNextDm(self):
+		""" Запрос на перенос структуры счетов в следующий месяц """
+		self.TransferAccountsStructToNextDm()
 
 	def on_RequestResetData(self):
 		""" Запрос сброса данных """

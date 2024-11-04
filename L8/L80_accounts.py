@@ -216,3 +216,16 @@ class C80_AccountsStruct(C70_AccountsStruct):
 		account.Name(name_new)
 
 		return True
+
+	# Перенос в смежные периоды
+	def TransferToNextDm(self, dy: int, dm: int):
+		""" Перенос структуры счетов в следующий месяц """
+		for ido in self.AccountsIdosInDyDm(dy, dm):
+			account = C80_Account(ido)
+			account.TransferToNextDm()
+
+	def TransferToPrevDm(self, dy: int, dm: int):
+		""" Перенос структуры счетов в прошлый месяц """
+		for ido in self.AccountsIdosInDyDm(dy, dm):
+			account = C80_Account(ido)
+			account.TransferToPrevDm()
