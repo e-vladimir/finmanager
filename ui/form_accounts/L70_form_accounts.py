@@ -1,6 +1,7 @@
 # ФОРМА СЧЕТА: МЕХАНИКА УПРАВЛЕНИЯ
 
 from PySide6.QtGui     import Qt, QCursor
+from PySide6.QtWidgets import QHeaderView
 
 from L60_form_accounts import C60_FormAccounts
 
@@ -16,7 +17,9 @@ class C70_FormAccounts(C60_FormAccounts):
 	# Дерево данных
 	def AdjustTreeData_Size(self):
 		""" Дерево данных: Настройка размера """
-		pass
+		self.tree_data.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+
+		self.tree_data.setColumnWidth(1, 100)
 
 	def AdjustTreeData_Color(self):
 		""" Дерево данных: Настройка цветового оформления """

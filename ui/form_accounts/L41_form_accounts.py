@@ -47,6 +47,8 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 		self.menu_accounts_group_transfer_next_dm  : QAction = self.menu_accounts_group.addAction(icon_arrow_r,     "Перенести в следующий месяц")
 
 		self.menu_account                                    = self.menu_accounts.addMenu(icon_grid_3_3, "Счет")
+		self.menu_account_set_balance_initial      : QAction = self.menu_account.addAction(icon_edit,        "Установить баланс начальный")
+		self.menu_account.addSeparator()
 		self.menu_account_rename                   : QAction = self.menu_account.addAction(icon_edit,        "Переименовать")
 		self.menu_account_delete                   : QAction = self.menu_account.addAction(icon_item_delete, "Удалить")
 		self.menu_account.addSeparator()

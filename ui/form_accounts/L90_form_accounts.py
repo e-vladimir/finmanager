@@ -24,6 +24,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.menu_accounts_group_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsGroupToNextDm)
 
 		# Счёт
+		self.menu_account_set_balance_initial.triggered.connect(self.on_RequestSetBalanceInitial)
 		self.menu_account_rename.triggered.connect(self.on_RequestRenameAccount)
 		self.menu_account_delete.triggered.connect(self.on_RequestDeleteAccount)
 		self.menu_account_change_group.triggered.connect(self.on_RequestChangeGroupForAccount)
@@ -113,6 +114,12 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.TransferAccountsGroupToNextDm()
 
 	# Меню Счета: Счёт
+	def on_RequestSetBalanceInitial(self):
+		""" Запрос установки баланса начального """
+		self.SetBalanceInitial()
+
+		self.LoadAccount()
+
 	def on_RequestRenameAccount(self):
 		""" Запрос на переименование счёта """
 		self.RenameAccount()

@@ -12,6 +12,7 @@ class C90_Account(C80_Account):
 		self.Dm(0)
 		self.Name("")
 		self.Group("")
+		self.BalanceInitial(0)
 
 
 class C90_AccountsGroup(C80_AccountsGroup):

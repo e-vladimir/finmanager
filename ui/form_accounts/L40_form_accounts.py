@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_accountscNnmCf.ui'
+## Form generated from reading UI file 'form_accountsNuRiUm.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -38,7 +38,8 @@ class Ui_frm_accounts(object):
         self.tree_data.setRootIsDecorated(False)
         self.tree_data.setItemsExpandable(False)
         self.tree_data.setExpandsOnDoubleClick(False)
-        self.tree_data.header().setVisible(False)
+        self.tree_data.header().setVisible(True)
+        self.tree_data.header().setStretchLastSection(False)
 
         self.verticalLayout.addWidget(self.tree_data)
 

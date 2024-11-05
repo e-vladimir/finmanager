@@ -13,11 +13,13 @@ class C40_Account(C31_StructFrameWithEvents):
 	def Init_10(self):
 		super().Init_10()
 
-		self.f_dy    = C30_StructField(self, "Год")
-		self.f_dm    = C30_StructField(self, "Месяц")
+		self.f_dy              = C30_StructField(self, "Год")
+		self.f_dm              = C30_StructField(self, "Месяц")
 
-		self.f_name  = C30_StructField(self, "Название счёта")
-		self.f_group = C30_StructField(self, "Группа счетов")
+		self.f_name            = C30_StructField(self, "Название счёта")
+		self.f_group           = C30_StructField(self, "Группа счетов")
+
+		self.f_balance_initial = C30_StructField(self, "Баланс начальный")
 
 
 class C40_AccountsGroup(C20_MetaFrame):

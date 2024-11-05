@@ -1,7 +1,7 @@
 # ФОРМА СЧЕТА: ЛОГИКА ДАННЫХ
 
 from L00_containers    import CONTAINERS
-from L20_PySide6       import RequestText, RequestConfirm
+from L20_PySide6 import RequestText, RequestConfirm, RequestValue
 from L70_form_accounts import C70_FormAccounts
 from L90_accounts      import C90_Account
 
@@ -83,6 +83,15 @@ class C80_FormAccounts(C70_FormAccounts):
 		self.accounts_group.TransferToPrevDm(dy, dm)
 
 	# Счёт
+	def SetBalanceInitial(self):
+		""" Установка баланса начального """
+		account = C90_Account(self._processing_ido)
+
+		balance : int | None = RequestValue(account.Name(), f"Баланс начальный на {self.workspace.DmDyToString()}", account.BalanceInitial(), -9999999, 9999999)
+		if balance is None: return
+
+		account.BalanceInitial(balance)
+
 	def RenameAccount(self):
 		""" Переименование счёта """
 		account_name : str | None = RequestText("Переименование счёта", f"{self._processing_group}\n{self._processing_name}", self._processing_name)

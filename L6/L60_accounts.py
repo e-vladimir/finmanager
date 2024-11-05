@@ -30,6 +30,11 @@ class C60_Account(C50_Account):
 		if text is None : return self.f_group.ToString(CONTAINERS.DISK).data
 		else            :        self.f_group.FromString(CONTAINERS.DISK, text)
 
+	def BalanceInitial(self, value: int = None) -> int:
+		""" Баланс начальный """
+		if value is None: return self.f_balance_initial.ToInteger(CONTAINERS.DISK).data
+		else            :        self.f_balance_initial.FromInteger(CONTAINERS.DISK, value)
+
 	# Упаковка данных
 	def DyDm(self) -> (int, int):
 		""" Год - Месяц """
