@@ -33,6 +33,10 @@ class C70_FormAccounts(C60_FormAccounts):
 		""" Дерево данных: Настройка раскрытия структуры """
 		self.tree_data.expandAll()
 
+	def ProcessingTreeDataDbClick(self):
+		""" Обработка двойного клика по дереву данных """
+		pass
+
 	# Меню Счета
 	def AdjustMenuAccounts_Text(self):
 		""" Меню Счета: Настройка наименования """

@@ -19,7 +19,7 @@ class C40_Account(C31_StructFrameWithEvents):
 		self.f_name            = C30_StructField(self, "Название счёта")
 		self.f_group           = C30_StructField(self, "Группа счетов")
 
-		self.f_balance_initial = C30_StructField(self, "Баланс начальный")
+		self.f_balance_initial = C30_StructField(self, "Остаток начальный")
 
 
 class C40_AccountsGroup(C20_MetaFrame):

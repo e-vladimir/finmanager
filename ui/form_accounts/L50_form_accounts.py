@@ -9,6 +9,9 @@ class C50_FormAccounts(C42_FormAccounts):
 	# Меню Счета
 	def on_RequestShowMenuAccounts(self): pass
 
+	# Дерево данных
+	def on_RequestProcessingTreeDataDbClick(self): pass
+
 	# Структура счетов
 	def on_RequestCreateAccount(self): pass
 	def on_RequestTransferAccountsStructToNextDm(self): pass

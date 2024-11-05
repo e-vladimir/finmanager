@@ -62,7 +62,7 @@ class C60_FormAccounts(C50_FormAccounts):
 	def InitModelData(self):
 		""" Инициализация модели данных """
 		self.model_data.removeAll()
-		self.model_data.setHorizontalHeaderLabels(["Группа счетов\nСчёт", "Баланс\nначальный"])
+		self.model_data.setHorizontalHeaderLabels(["Группа счетов\nСчёт", "Остаток\nначальный"])
 
 		self.model_data.horizontalHeaderItem(1).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 

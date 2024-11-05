@@ -31,7 +31,7 @@ class C60_Account(C50_Account):
 		else            :        self.f_group.FromString(CONTAINERS.DISK, text)
 
 	def BalanceInitial(self, value: int = None) -> int:
-		""" Баланс начальный """
+		""" Остаток начальный """
 		if value is None: return self.f_balance_initial.ToInteger(CONTAINERS.DISK).data
 		else            :        self.f_balance_initial.FromInteger(CONTAINERS.DISK, value)
 

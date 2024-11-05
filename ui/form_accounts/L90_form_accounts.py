@@ -115,7 +115,7 @@ class C90_FormAccounts(C80_FormAccounts):
 
 	# Меню Счета: Счёт
 	def on_RequestSetBalanceInitial(self):
-		""" Запрос установки баланса начального """
+		""" Запрос установки остатка начального """
 		self.SetBalanceInitial()
 
 		self.LoadAccount()

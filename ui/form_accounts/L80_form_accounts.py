@@ -84,10 +84,10 @@ class C80_FormAccounts(C70_FormAccounts):
 
 	# Счёт
 	def SetBalanceInitial(self):
-		""" Установка баланса начального """
+		""" Установка остатка начального """
 		account = C90_Account(self._processing_ido)
 
-		balance : int | None = RequestValue(account.Name(), f"Баланс начальный на {self.workspace.DmDyToString()}", account.BalanceInitial(), -9999999, 9999999)
+		balance : int | None = RequestValue(account.Name(), f"Остаток начальный на {self.workspace.DmDyToString()}", account.BalanceInitial(), -9999999, 9999999)
 		if balance is None: return
 
 		account.BalanceInitial(balance)
