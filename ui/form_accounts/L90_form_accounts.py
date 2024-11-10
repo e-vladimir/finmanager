@@ -11,6 +11,7 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Дерево данных
 		self.tree_data.customContextMenuRequested.connect(self.on_RequestShowMenuAccounts)
+		self.tree_data.doubleClicked.connect(self.on_RequestProcessingTreeDataDbClick)
 
 		# Структура счетов
 		self.menu_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
@@ -44,6 +45,16 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
+
+	# Дерево данных
+	def on_RequestProcessingTreeDataDbClick(self):
+		""" Запрос реакции на двойной клик по дереву данных """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingGroupFromTreeData()
+		self.ReadProcessingNameFromTreeData()
+		self.ReadProcessingColumnFromTreeData()
+
+		self.ProcessingTreeDataDbClick()
 
 	# Меню Счета
 	def on_RequestShowMenuAccounts(self):

@@ -58,6 +58,12 @@ class C60_FormAccounts(C50_FormAccounts):
 		if current_parent is None: self._processing_group = current_item.data(ROLES.TEXT)
 		else                     : self._processing_group = current_parent.data(ROLES.TEXT)
 
+	def ReadProcessingColumnFromTreeData(self):
+		""" Чтение выбранной колонки """
+		current_index : QModelIndex = self.tree_data.currentIndex()
+
+		self._processing_column = current_index.column()
+
 	# Модель данных
 	def InitModelData(self):
 		""" Инициализация модели данных """

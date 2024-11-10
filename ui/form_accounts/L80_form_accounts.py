@@ -1,7 +1,7 @@
 # ФОРМА СЧЕТА: ЛОГИКА ДАННЫХ
 
 from L00_containers    import CONTAINERS
-from L20_PySide6 import RequestText, RequestConfirm, RequestValue
+from L20_PySide6       import RequestText, RequestConfirm, RequestValue
 from L70_form_accounts import C70_FormAccounts
 from L90_accounts      import C90_Account
 

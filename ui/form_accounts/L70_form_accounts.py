@@ -35,7 +35,15 @@ class C70_FormAccounts(C60_FormAccounts):
 
 	def ProcessingTreeDataDbClick(self):
 		""" Обработка двойного клика по дереву данных """
-		pass
+		flag_select_account : bool = bool(self._processing_ido)
+
+		match self._processing_column:
+			case 0:
+				if flag_select_account: self.on_RequestRenameAccount()
+				else                  : self.on_RequestRenameAccountsGroup()
+
+			case 1:
+				if flag_select_account: self.on_RequestSetBalanceInitial()
 
 	# Меню Счета
 	def AdjustMenuAccounts_Text(self):
