@@ -3,8 +3,10 @@
 from PySide6.QtGui       import QCursor
 
 from G10_math_linear     import CalcBetween
+from G11_convertor_data  import AmountToString
 
 from L60_form_operations import C60_FormOperations
+from L90_operations      import C90_Operation
 
 
 class C70_FormOperations(C60_FormOperations):
@@ -16,6 +18,14 @@ class C70_FormOperations(C60_FormOperations):
 		self.setWindowTitle(f"Финансовые операции - {self.workspace.DmDyToString()}")
 
 	# Дерево данных
+	def ProcessingTreeDataDbClick(self):
+		""" Обработка двойного нажатия на дереве данных """
+		match self._processing_dd:
+			case 0: self.on_RequestOpenOperation()
+			case 1: self.on_RequestOpenOperation()
+			case 2: self.on_RequestOpenOperation()
+			case 3: pass
+
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """
 		sizes_min : list[int] = [ 75, 200, 200]
@@ -40,11 +50,17 @@ class C70_FormOperations(C60_FormOperations):
 	# Меню Финансовые операции
 	def AdjustMenuOperations_Text(self):
 		""" Меню операций по счетам: Настройка текста """
-		pass
+		self.submenu_operation.setTitle("Операция")
+
+		if self._processing_ido:
+			operation = C90_Operation(self._processing_ido)
+			self.submenu_operation.setTitle(f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}")
 
 	def AdjustMenuOperations_Enable(self):
 		""" Меню операций по счетам: Настройка доступности """
-		pass
+		flag_selected_operation : bool = bool(self._processing_ido)
+
+		self.action_operations_open_operation.setEnabled(flag_selected_operation)
 
 	def ShowMenuOperations(self):
 		""" Меню операций по счетам: Отображение """

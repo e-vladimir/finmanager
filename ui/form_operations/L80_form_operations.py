@@ -40,3 +40,7 @@ class C80_FormOperations(C70_FormOperations):
 		operation.SrcDescription(description)
 		operation.Amount(amount)
 		operation.Description(description)
+
+	def OpenOperation(self):
+		""" Открытие операции """
+		pass

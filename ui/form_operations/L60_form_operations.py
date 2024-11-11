@@ -1,11 +1,11 @@
 # ФОРМА ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 
-from PySide6.QtCore      import Qt
-from PySide6.QtGui import QColor
+from PySide6.QtCore      import Qt, QModelIndex
+from PySide6.QtGui       import QColor
 
 from G11_convertor_data  import AmountToString
-from L00_colors import COLORS
 
+from L00_colors          import COLORS
 from L20_PySide6         import ROLES, C20_StandardItem
 from L50_form_operations import C50_FormOperations
 from L90_operations      import C90_Operation
@@ -32,6 +32,7 @@ class C60_FormOperations(C50_FormOperations):
 
 		item_dd_name                     = row[0]
 		item_dd_name.setText(dd_name)
+		item_dd_name.setData(self._processing_dd, ROLES.GROUP)
 
 		parent_item                      = self.model_data.invisibleRootItem()
 		parent_item.appendRow(row)
@@ -52,6 +53,7 @@ class C60_FormOperations(C50_FormOperations):
 
 			item_amount                 = row[0]
 			item_amount.setData(self._processing_ido, ROLES.IDO)
+			item_amount.setData(self._processing_dd,  ROLES.GROUP)
 			item_amount.setText(AmountToString(operation.Amount(), flag_sign=True))
 
 			item_dd.appendRow(row)
@@ -75,8 +77,32 @@ class C60_FormOperations(C50_FormOperations):
 		match operation.Color():
 			case COLORS.BLACK: text_color = QColor(  0,   0,   0)
 			case COLORS.BLUE : text_color = QColor(  0,   0, 200)
-			case COLORS.GRAY : text_color = QColor( 90,  90,  90)
+			case COLORS.GRAY : text_color = QColor(120, 120, 120)
 			case COLORS.GREEN: text_color = QColor(  0, 200,   0)
 			case COLORS.RED  : text_color = QColor(200,   0,   0)
 
 		self.model_data.setRowColor(item_dd, item_amount.row(), color_fg=text_color)
+
+	# Параметры
+	def ReadProcessingIdoFromTreeData(self):
+		""" Чтение текущего IDO из дерева данных """
+		current_index  : QModelIndex = self.tree_data.currentIndex()
+		current_parent : QModelIndex = current_index.parent()
+		index_row      : int         = current_index.row()
+		current_index                = self.model_data.index(index_row, 0, current_parent)
+
+		self._processing_ido = current_index.data(ROLES.IDO)
+
+	def ReadProcessingDdFromTreeData(self):
+		""" Чтение текущего дня из дерева данных """
+		current_index  : QModelIndex = self.tree_data.currentIndex()
+		current_parent : QModelIndex = current_index.parent()
+		index_row      : int         = current_index.row()
+		current_index                = self.model_data.index(index_row, 0, current_parent)
+
+		self._processing_dd = current_index.data(ROLES.GROUP)
+
+	def ReadProcessingColumnFromTreeData(self):
+		""" Чтение текущей колонки из дерева данных """
+		current_index : QModelIndex = self.tree_data.currentIndex()
+		self._processing_column = current_index.column()

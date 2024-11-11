@@ -11,9 +11,13 @@ class C90_FormOperations(C80_FormOperations):
 
 		# Дерево данных
 		self.tree_data.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
+		self.tree_data.doubleClicked.connect(self.on_RequestProcessingTreeDataDbClick)
 
 		# Меню Финансовые операции
 		self.action_operations_create_operation.triggered.connect(self.on_RequestCreateOperation)
+
+		# Меню Финансовая операция
+		self.action_operations_open_operation.triggered.connect(self.on_RequestOpenOperation)
 
 	# Форма
 	def on_Open(self):
@@ -28,9 +32,19 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
+	# Дерево данных
+	def on_RequestProcessingTreeDataDbClick(self):
+		""" Реакция на двойной клик по дереву данных """
+		self.ReadProcessingColumnFromTreeData()
+
+		self.ProcessingTreeDataDbClick()
+
 	# Меню операций по счетам
 	def on_RequestShowMenuOperations(self):
 		""" Запрос меню операций по счетам """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingDdFromTreeData()
+
 		self.AdjustMenuOperations_Text()
 		self.AdjustMenuOperations_Enable()
 

@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 03 ноя 2024
+# 11 ноя 2024
 
 import enum
 
@@ -32,6 +32,7 @@ class ROLES(enum.IntEnum):
 	TEXT              = Qt.ItemDataRole.DisplayRole
 	IDO               = 100
 	FILENAME          = 101
+	GROUP             = 102
 	VISUAL_STYLE_CELL = 200
 	VISUAL_STYLE_ROW  = 201
 
