@@ -13,24 +13,24 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.tree_data.customContextMenuRequested.connect(self.on_RequestShowMenuAccounts)
 		self.tree_data.doubleClicked.connect(self.on_RequestProcessingTreeDataDbClick)
 
-		# Структура счетов
-		self.menu_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
-		self.menu_accounts_struct_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsStructToPrevDm)
-		self.menu_accounts_struct_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsStructToNextDm)
-		self.menu_accounts_struct_reset.triggered.connect(self.on_RequestResetData)
+		# Счета
+		self.action_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
+		self.action_accounts_struct_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsStructToPrevDm)
+		self.action_accounts_struct_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsStructToNextDm)
+		self.action_accounts_struct_reset.triggered.connect(self.on_RequestResetData)
 
 		# Группа счетов
-		self.menu_accounts_group_rename.triggered.connect(self.on_RequestRenameAccountsGroup)
-		self.menu_accounts_group_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsGroupToPrevDm)
-		self.menu_accounts_group_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsGroupToNextDm)
+		self.action_account_group_rename.triggered.connect(self.on_RequestRenameAccountsGroup)
+		self.action_account_group_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsGroupToPrevDm)
+		self.action_account_group_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsGroupToNextDm)
 
 		# Счёт
-		self.menu_account_set_balance_initial.triggered.connect(self.on_RequestSetBalanceInitial)
-		self.menu_account_rename.triggered.connect(self.on_RequestRenameAccount)
-		self.menu_account_delete.triggered.connect(self.on_RequestDeleteAccount)
-		self.menu_account_change_group.triggered.connect(self.on_RequestChangeGroupForAccount)
-		self.menu_account_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountToPrevDm)
-		self.menu_account_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountToNextDm)
+		self.action_account_set_balance_initial.triggered.connect(self.on_RequestSetBalanceInitial)
+		self.action_account_rename.triggered.connect(self.on_RequestRenameAccount)
+		self.action_account_delete.triggered.connect(self.on_RequestDeleteAccount)
+		self.action_account_change_group.triggered.connect(self.on_RequestChangeGroupForAccount)
+		self.action_account_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountToPrevDm)
+		self.action_account_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountToNextDm)
 
 	# Форма
 	def on_Open(self):
@@ -68,7 +68,7 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		self.ShowMenuAccounts()
 
-	# Меню Счета: Структура счетов
+	# Меню Счета: Счета
 	def on_RequestCreateAccount(self):
 		""" Запрос создания счёта в структуре счетов """
 		self.CreateAccount()
@@ -130,6 +130,8 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.SetBalanceInitial()
 
 		self.LoadAccount()
+
+		self.AdjustTreeData_Color()
 
 	def on_RequestRenameAccount(self):
 		""" Запрос на переименование счёта """

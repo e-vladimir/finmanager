@@ -3,7 +3,7 @@
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
-from L50_accounts           import C50_AccountsStruct, C50_AccountsGroup, C50_Account
+from L50_accounts           import C50_Accounts, C50_AccountGroup, C50_Account
 
 
 class C60_Account(C50_Account):
@@ -62,7 +62,7 @@ class C60_Account(C50_Account):
 		return True
 
 
-class C60_AccountsGroup(C50_AccountsGroup):
+class C60_AccountGroup(C50_AccountGroup):
 	""" Группа счетов: Механика данных """
 
 	# Параметры
@@ -72,6 +72,6 @@ class C60_AccountsGroup(C50_AccountsGroup):
 		else           :        self._processing_group = name
 
 
-class C60_AccountsStruct(C50_AccountsStruct):
-	""" Структура счетов: Механика данных """
+class C60_Accounts(C50_Accounts):
+	""" Счета: Механика данных """
 	pass

@@ -4,7 +4,7 @@ from G10_datetime           import CalcDyDmByShiftDm
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
-from L70_accounts           import C70_AccountsStruct, C70_AccountsGroup, C70_Account
+from L70_accounts           import C70_Accounts, C70_AccountGroup, C70_Account
 
 
 class C80_Account(C70_Account):
@@ -65,7 +65,7 @@ class C80_Account(C70_Account):
 		return True
 
 
-class C80_AccountsGroup(C70_AccountsGroup):
+class C80_AccountGroup(C70_AccountGroup):
 	""" Группа счетов: Логика данных """
 
 	# Перенос в смежные периоды
@@ -133,10 +133,10 @@ class C80_AccountsGroup(C70_AccountsGroup):
 		return filter_accounts.Idos(idp_name).data
 
 
-class C80_AccountsStruct(C70_AccountsStruct):
-	""" Структура счетов: Логика данных """
+class C80_Accounts(C70_Accounts):
+	""" Счета: Логика данных """
 
-	# Структура счетов
+	# Счета
 	def AccountsIdosInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Список IDO счетов в указанном периоде """
 		account         = C80_Account()

@@ -22,7 +22,7 @@ class C40_Account(C31_StructFrameWithEvents):
 		self.f_balance_initial = C30_StructField(self, "Остаток начальный")
 
 
-class C40_AccountsGroup(C20_MetaFrame):
+class C40_AccountGroup(C20_MetaFrame):
 	""" Группа счетов: Модель данных """
 
 	def Init_00(self):
@@ -31,6 +31,6 @@ class C40_AccountsGroup(C20_MetaFrame):
 		self._processing_group : str = ""
 
 
-class C40_AccountsStruct(C20_MetaFrame):
-	""" Структура счетов: Модель данных """
+class C40_Accounts(C20_MetaFrame):
+	""" Счета: Модель данных """
 	pass

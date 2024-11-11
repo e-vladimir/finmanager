@@ -1,6 +1,6 @@
 # СЧЕТА: ЛОГИКА УПРАВЛЕНИЯ
 
-from L80_accounts import C80_AccountsStruct, C80_AccountsGroup, C80_Account
+from L80_accounts import C80_Accounts, C80_AccountGroup, C80_Account
 
 
 class C90_Account(C80_Account):
@@ -15,11 +15,11 @@ class C90_Account(C80_Account):
 		self.BalanceInitial(0)
 
 
-class C90_AccountsGroup(C80_AccountsGroup):
+class C90_AccountGroup(C80_AccountGroup):
 	""" Группа счетов: Логика управления """
 	pass
 
 
-class C90_AccountsStruct(C80_AccountsStruct):
-	""" Структура счетов: Логика управления """
+class C90_Accounts(C80_Accounts):
+	""" Счета: Логика управления """
 	pass

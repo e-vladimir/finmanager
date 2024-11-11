@@ -13,9 +13,9 @@ class C90_FormArchives(C80_FormArchives):
 		self.list_data.customContextMenuRequested.connect(self.on_RequestShowMenuArchives)
 
 		# Меню архива данных
-		self.menu_archives_copy_to_archive.triggered.connect(self.on_RequestCopyDataToArchive)
-		self.menu_archive_copy_from_archive.triggered.connect(self.on_RequestCopyDataFromArchive)
-		self.menu_archive_delete.triggered.connect(self.on_RequestDeleteArchive)
+		self.action_archives_copy_to_archive.triggered.connect(self.on_RequestCopyDataToArchive)
+		self.action_archive_copy_from_archive.triggered.connect(self.on_RequestCopyDataFromArchive)
+		self.action_archive_delete.triggered.connect(self.on_RequestDeleteArchive)
 
 	# Форма
 	def on_Open(self):

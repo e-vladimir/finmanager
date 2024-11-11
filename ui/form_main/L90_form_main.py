@@ -39,7 +39,7 @@ class C90_FormMain(C80_FormMain):
 		self.application.form_accounts.Open()
 
 	def on_RequestOpenFormOperations(self):
-		""" Запрос на открытие формы Операции по счетам """
+		""" Запрос на открытие формы Финансовые операции """
 		self.application.form_operations.Open()
 
 	# Панель рабочего периода

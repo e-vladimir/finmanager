@@ -1,4 +1,4 @@
-# ОПЕРАЦИИ ПО СЧЕТАМ: СТРУКТУРА ДАННЫХ
+# ФИНАНСОВАЯ ОПЕРАЦИЯ: СТРУКТУРА ДАННЫХ
 
 from G20_meta_frame   import C20_MetaFrame
 from G30_cactus_frame import C30_StructField
@@ -6,9 +6,9 @@ from G31_cactus_frame import C31_StructFrameWithEvents
 
 
 class C40_Operation(C31_StructFrameWithEvents):
-	""" Операция по счету: Структура данных """
+	""" Финансовая операция: Структура данных """
 
-	_idc = "Операция по счету"
+	_idc = "Финансовая операция"
 
 	def Init_10(self):
 		super().Init_10()
@@ -30,5 +30,5 @@ class C40_Operation(C31_StructFrameWithEvents):
 
 
 class C40_Operations(C20_MetaFrame):
-	""" Операции по счетам: Структура данных """
+	""" Финансовые операции: Структура данных """
 	pass

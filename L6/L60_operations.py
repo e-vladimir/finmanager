@@ -1,11 +1,11 @@
-# ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
+# ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 
 from L00_containers import CONTAINERS
 from L50_operations import C50_Operation, C50_Operations
 
 
 class C60_Operation(C50_Operation):
-	""" Операция по счету: Механика данных """
+	""" Финансовая операция: Механика данных """
 
 	# Параметры
 	def Dy(self, year: int = None) -> int:
@@ -60,5 +60,5 @@ class C60_Operation(C50_Operation):
 
 
 class C60_Operations(C50_Operations):
-	""" Операции по счетам: Механика данных """
+	""" Финансовые операции: Механика данных """
 	pass

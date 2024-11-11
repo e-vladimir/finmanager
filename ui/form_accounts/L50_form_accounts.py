@@ -12,7 +12,7 @@ class C50_FormAccounts(C42_FormAccounts):
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self): pass
 
-	# Структура счетов
+	# Счета
 	def on_RequestCreateAccount(self): pass
 	def on_RequestTransferAccountsStructToNextDm(self): pass
 	def on_RequestTransferAccountsStructToPrevDm(self): pass

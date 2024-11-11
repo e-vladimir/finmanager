@@ -19,22 +19,22 @@ class C70_FormArchives(C60_FormArchives):
 	# Меню архива данных
 	def AdjustMenuArchives_Text(self):
 		""" Архива данных: Настройка элементов """
-		self.menu_archive.setTitle("Архив данных")
+		self.submenu_archive.setTitle("Архив данных")
 
 		if not self._processing_name: return
 
-		self.menu_archive.setTitle(self._processing_name)
+		self.submenu_archive.setTitle(self._processing_name)
 
 	def AdjustMenuArchives_Enable(self):
 		""" Архива данных: Настройка доступности элементов """
 		flag_selected : bool = bool(self._processing_filename)
 
-		self.menu_archive_copy_from_archive.setEnabled(flag_selected)
-		self.menu_archive_delete.setEnabled(flag_selected)
+		self.action_archive_copy_from_archive.setEnabled(flag_selected)
+		self.action_archive_delete.setEnabled(flag_selected)
 
 	def ShowMenuArchives(self):
 		""" Отображение меню архива данных """
-		self.menu_data.exec_(QCursor().pos())
+		self.menu_archives.exec_(QCursor().pos())
 
 	# Архив данных
 	def CopyDataFromArchive(self):

@@ -1,4 +1,4 @@
-# ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
+# ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
 
 from G30_cactus_datafilters import C30_FilterLinear1D
 
@@ -7,12 +7,12 @@ from L70_operations         import C70_Operation, C70_Operations
 
 
 class C80_Operation(C70_Operation):
-	""" Операция по счету: Логика данных """
+	""" Финансовая операция: Логика данных """
 	pass
 
 
 class C80_Operations(C70_Operations):
-	""" Операции по счетам: Логика данных """
+	""" Финансовые операции: Логика данных """
 
 	# Дни
 	def Dds(self, dy: int, dm: int) -> list[int]:
@@ -30,7 +30,7 @@ class C80_Operations(C70_Operations):
 
 		return filter_data.ToIntegers(idp_dd, True, True).data
 
-	# Операции по счетам
+	# Финансовые операции
 	def OperationsIdos(self, dy: int, dm: int, dd: int = None) -> list[str]:
 		""" Список IDO операций по счетам в указанном периоде """
 		account_operation = C80_Operation()
