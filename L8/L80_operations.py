@@ -15,7 +15,7 @@ class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """
 
 	# Дни
-	def Dds(self, dy: int, dm: int) -> list[int]:
+	def DdsInDyDm(self, dy: int, dm: int) -> list[int]:
 		""" Список дней """
 		account_operation = C80_Operation()
 		idc    : str      = account_operation.Idc().data
@@ -31,7 +31,7 @@ class C80_Operations(C70_Operations):
 		return filter_data.ToIntegers(idp_dd, True, True).data
 
 	# Финансовые операции
-	def OperationsIdos(self, dy: int, dm: int, dd: int = None) -> list[str]:
+	def OperationsIdosInDyDmDd(self, dy: int, dm: int, dd: int = None) -> list[str]:
 		""" Список IDO операций по счетам в указанном периоде """
 		account_operation = C80_Operation()
 		idc        : str  = account_operation.Idc().data

@@ -137,6 +137,18 @@ class C80_Accounts(C70_Accounts):
 	""" Счета: Логика данных """
 
 	# Счета
+	def IdosToNames(self, idos: list[str]) -> list[str]:
+		""" Список IDO в список названий """
+		result : list[str] = []
+
+		for ido in idos:
+			account = C80_Account(ido)
+			result.append(account.Name())
+
+		result.sort()
+
+		return result
+
 	def AccountsIdosInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Список IDO счетов в указанном периоде """
 		account         = C80_Account()

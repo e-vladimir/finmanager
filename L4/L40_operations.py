@@ -27,6 +27,7 @@ class C40_Operation(C31_StructFrameWithEvents):
 		self.f_description     = C30_StructField(self, "Описание")
 
 		self.f_labels          = C30_StructField(self, "Метки")
+		self.f_accounts_idos   = C30_StructField(self, "Счета")
 
 
 class C40_Operations(C20_MetaFrame):

@@ -53,6 +53,11 @@ class C60_Operation(C50_Operation):
 		if labels is None: return self.f_labels.ToStrings(CONTAINERS.DISK).data
 		else             :        self.f_labels.FromString(CONTAINERS.DISK, labels)
 
+	def AccountsIdos(self, idos: list[str] = None) -> list[str]:
+		""" Список IDO счетов """
+		if idos is None  : return self.f_accounts_idos.ToStrings(CONTAINERS.DISK).data
+		else             :        self.f_accounts_idos.FromString(CONTAINERS.DISK, idos)
+
 	def Color(self, text: str = None) -> str:
 		""" Цветовая метка """
 		if text is None  : return self.f_color.ToString(CONTAINERS.DISK).data
