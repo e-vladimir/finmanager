@@ -43,4 +43,6 @@ class C80_FormOperations(C70_FormOperations):
 
 	def OpenOperation(self):
 		""" Открытие операции """
-		pass
+		self.workspace.IdoOperation(self._processing_ido)
+
+		self.application.form_operation.Open()

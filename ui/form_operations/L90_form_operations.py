@@ -54,3 +54,8 @@ class C90_FormOperations(C80_FormOperations):
 	def on_RequestCreateOperation(self):
 		""" Запрос на создание финансовой операции """
 		self.CreateOperation()
+
+	# Финансовая операция
+	def on_RequestOpenOperation(self):
+		""" Запрос на открытие финансовой операции """
+		self.OpenOperation()
