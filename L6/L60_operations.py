@@ -1,5 +1,5 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
-
+from L00_colors import COLORS
 from L00_containers import CONTAINERS
 from L50_operations import C50_Operation, C50_Operations
 
@@ -58,10 +58,10 @@ class C60_Operation(C50_Operation):
 		if idos is None  : return self.f_accounts_idos.ToStrings(CONTAINERS.DISK).data
 		else             :        self.f_accounts_idos.FromString(CONTAINERS.DISK, idos)
 
-	def Color(self, text: str = None) -> str:
+	def Color(self, color: COLORS = None) -> COLORS:
 		""" Цветовая метка """
-		if text is None  : return self.f_color.ToString(CONTAINERS.DISK).data
-		else             :        self.f_color.FromString(CONTAINERS.DISK, text)
+		if color is None : return COLORS(self.f_color.ToString(CONTAINERS.DISK).data)
+		else             :        self.f_color.FromString(CONTAINERS.DISK, color)
 
 
 class C60_Operations(C50_Operations):

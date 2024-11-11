@@ -1,10 +1,14 @@
 # ФОРМА ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
-from PySide6.QtCore import Qt
 
-from G11_convertor_data import AmountToString
+from PySide6.QtCore      import Qt
+from PySide6.QtGui import QColor
+
+from G11_convertor_data  import AmountToString
+from L00_colors import COLORS
+
 from L20_PySide6         import ROLES, C20_StandardItem
 from L50_form_operations import C50_FormOperations
-from L90_operations import C90_Operation
+from L90_operations      import C90_Operation
 
 
 class C60_FormOperations(C50_FormOperations):
@@ -65,3 +69,14 @@ class C60_FormOperations(C50_FormOperations):
 
 		item_description                  = self.model_data.itemFromIndex(indexes[3])
 		item_description.setText(operation.Description())
+
+		text_color                        = QColor(0, 0, 0)
+
+		match operation.Color():
+			case COLORS.BLACK: text_color = QColor(  0,   0,   0)
+			case COLORS.BLUE : text_color = QColor(  0,   0, 200)
+			case COLORS.GRAY : text_color = QColor( 90,  90,  90)
+			case COLORS.GREEN: text_color = QColor(  0, 200,   0)
+			case COLORS.RED  : text_color = QColor(200,   0,   0)
+
+		self.model_data.setRowColor(item_dd, item_amount.row(), color_fg=text_color)
