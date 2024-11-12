@@ -35,6 +35,7 @@ class ROLES(enum.IntEnum):
 	GROUP             = 102
 	VISUAL_STYLE_CELL = 200
 	VISUAL_STYLE_ROW  = 201
+	SORT_INDEX        = 300
 
 
 class VISUAL_STYLE(enum.StrEnum):

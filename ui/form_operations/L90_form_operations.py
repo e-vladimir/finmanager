@@ -31,12 +31,14 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
 
 	def on_UpdateDataPartial(self):
 		""" Частичное обновление данных """
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):

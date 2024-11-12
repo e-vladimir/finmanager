@@ -1,9 +1,10 @@
 # ФОРМА ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtGui       import QCursor
+from PySide6.QtGui import QCursor, Qt
 
 from G10_math_linear     import CalcBetween
 from G11_convertor_data  import AmountToString
+from L20_PySide6 import ROLES
 
 from L60_form_operations import C60_FormOperations
 from L90_operations      import C90_Operation
@@ -21,6 +22,9 @@ class C70_FormOperations(C60_FormOperations):
 	def ProcessingTreeDataDbClick(self):
 		""" Обработка двойного нажатия на дереве данных """
 		if not self._processing_ido: return
+
+		current_index = self.tree_data.currentIndex()
+		current_item  = self.model_data.itemFromIndex(current_index)
 
 		match self._processing_column:
 			case 0: self.on_RequestOpenOperation()
@@ -48,6 +52,11 @@ class C70_FormOperations(C60_FormOperations):
 	def AdjustTreeData_Expand(self):
 		""" Настройка дерева данных: Раскрытие """
 		self.tree_data.expandAll()
+
+	def AdjustTreeData_Sort(self):
+		""" Настройка дерева данных: Сортировка """
+		self.model_data.setSortRole(ROLES.SORT_INDEX)
+		self.model_data.sort(0, Qt.SortOrder.AscendingOrder)
 
 	# Меню Финансовые операции
 	def AdjustMenuOperations_Text(self):

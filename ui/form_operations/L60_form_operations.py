@@ -33,6 +33,8 @@ class C60_FormOperations(C50_FormOperations):
 		item_dd_name                     = row[0]
 		item_dd_name.setText(dd_name)
 		item_dd_name.setData(self._processing_dd, ROLES.GROUP)
+		item_dd_name.setData(self._processing_dd, ROLES.SORT_INDEX)
+		item_dd_name.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
 		parent_item                      = self.model_data.invisibleRootItem()
 		parent_item.appendRow(row)
@@ -62,6 +64,7 @@ class C60_FormOperations(C50_FormOperations):
 
 		item_amount                       = self.model_data.itemFromIndex(indexes[0])
 		item_amount.setText(AmountToString(operation.Amount(), flag_sign=True))
+		item_amount.setData(operation.Amount(), ROLES.SORT_INDEX)
 
 		item_accounts                     = self.model_data.itemFromIndex(indexes[1])
 		item_accounts.setText(', '.join(self.accounts.IdosToNames(operation.AccountsIdos())))
