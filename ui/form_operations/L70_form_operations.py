@@ -20,6 +20,8 @@ class C70_FormOperations(C60_FormOperations):
 	# Дерево данных
 	def ProcessingTreeDataDbClick(self):
 		""" Обработка двойного нажатия на дереве данных """
+		if not self._processing_ido: return
+
 		match self._processing_column:
 			case 0: self.on_RequestOpenOperation()
 			case 1: self.on_RequestOpenOperation()
@@ -29,7 +31,7 @@ class C70_FormOperations(C60_FormOperations):
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """
 		sizes_min : list[int] = [ 75, 200, 200]
-		sizes_max : list[int] = [100, 300, 300]
+		sizes_max : list[int] = [100, max(200, self.width() // 4), max(200, self.width() // 2)]
 
 		for index_col in range(self.model_data.columnCount() - 1):
 			self.tree_data.resizeColumnToContents(index_col)

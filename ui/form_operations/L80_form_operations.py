@@ -30,6 +30,8 @@ class C80_FormOperations(C70_FormOperations):
 
 		for self._processing_ido in self.operations.OperationsIdosInDyDmDd(dy, dm, self._processing_dd): self.LoadOperation()
 
+		self.on_UpdateDataPartial()
+
 	# Финансовая операция
 	def CreateOperation(self):
 		""" Создание операции """

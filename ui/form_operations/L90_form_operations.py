@@ -32,6 +32,12 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 
+	def on_UpdateDataPartial(self):
+		""" Частичное обновление данных """
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):
 		""" Реакция на двойной клик по дереву данных """
