@@ -10,6 +10,11 @@ from L90_workspace      import C90_Workspace
 class C42_FormOperation(C41_FormOperation):
 	""" Форма Финансовая операция: Модель данных """
 
+	def Init_00(self):
+		super().Init_00()
+
+		self._processing_ido : str = ""
+
 	def Init_10(self):
 		super().Init_10()
 

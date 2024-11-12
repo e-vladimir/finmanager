@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_operationOqUsqi.ui'
+## Form generated from reading UI file 'form_operationaWPmng.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -33,7 +33,8 @@ class Ui_frm_operation(object):
         self.tree_data.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.tree_data.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tree_data.setRootIsDecorated(False)
-        self.tree_data.setExpandsOnDoubleClick(True)
+        self.tree_data.setItemsExpandable(False)
+        self.tree_data.setExpandsOnDoubleClick(False)
         self.tree_data.header().setVisible(False)
 
         self.verticalLayout.addWidget(self.tree_data)

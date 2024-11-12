@@ -28,3 +28,16 @@ class C70_FormOperation(C60_FormOperation):
 	def AdjustTreeData_Expand(self):
 		""" Настройка дерева данных: Раскрытие """
 		self.tree_data.expandAll()
+
+	def ProcessingTreeData_DbClick(self):
+		""" Обработка двойного клика по дереву данных """
+		idp_dd              = self.operation.f_dd.Idp().data
+		idp_amount          = self.operation.f_amount.Idp().data
+		idp_description     = self.operation.f_description.Idp().data
+		idp_src_amount      = self.operation.f_src_amount.Idp().data
+		idp_src_description = self.operation.f_src_description.Idp().data
+		idp_accounts        = self.operation.f_accounts_idos.Idp().data
+		idp_labels          = self.operation.f_labels.Idp().data
+
+		match self._processing_ido:
+			case _ : pass

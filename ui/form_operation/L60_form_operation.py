@@ -1,8 +1,11 @@
 # ФОРМА ФИНАНСОВАЯ ОПЕРАЦИЯ: МЕХАНИКА ДАННЫХ
+
+from PySide6.QtCore     import QModelIndex
+
 from G11_convertor_data import AmountToString
+
 from L20_PySide6        import C20_StandardItem, ROLES
 from L50_form_operation import C50_FormOperation
-from L90_operations     import C90_Operation
 
 
 class C60_FormOperation(C50_FormOperation):
@@ -12,6 +15,15 @@ class C60_FormOperation(C50_FormOperation):
 	def ReadOperationFromWorkspace(self):
 		""" Загрузка операции """
 		self.operation.Ido(self.workspace.IdoOperation())
+
+	def ReadProcessingIdoFromTreeData(self):
+		""" Чтение IDO из дерева данных """
+		current_index  : QModelIndex = self.tree_data.currentIndex()
+		current_parent : QModelIndex = current_index.parent()
+		index_row      : int         = current_index.row()
+		current_index                = self.model_data.index(index_row, 0, current_parent)
+
+		self._processing_ido = current_index.data(ROLES.IDO)
 
 	# Модель данных
 	def InitModel(self):
