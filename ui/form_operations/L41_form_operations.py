@@ -23,6 +23,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_blocks    = QIcon("./L0/icons/blocks.svg")
 		icon_item_plus = QIcon("./L0/icons/item_plus.svg")
 		icon_grid_3_3  = QIcon("./L0/icons/grid_3_3.svg")
+		icon_delete    = QIcon("./L0/icons/item_delete.svg")
 
 		self.menu_operations                              = QMenu("Операции")
 
@@ -30,4 +31,5 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_create_operation : QAction = self.submenu_operations.addAction(icon_item_plus, "Создать операцию")
 
 		self.submenu_operation                            = self.menu_operations.addMenu(icon_grid_3_3, "Операция")
-		self.action_operations_open_operation   : QAction = self.submenu_operation.addAction(icon_open, "Открыть операцию")
+		self.action_operations_open_operation   : QAction = self.submenu_operation.addAction(icon_open,   "Открыть операцию")
+		self.action_operations_delete_operation : QAction = self.submenu_operation.addAction(icon_delete, "Удалить операцию")

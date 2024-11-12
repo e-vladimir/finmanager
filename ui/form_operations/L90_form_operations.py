@@ -18,6 +18,7 @@ class C90_FormOperations(C80_FormOperations):
 
 		# Меню Финансовая операция
 		self.action_operations_open_operation.triggered.connect(self.on_RequestOpenOperation)
+		self.action_operations_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
 
 	# Форма
 	def on_Open(self):
@@ -39,6 +40,10 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
+
+	def on_Resize(self):
+		""" Изменение размера окна """
+		self.AdjustTreeData_Size()
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):
@@ -64,7 +69,25 @@ class C90_FormOperations(C80_FormOperations):
 		""" Запрос на создание финансовой операции """
 		self.CreateOperation()
 
+		self.LoadDd()
+		self.LoadOperation()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
+
 	# Финансовая операция
 	def on_RequestOpenOperation(self):
 		""" Запрос на открытие финансовой операции """
 		self.OpenOperation()
+
+	def on_RequestDeleteOperation(self):
+		""" Запрос на удаление финансовой операции """
+		self.DeleteOperation()
+
+		self.CleanOperation()
+		self.CleanDd()
+
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Sort()

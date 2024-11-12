@@ -3,7 +3,7 @@
 from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINERS
-from L20_PySide6         import RequestValue, RequestText
+from L20_PySide6         import RequestValue, RequestText, RequestConfirm
 from L70_form_operations import C70_FormOperations
 from L90_operations      import C90_Operation
 
@@ -21,6 +21,9 @@ class C80_FormOperations(C70_FormOperations):
 
 	def UpdateDataPartial(self):
 		""" Частичное обновление данных """
+		self.CleanOperation()
+		self.CleanDd()
+
 		operation = C90_Operation(self.workspace.IdoOperation())
 
 		self._processing_dd  = operation.Dd()
@@ -53,8 +56,19 @@ class C80_FormOperations(C70_FormOperations):
 		operation.Amount(amount)
 		operation.Description(description)
 
+		self._processing_ido = operation.Ido().data
+
 	def OpenOperation(self):
 		""" Открытие операции """
 		self.workspace.IdoOperation(self._processing_ido)
 
 		self.application.form_operation.Open()
+
+	def DeleteOperation(self):
+		""" Удаление операции """
+		operation  = C90_Operation(self._processing_ido)
+		text : str = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+
+		if not RequestConfirm("Удаление операции", text): return
+
+		operation.DeleteObject(CONTAINERS.DISK)

@@ -86,6 +86,30 @@ class C60_FormOperations(C50_FormOperations):
 
 		self.model_data.setRowColor(item_dd, item_amount.row(), color_fg=text_color)
 
+	def CleanOperation(self):
+		""" Зачистка операции """
+		if not self._processing_ido   : return
+
+		index_operation : QModelIndex | None = self.model_data.indexByData(self._processing_ido, ROLES.IDO)
+		if     index_operation is None: return
+
+		index_dd        : QModelIndex        = index_operation.parent()
+		operation                            = C90_Operation(self._processing_ido)
+		if operation.Dd() == index_dd.data(ROLES.GROUP): return
+
+		self.model_data.removeRow(index_operation.row(), index_dd)
+
+	def CleanDd(self):
+		""" Зачистка дня """
+		index_dd     : QModelIndex | None = self.model_data.indexByData(self._processing_dd, ROLES.GROUP)
+		if index_dd is None                  : return
+
+		if self.model_data.rowCount(index_dd): return
+
+		index_parent : QModelIndex        = index_dd.parent()
+
+		self.model_data.removeRow(index_dd.row(), index_parent)
+
 	# Параметры
 	def ReadProcessingIdoFromTreeData(self):
 		""" Чтение текущего IDO из дерева данных """
@@ -104,6 +128,7 @@ class C60_FormOperations(C50_FormOperations):
 		current_index                = self.model_data.index(index_row, 0, current_parent)
 
 		self._processing_dd = current_index.data(ROLES.GROUP)
+		if self._processing_dd is None: self._processing_dd = 1
 
 	def ReadProcessingColumnFromTreeData(self):
 		""" Чтение текущей колонки из дерева данных """

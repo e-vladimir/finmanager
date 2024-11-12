@@ -17,3 +17,4 @@ class C50_FormOperations(C42_FormOperations):
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self): pass
+	def on_RequestDeleteOperation(self): pass

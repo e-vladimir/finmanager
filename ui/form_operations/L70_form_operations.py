@@ -1,11 +1,11 @@
 # ФОРМА ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtGui import QCursor, Qt
+from PySide6.QtGui       import QCursor, Qt
 
 from G10_math_linear     import CalcBetween
 from G11_convertor_data  import AmountToString
-from L20_PySide6 import ROLES
 
+from L20_PySide6         import ROLES
 from L60_form_operations import C60_FormOperations
 from L90_operations      import C90_Operation
 
@@ -23,9 +23,6 @@ class C70_FormOperations(C60_FormOperations):
 		""" Обработка двойного нажатия на дереве данных """
 		if not self._processing_ido: return
 
-		current_index = self.tree_data.currentIndex()
-		current_item  = self.model_data.itemFromIndex(current_index)
-
 		match self._processing_column:
 			case 0: self.on_RequestOpenOperation()
 			case 1: self.on_RequestOpenOperation()
@@ -34,8 +31,13 @@ class C70_FormOperations(C60_FormOperations):
 
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """
-		sizes_min : list[int] = [ 75, 200, 200]
-		sizes_max : list[int] = [100, max(200, self.width() // 4), max(200, self.width() // 2)]
+		sizes_min : list[int] = [ 75,
+		                          200,
+		                          200]
+
+		sizes_max : list[int] = [100,
+		                         max(200, self.width() // 4),
+		                         max(200, self.width() // 3)]
 
 		for index_col in range(self.model_data.columnCount() - 1):
 			self.tree_data.resizeColumnToContents(index_col)
@@ -72,6 +74,7 @@ class C70_FormOperations(C60_FormOperations):
 		flag_selected_operation : bool = bool(self._processing_ido)
 
 		self.action_operations_open_operation.setEnabled(flag_selected_operation)
+		self.action_operations_delete_operation.setEnabled(flag_selected_operation)
 
 	def ShowMenuOperations(self):
 		""" Меню операций по счетам: Отображение """
