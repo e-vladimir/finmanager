@@ -27,8 +27,8 @@ class C60_Workspace(C50_Workspace):
 
 	def IdoOperation(self, ido: str = None) -> str:
 		""" IDO Финансовой операции """
-		if ido is None  : return self.f_ido_operation.ToString(CONTAINERS.DISK).data
-		else            :        self.f_ido_operation.FromString(CONTAINERS.DISK, ido)
+		if ido is None  : return self.f_ido_operation.ToString(CONTAINERS.MEMORY).data
+		else            :        self.f_ido_operation.FromString(CONTAINERS.MEMORY, ido)
 
 	# Смещение рабочего периода
 	def ShiftDmToNext(self):

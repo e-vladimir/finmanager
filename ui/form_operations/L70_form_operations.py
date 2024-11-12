@@ -20,7 +20,7 @@ class C70_FormOperations(C60_FormOperations):
 	# Дерево данных
 	def ProcessingTreeDataDbClick(self):
 		""" Обработка двойного нажатия на дереве данных """
-		match self._processing_dd:
+		match self._processing_column:
 			case 0: self.on_RequestOpenOperation()
 			case 1: self.on_RequestOpenOperation()
 			case 2: self.on_RequestOpenOperation()

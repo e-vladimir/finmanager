@@ -35,6 +35,7 @@ class C90_FormOperations(C80_FormOperations):
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):
 		""" Реакция на двойной клик по дереву данных """
+		self.ReadProcessingIdoFromTreeData()
 		self.ReadProcessingColumnFromTreeData()
 
 		self.ProcessingTreeDataDbClick()
