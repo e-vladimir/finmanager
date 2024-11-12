@@ -3,7 +3,7 @@
 from G11_convertor_data import AmountToString
 
 from L00_months         import MONTHS
-from L20_PySide6        import RequestValue, RequestText
+from L20_PySide6 import RequestValue, RequestText, RequestMultipleText
 from L70_form_operation import C70_FormOperation
 
 
@@ -47,3 +47,11 @@ class C80_FormOperation(C70_FormOperation):
 		if description is None: return
 
 		self.operation.Description(description)
+
+	def SetLabels(self):
+		""" Установка меток """
+		caption     : str              = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
+		labels      : list[str] | None = RequestMultipleText(caption, "Метки", self.operation.Labels())
+		if labels is None: return
+
+		self.operation.Labels(labels)

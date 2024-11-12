@@ -23,7 +23,7 @@ class C70_FormOperations(C60_FormOperations):
 		match self._processing_column:
 			case 0: self.on_RequestOpenOperation()
 			case 1: self.on_RequestOpenOperation()
-			case 2: self.on_RequestOpenOperation()
+			case 2: pass
 			case 3: pass
 
 	def AdjustTreeData_Size(self):

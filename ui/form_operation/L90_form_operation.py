@@ -51,3 +51,9 @@ class C90_FormOperation(C80_FormOperation):
 		self.SetDescription()
 
 		self.LoadOperation()
+
+	def on_RequestSetLabels(self):
+		""" Запрос на изменение меток """
+		self.SetLabels()
+
+		self.LoadOperation()

@@ -42,3 +42,4 @@ class C70_FormOperation(C60_FormOperation):
 		if   self._processing_ido == idp_dd         : self.on_RequestSetDate()
 		elif self._processing_ido == idp_amount     : self.on_RequestSetAmount()
 		elif self._processing_ido == idp_description: self.on_RequestSetDescription()
+		elif self._processing_ido == idp_labels     : self.on_RequestSetLabels()
