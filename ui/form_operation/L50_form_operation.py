@@ -11,3 +11,4 @@ class C50_FormOperation(C42_FormOperation):
 
 	# Финансовая операция
 	def on_RequestSetAmount(self): pass
+	def on_RequestSetDescription(self): pass

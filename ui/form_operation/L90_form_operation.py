@@ -39,3 +39,9 @@ class C90_FormOperation(C80_FormOperation):
 		self.SetAmount()
 
 		self.LoadOperation()
+
+	def on_RequestSetDescription(self):
+		""" Запрос на изменение описания """
+		self.SetDescription()
+
+		self.LoadOperation()

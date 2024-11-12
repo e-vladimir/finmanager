@@ -39,5 +39,5 @@ class C70_FormOperation(C60_FormOperation):
 		idp_accounts        = self.operation.f_accounts_idos.Idp().data
 		idp_labels          = self.operation.f_labels.Idp().data
 
-		match self._processing_ido:
-			case idp_amount: self.on_RequestSetAmount()
+		if   self._processing_ido == idp_amount     : self.on_RequestSetAmount()
+		elif self._processing_ido == idp_description: self.on_RequestSetDescription()
