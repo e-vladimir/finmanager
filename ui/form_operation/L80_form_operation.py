@@ -3,7 +3,7 @@
 from G11_convertor_data import AmountToString
 
 from L00_months         import MONTHS
-from L20_PySide6 import RequestValue, RequestText, RequestMultipleText
+from L20_PySide6 import RequestValue, RequestText, RequestMultipleText, RequestItems
 from L70_form_operation import C70_FormOperation
 
 
@@ -14,7 +14,8 @@ class C80_FormOperation(C70_FormOperation):
 	def SetDate(self):
 		""" Установка даты """
 		caption : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		date    : str | None = RequestText(caption, "Дата операции", self.operation.DdDmDyToString())
+		text    : str        = f"{caption}\n{self.operation.Description()}\n\nДата операции."
+		date    : str | None = RequestText(caption, text, self.operation.DdDmDyToString())
 		if     date is None          : return
 
 		dd_dm_dy = date.split(' ')
@@ -35,7 +36,8 @@ class C80_FormOperation(C70_FormOperation):
 	def SetAmount(self):
 		""" Установка суммы """
 		caption : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		amount  : int | None = RequestValue(caption, "Сумма операции", self.operation.Amount(), -99999999, 99999999)
+		text    : str        = f"{caption}\n{self.operation.Description()}\n\nСумма операции."
+		amount  : int | None = RequestValue(caption, text, self.operation.Amount(), -99999999, 99999999)
 		if amount is None: return
 
 		self.operation.Amount(amount)
@@ -43,15 +45,29 @@ class C80_FormOperation(C70_FormOperation):
 	def SetDescription(self):
 		""" Установка описания """
 		caption     : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		description : str | None = RequestText(caption, "Описание операции", self.operation.Description())
+		text        : str        = f"{caption}\n{self.operation.Description()}\n\nОписание операции."
+		description : str | None = RequestText(caption, text, self.operation.Description())
 		if description is None: return
 
 		self.operation.Description(description)
 
+	def SetAccounts(self):
+		""" Установка счетов """
+		dy, dm                                = self.workspace.DyDm()
+		caption            : str              = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
+		text               : str              = f"{caption}\n{self.operation.Description()}\n\nСчета."
+		accounts_checked   : list[str] = self.accounts.IdosToNames(self.operation.AccountsIdos())
+		accounts_available : list[str] = self.accounts.AccountsNamesInDyDm(dy, dm)
+		accounts           : list[str] | None = RequestItems(caption, text, accounts_available, accounts_checked)
+		if accounts is None: return
+
+		self.operation.AccountsIdos(self.accounts.NamesToIdos(dy, dm, accounts))
+
 	def SetLabels(self):
 		""" Установка меток """
 		caption     : str              = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		labels      : list[str] | None = RequestMultipleText(caption, "Метки", self.operation.Labels())
+		text        : str        = f"{caption}\n{self.operation.Description()}\n\nМетки аналитики."
+		labels      : list[str] | None = RequestMultipleText(caption, text, self.operation.Labels())
 		if labels is None: return
 
 		self.operation.Labels(labels)

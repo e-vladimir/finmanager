@@ -52,6 +52,12 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.LoadOperation()
 
+	def on_RequestSetAccounts(self):
+		""" Запрос на изменение счетов """
+		self.SetAccounts()
+
+		self.LoadOperation()
+
 	def on_RequestSetLabels(self):
 		""" Запрос на изменение меток """
 		self.SetLabels()

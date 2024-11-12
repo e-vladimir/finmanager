@@ -64,7 +64,7 @@ class C60_FormOperations(C50_FormOperations):
 		item_amount.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
 		item_accounts                     = self.model_data.itemFromIndex(indexes[1])
-		item_accounts.setText('\n'.join(self.accounts.IdosToNames(operation.AccountsIdos())))
+		item_accounts.setText(', '.join(self.accounts.IdosToNames(operation.AccountsIdos())))
 
 		item_labels                       = self.model_data.itemFromIndex(indexes[2])
 		item_labels.setText(', '.join(operation.Labels()))

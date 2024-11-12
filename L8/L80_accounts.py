@@ -149,6 +149,18 @@ class C80_Accounts(C70_Accounts):
 
 		return result
 
+	def NamesToIdos(self, dy: int, dm: int, names: list[str]) -> list[str]:
+		""" Список IDO из списка наименований """
+		result : list[str] = []
+
+		account            = C80_Account()
+		for name in names:
+			if not account.SwitchByNameInDyDm(dy, dm, name): continue
+
+			result.append(account.Ido().data)
+
+		return result
+
 	def AccountsIdosInDyDm(self, dy: int, dm: int) -> list[str]:
 		""" Список IDO счетов в указанном периоде """
 		account         = C80_Account()

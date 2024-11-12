@@ -13,4 +13,5 @@ class C50_FormOperation(C42_FormOperation):
 	def on_RequestSetDate(self)       : pass
 	def on_RequestSetAmount(self)     : pass
 	def on_RequestSetDescription(self): pass
+	def on_RequestSetAccounts(self)   : pass
 	def on_RequestSetLabels(self)     : pass

@@ -56,7 +56,7 @@ class C60_Operation(C50_Operation):
 	def AccountsIdos(self, idos: list[str] = None) -> list[str]:
 		""" Список IDO счетов """
 		if idos is None  : return self.f_accounts_idos.ToStrings(CONTAINERS.DISK).data
-		else             :        self.f_accounts_idos.FromString(CONTAINERS.DISK, idos)
+		else             :        self.f_accounts_idos.FromStrings(CONTAINERS.DISK, idos)
 
 	def Color(self, color: COLORS = None) -> COLORS:
 		""" Цветовая метка """

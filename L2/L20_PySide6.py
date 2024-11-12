@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 11 ноя 2024
+# 12 ноя 2024
 
 import enum
 
@@ -424,7 +424,7 @@ def RequestItems(title: str, message: str, items: list[str], items_checked: list
 
 	if not dialog_items.exec_(): return None
 
-	return dialog_items.itemsSelected()
+	return dialog_items.selectedItems()
 
 
 def RequestFilepath(title: str, filename: str = "", filters: str = "") -> Path | None:
