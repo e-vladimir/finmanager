@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_operationaWPmng.ui'
+## Form generated from reading UI file 'form_operationgxhQaq.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -31,7 +31,11 @@ class Ui_frm_operation(object):
         self.tree_data = QTreeView(self.centralwidget)
         self.tree_data.setObjectName(u"tree_data")
         self.tree_data.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tree_data.setStyleSheet(u"QTreeView::branch { \n"
+"	border: none; \n"
+"}")
         self.tree_data.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tree_data.setAlternatingRowColors(True)
         self.tree_data.setRootIsDecorated(False)
         self.tree_data.setItemsExpandable(False)
         self.tree_data.setExpandsOnDoubleClick(False)
