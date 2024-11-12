@@ -8,3 +8,6 @@ class C50_FormOperation(C42_FormOperation):
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self): pass
+
+	# Финансовая операция
+	def on_RequestSetAmount(self): pass

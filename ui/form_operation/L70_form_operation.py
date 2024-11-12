@@ -40,4 +40,4 @@ class C70_FormOperation(C60_FormOperation):
 		idp_labels          = self.operation.f_labels.Idp().data
 
 		match self._processing_ido:
-			case _ : pass
+			case idp_amount: self.on_RequestSetAmount()

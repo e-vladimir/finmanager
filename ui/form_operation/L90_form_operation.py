@@ -32,3 +32,10 @@ class C90_FormOperation(C80_FormOperation):
 		self.ReadProcessingIdoFromTreeData()
 
 		self.ProcessingTreeData_DbClick()
+
+	# Финансовая операция
+	def on_RequestSetAmount(self):
+		""" Запрос на изменение суммы """
+		self.SetAmount()
+
+		self.LoadOperation()
