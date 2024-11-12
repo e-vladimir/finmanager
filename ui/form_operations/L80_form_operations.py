@@ -19,6 +19,17 @@ class C80_FormOperations(C70_FormOperations):
 		for self._processing_dd  in self.operations.DdsInDyDm(dy, dm)             : self.LoadDd()
 		for self._processing_ido in self.operations.OperationsIdosInDyDmDd(dy, dm): self.LoadOperation()
 
+	def UpdateDataPartial(self):
+		""" Частичное обновление данных """
+		dy, dm    = self.workspace.DyDm()
+
+		operation = C90_Operation(self.workspace.IdoOperation())
+
+		self._processing_dd  = operation.Dd()
+		self.LoadDd()
+
+		for self._processing_ido in self.operations.OperationsIdosInDyDmDd(dy, dm, self._processing_dd): self.LoadOperation()
+
 	# Финансовая операция
 	def CreateOperation(self):
 		""" Создание операции """

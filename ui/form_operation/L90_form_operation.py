@@ -26,6 +26,10 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.ShowTitle()
 
+	def on_Close(self):
+		""" Закрытие формы """
+		self.application.form_operations.UpdateDataPartial()
+
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):
 		""" Запрос на обработку двойного клика по дереву данных """

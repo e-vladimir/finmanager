@@ -54,14 +54,14 @@ class C60_FormOperations(C50_FormOperations):
 			item_amount                 = row[0]
 			item_amount.setData(self._processing_ido, ROLES.IDO)
 			item_amount.setData(self._processing_dd,  ROLES.GROUP)
-			item_amount.setText(AmountToString(operation.Amount(), flag_sign=True))
+			item_amount.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
 			item_dd.appendRow(row)
 
 		indexes                           = self.model_data.indexesInRowByIdo(self._processing_ido)
 
 		item_amount                       = self.model_data.itemFromIndex(indexes[0])
-		item_amount.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+		item_amount.setText(AmountToString(operation.Amount(), flag_sign=True))
 
 		item_accounts                     = self.model_data.itemFromIndex(indexes[1])
 		item_accounts.setText(', '.join(self.accounts.IdosToNames(operation.AccountsIdos())))
