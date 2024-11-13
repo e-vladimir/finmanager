@@ -3,7 +3,7 @@
 from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINERS
-from L20_PySide6         import RequestValue, RequestText, RequestConfirm
+from L20_PySide6 import RequestValue, RequestText, RequestConfirm, RequestMultipleText
 from L70_form_operations import C70_FormOperations
 from L90_operations      import C90_Operation
 
@@ -87,3 +87,13 @@ class C80_FormOperations(C70_FormOperations):
 		if description is None: return
 
 		operation.Description(description)
+
+	def SetOperationLabels(self):
+		""" Установка меток операции """
+		operation                      = C90_Operation(self._processing_ido)
+		text        : str              = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+
+		labels      : list[str] | None = RequestMultipleText("Редактирование операции", text, operation.Labels())
+		if labels is None: return
+
+		operation.Labels(labels)

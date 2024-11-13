@@ -21,6 +21,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		""" Инициализация меню Финансовые операции """
 		icon_open      = QIcon("./L0/icons/open.svg")
 		icon_edit      = QIcon("./L0/icons/edit.svg")
+		icon_list      = QIcon("./L0/icons/list.svg")
 		icon_blocks    = QIcon("./L0/icons/blocks.svg")
 		icon_item_plus = QIcon("./L0/icons/item_plus.svg")
 		icon_grid_3_3  = QIcon("./L0/icons/grid_3_3.svg")
@@ -38,7 +39,8 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 
 		self.submenu_operation                            = self.menu_operations.addMenu(icon_grid_3_3, "Операция")
 		self.action_operation_open_operation    : QAction = self.submenu_operation.addAction(icon_open,   "Открыть операцию")
-		self.action_operation_set_description   : QAction = self.submenu_operation.addAction(icon_edit,   "Установить описание")
+		self.action_operation_set_description   : QAction = self.submenu_operation.addAction(icon_edit,   "Редактировать описание")
+		self.action_operation_set_labels        : QAction = self.submenu_operation.addAction(icon_list,   "Редактировать метки")
 		self.action_operation_delete_operation  : QAction = self.submenu_operation.addAction(icon_delete, "Удалить операцию")
 		self.submenu_operation.addSeparator()
 		self.submenu_operation_colors                     = self.submenu_operation.addMenu(icon_gray, "Цветовая метка")

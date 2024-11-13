@@ -50,8 +50,13 @@ class C60_Operation(C50_Operation):
 
 	def Labels(self, labels: list[str] = None) -> list[str]:
 		""" Метки """
-		if labels is None: return list(sorted(self.f_labels.ToStrings(CONTAINERS.DISK).data))
-		else             :        self.f_labels.FromStrings(CONTAINERS.DISK, sorted(labels))
+		if labels is None:
+			data : list[str] = self.f_labels.ToStrings(CONTAINERS.DISK).data
+			return list(sorted(data))
+		else             :
+			data : set[str] = set(labels)
+			if '' in data: data.remove('')
+			self.f_labels.FromStrings(CONTAINERS.DISK, sorted(data))
 
 	def AccountsIdos(self, idos: list[str] = None) -> list[str]:
 		""" Список IDO счетов """
