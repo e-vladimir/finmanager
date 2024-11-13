@@ -31,12 +31,15 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_gray       = QIcon("./L0/icons/square_gray.svg")
 		icon_green      = QIcon("./L0/icons/square_green.svg")
 		icon_red        = QIcon("./L0/icons/square_red.svg")
+		icon_reload     = QIcon("./L0/icons/reload.svg")
 		icon_arrows_l_r = QIcon("./L0/icons/arrow_left_right.svg")
 
 		self.menu_operations                              = QMenu("Операции")
 
 		self.submenu_operations                           = self.menu_operations.addMenu(icon_blocks, "Операции")
 		self.action_operations_create_operation : QAction = self.submenu_operations.addAction(icon_item_plus, "Создать операцию")
+		self.submenu_operations.addSeparator()
+		self.action_operations_reset            : QAction = self.submenu_operations.addAction(icon_reload,    "Сброс данных")
 
 		self.submenu_operation                            = self.menu_operations.addMenu(icon_grid_3_3, "Операция")
 		self.action_operation_open_operation    : QAction = self.submenu_operation.addAction(icon_open,       "Открыть операцию")

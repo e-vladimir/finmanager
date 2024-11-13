@@ -1,9 +1,12 @@
 # ФОРМА ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
 
+from PySide6.QtCore      import Qt
+from PySide6.QtWidgets   import QProgressDialog
+
 from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINERS
-from L20_PySide6 import RequestValue, RequestText, RequestConfirm, RequestMultipleText
+from L20_PySide6         import RequestValue, RequestText, RequestConfirm, RequestMultipleText
 from L70_form_operations import C70_FormOperations
 from L90_operations      import C90_Operation
 
@@ -33,6 +36,29 @@ class C80_FormOperations(C70_FormOperations):
 		self.LoadOperation()
 
 		self.on_UpdateDataPartial()
+
+	def ResetData(self):
+		""" Сброс данных """
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = self.operations.OperationsIdosInDyDmDd(dy, dm)
+
+		if not idos                                                                  : return
+		if not RequestConfirm("Сброс данных", f"Будет удалено операций: {len(idos)}"): return
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Сброс данных")
+		dialog_progress.setLabelText("Осталось обработать: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+
+		for ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
+
+			operation = C90_Operation(ido)
+			operation.DeleteObject(CONTAINERS.DISK)
+
+		dialog_progress.close()
 
 	# Финансовая операция
 	def CreateOperation(self):

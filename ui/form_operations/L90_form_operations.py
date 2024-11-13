@@ -15,6 +15,7 @@ class C90_FormOperations(C80_FormOperations):
 
 		# Меню Финансовые операции
 		self.action_operations_create_operation.triggered.connect(self.on_RequestCreateOperation)
+		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
 
 		# Меню Финансовая операция
 		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
@@ -81,6 +82,19 @@ class C90_FormOperations(C80_FormOperations):
 
 		self.LoadDd()
 		self.LoadOperation()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
+
+	def on_RequestResetData(self):
+		""" Запрос на сброс данных """
+		self.ResetData()
+
+		self.InitModel()
+
+		self.ShowOperations()
 
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
