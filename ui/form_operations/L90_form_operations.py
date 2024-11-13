@@ -19,6 +19,8 @@ class C90_FormOperations(C80_FormOperations):
 		# Меню Финансовая операция
 		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
 		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
+
+		self.action_operation_split.triggered.connect(self.on_RequestSplitOperation)
 		self.action_operation_set_description.triggered.connect(self.on_RequestSetOperationDescription)
 		self.action_operation_set_labels.triggered.connect(self.on_RequestSetOperationLabels)
 
@@ -144,5 +146,11 @@ class C90_FormOperations(C80_FormOperations):
 	def on_RequestSetOperationLabels(self):
 		""" Запрос на редактирование меток """
 		self.SetOperationLabels()
+
+		self.LoadOperation()
+
+	def on_RequestSplitOperation(self):
+		""" Запрос на разделение операции """
+		self.SplitOperation()
 
 		self.LoadOperation()

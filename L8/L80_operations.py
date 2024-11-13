@@ -10,6 +10,39 @@ from L70_operations         import C70_Operation, C70_Operations
 class C80_Operation(C70_Operation):
 	""" Финансовая операция: Логика данных """
 
+	# Обработка
+	def Split(self, amount: int) -> str:
+		""" Разделение операции """
+		self.Amount(self.Amount() - amount)
+
+		dy              = self.Dy()
+		dm              = self.Dm()
+		dd              = self.Dd()
+		src_amount      = self.SrcAmount()
+		src_description = self.SrcDescription()
+		description     = self.Description()
+		crc             = self.Crc()
+		color           = self.Color()
+		labels          = self.Labels()
+		accounts        = self.AccountsIdos()
+
+		self.GenerateIdo()
+		self.RegisterObject(CONTAINERS.DISK)
+
+		self.Dy(dy)
+		self.Dm(dm)
+		self.Dd(dd)
+		self.Amount(amount)
+		self.Description(description)
+		self.SrcAmount(src_amount)
+		self.SrcDescription(src_description)
+		self.Crc(crc)
+		self.Labels(labels)
+		self.Color(color)
+		self.AccountsIdos(accounts)
+
+		return self.Ido().data
+
 	# Преобразования
 	def DdDmDyToString(self) -> str:
 		""" ДД МЕС ГОД """

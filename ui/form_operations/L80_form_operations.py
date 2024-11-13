@@ -97,3 +97,19 @@ class C80_FormOperations(C70_FormOperations):
 		if labels is None: return
 
 		operation.Labels(labels)
+
+	def SplitOperation(self):
+		""" Разделение операции """
+		operation              = C90_Operation(self._processing_ido)
+		text      : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+
+		amount    : int | None = RequestValue("Разделение операции", text, operation.Amount(), -99999999, 99999999)
+		if amount is None: return
+
+		ido_old = operation.Ido().data
+		operation.Split(amount)
+
+		self.LoadOperation()
+
+		ido_new = operation.Ido().data
+		self._processing_ido = ido_new
