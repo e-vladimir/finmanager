@@ -32,12 +32,15 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_green      = QIcon("./L0/icons/square_green.svg")
 		icon_red        = QIcon("./L0/icons/square_red.svg")
 		icon_reload     = QIcon("./L0/icons/reload.svg")
+		icon_replace    = QIcon("./L0/icons/replace.svg")
 		icon_arrows_l_r = QIcon("./L0/icons/arrow_left_right.svg")
 
 		self.menu_operations                              = QMenu("Операции")
 
 		self.submenu_operations                           = self.menu_operations.addMenu(icon_blocks, "Операции")
 		self.action_operations_create_operation : QAction = self.submenu_operations.addAction(icon_item_plus, "Создать операцию")
+		self.submenu_operations.addSeparator()
+		self.action_operations_replace_text     : QAction = self.submenu_operations.addAction(icon_replace,   "Поиск и замена текстового фрагмента")
 		self.submenu_operations.addSeparator()
 		self.action_operations_reset            : QAction = self.submenu_operations.addAction(icon_reload,    "Сброс данных")
 

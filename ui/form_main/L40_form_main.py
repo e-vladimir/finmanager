@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainHrNQNb.ui'
+## Form generated from reading UI file 'form_mainXWfczV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -165,6 +165,6 @@ class Ui_form_main(object):
         self.btn_accounts.setText(QCoreApplication.translate("form_main", u"\u0421\u0447\u0435\u0442\u0430", None))
         self.btn_operations.setText(QCoreApplication.translate("form_main", u"\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438", None))
         self.label_3.setText(QCoreApplication.translate("form_main", u"\u0423\u0422\u0418\u041b\u0418\u0422\u042b", None))
-        self.btn_archives.setText(QCoreApplication.translate("form_main", u"\u0410\u0440\u0445\u0438\u0432\u044b \u0434\u0430\u043d\u043d\u044b\u0445", None))
+        self.btn_archives.setText(QCoreApplication.translate("form_main", u"\u0410\u0440\u0445\u0438\u0432\u044b", None))
     # retranslateUi
 

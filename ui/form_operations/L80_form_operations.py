@@ -6,7 +6,7 @@ from PySide6.QtWidgets   import QProgressDialog
 from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINERS
-from L20_PySide6         import RequestValue, RequestText, RequestConfirm, RequestMultipleText
+from L20_PySide6 import RequestValue, RequestText, RequestConfirm, RequestMultipleText, QFindReplaceTextDialog
 from L70_form_operations import C70_FormOperations
 from L90_operations      import C90_Operation
 
@@ -36,6 +36,39 @@ class C80_FormOperations(C70_FormOperations):
 		self.LoadOperation()
 
 		self.on_UpdateDataPartial()
+
+	def ReplaceText(self):
+		""" Поиск и замена текстового фрагмента """
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = self.operations.OperationsIdosInDyDmDd(dy, dm)
+
+		if not idos                 : return
+
+		operation        = C90_Operation(self._processing_ido)
+		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента", operation.Description(), operation.Description())
+		if not dialog_request.exec(): return
+
+		text_find        = dialog_request.textFind()
+		text_replace     = dialog_request.textReplace()
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Поиск и замена текстового фрагмента")
+		dialog_progress.setLabelText("Осталось обработать: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+
+		for self._processing_ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
+
+			operation = C90_Operation(self._processing_ido)
+			if text_find not in operation.Description(): continue
+
+			operation.Description(operation.Description().replace(text_find, text_replace))
+
+			self.LoadOperation()
+
+		dialog_progress.close()
 
 	def ResetData(self):
 		""" Сброс данных """

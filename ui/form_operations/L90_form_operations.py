@@ -15,6 +15,7 @@ class C90_FormOperations(C80_FormOperations):
 
 		# Меню Финансовые операции
 		self.action_operations_create_operation.triggered.connect(self.on_RequestCreateOperation)
+		self.action_operations_replace_text.triggered.connect(self.on_RequestReplaceText)
 		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
 
 		# Меню Финансовая операция
@@ -87,6 +88,10 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
+
+	def on_RequestReplaceText(self):
+		""" Запрос на поиск и замену текстового фрагмента """
+		self.ReplaceText()
 
 	def on_RequestResetData(self):
 		""" Запрос на сброс данных """
