@@ -72,3 +72,8 @@ class C80_FormOperations(C70_FormOperations):
 		if not RequestConfirm("Удаление операции", text): return
 
 		operation.DeleteObject(CONTAINERS.DISK)
+
+	def SetOperationColor(self):
+		""" Установка цвета операции """
+		operation = C90_Operation(self._processing_ido)
+		operation.Color(self._processing_color)

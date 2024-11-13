@@ -542,7 +542,7 @@ class C20_StandardItemModel(QStandardItemModel):
 		return self.indexByData(ido, ROLES.IDO) is not None
 
 	# Инструментарий отображения
-	def setRowColor(self, parent: QStandardItem, row: int, color_bg: QColor = Qt.GlobalColor.white, color_fg: QColor = Qt.GlobalColor.black):
+	def setRowColor(self, parent: QStandardItem, row: int, color_bg: QColor = Qt.GlobalColor.transparent, color_fg: QColor = Qt.GlobalColor.black):
 		""" Установка цвета строки """
 		for index_col in range(self.columnCount()):
 			item_child : QStandardItem | None = parent.child(row, index_col)

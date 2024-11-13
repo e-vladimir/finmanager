@@ -18,3 +18,8 @@ class C50_FormOperations(C42_FormOperations):
 	# Финансовая операция
 	def on_RequestOpenOperation(self): pass
 	def on_RequestDeleteOperation(self): pass
+	def on_RequestSetOperationColorBlack(self): pass
+	def on_RequestSetOperationColorGray(self): pass
+	def on_RequestSetOperationColorRed(self): pass
+	def on_RequestSetOperationColorBlue(self): pass
+	def on_RequestSetOperationColorGreen(self): pass

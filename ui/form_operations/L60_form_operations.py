@@ -79,10 +79,10 @@ class C60_FormOperations(C50_FormOperations):
 
 		match operation.Color():
 			case COLORS.BLACK: text_color = QColor(  0,   0,   0)
-			case COLORS.BLUE : text_color = QColor(  0,   0, 200)
-			case COLORS.GRAY : text_color = QColor(120, 120, 120)
-			case COLORS.GREEN: text_color = QColor(  0, 200,   0)
-			case COLORS.RED  : text_color = QColor(200,   0,   0)
+			case COLORS.BLUE : text_color = QColor( 50,  50, 150)
+			case COLORS.GRAY : text_color = QColor(150, 150, 150)
+			case COLORS.GREEN: text_color = QColor( 50, 150,  50)
+			case COLORS.RED  : text_color = QColor(150,  50,  50)
 
 		self.model_data.setRowColor(item_dd, item_amount.row(), color_fg=text_color)
 
@@ -134,3 +134,23 @@ class C60_FormOperations(C50_FormOperations):
 		""" Чтение текущей колонки из дерева данных """
 		current_index : QModelIndex = self.tree_data.currentIndex()
 		self._processing_column = current_index.column()
+
+	def SetProcessingColorBlack(self):
+		""" Установка цвета: Чёрный """
+		self._processing_color = COLORS.BLACK
+
+	def SetProcessingColorGray(self):
+		""" Установка цвета: Серый """
+		self._processing_color = COLORS.GRAY
+
+	def SetProcessingColorGreen(self):
+		""" Установка цвета: Зелёный """
+		self._processing_color = COLORS.GREEN
+
+	def SetProcessingColorBlue(self):
+		""" Установка цвета: Синий """
+		self._processing_color = COLORS.BLUE
+
+	def SetProcessingColorRed(self):
+		""" Установка цвета: Красный """
+		self._processing_color = COLORS.RED

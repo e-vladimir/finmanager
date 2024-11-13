@@ -20,6 +20,12 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_open_operation.triggered.connect(self.on_RequestOpenOperation)
 		self.action_operations_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
 
+		self.action_operation_colors_set_black.triggered.connect(self.on_RequestSetOperationColorBlack)
+		self.action_operation_colors_set_gray.triggered.connect(self.on_RequestSetOperationColorGray)
+		self.action_operation_colors_set_green.triggered.connect(self.on_RequestSetOperationColorGreen)
+		self.action_operation_colors_set_blue.triggered.connect(self.on_RequestSetOperationColorBlue)
+		self.action_operation_colors_set_red.triggered.connect(self.on_RequestSetOperationColorRed)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -91,3 +97,38 @@ class C90_FormOperations(C80_FormOperations):
 
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
+	def on_RequestSetOperationColorBlack(self):
+		""" Запрос на установку цвета операции: Чёрный """
+		self.SetProcessingColorBlack()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorGray(self):
+		""" Запрос на установку цвета операции: Серый """
+		self.SetProcessingColorGray()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorGreen(self):
+		""" Запрос на установку цвета операции: Зелёный """
+		self.SetProcessingColorGreen()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorBlue(self):
+		""" Запрос на установку цвета операции: Синий """
+		self.SetProcessingColorBlue()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorRed(self):
+		""" Запрос на установку цвета операции: Красный """
+		self.SetProcessingColorRed()
+		self.SetOperationColor()
+
+		self.LoadOperation()

@@ -76,6 +76,8 @@ class C70_FormOperations(C60_FormOperations):
 		self.action_operations_open_operation.setEnabled(flag_selected_operation)
 		self.action_operations_delete_operation.setEnabled(flag_selected_operation)
 
+		self.submenu_operation_colors.setEnabled(flag_selected_operation)
+
 	def ShowMenuOperations(self):
 		""" Меню операций по счетам: Отображение """
 		self.menu_operations.exec_(QCursor().pos())
