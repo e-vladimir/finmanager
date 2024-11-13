@@ -27,7 +27,7 @@ class C70_FormOperations(C60_FormOperations):
 			case 0: self.on_RequestOpenOperation()
 			case 1: self.on_RequestOpenOperation()
 			case 2: pass
-			case 3: pass
+			case 3: self.on_RequestSetOperationDescription()
 
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """
@@ -73,8 +73,9 @@ class C70_FormOperations(C60_FormOperations):
 		""" Меню операций по счетам: Настройка доступности """
 		flag_selected_operation : bool = bool(self._processing_ido)
 
-		self.action_operations_open_operation.setEnabled(flag_selected_operation)
-		self.action_operations_delete_operation.setEnabled(flag_selected_operation)
+		self.action_operation_open_operation.setEnabled(flag_selected_operation)
+		self.action_operation_set_description.setEnabled(flag_selected_operation)
+		self.action_operation_delete_operation.setEnabled(flag_selected_operation)
 
 		self.submenu_operation_colors.setEnabled(flag_selected_operation)
 

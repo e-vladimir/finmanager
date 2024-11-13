@@ -17,8 +17,9 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_create_operation.triggered.connect(self.on_RequestCreateOperation)
 
 		# Меню Финансовая операция
-		self.action_operations_open_operation.triggered.connect(self.on_RequestOpenOperation)
-		self.action_operations_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
+		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
+		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
+		self.action_operation_set_description.triggered.connect(self.on_RequestSetOperationDescription)
 
 		self.action_operation_colors_set_black.triggered.connect(self.on_RequestSetOperationColorBlack)
 		self.action_operation_colors_set_gray.triggered.connect(self.on_RequestSetOperationColorGray)
@@ -130,5 +131,11 @@ class C90_FormOperations(C80_FormOperations):
 		""" Запрос на установку цвета операции: Красный """
 		self.SetProcessingColorRed()
 		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationDescription(self):
+		""" Запрос на установку описания операции """
+		self.SetOperationDescription()
 
 		self.LoadOperation()

@@ -77,3 +77,13 @@ class C80_FormOperations(C70_FormOperations):
 		""" Установка цвета операции """
 		operation = C90_Operation(self._processing_ido)
 		operation.Color(self._processing_color)
+
+	def SetOperationDescription(self):
+		""" Установка описания операции """
+		operation                = C90_Operation(self._processing_ido)
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+
+		description : str | None = RequestText("Редактирование операции", text, operation.Description())
+		if description is None: return
+
+		operation.Description(description)

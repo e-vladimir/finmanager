@@ -23,3 +23,4 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestSetOperationColorRed(self): pass
 	def on_RequestSetOperationColorBlue(self): pass
 	def on_RequestSetOperationColorGreen(self): pass
+	def on_RequestSetOperationDescription(self): pass
