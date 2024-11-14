@@ -20,6 +20,7 @@ class C50_FormOperations(C42_FormOperations):
 	# Пакет операуий
 	def on_RequestUncheckedAllPackOperations(self): pass
 	def on_RequestExpandPackOperations(self): pass
+	def on_RequestCollapsePackOperations(self): pass
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self): pass

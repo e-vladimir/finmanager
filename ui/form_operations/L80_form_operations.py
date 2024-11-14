@@ -104,7 +104,7 @@ class C80_FormOperations(C70_FormOperations):
 		""" Расширение пакета операций """
 		dy, dm            = self.workspace.DyDm()
 
-		text : str | None = RequestText("Расширение пакета операций", "Текстовый фрагмент-критерий")
+		text : str | None = RequestText("Расширение пакета операций", "Поиск в описании")
 		if text is None: return
 
 		for ido in self.operations.OperationsIdosInDyDmDd(dy, dm):
@@ -116,6 +116,23 @@ class C80_FormOperations(C70_FormOperations):
 			if item is None                                       : continue
 
 			item.setCheckState(Qt.CheckState.Checked)
+
+	def CollapsePackOperations(self):
+		""" Расширение пакета операций """
+		dy, dm            = self.workspace.DyDm()
+
+		text : str | None = RequestText("Сокращение пакета операций", "Поиск в описании")
+		if text is None: return
+
+		for ido in self.operations.OperationsIdosInDyDmDd(dy, dm):
+			operation                      = C90_Operation(ido)
+
+			if text.lower() not in operation.Description().lower(): continue
+
+			item : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.IDO)
+			if item is None                                       : continue
+
+			item.setCheckState(Qt.CheckState.Unchecked)
 
 	# Финансовая операция
 	def CreateOperation(self):
