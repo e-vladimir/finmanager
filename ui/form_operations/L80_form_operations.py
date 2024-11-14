@@ -6,7 +6,7 @@ from PySide6.QtWidgets   import QProgressDialog
 from G11_convertor_data  import AmountToString
 
 from L00_containers      import CONTAINERS
-from L20_PySide6 import RequestValue, RequestText, RequestConfirm, RequestMultipleText, QFindReplaceTextDialog
+from L20_PySide6         import RequestValue, RequestText, RequestConfirm, RequestMultipleText, QFindReplaceTextDialog, C20_StandardItem, ROLES
 from L70_form_operations import C70_FormOperations
 from L90_operations      import C90_Operation
 
@@ -92,6 +92,13 @@ class C80_FormOperations(C70_FormOperations):
 			operation.DeleteObject(CONTAINERS.DISK)
 
 		dialog_progress.close()
+
+	# Пакет операций
+	def UncheckedAllPackOperations(self):
+		""" Сброс выбора пакет операций """
+		for ido in self._processing_idos:
+			item : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.IDO)
+			item.setCheckState(Qt.CheckState.Unchecked)
 
 	# Финансовая операция
 	def CreateOperation(self):

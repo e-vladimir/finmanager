@@ -14,10 +14,11 @@ class C42_FormOperations(C41_FormOperations):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_ido    : str    = ""
-		self._processing_dd     : int    = 1
-		self._processing_column : int    = 0
-		self._processing_color  : COLORS = COLORS.BLACK
+		self._processing_ido    : str       = ""
+		self._processing_idos   : list[str] = []
+		self._processing_dd     : int       = 1
+		self._processing_column : int       = 0
+		self._processing_color  : COLORS    = COLORS.BLACK
 
 	def Init_10(self):
 		super().Init_10()

@@ -18,6 +18,9 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_replace_text.triggered.connect(self.on_RequestReplaceText)
 		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
 
+		# Меню Пакет операций
+		self.action_operations_pack_clear_selection.triggered.connect(self.on_RequestUncheckedAllPackOperations)
+
 		# Меню Финансовая операция
 		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
 		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
@@ -70,6 +73,7 @@ class C90_FormOperations(C80_FormOperations):
 		""" Запрос меню операций по счетам """
 		self.ReadProcessingIdoFromTreeData()
 		self.ReadProcessingDdFromTreeData()
+		self.ReadProcessingIdosFromTreeData()
 
 		self.AdjustMenuOperations_Text()
 		self.AdjustMenuOperations_Enable()
@@ -105,6 +109,11 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
+
+	# Пакет операций
+	def on_RequestUncheckedAllPackOperations(self):
+		""" Сброс выбора пакета операций """
+		self.UncheckedAllPackOperations()
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self):

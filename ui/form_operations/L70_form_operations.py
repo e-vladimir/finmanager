@@ -64,17 +64,24 @@ class C70_FormOperations(C60_FormOperations):
 	def AdjustMenuOperations_Text(self):
 		""" Меню операций по счетам: Настройка текста """
 		self.submenu_operation.setTitle("Операция")
+		self.submenu_operations_pack.setTitle("Пакет операций")
 
 		if self._processing_ido:
 			operation = C90_Operation(self._processing_ido)
 			self.submenu_operation.setTitle(f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}")
 
+		if self._processing_idos:
+			self.submenu_operations_pack.setTitle(f"Пакет операций: {len(self._processing_idos)}")
+
 	def AdjustMenuOperations_Enable(self):
 		""" Меню операций по счетам: Настройка доступности """
 		flag_selected_operation : bool = bool(self._processing_ido)
+		flag_selected_pack      : bool = len(self._processing_idos) > 0
 
 		self.action_operation_open_operation.setEnabled(flag_selected_operation)
 		self.action_operation_delete_operation.setEnabled(flag_selected_operation)
+
+		self.action_operations_pack_clear_selection.setEnabled(flag_selected_pack)
 
 		self.action_operation_split.setEnabled(flag_selected_operation)
 		self.action_operation_set_description.setEnabled(flag_selected_operation)

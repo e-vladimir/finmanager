@@ -25,6 +25,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_blocks     = QIcon("./L0/icons/blocks.svg")
 		icon_item_plus  = QIcon("./L0/icons/item_plus.svg")
 		icon_grid_3_3   = QIcon("./L0/icons/grid_3_3.svg")
+		icon_grid_2_2   = QIcon("./L0/icons/grid_2_2.svg")
 		icon_delete     = QIcon("./L0/icons/item_delete.svg")
 		icon_black      = QIcon("./L0/icons/square_black.svg")
 		icon_blue       = QIcon("./L0/icons/square_blue.svg")
@@ -32,6 +33,8 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_green      = QIcon("./L0/icons/square_green.svg")
 		icon_red        = QIcon("./L0/icons/square_red.svg")
 		icon_reload     = QIcon("./L0/icons/reload.svg")
+		icon_uncheck    = QIcon("./L0/icons/checked_uncheck.svg")
+		icon_check      = QIcon("./L0/icons/checked_check.svg")
 		icon_replace    = QIcon("./L0/icons/replace.svg")
 		icon_arrows_l_r = QIcon("./L0/icons/arrow_left_right.svg")
 
@@ -43,6 +46,9 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_replace_text     : QAction = self.submenu_operations.addAction(icon_replace,   "Поиск и замена текстового фрагмента")
 		self.submenu_operations.addSeparator()
 		self.action_operations_reset            : QAction = self.submenu_operations.addAction(icon_reload,    "Сброс данных")
+
+		self.submenu_operations_pack                      = self.menu_operations.addMenu(icon_grid_2_2, "Пакет операций")
+		self.action_operations_pack_clear_selection : QAction = self.submenu_operations_pack.addAction(icon_uncheck, "Сбросить выбор")
 
 		self.submenu_operation                            = self.menu_operations.addMenu(icon_grid_3_3, "Операция")
 		self.action_operation_open_operation    : QAction = self.submenu_operation.addAction(icon_open,       "Открыть операцию")

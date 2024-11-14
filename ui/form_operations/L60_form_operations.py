@@ -57,6 +57,7 @@ class C60_FormOperations(C50_FormOperations):
 			item_amount.setData(self._processing_ido, ROLES.IDO)
 			item_amount.setData(self._processing_dd,  ROLES.GROUP)
 			item_amount.setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+			item_amount.setCheckable(True)
 
 			item_dd.appendRow(row)
 
@@ -134,6 +135,10 @@ class C60_FormOperations(C50_FormOperations):
 		""" Чтение текущей колонки из дерева данных """
 		current_index : QModelIndex = self.tree_data.currentIndex()
 		self._processing_column = current_index.column()
+
+	def ReadProcessingIdosFromTreeData(self):
+		""" Чтение списка IDO из выбранных элементов """
+		self._processing_idos = self.model_data.dataByCheckState(ROLES.IDO, Qt.CheckState.Checked)
 
 	def SetProcessingColorBlack(self):
 		""" Установка цвета: Чёрный """
