@@ -95,10 +95,27 @@ class C80_FormOperations(C70_FormOperations):
 
 	# Пакет операций
 	def UncheckedAllPackOperations(self):
-		""" Сброс выбора пакет операций """
+		""" Сброс пакета операций """
 		for ido in self._processing_idos:
 			item : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.IDO)
 			item.setCheckState(Qt.CheckState.Unchecked)
+
+	def ExpandPackOperations(self):
+		""" Расширение пакета операций """
+		dy, dm            = self.workspace.DyDm()
+
+		text : str | None = RequestText("Расширение пакета операций", "Текстовый фрагмент-критерий")
+		if text is None: return
+
+		for ido in self.operations.OperationsIdosInDyDmDd(dy, dm):
+			operation                      = C90_Operation(ido)
+
+			if text.lower() not in operation.Description().lower(): continue
+
+			item : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.IDO)
+			if item is None                                       : continue
+
+			item.setCheckState(Qt.CheckState.Checked)
 
 	# Финансовая операция
 	def CreateOperation(self):

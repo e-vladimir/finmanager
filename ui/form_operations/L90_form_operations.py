@@ -20,6 +20,7 @@ class C90_FormOperations(C80_FormOperations):
 
 		# Меню Пакет операций
 		self.action_operations_pack_clear_selection.triggered.connect(self.on_RequestUncheckedAllPackOperations)
+		self.action_operations_pack_expand_selection.triggered.connect(self.on_RequestExpandPackOperations)
 
 		# Меню Финансовая операция
 		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
@@ -112,8 +113,12 @@ class C90_FormOperations(C80_FormOperations):
 
 	# Пакет операций
 	def on_RequestUncheckedAllPackOperations(self):
-		""" Сброс выбора пакета операций """
+		""" Запрос сброса пакета операций """
 		self.UncheckedAllPackOperations()
+
+	def on_RequestExpandPackOperations(self):
+		""" Запрос расширения пакета операций """
+		self.ExpandPackOperations()
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self):
