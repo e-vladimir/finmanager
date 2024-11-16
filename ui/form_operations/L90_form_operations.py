@@ -22,6 +22,7 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_pack_clear_selection.triggered.connect(self.on_RequestUncheckedAllPackOperations)
 		self.action_operations_pack_expand_selection.triggered.connect(self.on_RequestExpandPackOperations)
 		self.action_operations_pack_collapse_selection.triggered.connect(self.on_RequestCollapsePackOperations)
+		self.action_operations_pack_delete_pack.triggered.connect(self.on_RequestDeletePackOperation)
 
 		# Меню Финансовая операция
 		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
@@ -124,6 +125,10 @@ class C90_FormOperations(C80_FormOperations):
 	def on_RequestCollapsePackOperations(self):
 		""" Запрос сокращения пакета операций """
 		self.CollapsePackOperations()
+
+	def on_RequestDeletePackOperation(self):
+		""" Запрос на удаление пакета операций """
+		self.DeletePackOperations()
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self):

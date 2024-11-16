@@ -134,6 +134,14 @@ class C80_FormOperations(C70_FormOperations):
 
 			item.setCheckState(Qt.CheckState.Unchecked)
 
+	def DeletePackOperations(self):
+		""" Удаление пакета операций """
+		for self._processing_ido in self._processing_idos:
+			operation = C90_Operation(self._processing_ido)
+			operation.DeleteObject(CONTAINERS.DISK)
+
+			self.CleanOperation()
+
 	# Финансовая операция
 	def CreateOperation(self):
 		""" Создание операции """

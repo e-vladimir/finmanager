@@ -17,10 +17,11 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestReplaceText(self): pass
 	def on_RequestResetData(self): pass
 
-	# Пакет операуий
+	# Пакет операций
 	def on_RequestUncheckedAllPackOperations(self): pass
 	def on_RequestExpandPackOperations(self): pass
 	def on_RequestCollapsePackOperations(self): pass
+	def on_RequestDeletePackOperation(self): pass
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self): pass
