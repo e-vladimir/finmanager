@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'formiLXKUf.ui'
+## Form generated from reading UI file 'form_importxPlbqs.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -43,9 +43,11 @@ class Ui_frm_import(object):
         self.table_operations_data.setAlternatingRowColors(True)
         self.table_operations_data.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.table_operations_data.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table_operations_data.horizontalHeader().setStretchLastSection(True)
+        self.table_operations_data.verticalHeader().setVisible(False)
         self.table_operations_data.verticalHeader().setMinimumSectionSize(20)
         self.table_operations_data.verticalHeader().setDefaultSectionSize(20)
-        self.table_operations_data.verticalHeader().setStretchLastSection(True)
+        self.table_operations_data.verticalHeader().setStretchLastSection(False)
 
         self.verticalLayout_2.addWidget(self.table_operations_data)
 

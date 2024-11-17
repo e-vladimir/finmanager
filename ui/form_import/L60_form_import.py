@@ -2,6 +2,7 @@
 
 import random
 
+from   L20_PySide6     import RequestFilepath
 from   L50_form_import import C50_FormImport
 
 
@@ -13,7 +14,7 @@ class C60_FormImport(C50_FormImport):
 		""" Инициализация модели данных Операций """
 		self.model_operations.removeAll()
 
-		self.model_operations.setHorizontalHeaderLabels(["Заголовок файла", "Сопоставление", "Данные"])
+		self.model_operations.setHorizontalHeaderLabels(["Заголовок файла", "Сопоставление", "Набор данных"])
 
 		for _ in self._operations_options: self.model_operations.fastAppendRow(["", "", ""])
 
@@ -22,7 +23,7 @@ class C60_FormImport(C50_FormImport):
 		for index_header in range(self.model_operations.rowCount()):
 			item_header = self.model_operations.item(index_header, 0)
 
-			try   :	item_header.setText(self._operations_options[index_header])
+			try   :	item_header.setText(self._operations_header[index_header])
 			except:	item_header.setText("")
 
 	def LoadOperationsOptions(self):
@@ -41,7 +42,14 @@ class C60_FormImport(C50_FormImport):
 		except: pass
 
 		for index_data in range(self.model_operations.rowCount()):
-			item_data = self.model_operations.item(index_data, 1)
+			item_data = self.model_operations.item(index_data, 2)
 
 			try   :	item_data.setText(data[index_data])
 			except:	item_data.setText("")
+
+	# Параметры
+	def ReadOperationsFile(self):
+		""" Чтение файла для импорта финансовых операций """
+		filename : str = "" if self._operations_file is None else f"{self._operations_file}"
+
+		self._operations_file = RequestFilepath("", filename)
