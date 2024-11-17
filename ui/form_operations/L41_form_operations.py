@@ -22,6 +22,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_open       = QIcon("./L0/icons/open.svg")
 		icon_edit       = QIcon("./L0/icons/edit.svg")
 		icon_list       = QIcon("./L0/icons/list.svg")
+		icon_import     = QIcon("./L0/icons/download.svg")
 		icon_blocks     = QIcon("./L0/icons/blocks.svg")
 		icon_item_plus  = QIcon("./L0/icons/item_plus.svg")
 		icon_grid_3_3   = QIcon("./L0/icons/grid_3_3.svg")
@@ -42,6 +43,8 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 
 		self.submenu_operations                                  = self.menu_operations.addMenu(icon_blocks, "Операции")
 		self.action_operations_create_operation        : QAction = self.submenu_operations.addAction(icon_item_plus, "Создать операцию")
+		self.submenu_operations.addSeparator()
+		self.action_operations_import_operation        : QAction = self.submenu_operations.addAction(icon_import,    "Импорт операций")
 		self.submenu_operations.addSeparator()
 		self.action_operations_replace_text            : QAction = self.submenu_operations.addAction(icon_replace,   "Поиск и замена текстового фрагмента")
 		self.submenu_operations.addSeparator()
