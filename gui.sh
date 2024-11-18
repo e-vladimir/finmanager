@@ -16,6 +16,11 @@ export PYTHONPATH=$PYTHONPATH:./L7
 export PYTHONPATH=$PYTHONPATH:./L8
 export PYTHONPATH=$PYTHONPATH:./L9
 
+export PYTHONPATH=$PYTHONPATH:./ui/form_accounts
+export PYTHONPATH=$PYTHONPATH:./ui/form_archives
+export PYTHONPATH=$PYTHONPATH:./ui/form_import
 export PYTHONPATH=$PYTHONPATH:./ui/form_main
+export PYTHONPATH=$PYTHONPATH:./ui/form_operation
+export PYTHONPATH=$PYTHONPATH:./ui/form_operations
 
-python3 -u gui_finmanager.py
+python3 -u gui_app.py

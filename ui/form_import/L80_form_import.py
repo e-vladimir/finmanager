@@ -49,3 +49,7 @@ class C80_FormImport(C70_FormImport):
 			else             : self._operations_data.append([str(item) for item in list(subdata)])
 
 		self._operations_options = [""] * len(self._operations_header)
+
+	def SetFieldForHeaderOperations(self):
+		"""  """
+		pass

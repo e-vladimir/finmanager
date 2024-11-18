@@ -27,7 +27,11 @@ class C70_FormImport(C60_FormImport):
 
 	def AdjustMenuOperations_Text(self):
 		""" Меню импорт финансовых операций: Настройка текста """
-		pass
+		self.submenu_operations_header.setTitle("Элемент заголовка файла")
+
+		if self._operations_processing_row == -1: return
+
+		self.submenu_operations_header.setTitle(self._operations_header[self._operations_processing_row])
 
 	def ShowMenuOperations(self):
 		""" Отображение меню импорта финансовых операций """

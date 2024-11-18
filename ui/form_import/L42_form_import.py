@@ -13,11 +13,11 @@ class C42_FormImport(C41_FormImport):
 	def Init_00(self):
 		super().Init_00()
 
-		self._operations_data    : list        = []
-		self._operations_header  : list        = []
-		self._operations_options : list        = []
-
-		self._operations_file    : Path | None = None
+		self._operations_data           : list        = []
+		self._operations_header         : list        = []
+		self._operations_options        : list        = []
+		self._operations_file           : Path | None = None
+		self._operations_processing_row : int         = -1
 
 	def Init_10(self):
 		super().Init_10()

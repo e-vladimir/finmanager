@@ -13,8 +13,10 @@ class C90_FormImport(C80_FormImport):
 		self.table_operations_data.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
 
 		# Меню импорта Финансовых операций
-		self.action_operations_open_file.triggered.connect(self.on_RequestOpenFileOperations)
-		self.action_operations_switch_data.triggered.connect(self.on_RequestSwitchDataOperation)
+		self.action_operations_operations_open_file.triggered.connect(self.on_RequestOpenFileOperations)
+		self.action_operations_operations_switch_data.triggered.connect(self.on_RequestSwitchDataOperation)
+
+		self.action_operations_header_set_field.triggered.connect(self.on_RequestSetFieldHeaderOperation)
 
 	def on_Open(self):
 		""" Открытие формы """
@@ -31,6 +33,8 @@ class C90_FormImport(C80_FormImport):
 	# Меню импорта финансовых операций
 	def on_RequestShowMenuOperations(self):
 		""" Запрос отображения меню импорта финансовых операций """
+		self.ReadOperationsProcessingRowFromTableDataOperations()
+
 		self.AdjustMenuOperations_Text()
 		self.AdjustMenuOperations_Enable()
 
@@ -50,3 +54,9 @@ class C90_FormImport(C80_FormImport):
 	def on_RequestSwitchDataOperation(self):
 		""" Запрос на смену набора данных импорта финансовых операций """
 		self.LoadOperationsData()
+
+	def on_RequestSetFieldHeaderOperation(self):
+		""" Запрос на сопоставление поля элементу заголовка данных импорта финансовых операций """
+		self.SetFieldForHeaderOperations()
+
+		self.LoadOperationsOptions()

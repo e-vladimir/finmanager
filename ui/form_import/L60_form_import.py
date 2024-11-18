@@ -53,3 +53,8 @@ class C60_FormImport(C50_FormImport):
 		filename : str = "" if self._operations_file is None else f"{self._operations_file}"
 
 		self._operations_file = RequestFilepath("", filename)
+
+	def ReadOperationsProcessingRowFromTableDataOperations(self):
+		""" Чтение текущей строки """
+		current_index = self.table_operations_data.currentIndex()
+		self._operations_processing_row = current_index.row()

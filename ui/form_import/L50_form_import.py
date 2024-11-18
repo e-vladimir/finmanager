@@ -11,3 +11,4 @@ class C50_FormImport(C42_FormImport):
 
 	def on_RequestOpenFileOperations(self): pass
 	def on_RequestSwitchDataOperation(self): pass
+	def on_RequestSetFieldHeaderOperation(self): pass
