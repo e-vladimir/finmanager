@@ -29,6 +29,9 @@ class C90_FormMain(C80_FormMain):
 
 		self.ShowTitle()
 
+	def on_Close(self):
+		self.application.Close()
+
 	# Переход в другие формы
 	def on_RequestOpenFormArchives(self):
 		""" Запрос на открытие формы Архив данных """
