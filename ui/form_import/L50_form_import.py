@@ -9,6 +9,11 @@ class C50_FormImport(C42_FormImport):
 	# Меню импорта финансовых операций
 	def on_RequestShowMenuOperations(self): pass
 
-	def on_RequestOpenFileOperations(self): pass
-	def on_RequestSwitchDataOperation(self): pass
-	def on_RequestSetFieldHeaderOperation(self): pass
+	def on_RequestOpenFileInOperations(self): pass
+	def on_RequestSwitchDataInOperation(self): pass
+	def on_RequestSetFieldHeaderInOperation(self): pass
+
+	def on_RequestSetFieldInOperations(self): pass
+
+	# Таблица данных импорта финансовых операций
+	def on_RequestProcessingTableOperationsDbClick(self): pass

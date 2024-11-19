@@ -26,8 +26,8 @@ class C41_FormImport(C20_PySideForm, Ui_frm_import):
 		self.menu_operations                                    = QMenu("Финансовые операции")
 
 		self.submenu_operations_operations                      = self.menu_operations.addMenu(icon_list, "Финансовые операции")
-		self.action_operations_operations_open_file   : QAction = self.submenu_operations_operations.addAction(icon_open, "Открыть файл")
+		self.action_operations_operations_open_file   : QAction = self.submenu_operations_operations.addAction(icon_open,   "Открыть файл")
 		self.action_operations_operations_switch_data : QAction = self.submenu_operations_operations.addAction(icon_reload, "Сменить набор данных")
 
 		self.submenu_operations_header                          = self.menu_operations.addMenu(icon_grid_3_3, "Элемент заголовка файла")
-		self.action_operations_header_set_field       : QAction = self.submenu_operations_header.addAction(icon_edit, "Сопоставить поле")
+		self.action_operations_header_set_field       : QAction = self.submenu_operations_header.addAction(icon_edit, "Указать тип данных")

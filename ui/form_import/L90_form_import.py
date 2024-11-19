@@ -11,21 +11,22 @@ class C90_FormImport(C80_FormImport):
 
 		# Таблица финансовых операций
 		self.table_operations_data.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
+		self.table_operations_data.doubleClicked.connect(self.on_RequestProcessingTableOperationsDbClick)
 
 		# Меню импорта Финансовых операций
-		self.action_operations_operations_open_file.triggered.connect(self.on_RequestOpenFileOperations)
-		self.action_operations_operations_switch_data.triggered.connect(self.on_RequestSwitchDataOperation)
+		self.action_operations_operations_open_file.triggered.connect(self.on_RequestOpenFileInOperations)
+		self.action_operations_operations_switch_data.triggered.connect(self.on_RequestSwitchDataInOperation)
 
-		self.action_operations_header_set_field.triggered.connect(self.on_RequestSetFieldHeaderOperation)
+		self.action_operations_header_set_field.triggered.connect(self.on_RequestSetFieldHeaderInOperation)
 
 	def on_Open(self):
 		""" Открытие формы """
 		self.ShowTitle()
 
-		self.InitModelOperations()
+		self.InitOperationsModelData()
 
 		self.LoadOperationsHeader()
-		self.LoadOperationsOptions()
+		self.LoadOperationsFields()
 		self.LoadOperationsData()
 
 		self.AdjustTableOperations_Size()
@@ -40,23 +41,32 @@ class C90_FormImport(C80_FormImport):
 
 		self.ShowMenuOperations()
 
-	def on_RequestOpenFileOperations(self):
+	def on_RequestOpenFileInOperations(self):
 		""" Запрос на отрытие файла для импорта финансовых операций """
 		self.ReadOperationsFile()
-		self.ProcessingFileForOperations()
+		self.ProcessingFileInOperations()
 
-		self.InitModelOperations()
+		self.InitOperationsModelData()
 
 		self.LoadOperationsHeader()
-		self.LoadOperationsOptions()
+		self.LoadOperationsFields()
 		self.LoadOperationsData()
 
-	def on_RequestSwitchDataOperation(self):
+	def on_RequestSwitchDataInOperation(self):
 		""" Запрос на смену набора данных импорта финансовых операций """
 		self.LoadOperationsData()
 
-	def on_RequestSetFieldHeaderOperation(self):
-		""" Запрос на сопоставление поля элементу заголовка данных импорта финансовых операций """
-		self.SetFieldForHeaderOperations()
+	def on_RequestSetFieldHeaderInOperation(self):
+		""" Запрос на установку типа данных элементу заголовка для импорта финансовых операций """
+		self.SetFieldInOperations()
 
-		self.LoadOperationsOptions()
+		self.LoadOperationsFields()
+
+	# Таблица данных импорта финансовых данных
+	def on_RequestProcessingTableOperationsDbClick(self):
+		""" Запрос обработки двойного клика по таблице данных импорта финансовых данных """
+		self.ReadOperationsProcessingRowFromTableDataOperations()
+
+		self.SetFieldInOperations()
+
+		self.LoadOperationsFields()

@@ -10,13 +10,13 @@ class C60_FormImport(C50_FormImport):
 	""" Форма Импорт данных: Механика данных """
 
 	# Модель импорта операций
-	def InitModelOperations(self):
+	def InitOperationsModelData(self):
 		""" Инициализация модели данных Операций """
 		self.model_operations.removeAll()
 
-		self.model_operations.setHorizontalHeaderLabels(["Заголовок файла", "Сопоставление", "Набор данных"])
+		self.model_operations.setHorizontalHeaderLabels(["Заголовок из файла", "Тип данных", "Набор данных"])
 
-		for _ in self._operations_options: self.model_operations.fastAppendRow(["", "", ""])
+		for _ in self._operations_fields: self.model_operations.fastAppendRow(["", "", ""])
 
 	def LoadOperationsHeader(self):
 		""" Загрузка заголовка импорта операций """
@@ -26,12 +26,12 @@ class C60_FormImport(C50_FormImport):
 			try   :	item_header.setText(self._operations_header[index_header])
 			except:	item_header.setText("")
 
-	def LoadOperationsOptions(self):
+	def LoadOperationsFields(self):
 		""" Загрузка параметров импорта операций """
 		for index_options in range(self.model_operations.rowCount()):
 			item_options = self.model_operations.item(index_options, 1)
 
-			try   :	item_options.setText(self._operations_options[index_options])
+			try   :	item_options.setText(self._operations_fields[index_options])
 			except:	item_options.setText("")
 
 	def LoadOperationsData(self):

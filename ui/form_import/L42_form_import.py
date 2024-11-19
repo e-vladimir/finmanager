@@ -15,7 +15,7 @@ class C42_FormImport(C41_FormImport):
 
 		self._operations_data           : list        = []
 		self._operations_header         : list        = []
-		self._operations_options        : list        = []
+		self._operations_fields         : list        = []
 		self._operations_file           : Path | None = None
 		self._operations_processing_row : int         = -1
 
