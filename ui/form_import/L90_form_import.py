@@ -16,8 +16,9 @@ class C90_FormImport(C80_FormImport):
 		# Меню импорта Финансовых операций
 		self.action_operations_operations_open_file.triggered.connect(self.on_RequestOpenFileInOperations)
 		self.action_operations_operations_switch_data.triggered.connect(self.on_RequestSwitchDataInOperation)
+		self.action_operations_operations_exec_import.triggered.connect(self.on_RequestImportOperation)
 
-		self.action_operations_header_set_field.triggered.connect(self.on_RequestSetFieldHeaderInOperation)
+		self.action_operations_header_set_field.triggered.connect(self.on_RequestSetFieldInOperation)
 
 	def on_Open(self):
 		""" Открытие формы """
@@ -56,8 +57,12 @@ class C90_FormImport(C80_FormImport):
 		""" Запрос на смену набора данных импорта финансовых операций """
 		self.LoadOperationsData()
 
-	def on_RequestSetFieldHeaderInOperation(self):
-		""" Запрос на установку типа данных элементу заголовка для импорта финансовых операций """
+	def on_RequestImportOperation(self):
+		""" Запрос на выполнение импорта финансовых операций """
+		self.ImportOperations()
+
+	def on_RequestSetFieldInOperation(self):
+		""" Запрос на установку типа данных для элемента заголовка в импорте финансовых операций """
 		self.SetFieldInOperations()
 
 		self.LoadOperationsFields()

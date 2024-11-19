@@ -1,5 +1,6 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
-from L00_colors import COLORS
+
+from L00_colors     import COLORS
 from L00_containers import CONTAINERS
 from L50_operations import C50_Operation, C50_Operations
 
@@ -28,15 +29,15 @@ class C60_Operation(C50_Operation):
 		if data is None  : return self.f_crc.ToString(CONTAINERS.DISK).data
 		else             :        self.f_crc.FromString(CONTAINERS.DISK, data)
 
-	def Amount(self, value: int = None) -> int:
+	def Amount(self, value: float = None) -> float:
 		""" Сумма """
-		if value is None : return self.f_amount.ToInteger(CONTAINERS.DISK).data
-		else             :        self.f_amount.FromInteger(CONTAINERS.DISK, value)
+		if value is None : return self.f_amount.ToFloat(CONTAINERS.DISK).data
+		else             :        self.f_amount.FromFloat(CONTAINERS.DISK, value)
 
-	def SrcAmount(self, value: int = None) -> int:
+	def SrcAmount(self, value: float = None) -> int:
 		""" Исходная сумма """
-		if value is None : return self.f_src_amount.ToInteger(CONTAINERS.DISK).data
-		else             :        self.f_src_amount.FromInteger(CONTAINERS.DISK, value)
+		if value is None : return self.f_src_amount.ToFloat(CONTAINERS.DISK).data
+		else             :        self.f_src_amount.FromFloat(CONTAINERS.DISK, value)
 
 	def Description(self, text: str = None) -> str:
 		""" Описание """

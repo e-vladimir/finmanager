@@ -2,9 +2,16 @@
 
 import pyexcel
 
-from   L00_fields      import FIELDS
-from   L20_PySide6     import RequestItem
-from   L70_form_import import C70_FormImport
+from   datetime             import datetime
+
+from   PySide6.QtCore       import Qt
+from   PySide6.QtWidgets    import QProgressDialog
+
+from   G10_convertor_format import StringToFloat, StringToDateTime
+
+from   L00_fields           import FIELDS
+from   L20_PySide6          import RequestItem
+from   L70_form_import      import C70_FormImport
 
 
 class C80_FormImport(C70_FormImport):
@@ -68,3 +75,51 @@ class C80_FormImport(C70_FormImport):
 		if field is None: return
 
 		self._operations_fields[self._operations_processing_row] = FIELDS(field)
+
+	def ImportOperations(self):
+		""" Импорт финансовых операций """
+		index_date        : int = -1
+		index_amount      : int = -1
+		index_description : int = -1
+
+		for index_field, field in enumerate(self._operations_fields):
+			match field:
+				case FIELDS.AMOUNT     : index_amount      = index_field
+				case FIELDS.DATE       : index_date        = index_field
+				case FIELDS.DESCRIPTION: index_description = index_field
+
+		if index_date        == -1: return
+		if index_amount      == -1: return
+		if index_description == -1: return
+
+		dialog_import           = QProgressDialog(self)
+		dialog_import.setWindowTitle("Импорт финансовых операций")
+		dialog_import.setMaximum(len(self._operations_data))
+		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_import.setLabelText(f"Осталось обработать: {dialog_import.maximum()} записей")
+		dialog_import.setMinimumWidth(480)
+
+		for index_data, data in enumerate(self._operations_data):
+			dialog_import.setValue(index_data + 1)
+			dialog_import.setLabelText(f"Осталось обработать: {dialog_import.maximum() - dialog_import.value()} записей")
+
+			raw_date        : str             = data[index_date]
+			raw_amount      : str             = data[index_amount]
+			raw_description : str             = data[index_description]
+
+			date            : datetime | None = StringToDateTime(raw_date)
+			if     date is None             : continue
+
+			try   : amount = StringToFloat(raw_amount)
+			except: continue
+
+			description     : str             = raw_description
+
+			dy              : int             = date.year
+			dm              : int             = date.month
+			dd              : int             = date.day
+
+			if not dy == self.workspace.Dy(): continue
+			if not dm == self.workspace.Dm(): continue
+
+			self.operations.ImportOperation(dy, dm, dd, amount, description)

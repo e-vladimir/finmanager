@@ -11,7 +11,7 @@ class C70_FormImport(C60_FormImport):
 	# Форма
 	def ShowTitle(self):
 		""" Отображение заголовка формы """
-		self.setWindowTitle("Импорт данных")
+		self.setWindowTitle(f"Импорт данных - {self.workspace.DmDyToString()}")
 
 	# Таблица операций
 	def AdjustTableOperations_Size(self):
@@ -24,6 +24,10 @@ class C70_FormImport(C60_FormImport):
 	def AdjustMenuOperations_Enable(self):
 		""" Меню импорт финансовых операций: Настройка доступности """
 		flag_selected_header : bool = not self._operations_processing_row < 0
+		flag_exist_data      : bool = bool(self._operations_data)
+
+		self.action_operations_operations_switch_data.setEnabled(flag_exist_data)
+		self.action_operations_operations_exec_import.setEnabled(flag_exist_data)
 
 		self.action_operations_header_set_field.setEnabled(flag_selected_header)
 

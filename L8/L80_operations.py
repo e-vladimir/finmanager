@@ -1,5 +1,7 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
 
+from hashlib                import md5
+
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -74,13 +76,13 @@ class C80_Operations(C70_Operations):
 
 	# Финансовые операции
 	def OperationsIdosInDyDmDd(self, dy: int, dm: int, dd: int = None) -> list[str]:
-		""" Список IDO операций по счетам в указанном периоде """
-		account_operation = C80_Operation()
-		idc        : str  = account_operation.Idc().data
-		idp_dy     : str  = account_operation.f_dy.Idp().data
-		idp_dm     : str  = account_operation.f_dm.Idp().data
-		idp_dd     : str  = account_operation.f_dd.Idp().data
-		idp_amount : str  = account_operation.f_amount.Idp().data
+		""" Список IDO операций в указанном периоде """
+		operation         = C80_Operation()
+		idc        : str  = operation.Idc().data
+		idp_dy     : str  = operation.f_dy.Idp().data
+		idp_dm     : str  = operation.f_dm.Idp().data
+		idp_dd     : str  = operation.f_dd.Idp().data
+		idp_amount : str  = operation.f_amount.Idp().data
 
 		filter_data       = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
@@ -89,3 +91,42 @@ class C80_Operations(C70_Operations):
 		filter_data.Capture(CONTAINERS.DISK)
 
 		return filter_data.Idos(idp_amount).data
+
+	# Проверки
+	def CheckOperationByCrc(self, dy: int, dm: int, crc: str) -> bool:
+		""" Проверка операции по CRC """
+		operation      = C80_Operation()
+		idc     : str  = operation.Idc().data
+		idp_dy  : str  = operation.f_dy.Idp().data
+		idp_dm  : str  = operation.f_dm.Idp().data
+		idp_crc : str  = operation.f_crc.Idp().data
+
+		filter_data    = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy,  dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm,  dm)
+		filter_data.FilterIdpVlpByEqual(idp_crc, crc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return bool(filter_data.Idos().data)
+
+	# Импорт данных
+	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, description: str) -> bool:
+		""" Импорт финансовой операции """
+		crc = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
+
+		if self.CheckOperationByCrc(dy, dm, crc): return False
+
+		operation = C80_Operation()
+		operation.GenerateIdo()
+		operation.RegisterObject(CONTAINERS.DISK)
+
+		operation.Dy(dy)
+		operation.Dm(dm)
+		operation.Dd(dd)
+		operation.Crc(crc)
+		operation.Description(description)
+		operation.Amount(amount)
+		operation.SrcDescription(description)
+		operation.SrcAmount(amount)
+
+		return True
