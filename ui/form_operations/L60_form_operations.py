@@ -65,7 +65,7 @@ class C60_FormOperations(C50_FormOperations):
 
 		item_amount                       = self.model_data.itemFromIndex(indexes[0])
 		item_amount.setText(AmountToString(operation.Amount(), flag_sign=True))
-		item_amount.setData(operation.Amount(), ROLES.SORT_INDEX)
+		item_amount.setData(int(operation.Amount()), ROLES.SORT_INDEX)
 
 		item_accounts                     = self.model_data.itemFromIndex(indexes[1])
 		item_accounts.setText(', '.join(self.accounts.IdosToNames(operation.AccountsIdos())))

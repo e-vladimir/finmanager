@@ -202,3 +202,5 @@ class C90_FormOperations(C80_FormOperations):
 		self.SplitOperation()
 
 		self.LoadOperation()
+
+		self.AdjustTreeData_Sort()
