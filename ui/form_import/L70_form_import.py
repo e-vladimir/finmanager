@@ -23,7 +23,9 @@ class C70_FormImport(C60_FormImport):
 	# Меню импорта финансовых операций
 	def AdjustMenuOperations_Enable(self):
 		""" Меню импорт финансовых операций: Настройка доступности """
-		pass
+		flag_selected_header : bool = not self._operations_processing_row < 0
+
+		self.action_operations_header_set_field.setEnabled(flag_selected_header)
 
 	def AdjustMenuOperations_Text(self):
 		""" Меню импорт финансовых операций: Настройка текста """
