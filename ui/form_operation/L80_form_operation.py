@@ -3,7 +3,7 @@
 from G11_convertor_data import AmountToString
 
 from L00_months         import MONTHS
-from L20_PySide6 import RequestValue, RequestText, RequestMultipleText, RequestItems
+from L20_PySide6        import RequestValue, RequestText, RequestMultipleText, RequestItems
 from L70_form_operation import C70_FormOperation
 
 
@@ -37,7 +37,7 @@ class C80_FormOperation(C70_FormOperation):
 		""" Установка суммы """
 		caption : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
 		text    : str        = f"Сумма операции\n\n{caption}\n{self.operation.Description()}"
-		amount  : int | None = RequestValue(caption, text, self.operation.Amount(), -99999999, 99999999)
+		amount  : int | None = RequestValue(caption, text, int(self.operation.Amount()), -99999999, 99999999)
 		if amount is None: return
 
 		self.operation.Amount(amount)

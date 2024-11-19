@@ -24,15 +24,15 @@ class C80_FormOperations(C70_FormOperations):
 
 	def UpdateDataPartial(self):
 		""" Частичное обновление данных """
+		operation = C90_Operation(self.workspace.IdoOperation())
+		self._processing_ido = self.workspace.IdoOperation()
+		self._processing_dd  = operation.Dd()
+
 		self.CleanOperation()
 		self.CleanDd()
 
-		operation = C90_Operation(self.workspace.IdoOperation())
-
-		self._processing_dd  = operation.Dd()
 		self.LoadDd()
 
-		self._processing_ido = self.workspace.IdoOperation()
 		self.LoadOperation()
 
 		self.on_UpdateDataPartial()
@@ -211,7 +211,7 @@ class C80_FormOperations(C70_FormOperations):
 		operation              = C90_Operation(self._processing_ido)
 		text      : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
 
-		amount    : int | None = RequestValue("Разделение операции", text, operation.Amount(), -99999999, 99999999)
+		amount    : int | None = RequestValue("Разделение операции", text, int(operation.Amount()), -99999999, 99999999)
 		if amount is None: return
 
 		ido_old = operation.Ido().data
