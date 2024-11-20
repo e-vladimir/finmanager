@@ -38,13 +38,15 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_reload     = QIcon("./L0/icons/reload.svg")
 		icon_replace    = QIcon("./L0/icons/replace.svg")
 		icon_uncheck    = QIcon("./L0/icons/checked_uncheck.svg")
+		icon_upload     = QIcon("./L0/icons/upload.svg")
 
 		self.menu_operations                                     = QMenu("Операции")
 
 		self.submenu_operations                                  = self.menu_operations.addMenu(icon_blocks, "Операции")
 		self.action_operations_create_operation        : QAction = self.submenu_operations.addAction(icon_item_plus, "Создать операцию")
 		self.submenu_operations.addSeparator()
-		self.action_operations_import_operation        : QAction = self.submenu_operations.addAction(icon_import,    "Импорт операций")
+		self.action_operations_import                  : QAction = self.submenu_operations.addAction(icon_import, "Импорт операций")
+		self.action_operations_export                  : QAction = self.submenu_operations.addAction(icon_upload, "Экспорт операций")
 		self.submenu_operations.addSeparator()
 		self.action_operations_replace_text            : QAction = self.submenu_operations.addAction(icon_replace,   "Поиск и замена текстового фрагмента")
 		self.submenu_operations.addSeparator()

@@ -67,7 +67,7 @@ class C60_Operation(C50_Operation):
 	def Color(self, color: COLORS = None) -> COLORS:
 		""" Цветовая метка """
 		if color is None : return COLORS(self.f_color.ToString(CONTAINERS.DISK).data)
-		else             :        self.f_color.FromString(CONTAINERS.DISK, color)
+		else             :               self.f_color.FromString(CONTAINERS.DISK, color)
 
 
 class C60_Operations(C50_Operations):

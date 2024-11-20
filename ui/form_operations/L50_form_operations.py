@@ -18,6 +18,7 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestResetData(self): pass
 
 	def on_RequestImportOperations(self): pass
+	def on_RequestExportOperations(self): pass
 
 	# Пакет операций
 	def on_RequestUncheckedAllPackOperations(self): pass
