@@ -1,11 +1,20 @@
 # ФОРМА ЭКСПОРТ ДАННЫХ: ЛОГИКА ДАННЫХ
 
-from pathlib           import Path
+from   itertools              import product
+from   pathlib                import Path
 
-from L00_months        import MONTHS
-from L00_struct_export import EXPORT_MODE_DATE, EXPORT_MODE_ACCOUNTS
-from L20_PySide6       import RequestDirectory, RequestItem, RequestText
-from L70_form_export   import C70_FormExport
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QProgressDialog
+
+from   G30_cactus_datafilters import C30_FilterLinear1D
+
+from   L00_containers         import CONTAINERS
+from   L00_months             import MONTHS
+from   L00_struct_export      import EXPORT_MODE_DATE, EXPORT_MODE_ACCOUNTS
+from   L20_PySide6            import RequestDirectory, RequestItem, RequestText
+from   L70_form_export        import C70_FormExport
+from   L90_accounts           import C90_Account
+from   L90_operations         import C90_Operation
 
 
 class C80_FormExport(C70_FormExport):
@@ -114,4 +123,98 @@ class C80_FormExport(C70_FormExport):
 
 	def ExportOperations(self):
 		""" Выполнение экспорта данных """
-		print("Export")
+		prefix_name   : str        = ""
+		dy            : int | None = self._operations_input_dy
+		dm            : int | None = self._operations_input_dm
+
+		match self._operations_input_mode_date:
+			case EXPORT_MODE_DATE.ALL:
+				prefix_name = ""
+				dy          = None
+				dm          = None
+
+			case EXPORT_MODE_DATE.DY :
+				prefix_name = f"{self._operations_input_dy}_"
+				dm          = None
+
+			case EXPORT_MODE_DATE.DM :
+				prefix_name = f"{self._operations_input_dy}-{self._operations_input_dm:02d}_"
+
+		account_names : list[str]  = []
+
+		match self._operations_input_mode_account:
+			case EXPORT_MODE_ACCOUNTS.ALL:
+				account_names = self.accounts.AccountsNamesInDyDm(dy, dm)
+
+			case EXPORT_MODE_ACCOUNTS.GROUP:
+				account_names = self.accounts.AccountsNamesInDyDm(dy, dm, self._operations_input_account)
+
+			case EXPORT_MODE_ACCOUNTS.SINGLE:
+				account_names = [self._operations_input_account]
+
+		dys           : list[int]  = []
+		dms           : list[int]  = []
+		dds           : list[int]  = list(range(1, 32))
+
+		match self._operations_input_mode_date:
+			case EXPORT_MODE_DATE.ALL:
+				operation   = C90_Operation()
+				idc   : str = operation.Idc().data
+				idp_dy: str = operation.f_dy.Idp().data
+
+				filter_data = C30_FilterLinear1D(idc)
+				filter_data.Capture(CONTAINERS.DISK)
+
+				dys         = filter_data.ToIntegers(idp_dy, True, True).data
+				dms         = list(range(1, 13))
+
+			case EXPORT_MODE_DATE.DY :
+				dys = [self._operations_input_dy]
+				dms = list(range(1, 13))
+
+			case EXPORT_MODE_DATE.DM :
+				dys = [self._operations_input_dy]
+				dms = [self._operations_input_dm]
+
+		dialog_export              = QProgressDialog(self)
+		dialog_export.setWindowTitle("Экспорт финансовых операций")
+		dialog_export.setMaximum(len(account_names))
+		dialog_export.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_export.setLabelText(f"Осталось обработать: {dialog_export.maximum()} счетов")
+		dialog_export.setMinimumWidth(480)
+
+		for index_data, account_name in enumerate(account_names):
+			dialog_export.setValue(index_data + 1)
+			dialog_export.setLabelText(f"Осталось обработать: {dialog_export.maximum() - dialog_export.value()} счетов")
+
+			file_name : str       = f"{prefix_name}{account_name}.csv"
+			file_path : Path      = self._operations_output_path.joinpath(file_name)
+			file_data : list[str] = []
+
+			for dy, dm in product(dys, dms):
+				account           = C90_Account()
+				if not account.SwitchByNameInDyDm(dy, dm, account_name): continue
+
+				ido_account : str = account.Ido().data
+
+				for dd in dds:
+					idos_operations : list[str] = self.operations.OperationsIdosInDyDmDd(dy, dm, dd)
+
+					for ido_operation in idos_operations:
+						operation           = C90_Operation(ido_operation)
+
+						if ido_account not in operation.AccountsIdos(): continue
+
+						subdata : list[str] = []
+						subdata.append(f"{operation.Dd():02d}-{operation.Dm():02d}-{operation.Dy():04d}")
+						subdata.append(f"{operation.Amount():0.2f}")
+						subdata.append(', '.join(operation.Labels()))
+						subdata.append(f"{operation.Description()}")
+
+						file_data.append(';'.join(subdata))
+
+			if not file_data: continue
+
+			file_data.insert(0, "Дата;Сумма;Метки;Описание;")
+
+			with open(file_path, "w") as file_account: file_account.write('\n'.join(file_data))

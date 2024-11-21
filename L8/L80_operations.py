@@ -61,11 +61,11 @@ class C80_Operations(C70_Operations):
 	# Дни
 	def DdsInDyDm(self, dy: int, dm: int) -> list[int]:
 		""" Список дней """
-		account_operation = C80_Operation()
-		idc    : str      = account_operation.Idc().data
-		idp_dy : str      = account_operation.f_dy.Idp().data
-		idp_dm : str      = account_operation.f_dm.Idp().data
-		idp_dd : str      = account_operation.f_dd.Idp().data
+		operation    = C80_Operation()
+		idc    : str = operation.Idc().data
+		idp_dy : str = operation.f_dy.Idp().data
+		idp_dm : str = operation.f_dm.Idp().data
+		idp_dd : str = operation.f_dd.Idp().data
 
 		filter_data = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
