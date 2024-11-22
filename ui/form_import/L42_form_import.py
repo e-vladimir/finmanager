@@ -4,6 +4,7 @@ from pathlib         import Path
 
 from L20_PySide6     import C20_StandardItemModel
 from L41_form_import import C41_FormImport
+from L90_accounts    import C90_Accounts
 from L90_operations  import C90_Operations
 from L90_workspace   import C90_Workspace
 
@@ -25,6 +26,7 @@ class C42_FormImport(C41_FormImport):
 
 		self.model_operations = C20_StandardItemModel()
 
+		self.accounts         = C90_Accounts()
 		self.operations       = C90_Operations()
 		self.workspace        = C90_Workspace()
 

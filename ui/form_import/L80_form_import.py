@@ -10,8 +10,9 @@ from   PySide6.QtWidgets    import QProgressDialog
 from   G10_convertor_format import StringToFloat, StringToDateTime
 
 from   L00_fields           import FIELDS
-from   L20_PySide6          import RequestItem
+from   L20_PySide6          import RequestItem, RequestText
 from   L70_form_import      import C70_FormImport
+from L90_accounts import C90_Account
 
 
 class C80_FormImport(C70_FormImport):
@@ -78,9 +79,9 @@ class C80_FormImport(C70_FormImport):
 
 	def ImportOperations(self):
 		""" Импорт финансовых операций """
-		index_date        : int = -1
-		index_amount      : int = -1
-		index_description : int = -1
+		index_date        : int        = -1
+		index_amount      : int        = -1
+		index_description : int        = -1
 
 		for index_field, field in enumerate(self._operations_fields):
 			match field:
@@ -88,11 +89,22 @@ class C80_FormImport(C70_FormImport):
 				case FIELDS.DATE       : index_date        = index_field
 				case FIELDS.DESCRIPTION: index_description = index_field
 
-		if index_date        == -1: return
-		if index_amount      == -1: return
-		if index_description == -1: return
+		if     index_date        == -1                         : return
+		if     index_amount      == -1                         : return
+		if     index_description == -1                         : return
 
-		dialog_import           = QProgressDialog(self)
+		dy, dm = self.workspace.DyDm()
+
+		account_names     : list[str]  = self.accounts.AccountsNamesInDyDm(dy, dm)
+		account_name      : str | None = RequestText("Импорт финансовых операций", "Счёт импорта операций", "", account_names)
+		if     account_name is None                            : return
+
+		account                        = C90_Account()
+		if not account.SwitchByNameInDyDm(dy, dm, account_name): return
+
+		account_ido       : str        = account.Ido().data
+
+		dialog_import                  = QProgressDialog(self)
 		dialog_import.setWindowTitle("Импорт финансовых операций")
 		dialog_import.setMaximum(len(self._operations_data))
 		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
@@ -122,4 +134,4 @@ class C80_FormImport(C70_FormImport):
 			if not dy == self.workspace.Dy(): continue
 			if not dm == self.workspace.Dm(): continue
 
-			self.operations.ImportOperation(dy, dm, dd, amount, description)
+			self.operations.ImportOperation(dy, dm, dd, amount, description, account_ido)

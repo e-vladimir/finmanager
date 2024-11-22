@@ -110,7 +110,7 @@ class C80_Operations(C70_Operations):
 		return bool(filter_data.Idos().data)
 
 	# Импорт данных
-	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, description: str) -> bool:
+	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, description: str, account_ido: str) -> bool:
 		""" Импорт финансовой операции """
 		crc = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
 
@@ -128,5 +128,6 @@ class C80_Operations(C70_Operations):
 		operation.Amount(amount)
 		operation.SrcDescription(description)
 		operation.SrcAmount(amount)
+		operation.AccountsIdos([account_ido])
 
 		return True
