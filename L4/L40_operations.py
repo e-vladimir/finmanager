@@ -1,4 +1,4 @@
-# ФИНАНСОВАЯ ОПЕРАЦИЯ: СТРУКТУРА ДАННЫХ
+# ФИНАНСОВАЯ ОПЕРАЦИЯ: МОДЕЛЬ ДАННЫХ
 
 from G20_meta_frame   import C20_MetaFrame
 from G30_cactus_frame import C30_StructField
@@ -6,7 +6,7 @@ from G31_cactus_frame import C31_StructFrameWithEvents
 
 
 class C40_Operation(C31_StructFrameWithEvents):
-	""" Финансовая операция: Структура данных """
+	""" Финансовая операция: Модель данных """
 
 	_idc = "Финансовая операция"
 
@@ -31,5 +31,5 @@ class C40_Operation(C31_StructFrameWithEvents):
 
 
 class C40_Operations(C20_MetaFrame):
-	""" Финансовые операции: Структура данных """
+	""" Финансовые операции: Модель данных """
 	pass
