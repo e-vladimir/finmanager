@@ -39,6 +39,16 @@ class C90_FormRules(C80_FormRules):
 		self.AdjustTableData_Order()
 		self.AdjustTableData_Color()
 
+	def on_UpdateDataPartial(self):
+		""" Запрос на частичное обновление данных """
+		self.ReadProcessingIdoFromWorkspace()
+
+		self.LoadRule()
+
+		self.AdjustTableData_Size()
+		self.AdjustTableData_Order()
+		self.AdjustTableData_Color()
+
 	# Список типов правил обработки данных
 	def on_RulesTypeChanged(self):
 		""" Тип правил обработки данных изменился """

@@ -22,6 +22,10 @@ class C60_FormRules(C50_FormRules):
 
 		self._processing_ido = current_index.data(ROLES.IDO)
 
+	def ReadProcessingIdoFromWorkspace(self):
+		""" Чтение IDO из рабочего пространства """
+		self._processing_ido = self.workspace.IdoRule()
+
 	# Модель данных
 	def InitModelData(self):
 		""" Инициализация модели данных """

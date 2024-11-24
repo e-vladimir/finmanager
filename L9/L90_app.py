@@ -6,9 +6,9 @@ from L80_app import C80_Application
 class C90_Application(C80_Application):
 	""" Приложение: Логика управления """
 
-	def on_Init(self):
+	def on_Inited(self):
 		""" Инициализация приложения """
-		super().on_Init()
+		super().on_Inited()
 
 		self.InitArchives()
 		self.CopyDataToArchive(True)

@@ -18,3 +18,9 @@ class C90_FormRule(C80_FormRule):
 		self.AdjustEditOutput_Placeholder()
 
 		self.ShowTitle()
+
+	def on_Close(self):
+		""" Закрытие формы """
+		self.SaveRule()
+
+		self.application.form_rules.UpdateDataPartial()

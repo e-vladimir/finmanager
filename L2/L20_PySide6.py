@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 12 ноя 2024
+# 24 ноя 2024
 
 import enum
 
@@ -68,7 +68,7 @@ class C20_PySideApplication(QApplication):
 
 		self.Init_20()
 
-		self.on_Init()
+		self.on_Inited()
 
 	def Init_00(self):
 		""" Инициализация параметров """
@@ -86,7 +86,7 @@ class C20_PySideApplication(QApplication):
 	def Init_20(self)   : pass
 
 	# СИСТЕМНЫЕ СОБЫТИЯ
-	def on_Init(self):
+	def on_Inited(self):
 		""" Событие: При инициализации """
 
 	def on_Start(self):
@@ -125,7 +125,7 @@ class C20_PySideForm(QMainWindow):
 		self.InitMenus()
 		self.InitEvents()
 
-		self.on_Init()
+		self.on_Inited()
 
 	def Init_00(self)    : pass
 	def Init_01(self)    : pass
@@ -190,7 +190,7 @@ class C20_PySideForm(QMainWindow):
 
 	# СЛУЖЕБНЫЕ СОБЫТИЯ
 	def on_Close(self)            : pass
-	def on_Init(self)             : pass
+	def on_Inited(self)             : pass
 	def on_Open(self)             : pass
 	def on_Show(self)             : pass
 	def on_UpdateData(self)       : pass
