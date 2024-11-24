@@ -16,7 +16,7 @@ class C90_FormRules(C80_FormRules):
 		self.table_data.customContextMenuRequested.connect(self.on_RequestShowMenuRules)
 
 		# Правила обработки данных
-		self.action_rules_create_rule.triggered.connect(self.on_RequestCreateRule)
+		self.action_rules_type_create_rule.triggered.connect(self.on_RequestCreateRule)
 
 	# Форма
 	def on_Open(self):

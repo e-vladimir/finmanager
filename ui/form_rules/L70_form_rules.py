@@ -53,13 +53,13 @@ class C70_FormRules(C60_FormRules):
 
 	# Меню правил обработки данных
 	def AdjustMenuRules_Text(self):
-		"""  """
-		pass
+		""" Меню правил обработки данных: Настройка текста """
+		self.submenu_rules_type.setTitle(self._processing_type.value)
 
 	def AdjustMenuRules_Enable(self):
-		"""  """
+		""" Меню правил обработки данных: Настройка доступности """
 		pass
 
 	def ShowMenuRules(self):
-		"""  """
+		""" Меню правил обработки данных: Отображение меню """
 		self.menu_rules.exec_(QCursor().pos())

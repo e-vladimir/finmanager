@@ -17,10 +17,10 @@ class C41_FormRules(C20_PySideForm, Ui_frm_rules):
 
 	def InitMenuRules(self):
 		""" Инициализация меню Правила обработки данных """
-		icon_grid_2_2                           = QIcon("./L0/icons/grid_2_2.svg")
-		icon_item_plus                          = QIcon("./L0/icons/item_plus.svg")
+		icon_grid_2_2                                = QIcon("./L0/icons/grid_2_2.svg")
+		icon_item_plus                               = QIcon("./L0/icons/item_plus.svg")
 
-		self.menu_rules                         = QMenu("Финансовые операции")
+		self.menu_rules                              = QMenu("Финансовые операции")
 
-		self.submenu_rules                      = self.menu_rules.addMenu(icon_grid_2_2, "Правила выборки данных")
-		self.action_rules_create_rule : QAction = self.submenu_rules.addAction(icon_item_plus, "Создать правило")
+		self.submenu_rules_type                      = self.menu_rules.addMenu(icon_grid_2_2, "Тип правил")
+		self.action_rules_type_create_rule : QAction = self.submenu_rules_type.addAction(icon_item_plus, "Создать правило")
