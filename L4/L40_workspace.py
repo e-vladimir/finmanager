@@ -14,4 +14,5 @@ class C40_Workspace(C31_StructFrameWithEvents):
 		self.f_dy            = C30_StructField(self, "Год",   CurrentDy())
 		self.f_dm            = C30_StructField(self, "Месяц", CurrentDm())
 
-		self.f_ido_operation = C30_StructField(self, "IDO Финансовой операции", "")
+		self.f_ido_operation = C30_StructField(self, "IDO Финансовой операции",      "")
+		self.f_ido_rule      = C30_StructField(self, "IDO Правила обработки данных", "")

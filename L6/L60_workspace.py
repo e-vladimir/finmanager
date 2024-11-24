@@ -30,6 +30,11 @@ class C60_Workspace(C50_Workspace):
 		if ido is None  : return self.f_ido_operation.ToString(CONTAINERS.MEMORY).data
 		else            :        self.f_ido_operation.FromString(CONTAINERS.MEMORY, ido)
 
+	def IdoRule(self, ido: str = None) -> str:
+		""" IDO Правила обработки данных """
+		if ido is None  : return self.f_ido_rule.ToString(CONTAINERS.MEMORY).data
+		else            :        self.f_ido_rule.FromString(CONTAINERS.MEMORY, ido)
+
 	# Смещение рабочего периода
 	def ShiftDmToNext(self):
 		""" Смещение рабочего периода в следующий месяц """
