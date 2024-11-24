@@ -12,8 +12,9 @@ class C42_FormRules(C41_FormRules):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_type : RULES = RULES.UNKNOWN
-		self._processing_ido  : str   = ""
+		self._processing_column : int = -1
+		self._processing_ido    : str   = ""
+		self._processing_type   : RULES = RULES.UNKNOWN
 
 	def Init_10(self):
 		super().Init_10()

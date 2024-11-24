@@ -1,10 +1,10 @@
 # ФОРМА ПРАВИЛА ОБРАБОТКИ ДАННЫХ: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtGui import QCursor, QColor, Qt
+from PySide6.QtGui     import QCursor, QColor, Qt
 from PySide6.QtWidgets import QHeaderView
 
 from L00_rules         import RULES
-from L20_PySide6 import C20_StandardItem
+from L20_PySide6       import C20_StandardItem
 from L60_form_rules    import C60_FormRules
 
 
@@ -51,6 +51,12 @@ class C70_FormRules(C60_FormRules):
 
 			self.model_data.setRowColor(item_root, index_row, color_fg=color)
 
+	def ProcessingTableData_DbClick(self):
+		""" Обработка двойного клика по таблице данных """
+		match self._processing_column:
+			case 0: self.on_RequestEditInputData()
+			case 1: self.on_RequestEditOutputData()
+
 	# Меню правил обработки данных
 	def AdjustMenuRules_Text(self):
 		""" Меню правил обработки данных: Настройка текста """
@@ -58,7 +64,10 @@ class C70_FormRules(C60_FormRules):
 
 	def AdjustMenuRules_Enable(self):
 		""" Меню правил обработки данных: Настройка доступности """
-		pass
+		flag_selected : bool = bool(self._processing_ido)
+
+		self.action_rules_rule_edit_input.setEnabled(flag_selected)
+		self.action_rules_rule_edit_output.setEnabled(flag_selected)
 
 	def ShowMenuRules(self):
 		""" Меню правил обработки данных: Отображение меню """
