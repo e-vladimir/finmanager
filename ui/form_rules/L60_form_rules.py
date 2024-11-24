@@ -1,7 +1,9 @@
 # ФОРМА ПРАВИЛА ОБРАБОТКИ ДАННЫХ: МЕХАНИКА ДАННЫХ
 
+from PySide6.QtCore import QModelIndex
+
 from L00_rules      import RULES
-from L20_PySide6    import C20_StandardItem
+from L20_PySide6    import C20_StandardItem, ROLES
 from L50_form_rules import C50_FormRules
 from L90_rules      import C90_ProcessingRule
 
@@ -13,6 +15,12 @@ class C60_FormRules(C50_FormRules):
 	def ReadProcessingTypeFromCbboxTypes(self):
 		""" Чтение типа правил из списка типов правил обработки данных """
 		self._processing_type = RULES(self.cbbox_types.currentText())
+
+	def ReadProcessingIdoFromTableData(self):
+		""" Чтение текущего IDO из таблицы данных """
+		current_index : QModelIndex = self.table_data.currentIndex()
+
+		self._processing_ido = current_index.data(ROLES.IDO)
 
 	# Модель данных
 	def InitModelData(self):
@@ -35,8 +43,8 @@ class C60_FormRules(C50_FormRules):
 		rule         = C90_ProcessingRule(self._processing_ido)
 
 		if not self.model_data.checkIdo(self._processing_ido):
-			item_input  = C20_StandardItem("", self._processing_ido)
-			item_output = C20_StandardItem("", self._processing_ido)
+			item_input  = C20_StandardItem("", self._processing_ido, ROLES.IDO)
+			item_output = C20_StandardItem("", self._processing_ido, ROLES.IDO)
 
 			item_root   = self.model_data.invisibleRootItem()
 

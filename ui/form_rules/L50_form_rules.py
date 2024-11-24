@@ -8,3 +8,9 @@ class C50_FormRules(C42_FormRules):
 
 	# Список типов правил обработки данных
 	def on_RulesTypeChanged(self): pass
+
+	# Меню правил обработки данных
+	def on_RequestShowMenuRules(self): pass
+
+	# Правило обработки данных
+	def on_RequestCreateRule(self): pass
