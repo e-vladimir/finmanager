@@ -19,11 +19,11 @@ class C41_FormArchives(C20_PySideForm, Ui_form_archives):
 
 	def InitMenuArchives(self):
 		""" Инициализация меню архива данных """
-		icon_download = QIcon("./L0/icons/download.svg")
-		icon_upload   = QIcon("./L0/icons/upload.svg")
-		icon_delete   = QIcon("./L0/icons/item_delete.svg")
 		icon_2_2      = QIcon("./L0/icons/grid_2_2.svg")
 		icon_3_3      = QIcon("./L0/icons/grid_3_3.svg")
+		icon_delete   = QIcon("./L0/icons/item_delete.svg")
+		icon_download = QIcon("./L0/icons/download.svg")
+		icon_upload   = QIcon("./L0/icons/upload.svg")
 
 		self.menu_archives                              = QMenu()
 

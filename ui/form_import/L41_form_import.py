@@ -17,12 +17,12 @@ class C41_FormImport(C20_PySideForm, Ui_frm_import):
 
 	def InitMenuOperation(self):
 		""" Инициализация меню Импорта операций """
-		icon_open                                               = QIcon("./L0/icons/open.svg")
-		icon_list                                               = QIcon("./L0/icons/list.svg")
-		icon_reload                                             = QIcon("./L0/icons/reload.svg")
-		icon_grid_3_3                                           = QIcon("./L0/icons/grid_3_3.svg")
-		icon_edit                                               = QIcon("./L0/icons/edit.svg")
 		icon_download                                           = QIcon("./L0/icons/download.svg")
+		icon_edit                                               = QIcon("./L0/icons/edit.svg")
+		icon_grid_3_3                                           = QIcon("./L0/icons/grid_3_3.svg")
+		icon_list                                               = QIcon("./L0/icons/list.svg")
+		icon_open                                               = QIcon("./L0/icons/open.svg")
+		icon_reload                                             = QIcon("./L0/icons/reload.svg")
 
 		self.menu_operations                                    = QMenu("Финансовые операции")
 

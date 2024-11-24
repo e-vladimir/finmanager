@@ -15,8 +15,9 @@ class C90_FormRules(C80_FormRules):
 		# Таблица данных
 		self.table_data.customContextMenuRequested.connect(self.on_RequestShowMenuRules)
 
-		# Правила обработки данных
+		# Тип правил обработки данных
 		self.action_rules_type_create_rule.triggered.connect(self.on_RequestCreateRule)
+		self.action_rules_type_reset.triggered.connect(self.on_RequestResetData)
 
 	# Форма
 	def on_Open(self):
@@ -55,10 +56,22 @@ class C90_FormRules(C80_FormRules):
 
 		self.ShowMenuRules()
 
-	# Правило обработки данных
+	# Тип правил обработки данных
 	def on_RequestCreateRule(self):
 		""" Запрос создания правила обработки данных """
 		self.CreateRule()
+
+		self.InitModelData()
+
+		self.ShowRules()
+
+		self.AdjustTableData_Size()
+		self.AdjustTableData_Order()
+		self.AdjustTableData_Color()
+
+	def on_RequestResetData(self):
+		""" Запрос на сброс данных """
+		self.ResetData()
 
 		self.InitModelData()
 
