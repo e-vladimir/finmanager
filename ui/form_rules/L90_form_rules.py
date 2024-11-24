@@ -22,6 +22,7 @@ class C90_FormRules(C80_FormRules):
 
 		# Правило обработки данных
 		self.action_rules_rule_open_rule.triggered.connect(self.on_RequestOpenRule)
+		self.action_rules_rule_delete_rule.triggered.connect(self.on_RequestDeleteRule)
 
 	# Форма
 	def on_Open(self):
@@ -101,3 +102,15 @@ class C90_FormRules(C80_FormRules):
 		self.ReadProcessingIdoFromTableData()
 
 		self.OpenRule()
+
+	def on_RequestDeleteRule(self):
+		""" Удаление правила обработки данных """
+		self.DeleteRule()
+
+		self.InitModelData()
+
+		self.ShowRules()
+
+		self.AdjustTableData_Size()
+		self.AdjustTableData_Order()
+		self.AdjustTableData_Color()

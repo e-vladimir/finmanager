@@ -17,9 +17,10 @@ class C41_FormRules(C20_PySideForm, Ui_frm_rules):
 
 	def InitMenuRules(self):
 		""" Инициализация меню Правила обработки данных """
-		icon_item_plus                               = QIcon("./L0/icons/item_plus.svg")
+		icon_delete                                  = QIcon("./L0/icons/item_delete.svg")
 		icon_grid_2_2                                = QIcon("./L0/icons/grid_2_2.svg")
 		icon_grid_3_3                                = QIcon("./L0/icons/grid_3_3.svg")
+		icon_item_plus                               = QIcon("./L0/icons/item_plus.svg")
 		icon_open                                    = QIcon("./L0/icons/open.svg")
 		icon_reload                                  = QIcon("./L0/icons/reload.svg")
 
@@ -31,4 +32,5 @@ class C41_FormRules(C20_PySideForm, Ui_frm_rules):
 		self.action_rules_type_reset       : QAction = self.submenu_rules_type.addAction(icon_reload,    "Сброс данных")
 
 		self.submenu_rules_rule                      = self.menu_rules.addMenu(icon_grid_3_3, "Правило обработки данных")
-		self.action_rules_rule_open_rule   : QAction = self.submenu_rules_type.addAction(icon_open, "Открыть правило")
+		self.action_rules_rule_open_rule   : QAction = self.submenu_rules_rule.addAction(icon_open,   "Открыть правило")
+		self.action_rules_rule_delete_rule : QAction = self.submenu_rules_rule.addAction(icon_delete, "Удалить правило")

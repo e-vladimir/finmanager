@@ -18,3 +18,4 @@ class C50_FormRules(C42_FormRules):
 
 	# Правило обработки данных
 	def on_RequestOpenRule(self): pass
+	def on_RequestDeleteRule(self): pass

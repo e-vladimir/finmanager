@@ -58,7 +58,10 @@ class C70_FormRules(C60_FormRules):
 
 	def AdjustMenuRules_Enable(self):
 		""" Меню правил обработки данных: Настройка доступности """
-		pass
+		flag_selected : bool = bool(self._processing_ido)
+
+		self.action_rules_rule_open_rule.setEnabled(flag_selected)
+		self.action_rules_rule_delete_rule.setEnabled(flag_selected)
 
 	def ShowMenuRules(self):
 		""" Меню правил обработки данных: Отображение меню """
