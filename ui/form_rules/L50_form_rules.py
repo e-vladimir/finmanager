@@ -12,13 +12,6 @@ class C50_FormRules(C42_FormRules):
 	# Меню правил обработки данных
 	def on_RequestShowMenuRules(self): pass
 
-	# Таблица правил обработки данных
-	def on_RequestProcessingTableDataDbClick(self): pass
-
 	# Тип правил обработки данных
 	def on_RequestCreateRule(self): pass
 	def on_RequestResetData(self): pass
-
-	# Правило обработки данных
-	def on_RequestEditInputData(self): pass
-	def on_RequestEditOutputData(self): pass

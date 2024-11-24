@@ -22,11 +22,6 @@ class C60_FormRules(C50_FormRules):
 
 		self._processing_ido = current_index.data(ROLES.IDO)
 
-	def ReadProcessingColumnFromTableData(self):
-		""" Чтение текущей колонки из таблицы данных """
-		current_index = self.table_data.currentIndex()
-		self._processing_column = current_index.column()
-
 	# Модель данных
 	def InitModelData(self):
 		""" Инициализация модели данных """
