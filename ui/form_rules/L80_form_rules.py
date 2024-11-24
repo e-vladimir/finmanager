@@ -61,6 +61,6 @@ class C80_FormRules(C70_FormRules):
 		""" Удаление правила обработки данных """
 		rule = C90_ProcessingRule(self._processing_ido)
 
-		if not RequestConfirm("Удаление правила обработки данных", f"{'\n'.join(rule.OutputAsStrings())}\n\n{self._processing_type.value}\n\nУдаление?"): return
+		if not RequestConfirm("Удаление правила обработки данных", f"{self._processing_type.value}\n\n{'\n'.join(rule.OutputAsStrings())}\n\nУдаление?"): return
 
 		rule.DeleteObject(CONTAINERS.DISK)
