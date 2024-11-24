@@ -20,7 +20,15 @@ class C80_FormRules(C70_FormRules):
 	# Тип правил обработки данных
 	def CreateRule(self):
 		""" Создание правила обработки данных """
-		pass
+		rule = C90_ProcessingRule()
+		rule.GenerateIdo()
+		rule.RegisterObject(CONTAINERS.DISK)
+
+		rule.Type(self._processing_type)
+
+		self.workspace.IdoRule(rule.Ido().data)
+
+		self.application.form_rule.Open()
 
 	def ResetData(self):
 		""" Сброс данных """
@@ -41,3 +49,10 @@ class C80_FormRules(C70_FormRules):
 
 			rule = C90_ProcessingRule(ido)
 			rule.DeleteObject(CONTAINERS.DISK)
+
+	# Правило обработки данных
+	def OpenRule(self):
+		""" Открытие правила обработки данных """
+		self.workspace.IdoRule(self._processing_ido)
+
+		self.application.form_rule.Open()

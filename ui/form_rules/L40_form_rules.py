@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_rulesCsAJBy.ui'
+## Form generated from reading UI file 'form_rulesrFguEl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.7.2
 ##
@@ -39,6 +39,7 @@ class Ui_frm_rules(object):
         self.table_data.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table_data.setAlternatingRowColors(True)
         self.table_data.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.table_data.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.table_data.horizontalHeader().setStretchLastSection(True)
         self.table_data.verticalHeader().setVisible(False)
         self.table_data.verticalHeader().setMinimumSectionSize(20)

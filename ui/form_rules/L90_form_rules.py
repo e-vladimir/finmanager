@@ -14,10 +14,14 @@ class C90_FormRules(C80_FormRules):
 
 		# Таблица данных
 		self.table_data.customContextMenuRequested.connect(self.on_RequestShowMenuRules)
+		self.table_data.doubleClicked.connect(self.on_RequestOpenRule)
 
 		# Тип правил обработки данных
 		self.action_rules_type_create_rule.triggered.connect(self.on_RequestCreateRule)
 		self.action_rules_type_reset.triggered.connect(self.on_RequestResetData)
+
+		# Правило обработки данных
+		self.action_rules_rule_open_rule.triggered.connect(self.on_RequestOpenRule)
 
 	# Форма
 	def on_Open(self):
@@ -80,3 +84,10 @@ class C90_FormRules(C80_FormRules):
 		self.AdjustTableData_Size()
 		self.AdjustTableData_Order()
 		self.AdjustTableData_Color()
+
+	# Правило обработки данных
+	def on_RequestOpenRule(self):
+		""" Запрос на открытие правила обработки данных """
+		self.ReadProcessingIdoFromTableData()
+
+		self.OpenRule()
