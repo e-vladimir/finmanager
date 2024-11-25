@@ -18,6 +18,7 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_import.triggered.connect(self.on_RequestImportOperations)
 		self.action_operations_export.triggered.connect(self.on_RequestExportOperations)
 		self.action_operations_replace_text.triggered.connect(self.on_RequestReplaceText)
+		self.action_operations_apply_rules.triggered.connect(self.on_RequestApplyRulesToOperations)
 		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
 
 		# Меню Пакет операций
@@ -25,21 +26,19 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_pack_expand_selection.triggered.connect(self.on_RequestExpandPackOperations)
 		self.action_operations_pack_collapse_selection.triggered.connect(self.on_RequestCollapsePackOperations)
 		self.action_operations_pack_delete_pack.triggered.connect(self.on_RequestDeletePackOperation)
+		self.action_operations_pack_apply_rules.triggered.connect(self.on_RequestApplyRulesToPackOperation)
 
 		# Меню Финансовая операция
 		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
 		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
-
 		self.action_operation_split.triggered.connect(self.on_RequestSplitOperation)
 		self.action_operation_set_description.triggered.connect(self.on_RequestSetOperationDescription)
 		self.action_operation_set_labels.triggered.connect(self.on_RequestSetOperationLabels)
-
 		self.action_operation_colors_set_black.triggered.connect(self.on_RequestSetOperationColorBlack)
 		self.action_operation_colors_set_gray.triggered.connect(self.on_RequestSetOperationColorGray)
 		self.action_operation_colors_set_green.triggered.connect(self.on_RequestSetOperationColorGreen)
 		self.action_operation_colors_set_blue.triggered.connect(self.on_RequestSetOperationColorBlue)
 		self.action_operation_colors_set_red.triggered.connect(self.on_RequestSetOperationColorRed)
-
 		self.action_operation_apply_rules.triggered.connect(self.on_RequestApplyRulesToOperation)
 
 	# Форма
@@ -112,6 +111,12 @@ class C90_FormOperations(C80_FormOperations):
 		""" Запрос на поиск и замену текстового фрагмента """
 		self.ReplaceText()
 
+	def on_RequestApplyRulesToOperations(self):
+		""" Запрос применения правил обработки данных для финансовых операций """
+		self.ApplyRulesToOperations()
+
+		self.AdjustTreeData_Size()
+
 	def on_RequestResetData(self):
 		""" Запрос на сброс данных """
 		self.ResetData()
@@ -141,6 +146,14 @@ class C90_FormOperations(C80_FormOperations):
 	def on_RequestDeletePackOperation(self):
 		""" Запрос на удаление пакета операций """
 		self.DeletePackOperations()
+
+		self.AdjustTreeData_Size()
+
+	def on_RequestApplyRulesToPackOperation(self):
+		""" Запрос применения правил обработки данных для пакета финансовых операций """
+		self.ApplyRulesToPackOperations()
+
+		self.AdjustTreeData_Size()
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self):
@@ -217,3 +230,5 @@ class C90_FormOperations(C80_FormOperations):
 		self.ApplyRulesToOperation()
 
 		self.LoadOperation()
+
+		self.AdjustTreeData_Size()

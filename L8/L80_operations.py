@@ -77,7 +77,7 @@ class C80_Operation(C70_Operation):
 
 		rules                  = C90_ProcessingRules()
 
-		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
+		for ido_rule in rules.IdosByType(RULES.DETECT_LABEL_BY_TEXT):
 			rule               = C90_ProcessingRule(ido_rule)
 
 			flag_append : bool = False

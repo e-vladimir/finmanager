@@ -56,6 +56,7 @@ class C80_FormOperations(C70_FormOperations):
 		dialog_progress.setLabelText("Осталось обработать: --")
 		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
 
 		for self._processing_ido in idos:
 			dialog_progress.setValue(dialog_progress.value() + 1)
@@ -65,6 +66,32 @@ class C80_FormOperations(C70_FormOperations):
 			if text_find not in operation.Description(): continue
 
 			operation.Description(operation.Description().replace(text_find, text_replace))
+
+			self.LoadOperation()
+
+		dialog_progress.close()
+
+	def ApplyRulesToOperations(self):
+		""" Применение правил обработки данных к пакету операций """
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = self.operations.OperationsIdosInDyDmDd(dy, dm)
+
+		if not idos: return
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Обработка данных")
+		dialog_progress.setLabelText("Осталось обработать: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+
+		for self._processing_ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
+
+			operation = C90_Operation(self._processing_ido)
+			operation.ApplyRulesReplaceText()
+			operation.ApplyRulesDetectLabels()
 
 			self.LoadOperation()
 
@@ -83,6 +110,7 @@ class C80_FormOperations(C70_FormOperations):
 		dialog_progress.setLabelText("Осталось обработать: --")
 		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
 
 		for ido in idos:
 			dialog_progress.setValue(dialog_progress.value() + 1)
@@ -136,11 +164,44 @@ class C80_FormOperations(C70_FormOperations):
 
 	def DeletePackOperations(self):
 		""" Удаление пакета операций """
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Удаление")
+		dialog_progress.setLabelText("Осталось удалить: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(self._processing_idos))
+		dialog_progress.setMinimumWidth(480)
+
 		for self._processing_ido in self._processing_idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось удалить: {dialog_progress.maximum() - dialog_progress.value()}")
+
 			operation = C90_Operation(self._processing_ido)
 			operation.DeleteObject(CONTAINERS.DISK)
 
 			self.CleanOperation()
+
+		dialog_progress.close()
+
+	def ApplyRulesToPackOperations(self):
+		""" Применение правил обработки данных к пакету операций """
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Обработка данных")
+		dialog_progress.setLabelText("Осталось обработать: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(self._processing_idos))
+		dialog_progress.setMinimumWidth(480)
+
+		for self._processing_ido in self._processing_idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
+
+			operation = C90_Operation(self._processing_ido)
+			operation.ApplyRulesReplaceText()
+			operation.ApplyRulesDetectLabels()
+
+			self.LoadOperation()
+
+		dialog_progress.close()
 
 	# Финансовая операция
 	def CreateOperation(self):

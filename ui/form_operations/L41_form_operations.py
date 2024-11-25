@@ -50,6 +50,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_export                  : QAction = self.submenu_operations.addAction(icon_upload, "Экспорт операций")
 		self.submenu_operations.addSeparator()
 		self.action_operations_replace_text            : QAction = self.submenu_operations.addAction(icon_replace,   "Поиск и замена текстового фрагмента")
+		self.action_operations_apply_rules             : QAction = self.submenu_operations.addAction(icon_processing, "Применить правила обработки данных")
 		self.submenu_operations.addSeparator()
 		self.action_operations_reset                   : QAction = self.submenu_operations.addAction(icon_reload,    "Сброс данных")
 
@@ -59,6 +60,8 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_pack_collapse_selection : QAction = self.submenu_operations_pack.addAction(icon_uncheck, "Сокращение пакета операций")
 		self.submenu_operations_pack.addSeparator()
 		self.action_operations_pack_delete_pack        : QAction = self.submenu_operations_pack.addAction(icon_delete,  "Удалить пакет операций")
+		self.submenu_operations_pack.addSeparator()
+		self.action_operations_pack_apply_rules        : QAction = self.submenu_operations_pack.addAction(icon_processing, "Применить правила обработки данных")
 
 		self.submenu_operation                                   = self.menu_operations.addMenu(icon_grid_3_3, "Операция")
 		self.action_operation_open_operation           : QAction = self.submenu_operation.addAction(icon_open,       "Открыть операцию")

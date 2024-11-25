@@ -82,6 +82,9 @@ class C70_FormOperations(C60_FormOperations):
 		self.action_operation_delete_operation.setEnabled(flag_selected_operation)
 
 		self.action_operations_pack_clear_selection.setEnabled(flag_selected_pack)
+		self.action_operations_pack_collapse_selection.setEnabled(flag_selected_pack)
+		self.action_operations_pack_delete_pack.setEnabled(flag_selected_pack)
+		self.action_operations_pack_apply_rules.setEnabled(flag_selected_pack)
 
 		self.action_operation_split.setEnabled(flag_selected_operation)
 		self.action_operation_set_description.setEnabled(flag_selected_operation)
