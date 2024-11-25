@@ -6,7 +6,9 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L00_months             import MONTHS
+from L00_rules              import RULES
 from L70_operations         import C70_Operation, C70_Operations
+from L90_rules import C90_ProcessingRules, C90_ProcessingRule
 
 
 class C80_Operation(C70_Operation):
@@ -44,6 +46,53 @@ class C80_Operation(C70_Operation):
 		self.AccountsIdos(accounts)
 
 		return self.Ido().data
+
+	def ApplyRulesReplaceText(self):
+		""" Применение правил замены текстового фрагмента """
+		rules_data  : dict[str, str] = dict()
+
+		rules                        = C90_ProcessingRules()
+
+		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
+			rule              = C90_ProcessingRule(ido_rule)
+			output_data : str = rule.OutputAsString()
+
+			for input_item in rule.InputAsStrings():
+				rules_data[input_item] = output_data
+
+		input_items : list[str]      = list(rules_data.keys())
+		input_items                  = sorted(input_items, key=len)
+
+		description : str            = self.Description()
+
+		for input_item in input_items:
+			description = description.replace(input_item, rules_data[input_item])
+
+		self.Description(description)
+
+	def ApplyRulesDetectLabels(self):
+		""" Применение правил определения меток по текстовым фрагментам """
+		description : str      = self.Description().lower()
+		labels      : set[str] = set(self.Labels())
+
+		rules                  = C90_ProcessingRules()
+
+		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
+			rule               = C90_ProcessingRule(ido_rule)
+
+			flag_append : bool = False
+
+			for input_item in rule.InputAsStrings():
+				if input_item.lower() not in description: continue
+
+				flag_append = True
+				break
+
+			if not flag_append: continue
+
+			labels             = labels.union(set(rule.OutputAsStrings()))
+
+		self.Labels(list(sorted(labels)))
 
 	# Преобразования
 	def DdDmDyToString(self) -> str:
