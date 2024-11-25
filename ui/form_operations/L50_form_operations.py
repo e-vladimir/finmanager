@@ -37,3 +37,4 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestSetOperationDescription(self): pass
 	def on_RequestSetOperationLabels(self): pass
 	def on_RequestSplitOperation(self): pass
+	def on_RequestApplyRulesToOperation(self): pass

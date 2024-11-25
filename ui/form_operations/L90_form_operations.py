@@ -40,6 +40,8 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operation_colors_set_blue.triggered.connect(self.on_RequestSetOperationColorBlue)
 		self.action_operation_colors_set_red.triggered.connect(self.on_RequestSetOperationColorRed)
 
+		self.action_operation_apply_rules.triggered.connect(self.on_RequestApplyRulesToOperation)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -209,3 +211,9 @@ class C90_FormOperations(C80_FormOperations):
 		self.LoadOperation()
 
 		self.AdjustTreeData_Sort()
+
+	def on_RequestApplyRulesToOperation(self):
+		""" Запрос на применение правил обработки данных к операции """
+		self.ApplyRulesToOperation()
+
+		self.LoadOperation()

@@ -221,3 +221,9 @@ class C80_FormOperations(C70_FormOperations):
 
 		ido_new = operation.Ido().data
 		self._processing_ido = ido_new
+
+	def ApplyRulesToOperation(self):
+		""" Применение правил обработки данных """
+		operation = C90_Operation(self._processing_ido)
+		operation.ApplyRulesReplaceText()
+		operation.ApplyRulesDetectLabels()
