@@ -179,4 +179,7 @@ class C80_Operations(C70_Operations):
 		operation.SrcAmount(amount)
 		operation.AccountsIdos([account_ido])
 
+		operation.ApplyRulesReplaceText()
+		operation.ApplyRulesDetectLabels()
+
 		return True
