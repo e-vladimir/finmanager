@@ -22,6 +22,9 @@ class C70_FormAccounts(C60_FormAccounts):
 
 		self.tree_data.setColumnWidth(1, 100)
 		self.tree_data.setColumnWidth(2, 100)
+		self.tree_data.setColumnWidth(3, 100)
+		self.tree_data.setColumnWidth(4, 100)
+		self.tree_data.setColumnWidth(5, 100)
 
 	def AdjustTreeData_Color(self):
 		""" Дерево данных: Настройка цветового оформления """

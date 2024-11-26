@@ -70,10 +70,16 @@ class C60_FormAccounts(C50_FormAccounts):
 		self.model_data.removeAll()
 		self.model_data.setHorizontalHeaderLabels(["Группа счетов\nСчёт",
 		                                           "Остаток\nначальный",
-		                                           "Остаток\nитоговый"])
+		                                           "Остаток\nитоговый",
+		                                           "Изменение\nостатка",
+		                                           "Объём\nпоступлений",
+		                                           "Объём\nсписаний"])
 
 		self.model_data.horizontalHeaderItem(1).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 		self.model_data.horizontalHeaderItem(2).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+		self.model_data.horizontalHeaderItem(3).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+		self.model_data.horizontalHeaderItem(4).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+		self.model_data.horizontalHeaderItem(5).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
 	def LoadAccountsGroup(self):
 		""" Загрузка группы счетов в модель """
@@ -85,7 +91,12 @@ class C60_FormAccounts(C50_FormAccounts):
 		item_group = C20_StandardItem(self._processing_group)
 		item_root  = self.model_data.invisibleRootItem()
 
-		item_root.appendRow([item_group, C20_StandardItem(""), C20_StandardItem("")])
+		item_root.appendRow([item_group,
+		                     C20_StandardItem(""),
+		                     C20_StandardItem(""),
+		                     C20_StandardItem(""),
+		                     C20_StandardItem(""),
+		                     C20_StandardItem("")])
 
 	def LoadAccount(self):
 		""" Загрузка счёта в модель """
@@ -102,18 +113,44 @@ class C60_FormAccounts(C50_FormAccounts):
 			item_account         = C20_StandardItem(account.Name(), self._processing_ido, ROLES.IDO)
 			item_balance_initial = C20_StandardItem("0", flag_align_right=True)
 			item_balance_final   = C20_StandardItem("0", flag_align_right=True)
-			item_group.appendRow([item_account, item_balance_initial, item_balance_final])
+			item_balance_delta   = C20_StandardItem("0", flag_align_right=True)
+			item_amount_income   = C20_StandardItem("0", flag_align_right=True)
+			item_amount_outcome  = C20_StandardItem("0", flag_align_right=True)
+			item_group.appendRow([item_account,
+			                      item_balance_initial,
+			                      item_balance_final,
+			                      item_balance_delta,
+			                      item_amount_income,
+			                      item_amount_outcome])
 
 		indexes               : list[QModelIndex] = self.model_data.indexesInRowByIdo(self._processing_ido)
 		index_account         : QModelIndex       = indexes[0]
 		index_balance_initial : QModelIndex       = indexes[1]
 		index_balance_final   : QModelIndex       = indexes[2]
+		index_balance_delta   : QModelIndex       = indexes[3]
+		index_amount_income   : QModelIndex       = indexes[4]
+		index_amount_outcome  : QModelIndex       = indexes[5]
+
+		balance_initial       : int               = account.BalanceInitial()
+		amount_income         : int               = account.AmountIncome()
+		amount_outcome        : int               = account.AmountOutcome()
+		balance_final         : int               = balance_initial + amount_income - amount_outcome
+		balance_delta         : int               = balance_final - balance_initial
 
 		item_account          : C20_StandardItem  = self.model_data.itemFromIndex(index_account)
 		item_account.setText(account.Name())
 
 		item_balance_initial  : C20_StandardItem  = self.model_data.itemFromIndex(index_balance_initial)
-		item_balance_initial.setText(AmountToString(account.BalanceInitial()))
+		item_balance_initial.setText(AmountToString(balance_initial))
 
-		item_balance_final  : C20_StandardItem  = self.model_data.itemFromIndex(index_balance_final)
-		item_balance_final.setText(AmountToString(account.BalanceFinal()))
+		item_balance_final    : C20_StandardItem  = self.model_data.itemFromIndex(index_balance_final)
+		item_balance_final.setText(AmountToString(balance_final))
+
+		item_balance_delta    : C20_StandardItem  = self.model_data.itemFromIndex(index_balance_delta)
+		item_balance_delta.setText(AmountToString(balance_delta, flag_sign=True))
+
+		item_amount_income    : C20_StandardItem  = self.model_data.itemFromIndex(index_amount_income)
+		item_amount_income.setText(AmountToString(amount_income, flag_sign=True))
+
+		item_amount_outcome   : C20_StandardItem  = self.model_data.itemFromIndex(index_amount_outcome)
+		item_amount_outcome.setText(AmountToString(-amount_outcome))

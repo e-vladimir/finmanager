@@ -87,6 +87,42 @@ class C80_Account(C70_Account):
 
 		return balance_initial + balance_delta
 
+	def AmountIncome(self) -> int:
+		""" Объём поступлений по счёту """
+		operation             = C40_Operation()
+		idc             : str = operation.Idc().data
+		idp_dy          : str = operation.f_dy.Idp().data
+		idp_dm          : str = operation.f_dm.Idp().data
+		idp_accounts    : str = operation.f_accounts_idos.Idp().data
+		idp_amount      : str = operation.f_amount.Idp().data
+
+		filter_operations     = C30_FilterLinear1D(idc)
+		filter_operations.FilterIdpVlpByEqual(idp_dy, self.Dy())
+		filter_operations.FilterIdpVlpByEqual(idp_dm, self.Dm())
+		filter_operations.FilterIdpVlpByInclude(idp_accounts, self.Ido().data)
+		filter_operations.FilterIdpVlpByMore(idp_amount, 0)
+		filter_operations.Capture(CONTAINERS.DISK)
+
+		return sum(filter_operations.ToIntegers(idp_amount).data)
+
+	def AmountOutcome(self) -> int:
+		""" Объём списаний по счёту """
+		operation             = C40_Operation()
+		idc             : str = operation.Idc().data
+		idp_dy          : str = operation.f_dy.Idp().data
+		idp_dm          : str = operation.f_dm.Idp().data
+		idp_accounts    : str = operation.f_accounts_idos.Idp().data
+		idp_amount      : str = operation.f_amount.Idp().data
+
+		filter_operations     = C30_FilterLinear1D(idc)
+		filter_operations.FilterIdpVlpByEqual(idp_dy, self.Dy())
+		filter_operations.FilterIdpVlpByEqual(idp_dm, self.Dm())
+		filter_operations.FilterIdpVlpByInclude(idp_accounts, self.Ido().data)
+		filter_operations.FilterIdpVlpByLess(idp_amount, 0)
+		filter_operations.Capture(CONTAINERS.DISK)
+
+		return abs(sum(filter_operations.ToIntegers(idp_amount).data))
+
 
 class C80_AccountGroup(C70_AccountGroup):
 	""" Группа счетов: Логика данных """
