@@ -3,8 +3,8 @@
 from   itertools              import product
 from   pathlib                import Path
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QProgressDialog
+from   PySide6.QtCore         import Qt
+from   PySide6.QtWidgets      import QProgressDialog
 
 from   G30_cactus_datafilters import C30_FilterLinear1D
 
@@ -206,12 +206,12 @@ class C80_FormExport(C70_FormExport):
 						if ido_account not in operation.AccountsIdos(): continue
 
 						subdata : list[str] = []
-						subdata.append(f"{operation.Dd():02d}-{operation.Dm():02d}-{operation.Dy():04d}")
-						subdata.append(f"{operation.Amount():0.2f}")
+						subdata.append(f"{operation.Dy():04d}-{operation.Dm():02d}-{operation.Dd():02d}")
+						subdata.append(f"{operation.Amount():0.2f}".replace('.', ','))
 						subdata.append(', '.join(operation.Labels()))
 						subdata.append(f"{operation.Description()}")
 
-						file_data.append(';'.join(subdata))
+						file_data.append(';'.join(subdata) + ';')
 
 			if not file_data: continue
 
