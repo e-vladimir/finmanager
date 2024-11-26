@@ -25,6 +25,7 @@ class C80_Account(C70_Account):
 			account.Dy(dy)
 			account.Dm(dm)
 
+		account.BalanceInitial(self.BalanceFinal())
 		account.Group(self.Group())
 
 	def TransferToPrevDm(self):
