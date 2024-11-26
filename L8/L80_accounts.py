@@ -4,6 +4,7 @@ from G10_datetime           import CalcDyDmByShiftDm
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
+from L40_operations         import C40_Operation
 from L70_accounts           import C70_Accounts, C70_AccountGroup, C70_Account
 
 
@@ -63,6 +64,28 @@ class C80_Account(C70_Account):
 		self.Group(group_name)
 
 		return True
+
+	# Расчёты
+	def BalanceFinal(self) -> int:
+		""" Баланс итоговый """
+		balance_initial : int = self.BalanceInitial()
+
+		operation             = C40_Operation()
+		idc             : str = operation.Idc().data
+		idp_dy          : str = operation.f_dy.Idp().data
+		idp_dm          : str = operation.f_dm.Idp().data
+		idp_accounts    : str = operation.f_accounts_idos.Idp().data
+		idp_amount      : str = operation.f_amount.Idp().data
+
+		filter_operations     = C30_FilterLinear1D(idc)
+		filter_operations.FilterIdpVlpByEqual(idp_dy, self.Dy())
+		filter_operations.FilterIdpVlpByEqual(idp_dm, self.Dm())
+		filter_operations.FilterIdpVlpByInclude(idp_accounts, self.Ido().data)
+		filter_operations.Capture(CONTAINERS.DISK)
+
+		balance_delta         = sum(filter_operations.ToIntegers(idp_amount).data)
+
+		return balance_initial + balance_delta
 
 
 class C80_AccountGroup(C70_AccountGroup):

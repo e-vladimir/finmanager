@@ -1,9 +1,9 @@
 # ФОРМА СЧЕТА: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtGui import Qt, QCursor, QColor
+from PySide6.QtGui     import Qt, QCursor, QColor
 from PySide6.QtWidgets import QHeaderView
 
-from L20_PySide6 import C20_StandardItem
+from L20_PySide6       import C20_StandardItem
 from L60_form_accounts import C60_FormAccounts
 
 
@@ -21,6 +21,7 @@ class C70_FormAccounts(C60_FormAccounts):
 		self.tree_data.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
 
 		self.tree_data.setColumnWidth(1, 100)
+		self.tree_data.setColumnWidth(2, 100)
 
 	def AdjustTreeData_Color(self):
 		""" Дерево данных: Настройка цветового оформления """

@@ -68,9 +68,12 @@ class C60_FormAccounts(C50_FormAccounts):
 	def InitModelData(self):
 		""" Инициализация модели данных """
 		self.model_data.removeAll()
-		self.model_data.setHorizontalHeaderLabels(["Группа счетов\nСчёт", "Остаток\nначальный"])
+		self.model_data.setHorizontalHeaderLabels(["Группа счетов\nСчёт",
+		                                           "Остаток\nначальный",
+		                                           "Остаток\nитоговый"])
 
 		self.model_data.horizontalHeaderItem(1).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+		self.model_data.horizontalHeaderItem(2).setTextAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
 	def LoadAccountsGroup(self):
 		""" Загрузка группы счетов в модель """
@@ -82,7 +85,7 @@ class C60_FormAccounts(C50_FormAccounts):
 		item_group = C20_StandardItem(self._processing_group)
 		item_root  = self.model_data.invisibleRootItem()
 
-		item_root.appendRow([item_group, C20_StandardItem("")])
+		item_root.appendRow([item_group, C20_StandardItem(""), C20_StandardItem("")])
 
 	def LoadAccount(self):
 		""" Загрузка счёта в модель """
@@ -98,14 +101,19 @@ class C60_FormAccounts(C50_FormAccounts):
 		if not self.model_data.checkIdo(self._processing_ido):
 			item_account         = C20_StandardItem(account.Name(), self._processing_ido, ROLES.IDO)
 			item_balance_initial = C20_StandardItem("0", flag_align_right=True)
-			item_group.appendRow([item_account, item_balance_initial])
+			item_balance_final   = C20_StandardItem("0", flag_align_right=True)
+			item_group.appendRow([item_account, item_balance_initial, item_balance_final])
 
 		indexes               : list[QModelIndex] = self.model_data.indexesInRowByIdo(self._processing_ido)
 		index_account         : QModelIndex       = indexes[0]
 		index_balance_initial : QModelIndex       = indexes[1]
+		index_balance_final   : QModelIndex       = indexes[2]
 
 		item_account          : C20_StandardItem  = self.model_data.itemFromIndex(index_account)
 		item_account.setText(account.Name())
 
 		item_balance_initial  : C20_StandardItem  = self.model_data.itemFromIndex(index_balance_initial)
 		item_balance_initial.setText(AmountToString(account.BalanceInitial()))
+
+		item_balance_final  : C20_StandardItem  = self.model_data.itemFromIndex(index_balance_final)
+		item_balance_final.setText(AmountToString(account.BalanceFinal()))
