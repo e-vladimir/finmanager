@@ -18,9 +18,12 @@ export PYTHONPATH=$PYTHONPATH:./L9
 
 export PYTHONPATH=$PYTHONPATH:./ui/form_accounts
 export PYTHONPATH=$PYTHONPATH:./ui/form_archives
+export PYTHONPATH=$PYTHONPATH:./ui/form_export
 export PYTHONPATH=$PYTHONPATH:./ui/form_import
 export PYTHONPATH=$PYTHONPATH:./ui/form_main
 export PYTHONPATH=$PYTHONPATH:./ui/form_operation
 export PYTHONPATH=$PYTHONPATH:./ui/form_operations
+export PYTHONPATH=$PYTHONPATH:./ui/form_rule
+export PYTHONPATH=$PYTHONPATH:./ui/form_rules
 
 python3 -u gui_app.py

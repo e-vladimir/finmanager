@@ -35,7 +35,7 @@ class C70_FormOperations(C60_FormOperations):
 		                          200,
 		                          200]
 
-		sizes_max : list[int] = [100,
+		sizes_max : list[int] = [150,
 		                         max(200, self.width() // 4),
 		                         max(200, self.width() // 3)]
 
