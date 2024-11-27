@@ -40,6 +40,9 @@ class C90_FormRules(C80_FormRules):
 		self.AdjustTableData_Order()
 		self.AdjustTableData_Color()
 
+	def on_Show(self):
+		self.AdjustTableData_Size()
+
 	def on_UpdateDataPartial(self):
 		""" Запрос на частичное обновление данных """
 		self.ReadProcessingIdoFromWorkspace()
@@ -66,6 +69,8 @@ class C90_FormRules(C80_FormRules):
 	# Меню правил обработки данных
 	def on_RequestShowMenuRules(self):
 		""" Запрос на отображение правил обработки данных """
+		self.ReadProcessingIdoFromTableData()
+
 		self.AdjustMenuRules_Text()
 		self.AdjustMenuRules_Enable()
 

@@ -26,10 +26,10 @@ class C70_FormRules(C60_FormRules):
 	# Таблица данных
 	def AdjustTableData_Size(self):
 		""" Таблица данных: Настройка размера """
+		self.table_data.resizeRowsToContents()
+
 		self.table_data.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
 		self.table_data.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
-
-		self.table_data.resizeRowsToContents()
 
 	def AdjustTableData_Order(self):
 		""" Таблица данных: Настройка сортировки """
