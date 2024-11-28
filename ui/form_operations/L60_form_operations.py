@@ -44,8 +44,8 @@ class C60_FormOperations(C50_FormOperations):
 		if not self._processing_ido : return
 
 		operation                         = C90_Operation(self._processing_ido)
-		dd                                = operation.Dd()
-		dd_name : str                     = f"{dd:02d} {self.workspace.DmDyToString()}"
+		self._processing_dd               = operation.Dd()
+		dd_name : str                     = f"{self._processing_dd:02d} {self.workspace.DmDyToString()}"
 
 		item_dd : C20_StandardItem | None = self.model_data.itemByData(dd_name, ROLES.TEXT)
 		if     item_dd is None      : return
