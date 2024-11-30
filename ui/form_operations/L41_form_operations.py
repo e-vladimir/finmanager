@@ -34,7 +34,6 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_item_plus  = QIcon("./L0/icons/item_plus.svg")
 		icon_list       = QIcon("./L0/icons/list.svg")
 		icon_open       = QIcon("./L0/icons/open.svg")
-		icon_processing = QIcon("./L0/icons/processing.svg")
 		icon_red        = QIcon("./L0/icons/square_red.svg")
 		icon_reload     = QIcon("./L0/icons/reload.svg")
 		icon_replace    = QIcon("./L0/icons/replace.svg")
@@ -50,7 +49,6 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_export                  : QAction = self.submenu_operations.addAction(icon_upload, "Экспорт операций")
 		self.submenu_operations.addSeparator()
 		self.action_operations_replace_text            : QAction = self.submenu_operations.addAction(icon_replace,   "Поиск и замена текстового фрагмента")
-		self.action_operations_apply_rules             : QAction = self.submenu_operations.addAction(icon_processing, "Применить правила обработки данных")
 		self.submenu_operations.addSeparator()
 		self.action_operations_reset                   : QAction = self.submenu_operations.addAction(icon_reload,    "Сброс данных")
 
@@ -60,8 +58,6 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_pack_collapse_selection : QAction = self.submenu_operations_pack.addAction(icon_uncheck, "Сокращение пакета операций")
 		self.submenu_operations_pack.addSeparator()
 		self.action_operations_pack_delete_pack        : QAction = self.submenu_operations_pack.addAction(icon_delete,  "Удалить пакет операций")
-		self.submenu_operations_pack.addSeparator()
-		self.action_operations_pack_apply_rules        : QAction = self.submenu_operations_pack.addAction(icon_processing, "Применить правила обработки данных")
 
 		self.submenu_operation                                   = self.menu_operations.addMenu(icon_grid_3_3, "Операция")
 		self.action_operation_open_operation           : QAction = self.submenu_operation.addAction(icon_open,       "Открыть операцию")
@@ -78,5 +74,3 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operation_colors_set_red           : QAction = self.submenu_operation_colors.addAction(icon_red,   "Красный")
 		self.action_operation_colors_set_blue          : QAction = self.submenu_operation_colors.addAction(icon_blue,  "Синий")
 		self.action_operation_colors_set_green         : QAction = self.submenu_operation_colors.addAction(icon_green, "Зелёный")
-		self.submenu_operation.addSeparator()
-		self.action_operation_apply_rules              : QAction = self.submenu_operation.addAction(icon_processing, "Применить правила обработки данных")

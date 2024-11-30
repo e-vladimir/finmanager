@@ -8,8 +8,6 @@ from L90_form_import     import C90_FormImport
 from L90_form_main       import C90_FormMain
 from L90_form_operation  import C90_FormOperation
 from L90_form_operations import C90_FormOperations
-from L90_form_rule       import C90_FormRule
-from L90_form_rules      import C90_FormRules
 
 
 class C40_Application(C20_PySideApplication):
@@ -25,5 +23,3 @@ class C40_Application(C20_PySideApplication):
 		self.form_operation  = C90_FormOperation(self)
 		self.form_import     = C90_FormImport(self)
 		self.form_export     = C90_FormExport(self)
-		self.form_rule       = C90_FormRule(self)
-		self.form_rules      = C90_FormRules(self)

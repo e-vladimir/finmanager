@@ -15,7 +15,6 @@ class C50_FormOperations(C42_FormOperations):
 	# Финансовые операции
 	def on_RequestCreateOperation(self): pass
 	def on_RequestReplaceText(self): pass
-	def on_RequestApplyRulesToOperations(self): pass
 	def on_RequestResetData(self): pass
 	def on_RequestImportOperations(self): pass
 	def on_RequestExportOperations(self): pass
@@ -25,7 +24,6 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestExpandPackOperations(self): pass
 	def on_RequestCollapsePackOperations(self): pass
 	def on_RequestDeletePackOperation(self): pass
-	def on_RequestApplyRulesToPackOperation(self): pass
 
 	# Финансовая операция
 	def on_RequestOpenOperation(self): pass
@@ -38,4 +36,3 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestSetOperationDescription(self): pass
 	def on_RequestSetOperationLabels(self): pass
 	def on_RequestSplitOperation(self): pass
-	def on_RequestApplyRulesToOperation(self): pass

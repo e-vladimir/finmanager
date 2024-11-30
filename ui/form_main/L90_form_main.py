@@ -21,7 +21,6 @@ class C90_FormMain(C80_FormMain):
 
 		# Панель Утилиты
 		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
-		self.btn_rules.clicked.connect(self.on_RequestOpenFormRules)
 
 	# Форма
 	def on_Open(self):
@@ -47,10 +46,6 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFormOperations(self):
 		""" Запрос на открытие формы Финансовые операции """
 		self.application.form_operations.Open()
-
-	def on_RequestOpenFormRules(self):
-		""" Запрос на открытие формы Правила обработки данных """
-		self.application.form_rules.Open()
 
 	# Панель рабочего периода
 	def on_RequestShiftDmToNext(self):
