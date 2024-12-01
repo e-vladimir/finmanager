@@ -61,6 +61,8 @@ with open("sber_outup.csv", "w") as file_output:
 		data_items            = data_item.split(' ')
 		if not data_items: continue
 
+		file_output.write(';'.join(["Дата", "Время", "Сумма", "Тип операции", "Описание"]) + ';\n')
+
 		operation_date        = data_items[0]
 		operation_time        = data_items[1]
 		operation_id          = data_items[2]
