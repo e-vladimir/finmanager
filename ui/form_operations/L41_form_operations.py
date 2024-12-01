@@ -47,7 +47,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.submenu_operations.addSeparator()
 		self.action_operations_replace_text            : QAction = self.submenu_operations.addAction(icon_replace,   "Поиск и замена текстового фрагмента")
 		self.submenu_operations.addSeparator()
-		self.action_operations_control_autoreplace     : QAction = self.submenu_operations.addAction(icon_list,      "Управление Автозаменой")
+		self.action_operations_control_autoreplace     : QAction = self.submenu_operations.addAction(icon_list,      "Управление автозаменой")
 		self.submenu_operations.addSeparator()
 		self.action_operations_import                  : QAction = self.submenu_operations.addAction(icon_import,    "Импорт операций")
 		self.action_operations_export                  : QAction = self.submenu_operations.addAction(icon_upload,    "Экспорт операций")
