@@ -1,4 +1,6 @@
 # ФОРМА УПРАВЛЕНИЕ АВТОЗАМЕНОЙ: МЕХАНИКА ДАННЫХ
+from PySide6.QtCore import QModelIndex
+from libxml2mod import parent
 
 from L20_PySide6                  import C20_StandardItem, ROLES
 from L50_form_control_autoreplace import C50_FormControlAutoreplace
@@ -38,3 +40,19 @@ class C60_FormControlAutoreplace(C50_FormControlAutoreplace):
 
 		item_output  = self.model_data.itemFromIndex(indexes_data[1])
 		item_output.setText(rule.OutputAsString())
+
+	# Параметры
+	def ReadProcessingIdoFromTableData(self):
+		""" Чтение текущего IDO из таблицы данных """
+		current_index = self.table_data.currentIndex()
+
+		self._processing_ido = current_index.data(ROLES.IDO)
+
+	def ReadProcessingOutputFromTableData(self):
+		""" Чтение текущих output-данных из таблицы данных """
+		current_index  : QModelIndex = self.table_data.currentIndex()
+		current_parent : QModelIndex = current_index.parent()
+		current_row    : int         = current_index.row()
+		current_index  : QModelIndex = current_parent.sibling(current_row, 1)
+
+		self._processing_output = current_index.data(ROLES.TEXT)

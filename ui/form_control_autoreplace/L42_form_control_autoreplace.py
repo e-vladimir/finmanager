@@ -11,7 +11,8 @@ class C42_FormControlAutoreplace(C41_FormControlAutoreplace):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_ido : str = ""
+		self._processing_ido    : str = ""
+		self._processing_output : str = ""
 
 	def Init_10(self):
 		super().Init_10()

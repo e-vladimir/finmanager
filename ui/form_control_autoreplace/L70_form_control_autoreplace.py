@@ -1,5 +1,6 @@
 # ФОРМА УПРАВЛЕНИЕ АВТОЗАМЕНОЙ: МЕХАНИКА УПРАВЛЕНИЯ
 
+from PySide6.QtGui                import QCursor, Qt
 from PySide6.QtWidgets            import QHeaderView
 
 from L60_form_control_autoreplace import C60_FormControlAutoreplace
@@ -21,6 +22,19 @@ class C70_FormControlAutoreplace(C60_FormControlAutoreplace):
 
 		self.table_data.resizeRowsToContents()
 
-	def AdjustTableData_Color(self):
-		""" Таблица данных: Настройка цветов """
+	def AdjustTableData_Sort(self):
+		""" Таблица данных: Настройка сортировки """
+		self.table_data.sortByColumn(1, Qt.SortOrder.AscendingOrder)
+
+	# Меню правил автозамены
+	def AdjustMenuRules_Enable(self):
+		""" Меню автозамены: Настройка доступности """
 		pass
+
+	def AdjustMenuRules_Text(self):
+		""" Меню автозамены: Настройка текста """
+		pass
+
+	def ShowMenuRules(self):
+		""" Отображение меню правил автозамены """
+		self.menu_rules.exec_(QCursor().pos())
