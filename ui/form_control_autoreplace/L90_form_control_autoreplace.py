@@ -15,6 +15,7 @@ class C90_FormControlAutoreplace(C80_FormControlAutoreplace):
 		# Меню правила автозамены
 		self.action_rule_edit_input.triggered.connect(self.on_RequestEditInput)
 		self.action_rule_edit_output.triggered.connect(self.on_RequestEditOutput)
+		self.action_rule_delete_rule.triggered.connect(self.on_RequestDeleteRule)
 
 		# Таблица данных
 		self.table_data.customContextMenuRequested.connect(self.on_RequestShowMenuRules)
@@ -74,3 +75,13 @@ class C90_FormControlAutoreplace(C80_FormControlAutoreplace):
 		self.AdjustTableData_Size()
 		self.AdjustTableData_Sort()
 
+	def on_RequestDeleteRule(self):
+		""" Запрос удаления правила автозамены """
+		self.DeleteRule()
+
+		self.InitModelData()
+
+		self.ShowRules()
+
+		self.AdjustTableData_Size()
+		self.AdjustTableData_Sort()

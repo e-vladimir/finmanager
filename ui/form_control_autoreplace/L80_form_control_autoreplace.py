@@ -3,7 +3,7 @@
 from L00_containers               import CONTAINERS
 from L00_rules                    import RULES
 
-from L20_PySide6                  import RequestText, RequestMultipleText
+from L20_PySide6                  import RequestText, RequestMultipleText, RequestConfirm
 from L70_form_control_autoreplace import C70_FormControlAutoreplace
 from L90_rules                    import C90_ProcessingRule
 
@@ -52,3 +52,11 @@ class C80_FormControlAutoreplace(C70_FormControlAutoreplace):
 		if text_output is None: return
 
 		rule.OutputAsString(text_output)
+
+	def DeleteRule(self):
+		""" Удаление правила автозамены """
+		rule = C90_ProcessingRule(self._processing_ido)
+
+		if not RequestConfirm("Удаление правила автозамены", f"Удаление правила автозамены на {rule.OutputAsString()}"): return
+
+		rule.DeleteObject(CONTAINERS.DISK)

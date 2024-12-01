@@ -13,3 +13,4 @@ class C50_FormControlAutoreplace(C42_FormControlAutoreplace):
 	def on_RequestCreateRule(self): pass
 	def on_RequestEditInput(self): pass
 	def on_RequestEditOutput(self): pass
+	def on_RequestDeleteRule(self): pass

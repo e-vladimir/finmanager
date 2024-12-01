@@ -33,6 +33,7 @@ class C70_FormControlAutoreplace(C60_FormControlAutoreplace):
 
 		self.action_rule_edit_input.setEnabled(flag_selected)
 		self.action_rule_edit_output.setEnabled(flag_selected)
+		self.action_rule_delete_rule.setEnabled(flag_selected)
 
 	def AdjustMenuRules_Text(self):
 		""" Меню автозамены: Настройка текста """

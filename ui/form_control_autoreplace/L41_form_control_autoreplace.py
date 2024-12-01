@@ -21,12 +21,15 @@ class C41_FormControlAutoreplace(C20_PySideForm, Ui_frm_control_autoreplace):
 		icon_grid_3_3                           = QIcon("./L0/icons/grid_3_3.svg")
 		icon_item_plus                          = QIcon("./L0/icons/item_plus.svg")
 		icon_edit                               = QIcon("./L0/icons/edit.svg")
+		icon_item_delete                        = QIcon("./L0/icons/item_delete.svg")
 
 		self.menu_rules                         = QMenu("Правила автозамены")
 
 		self.submenu_rules                      = self.menu_rules.addMenu(icon_grid_2_2, "Правила автозамены")
 		self.action_rules_create_rule : QAction = self.submenu_rules.addAction(icon_item_plus,  "Создать правило")
 
-		self.submenu_rule                       = self.menu_rules.addMenu(icon_grid_3_3, "Правило автозамены")
-		self.action_rule_edit_input   : QAction = self.submenu_rule.addAction(icon_edit, "Редактировать фрагменты поиска")
-		self.action_rule_edit_output  : QAction = self.submenu_rule.addAction(icon_edit, "Редактировать фрагменты замены")
+		self.submenu_rule                       = self.menu_rules.addMenu(icon_grid_3_3,        "Правило автозамены")
+		self.action_rule_edit_input   : QAction = self.submenu_rule.addAction(icon_edit,        "Редактировать фрагменты поиска")
+		self.action_rule_edit_output  : QAction = self.submenu_rule.addAction(icon_edit,        "Редактировать фрагменты замены")
+		self.submenu_rule.addSeparator()
+		self.action_rule_delete_rule  : QAction = self.submenu_rule.addAction(icon_item_delete, "Удалить правило автозамены")
