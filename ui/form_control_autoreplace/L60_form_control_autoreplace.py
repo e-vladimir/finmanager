@@ -53,6 +53,6 @@ class C60_FormControlAutoreplace(C50_FormControlAutoreplace):
 		current_index  : QModelIndex = self.table_data.currentIndex()
 		current_parent : QModelIndex = current_index.parent()
 		current_row    : int         = current_index.row()
-		current_index  : QModelIndex = current_parent.sibling(current_row, 1)
+		current_index  : QModelIndex = self.model_data.index(current_row, 1, current_parent)
 
 		self._processing_output = current_index.data(ROLES.TEXT)

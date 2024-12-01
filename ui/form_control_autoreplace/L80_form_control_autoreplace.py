@@ -16,7 +16,7 @@ class C80_FormControlAutoreplace(C70_FormControlAutoreplace):
 		""" Отображение правил """
 		for self._processing_ido in self.rules.IdosByType(RULES.REPLACE_TEXT, True): self.LoadRuleAutoreplace()
 
-	# Правила автозамены
+	# Правило автозамены
 	def CreateRule(self):
 		""" Создание правила автозамены """
 		text_output : str | None       = RequestText("Создание правила автозамены", "Фрагмент замены:", "")
@@ -34,3 +34,21 @@ class C80_FormControlAutoreplace(C70_FormControlAutoreplace):
 		rule.OutputAsString(text_output)
 
 		self._processing_ido = rule.Ido().data
+
+	def EditInput(self):
+		""" Редактирование входа """
+		rule = C90_ProcessingRule(self._processing_ido)
+
+		text_input : list[str] | None = RequestMultipleText("Редактирование правила автозамены", f"Фрагмент замены: {rule.OutputAsString()}\n\nФрагменты поиска:", rule.InputAsStrings())
+		if text_input is None: return
+
+		rule.InputAsStrings(text_input)
+
+	def EditOutput(self):
+		""" Редактирование выхода """
+		rule = C90_ProcessingRule(self._processing_ido)
+
+		text_output : str | None = RequestText("Редактирование правила автозамены", f"Фрагмент замены:", rule.OutputAsString())
+		if text_output is None: return
+
+		rule.OutputAsString(text_output)

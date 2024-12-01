@@ -29,11 +29,17 @@ class C70_FormControlAutoreplace(C60_FormControlAutoreplace):
 	# Меню правил автозамены
 	def AdjustMenuRules_Enable(self):
 		""" Меню автозамены: Настройка доступности """
-		pass
+		flag_selected : bool = bool(self._processing_ido)
+
+		self.action_rule_edit_input.setEnabled(flag_selected)
+		self.action_rule_edit_output.setEnabled(flag_selected)
 
 	def AdjustMenuRules_Text(self):
 		""" Меню автозамены: Настройка текста """
-		pass
+		self.submenu_rule.setTitle("Правило автозамены")
+
+		if self._processing_output:
+			self.submenu_rule.setTitle(self._processing_output)
 
 	def ShowMenuRules(self):
 		""" Отображение меню правил автозамены """

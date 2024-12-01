@@ -11,3 +11,5 @@ class C50_FormControlAutoreplace(C42_FormControlAutoreplace):
 
 	# Правило автозамены
 	def on_RequestCreateRule(self): pass
+	def on_RequestEditInput(self): pass
+	def on_RequestEditOutput(self): pass
