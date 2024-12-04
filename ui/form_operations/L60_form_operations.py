@@ -74,7 +74,7 @@ class C60_FormOperations(C50_FormOperations):
 		item_labels.setText(', '.join(operation.Labels()))
 
 		item_description                  = self.model_data.itemFromIndex(indexes[3])
-		item_description.setText(operation.Description())
+		item_description.setText(operation.DescriptionOrDestination())
 
 		text_color                        = QColor(0, 0, 0)
 

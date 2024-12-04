@@ -15,6 +15,15 @@ from L90_rules              import C90_ProcessingRules, C90_ProcessingRule
 class C80_Operation(C70_Operation):
 	""" Финансовая операция: Логика данных """
 
+	# Данные
+	def DescriptionOrDestination(self) -> str:
+		""" Запрос описания или назначения """
+		destination : str = self.Destination()
+		
+		if not destination: return self.Description()
+
+		return destination
+
 	# Обработка
 	def Split(self, amount: int) -> str:
 		""" Разделение операции """

@@ -41,8 +41,8 @@ class C60_Operation(C50_Operation):
 
 	def Destination(self, text: str = None) -> str:
 		""" Назначение """
-		if text is None  : return self.f_description.ToString(CONTAINERS.DISK).data
-		else             :        self.f_description.FromString(CONTAINERS.DISK, text)
+		if text is None  : return self.f_destination.ToString(CONTAINERS.DISK).data
+		else             :        self.f_destination.FromString(CONTAINERS.DISK, text)
 
 	def Labels(self, labels: list[str] = None) -> list[str]:
 		""" Метки """

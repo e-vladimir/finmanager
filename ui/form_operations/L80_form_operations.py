@@ -91,7 +91,6 @@ class C80_FormOperations(C70_FormOperations):
 
 			operation = C90_Operation(self._processing_ido)
 			operation.ApplyRulesReplaceText()
-			operation.ApplyRulesDetectLabels()
 
 			self.LoadOperation()
 
@@ -197,7 +196,6 @@ class C80_FormOperations(C70_FormOperations):
 
 			operation = C90_Operation(self._processing_ido)
 			operation.ApplyRulesReplaceText()
-			operation.ApplyRulesDetectLabels()
 
 			self.LoadOperation()
 
@@ -220,8 +218,6 @@ class C80_FormOperations(C70_FormOperations):
 		operation.Dy(self.workspace.Dy())
 		operation.Dm(self.workspace.Dm())
 		operation.Dd(self._processing_dd)
-		operation.SrcAmount(amount)
-		operation.SrcDescription(description)
 		operation.Amount(amount)
 		operation.Description(description)
 
@@ -236,7 +232,7 @@ class C80_FormOperations(C70_FormOperations):
 	def DeleteOperation(self):
 		""" Удаление операции """
 		operation  = C90_Operation(self._processing_ido)
-		text : str = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
 
 		if not RequestConfirm("Удаление операции", text): return
 
@@ -247,20 +243,20 @@ class C80_FormOperations(C70_FormOperations):
 		operation = C90_Operation(self._processing_ido)
 		operation.Color(self._processing_color)
 
-	def SetOperationDescription(self):
+	def SetOperationDestination(self):
 		""" Установка описания операции """
 		operation                = C90_Operation(self._processing_ido)
-		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
 
-		description : str | None = RequestText("Редактирование операции", text, operation.Description())
-		if description is None: return
+		destination : str | None = RequestText("Редактирование операции", text, operation.Description())
+		if destination is None: return
 
-		operation.Description(description)
+		operation.Destination(destination)
 
 	def SetOperationLabels(self):
 		""" Установка меток операции """
 		operation                      = C90_Operation(self._processing_ido)
-		text        : str              = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
 
 		labels      : list[str] | None = RequestMultipleText("Редактирование операции", text, operation.Labels())
 		if labels is None: return
@@ -270,7 +266,7 @@ class C80_FormOperations(C70_FormOperations):
 	def SplitOperation(self):
 		""" Разделение операции """
 		operation              = C90_Operation(self._processing_ido)
-		text      : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n{operation.Description()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
 
 		amount    : int | None = RequestValue("Разделение операции", text, int(operation.Amount()), -99999999, 99999999)
 		if amount is None: return
@@ -287,4 +283,3 @@ class C80_FormOperations(C70_FormOperations):
 		""" Применение правил обработки данных """
 		operation = C90_Operation(self._processing_ido)
 		operation.ApplyRulesReplaceText()
-		operation.ApplyRulesDetectLabels()

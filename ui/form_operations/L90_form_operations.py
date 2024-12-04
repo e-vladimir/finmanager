@@ -197,7 +197,7 @@ class C90_FormOperations(C80_FormOperations):
 
 	def on_RequestSetOperationDescription(self):
 		""" Запрос на редактирование описания операции """
-		self.SetOperationDescription()
+		self.SetOperationDestination()
 
 		self.LoadOperation()
 
