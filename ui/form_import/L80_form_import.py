@@ -82,12 +82,16 @@ class C80_FormImport(C70_FormImport):
 		index_date        : int        = -1
 		index_amount      : int        = -1
 		index_description : int        = -1
+		index_destination : int        = -1
+		index_labels      : int        = -1
 
 		for index_field, field in enumerate(self._operations_fields):
 			match field:
 				case FIELDS.AMOUNT     : index_amount      = index_field
 				case FIELDS.DATE       : index_date        = index_field
 				case FIELDS.DESCRIPTION: index_description = index_field
+				case FIELDS.DESTINATION: index_destination = index_field
+				case FIELDS.LABELS     : index_labels      = index_field
 
 		if     index_date        == -1                         : return
 		if     index_amount      == -1                         : return
@@ -118,6 +122,8 @@ class C80_FormImport(C70_FormImport):
 			raw_date        : str             = data[index_date]
 			raw_amount      : str             = data[index_amount]
 			raw_description : str             = data[index_description]
+			raw_destination : str             = "" if index_destination == -1 else data[index_destination]
+			raw_labels      : str             = "" if index_labels      == -1 else data[index_labels]
 
 			date            : datetime | None = StringToDateTime(raw_date)
 			if     date is None             : continue
@@ -126,6 +132,8 @@ class C80_FormImport(C70_FormImport):
 			except: continue
 
 			description     : str             = raw_description
+			destination     : str             = raw_destination
+			labels          : list[str]       = raw_labels.split(',')
 
 			dy              : int             = date.year
 			dm              : int             = date.month
@@ -134,4 +142,4 @@ class C80_FormImport(C70_FormImport):
 			if not dy == self.workspace.Dy(): continue
 			if not dm == self.workspace.Dm(): continue
 
-			self.operations.ImportOperation(dy, dm, dd, amount, description, account_ido)
+			self.operations.ImportOperation(dy, dm, dd, amount, description, destination, labels, account_ido)

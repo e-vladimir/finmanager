@@ -55,29 +55,6 @@ class C80_Operation(C70_Operation):
 
 		return self.Ido().data
 
-	def ApplyRulesReplaceText(self):
-		""" Применение правил замены текстового фрагмента """
-		rules_data  : dict[str, str] = dict()
-
-		rules                        = C90_ProcessingRules()
-
-		for ido_rule in rules.IdosByType(RULES.REPLACE_TEXT):
-			rule              = C90_ProcessingRule(ido_rule)
-			output_data : str = rule.OutputAsString()
-
-			for input_item in rule.InputAsStrings():
-				rules_data[input_item] = output_data
-
-		input_items : list[str]      = list(rules_data.keys())
-		input_items                  = sorted(input_items, key=len)
-
-		description : str            = self.Description()
-
-		for input_item in input_items:
-			description = description.replace(input_item, rules_data[input_item])
-
-		self.Description(description)
-
 	# Преобразования
 	def DdDmDyToString(self) -> str:
 		""" ДД МЕС ГОД """
@@ -143,7 +120,7 @@ class C80_Operations(C70_Operations):
 		return bool(filter_data.Idos().data)
 
 	# Импорт данных
-	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, description: str, account_ido: str) -> bool:
+	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, description: str, destination: str, labels: list[str], account_ido: str) -> bool:
 		""" Импорт финансовой операции """
 		crc = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
 
@@ -158,9 +135,9 @@ class C80_Operations(C70_Operations):
 		operation.Dd(dd)
 		operation.Crc(crc)
 		operation.Description(description)
+		operation.Destination(destination)
 		operation.Amount(amount)
 		operation.AccountsIdos([account_ido])
-
-		operation.ApplyRulesReplaceText()
+		operation.Labels(labels)
 
 		return True

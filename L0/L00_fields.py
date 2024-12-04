@@ -8,3 +8,5 @@ class FIELDS(enum.StrEnum):
 	AMOUNT      = "Сумма"
 	DATE        = "Дата"
 	DESCRIPTION = "Описание"
+	DESTINATION = "Назначение"
+	LABELS      = "Метки"
