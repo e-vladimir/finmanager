@@ -17,7 +17,7 @@ from   G30_cactus_controller_containers import  controller_containers
 from   L00_containers                   import  CONTAINERS
 from   L40_accounts                     import  C40_Account
 from   L40_operations                   import  C40_Operation
-from L40_rules import C40_ProcessingRule
+from   L40_rules                        import C40_ProcessingRule
 from   L50_app                          import  C50_Application
 
 

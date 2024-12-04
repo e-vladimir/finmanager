@@ -1,5 +1,6 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА УПРАВЛЕНИЯ
 
+from L00_colors     import COLORS
 from L80_operations import C80_Operation, C80_Operations
 
 
@@ -15,13 +16,11 @@ class C90_Operation(C80_Operation):
 		self.AccountsIdos([])
 		self.Labels([])
 
-		self.SrcAmount(0)
-		self.SrcDescription("")
-
 		self.Amount(0)
 		self.Description("")
+		self.Destination("")
 
-		self.Color("")
+		self.Color(COLORS.BLACK)
 		self.Crc("")
 
 

@@ -34,20 +34,15 @@ class C60_Operation(C50_Operation):
 		if value is None : return self.f_amount.ToFloat(CONTAINERS.DISK).data
 		else             :        self.f_amount.FromFloat(CONTAINERS.DISK, value)
 
-	def SrcAmount(self, value: float = None) -> int:
-		""" Исходная сумма """
-		if value is None : return self.f_src_amount.ToFloat(CONTAINERS.DISK).data
-		else             :        self.f_src_amount.FromFloat(CONTAINERS.DISK, value)
-
 	def Description(self, text: str = None) -> str:
 		""" Описание """
 		if text is None  : return self.f_description.ToString(CONTAINERS.DISK).data
 		else             :        self.f_description.FromString(CONTAINERS.DISK, text)
 
-	def SrcDescription(self, text: str = None) -> str:
-		""" Исходное описание """
-		if text is None  : return self.f_src_description.ToString(CONTAINERS.DISK).data
-		else             :        self.f_src_description.FromString(CONTAINERS.DISK, text)
+	def Destination(self, text: str = None) -> str:
+		""" Назначение """
+		if text is None  : return self.f_description.ToString(CONTAINERS.DISK).data
+		else             :        self.f_description.FromString(CONTAINERS.DISK, text)
 
 	def Labels(self, labels: list[str] = None) -> list[str]:
 		""" Метки """

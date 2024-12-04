@@ -20,14 +20,12 @@ class C40_Operation(C31_StructFrameWithEvents):
 		self.f_crc             = C30_StructField(self, "CRC")
 		self.f_color           = C30_StructField(self, "Цветовая метка")
 
-		self.f_src_amount      = C30_StructField(self, "Исходная сумма")
-		self.f_src_description = C30_StructField(self, "Исходное описание")
-
+		self.f_accounts_idos   = C30_StructField(self, "Счета")
 		self.f_amount          = C30_StructField(self, "Сумма")
 		self.f_description     = C30_StructField(self, "Описание")
+		self.f_destination     = C30_StructField(self, "Назначение")
 
 		self.f_labels          = C30_StructField(self, "Метки")
-		self.f_accounts_idos   = C30_StructField(self, "Счета")
 
 
 class C40_Operations(C20_MetaFrame):

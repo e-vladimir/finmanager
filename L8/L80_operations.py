@@ -7,8 +7,9 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 from L00_containers         import CONTAINERS
 from L00_months             import MONTHS
 from L00_rules              import RULES
+
 from L70_operations         import C70_Operation, C70_Operations
-from L90_rules import C90_ProcessingRules, C90_ProcessingRule
+from L90_rules              import C90_ProcessingRules, C90_ProcessingRule
 
 
 class C80_Operation(C70_Operation):
@@ -22,9 +23,8 @@ class C80_Operation(C70_Operation):
 		dy              = self.Dy()
 		dm              = self.Dm()
 		dd              = self.Dd()
-		src_amount      = self.SrcAmount()
-		src_description = self.SrcDescription()
 		description     = self.Description()
+		destination     = self.Destination()
 		crc             = self.Crc()
 		color           = self.Color()
 		labels          = self.Labels()
@@ -38,8 +38,7 @@ class C80_Operation(C70_Operation):
 		self.Dd(dd)
 		self.Amount(amount)
 		self.Description(description)
-		self.SrcAmount(src_amount)
-		self.SrcDescription(src_description)
+		self.Destination(destination)
 		self.Crc(crc)
 		self.Labels(labels)
 		self.Color(color)
@@ -69,30 +68,6 @@ class C80_Operation(C70_Operation):
 			description = description.replace(input_item, rules_data[input_item])
 
 		self.Description(description)
-
-	def ApplyRulesDetectLabels(self):
-		""" Применение правил определения меток по текстовым фрагментам """
-		description : str      = self.Description().lower()
-		labels      : set[str] = set(self.Labels())
-
-		rules                  = C90_ProcessingRules()
-
-		for ido_rule in rules.IdosByType(RULES.DETECT_LABEL_BY_TEXT):
-			rule               = C90_ProcessingRule(ido_rule)
-
-			flag_append : bool = False
-
-			for input_item in rule.InputAsStrings():
-				if input_item.lower() not in description: continue
-
-				flag_append = True
-				break
-
-			if not flag_append: continue
-
-			labels             = labels.union(set(rule.OutputAsStrings()))
-
-		self.Labels(list(sorted(labels)))
 
 	# Преобразования
 	def DdDmDyToString(self) -> str:
@@ -175,11 +150,8 @@ class C80_Operations(C70_Operations):
 		operation.Crc(crc)
 		operation.Description(description)
 		operation.Amount(amount)
-		operation.SrcDescription(description)
-		operation.SrcAmount(amount)
 		operation.AccountsIdos([account_ido])
 
 		operation.ApplyRulesReplaceText()
-		operation.ApplyRulesDetectLabels()
 
 		return True
