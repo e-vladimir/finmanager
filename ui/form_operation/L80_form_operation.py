@@ -3,6 +3,7 @@
 from G11_convertor_data import AmountToString
 
 from L00_months         import MONTHS
+
 from L20_PySide6        import RequestValue, RequestText, RequestMultipleText, RequestItems
 from L70_form_operation import C70_FormOperation
 
@@ -14,7 +15,7 @@ class C80_FormOperation(C70_FormOperation):
 	def SetDate(self):
 		""" Установка даты """
 		caption : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		text    : str        = f"Дата операции\n\n{caption}\n{self.operation.Description()}"
+		text    : str        = f"Описание операции:\n{self.operation.Description()}\n\nНазначение операции:\n{self.operation.Destination()}"
 		date    : str | None = RequestText(caption, text, self.operation.DdDmDyToString())
 		if     date is None          : return
 
