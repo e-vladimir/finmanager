@@ -16,7 +16,6 @@ class C90_FormOperations(C80_FormOperations):
 		# Меню Финансовые операции
 		self.action_operations_create_operation.triggered.connect(self.on_RequestCreateOperation)
 		self.action_operations_replace_text.triggered.connect(self.on_RequestReplaceText)
-		self.action_operations_control_autoreplace.triggered.connect(self.on_RequestControlAutoreplace)
 		self.action_operations_import.triggered.connect(self.on_RequestImportOperations)
 		self.action_operations_export.triggered.connect(self.on_RequestExportOperations)
 		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
@@ -121,10 +120,6 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
-
-	def on_RequestControlAutoreplace(self):
-		""" Запрос на переход в форму Управление автозаменой """
-		self.application.form_control_autoreplace.Open()
 
 	# Пакет операций
 	def on_RequestUncheckedAllPackOperations(self):

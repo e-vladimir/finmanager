@@ -1,14 +1,20 @@
 # ФОРМА ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
 
-from PySide6.QtCore      import Qt
-from PySide6.QtWidgets   import QProgressDialog
+from PySide6.QtCore      import  Qt
+from PySide6.QtWidgets   import  QProgressDialog
 
-from G11_convertor_data  import AmountToString
+from G11_convertor_data  import  AmountToString
 
-from L00_containers      import CONTAINERS
-from L20_PySide6         import RequestValue, RequestText, RequestConfirm, RequestMultipleText, QFindReplaceTextDialog, C20_StandardItem, ROLES
-from L70_form_operations import C70_FormOperations
-from L90_operations      import C90_Operation
+from L00_containers      import  CONTAINERS
+from L20_PySide6         import (RequestValue,
+                                 RequestText,
+                                 RequestConfirm,
+                                 RequestMultipleText,
+                                 QFindReplaceTextDialog,
+                                 C20_StandardItem,
+                                 ROLES)
+from L70_form_operations import  C70_FormOperations
+from L90_operations      import  C90_Operation
 
 
 class C80_FormOperations(C70_FormOperations):
@@ -66,31 +72,6 @@ class C80_FormOperations(C70_FormOperations):
 			if text_find not in operation.Destination(): continue
 
 			operation.Destination(operation.Destination().replace(text_find, text_replace))
-
-			self.LoadOperation()
-
-		dialog_progress.close()
-
-	def ApplyRulesToOperations(self):
-		""" Применение правил обработки данных к пакету операций """
-		dy, dm           = self.workspace.DyDm()
-		idos : list[str] = self.operations.OperationsIdosInDyDmDd(dy, dm)
-
-		if not idos: return
-
-		dialog_progress  = QProgressDialog(self)
-		dialog_progress.setWindowTitle("Финансовые операции: Обработка данных")
-		dialog_progress.setLabelText("Осталось обработать: --")
-		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
-		dialog_progress.setMaximum(len(idos))
-		dialog_progress.setMinimumWidth(480)
-
-		for self._processing_ido in idos:
-			dialog_progress.setValue(dialog_progress.value() + 1)
-			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
-
-			operation = C90_Operation(self._processing_ido)
-			operation.ApplyRulesReplaceText()
 
 			self.LoadOperation()
 
@@ -187,26 +168,6 @@ class C80_FormOperations(C70_FormOperations):
 
 		dialog_progress.close()
 
-	def ApplyRulesToPackOperations(self):
-		""" Применение правил обработки данных к пакету операций """
-		dialog_progress  = QProgressDialog(self)
-		dialog_progress.setWindowTitle("Финансовые операции: Обработка данных")
-		dialog_progress.setLabelText("Осталось обработать: --")
-		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
-		dialog_progress.setMaximum(len(self._processing_idos))
-		dialog_progress.setMinimumWidth(480)
-
-		for self._processing_ido in self._processing_idos:
-			dialog_progress.setValue(dialog_progress.value() + 1)
-			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
-
-			operation = C90_Operation(self._processing_ido)
-			operation.ApplyRulesReplaceText()
-
-			self.LoadOperation()
-
-		dialog_progress.close()
-
 	# Финансовая операция
 	def CreateOperation(self):
 		""" Создание операции """
@@ -284,8 +245,3 @@ class C80_FormOperations(C70_FormOperations):
 
 		ido_new = operation.Ido().data
 		self._processing_ido = ido_new
-
-	def ApplyRulesToOperation(self):
-		""" Применение правил обработки данных """
-		operation = C90_Operation(self._processing_ido)
-		operation.ApplyRulesReplaceText()

@@ -6,10 +6,8 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L00_months             import MONTHS
-from L00_rules              import RULES
 
 from L70_operations         import C70_Operation, C70_Operations
-from L90_rules              import C90_ProcessingRules, C90_ProcessingRule
 
 
 class C80_Operation(C70_Operation):
