@@ -18,7 +18,7 @@ class C60_FormOperations(C50_FormOperations):
 	def InitModel(self):
 		""" Инициализация модели """
 		self.model_data.removeAll()
-		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт учёта", "Метки", "Описание"])
+		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт/Счета", "Метки", "Описание/Назначение"])
 
 	def LoadDd(self):
 		""" Загрузка дня в модель """

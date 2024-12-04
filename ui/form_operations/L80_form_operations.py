@@ -45,7 +45,7 @@ class C80_FormOperations(C70_FormOperations):
 		if not idos                 : return
 
 		operation        = C90_Operation(self._processing_ido)
-		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента", operation.Description(), operation.Description())
+		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента", operation.Destination(), operation.Destination())
 		if not dialog_request.exec(): return
 
 		text_find        = dialog_request.textFind()
@@ -63,9 +63,9 @@ class C80_FormOperations(C70_FormOperations):
 			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
 
 			operation = C90_Operation(self._processing_ido)
-			if text_find not in operation.Description(): continue
+			if text_find not in operation.Destination(): continue
 
-			operation.Description(operation.Description().replace(text_find, text_replace))
+			operation.Destination(operation.Destination().replace(text_find, text_replace))
 
 			self.LoadOperation()
 
@@ -131,16 +131,19 @@ class C80_FormOperations(C70_FormOperations):
 		""" Расширение пакета операций """
 		dy, dm            = self.workspace.DyDm()
 
-		text : str | None = RequestText("Расширение пакета операций", "Поиск в описании")
+		text : str | None = RequestText("Расширение пакета операций", "Поиск в описании и назначении")
 		if text is None: return
 
 		for ido in self.operations.OperationsIdosInDyDmDd(dy, dm):
-			operation                      = C90_Operation(ido)
+			operation                             = C90_Operation(ido)
 
-			if text.lower() not in operation.Description().lower(): continue
+			flag_result : bool                    = text.lower() in operation.Description().lower()
+			flag_result                          |= text.lower() in operation.Destination().lower()
 
-			item : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.IDO)
-			if item is None                                       : continue
+			if not flag_result  : continue
+
+			item        : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.IDO)
+			if     item is None : continue
 
 			item.setCheckState(Qt.CheckState.Checked)
 
@@ -148,16 +151,19 @@ class C80_FormOperations(C70_FormOperations):
 		""" Расширение пакета операций """
 		dy, dm            = self.workspace.DyDm()
 
-		text : str | None = RequestText("Сокращение пакета операций", "Поиск в описании")
+		text : str | None = RequestText("Сокращение пакета операций", "Поиск в описании и назначении")
 		if text is None: return
 
 		for ido in self.operations.OperationsIdosInDyDmDd(dy, dm):
 			operation                      = C90_Operation(ido)
 
-			if text.lower() not in operation.Description().lower(): continue
+			flag_result : bool                    = text.lower() in operation.Description().lower()
+			flag_result                          |= text.lower() in operation.Destination().lower()
+
+			if not flag_result  : continue
 
 			item : C20_StandardItem | None = self.model_data.itemByData(ido, ROLES.IDO)
-			if item is None                                       : continue
+			if     item is None : continue
 
 			item.setCheckState(Qt.CheckState.Unchecked)
 
@@ -248,7 +254,7 @@ class C80_FormOperations(C70_FormOperations):
 		operation                = C90_Operation(self._processing_ido)
 		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
 
-		destination : str | None = RequestText("Редактирование операции", text, operation.Description())
+		destination : str | None = RequestText("Редактирование операции", text, operation.DescriptionOrDestination())
 		if destination is None: return
 
 		operation.Destination(destination)
