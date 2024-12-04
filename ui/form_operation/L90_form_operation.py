@@ -56,6 +56,12 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.LoadOperation()
 
+	def on_RequestSetDestination(self):
+		""" Запрос на изменение назначения """
+		self.SetDestination()
+
+		self.LoadOperation()
+
 	def on_RequestSetAccounts(self):
 		""" Запрос на изменение счетов """
 		self.SetAccounts()

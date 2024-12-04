@@ -30,36 +30,29 @@ class C60_FormOperation(C50_FormOperation):
 		""" Инициализация модели данных """
 		self.model_data.removeAll()
 
-		idp_dd              = self.operation.f_dd.Idp().data
-		idp_amount          = self.operation.f_amount.Idp().data
-		idp_description     = self.operation.f_description.Idp().data
-		idp_src_amount      = self.operation.f_src_amount.Idp().data
-		idp_src_description = self.operation.f_src_description.Idp().data
-		idp_accounts        = self.operation.f_accounts_idos.Idp().data
-		idp_labels          = self.operation.f_labels.Idp().data
+		idp_dd           = self.operation.f_dd.Idp().data
+		idp_amount       = self.operation.f_amount.Idp().data
+		idp_description  = self.operation.f_description.Idp().data
+		idp_destination  = self.operation.f_destination.Idp().data
+		idp_accounts     = self.operation.f_accounts_idos.Idp().data
+		idp_labels       = self.operation.f_labels.Idp().data
 
-		item_group          = C20_StandardItem("ОПЕРАЦИЯ")
-		item_date           = C20_StandardItem("Дата",     idp_dd,          ROLES.IDO)
-		item_amount         = C20_StandardItem("Сумма",    idp_amount,      ROLES.IDO)
-		item_description    = C20_StandardItem("Описание", idp_description, ROLES.IDO)
+		item_group       = C20_StandardItem("ОПЕРАЦИЯ")
+		item_date        = C20_StandardItem("Дата",       idp_dd,          ROLES.IDO)
+		item_amount      = C20_StandardItem("Сумма",      idp_amount,      ROLES.IDO)
+		item_description = C20_StandardItem("Описание",   idp_description, ROLES.IDO)
 
 		self.model_data.appendRow([item_group, C20_StandardItem("")])
 		item_group.appendRow([item_date,        C20_StandardItem("")])
 		item_group.appendRow([item_amount,      C20_StandardItem("")])
 		item_group.appendRow([item_description, C20_StandardItem("")])
 
-		item_group       = C20_StandardItem("ИНФОРМАЦИЯ")
-		item_amount      = C20_StandardItem("Исходная сумма",    idp_src_amount,      ROLES.IDO)
-		item_description = C20_StandardItem("Исходное описание", idp_src_description, ROLES.IDO)
-
-		self.model_data.appendRow([item_group, C20_StandardItem("")])
-		item_group.appendRow([item_amount,      C20_StandardItem("")])
-		item_group.appendRow([item_description, C20_StandardItem("")])
-
 		item_group       = C20_StandardItem("УЧЁТ")
+		item_destination = C20_StandardItem("Назначение", idp_destination, ROLES.IDO)
 		item_accounts    = C20_StandardItem("Счета", idp_accounts, ROLES.IDO)
 
 		self.model_data.appendRow([item_group, C20_StandardItem("")])
+		item_group.appendRow([item_destination, C20_StandardItem("")])
 		item_group.appendRow([item_accounts, C20_StandardItem("")])
 
 		item_group       = C20_StandardItem("АНАЛИТИКА")
@@ -73,8 +66,7 @@ class C60_FormOperation(C50_FormOperation):
 		idp_dd              = self.operation.f_dd.Idp().data
 		idp_amount          = self.operation.f_amount.Idp().data
 		idp_description     = self.operation.f_description.Idp().data
-		idp_src_amount      = self.operation.f_src_amount.Idp().data
-		idp_src_description = self.operation.f_src_description.Idp().data
+		idp_destination     = self.operation.f_destination.Idp().data
 		idp_accounts        = self.operation.f_accounts_idos.Idp().data
 		idp_labels          = self.operation.f_labels.Idp().data
 
@@ -90,13 +82,9 @@ class C60_FormOperation(C50_FormOperation):
 		item                = self.model_data.itemFromIndex(row[1])
 		item.setText(self.operation.Description())
 
-		row                 = self.model_data.indexesInRowByIdo(idp_src_amount)
+		row                 = self.model_data.indexesInRowByIdo(idp_destination)
 		item                = self.model_data.itemFromIndex(row[1])
-		item.setText(AmountToString(self.operation.SrcAmount(), flag_sign=True))
-
-		row                 = self.model_data.indexesInRowByIdo(idp_src_description)
-		item                = self.model_data.itemFromIndex(row[1])
-		item.setText(self.operation.SrcDescription())
+		item.setText(self.operation.Destination())
 
 		row                 = self.model_data.indexesInRowByIdo(idp_accounts)
 		item                = self.model_data.itemFromIndex(row[1])

@@ -34,13 +34,13 @@ class C70_FormOperation(C60_FormOperation):
 		idp_dd              = self.operation.f_dd.Idp().data
 		idp_amount          = self.operation.f_amount.Idp().data
 		idp_description     = self.operation.f_description.Idp().data
-		idp_src_amount      = self.operation.f_src_amount.Idp().data
-		idp_src_description = self.operation.f_src_description.Idp().data
+		idp_destination     = self.operation.f_destination.Idp().data
 		idp_accounts        = self.operation.f_accounts_idos.Idp().data
 		idp_labels          = self.operation.f_labels.Idp().data
 
 		if   self._processing_ido == idp_dd         : self.on_RequestSetDate()
 		elif self._processing_ido == idp_amount     : self.on_RequestSetAmount()
 		elif self._processing_ido == idp_description: self.on_RequestSetDescription()
+		elif self._processing_ido == idp_destination: self.on_RequestSetDestination()
 		elif self._processing_ido == idp_accounts   : self.on_RequestSetAccounts()
 		elif self._processing_ido == idp_labels     : self.on_RequestSetLabels()

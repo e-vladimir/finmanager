@@ -36,7 +36,7 @@ class C80_FormOperation(C70_FormOperation):
 	def SetAmount(self):
 		""" Установка суммы """
 		caption : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		text    : str        = f"Сумма операции\n\n{caption}\n{self.operation.Description()}"
+		text    : str        = f"Описание операции:\n{self.operation.Description()}\n\nНазначение операции:\n{self.operation.Destination()}"
 		amount  : int | None = RequestValue(caption, text, int(self.operation.Amount()), -99999999, 99999999)
 		if amount is None: return
 
@@ -45,17 +45,26 @@ class C80_FormOperation(C70_FormOperation):
 	def SetDescription(self):
 		""" Установка описания """
 		caption     : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		text        : str        = f"Описание операции\n\n{caption}\n{self.operation.Description()}"
+		text        : str        = f"Описание операции:\n{self.operation.Description()}\n\nНазначение операции:\n{self.operation.Destination()}"
 		description : str | None = RequestText(caption, text, self.operation.Description())
 		if description is None: return
 
 		self.operation.Description(description)
 
+	def SetDestination(self):
+		""" Установка назначения """
+		caption     : str        = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
+		text        : str        = f"Описание операции:\n{self.operation.Description()}\n\nНазначение операции:\n{self.operation.Destination()}"
+		destination : str | None = RequestText(caption, text, self.operation.Destination())
+		if destination is None: return
+
+		self.operation.Destination(destination)
+
 	def SetAccounts(self):
 		""" Установка счетов """
 		dy, dm                         = self.workspace.DyDm()
 		caption            : str       = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		text               : str       = f"Счета\n\n{caption}\n{self.operation.Description()}"
+		text               : str       = f"Описание операции:\n{self.operation.Description()}\n\nНазначение операции:\n{self.operation.Destination()}"
 		accounts_checked   : list[str] = self.accounts.IdosToNames(self.operation.AccountsIdos())
 		accounts_available : list[str] = self.accounts.AccountsNamesInDyDm(dy, dm)
 		accounts           : list[str] | None = RequestItems(caption, text, accounts_available, accounts_checked)
@@ -66,7 +75,7 @@ class C80_FormOperation(C70_FormOperation):
 	def SetLabels(self):
 		""" Установка меток """
 		caption     : str              = f"{AmountToString(self.operation.Amount())} от {self.operation.DdDmDyToString()}"
-		text        : str              = f"Метки аналитики\n\n{caption}\n{self.operation.Description()}"
+		text        : str              = f"Описание операции:\n{self.operation.Description()}\n\nНазначение операции:\n{self.operation.Destination()}"
 		labels      : list[str] | None = RequestMultipleText(caption, text, self.operation.Labels())
 		if labels is None: return
 
