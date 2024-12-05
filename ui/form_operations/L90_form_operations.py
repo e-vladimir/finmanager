@@ -18,6 +18,7 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_replace_text.triggered.connect(self.on_RequestReplaceText)
 		self.action_operations_import.triggered.connect(self.on_RequestImportOperations)
 		self.action_operations_export.triggered.connect(self.on_RequestExportOperations)
+		self.action_operations_control_description.triggered.connect(self.on_RequestOpenControlDescription)
 		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
 
 		# Меню Пакет операций
@@ -107,6 +108,10 @@ class C90_FormOperations(C80_FormOperations):
 	def on_RequestReplaceText(self):
 		""" Запрос на поиск и замену текстового фрагмента """
 		self.ReplaceText()
+
+	def on_RequestOpenControlDescription(self):
+		""" Запрос на управление описанием """
+		self.application.form_control_description.Open()
 
 	def on_RequestResetData(self):
 		""" Запрос на сброс данных """

@@ -51,7 +51,7 @@ class C80_FormOperations(C70_FormOperations):
 		if not idos                 : return
 
 		operation        = C90_Operation(self._processing_ido)
-		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента", operation.Destination(), operation.Destination())
+		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента.\n\nПоиск в описании и назначении.", operation.Destination(), operation.Destination())
 		if not dialog_request.exec(): return
 
 		text_find        = dialog_request.textFind()
@@ -69,9 +69,11 @@ class C80_FormOperations(C70_FormOperations):
 			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
 
 			operation = C90_Operation(self._processing_ido)
-			if text_find not in operation.Destination(): continue
+			description : str = operation.Description()
+			destination : str = operation.Destination()
 
-			operation.Destination(operation.Destination().replace(text_find, text_replace))
+			if bool(destination): operation.Destination(destination.replace(text_find, text_replace))
+			else                : operation.Description(description.replace(text_find, text_replace))
 
 			self.LoadOperation()
 

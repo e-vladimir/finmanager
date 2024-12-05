@@ -33,6 +33,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		icon_import     = QIcon("./L0/icons/download.svg")
 		icon_item_plus  = QIcon("./L0/icons/item_plus.svg")
 		icon_list       = QIcon("./L0/icons/list.svg")
+		icon_layers     = QIcon("./L0/icons/layers.svg")
 		icon_open       = QIcon("./L0/icons/open.svg")
 		icon_red        = QIcon("./L0/icons/square_red.svg")
 		icon_reload     = QIcon("./L0/icons/reload.svg")
@@ -49,6 +50,8 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.submenu_operations.addSeparator()
 		self.action_operations_import                  : QAction = self.submenu_operations.addAction(icon_import,    "Импорт операций")
 		self.action_operations_export                  : QAction = self.submenu_operations.addAction(icon_upload,    "Экспорт операций")
+		self.submenu_operations.addSeparator()
+		self.action_operations_control_description     : QAction = self.submenu_operations.addAction(icon_layers,    "Управление описанием")
 		self.submenu_operations.addSeparator()
 		self.action_operations_reset                   : QAction = self.submenu_operations.addAction(icon_reload,    "Сброс данных")
 

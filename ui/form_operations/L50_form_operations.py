@@ -15,9 +15,10 @@ class C50_FormOperations(C42_FormOperations):
 	# Финансовые операции
 	def on_RequestCreateOperation(self): pass
 	def on_RequestReplaceText(self): pass
-	def on_RequestResetData(self): pass
 	def on_RequestImportOperations(self): pass
 	def on_RequestExportOperations(self): pass
+	def on_RequestOpenControlDescription(self): pass
+	def on_RequestResetData(self): pass
 
 	# Пакет операций
 	def on_RequestUncheckedAllPackOperations(self): pass
