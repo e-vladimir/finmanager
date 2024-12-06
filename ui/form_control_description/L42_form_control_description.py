@@ -12,7 +12,8 @@ class C42_FormControlDescription(C41_FormControlDescription):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_ido : str = ""
+		self._processing_ido    : str = ""
+		self._processing_column : int = -1
 
 	def Init_10(self):
 		super().Init_10()

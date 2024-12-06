@@ -51,7 +51,7 @@ class C80_FormOperations(C70_FormOperations):
 		if not idos                 : return
 
 		operation        = C90_Operation(self._processing_ido)
-		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента.\n\nПоиск в описании и назначении.", operation.Destination(), operation.Destination())
+		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента.\n\nПоиск в назначении.", operation.Destination(), operation.Destination())
 		if not dialog_request.exec(): return
 
 		text_find        = dialog_request.textFind()
@@ -69,11 +69,7 @@ class C80_FormOperations(C70_FormOperations):
 			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
 
 			operation = C90_Operation(self._processing_ido)
-			description : str = operation.Description()
-			destination : str = operation.Destination()
-
-			if bool(destination): operation.Destination(destination.replace(text_find, text_replace))
-			else                : operation.Description(description.replace(text_find, text_replace))
+			operation.Destination(operation.Destination().replace(text_find, text_replace))
 
 			self.LoadOperation()
 
@@ -201,7 +197,7 @@ class C80_FormOperations(C70_FormOperations):
 	def DeleteOperation(self):
 		""" Удаление операции """
 		operation  = C90_Operation(self._processing_ido)
-		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n{operation.Destination()}"
 
 		if not RequestConfirm("Удаление операции", text): return
 
@@ -215,7 +211,7 @@ class C80_FormOperations(C70_FormOperations):
 	def SetOperationDestination(self):
 		""" Установка описания операции """
 		operation                = C90_Operation(self._processing_ido)
-		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n{operation.Description()}\n{operation.Destination()}"
 
 		destination : str | None = RequestText("Редактирование операции", text, operation.DescriptionOrDestination())
 		if destination is None: return
@@ -225,7 +221,7 @@ class C80_FormOperations(C70_FormOperations):
 	def SetOperationLabels(self):
 		""" Установка меток операции """
 		operation                      = C90_Operation(self._processing_ido)
-		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n{operation.Destination()}"
 
 		labels      : list[str] | None = RequestMultipleText("Редактирование операции", text, operation.Labels())
 		if labels is None: return
@@ -235,7 +231,7 @@ class C80_FormOperations(C70_FormOperations):
 	def SplitOperation(self):
 		""" Разделение операции """
 		operation              = C90_Operation(self._processing_ido)
-		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\nОписание:\n{operation.Description()}\n\nНазначение:\n{operation.Destination()}"
+		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n{operation.Destination()}"
 
 		amount    : int | None = RequestValue("Разделение операции", text, int(operation.Amount()), -99999999, 99999999)
 		if amount is None: return

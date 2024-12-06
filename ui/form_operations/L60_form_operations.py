@@ -76,14 +76,16 @@ class C60_FormOperations(C50_FormOperations):
 		item_description                  = self.model_data.itemFromIndex(indexes[3])
 		item_description.setText(operation.DescriptionOrDestination())
 
-		text_color                        = QColor(0, 0, 0)
+		text_color                        = QColor(150, 150, 150)
 
-		match operation.Color():
-			case COLORS.BLACK: text_color = QColor(  0,   0,   0)
-			case COLORS.BLUE : text_color = QColor( 50,  50, 150)
-			case COLORS.GRAY : text_color = QColor(150, 150, 150)
-			case COLORS.GREEN: text_color = QColor( 50, 150,  50)
-			case COLORS.RED  : text_color = QColor(150,  50,  50)
+		if operation.Destination():
+			match operation.Color():
+				case COLORS.BLACK: text_color = QColor(  0,   0,   0)
+				case COLORS.BLUE : text_color = QColor( 50,  50, 150)
+				case COLORS.GRAY : text_color = QColor(150, 150, 150)
+				case COLORS.GREEN: text_color = QColor( 50, 150,  50)
+				case COLORS.RED  : text_color = QColor(150,  50,  50)
+				case _           : text_color = QColor(  0,   0,   0)
 
 		self.model_data.setRowColor(item_dd, item_amount.row(), color_fg=text_color)
 

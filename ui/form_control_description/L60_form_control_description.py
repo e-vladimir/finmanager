@@ -19,7 +19,7 @@ class C60_FormControlDescription(C50_FormControlDescription):
 		""" Загрузка правила в модель данных """
 		if not self._processing_ido: return
 
-		rule = C90_ProcessingRule(self._processing_ido)
+		rule        = C90_ProcessingRule(self._processing_ido)
 
 		if not self.model_rules.checkIdo(self._processing_ido):
 			item_input  = C20_StandardItem("")
@@ -43,3 +43,14 @@ class C60_FormControlDescription(C50_FormControlDescription):
 	def InitModelControl(self):
 		""" Инициализация модели управления """
 		self.model_control.removeAll()
+
+	# Параметры
+	def ReadProcessingIdoFromTableRules(self):
+		""" Чтение текущего IDO из таблицы правил """
+		current_index = self.table_rules.currentIndex()
+		self._processing_ido = current_index.data(ROLES.IDO)
+
+	def ReadProcessingColumnFromTableRule(self):
+		""" Чтение текущей колонки из таблицы правил """
+		current_index = self.table_rules.currentIndex()
+		self._processing_column = current_index.column()

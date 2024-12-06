@@ -1,5 +1,5 @@
 # КОНВЕРТОР: ФОРМАТЫ
-# 19 ноя 2024
+# 31 окт 2024
 
 import datetime
 import pytz
@@ -36,32 +36,9 @@ def StringToDateTime(text: str) -> datetime.datetime | None:
 	try   : return datetime.datetime.fromtimestamp(int(text))
 	except: pass
 
-	raw_date = text
-	raw_date = raw_date.replace('/',  '-')
-	raw_date = raw_date.replace('.',  '-')
-	raw_date = raw_date.replace(',',   '')
-	raw_date = raw_date.replace('  ', ' ')
-
-	# Подбор преобразования из формата дата + время
-	raw_formats : list[str] = []
-	raw_formats.append("%d-%m-%Y %H:%M:%S")
-	raw_formats.append("%d-%m-%y %H:%M:%S")
-	raw_formats.append("%Y-%m-%d %H:%M:%S")
-	raw_formats.append("%y-%m-%d %H:%M:%S")
-
-	raw_formats.append("%d-%m-%Y %H:%M")
-	raw_formats.append("%d-%m-%y %H:%M")
-	raw_formats.append("%Y-%m-%d %H:%M")
-	raw_formats.append("%y-%m-%d %H:%M")
-
-	raw_formats.append("%d-%m-%Y")
-	raw_formats.append("%d-%m-%y")
-	raw_formats.append("%Y-%m-%d")
-	raw_formats.append("%y-%m-%d")
-
-	for raw_format in raw_formats:
-		try   : return datetime.datetime.strptime(raw_date, raw_format)
-		except: continue
+	# Подбор преобразования из формата YYYY-MM-DD HH:MM:SS
+	try   : return datetime.datetime.strptime(text.replace('/', '-'), "%Y-%m-%d, %H:%M:%S")
+	except: pass
 
 	return None
 
@@ -73,7 +50,7 @@ def StringToInteger(text: str) -> int:
 
 def StringToFloat(text: str) -> float:
 	""" Преобразование строки в дробное число """
-	return float(text.replace(',', '.').replace(' ', ''))
+	return float(text.replace(',', '.'))
 
 
 def StringsToIntegers(texts: [str]) -> list[int]:

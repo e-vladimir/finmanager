@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_control_descriptionDnbdhy.ui'
+## Form generated from reading UI file 'form_control_descriptionGNDxbw.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -39,6 +39,7 @@ class Ui_frm_control_description(object):
         self.table_rules = QTableView(self.tab_rules)
         self.table_rules.setObjectName(u"table_rules")
         self.table_rules.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.table_rules.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table_rules.setAlternatingRowColors(True)
         self.table_rules.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.table_rules.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
@@ -55,6 +56,7 @@ class Ui_frm_control_description(object):
         self.table_control = QTableView(self.tab_control)
         self.table_control.setObjectName(u"table_control")
         self.table_control.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.table_control.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table_control.setAlternatingRowColors(False)
         self.table_control.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.table_control.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
