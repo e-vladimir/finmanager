@@ -21,6 +21,7 @@ class C90_FormControlDescription(C80_FormControlDescription):
 		self.action_rules_rule_delete_rule.triggered.connect(self.on_RequestDeleteRule)
 		self.action_rules_rule_edit_input.triggered.connect(self.on_RequestEditInput)
 		self.action_rules_rule_edit_output.triggered.connect(self.on_RequestEditOutput)
+		self.action_rules_rule_apply.triggered.connect(self.on_RequestApplyRule)
 
 	# Форма
 	def on_Open(self):
@@ -95,3 +96,9 @@ class C90_FormControlDescription(C80_FormControlDescription):
 
 		self.AdjustTableRules_Sizes()
 		self.AdjustTableRules_Sort()
+
+	def on_RequestApplyRule(self):
+		""" Запрос на применение правила """
+		self.ApplyRule()
+
+		self.application.form_operations.ShowOperations()

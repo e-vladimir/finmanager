@@ -46,6 +46,7 @@ class C70_FormControlDescription(C60_FormControlDescription):
 		self.action_rules_rule_edit_input.setEnabled(flag_selected)
 		self.action_rules_rule_edit_output.setEnabled(flag_selected)
 		self.action_rules_rule_delete_rule.setEnabled(flag_selected)
+		self.action_rules_rule_apply.setEnabled(flag_selected)
 
 	def AdjustMenuRules_Text(self):
 		""" Меню автозамены описания: Настройка текста """

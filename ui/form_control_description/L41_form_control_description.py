@@ -32,7 +32,9 @@ class C41_FormControlDescription(C20_PySideForm, Ui_frm_control_description):
 		self.action_rules_rules_apply       : QAction = self.submenu_rules_rules.addAction(icon_processing, "Применить правила")
 
 		self.submenu_rules_rule                       = self.menu_rules.addMenu(icon_grid_3_3, "Правило автозамены описания")
-		self.action_rules_rule_edit_input   : QAction = self.submenu_rules_rule.addAction(icon_edit,   "Редактировать фрагмент поиска")
-		self.action_rules_rule_edit_output  : QAction = self.submenu_rules_rule.addAction(icon_edit,   "Редактировать фрагмент замены")
+		self.action_rules_rule_edit_input   : QAction = self.submenu_rules_rule.addAction(icon_edit,      "Редактировать фрагмент поиска")
+		self.action_rules_rule_edit_output  : QAction = self.submenu_rules_rule.addAction(icon_edit,      "Редактировать фрагмент замены")
 		self.submenu_rules_rule.addSeparator()
 		self.action_rules_rule_delete_rule  : QAction = self.submenu_rules_rule.addAction(icon_delete, "Удалить правило")
+		self.submenu_rules_rule.addSeparator()
+		self.action_rules_rule_apply        : QAction = self.submenu_rules_rule.addAction(icon_processing, "Применить правило")

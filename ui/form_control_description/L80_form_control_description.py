@@ -85,3 +85,35 @@ class C80_FormControlDescription(C70_FormControlDescription):
 		if text is None: return
 
 		rule.OutputAsString(text)
+
+	def ApplyRule(self):
+		""" Применение правил автозамены описания """
+		rule             = C90_ProcessingRule(self._processing_ido)
+		data_inputs : list[str] = rule.InputAsStrings()
+		data_output : str       = rule.OutputAsString()
+
+		operations       = C90_Operations()
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = operations.OperationsIdosInDyDmDd(dy, dm)
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Применение правил автозамены описания")
+		dialog_progress.setLabelText("Осталось обработать: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+
+		for ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
+
+			operation         = C90_Operation(ido)
+
+			description : str = operation.Description()
+
+			for data_input in sorted(data_inputs, key=len):
+				description = description.replace(data_input, data_output)
+
+			operation.Description(description)
+
+		dialog_progress.close()
