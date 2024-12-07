@@ -6,8 +6,10 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L00_months             import MONTHS
+from L00_rules              import RULES
 
 from L70_operations         import C70_Operation, C70_Operations
+from L90_rules import C90_ProcessingRule, C90_ProcessingRules
 
 
 class C80_Operation(C70_Operation):
@@ -61,6 +63,29 @@ class C80_Operation(C70_Operation):
 		dy : str = f"{self.Dy():04d}"
 
 		return f"{dd} {dm} {dy}"
+
+	# Обработка данных
+	def ApplyAutoreplaceDescription(self):
+		""" Применение правила автозамены описания """
+		data_autoreplace : dict[str, str] = dict()
+		rules                             = C90_ProcessingRules()
+
+		for ido in rules.IdosByType(RULES.REPLACE_DESCRIPTION):
+			rule                    = C90_ProcessingRule(ido)
+
+			data_inputs : list[str] = rule.InputAsStrings()
+			data_output : str       = rule.OutputAsString()
+
+			for data_input in data_inputs:
+				data_autoreplace[data_input] = data_output
+
+		data_inputs      : list[str]      = sorted(data_autoreplace.keys(), key=len)
+		description      : str            = self.Description()
+
+		for data_input in data_inputs:
+			description.replace(data_input, data_autoreplace[data_input])
+
+		self.Description(description)
 
 
 class C80_Operations(C70_Operations):
@@ -137,5 +162,7 @@ class C80_Operations(C70_Operations):
 		operation.Amount(amount)
 		operation.AccountsIdos([account_ido])
 		operation.Labels(labels)
+
+		operation.ApplyAutoreplaceDescription()
 
 		return True
