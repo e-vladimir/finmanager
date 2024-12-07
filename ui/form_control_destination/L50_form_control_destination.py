@@ -1,26 +1,25 @@
-# ФОРМА УПРАВЛЕНИЕ ОПИСАНИЕМ: МОДЕЛЬ СОБЫТИЙ
+# ФОРМА УПРАВЛЕНИЕ НАЗНАЧЕНИЕМ: МОДЕЛЬ СОБЫТИЙ
 
-from L42_form_control_description import C42_FormControlDescription
+from L42_form_control_destination import C42_FormControlDestination
 
 
-class C50_FormControlDescription(C42_FormControlDescription):
-	""" Форма Управление описанием: Модель событий """
+class C50_FormControlDestination(C42_FormControlDestination):
+	""" Форма Управление назначением: Модель событий """
 
-	# Меню автозамены описания
+	# Меню сопоставления назначения
 	def on_RequestShowMenuRules(self): pass
 
 	# Таблица правил
 	def on_RequestProcessingTableRules_DbClick(self): pass
 
-	# Правила автозамены описания
+	# Правила сопоставления назначения
 	def on_RequestApplyRules(self): pass
 
-	# Правило автозамены описания
+	# Правило сопоставления назначения
 	def on_RequestCreateRule(self): pass
 	def on_RequestDeleteRule(self): pass
 	def on_RequestEditInput(self): pass
 	def on_RequestEditOutput(self): pass
-	def on_RequestApplyRule(self): pass
 
 	# Список доступных фрагментов
 	def on_RequestListControlReplaceAvailable_DbClick(self): pass

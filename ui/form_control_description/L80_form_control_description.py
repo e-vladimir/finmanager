@@ -6,9 +6,10 @@ from PySide6.QtWidgets            import  QProgressDialog
 from L00_containers               import  CONTAINERS
 from L00_rules                    import  RULES
 
-from L20_PySide6 import (RequestConfirm,
-                         RequestMultipleText,
-                         RequestText, ShowMessage)
+from L20_PySide6                  import (RequestConfirm,
+                                          RequestMultipleText,
+                                          RequestText,
+                                          ShowMessage)
 from L70_form_control_description import  C70_FormControlDescription
 from L90_operations               import  C90_Operation, C90_Operations
 from L90_rules                    import  C90_ProcessingRule
@@ -67,7 +68,7 @@ class C80_FormControlDescription(C70_FormControlDescription):
 		""" Удаление правила """
 		rule = C90_ProcessingRule(self._processing_ido)
 
-		if not RequestConfirm("Правило автозамены описания", f"Удаление правила по автозамене описания.\n\nФрагменты поиска:{', '.join(rule.InputAsString())}\n\nФрагмент замены: {rule.OutputAsString()}"): return
+		if not RequestConfirm("Правило автозамены описания", f"Удаление правила автозамены описания.\n\nФрагменты поиска:{', '.join(rule.InputAsString())}\n\nФрагмент замены: {rule.OutputAsString()}"): return
 
 		rule.DeleteObject(CONTAINERS.DISK)
 

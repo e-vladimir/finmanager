@@ -18,6 +18,7 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestImportOperations(self): pass
 	def on_RequestExportOperations(self): pass
 	def on_RequestOpenControlDescription(self): pass
+	def on_RequestOpenControlDestination(self): pass
 	def on_RequestResetData(self): pass
 
 	# Пакет операций

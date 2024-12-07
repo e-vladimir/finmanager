@@ -87,6 +87,29 @@ class C80_Operation(C70_Operation):
 
 		self.Description(description)
 
+	def ApplyMatchDestination(self):
+		""" Применение правила сопоставления назначения """
+		destination : str = self.Destination()
+		description : str = self.Description()
+
+		if destination: return
+
+		rules                             = C90_ProcessingRules()
+
+		for ido in rules.IdosByType(RULES.MATCH_DESTINATION):
+			rule                    = C90_ProcessingRule(ido)
+
+			data_inputs : list[str] = rule.InputAsStrings()
+			data_output : str       = rule.OutputAsString()
+
+			for data_input in sorted(data_inputs, key=len):
+				if data_input not in description: continue
+
+				destination = data_output
+				break
+
+		self.Destination(destination)
+
 
 class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """
