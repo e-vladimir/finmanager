@@ -19,7 +19,6 @@ class C42_FormControlDescription(C41_FormControlDescription):
 		super().Init_10()
 
 		self.model_rules   = C20_StandardItemModel()
-		self.model_control = C20_StandardItemModel()
 
 		self.rules         = C90_ProcessingRules()
 		self.workspace     = C90_Workspace()
@@ -33,4 +32,3 @@ class C42_FormControlDescription(C41_FormControlDescription):
 		super().Init_20()
 
 		self.table_rules.setModel(self.model_rules)
-		self.table_control.setModel(self.model_control)

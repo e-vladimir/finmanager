@@ -39,15 +39,6 @@ class C60_FormControlDescription(C50_FormControlDescription):
 		item_output = self.model_rules.itemFromIndex(indexes[1])
 		item_output.setText(rule.OutputAsString())
 
-	# Модель управления
-	def InitModelControl(self):
-		""" Инициализация модели управления """
-		self.model_control.removeAll()
-
-	def LoadModelControl(self):
-		""" Загрузка модели управления """
-		pass
-
 	# Параметры
 	def ReadProcessingIdoFromTableRules(self):
 		""" Чтение текущего IDO из таблицы правил """

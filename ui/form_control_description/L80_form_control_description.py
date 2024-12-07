@@ -6,9 +6,9 @@ from PySide6.QtWidgets            import  QProgressDialog
 from L00_containers               import  CONTAINERS
 from L00_rules                    import  RULES
 
-from L20_PySide6                  import (RequestConfirm,
-                                          RequestMultipleText,
-                                          RequestText)
+from L20_PySide6 import (RequestConfirm,
+                         RequestMultipleText,
+                         RequestText, ShowMessage)
 from L70_form_control_description import  C70_FormControlDescription
 from L90_operations               import  C90_Operation, C90_Operations
 from L90_rules                    import  C90_ProcessingRule
@@ -34,6 +34,7 @@ class C80_FormControlDescription(C70_FormControlDescription):
 		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_progress.setMaximum(len(idos))
 		dialog_progress.setMinimumWidth(480)
+		dialog_progress.forceShow()
 
 		for ido in idos:
 			dialog_progress.setValue(dialog_progress.value() + 1)
@@ -43,6 +44,8 @@ class C80_FormControlDescription(C70_FormControlDescription):
 			operation.ApplyAutoreplaceDescription()
 
 		dialog_progress.close()
+
+		ShowMessage("Применение правил автозамены описания", "Выполнено")
 
 	# Правило автозамены описания
 	def CreateRule(self):
@@ -102,6 +105,7 @@ class C80_FormControlDescription(C70_FormControlDescription):
 		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_progress.setMaximum(len(idos))
 		dialog_progress.setMinimumWidth(480)
+		dialog_progress.forceShow()
 
 		for ido in idos:
 			dialog_progress.setValue(dialog_progress.value() + 1)
@@ -117,3 +121,40 @@ class C80_FormControlDescription(C70_FormControlDescription):
 			operation.Description(description)
 
 		dialog_progress.close()
+
+		ShowMessage("Применение правила автозамены описания", "Выполнено")
+
+	# Поиск и замена
+	def ExecReplace(self):
+		""" Выполнение поиска и замены """
+		data_inputs : list[str] = self.edit_control_replace_input.toPlainText().split('\n')
+		data_output : str       = self.edit_control_replace_output.text()
+
+		operations       = C90_Operations()
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = operations.OperationsIdosInDyDmDd(dy, dm)
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Поиск и замена")
+		dialog_progress.setLabelText("Осталось обработать: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.forceShow()
+
+		for ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
+
+			operation         = C90_Operation(ido)
+
+			description : str = operation.Description()
+
+			for data_input in sorted(data_inputs, key=len):
+				description = description.replace(data_input, data_output)
+
+			operation.Description(description)
+
+		dialog_progress.close()
+
+		ShowMessage("Поиск и замена", "Выполнено")

@@ -23,6 +23,12 @@ class C90_FormControlDescription(C80_FormControlDescription):
 		self.action_rules_rule_edit_output.triggered.connect(self.on_RequestEditOutput)
 		self.action_rules_rule_apply.triggered.connect(self.on_RequestApplyRule)
 
+		# Список доступных фрагментов поиска
+		self.list_control_replace_available.doubleClicked.connect(self.on_RequestListControlReplaceAvailable_DbClick)
+
+		# Кнопка Поиск и замена
+		self.btn_control_replace.clicked.connect(self.on_RequestExecReplace)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -35,7 +41,7 @@ class C90_FormControlDescription(C80_FormControlDescription):
 		self.AdjustTableRules_Sizes()
 		self.AdjustTableRules_Sort()
 
-		self.InitModelControl()
+		self.FillListControlReplaceAvailable()
 
 	# Меню автозамены описания
 	def on_RequestShowMenuRules(self):
@@ -100,5 +106,18 @@ class C90_FormControlDescription(C80_FormControlDescription):
 	def on_RequestApplyRule(self):
 		""" Запрос на применение правила """
 		self.ApplyRule()
+
+		self.application.form_operations.ShowOperations()
+
+	# Список доступных фрагментов поиска
+	def on_RequestListControlReplaceAvailable_DbClick(self):
+		""" Обработка двойного клика по списку доступных фрагментов поиска """
+		self.ExtendEditControlReplaceInputFromAvailable()
+
+	# Вкладка Поиск и замена
+	def on_RequestExecReplace(self):
+		""" Запрос на выполнение поиска и замены """
+		self.ExecReplace()
+		self.FillListControlReplaceAvailable()
 
 		self.application.form_operations.ShowOperations()

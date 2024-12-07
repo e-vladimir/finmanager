@@ -21,3 +21,9 @@ class C50_FormControlDescription(C42_FormControlDescription):
 	def on_RequestEditInput(self): pass
 	def on_RequestEditOutput(self): pass
 	def on_RequestApplyRule(self): pass
+
+	# Список доступных фрагментов
+	def on_RequestListControlReplaceAvailable_DbClick(self): pass
+
+	# Вкладка Поиск и замена
+	def on_RequestExecReplace(self): pass
