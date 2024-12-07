@@ -12,6 +12,9 @@ class C50_FormControlDescription(C42_FormControlDescription):
 	# Таблица правил
 	def on_RequestProcessingTableRules_DbClick(self): pass
 
+	# Правила автозамены правил
+	def on_RequestApplyRules(self): pass
+
 	# Правило автозамены описания
 	def on_RequestCreateRule(self): pass
 	def on_RequestDeleteRule(self): pass

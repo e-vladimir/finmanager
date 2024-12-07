@@ -44,6 +44,10 @@ class C60_FormControlDescription(C50_FormControlDescription):
 		""" Инициализация модели управления """
 		self.model_control.removeAll()
 
+	def LoadModelControl(self):
+		""" Загрузка модели управления """
+		pass
+
 	# Параметры
 	def ReadProcessingIdoFromTableRules(self):
 		""" Чтение текущего IDO из таблицы правил """

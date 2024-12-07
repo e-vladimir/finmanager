@@ -9,7 +9,7 @@ from L00_months             import MONTHS
 from L00_rules              import RULES
 
 from L70_operations         import C70_Operation, C70_Operations
-from L90_rules import C90_ProcessingRule, C90_ProcessingRules
+from L90_rules              import C90_ProcessingRule, C90_ProcessingRules
 
 
 class C80_Operation(C70_Operation):
@@ -83,7 +83,7 @@ class C80_Operation(C70_Operation):
 		description      : str            = self.Description()
 
 		for data_input in data_inputs:
-			description.replace(data_input, data_autoreplace[data_input])
+			description = description.replace(data_input, data_autoreplace[data_input])
 
 		self.Description(description)
 

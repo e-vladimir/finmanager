@@ -15,6 +15,7 @@ class C90_FormControlDescription(C80_FormControlDescription):
 
 		# Меню правил автозамены описания
 		self.action_rules_rules_create_rule.triggered.connect(self.on_RequestCreateRule)
+		self.action_rules_rules_apply.triggered.connect(self.on_RequestApplyRules)
 
 		# Меню правила автозамены описания
 		self.action_rules_rule_delete_rule.triggered.connect(self.on_RequestDeleteRule)
@@ -52,6 +53,13 @@ class C90_FormControlDescription(C80_FormControlDescription):
 		self.ReadProcessingColumnFromTableRule()
 
 		self.ProcessingTableRules_DbClick()
+
+	# Правила автозамены описания
+	def on_RequestApplyRules(self):
+		""" Запрос применения правил автозамены описания """
+		self.ApplyRules()
+
+		self.application.form_operations.ShowOperations()
 
 	# Правило автозамены описания
 	def on_RequestCreateRule(self):

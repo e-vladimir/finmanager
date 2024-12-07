@@ -1,11 +1,17 @@
 # ФОРМА УПРАВЛЕНИЕ ОПИСАНИЕМ: ЛОГИКА ДАННЫХ
 
-from L00_containers               import CONTAINERS
-from L00_rules                    import RULES
+from PySide6.QtCore               import  Qt
+from PySide6.QtWidgets            import  QProgressDialog
 
-from L20_PySide6 import RequestConfirm, RequestMultipleText, RequestText
-from L70_form_control_description import C70_FormControlDescription
-from L90_rules                    import C90_ProcessingRule
+from L00_containers               import  CONTAINERS
+from L00_rules                    import  RULES
+
+from L20_PySide6                  import (RequestConfirm,
+                                          RequestMultipleText,
+                                          RequestText)
+from L70_form_control_description import  C70_FormControlDescription
+from L90_operations               import  C90_Operation, C90_Operations
+from L90_rules                    import  C90_ProcessingRule
 
 
 class C80_FormControlDescription(C70_FormControlDescription):
@@ -15,6 +21,28 @@ class C80_FormControlDescription(C70_FormControlDescription):
 	def ShowRules(self):
 		""" Отображение правил автозамены описания """
 		for self._processing_ido in self.rules.IdosByType(RULES.REPLACE_DESCRIPTION): self.LoadRuleInModel()
+
+	def ApplyRules(self):
+		""" Применение правил автозамены описания """
+		operations       = C90_Operations()
+		dy, dm           = self.workspace.DyDm()
+		idos : list[str] = operations.OperationsIdosInDyDmDd(dy, dm)
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Финансовые операции: Применение правил автозамены описания")
+		dialog_progress.setLabelText("Осталось обработать: --")
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setMinimumWidth(480)
+
+		for ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
+
+			operation = C90_Operation(ido)
+			operation.ApplyAutoreplaceDescription()
+
+		dialog_progress.close()
 
 	# Правило автозамены описания
 	def CreateRule(self):
