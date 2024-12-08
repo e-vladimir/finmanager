@@ -27,7 +27,7 @@ class C70_FormOperations(C60_FormOperations):
 			case 0: self.on_RequestOpenOperation()
 			case 1: self.on_RequestOpenOperation()
 			case 2: self.on_RequestSetOperationLabels()
-			case 3: self.on_RequestSetOperationDescription()
+			case 3: self.on_RequestSetOperationDestination()
 
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """

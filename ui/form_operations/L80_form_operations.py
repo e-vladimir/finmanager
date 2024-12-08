@@ -215,7 +215,8 @@ class C80_FormOperations(C70_FormOperations):
 		operation                = C90_Operation(self._processing_ido)
 		text        : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
 		                            f"Описание:\n"
-		                            f"{operation.Description()}")
+		                            f"{operation.Description()}\n\n"
+		                            f"Назначение:")
 
 		destination : str | None = RequestText("Редактирование операции", text, operation.DescriptionOrDestination())
 		if destination is None: return
@@ -225,7 +226,8 @@ class C80_FormOperations(C70_FormOperations):
 	def SetOperationDescription(self):
 		""" Установка описания операции """
 		operation                = C90_Operation(self._processing_ido)
-		text        : str        = f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}"
+		text        : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+		                            f"Описание:")
 
 		description : str | None = RequestText("Редактирование операции", text, operation.Description())
 		if description is None: return
