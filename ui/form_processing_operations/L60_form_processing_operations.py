@@ -44,3 +44,12 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 	def ReadProcessingSubjectFromCbboxSubject(self):
 		""" Чтение текущего субъекта обработки """
 		self._processing_subject = SUBJECTS(self.cbbox_subject.currentText())
+
+	def ReadProcessingIdoFromTableRules(self):
+		""" Чтение текущего IDO из таблицы правил """
+		current_index = self.table_rules.currentIndex()
+		self._processing_ido = current_index.data(ROLES.IDO)
+
+	def WriteProcessingRuleToWorkspace(self):
+		""" Запись правила обработки к рабочее пространство """
+		self.workspace.IdoRule(self._processing_ido)

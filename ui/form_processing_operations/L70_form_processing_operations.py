@@ -1,8 +1,10 @@
 # ФОРМА ОБРАБОТКА ОПЕРАЦИЙ: МЕХАНИКА УПРАВЛЕНИЯ
 
+from PySide6.QtGui                  import QCursor
 from PySide6.QtWidgets              import QHeaderView
 
 from L00_form_processing_operations import SUBJECTS
+from L00_rules                      import RULES
 from L60_form_processing_operations import C60_FormProcessingOperations
 
 
@@ -27,3 +29,21 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 		self.table_rules.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
 
 		self.table_rules.resizeRowsToContents()
+
+	# Меню правила обработки
+	def AdjustMenuRules_Enable(self):
+		""" Меню правил обработки: Настройка доступности """
+		pass
+
+	def AdjustMenuRules_Text(self):
+		""" Меню правил обработки: Настройка текстов """
+		self.submenu_rules_rules.setTitle("Правила обработки")
+
+		match self._processing_subject:
+			case SUBJECTS.DESCRIPTION: self.submenu_rules_rules.setTitle(RULES.REPLACE_DESCRIPTION)
+			case SUBJECTS.DESTINATION: self.submenu_rules_rules.setTitle(RULES.MATCH_DESTINATION)
+			case SUBJECTS.LABELS     : self.submenu_rules_rules.setTitle(RULES.DETECT_LABEL)
+
+	def ShowMenuRules(self):
+		""" Отображение меню правил обработки """
+		self.menu_rules.exec_(QCursor().pos())

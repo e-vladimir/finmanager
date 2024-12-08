@@ -8,3 +8,12 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 
 	# Субъект обработки
 	def on_SubjectChanged(self): pass
+
+	# Меню правил обработки
+	def on_RequestShowMenuRules(self): pass
+
+	# Правила обработки
+	def on_RequestCreateRule(self): pass
+
+	# Правило обработки
+	def on_RequestOpenRule(self): pass

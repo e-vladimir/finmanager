@@ -1,9 +1,11 @@
 # ФОРМА ОБРАБОТКА ОПЕРАЦИЙ: ЛОГИКА ДАННЫХ
 
+from L00_containers                 import CONTAINERS
 from L00_form_processing_operations import SUBJECTS
 from L00_rules                      import RULES
 
 from L70_form_processing_operations import C70_FormProcessingOperations
+from L90_rules                      import C90_ProcessingRule
 
 
 class C80_FormProcessingOperations(C70_FormProcessingOperations):
@@ -21,3 +23,17 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 
 			case SUBJECTS.LABELS     :
 				for self._processing_ido in self.rules.IdosByType(RULES.DETECT_LABEL)       : self.LoadRuleToModel()
+
+	# Правило обработки данных
+	def CreateRule(self):
+		""" Создание правила обработки данных """
+		rule = C90_ProcessingRule()
+		rule.GenerateIdo()
+		rule.RegisterObject(CONTAINERS.DISK)
+
+		match self._processing_subject:
+			case SUBJECTS.DESCRIPTION: rule.RuleType(RULES.REPLACE_DESCRIPTION)
+			case SUBJECTS.DESTINATION: rule.RuleType(RULES.MATCH_DESTINATION)
+			case SUBJECTS.LABELS     : rule.RuleType(RULES.DETECT_LABEL)
+
+		self.workspace.IdoRule(rule.Ido().data)
