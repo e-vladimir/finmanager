@@ -7,6 +7,11 @@ from L60_form_processing_rule import C60_FormProcessingRule
 class C70_FormProcessingRule(C60_FormProcessingRule):
 	""" Форма Правило обработки: Механика управления """
 
+	# Форма
+	def ShowTitle(self):
+		""" Отображение правила обработки """
+		self.setWindowTitle(self.processing_rule.RuleType().value)
+
 	# Панель input
 	def ShowInput(self):
 		""" Отображение панели input """

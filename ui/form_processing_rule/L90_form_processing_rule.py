@@ -11,8 +11,14 @@ class C90_FormProcessingRule(C80_FormProcessingRule):
 		""" Открытие формы """
 		self.ReadProcessingRuleFromWorkspace()
 
+		self.ShowTitle()
+
 		self.ShowInput()
 		self.ShowOutput()
 
 		self.FillInput()
 		self.FillOutput()
+
+	def on_Close(self):
+		""" Закрытие формы """
+		self.SaveProcessingRule()

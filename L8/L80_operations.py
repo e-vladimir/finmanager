@@ -79,7 +79,7 @@ class C80_Operation(C70_Operation):
 			for data_input in data_inputs:
 				data_autoreplace[data_input] = data_output
 
-		data_inputs      : list[str]      = sorted(data_autoreplace.keys(), key=len)
+		data_inputs      : list[str]      = sorted(data_autoreplace.keys(), key=len, reverse=True)
 		description      : str            = self.Description()
 
 		for data_input in data_inputs:
@@ -102,7 +102,7 @@ class C80_Operation(C70_Operation):
 			data_inputs : list[str] = rule.InputAsStrings()
 			data_output : str       = rule.OutputAsString()
 
-			for data_input in sorted(data_inputs, key=len):
+			for data_input in sorted(data_inputs, key=len, reverse=True):
 				if data_input not in description: continue
 
 				destination = data_output
