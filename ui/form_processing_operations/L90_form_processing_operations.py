@@ -21,6 +21,7 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 
 		# Меню Правило обработки
 		self.action_rules_rule_open.triggered.connect(self.on_RequestOpenRule)
+		self.action_rules_rule_delete.triggered.connect(self.on_RequestDeleteRule)
 
 	# Форма
 	def on_Open(self):
@@ -71,3 +72,9 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.WriteProcessingRuleToWorkspace()
 
 		self.application.form_processing_rule.Open()
+
+	def on_RequestDeleteRule(self):
+		""" Запрос на удаление правила обработки """
+		self.DeleteRule()
+		self.InitModelRules()
+		self.ShowRules()

@@ -17,3 +17,4 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 
 	# Правило обработки
 	def on_RequestOpenRule(self): pass
+	def on_RequestDeleteRule(self): pass

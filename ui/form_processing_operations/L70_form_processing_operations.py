@@ -37,6 +37,7 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 		flag_selected : bool = bool(self._processing_ido)
 
 		self.action_rules_rule_open.setEnabled(flag_selected)
+		self.action_rules_rule_delete.setEnabled(flag_selected)
 
 	def AdjustMenuRules_Text(self):
 		""" Меню правил обработки: Настройка текстов """
