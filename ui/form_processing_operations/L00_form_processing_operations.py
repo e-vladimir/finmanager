@@ -16,3 +16,11 @@ class MODES(enum.StrEnum):
 	COLLAPSE = "Сокращение"
 	EXPAND   = "Расширение"
 	REPLACE  = "Замена"
+
+
+class OPTIONS(enum.StrEnum):
+	""" Параметры """
+	INCLUDE = "Включает"
+	EXCLUDE = "Исключает"
+	OUTPUT  = "Результат"
+	MODE    = "Режим"

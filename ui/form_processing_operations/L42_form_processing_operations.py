@@ -1,6 +1,7 @@
 # ФОРМА ОБРАБОТКА ОПЕРАЦИЙ: МОДЕЛЬ ДАННЫХ
 
-from L00_form_processing_operations import SUBJECTS
+from L00_form_processing_operations import MODES, SUBJECTS
+
 from L20_PySide6                    import C20_StandardItemModel
 from L41_form_processing_operations import C41_FormProcessingOperations
 from L90_rules                      import C90_ProcessingRules
@@ -15,6 +16,10 @@ class C42_FormProcessingOperations(C41_FormProcessingOperations):
 
 		self._processing_subject : SUBJECTS | None = None
 		self._processing_ido     : str             = ""
+
+		self._tools_include      : str             = ""
+		self._tools_mode         : MODES           = MODES.REPLACE
+		self._tools_output       : str             = ""
 
 	def Init_10(self):
 		super().Init_10()

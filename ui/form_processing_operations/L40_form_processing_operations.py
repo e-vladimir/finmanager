@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_processing_operationseakusL.ui'
+## Form generated from reading UI file 'form_processing_operationsbSokFr.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QHeaderView,
-    QLabel, QMainWindow, QSizePolicy, QStatusBar,
-    QTableView, QVBoxLayout, QWidget)
+    QLabel, QMainWindow, QSizePolicy, QSpacerItem,
+    QStatusBar, QTableView, QVBoxLayout, QWidget)
 
 class Ui_frm_processing_operations(object):
     def setupUi(self, frm_processing_operations):
@@ -40,6 +40,10 @@ class Ui_frm_processing_operations(object):
 
         self.verticalLayout.addWidget(self.cbbox_subject)
 
+        self.verticalSpacer = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer)
+
         self.label_2 = QLabel(self.centralwidget)
         self.label_2.setObjectName(u"label_2")
 
@@ -58,6 +62,10 @@ class Ui_frm_processing_operations(object):
 
         self.verticalLayout.addWidget(self.table_rules)
 
+        self.verticalSpacer_2 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.verticalLayout.addItem(self.verticalSpacer_2)
+
         self.label_3 = QLabel(self.centralwidget)
         self.label_3.setObjectName(u"label_3")
 
@@ -65,6 +73,7 @@ class Ui_frm_processing_operations(object):
 
         self.table_tools = QTableView(self.centralwidget)
         self.table_tools.setObjectName(u"table_tools")
+        self.table_tools.setMaximumSize(QSize(16777215, 100))
         self.table_tools.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.table_tools.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table_tools.setAlternatingRowColors(True)
@@ -77,7 +86,7 @@ class Ui_frm_processing_operations(object):
 
         self.verticalLayout.addWidget(self.table_tools)
 
-        self.verticalLayout.setStretch(3, 1)
+        self.verticalLayout.setStretch(4, 1)
         frm_processing_operations.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(frm_processing_operations)
         self.statusbar.setObjectName(u"statusbar")

@@ -30,15 +30,20 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.ShowTitle()
 
 		self.FillCbboxSubject()
-
 		self.ReadProcessingSubjectFromCbboxSubject()
+
 		self.InitModelRules()
 		self.ShowRules()
 		self.AdjustTableRules_Size()
 
+		self.InitModelTools()
+		self.LoadModelTool()
+		self.AdjustTableTools_Size()
+
 	def on_Show(self):
 		""" Отображение формы """
 		self.AdjustTableRules_Size()
+		self.AdjustTableTools_Size()
 
 	# Субъект обработки
 	def on_SubjectChanged(self):
@@ -48,6 +53,10 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.InitModelRules()
 		self.ShowRules()
 		self.AdjustTableRules_Size()
+
+		self.InitModelTools()
+		self.LoadModelTool()
+		self.AdjustTableTools_Size()
 
 	# Меню правил обработки данных
 	def on_RequestShowMenuRules(self):

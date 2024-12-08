@@ -6,7 +6,7 @@ from PySide6.QtWidgets              import QHeaderView
 from L00_form_processing_operations import SUBJECTS
 from L00_rules                      import RULES
 from L60_form_processing_operations import C60_FormProcessingOperations
-from L90_rules import C90_ProcessingRule
+from L90_rules                      import C90_ProcessingRule
 
 
 class C70_FormProcessingOperations(C60_FormProcessingOperations):
@@ -30,6 +30,13 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 		self.table_rules.horizontalHeader().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
 
 		self.table_rules.resizeRowsToContents()
+
+	# Таблица утилит
+	def AdjustTableTools_Size(self):
+		""" Таблица утилит: Настройка размера """
+		self.table_tools.resizeColumnsToContents()
+
+		self.table_tools.resizeRowsToContents()
 
 	# Меню правила обработки
 	def AdjustMenuRules_Enable(self):
