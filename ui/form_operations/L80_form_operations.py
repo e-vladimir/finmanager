@@ -43,38 +43,6 @@ class C80_FormOperations(C70_FormOperations):
 
 		self.on_UpdateDataPartial()
 
-	def ReplaceText(self):
-		""" Поиск и замена текстового фрагмента """
-		dy, dm           = self.workspace.DyDm()
-		idos : list[str] = self.operations.OperationsIdosInDyDmDd(dy, dm)
-
-		if not idos                 : return
-
-		operation        = C90_Operation(self._processing_ido)
-		dialog_request   = QFindReplaceTextDialog("Финансовые операции", "Поиск и замена текстового фрагмента.\n\nПоиск в назначении.", operation.Destination(), operation.Destination())
-		if not dialog_request.exec(): return
-
-		text_find        = dialog_request.textFind()
-		text_replace     = dialog_request.textReplace()
-
-		dialog_progress  = QProgressDialog(self)
-		dialog_progress.setWindowTitle("Финансовые операции: Поиск и замена текстового фрагмента")
-		dialog_progress.setLabelText("Осталось обработать: --")
-		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
-		dialog_progress.setMaximum(len(idos))
-		dialog_progress.setMinimumWidth(480)
-
-		for self._processing_ido in idos:
-			dialog_progress.setValue(dialog_progress.value() + 1)
-			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()}")
-
-			operation = C90_Operation(self._processing_ido)
-			operation.Destination(operation.Destination().replace(text_find, text_replace))
-
-			self.LoadOperation()
-
-		dialog_progress.close()
-
 	def ResetData(self):
 		""" Сброс данных """
 		dy, dm           = self.workspace.DyDm()
