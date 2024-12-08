@@ -6,4 +6,5 @@ from L42_form_processing_operations import C42_FormProcessingOperations
 class C50_FormProcessingOperations(C42_FormProcessingOperations):
 	""" Форма Обработка операций: Модель событий """
 
-	pass
+	# Субъект обработки
+	def on_SubjectChanged(self): pass
