@@ -43,7 +43,7 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 		idos : list[str] = operations.OperationsIdosInDyDmDd(dy, dm)
 
 		dialog_progress  = QProgressDialog(self)
-		dialog_progress.setWindowTitle("Импорт финансовых операций")
+		dialog_progress.setWindowTitle("Обработка операций")
 		dialog_progress.setMaximum(len(idos))
 		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum()} записей")
