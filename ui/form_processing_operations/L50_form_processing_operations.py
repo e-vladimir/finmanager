@@ -14,6 +14,7 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 
 	# Правила обработки
 	def on_RequestCreateRule(self): pass
+	def on_RequestApplyRules(self): pass
 
 	# Правило обработки
 	def on_RequestOpenRule(self): pass

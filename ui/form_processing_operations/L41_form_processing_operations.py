@@ -22,11 +22,14 @@ class C41_FormProcessingOperations(C20_PySideForm, Ui_frm_processing_operations)
 		icon_item_plus                           = QIcon("./L0/icons/item_plus.svg")
 		icon_open                                = QIcon("./L0/icons/open.svg")
 		icon_delete                              = QIcon("./L0/icons/item_delete.svg")
+		icon_processing                          = QIcon("./L0/icons/processing.svg")
 
 		self.menu_rules                          = QMenu("Правила обработки")
 
 		self.submenu_rules_rules                 = self.menu_rules.addMenu(icon_grid_2_2, "Правила обработки")
-		self.action_rules_rules_create : QAction = self.submenu_rules_rules.addAction(icon_item_plus, "Создать правило")
+		self.action_rules_rules_create : QAction = self.submenu_rules_rules.addAction(icon_item_plus,  "Создать правило")
+		self.submenu_rules_rules.addSeparator()
+		self.action_rules_rules_apply  : QAction = self.submenu_rules_rules.addAction(icon_processing, "Применить правила")
 
 		self.submenu_rules_rule                  = self.menu_rules.addMenu(icon_grid_3_3, "Правило обработки")
 		self.action_rules_rule_open    : QAction = self.submenu_rules_rule.addAction(icon_open,   "Открыть правило")

@@ -18,6 +18,7 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 
 		# Меню Правила обработки
 		self.action_rules_rules_create.triggered.connect(self.on_RequestCreateRule)
+		self.action_rules_rules_apply.triggered.connect(self.on_RequestApplyRules)
 
 		# Меню Правило обработки
 		self.action_rules_rule_open.triggered.connect(self.on_RequestOpenRule)
@@ -64,6 +65,12 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.CreateRule()
 
 		self.application.form_processing_rule.Open()
+
+	def on_RequestApplyRules(self):
+		""" Запрос на применение правил обработки """
+		self.ApplyRules()
+
+		self.application.form_operations.UpdateData()
 
 	# Правило обработки
 	def on_RequestOpenRule(self):

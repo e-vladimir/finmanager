@@ -110,6 +110,9 @@ class C80_Operation(C70_Operation):
 
 		self.Destination(destination)
 
+	def ApplyDetectLabels(self):
+		""" Применение правил определения меток """
+		pass
 
 class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """

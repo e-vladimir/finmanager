@@ -10,7 +10,6 @@ from L20_PySide6         import (RequestValue,
                                  RequestText,
                                  RequestConfirm,
                                  RequestMultipleText,
-                                 QFindReplaceTextDialog,
                                  C20_StandardItem,
                                  ROLES)
 from L70_form_operations import  C70_FormOperations
@@ -19,6 +18,16 @@ from L90_operations      import  C90_Operation
 
 class C80_FormOperations(C70_FormOperations):
 	""" Форма Финансовые операции: Логика данных """
+
+	# Форма
+	def UpdateData(self):
+		""" Обновление данных """
+		self.ShowOperations()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
 
 	# Финансовые операции
 	def ShowOperations(self):
