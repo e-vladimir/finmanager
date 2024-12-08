@@ -19,6 +19,9 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		# Меню Правила обработки
 		self.action_rules_rules_create.triggered.connect(self.on_RequestCreateRule)
 
+		# Меню Правило обработки
+		self.action_rules_rule_open.triggered.connect(self.on_RequestOpenRule)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -47,6 +50,8 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 	# Меню правил обработки данных
 	def on_RequestShowMenuRules(self):
 		""" Запрос отображения меню правил обработки """
+		self.ReadProcessingIdoFromTableRules()
+
 		self.AdjustMenuRules_Text()
 		self.AdjustMenuRules_Enable()
 

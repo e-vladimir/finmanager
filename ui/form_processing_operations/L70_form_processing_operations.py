@@ -6,6 +6,7 @@ from PySide6.QtWidgets              import QHeaderView
 from L00_form_processing_operations import SUBJECTS
 from L00_rules                      import RULES
 from L60_form_processing_operations import C60_FormProcessingOperations
+from L90_rules import C90_ProcessingRule
 
 
 class C70_FormProcessingOperations(C60_FormProcessingOperations):
@@ -33,7 +34,9 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 	# Меню правила обработки
 	def AdjustMenuRules_Enable(self):
 		""" Меню правил обработки: Настройка доступности """
-		pass
+		flag_selected : bool = bool(self._processing_ido)
+
+		self.action_rules_rule_open.setEnabled(flag_selected)
 
 	def AdjustMenuRules_Text(self):
 		""" Меню правил обработки: Настройка текстов """
@@ -43,6 +46,14 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 			case SUBJECTS.DESCRIPTION: self.submenu_rules_rules.setTitle(RULES.REPLACE_DESCRIPTION)
 			case SUBJECTS.DESTINATION: self.submenu_rules_rules.setTitle(RULES.MATCH_DESTINATION)
 			case SUBJECTS.LABELS     : self.submenu_rules_rules.setTitle(RULES.DETECT_LABEL)
+
+		self.submenu_rules_rule.setTitle("Правило обработки")
+
+		if self._processing_ido:
+			rule = C90_ProcessingRule(self._processing_ido)
+			output : str = ', '.join(rule.OutputAsStrings())
+			suffix : str = '...' if len(output) > 30 else ''
+			self.submenu_rules_rule.setTitle(f"{output[:30]}{suffix}")
 
 	def ShowMenuRules(self):
 		""" Отображение меню правил обработки """

@@ -21,4 +21,7 @@ class C90_FormProcessingRule(C80_FormProcessingRule):
 
 	def on_Close(self):
 		""" Закрытие формы """
+		self.WriteProcessingRuleToWorkspace()
 		self.SaveProcessingRule()
+
+		self.application.form_processing_operations.UpdateDataPartial()
