@@ -51,9 +51,6 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_import                  : QAction = self.submenu_operations.addAction(icon_import,    "Импорт операций")
 		self.action_operations_export                  : QAction = self.submenu_operations.addAction(icon_upload,    "Экспорт операций")
 		self.submenu_operations.addSeparator()
-		self.action_operations_control_description     : QAction = self.submenu_operations.addAction(icon_layers,    "Управление описанием")
-		self.action_operations_control_destination     : QAction = self.submenu_operations.addAction(icon_layers,    "Управление назначением")
-		self.submenu_operations.addSeparator()
 		self.action_operations_reset                   : QAction = self.submenu_operations.addAction(icon_reload,    "Сброс данных")
 
 		self.submenu_operations_pack                             = self.menu_operations.addMenu(icon_grid_2_2, "Пакет операций")
