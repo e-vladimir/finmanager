@@ -61,6 +61,8 @@ class C90_FormImport(C80_FormImport):
 		""" Запрос на выполнение импорта финансовых операций """
 		self.ImportOperations()
 
+		self.application.form_operations.UpdateData()
+
 	def on_RequestSetFieldInOperation(self):
 		""" Запрос на установку типа данных для элемента заголовка в импорте финансовых операций """
 		self.SetFieldInOperations()

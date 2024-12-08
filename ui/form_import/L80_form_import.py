@@ -12,7 +12,7 @@ from   G10_convertor_format import StringToFloat, StringToDateTime
 from   L00_fields           import FIELDS
 from   L20_PySide6          import RequestItem, RequestText
 from   L70_form_import      import C70_FormImport
-from L90_accounts import C90_Account
+from   L90_accounts         import C90_Account
 
 
 class C80_FormImport(C70_FormImport):
@@ -114,6 +114,7 @@ class C80_FormImport(C70_FormImport):
 		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_import.setLabelText(f"Осталось обработать: {dialog_import.maximum()} записей")
 		dialog_import.setMinimumWidth(480)
+		dialog_import.forceShow()
 
 		for index_data, data in enumerate(self._operations_data):
 			dialog_import.setValue(index_data + 1)
