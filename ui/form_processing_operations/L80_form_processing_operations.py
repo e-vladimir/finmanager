@@ -11,6 +11,12 @@ from L90_rules                      import C90_ProcessingRule
 class C80_FormProcessingOperations(C70_FormProcessingOperations):
 	""" Форма Обработка операций: Логика данных """
 
+	# Форма
+	def UpdateDataPartial(self):
+		""" Частичное обновление данных """
+		self.ReadProcessingIdoFromWorkspace()
+		self.LoadRuleToModel()
+
 	# Правила обработки
 	def ShowRules(self):
 		""" Отображение правил обработки """

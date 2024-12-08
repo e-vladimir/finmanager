@@ -50,6 +50,10 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 		current_index = self.table_rules.currentIndex()
 		self._processing_ido = current_index.data(ROLES.IDO)
 
+	def ReadProcessingIdoFromWorkspace(self):
+		""" Чтение текущего IDO из рабочего пространства """
+		self._processing_ido = self.workspace.IdoRule()
+
 	def WriteProcessingRuleToWorkspace(self):
 		""" Запись правила обработки к рабочее пространство """
 		self.workspace.IdoRule(self._processing_ido)
