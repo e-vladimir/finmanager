@@ -69,6 +69,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.submenu_operation.addSeparator()
 		self.action_operation_split                    : QAction = self.submenu_operation.addAction(icon_arrows_l_r, "Разделить операцию")
 		self.action_operation_set_description          : QAction = self.submenu_operation.addAction(icon_edit,       "Редактировать описание")
+		self.action_operation_set_destination          : QAction = self.submenu_operation.addAction(icon_edit,       "Редактировать назначение")
 		self.action_operation_set_labels               : QAction = self.submenu_operation.addAction(icon_list,       "Редактировать метки")
 		self.submenu_operation.addSeparator()
 		self.submenu_operation_colors                            = self.submenu_operation.addMenu(icon_gray, "Цветовая метка")

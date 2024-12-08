@@ -87,6 +87,7 @@ class C70_FormOperations(C60_FormOperations):
 
 		self.action_operation_split.setEnabled(flag_selected_operation)
 		self.action_operation_set_description.setEnabled(flag_selected_operation)
+		self.action_operation_set_destination.setEnabled(flag_selected_operation)
 		self.action_operation_set_labels.setEnabled(flag_selected_operation)
 
 		self.submenu_operation_colors.setEnabled(flag_selected_operation)
