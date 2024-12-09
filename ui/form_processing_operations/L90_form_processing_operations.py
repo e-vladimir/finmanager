@@ -9,15 +9,14 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 	def InitEvents(self):
 		super().InitEvents()
 
-		# Список субъектов обработки
-		self.cbbox_subject.activated.connect(self.on_SubjectChanged)
-
 		# Таблица правил обработки
 		self.table_rules.customContextMenuRequested.connect(self.on_RequestShowMenuRules)
 		self.table_rules.doubleClicked.connect(self.on_RequestOpenRule)
 
-		# Таблица инструментов
-		self.table_tools.customContextMenuRequested.connect(self.on_RequestShowMenuTools)
+		# Меню Типы правил
+		self.action_rules_types_description.triggered.connect(self.on_RequestSwitchRulesToDescription)
+		self.action_rules_types_destination.triggered.connect(self.on_RequestSwitchRulesToDestination)
+		self.action_rules_types_labels.triggered.connect(self.on_RequestSwitchRulesToLabels)
 
 		# Меню Правила обработки
 		self.action_rules_rules_create.triggered.connect(self.on_RequestCreateRule)
@@ -30,10 +29,9 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
-		self.ShowTitle()
+		self.InitTabsMain()
 
-		self.FillCbboxSubject()
-		self.ReadProcessingSubjectFromCbboxSubject()
+		self.ShowTitle()
 
 		self.InitModelRules()
 		self.ShowRules()
@@ -43,10 +41,26 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		""" Отображение формы """
 		self.AdjustTableRules_Size()
 
-	# Субъект обработки
-	def on_SubjectChanged(self):
-		""" Изменился субъект обработки """
-		self.ReadProcessingSubjectFromCbboxSubject()
+	# Тип правил
+	def on_RequestSwitchRulesToDescription(self):
+		""" Переключение на тип правил обработки: Описание """
+		self.SwitchRuleTypesToDescription()
+
+		self.InitModelRules()
+		self.ShowRules()
+		self.AdjustTableRules_Size()
+
+	def on_RequestSwitchRulesToDestination(self):
+		""" Переключение на тип правил обработки: Назначение """
+		self.SwitchRuleTypesToDestination()
+
+		self.InitModelRules()
+		self.ShowRules()
+		self.AdjustTableRules_Size()
+
+	def on_RequestSwitchRulesToLabels(self):
+		""" Переключение на тип правил обработки: Метки """
+		self.SwitchRuleTypesToLabels()
 
 		self.InitModelRules()
 		self.ShowRules()

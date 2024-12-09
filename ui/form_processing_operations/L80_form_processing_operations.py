@@ -4,7 +4,6 @@ from PySide6.QtCore                 import Qt
 from PySide6.QtWidgets              import QProgressDialog
 
 from L00_containers                 import CONTAINERS
-from L00_form_processing_operations import SUBJECTS
 from L00_rules                      import RULES
 
 from L20_PySide6                    import RequestConfirm
@@ -27,15 +26,7 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 	# Правила обработки
 	def ShowRules(self):
 		""" Отображение правил обработки """
-		match self._processing_subject:
-			case SUBJECTS.DESCRIPTION:
-				for self._processing_ido in self.rules.IdosByType(RULES.REPLACE_DESCRIPTION): self.LoadRuleToModel()
-
-			case SUBJECTS.DESTINATION:
-				for self._processing_ido in self.rules.IdosByType(RULES.MATCH_DESTINATION)  : self.LoadRuleToModel()
-
-			case SUBJECTS.LABELS     :
-				for self._processing_ido in self.rules.IdosByType(RULES.DETECT_LABEL)       : self.LoadRuleToModel()
+		for self._processing_ido in self.rules.IdosByType(self._processing_rule_types, True): self.LoadRuleToModel()
 
 	def ApplyRules(self):
 		""" Применение правил обработки """
@@ -58,10 +49,10 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 
 			operation = C90_Operation(ido)
 
-			match self._processing_subject:
-				case SUBJECTS.DESCRIPTION: operation.ApplyAutoreplaceDescription()
-				case SUBJECTS.DESTINATION: operation.ApplyMatchDestination()
-				case SUBJECTS.LABELS     : operation.ApplyDetectLabels()
+			match self._processing_rule_types:
+				case RULES.REPLACE_DESCRIPTION: operation.ApplyAutoreplaceDescription()
+				case RULES.MATCH_DESTINATION  : operation.ApplyMatchDestination()
+				case RULES.DETECT_LABEL       : operation.ApplyDetectLabels()
 
 		dialog_progress.close()
 
@@ -72,10 +63,7 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 		rule.GenerateIdo()
 		rule.RegisterObject(CONTAINERS.DISK)
 
-		match self._processing_subject:
-			case SUBJECTS.DESCRIPTION: rule.RuleType(RULES.REPLACE_DESCRIPTION)
-			case SUBJECTS.DESTINATION: rule.RuleType(RULES.MATCH_DESTINATION)
-			case SUBJECTS.LABELS     : rule.RuleType(RULES.DETECT_LABEL)
+		rule.RuleType(self._processing_rule_types)
 
 		self.workspace.IdoRule(rule.Ido().data)
 

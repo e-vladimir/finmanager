@@ -6,14 +6,13 @@ from L42_form_processing_operations import C42_FormProcessingOperations
 class C50_FormProcessingOperations(C42_FormProcessingOperations):
 	""" Форма Обработка операций: Модель событий """
 
-	# Субъект обработки
-	def on_SubjectChanged(self): pass
-
 	# Меню правил обработки
 	def on_RequestShowMenuRules(self): pass
 
-	# Меню инструментов
-	def on_RequestShowMenuTools(self): pass
+	# Тип правил обработки
+	def on_RequestSwitchRulesToDescription(self): pass
+	def on_RequestSwitchRulesToDestination(self): pass
+	def on_RequestSwitchRulesToLabels(self): pass
 
 	# Правила обработки
 	def on_RequestCreateRule(self): pass
@@ -22,8 +21,3 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 	# Правило обработки
 	def on_RequestOpenRule(self): pass
 	def on_RequestDeleteRule(self): pass
-
-	# Инструменты обработки
-	def on_RequestEditToolsInclude(self): pass
-	def on_RequestEditToolsMode(self): pass
-	def on_RequestEditToolsOutput(self): pass

@@ -29,7 +29,7 @@ class C70_FormProcessingRule(C60_FormProcessingRule):
 				title            = "Фрагменты поиска"
 				visible_multiple = True
 
-			case RULES.MATCH_DESTINATION:
+			case RULES.DETECT_LABEL:
 				title            = "Фрагменты поиска"
 				visible_multiple = True
 
@@ -63,7 +63,7 @@ class C70_FormProcessingRule(C60_FormProcessingRule):
 				title            = "Фрагмент сопоставления"
 				visible_single   = True
 
-			case RULES.MATCH_DESTINATION:
+			case RULES.DETECT_LABEL:
 				title            = "Метки"
 				visible_multiple = True
 

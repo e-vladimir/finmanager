@@ -1,6 +1,6 @@
 # ФОРМА ОБРАБОТКА ОПЕРАЦИЙ: МЕХАНИКА ДАННЫХ
 
-from L00_form_processing_operations import OPTIONS, SUBJECTS
+from L00_rules                      import RULES
 
 from L20_PySide6                    import C20_StandardItem, ROLES
 from L50_form_processing_operations import C50_FormProcessingOperations
@@ -15,10 +15,10 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 		""" Инициализация модели правил """
 		self.model_rules.removeAll()
 
-		match self._processing_subject:
-			case SUBJECTS.DESCRIPTION: self.model_rules.setHorizontalHeaderLabels(["Фрагменты поиска", "Фрагмент замены"])
-			case SUBJECTS.DESTINATION: self.model_rules.setHorizontalHeaderLabels(["Фрагменты поиска", "Фрагмент сопоставления"])
-			case SUBJECTS.LABELS     : self.model_rules.setHorizontalHeaderLabels(["Фрагменты поиска", "Метки"])
+		match self._processing_rule_types:
+			case RULES.REPLACE_DESCRIPTION: self.model_rules.setHorizontalHeaderLabels(["Фрагменты поиска", "Фрагмент замены"])
+			case RULES.MATCH_DESTINATION  : self.model_rules.setHorizontalHeaderLabels(["Фрагменты поиска", "Фрагмент сопоставления"])
+			case RULES.DETECT_LABEL       : self.model_rules.setHorizontalHeaderLabels(["Фрагменты поиска", "Применяемые метки"])
 
 	def LoadRuleToModel(self):
 		""" Загрузка правила в модель """
@@ -41,9 +41,17 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 		item_output.setText('\n'.join(rule.OutputAsStrings()))
 
 	# Параметры
-	def ReadProcessingSubjectFromCbboxSubject(self):
-		""" Чтение текущего субъекта обработки """
-		self._processing_subject = SUBJECTS(self.cbbox_subject.currentText())
+	def SwitchRuleTypesToDescription(self):
+		""" Смена типа правил на Описание """
+		self._processing_rule_types = RULES.REPLACE_DESCRIPTION
+
+	def SwitchRuleTypesToDestination(self):
+		""" Смена типа правил на Назначение """
+		self._processing_rule_types = RULES.MATCH_DESTINATION
+
+	def SwitchRuleTypesToLabels(self):
+		""" Смена типа правил на Метки """
+		self._processing_rule_types = RULES.DETECT_LABEL
 
 	def ReadProcessingIdoFromTableRules(self):
 		""" Чтение текущего IDO из таблицы правил """

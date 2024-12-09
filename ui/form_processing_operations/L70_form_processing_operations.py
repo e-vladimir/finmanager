@@ -3,8 +3,6 @@
 from PySide6.QtGui                  import QCursor
 from PySide6.QtWidgets              import QHeaderView
 
-from L00_form_processing_operations import SUBJECTS
-from L00_rules                      import RULES
 from L60_form_processing_operations import C60_FormProcessingOperations
 from L90_rules                      import C90_ProcessingRule
 
@@ -17,11 +15,10 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 		""" Отображение заголовка формы """
 		self.setWindowTitle(f"Обработка операций - {self.workspace.DmDyToString()}")
 
-	# Список субъектов обработки
-	def FillCbboxSubject(self):
-		""" Заполнение списка субъектов обработки """
-		self.cbbox_subject.clear()
-		self.cbbox_subject.addItems([subject.value for subject in SUBJECTS])
+	# Вкладки
+	def InitTabsMain(self):
+		""" Настройка вкладок """
+		self.tabs_main.setCurrentIndex(0)
 
 	# Таблица правил
 	def AdjustTableRules_Size(self):
@@ -41,17 +38,12 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 
 	def AdjustMenuRules_Text(self):
 		""" Меню правил обработки: Настройка текстов """
-		self.submenu_rules_rules.setTitle("Правила обработки")
-
-		match self._processing_subject:
-			case SUBJECTS.DESCRIPTION: self.submenu_rules_rules.setTitle(RULES.REPLACE_DESCRIPTION)
-			case SUBJECTS.DESTINATION: self.submenu_rules_rules.setTitle(RULES.MATCH_DESTINATION)
-			case SUBJECTS.LABELS     : self.submenu_rules_rules.setTitle(RULES.DETECT_LABEL)
+		self.submenu_rules_rules.setTitle(f"{self._processing_rule_types.value}")
 
 		self.submenu_rules_rule.setTitle("Правило обработки")
 
 		if self._processing_ido:
-			rule = C90_ProcessingRule(self._processing_ido)
+			rule         = C90_ProcessingRule(self._processing_ido)
 			output : str = ', '.join(rule.OutputAsStrings())
 			suffix : str = '...' if len(output) > 30 else ''
 			self.submenu_rules_rule.setTitle(f"{output[:30]}{suffix}")
