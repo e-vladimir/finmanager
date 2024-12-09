@@ -31,13 +31,6 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 
 		self.table_rules.resizeRowsToContents()
 
-	# Таблица утилит
-	def AdjustTableTools_Size(self):
-		""" Таблица утилит: Настройка размера """
-		self.table_tools.resizeColumnsToContents()
-
-		self.table_tools.resizeRowsToContents()
-
 	# Меню правила обработки
 	def AdjustMenuRules_Enable(self):
 		""" Меню правил обработки: Настройка доступности """

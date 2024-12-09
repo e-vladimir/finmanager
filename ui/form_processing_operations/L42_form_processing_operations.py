@@ -17,15 +17,10 @@ class C42_FormProcessingOperations(C41_FormProcessingOperations):
 		self._processing_subject : SUBJECTS | None = None
 		self._processing_ido     : str             = ""
 
-		self._tools_include      : str             = ""
-		self._tools_mode         : MODES           = MODES.REPLACE
-		self._tools_output       : str             = ""
-
 	def Init_10(self):
 		super().Init_10()
 
 		self.model_rules = C20_StandardItemModel()
-		self.model_tools = C20_StandardItemModel()
 
 		self.rules       = C90_ProcessingRules()
 		self.workspace   = C90_Workspace()
@@ -39,4 +34,3 @@ class C42_FormProcessingOperations(C41_FormProcessingOperations):
 		super().Init_20()
 
 		self.table_rules.setModel(self.model_rules)
-		self.table_tools.setModel(self.model_tools)

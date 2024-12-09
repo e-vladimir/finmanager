@@ -12,9 +12,12 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		# Список субъектов обработки
 		self.cbbox_subject.activated.connect(self.on_SubjectChanged)
 
-		# Таблицы правил обработки
+		# Таблица правил обработки
 		self.table_rules.customContextMenuRequested.connect(self.on_RequestShowMenuRules)
 		self.table_rules.doubleClicked.connect(self.on_RequestOpenRule)
+
+		# Таблица инструментов
+		self.table_tools.customContextMenuRequested.connect(self.on_RequestShowMenuTools)
 
 		# Меню Правила обработки
 		self.action_rules_rules_create.triggered.connect(self.on_RequestCreateRule)
@@ -36,14 +39,9 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.ShowRules()
 		self.AdjustTableRules_Size()
 
-		self.InitModelTools()
-		self.LoadModelTool()
-		self.AdjustTableTools_Size()
-
 	def on_Show(self):
 		""" Отображение формы """
 		self.AdjustTableRules_Size()
-		self.AdjustTableTools_Size()
 
 	# Субъект обработки
 	def on_SubjectChanged(self):
@@ -54,11 +52,7 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.ShowRules()
 		self.AdjustTableRules_Size()
 
-		self.InitModelTools()
-		self.LoadModelTool()
-		self.AdjustTableTools_Size()
-
-	# Меню правил обработки данных
+	# Меню правил обработки
 	def on_RequestShowMenuRules(self):
 		""" Запрос отображения меню правил обработки """
 		self.ReadProcessingIdoFromTableRules()

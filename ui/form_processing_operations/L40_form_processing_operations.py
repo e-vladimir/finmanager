@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_processing_operationsbSokFr.ui'
+## Form generated from reading UI file 'form_processing_operationsjjopkD.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -73,7 +73,7 @@ class Ui_frm_processing_operations(object):
 
         self.table_tools = QTableView(self.centralwidget)
         self.table_tools.setObjectName(u"table_tools")
-        self.table_tools.setMaximumSize(QSize(16777215, 100))
+        self.table_tools.setMaximumSize(QSize(16777215, 120))
         self.table_tools.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.table_tools.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table_tools.setAlternatingRowColors(True)

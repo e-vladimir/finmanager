@@ -22,6 +22,8 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 		self.ReadProcessingIdoFromWorkspace()
 		self.LoadRuleToModel()
 
+		self.AdjustTableRules_Size()
+
 	# Правила обработки
 	def ShowRules(self):
 		""" Отображение правил обработки """
@@ -63,9 +65,9 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 
 		dialog_progress.close()
 
-	# Правило обработки данных
+	# Правило обработки
 	def CreateRule(self):
-		""" Создание правила обработки данных """
+		""" Создание правила обработки """
 		rule = C90_ProcessingRule()
 		rule.GenerateIdo()
 		rule.RegisterObject(CONTAINERS.DISK)

@@ -12,6 +12,9 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 	# Меню правил обработки
 	def on_RequestShowMenuRules(self): pass
 
+	# Меню инструментов
+	def on_RequestShowMenuTools(self): pass
+
 	# Правила обработки
 	def on_RequestCreateRule(self): pass
 	def on_RequestApplyRules(self): pass
@@ -19,3 +22,8 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 	# Правило обработки
 	def on_RequestOpenRule(self): pass
 	def on_RequestDeleteRule(self): pass
+
+	# Инструменты обработки
+	def on_RequestEditToolsInclude(self): pass
+	def on_RequestEditToolsMode(self): pass
+	def on_RequestEditToolsOutput(self): pass

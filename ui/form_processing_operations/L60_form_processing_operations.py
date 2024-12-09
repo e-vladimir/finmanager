@@ -40,46 +40,6 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 		item_output = self.model_rules.itemFromIndex(indexes[1])
 		item_output.setText('\n'.join(rule.OutputAsStrings()))
 
-	# Модель инструментов
-	def InitModelTools(self):
-		""" Инициализация модели инструментов """
-		self.model_tools.removeAll()
-
-		item_title = C20_StandardItem("", OPTIONS.INCLUDE, ROLES.IDO)
-		item_data  = C20_StandardItem("", OPTIONS.INCLUDE, ROLES.IDO)
-		self.model_tools.invisibleRootItem().appendRow([item_title, item_data])
-
-		item_title = C20_StandardItem("", OPTIONS.MODE, ROLES.IDO)
-		item_data  = C20_StandardItem("", OPTIONS.MODE, ROLES.IDO)
-		self.model_tools.invisibleRootItem().appendRow([item_title, item_data])
-
-		item_title = C20_StandardItem("", OPTIONS.OUTPUT, ROLES.IDO)
-		item_data  = C20_StandardItem("", OPTIONS.OUTPUT, ROLES.IDO)
-		self.model_tools.invisibleRootItem().appendRow([item_title, item_data])
-
-	def LoadModelTool(self):
-		""" Загрузка данных в модель инструментов """
-		indexes    = self.model_tools.indexesInRowByIdo(OPTIONS.INCLUDE)
-		item_title = self.model_tools.itemFromIndex(indexes[0])
-		item_title.setText(f"{self._processing_subject.value} включает")
-
-		item_data  = self.model_tools.itemFromIndex(indexes[1])
-		item_data.setText(f"{self._tools_include}")
-
-		indexes    = self.model_tools.indexesInRowByIdo(OPTIONS.MODE)
-		item_title = self.model_tools.itemFromIndex(indexes[0])
-		item_title.setText(f"Режим обработки")
-
-		item_data  = self.model_tools.itemFromIndex(indexes[1])
-		item_data.setText(f"{self._tools_mode.value}")
-
-		indexes    = self.model_tools.indexesInRowByIdo(OPTIONS.OUTPUT)
-		item_title = self.model_tools.itemFromIndex(indexes[0])
-		item_title.setText(f"Применяемое значение")
-
-		item_data  = self.model_tools.itemFromIndex(indexes[1])
-		item_data.setText(f"{self._tools_output}")
-
 	# Параметры
 	def ReadProcessingSubjectFromCbboxSubject(self):
 		""" Чтение текущего субъекта обработки """
