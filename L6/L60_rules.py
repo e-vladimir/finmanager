@@ -23,7 +23,7 @@ class C60_ProcessingRule(C50_ProcessingRule):
 	def InputAsStrings(self, items: list[str] = None) -> list[str]:
 		""" Вход как список строк """
 		if items is None: return list(sorted(self.f_input.ToStrings(CONTAINERS.DISK).data))
-		else            :                    self.f_input.FromStrings(CONTAINERS.DISK, sorted(items))
+		else            :		             self.f_input.FromStrings(CONTAINERS.DISK, sorted(set(items).difference({""})))
 
 	def OutputAsString(self, text: str = None) -> str:
 		""" Выход как строка """
@@ -33,7 +33,7 @@ class C60_ProcessingRule(C50_ProcessingRule):
 	def OutputAsStrings(self, items: list[str] = None) -> list[str]:
 		""" Выход как список строк """
 		if items is None: return list(sorted(self.f_output.ToStrings(CONTAINERS.DISK).data))
-		else            :                    self.f_output.FromStrings(CONTAINERS.DISK, sorted(items))
+		else            :                    self.f_output.FromStrings(CONTAINERS.DISK, sorted(set(items).difference({""})))
 
 
 class C60_ProcessingRules(C50_ProcessingRules):
