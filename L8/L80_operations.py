@@ -112,7 +112,26 @@ class C80_Operation(C70_Operation):
 
 	def ApplyDetectLabels(self):
 		""" Применение правил определения меток """
-		pass
+		labels      : set[str] = set(self.Labels())
+		destination : str      = self.Destination()
+		description : str      = self.Description()
+
+		rules                  = C90_ProcessingRules()
+
+		for ido in rules.IdosByType(RULES.DETECT_LABEL):
+			rule                     = C90_ProcessingRule(ido)
+
+			data_inputs  : list[str] = rule.InputAsStrings()
+			data_outputs : list[str] = rule.OutputAsStrings()
+
+			for data_input in data_inputs:
+				if   data_input in description: pass
+				elif data_input in destination: pass
+				else                          :	continue
+
+				labels = labels.union(set(data_outputs))
+
+		self.Labels(list(sorted(labels)))
 
 class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """
