@@ -141,8 +141,10 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 	def on_RequestDeleteRule(self):
 		""" Запрос на удаление правила обработки """
 		self.DeleteRule()
+
 		self.InitModelRules()
 		self.ShowRules()
+		self.AdjustTableRules_Size()
 
 	# Обработка описания
 	def on_RequestEditToolsDescriptionInclude(self):
