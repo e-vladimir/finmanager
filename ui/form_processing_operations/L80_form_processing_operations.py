@@ -3,6 +3,8 @@
 from PySide6.QtCore                 import Qt
 from PySide6.QtWidgets              import QProgressDialog
 
+from G30_cactus_datafilters         import C30_FilterLinear1D
+
 from L00_containers                 import CONTAINERS
 from L00_rules                      import RULES
 
@@ -79,6 +81,33 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 	def EditToolsDescriptionInclude(self):
 		""" Редактирование обработки описания: Содержит """
 		text : str | None = RequestText("Обработка описания", "Описание содержит:", self._tools_description_include)
+		if text is None: return
+
+		self._tools_description_include = text
+
+	def SelectToolsDescriptionInclude(self):
+		""" Выбор обработки описания: Содержит """
+		dy, dm                       = self.workspace.DyDm()
+
+		operation                    = C90_Operation()
+		idc             : str        = operation.Idc().data
+		idp_dy          : str        = operation.f_dy.Idp().data
+		idp_dm          : str        = operation.f_dm.Idp().data
+		idp_description : str        = operation.f_description.Idp().data
+
+		filter_data                  = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		raw_data        : list[str]  = filter_data.ToStrings(idp_description, True).data
+		data            : set[str]   = set()
+
+		for raw_subdata in raw_data:
+			data.add(raw_subdata)
+			data = data.union(set(raw_subdata.split(' ')))
+
+		text            : str | None = RequestText("Обработка описания", "Описание содержит:", self._tools_description_include, list(sorted(data)))
 		if text is None: return
 
 		self._tools_description_include = text

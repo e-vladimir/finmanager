@@ -32,6 +32,7 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 
 		# Меню Инструменты обработки
 		self.action_tools_description_include_edit.triggered.connect(self.on_RequestEditToolsDescriptionInclude)
+		self.action_tools_description_include_select.triggered.connect(self.on_RequestSelectToolsDescriptionInclude)
 		self.action_tools_description_applies_edit.triggered.connect(self.on_RequestEditToolsDescriptionApplies)
 		self.action_tools_description_processing.triggered.connect(self.on_RequestDescriptionProcessing)
 
@@ -137,6 +138,12 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		""" Запрос на редактирование Содержит обработки описания """
 		self.EditToolsDescriptionInclude()
 		
+		self.LoadToolsDescriptionToModel()
+
+	def on_RequestSelectToolsDescriptionInclude(self):
+		""" Запрос на выбор Содержит обработки описания """
+		self.SelectToolsDescriptionInclude()
+
 		self.LoadToolsDescriptionToModel()
 
 	def on_RequestEditToolsDescriptionApplies(self):
