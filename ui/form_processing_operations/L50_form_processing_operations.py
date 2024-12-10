@@ -32,13 +32,13 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 	def on_RequestEditToolsDescriptionInclude(self): pass
 	def on_RequestSelectToolsDescriptionInclude(self): pass
 	def on_RequestEditToolsDescriptionApplies(self): pass
-	def on_RequestDescriptionProcessing(self): pass
+	def on_RequestProcessingDescription(self): pass
 
 	# Инструменты обработки назначения
 	def on_RequestEditToolsDestinationInclude(self): pass
 	def on_RequestSelectToolsDestinationInclude(self): pass
 	def on_RequestEditToolsDestinationApplies(self): pass
-	def on_RequestDestinationProcessing(self): pass
+	def on_RequestProcessingDestination(self): pass
 
 	# Инструменты обработки меток
 	def on_RequestSwitchToolsLabelsModeToReplace(self): pass
@@ -48,4 +48,4 @@ class C50_FormProcessingOperations(C42_FormProcessingOperations):
 	def on_RequestSelectToolsLabelsInclude(self): pass
 	def on_RequestEditToolsLabelsApplies(self): pass
 	def on_RequestSelectToolsLabelsApplies(self): pass
-	def on_RequestLabelsProcessing(self): pass
+	def on_RequestProcessingLabels(self): pass

@@ -129,7 +129,7 @@ class C80_Operation(C70_Operation):
 				elif data_input in destination: pass
 				else                          :	continue
 
-				labels = labels.union(set(data_outputs))
+				labels.update(data_outputs)
 
 		self.Labels(list(sorted(labels)))
 

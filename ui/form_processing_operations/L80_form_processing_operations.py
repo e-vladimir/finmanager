@@ -9,7 +9,7 @@ from L00_containers                 import CONTAINERS
 from L00_form_processing_operations import MODES
 from L00_rules                      import RULES
 
-from L20_PySide6 import RequestConfirm, RequestItems, RequestMultipleText, RequestText
+from L20_PySide6                    import RequestConfirm, RequestItems, RequestMultipleText, RequestText
 from L70_form_processing_operations import C70_FormProcessingOperations
 from L90_operations                 import C90_Operation, C90_Operations
 from L90_rules                      import C90_ProcessingRule
@@ -206,9 +206,9 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 			dialog_progress.setValue(dialog_progress.value() + 1)
 			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()} записей")
 
-			operation          = C90_Operation(ido)
-			destinations : str = operation.Destination().replace(self._tools_destination_include, self._tools_destination_applies)
-			operation.Destination(destinations)
+			operation         = C90_Operation(ido)
+			destination : str = operation.Destination().replace(self._tools_destination_include, self._tools_destination_applies)
+			operation.Destination(destination)
 
 		dialog_progress.close()
 
@@ -292,6 +292,82 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 
 		self._tools_labels_applies = list(filter(bool, sorted(texts)))
 
+	def SelectToolsLabelsApplies(self):
+		""" Выбор обработки назначения: Содержит """
+		dy, dm                       = self.workspace.DyDm()
+
+		operation                    = C90_Operation()
+		idc             : str        = operation.Idc().data
+		idp_dy          : str        = operation.f_dy.Idp().data
+		idp_dm          : str        = operation.f_dm.Idp().data
+		idp_labels      : str        = operation.f_labels.Idp().data
+
+		filter_data                  = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		raw_data                     = filter_data.ToStrings(idp_labels, True).data
+		data            : set[str]   = set()
+
+		for raw_subdata in raw_data:
+			data = data.union(set(raw_subdata.split('\n')))
+
+		try   : data.remove('')
+		except: pass
+
+		texts           : list[str] | None = RequestItems("Обработка меток", "Применяются метки", list(sorted(data)), self._tools_labels_applies)
+		if texts is None: return
+
+		self._tools_labels_applies = texts
+
 	def ProcessingLabels(self):
 		""" Обработка меток """
-		pass
+		dy, dm           = self.workspace.DyDm()
+		operations       = C90_Operations()
+
+		idos : list[str] = operations.OperationsIdosInDyDmDd(dy, dm)
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Обработка описания")
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum()} записей")
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.forceShow()
+
+		for ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()} записей")
+
+			operation              = C90_Operation(ido)
+			destination : str      = operation.Destination()
+			description : str      = operation.Description()
+			labels      : set[str] = set(operation.Labels())
+
+			match self._tools_labels_mode:
+				case MODES.REPLACE:
+					for label_include in self._tools_labels_include:
+						if label_include not in labels: continue
+
+						labels.remove(label_include)
+						labels.update(self._tools_labels_applies)
+
+				case MODES.EXPAND:
+					for label_include in self._tools_labels_include:
+						if label_include not in labels: continue
+
+						labels.update(self._tools_labels_applies)
+
+				case MODES.APPEND:
+					for label_include in self._tools_labels_include:
+						result_exist : bool = label_include in description
+						result_exist       |= label_include in destination
+
+						if not result_exist: continue
+
+						labels.update(self._tools_labels_applies)
+
+			operation.Labels(list(sorted(labels)))
+
+		dialog_progress.close()

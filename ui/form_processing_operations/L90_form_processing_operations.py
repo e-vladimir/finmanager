@@ -34,17 +34,18 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.action_tools_description_include_edit.triggered.connect(self.on_RequestEditToolsDescriptionInclude)
 		self.action_tools_description_include_select.triggered.connect(self.on_RequestSelectToolsDescriptionInclude)
 		self.action_tools_description_applies_edit.triggered.connect(self.on_RequestEditToolsDescriptionApplies)
-		self.action_tools_description_processing.triggered.connect(self.on_RequestDescriptionProcessing)
+		self.action_tools_description_processing.triggered.connect(self.on_RequestProcessingDescription)
 
 		self.action_tools_destination_include_edit.triggered.connect(self.on_RequestEditToolsDestinationInclude)
 		self.action_tools_destination_include_select.triggered.connect(self.on_RequestSelectToolsDestinationInclude)
 		self.action_tools_destination_applies_edit.triggered.connect(self.on_RequestEditToolsDestinationApplies)
-		self.action_tools_destination_processing.triggered.connect(self.on_RequestDestinationProcessing)
+		self.action_tools_destination_processing.triggered.connect(self.on_RequestProcessingDestination)
 
 		self.action_tools_labels_include_edit.triggered.connect(self.on_RequestEditToolsLabelsInclude)
 		self.action_tools_labels_include_select.triggered.connect(self.on_RequestSelectToolsLabelsInclude)
 		self.action_tools_labels_applies_edit.triggered.connect(self.on_RequestEditToolsLabelsApplies)
-		self.action_tools_labels_processing.triggered.connect(self.on_RequestLabelsProcessing)
+		self.action_tools_labels_applies_select.triggered.connect(self.on_RequestSelectToolsLabelsApplies)
+		self.action_tools_labels_processing.triggered.connect(self.on_RequestProcessingLabels)
 
 		self.action_tools_labels_mode_replace.triggered.connect(self.on_RequestSwitchToolsLabelsModeToReplace)
 		self.action_tools_labels_mode_append.triggered.connect(self.on_RequestSwitchToolsLabelsModeToAppend)
@@ -162,7 +163,7 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 
 		self.LoadToolsDescriptionToModel()
 
-	def on_RequestDescriptionProcessing(self):
+	def on_RequestProcessingDescription(self):
 		""" Запрос на обработку описания """
 		self.ProcessingDescription()
 
@@ -187,7 +188,7 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 
 		self.LoadToolsDestinationToModel()
 
-	def on_RequestDestinationProcessing(self):
+	def on_RequestProcessingDestination(self):
 		""" Запрос на обработку назначения """
 		self.ProcessingDestination()
 
@@ -212,7 +213,13 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 
 		self.LoadToolsLabelsToModel()
 
-	def on_RequestDestinationLabels(self):
+	def on_RequestSelectToolsLabelsApplies(self):
+		""" Запрос на редактирование Применяется обработки меток """
+		self.SelectToolsLabelsApplies()
+
+		self.LoadToolsLabelsToModel()
+
+	def on_RequestProcessingLabels(self):
 		""" Запрос на обработку меток """
 		self.ProcessingLabels()
 
