@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_processing_operationsKfpQVp.ui'
+## Form generated from reading UI file 'form_processing_operationsOllXQp.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -54,12 +54,13 @@ class Ui_frm_processing_operations(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.tree_tools = QTreeView(self.tab_tools)
         self.tree_tools.setObjectName(u"tree_tools")
+        self.tree_tools.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.tree_tools.setStyleSheet(u"QTreeView::branch { \n"
 "	border: none; \n"
 "}")
         self.tree_tools.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tree_tools.setAlternatingRowColors(True)
-        self.tree_tools.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectColumns)
+        self.tree_tools.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tree_tools.setRootIsDecorated(False)
         self.tree_tools.setItemsExpandable(True)
         self.tree_tools.setExpandsOnDoubleClick(False)

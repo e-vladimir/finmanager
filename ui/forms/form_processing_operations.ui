@@ -62,6 +62,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
          <widget class="QTreeView" name="tree_tools">
+          <property name="contextMenuPolicy">
+           <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
+          </property>
           <property name="styleSheet">
            <string notr="true">QTreeView::branch { 
 	border: none; 
@@ -74,7 +77,7 @@
            <bool>true</bool>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectionBehavior::SelectColumns</enum>
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
           </property>
           <property name="rootIsDecorated">
            <bool>false</bool>

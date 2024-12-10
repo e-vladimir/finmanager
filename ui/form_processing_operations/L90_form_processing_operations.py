@@ -13,6 +13,10 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.table_rules.customContextMenuRequested.connect(self.on_RequestShowMenuRules)
 		self.table_rules.doubleClicked.connect(self.on_RequestOpenRule)
 
+		# Дерево инструментов обработки
+		self.tree_tools.customContextMenuRequested.connect(self.on_RequestShowMenuTools)
+		self.tree_tools.doubleClicked.connect(self.on_RequestProcessingTreeTools_DbClick)
+
 		# Меню Типы правил
 		self.action_rules_types_description.triggered.connect(self.on_RequestSwitchRulesToDescription)
 		self.action_rules_types_destination.triggered.connect(self.on_RequestSwitchRulesToDestination)
@@ -26,6 +30,11 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.action_rules_rule_open.triggered.connect(self.on_RequestOpenRule)
 		self.action_rules_rule_delete.triggered.connect(self.on_RequestDeleteRule)
 
+		# Меню Инструменты обработки
+		self.action_tools_description_include_edit.triggered.connect(self.on_RequestEditToolsDescriptionInclude)
+		self.action_tools_description_applies_edit.triggered.connect(self.on_RequestEditToolsDescriptionApplies)
+		self.action_tools_description_processing.triggered.connect(self.on_RequestDescriptionProcessing)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -36,6 +45,14 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.InitModelRules()
 		self.ShowRules()
 		self.AdjustTableRules_Size()
+
+		self.InitModelTools()
+		self.LoadToolsDescriptionToModel()
+		self.LoadToolsDestinationToModel()
+		self.LoadToolsLabelsToModel()
+		self.AdjustTreeTools_Expand()
+		self.AdjustTreeTools_Color()
+		self.AdjustTreeTools_Size()
 
 	def on_Show(self):
 		""" Отображение формы """
@@ -76,6 +93,14 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 
 		self.ShowMenuRules()
 
+	# Меню инструментов обработки
+	def on_RequestShowMenuTools(self):
+		""" Запрос на отображение меню инструментов обработки """
+		self.AdjustMenuTools_Text()
+		self.AdjustMenuTools_Enable()
+
+		self.ShowMenuTools()
+
 	# Правила обработки
 	def on_RequestCreateRule(self):
 		""" Запрос создания правила """
@@ -102,3 +127,29 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.DeleteRule()
 		self.InitModelRules()
 		self.ShowRules()
+
+	# Обработка описания
+	def on_RequestEditToolsDescriptionInclude(self):
+		""" Запрос на редактирование Содержит обработки описания """
+		self.EditToolsDescriptionInclude()
+		
+		self.LoadToolsDescriptionToModel()
+
+	def on_RequestEditToolsDescriptionApplies(self):
+		""" Запрос на редактирование Применяется обработки описания """
+		self.EditToolsDescriptionApplies()
+
+		self.LoadToolsDescriptionToModel()
+
+	def on_RequestDescriptionProcessing(self):
+		""" Запрос на обработку описания """
+		self.ProcessingDescription()
+
+		self.application.form_operations.UpdateData()
+
+	# Дерево инструментов обработки
+	def on_RequestProcessingTreeTools_DbClick(self):
+		""" Запрос на обработку двойного клика по дереву инструментов """
+		self.ReadProcessingToolFromTreeTools()
+
+		self.ProcessingTreeTools_DbClick()

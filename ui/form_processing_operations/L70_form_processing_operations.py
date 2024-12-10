@@ -3,6 +3,7 @@
 from PySide6.QtGui                  import QCursor
 from PySide6.QtWidgets              import QHeaderView
 
+from L00_form_processing_operations import TOOLS
 from L60_form_processing_operations import C60_FormProcessingOperations
 from L90_rules                      import C90_ProcessingRule
 
@@ -28,6 +29,25 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 
 		self.table_rules.resizeRowsToContents()
 
+	# Дерево инструментов
+	def AdjustTreeTools_Size(self):
+		""" Дерево инструментов: Настройка размера """
+		self.tree_tools.resizeColumnToContents(0)
+
+	def AdjustTreeTools_Expand(self):
+		""" Дерево инструментов: Настройка раскрытия """
+		self.tree_tools.expandAll()
+
+	def AdjustTreeTools_Color(self):
+		""" Дерево инструментов: Настройка цвета """
+		self.model_tools.adjustGroupView(True, True, True)
+
+	def ProcessingTreeTools_DbClick(self):
+		""" Обработка двойного клика по дереву инструментов """
+		match self._processing_tool:
+			case TOOLS.DESCRIPTION_INCLUDE: self.on_RequestEditToolsDescriptionInclude()
+			case TOOLS.DESCRIPTION_APPLIES: self.on_RequestEditToolsDescriptionApplies()
+
 	# Меню правила обработки
 	def AdjustMenuRules_Enable(self):
 		""" Меню правил обработки: Настройка доступности """
@@ -51,3 +71,16 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 	def ShowMenuRules(self):
 		""" Отображение меню правил обработки """
 		self.menu_rules.exec_(QCursor().pos())
+
+	# Меню инструменты
+	def AdjustMenuTools_Enable(self):
+		""" Меню инструментов обработки: Настройка доступности """
+		pass
+
+	def AdjustMenuTools_Text(self):
+		""" Меню инструментов обработки: Настройка текстов """
+		pass
+
+	def ShowMenuTools(self):
+		""" Отображение меню инструментов обработки """
+		self.menu_tools.exec_(QCursor().pos())
