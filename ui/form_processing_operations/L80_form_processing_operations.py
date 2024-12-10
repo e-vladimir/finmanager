@@ -152,6 +152,33 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 
 		self._tools_destination_include = text
 
+	def SelectToolsDestinationInclude(self):
+		""" Выбор обработки назначения: Содержит """
+		dy, dm                       = self.workspace.DyDm()
+
+		operation                    = C90_Operation()
+		idc             : str        = operation.Idc().data
+		idp_dy          : str        = operation.f_dy.Idp().data
+		idp_dm          : str        = operation.f_dm.Idp().data
+		idp_destination : str        = operation.f_destination.Idp().data
+
+		filter_data                  = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		raw_data        : list[str]  = filter_data.ToStrings(idp_destination, True).data
+		data            : set[str]   = set()
+
+		for raw_subdata in raw_data:
+			data.add(raw_subdata)
+			data = data.union(set(raw_subdata.split(' ')))
+
+		text            : str | None = RequestText("Обработка назначения", "Назначение содержит:", self._tools_destination_include, list(sorted(data)))
+		if text is None: return
+
+		self._tools_destination_include = text
+
 	def EditToolsDestinationApplies(self):
 		""" Редактирование обработки назначения: Применяется """
 		text : str | None = RequestText("Обработка назначения", "Применяется:", self._tools_destination_applies)

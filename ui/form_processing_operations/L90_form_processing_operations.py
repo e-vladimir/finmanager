@@ -37,6 +37,7 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.action_tools_description_processing.triggered.connect(self.on_RequestDescriptionProcessing)
 
 		self.action_tools_destination_include_edit.triggered.connect(self.on_RequestEditToolsDestinationInclude)
+		self.action_tools_destination_include_select.triggered.connect(self.on_RequestSelectToolsDestinationInclude)
 		self.action_tools_destination_applies_edit.triggered.connect(self.on_RequestEditToolsDestinationApplies)
 		self.action_tools_destination_processing.triggered.connect(self.on_RequestDestinationProcessing)
 
@@ -162,6 +163,12 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 	def on_RequestEditToolsDestinationInclude(self):
 		""" Запрос на редактирование Содержит обработки назначения """
 		self.EditToolsDestinationInclude()
+
+		self.LoadToolsDestinationToModel()
+
+	def on_RequestSelectToolsDestinationInclude(self):
+		""" Запрос на выбор Содержит обработки назначения """
+		self.SelectToolsDestinationInclude()
 
 		self.LoadToolsDestinationToModel()
 
