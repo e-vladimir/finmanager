@@ -48,6 +48,9 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 			case TOOLS.DESCRIPTION_INCLUDE: self.on_RequestEditToolsDescriptionInclude()
 			case TOOLS.DESCRIPTION_APPLIES: self.on_RequestEditToolsDescriptionApplies()
 
+			case TOOLS.DESTINATION_INCLUDE: self.on_RequestEditToolsDestinationInclude()
+			case TOOLS.DESTINATION_APPLIES: self.on_RequestEditToolsDestinationApplies()
+
 	# Меню правила обработки
 	def AdjustMenuRules_Enable(self):
 		""" Меню правил обработки: Настройка доступности """
@@ -75,7 +78,14 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 	# Меню инструменты
 	def AdjustMenuTools_Enable(self):
 		""" Меню инструментов обработки: Настройка доступности """
-		pass
+		flag_description : bool = bool(self._tools_description_include)
+		self.action_tools_description_processing.setEnabled(flag_description)
+
+		flag_destination : bool = bool(self._tools_destination_include)
+		self.action_tools_destination_processing.setEnabled(flag_destination)
+
+		flag_labels      : bool = bool(self._tools_labels_include)
+		self.action_tools_labels_processing.setEnabled(flag_labels)
 
 	def AdjustMenuTools_Text(self):
 		""" Меню инструментов обработки: Настройка текстов """

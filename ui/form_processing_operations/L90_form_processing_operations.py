@@ -35,6 +35,10 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.action_tools_description_applies_edit.triggered.connect(self.on_RequestEditToolsDescriptionApplies)
 		self.action_tools_description_processing.triggered.connect(self.on_RequestDescriptionProcessing)
 
+		self.action_tools_destination_include_edit.triggered.connect(self.on_RequestEditToolsDestinationInclude)
+		self.action_tools_destination_applies_edit.triggered.connect(self.on_RequestEditToolsDestinationApplies)
+		self.action_tools_destination_processing.triggered.connect(self.on_RequestDestinationProcessing)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -144,6 +148,25 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 	def on_RequestDescriptionProcessing(self):
 		""" Запрос на обработку описания """
 		self.ProcessingDescription()
+
+		self.application.form_operations.UpdateData()
+
+	# Обработка назначения
+	def on_RequestEditToolsDestinationInclude(self):
+		""" Запрос на редактирование Содержит обработки назначения """
+		self.EditToolsDestinationInclude()
+
+		self.LoadToolsDestinationToModel()
+
+	def on_RequestEditToolsDestinationApplies(self):
+		""" Запрос на редактирование Применяется обработки назначения """
+		self.EditToolsDestinationApplies()
+
+		self.LoadToolsDestinationToModel()
+
+	def on_RequestDestinationProcessing(self):
+		""" Запрос на обработку назначения """
+		self.ProcessingDestination()
 
 		self.application.form_operations.UpdateData()
 

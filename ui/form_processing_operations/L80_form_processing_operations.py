@@ -114,3 +114,43 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 			operation.Description(description)
 
 		dialog_progress.close()
+
+	# Инструменты обработки назначения
+	def EditToolsDestinationInclude(self):
+		""" Редактирование обработки назначения: Содержит """
+		text : str | None = RequestText("Обработка назначения", "Назначение содержит:", self._tools_destination_include)
+		if text is None: return
+
+		self._tools_destination_include = text
+
+	def EditToolsDestinationApplies(self):
+		""" Редактирование обработки назначения: Применяется """
+		text : str | None = RequestText("Обработка назначения", "Применяется:", self._tools_destination_applies)
+		if text is None: return
+
+		self._tools_destination_applies = text
+
+	def ProcessingDestination(self):
+		""" Обработка назначения """
+		dy, dm           = self.workspace.DyDm()
+		operations       = C90_Operations()
+
+		idos : list[str] = operations.OperationsIdosInDyDmDd(dy, dm)
+
+		dialog_progress  = QProgressDialog(self)
+		dialog_progress.setWindowTitle("Обработка описания")
+		dialog_progress.setMaximum(len(idos))
+		dialog_progress.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum()} записей")
+		dialog_progress.setMinimumWidth(480)
+		dialog_progress.forceShow()
+
+		for ido in idos:
+			dialog_progress.setValue(dialog_progress.value() + 1)
+			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()} записей")
+
+			operation          = C90_Operation(ido)
+			destinations : str = operation.Destination().replace(self._tools_destination_include, self._tools_destination_applies)
+			operation.Destination(destinations)
+
+		dialog_progress.close()
