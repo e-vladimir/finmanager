@@ -80,6 +80,7 @@ class C70_FormAccounts(C60_FormAccounts):
 		self.action_account_group_transfer_prev_dm.setEnabled(flag_selected_group)
 		self.action_account_group_transfer_next_dm.setEnabled(flag_selected_group)
 
+		self.action_account_set_balance_initial.setEnabled(flag_selected_account)
 		self.action_account_rename.setEnabled(flag_selected_account)
 		self.action_account_delete.setEnabled(flag_selected_account)
 		self.action_account_change_group.setEnabled(flag_selected_account)
