@@ -219,7 +219,7 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 
 		match self._tools_labels_mode:
 			case MODES.REPLACE: caption = "Метки содержат:"
-			case MODES.APPEND : caption = "Описание или назначение содержит:"
+			case MODES.APPEND : caption = "Назначение содержит:"
 			case MODES.EXPAND : caption = "Метки содержат:"
 
 		texts : list[str] | None = RequestMultipleText("Обработка меток", caption, self._tools_labels_include)
@@ -235,7 +235,6 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 		idc             : str        = operation.Idc().data
 		idp_dy          : str        = operation.f_dy.Idp().data
 		idp_dm          : str        = operation.f_dm.Idp().data
-		idp_description : str        = operation.f_description.Idp().data
 		idp_destination : str        = operation.f_destination.Idp().data
 		idp_labels      : str        = operation.f_labels.Idp().data
 
@@ -251,8 +250,7 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 				raw_data = filter_data.ToStrings(idp_labels, True).data
 
 			case MODES.APPEND :
-				raw_data = filter_data.ToStrings(idp_description, True).data
-				raw_data.extend(filter_data.ToStrings(idp_destination, True).data)
+				raw_data = filter_data.ToStrings(idp_destination, True).data
 
 			case MODES.EXPAND :
 				raw_data = filter_data.ToStrings(idp_labels, True).data
@@ -341,8 +339,7 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 			dialog_progress.setLabelText(f"Осталось обработать: {dialog_progress.maximum() - dialog_progress.value()} записей")
 
 			operation              = C90_Operation(ido)
-			destination : str      = operation.Destination()
-			description : str      = operation.Description()
+			destination : str      = operation.Destination().lower()
 			labels      : set[str] = set(operation.Labels())
 
 			match self._tools_labels_mode:
@@ -361,10 +358,7 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 
 				case MODES.APPEND:
 					for label_include in self._tools_labels_include:
-						result_exist : bool = label_include in description
-						result_exist       |= label_include in destination
-
-						if not result_exist: continue
+						if label_include.lower() not in destination: continue
 
 						labels.update(self._tools_labels_applies)
 

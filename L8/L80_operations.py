@@ -113,8 +113,7 @@ class C80_Operation(C70_Operation):
 	def ApplyDetectLabels(self):
 		""" Применение правил определения меток """
 		labels      : set[str] = set(self.Labels())
-		destination : str      = self.Destination()
-		description : str      = self.Description()
+		destination : str      = self.Destination().lower()
 
 		rules                  = C90_ProcessingRules()
 
@@ -125,9 +124,7 @@ class C80_Operation(C70_Operation):
 			data_outputs : list[str] = rule.OutputAsStrings()
 
 			for data_input in data_inputs:
-				if   data_input in description: pass
-				elif data_input in destination: pass
-				else                          :	continue
+				if data_input.lower() not in destination: continue
 
 				labels.update(data_outputs)
 

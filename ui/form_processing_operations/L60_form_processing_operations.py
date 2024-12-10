@@ -168,7 +168,7 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 			item_group.appendRow([item_field, item_space])
 
 		if not self.model_tools.checkIdo(TOOLS.LABELS_INCLUDE):
-			item_field = C20_StandardItem("Описание или назначение содержит")
+			item_field = C20_StandardItem("Назначение содержит")
 			item_field.setData(TOOLS.LABELS_INCLUDE, ROLES.IDO)
 			item_field.setData(TOOLS.GROUP_LABELS,   ROLES.GROUP)
 
@@ -198,7 +198,7 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 
 		match self._tools_labels_mode:
 			case MODES.REPLACE:	item_title.setText("Метки содержат")
-			case MODES.APPEND :	item_title.setText("Описание или назначение содержит")
+			case MODES.APPEND :	item_title.setText("Назначение содержит")
 			case MODES.EXPAND :	item_title.setText("Метки содержат")
 
 		item_value : C20_StandardItem       = self.model_tools.itemFromIndex(indexes[1])
