@@ -41,6 +41,15 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.action_tools_destination_applies_edit.triggered.connect(self.on_RequestEditToolsDestinationApplies)
 		self.action_tools_destination_processing.triggered.connect(self.on_RequestDestinationProcessing)
 
+		self.action_tools_labels_include_edit.triggered.connect(self.on_RequestEditToolsLabelsInclude)
+		self.action_tools_labels_include_select.triggered.connect(self.on_RequestSelectToolsLabelsInclude)
+		self.action_tools_labels_applies_edit.triggered.connect(self.on_RequestEditToolsLabelsApplies)
+		self.action_tools_labels_processing.triggered.connect(self.on_RequestLabelsProcessing)
+
+		self.action_tools_labels_mode_replace.triggered.connect(self.on_RequestSwitchToolsLabelsModeToReplace)
+		self.action_tools_labels_mode_append.triggered.connect(self.on_RequestSwitchToolsLabelsModeToAppend)
+		self.action_tools_labels_mode_expand.triggered.connect(self.on_RequestSwitchToolsLabelsModeToExpand)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -183,6 +192,52 @@ class C90_FormProcessingOperations(C80_FormProcessingOperations):
 		self.ProcessingDestination()
 
 		self.application.form_operations.UpdateData()
+
+	# Обработка меток
+	def on_RequestEditToolsLabelsInclude(self):
+		""" Запрос на редактирование Содержит обработки меток """
+		self.EditToolsLabelsInclude()
+
+		self.LoadToolsLabelsToModel()
+
+	def on_RequestSelectToolsLabelsInclude(self):
+		""" Запрос на редактирование Содержит обработки меток """
+		self.SelectToolsLabelsInclude()
+
+		self.LoadToolsLabelsToModel()
+
+	def on_RequestEditToolsLabelsApplies(self):
+		""" Запрос на редактирование Применяется обработки меток """
+		self.EditToolsLabelsApplies()
+
+		self.LoadToolsLabelsToModel()
+
+	def on_RequestDestinationLabels(self):
+		""" Запрос на обработку меток """
+		self.ProcessingLabels()
+
+		self.application.form_operations.UpdateData()
+
+	def on_RequestSwitchToolsLabelsModeToReplace(self):
+		""" Запрос на смену режима обработки Меток """
+		self.SwitchProcessingLabelsModeToReplace()
+
+		self.LoadToolsLabelsToModel()
+		self.AdjustTreeTools_Size()
+
+	def on_RequestSwitchToolsLabelsModeToAppend(self):
+		""" Запрос на смену режима обработки Меток """
+		self.SwitchProcessingLabelsModeToAppend()
+
+		self.LoadToolsLabelsToModel()
+		self.AdjustTreeTools_Size()
+
+	def on_RequestSwitchToolsLabelsModeToExpand(self):
+		""" Запрос на смену режима обработки Меток """
+		self.SwitchProcessingLabelsModeToExpand()
+
+		self.LoadToolsLabelsToModel()
+		self.AdjustTreeTools_Size()
 
 	# Дерево инструментов обработки
 	def on_RequestProcessingTreeTools_DbClick(self):

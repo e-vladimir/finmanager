@@ -51,6 +51,9 @@ class C70_FormProcessingOperations(C60_FormProcessingOperations):
 			case TOOLS.DESTINATION_INCLUDE: self.on_RequestEditToolsDestinationInclude()
 			case TOOLS.DESTINATION_APPLIES: self.on_RequestEditToolsDestinationApplies()
 
+			case TOOLS.LABELS_INCLUDE     : self.on_RequestEditToolsLabelsInclude()
+			case TOOLS.LABELS_APPLIES     : self.on_RequestEditToolsLabelsApplies()
+
 	# Меню правила обработки
 	def AdjustMenuRules_Enable(self):
 		""" Меню правил обработки: Настройка доступности """

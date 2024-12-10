@@ -189,20 +189,18 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 
 			item_group.appendRow([item_field, item_space])
 
-			self.model_tools.fastAppendRow(["", ""])
-
 		indexes                             = self.model_tools.indexesInRowByIdo(TOOLS.LABELS_MODE)
-		item_title : C20_StandardItem       = self.model_tools.itemFromIndex(indexes[0])
-
-		match self._tools_labels_mode:
-			case MODES.REPLACE:	item_title.setText("Метки содержит")
-			case MODES.APPEND :	item_title.setText("Описание или назначение содержит")
-			case MODES.EXPAND :	item_title.setText("Метки содержит")
-
 		item_value : C20_StandardItem       = self.model_tools.itemFromIndex(indexes[1])
 		item_value.setText(f"{self._tools_labels_mode.value}")
 
 		indexes                             = self.model_tools.indexesInRowByIdo(TOOLS.LABELS_INCLUDE)
+		item_title : C20_StandardItem       = self.model_tools.itemFromIndex(indexes[0])
+
+		match self._tools_labels_mode:
+			case MODES.REPLACE:	item_title.setText("Метки содержат")
+			case MODES.APPEND :	item_title.setText("Описание или назначение содержит")
+			case MODES.EXPAND :	item_title.setText("Метки содержат")
+
 		item_value : C20_StandardItem       = self.model_tools.itemFromIndex(indexes[1])
 		item_value.setText('\n'.join(self._tools_labels_include))
 
@@ -240,3 +238,15 @@ class C60_FormProcessingOperations(C50_FormProcessingOperations):
 		""" Чтение текущего инструмента из дерева инструментов """
 		current_index = self.tree_tools.currentIndex()
 		self._processing_tool = current_index.data(ROLES.IDO)
+
+	def SwitchProcessingLabelsModeToReplace(self):
+		""" Переключение режима обработки меток на Замена """
+		self._tools_labels_mode = MODES.REPLACE
+
+	def SwitchProcessingLabelsModeToAppend(self):
+		""" Переключение режима обработки меток на Добавление """
+		self._tools_labels_mode = MODES.APPEND
+
+	def SwitchProcessingLabelsModeToExpand(self):
+		""" Переключение режима обработки меток на Расширение """
+		self._tools_labels_mode = MODES.EXPAND

@@ -6,9 +6,10 @@ from PySide6.QtWidgets              import QProgressDialog
 from G30_cactus_datafilters         import C30_FilterLinear1D
 
 from L00_containers                 import CONTAINERS
+from L00_form_processing_operations import MODES
 from L00_rules                      import RULES
 
-from L20_PySide6                    import RequestConfirm, RequestText
+from L20_PySide6 import RequestConfirm, RequestItems, RequestMultipleText, RequestText
 from L70_form_processing_operations import C70_FormProcessingOperations
 from L90_operations                 import C90_Operation, C90_Operations
 from L90_rules                      import C90_ProcessingRule
@@ -210,3 +211,87 @@ class C80_FormProcessingOperations(C70_FormProcessingOperations):
 			operation.Destination(destinations)
 
 		dialog_progress.close()
+
+	# Инструменты обработки меток
+	def EditToolsLabelsInclude(self):
+		""" Редактирование параметра Содержит обработки меток """
+		caption  : str = ""
+
+		match self._tools_labels_mode:
+			case MODES.REPLACE: caption = "Метки содержат:"
+			case MODES.APPEND : caption = "Описание или назначение содержит:"
+			case MODES.EXPAND : caption = "Метки содержат:"
+
+		texts : list[str] | None = RequestMultipleText("Обработка меток", caption, self._tools_labels_include)
+		if texts is None: return
+
+		self._tools_labels_include = list(filter(bool, sorted(texts)))
+
+	def SelectToolsLabelsInclude(self):
+		""" Выбор обработки назначения: Содержит """
+		dy, dm                       = self.workspace.DyDm()
+
+		operation                    = C90_Operation()
+		idc             : str        = operation.Idc().data
+		idp_dy          : str        = operation.f_dy.Idp().data
+		idp_dm          : str        = operation.f_dm.Idp().data
+		idp_description : str        = operation.f_description.Idp().data
+		idp_destination : str        = operation.f_destination.Idp().data
+		idp_labels      : str        = operation.f_labels.Idp().data
+
+		filter_data                  = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		raw_data        : list[str]  = []
+
+		match self._tools_labels_mode:
+			case MODES.REPLACE:
+				raw_data = filter_data.ToStrings(idp_labels, True).data
+
+			case MODES.APPEND :
+				raw_data = filter_data.ToStrings(idp_description, True).data
+				raw_data.extend(filter_data.ToStrings(idp_destination, True).data)
+
+			case MODES.EXPAND :
+				raw_data = filter_data.ToStrings(idp_labels, True).data
+
+		data            : set[str]   = set()
+
+		for raw_subdata in raw_data:
+			match self._tools_labels_mode:
+				case MODES.REPLACE:
+					data = data.union(set(raw_subdata.split('\n')))
+
+				case MODES.APPEND:
+					data = data.union(set(raw_subdata.split(' ')))
+
+				case MODES.EXPAND:
+					data = data.union(set(raw_subdata.split('\n')))
+
+		try   : data.remove('')
+		except: pass
+
+		caption         : str        = ""
+
+		match self._tools_labels_mode:
+			case MODES.REPLACE: caption = "Метки содержат:"
+			case MODES.APPEND : caption = "Описание или назначение содержит:"
+			case MODES.EXPAND : caption = "Метки содержат:"
+
+		texts           : list[str] | None = RequestItems("Обработка меток", caption, list(sorted(data)), self._tools_labels_include)
+		if texts is None: return
+
+		self._tools_labels_include = texts
+
+	def EditToolsLabelsApplies(self):
+		""" Редактирование параметра Применяется обработки меток """
+		texts : list[str] | None = RequestMultipleText("Обработка меток", "Применяются метки:", self._tools_labels_applies)
+		if texts is None: return
+
+		self._tools_labels_applies = list(filter(bool, sorted(texts)))
+
+	def ProcessingLabels(self):
+		""" Обработка меток """
+		pass
