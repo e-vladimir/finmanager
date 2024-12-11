@@ -33,3 +33,28 @@ class C80_Statistic(C70_Statistic):
 			result.append(T20_StatisticItem(label, amount_income, amount_outcome))
 
 		return result
+
+	def CaptureDataInDmByLabels(self, dy: int, dm: int, labels: list[str]) -> list[T20_StatisticItem]:
+		""" Сбор данных по указанным меткам в пределах месяца """
+		operations                           = C90_Operations()
+
+		data   : defaultdict[str, list[int]] = defaultdict(list)
+
+		for ido in operations.OperationsIdosInDyDmDd(dy, dm):
+			operation          = C90_Operation(ido)
+
+			amount           : int       = int(operation.Amount())
+			labels_operation : list[str] = operation.Labels()
+
+			if not len(set(labels_operation).intersection(set(labels))) == len(labels): continue
+
+			for label in labels_operation: data[label].append(amount)
+
+		result : list[T20_StatisticItem]     = []
+		for label, amounts in data.items():
+			amount_income  : int = sum(filter(lambda amount: amount > 0, amounts))
+			amount_outcome : int = sum(filter(lambda amount: amount < 0, amounts))
+
+			result.append(T20_StatisticItem(label, amount_income, amount_outcome))
+
+		return result

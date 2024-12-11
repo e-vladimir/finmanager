@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_statisticAZjSCA.ui'
+## Form generated from reading UI file 'form_statisticYvPyVF.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -51,6 +51,23 @@ class Ui_frm_statistic(object):
         self.verticalLayout_2.addWidget(self.table_statistic)
 
         self.tabs_main.addTab(self.tab_statistic, "")
+        self.tab_statistic_struct = QWidget()
+        self.tab_statistic_struct.setObjectName(u"tab_statistic_struct")
+        self.verticalLayout_4 = QVBoxLayout(self.tab_statistic_struct)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.tree_statistic_struct = QTreeView(self.tab_statistic_struct)
+        self.tree_statistic_struct.setObjectName(u"tree_statistic_struct")
+        self.tree_statistic_struct.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tree_statistic_struct.setAlternatingRowColors(True)
+        self.tree_statistic_struct.setRootIsDecorated(False)
+        self.tree_statistic_struct.setItemsExpandable(True)
+        self.tree_statistic_struct.header().setVisible(True)
+        self.tree_statistic_struct.header().setMinimumSectionSize(30)
+        self.tree_statistic_struct.header().setStretchLastSection(False)
+
+        self.verticalLayout_4.addWidget(self.tree_statistic_struct)
+
+        self.tabs_main.addTab(self.tab_statistic_struct, "")
         self.tab_analytics = QWidget()
         self.tab_analytics.setObjectName(u"tab_analytics")
         self.verticalLayout_3 = QVBoxLayout(self.tab_analytics)
@@ -89,6 +106,7 @@ class Ui_frm_statistic(object):
     def retranslateUi(self, frm_statistic):
         frm_statistic.setWindowTitle(QCoreApplication.translate("frm_statistic", u"MainWindow", None))
         self.tabs_main.setTabText(self.tabs_main.indexOf(self.tab_statistic), QCoreApplication.translate("frm_statistic", u"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
+        self.tabs_main.setTabText(self.tabs_main.indexOf(self.tab_statistic_struct), QCoreApplication.translate("frm_statistic", u"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430 (\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u043d\u0430\u044f)", None))
         self.tabs_main.setTabText(self.tabs_main.indexOf(self.tab_analytics), QCoreApplication.translate("frm_statistic", u"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430 (\u0431\u0430\u0437\u043e\u0432\u0430\u044f)", None))
     # retranslateUi
 

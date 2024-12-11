@@ -73,6 +73,38 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="tab_statistic_struct">
+       <attribute name="title">
+        <string>Статистика (структурная)</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <widget class="QTreeView" name="tree_statistic_struct">
+          <property name="editTriggers">
+           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="rootIsDecorated">
+           <bool>false</bool>
+          </property>
+          <property name="itemsExpandable">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerVisible">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="headerMinimumSectionSize">
+           <number>30</number>
+          </attribute>
+          <attribute name="headerStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="tab_analytics">
        <attribute name="title">
         <string>Аналитика (базовая)</string>

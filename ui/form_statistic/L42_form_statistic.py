@@ -1,6 +1,6 @@
 # ФОРМА СТАТИСТИКА: МОДЕЛЬ ДАННЫХ
 
-from L20_PySide6        import C20_StandardItemModel
+from L20_PySide6        import C20_StandardItem, C20_StandardItemModel
 from L41_form_statistic import C41_FormStatistic
 from L90_statistic      import C90_Statistic
 from L90_workspace      import C90_Workspace
@@ -12,16 +12,19 @@ class C42_FormStatistic(C41_FormStatistic):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_ido : str = ""
+		self._processing_ido    : str                     = ""
+		self._processing_item   : C20_StandardItem | None = None
+		self._processing_labels : list[str]               = []
 
 	def Init_10(self):
 		super().Init_10()
 
-		self.model_statistic = C20_StandardItemModel()
-		self.model_analytics = C20_StandardItemModel()
+		self.model_statistic        = C20_StandardItemModel()
+		self.model_statistic_struct = C20_StandardItemModel()
+		self.model_analytics        = C20_StandardItemModel()
 
-		self.statistic       = C90_Statistic()
-		self.workspace       = C90_Workspace()
+		self.statistic              = C90_Statistic()
+		self.workspace              = C90_Workspace()
 
 	def Init_11(self):
 		super().Init_11()
@@ -32,4 +35,5 @@ class C42_FormStatistic(C41_FormStatistic):
 		super().Init_20()
 
 		self.table_statistic.setModel(self.model_statistic)
+		self.tree_statistic_struct.setModel(self.model_statistic_struct)
 		self.tree_analytics.setModel(self.model_analytics)
