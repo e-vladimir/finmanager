@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_statisticUFGyoJ.ui'
+## Form generated from reading UI file 'form_statisticAZjSCA.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHeaderView, QMainWindow,
     QSizePolicy, QStatusBar, QTabWidget, QTableView,
-    QVBoxLayout, QWidget)
+    QTreeView, QVBoxLayout, QWidget)
 
 class Ui_frm_statistic(object):
     def setupUi(self, frm_statistic):
@@ -51,6 +51,25 @@ class Ui_frm_statistic(object):
         self.verticalLayout_2.addWidget(self.table_statistic)
 
         self.tabs_main.addTab(self.tab_statistic, "")
+        self.tab_analytics = QWidget()
+        self.tab_analytics.setObjectName(u"tab_analytics")
+        self.verticalLayout_3 = QVBoxLayout(self.tab_analytics)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.tree_analytics = QTreeView(self.tab_analytics)
+        self.tree_analytics.setObjectName(u"tree_analytics")
+        self.tree_analytics.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tree_analytics.setStyleSheet(u"QTreeView::branch { \n"
+"	border: none; \n"
+"}")
+        self.tree_analytics.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tree_analytics.setAlternatingRowColors(True)
+        self.tree_analytics.setRootIsDecorated(False)
+        self.tree_analytics.header().setMinimumSectionSize(30)
+        self.tree_analytics.header().setStretchLastSection(False)
+
+        self.verticalLayout_3.addWidget(self.tree_analytics)
+
+        self.tabs_main.addTab(self.tab_analytics, "")
 
         self.verticalLayout.addWidget(self.tabs_main)
 
@@ -61,7 +80,7 @@ class Ui_frm_statistic(object):
 
         self.retranslateUi(frm_statistic)
 
-        self.tabs_main.setCurrentIndex(0)
+        self.tabs_main.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(frm_statistic)
@@ -70,5 +89,6 @@ class Ui_frm_statistic(object):
     def retranslateUi(self, frm_statistic):
         frm_statistic.setWindowTitle(QCoreApplication.translate("frm_statistic", u"MainWindow", None))
         self.tabs_main.setTabText(self.tabs_main.indexOf(self.tab_statistic), QCoreApplication.translate("frm_statistic", u"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
+        self.tabs_main.setTabText(self.tabs_main.indexOf(self.tab_analytics), QCoreApplication.translate("frm_statistic", u"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430 (\u0431\u0430\u0437\u043e\u0432\u0430\u044f)", None))
     # retranslateUi
 

@@ -33,7 +33,7 @@
     <item>
      <widget class="QTabWidget" name="tabs_main">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_statistic">
        <attribute name="title">
@@ -68,6 +68,40 @@
           </attribute>
           <attribute name="verticalHeaderStretchLastSection">
            <bool>true</bool>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_analytics">
+       <attribute name="title">
+        <string>Аналитика (базовая)</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTreeView" name="tree_analytics">
+          <property name="contextMenuPolicy">
+           <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QTreeView::branch { 
+	border: none; 
+}</string>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="rootIsDecorated">
+           <bool>false</bool>
+          </property>
+          <attribute name="headerMinimumSectionSize">
+           <number>30</number>
+          </attribute>
+          <attribute name="headerStretchLastSection">
+           <bool>false</bool>
           </attribute>
          </widget>
         </item>

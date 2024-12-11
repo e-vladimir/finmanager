@@ -9,10 +9,16 @@ from L90_workspace      import C90_Workspace
 class C42_FormStatistic(C41_FormStatistic):
 	""" Форма Статистика: Модель данных """
 
+	def Init_00(self):
+		super().Init_00()
+
+		self._processing_ido : str = ""
+
 	def Init_10(self):
 		super().Init_10()
 
 		self.model_statistic = C20_StandardItemModel()
+		self.model_analytics = C20_StandardItemModel()
 
 		self.statistic       = C90_Statistic()
 		self.workspace       = C90_Workspace()
@@ -26,3 +32,4 @@ class C42_FormStatistic(C41_FormStatistic):
 		super().Init_20()
 
 		self.table_statistic.setModel(self.model_statistic)
+		self.tree_analytics.setModel(self.model_analytics)

@@ -9,9 +9,16 @@ class C90_FormStatistic(C80_FormStatistic):
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
+		self.SwitchPagesToFirst()
+
 		self.ShowTitle()
 
 		self.InitModelStatistic()
 		self.LoadStatisticInModelStatistic()
 		self.AdjustTableStatistic_Size()
 		self.AdjustTableStatistic_Sort()
+
+		self.InitModelAnalytics()
+		self.ShowAnalytics()
+		self.AdjustTreeAnalytics_Size()
+		self.AdjustTreeAnalytics_Sort()
