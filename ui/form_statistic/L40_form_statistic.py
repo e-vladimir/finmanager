@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_statisticNpYWTY.ui'
+## Form generated from reading UI file 'form_statisticUFGyoJ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -43,6 +43,7 @@ class Ui_frm_statistic(object):
         self.table_statistic.setAlternatingRowColors(True)
         self.table_statistic.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.table_statistic.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.table_statistic.verticalHeader().setVisible(False)
         self.table_statistic.verticalHeader().setMinimumSectionSize(20)
         self.table_statistic.verticalHeader().setDefaultSectionSize(20)
         self.table_statistic.verticalHeader().setStretchLastSection(True)
