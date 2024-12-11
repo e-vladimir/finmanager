@@ -9,7 +9,8 @@ from L90_form_main                                    import C90_FormMain
 from L90_form_operation                               import C90_FormOperation
 from L90_form_operations                              import C90_FormOperations
 from L90_form_processing_operations                   import C90_FormProcessingOperations
-from ui.form_processing_rule.L90_form_processing_rule import C90_FormProcessingRule
+from L90_form_statistic                               import C90_FormStatistic
+from L90_form_processing_rule                         import C90_FormProcessingRule
 
 
 class C40_Application(C20_PySideApplication):
@@ -27,3 +28,4 @@ class C40_Application(C20_PySideApplication):
 		self.form_export                = C90_FormExport(self)
 		self.form_processing_operations = C90_FormProcessingOperations(self)
 		self.form_processing_rule       = C90_FormProcessingRule(self)
+		self.form_statistic             = C90_FormStatistic(self)
