@@ -1,6 +1,6 @@
 # ФОРМА ЭКСПОРТ ДАННЫХ: МЕХАНИКА ДАННЫХ
 
-from PyQt5.QtCore      import QModelIndex
+from PySide6.QtCore    import QModelIndex
 
 from L00_months        import MONTHS
 from L00_struct_export import EXPORT_ID, EXPORT_MODE_DATE, EXPORT_MODE_ACCOUNTS
