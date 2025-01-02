@@ -4,3 +4,4 @@ pyexcel-xlsx
 pyexcel-xls
 pyexcel-ods
 PySide6
+PyPDF2

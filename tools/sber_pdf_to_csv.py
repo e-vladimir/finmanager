@@ -57,11 +57,11 @@ with open('sber_input.pdf', 'rb') as file_input:
 
 
 with open("sber_outup.csv", "w") as file_output:
+	file_output.write(';'.join(["Дата", "Время", "Сумма", "Тип операции", "Описание"]) + ';\n')
+
 	for data_item in data:
 		data_items            = data_item.split(' ')
 		if not data_items: continue
-
-		file_output.write(';'.join(["Дата", "Время", "Сумма", "Тип операции", "Описание"]) + ';\n')
 
 		operation_date        = data_items[0]
 		operation_time        = data_items[1]
