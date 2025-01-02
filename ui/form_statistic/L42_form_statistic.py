@@ -19,9 +19,7 @@ class C42_FormStatistic(C41_FormStatistic):
 	def Init_10(self):
 		super().Init_10()
 
-		self.model_statistic        = C20_StandardItemModel()
 		self.model_statistic_struct = C20_StandardItemModel()
-		self.model_analytics        = C20_StandardItemModel()
 
 		self.statistic              = C90_Statistic()
 		self.workspace              = C90_Workspace()
@@ -34,6 +32,4 @@ class C42_FormStatistic(C41_FormStatistic):
 	def Init_20(self):
 		super().Init_20()
 
-		self.table_statistic.setModel(self.model_statistic)
 		self.tree_statistic_struct.setModel(self.model_statistic_struct)
-		self.tree_analytics.setModel(self.model_analytics)

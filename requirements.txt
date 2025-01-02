@@ -1,2 +1,6 @@
 natsort
 pyexcel
+pyexcel-xlsx
+pyexcel-xls
+pyexcel-ods
+PySide6

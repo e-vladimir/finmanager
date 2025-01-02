@@ -19,22 +19,12 @@ class C90_FormStatistic(C80_FormStatistic):
 
 		self.ShowTitle()
 
-		self.InitModelStatistic()
-		self.LoadStatisticInModelStatistic()
-		self.AdjustTableStatistic_Size()
-		self.AdjustTableStatistic_Sort()
-
 		self.InitModelStatisticStruct()
 		self.ReadProcessingItemFromTreeStatisticStruct()
 		self.ReadProcessingLabelsFromCurrentItem()
 		self.LoadModelStatisticStruct()
 		self.AdjustTreeStatisticStruct_Size()
 		self.AdjustTreeStatisticStruct_Sort()
-
-		self.InitModelAnalytics()
-		self.ShowAnalytics()
-		self.AdjustTreeAnalytics_Size()
-		self.AdjustTreeAnalytics_Sort()
 
 	# Дерево структуры статистики
 	def on_RequestExpandStatistic(self):
