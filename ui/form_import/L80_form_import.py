@@ -134,7 +134,7 @@ class C80_FormImport(C70_FormImport):
 
 			description     : str             = raw_description
 			destination     : str             = raw_destination
-			labels          : list[str]       = raw_labels.split(',')
+			labels          : list[str]       = raw_labels.replace(',', ' ').replace('  ', ' ').split(' ')
 
 			dy              : int             = date.year
 			dm              : int             = date.month
