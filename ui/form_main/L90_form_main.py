@@ -27,6 +27,7 @@ class C90_FormMain(C80_FormMain):
 
 		# Панель Утилиты
 		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
+		self.btn_report_summary.clicked.connect(self.on_RequestSummaryReport)
 
 	# Форма
 	def on_Open(self):
@@ -86,3 +87,7 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestGenerateReportDm(self):
 		""" Запрос генерации отчёта за месяц """
 		self.GenerateReportDm()
+
+	def on_RequestSummaryReport(self):
+		""" Запрос генерации сводного отчёта """
+		self.GenerateReportSummary()

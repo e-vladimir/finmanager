@@ -4,6 +4,7 @@ from pathlib            import Path
 
 from fpdf import Align
 
+from G10_datetime import CurrentDy
 from G11_convertor_data import AmountToString
 from L00_months         import MONTHS
 from L30_reports_fpdf   import C30_ProcessorReportsFpdf2
@@ -124,4 +125,44 @@ class C80_Report(C70_Report):
 
 	def GenerateReportBalanceForAllDm(self):
 		""" Генерация отчёта по остаткам за все периоды """
-		pass
+		account_names : list[str] = self.accounts.AccountsNames()
+		if not account_names: return
+
+		dy_start : int = self.operations.DyStart()
+		if not dy_start     : return
+
+		generator_pdf  = C30_ProcessorReportsFpdf2()
+		generator_pdf.LoadFonts(Path("./L0/fonts"))
+
+		generator_pdf.info_document.title    = f"Отчёт по остаткам за все периоды"
+
+		for idx_account, account_name in enumerate(account_names):
+			table_header : list[str]       = []
+			table_header.append("Месяц")
+			table_header.append("Остаток начальный")
+
+			table_data   : list[list[str]] = []
+
+			for dy in reversed(range(dy_start, CurrentDy())):
+				for dm in reversed(range(1, 13)):
+					account = C90_Account()
+					if not account.SwitchByNameInDyDm(dy, dm, account_name): continue
+
+					subdata : list[str] = []
+					subdata.append(f"{MONTHS(dm).name_short} {dy}")
+					subdata.append(AmountToString(account.BalanceInitial()))
+
+					table_data.append(subdata)
+
+			if not table_data: continue
+
+			generator_pdf.NewPage()
+			generator_pdf.AppendH2(f"{account_name}")
+			generator_pdf.AppendTable(description = "",
+			                          header      = table_header,
+			                          data        = table_data,
+			                          sizes       = [100],
+			                          aligns      = [Align.L, Align.R])
+
+		filename: str = f"Отчёт по остаткам (Все периоды).pdf"
+		generator_pdf.SaveToPdf(Path(f"./reports/{filename}"))

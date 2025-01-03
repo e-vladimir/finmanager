@@ -255,6 +255,18 @@ class C80_Accounts(C70_Accounts):
 
 		return filter_accounts.ToStrings(idp_name, True, True).data
 
+	def AccountsNames(self) -> list[str]:
+		""" Список всех счетов """
+		account         = C80_Account()
+
+		idc      : str  = account.Idc().data
+		idp_name : str  = account.f_name.Idp().data
+
+		filter_accounts = C30_FilterLinear1D(idc)
+		filter_accounts.Capture(CONTAINERS.DISK)
+
+		return filter_accounts.ToStrings(idp_name, True, True).data
+
 	# Группа счетов
 	def GroupsNamesInDyDm(self, dy: int, dm: int = None) -> list[str]:
 		""" Список названий групп счетов в указанном периоде """

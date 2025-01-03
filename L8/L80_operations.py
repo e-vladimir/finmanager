@@ -208,3 +208,16 @@ class C80_Operations(C70_Operations):
 		operation.ApplyAutoreplaceDescription()
 
 		return True
+
+	# Периоды
+	def DyStart(self) -> int:
+		""" Начало года операций """
+		operation          = C80_Operation()
+		idc    : str       = operation.Idc().data
+		idp_dy : str       = operation.f_dy.Idp().data
+
+		filter_data        = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		dys    : list[int] = filter_data.ToIntegers(idp_dy, True, True).data
+		return 0 if not dys else min(dys)

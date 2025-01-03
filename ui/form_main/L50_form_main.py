@@ -19,3 +19,4 @@ class C50_FormMain(C42_FormMain):
 
 	# Панель отчётности
 	def on_RequestGenerateReportDm(self): pass
+	def on_RequestSummaryReport(self): pass
