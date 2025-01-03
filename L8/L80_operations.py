@@ -59,7 +59,7 @@ class C80_Operation(C70_Operation):
 	def DdDmDyToString(self) -> str:
 		""" ДД МЕС ГОД """
 		dd : str = f"{self.Dd():02d}"
-		dm : str = MONTHS(self.Dm()).name_s
+		dm : str = MONTHS(self.Dm()).name_short
 		dy : str = f"{self.Dy():04d}"
 
 		return f"{dd} {dm} {dy}"

@@ -10,7 +10,7 @@ class C80_Workspace(C70_Workspace):
 	# Рабочий период
 	def DmDyToString(self) -> str:
 		""" МЕС ГОД """
-		dm : str = MONTHS(self.Dm()).name_s
+		dm : str = MONTHS(self.Dm()).name_short
 		dy : str = f"{self.Dy():04d}"
 
 		return f"{dm} {dy}"

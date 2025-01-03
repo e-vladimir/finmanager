@@ -10,6 +10,8 @@ class C90_Application(C80_Application):
 		""" Инициализация приложения """
 		super().on_Inited()
 
+		self.InitReports()
+
 		self.InitArchives()
 		self.CopyDataToArchive(True)
 

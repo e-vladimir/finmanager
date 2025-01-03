@@ -36,6 +36,15 @@ class C60_Application(C50_Application):
 		container_disk.OptionsFilename("data")
 		container_disk.Connect()
 
+	# Отчётность
+	def InitReports(self):
+		""" Инициализация отчётности """
+		path_reports : Path = self._path_common.joinpath("reports")
+
+		if path_reports.exists(): return
+
+		mkdir(path_reports)
+
 	# Структура данных
 	def InitData(self):
 		""" Инициализация данных """

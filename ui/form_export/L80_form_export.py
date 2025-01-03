@@ -46,7 +46,7 @@ class C80_FormExport(C70_FormExport):
 				except: return
 
 			case EXPORT_MODE_DATE.DM:
-				dydm_raw: str | None = RequestText("Рабочий период", "Месяц экспорта финансовых операций: МЕС ГОД", f"{MONTHS(self._operations_input_dm).name_s} {self._operations_input_dy}")
+				dydm_raw: str | None = RequestText("Рабочий период", "Месяц экспорта финансовых операций: МЕС ГОД", f"{MONTHS(self._operations_input_dm).name_short} {self._operations_input_dy}")
 				if dydm_raw is None: return
 
 				try:

@@ -22,6 +22,9 @@ class C90_FormMain(C80_FormMain):
 		# Панель Аналитика
 		self.btn_statistic.clicked.connect(self.on_RequestOpenFormStatistic)
 
+		# Панель Отчётность
+		self.btn_report_dm.clicked.connect(self.on_RequestGenerateReportDm)
+
 		# Панель Утилиты
 		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
 
@@ -78,3 +81,8 @@ class C90_FormMain(C80_FormMain):
 		self.AdjustBtnDyDm_Text()
 
 		self.ShowTitle()
+
+	# Панель отчётности
+	def on_RequestGenerateReportDm(self):
+		""" Запрос генерации отчёта за месяц """
+		self.GenerateReportDm()

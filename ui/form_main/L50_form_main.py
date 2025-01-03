@@ -16,3 +16,6 @@ class C50_FormMain(C42_FormMain):
 	def on_RequestShiftDmToPrev(self): pass
 	def on_RequestShiftDmToNext(self): pass
 	def on_RequestSetDyDm(self): pass
+
+	# Панель отчётности
+	def on_RequestGenerateReportDm(self): pass

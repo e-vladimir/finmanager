@@ -34,7 +34,7 @@ class C60_FormExport(C50_FormExport):
 		match self._operations_input_mode_date:
 			case EXPORT_MODE_DATE.ALL: item_data.setText(f"Все периоды")
 			case EXPORT_MODE_DATE.DY : item_data.setText(f"{self._operations_input_dy} год")
-			case EXPORT_MODE_DATE.DM : item_data.setText(f"{MONTHS(self._operations_input_dm).name_s} {self._operations_input_dy}")
+			case EXPORT_MODE_DATE.DM : item_data.setText(f"{MONTHS(self._operations_input_dm).name_short} {self._operations_input_dy}")
 
 		indexes_data = self.model_operations.indexesInRowByIdo(EXPORT_ID.ACCOUNT)
 		item_data    = self.model_operations.itemFromIndex(indexes_data[1])
