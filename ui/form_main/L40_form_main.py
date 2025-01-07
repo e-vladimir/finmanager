@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainaLPCQC.ui'
+## Form generated from reading UI file 'form_mainBqLgHa.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -135,6 +135,12 @@ class Ui_form_main(object):
 
         self.horizontalLayout_11.addWidget(self.btn_statistic)
 
+        self.btn_analytics = QPushButton(self.centralwidget)
+        self.btn_analytics.setObjectName(u"btn_analytics")
+        self.btn_analytics.setMinimumSize(QSize(120, 0))
+
+        self.horizontalLayout_11.addWidget(self.btn_analytics)
+
         self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_11.addItem(self.horizontalSpacer_8)
@@ -248,6 +254,7 @@ class Ui_form_main(object):
         self.btn_operations.setText(QCoreApplication.translate("form_main", u"\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438", None))
         self.label_5.setText(QCoreApplication.translate("form_main", u"\u0410\u041d\u0410\u041b\u0418\u0422\u0418\u041a\u0410", None))
         self.btn_statistic.setText(QCoreApplication.translate("form_main", u"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
+        self.btn_analytics.setText(QCoreApplication.translate("form_main", u"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430", None))
         self.label_6.setText(QCoreApplication.translate("form_main", u"\u041e\u0422\u0427\u0401\u0422\u041d\u041e\u0421\u0422\u042c", None))
         self.btn_report_dm.setText(QCoreApplication.translate("form_main", u"\u0417\u0430 \u043c\u0435\u0441\u044f\u0446", None))
         self.btn_report_summary.setText(QCoreApplication.translate("form_main", u"\u0421\u0432\u043e\u0434\u043d\u0430\u044f", None))

@@ -11,6 +11,7 @@ class C50_FormMain(C42_FormMain):
 	def on_RequestOpenFormAccounts(self): pass
 	def on_RequestOpenFormOperations(self): pass
 	def on_RequestOpenFormStatistic(self): pass
+	def on_RequestOpenFormAnalytics(self): pass
 
 	# Панель рабочего периода
 	def on_RequestShiftDmToPrev(self): pass

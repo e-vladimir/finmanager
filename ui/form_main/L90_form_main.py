@@ -21,6 +21,7 @@ class C90_FormMain(C80_FormMain):
 
 		# Панель Аналитика
 		self.btn_statistic.clicked.connect(self.on_RequestOpenFormStatistic)
+		self.btn_analytics.clicked.connect(self.on_RequestOpenFormAnalytics)
 
 		# Панель Отчётность
 		self.btn_report_dm.clicked.connect(self.on_RequestGenerateReportDm)
@@ -57,6 +58,10 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFormStatistic(self):
 		""" Запрос открытия формы Статистика """
 		self.application.form_statistic.Open()
+
+	def on_RequestOpenFormAnalytics(self):
+		""" Запрос открытия формы Аналитика """
+		self.application.form_analytics.Open()
 
 	# Панель рабочего периода
 	def on_RequestShiftDmToNext(self):
