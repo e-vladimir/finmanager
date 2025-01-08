@@ -19,16 +19,16 @@ class C41_FormAccounts(C20_PySideForm, Ui_frm_accounts):
 
 	def Init_MenuAccounts(self):
 		""" Инициализация меню Счёта """
-		icon_arrow_l                                 = QIcon("./L0/icons/arrow_left.svg")
-		icon_arrow_lr                                = QIcon("./L0/icons/arrow_left_right.svg")
-		icon_arrow_r                                 = QIcon("./L0/icons/arrow_right.svg")
-		icon_blocks                                  = QIcon("./L0/icons/blocks.svg")
-		icon_edit                                    = QIcon("./L0/icons/edit.svg")
-		icon_grid_2_2                                = QIcon("./L0/icons/grid_2_2.svg")
-		icon_grid_3_3                                = QIcon("./L0/icons/grid_3_3.svg")
-		icon_item_delete                             = QIcon("./L0/icons/item_delete.svg")
-		icon_item_plus                               = QIcon("./L0/icons/item_plus.svg")
-		icon_reload                                  = QIcon("./L0/icons/reload.svg")
+		icon_arrow_l     = QIcon("./L0/icons/arrow_left.svg")
+		icon_arrow_lr    = QIcon("./L0/icons/arrow_left_right.svg")
+		icon_arrow_r     = QIcon("./L0/icons/arrow_right.svg")
+		icon_blocks      = QIcon("./L0/icons/blocks.svg")
+		icon_edit        = QIcon("./L0/icons/edit.svg")
+		icon_grid_2_2    = QIcon("./L0/icons/grid_2_2.svg")
+		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
+		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
+		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
+		icon_reload      = QIcon("./L0/icons/reload.svg")
 
 		self.action_accounts_struct_create_account   = QAction(icon_item_plus, "Создать счёт")
 		self.action_accounts_struct_transfer_prev_dm = QAction(icon_arrow_l, "Перенести в прошлый месяц")
