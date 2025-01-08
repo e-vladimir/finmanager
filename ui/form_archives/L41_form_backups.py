@@ -25,9 +25,9 @@ class C41_FormArchives(C20_PySideForm, Ui_form_archives):
 		icon_download = QIcon("./L0/icons/download.svg")
 		icon_upload   = QIcon("./L0/icons/upload.svg")
 
-		self.action_archives_copy_to_archive  = QAction(icon_download, "Создать архив")
-		self.action_archive_copy_from_archive = QAction(icon_upload, "Восстановить данные")
-		self.action_archive_delete            = QAction(icon_delete, "Удалить архив")
+		self.action_archives_copy_to_archive            = QAction(icon_download, "Создать архив")
+		self.action_archive_copy_from_archive           = QAction(icon_upload, "Восстановить данные")
+		self.action_archive_delete                      = QAction(icon_delete, "Удалить архив")
 
 		self.menu_archives                              = QMenu()
 		self.submenu_archives                           = self.menu_archives.addMenu(icon_2_2, "Архивы данных")
