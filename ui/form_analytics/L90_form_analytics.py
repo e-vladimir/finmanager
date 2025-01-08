@@ -14,6 +14,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		# Меню Элементы аналитики
 		self.action_items_create_item.triggered.connect(self.on_RequestCreateAnalyticsItem)
+		self.action_items_delete_item.triggered.connect(self.on_RequestDeleteAnalyticsItem)
 
 	# Форма
 	def on_Open(self):
@@ -42,3 +43,10 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ShowAnalyticsItems()
 
 		self.AdjustTableItems_Sort()
+
+	def on_RequestDeleteAnalyticsItem(self):
+		""" Запрос удаления элемента аналитики """
+		self.DeleteAnalyticsItem()
+
+		self.InitModelItems()
+		self.ShowAnalyticsItems()
