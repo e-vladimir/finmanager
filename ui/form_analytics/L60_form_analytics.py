@@ -40,3 +40,10 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 		item_exclude : C20_StandardItem  = self.model_items.itemFromIndex(indexes_row[2])
 		item_exclude.setText('\n'.join(analytics_item.Exclude()))
+
+	# Параметры
+	def ReadProcessingIdoFromTableItems(self):
+		""" Чтение теущего IDO из таблицы Элементы аналитики """
+		current_index = self.table_items.currentIndex()
+
+		self._processing_ido = current_index.data(ROLES.IDO)

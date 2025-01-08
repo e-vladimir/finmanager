@@ -1,9 +1,11 @@
 # ФОРМА АНАЛИТИКА: МЕХАНИКА УПРАВЛЕНИЯ
 
 from PySide6.QtCore     import Qt
+from PySide6.QtGui      import QCursor
 from PySide6.QtWidgets  import QHeaderView
 
 from L60_form_analytics import C60_FormAnalytics
+from L90_analytics      import C90_AnalyticsItem
 
 
 class C70_FormAnalytics(C60_FormAnalytics):
@@ -24,6 +26,27 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		self.table_items.setColumnWidth(1, 200)
 		self.table_items.setColumnWidth(2, 200)
 
+		self.table_items.resizeRowsToContents()
+
 	def AdjustTableItems_Sort(self):
 		""" Таблица элементов аналитики: Сортировка """
 		self.table_items.sortByColumn(0, Qt.SortOrder.AscendingOrder)
+
+	# Меню Элементы аналитики
+	def AdjustMenuItems_Text(self):
+		""" Меню Элементы аналитики: Настройка текста """
+		self.submenu_item.setTitle("Элемент аналитики")
+
+		if self._processing_ido:
+			analytics_item = C90_AnalyticsItem(self._processing_ido)
+			self.submenu_item.setTitle(analytics_item.Name())
+
+	def AdjustMenuItems_Enable(self):
+		""" Меню Элементы аналитики: Настройка доступности """
+		flag_selected : bool = bool(self._processing_ido)
+
+		pass
+
+	def ShowMenuItems(self):
+		""" Меню Элементы аналитики: Отображение """
+		self.menu_items.exec_(QCursor().pos())
