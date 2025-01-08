@@ -25,11 +25,14 @@ class C41_FormArchives(C20_PySideForm, Ui_form_archives):
 		icon_download = QIcon("./L0/icons/download.svg")
 		icon_upload   = QIcon("./L0/icons/upload.svg")
 
-		self.menu_archives                              = QMenu()
+		self.action_archives_copy_to_archive  = QAction(icon_download, "Создать архив")
+		self.action_archive_copy_from_archive = QAction(icon_upload, "Восстановить данные")
+		self.action_archive_delete            = QAction(icon_delete, "Удалить архив")
 
+		self.menu_archives                              = QMenu()
 		self.submenu_archives                           = self.menu_archives.addMenu(icon_2_2, "Архивы данных")
-		self.action_archives_copy_to_archive  : QAction = self.submenu_archives.addAction(icon_download, "Создать архив")
+		self.submenu_archives.addAction(self.action_archives_copy_to_archive)
 
 		self.submenu_archive                            = self.menu_archives.addMenu(icon_3_3, "Архив данных")
-		self.action_archive_copy_from_archive : QAction = self.submenu_archive.addAction(icon_upload, "Восстановить данные")
-		self.action_archive_delete            : QAction = self.submenu_archive.addAction(icon_delete, "Удалить архив")
+		self.submenu_archive.addAction(self.action_archive_copy_from_archive)
+		self.submenu_archive.addAction(self.action_archive_delete)
