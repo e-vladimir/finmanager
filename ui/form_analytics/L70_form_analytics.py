@@ -58,6 +58,8 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		flag_selected : bool = bool(self._processing_ido)
 
 		self.action_items_item_edit_name.setEnabled(flag_selected)
+		self.action_items_item_edit_include.setEnabled(flag_selected)
+		self.action_items_item_edit_exclude.setEnabled(flag_selected)
 		self.action_items_item_delete.setEnabled(flag_selected)
 
 	def ShowMenuItems(self):

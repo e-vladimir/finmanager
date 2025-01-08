@@ -16,11 +16,15 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		# Меню Элементы аналитики
 		self.action_items_create_item.triggered.connect(self.on_RequestCreateAnalyticsItem)
 		self.action_items_item_edit_name.triggered.connect(self.on_RequestEditNameAnalyticsItem)
+		self.action_items_item_edit_include.triggered.connect(self.on_RequestEditIncludeAnalyticsItem)
+		self.action_items_item_edit_exclude.triggered.connect(self.on_RequestEditExcludeAnalyticsItem)
 		self.action_items_item_delete.triggered.connect(self.on_RequestDeleteAnalyticsItem)
 
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
+		self.ShowTitle()
+
 		self.InitModelItems()
 		self.ShowAnalyticsItems()
 
@@ -70,3 +74,19 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		self.LoadAnalyticsItemInModel()
 		self.AdjustTableItems_Sort()
+
+	def on_RequestEditIncludeAnalyticsItem(self):
+		""" Запрос редактирования признаков включения """
+		self.EditIncludeAnalyticsItem()
+
+		self.LoadAnalyticsItemInModel()
+
+		self.AdjustTableItems_Size()
+
+	def on_RequestEditExcludeAnalyticsItem(self):
+		""" Запрос редактирования признаков отключения """
+		self.EditExcludeAnalyticsItem()
+
+		self.LoadAnalyticsItemInModel()
+
+		self.AdjustTableItems_Size()

@@ -1,7 +1,7 @@
 # ФОРМА АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestText
+from L20_PySide6 import RequestConfirm, RequestMultipleText, RequestText
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -47,3 +47,21 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		if name is None: return
 
 		analytics_item.Name(name)
+
+	def EditIncludeAnalyticsItem(self):
+		""" Редактирование признаков включения """
+		analytics_item           = C90_AnalyticsItem(self._processing_ido)
+
+		items : list[str] | None = RequestMultipleText("Элемент аналитики", analytics_item.Name(), analytics_item.Include())
+		if items is None: return
+
+		analytics_item.Include(items)
+
+	def EditExcludeAnalyticsItem(self):
+		""" Редактирование признаков отключения """
+		analytics_item           = C90_AnalyticsItem(self._processing_ido)
+
+		items : list[str] | None = RequestMultipleText("Элемент аналитики", analytics_item.Name(), analytics_item.Exclude())
+		if items is None: return
+
+		analytics_item.Exclude(items)
