@@ -11,10 +11,12 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		# Таблица Элементы аналитики
 		self.table_items.customContextMenuRequested.connect(self.on_RequestShowMenuItems)
+		self.table_items.doubleClicked.connect(self.on_RequestProcessingTableItemsDbClick)
 
 		# Меню Элементы аналитики
 		self.action_items_create_item.triggered.connect(self.on_RequestCreateAnalyticsItem)
-		self.action_items_delete_item.triggered.connect(self.on_RequestDeleteAnalyticsItem)
+		self.action_items_item_edit_name.triggered.connect(self.on_RequestEditNameAnalyticsItem)
+		self.action_items_item_delete.triggered.connect(self.on_RequestDeleteAnalyticsItem)
 
 	# Форма
 	def on_Open(self):
@@ -35,6 +37,14 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		self.ShowMenuItems()
 
+	# Таблица Элементы аналитики
+	def on_RequestProcessingTableItemsDbClick(self):
+		""" Запрос двойной обработки клика по таблице Элементы аналитики """
+		self.ReadProcessingIdoFromTableItems()
+		self.ReadProcessingColumnFromTableItems()
+
+		self.ProcessingTableItems_DbClick()
+
 	# Элемент аналитики
 	def on_RequestCreateAnalyticsItem(self):
 		""" Запрос создания элемента аналитики """
@@ -43,6 +53,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ShowAnalyticsItems()
 
 		self.AdjustTableItems_Sort()
+		self.AdjustTableItems_Size()
 
 	def on_RequestDeleteAnalyticsItem(self):
 		""" Запрос удаления элемента аналитики """
@@ -50,3 +61,12 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		self.InitModelItems()
 		self.ShowAnalyticsItems()
+
+		self.AdjustTableItems_Size()
+
+	def on_RequestEditNameAnalyticsItem(self):
+		""" Запрос редактирования названия элемента аналитики """
+		self.EditNameAnalyticsItem()
+
+		self.LoadAnalyticsItemInModel()
+		self.AdjustTableItems_Sort()

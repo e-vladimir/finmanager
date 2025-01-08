@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsaHIhhK.ui'
+## Form generated from reading UI file 'form_analyticssthVwe.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -45,7 +45,10 @@ class Ui_form_analytics(object):
         self.table_items.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.table_items.setShowGrid(False)
         self.table_items.horizontalHeader().setVisible(True)
+        self.table_items.horizontalHeader().setMinimumSectionSize(20)
         self.table_items.verticalHeader().setVisible(False)
+        self.table_items.verticalHeader().setMinimumSectionSize(20)
+        self.table_items.verticalHeader().setDefaultSectionSize(20)
 
         self.horizontalLayout_2.addWidget(self.table_items)
 

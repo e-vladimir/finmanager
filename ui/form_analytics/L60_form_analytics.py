@@ -47,3 +47,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		current_index = self.table_items.currentIndex()
 
 		self._processing_ido = current_index.data(ROLES.IDO)
+
+	def ReadProcessingColumnFromTableItems(self):
+		""" Чтение текущей колонки  """
+		current_index = self.table_items.currentIndex()
+		self._processing_column = current_index.column()
