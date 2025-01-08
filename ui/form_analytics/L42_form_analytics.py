@@ -28,4 +28,5 @@ class C42_FormAnalytics(C41_FormAnalytics):
 
 	def Init_20(self):
 		super().Init_20()
+
 		self.table_items.setModel(self.model_items)

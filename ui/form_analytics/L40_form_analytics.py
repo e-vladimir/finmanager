@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsvjLDsk.ui'
+## Form generated from reading UI file 'form_analyticsaHIhhK.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -16,9 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHBoxLayout, QHeaderView,
-    QListWidget, QListWidgetItem, QMainWindow, QSizePolicy,
-    QStatusBar, QTabWidget, QTableView, QVBoxLayout,
-    QWidget)
+    QMainWindow, QSizePolicy, QStatusBar, QTabWidget,
+    QTableView, QVBoxLayout, QWidget)
 
 class Ui_form_analytics(object):
     def setupUi(self, form_analytics):
@@ -44,37 +43,12 @@ class Ui_form_analytics(object):
         self.table_items.setAlternatingRowColors(True)
         self.table_items.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.table_items.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-        self.table_items.horizontalHeader().setVisible(False)
+        self.table_items.setShowGrid(False)
+        self.table_items.horizontalHeader().setVisible(True)
         self.table_items.verticalHeader().setVisible(False)
 
         self.horizontalLayout_2.addWidget(self.table_items)
 
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.list_item_include = QListWidget(self.tab_analytics_items)
-        self.list_item_include.setObjectName(u"list_item_include")
-        self.list_item_include.setMinimumSize(QSize(250, 0))
-        self.list_item_include.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.list_item_include.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.list_item_include.setAlternatingRowColors(True)
-        self.list_item_include.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
-        self.list_item_include.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-
-        self.verticalLayout_2.addWidget(self.list_item_include)
-
-        self.list_item_exclude = QListWidget(self.tab_analytics_items)
-        self.list_item_exclude.setObjectName(u"list_item_exclude")
-        self.list_item_exclude.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.list_item_exclude.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.list_item_exclude.setAlternatingRowColors(True)
-        self.list_item_exclude.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
-
-        self.verticalLayout_2.addWidget(self.list_item_exclude)
-
-
-        self.horizontalLayout_2.addLayout(self.verticalLayout_2)
-
-        self.horizontalLayout_2.setStretch(0, 1)
         self.tabs_main.addTab(self.tab_analytics_items, "")
 
         self.verticalLayout.addWidget(self.tabs_main)
