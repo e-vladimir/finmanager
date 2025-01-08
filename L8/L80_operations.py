@@ -2,6 +2,8 @@
 
 from hashlib                import md5
 
+from vtkmodules.util.colors import lamp_black
+
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -221,3 +223,20 @@ class C80_Operations(C70_Operations):
 
 		dys    : list[int] = filter_data.ToIntegers(idp_dy, True, True).data
 		return 0 if not dys else min(dys)
+
+	# Метки
+	def Labels(self) -> list[str]:
+		""" Список меток """
+		operation              = C80_Operation()
+		idc        : str       = operation.Idc().data
+		idp_labels : str       = operation.f_labels.Idp().data
+
+		filter_data            = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		labels_raw : list[str] = filter_data.ToStrings(idp_labels, False, False).data
+		labels     : set[str]  = set()
+
+		set(map(lambda x: labels.update(set(x.split('\n'))), labels_raw))
+
+		return list(sorted(labels.difference({''})))

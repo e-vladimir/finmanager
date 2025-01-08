@@ -18,4 +18,6 @@ class C50_FormAnalytics(C42_FormAnalytics):
 
 	def on_RequestEditNameAnalyticsItem(self): pass
 	def on_RequestEditIncludeAnalyticsItem(self): pass
+	def on_RequestExpandIncludeAnalyticsItem(self): pass
 	def on_RequestEditExcludeAnalyticsItem(self): pass
+	def on_RequestExpandExcludeAnalyticsItem(self): pass

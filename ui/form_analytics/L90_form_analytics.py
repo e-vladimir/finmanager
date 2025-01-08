@@ -16,8 +16,12 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		# Меню Элементы аналитики
 		self.action_items_create_item.triggered.connect(self.on_RequestCreateAnalyticsItem)
 		self.action_items_item_edit_name.triggered.connect(self.on_RequestEditNameAnalyticsItem)
+
 		self.action_items_item_edit_include.triggered.connect(self.on_RequestEditIncludeAnalyticsItem)
+		self.action_items_item_expand_include.triggered.connect(self.on_RequestExpandIncludeAnalyticsItem)
 		self.action_items_item_edit_exclude.triggered.connect(self.on_RequestEditExcludeAnalyticsItem)
+		self.action_items_item_expand_exclude.triggered.connect(self.on_RequestExpandExcludeAnalyticsItem)
+
 		self.action_items_item_delete.triggered.connect(self.on_RequestDeleteAnalyticsItem)
 
 	# Форма
@@ -83,9 +87,25 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		self.AdjustTableItems_Size()
 
+	def on_RequestExpandIncludeAnalyticsItem(self):
+		""" Расширение признаков включения """
+		self.ExpandIncludeAnalyticsItem()
+
+		self.LoadAnalyticsItemInModel()
+
+		self.AdjustTableItems_Size()
+
 	def on_RequestEditExcludeAnalyticsItem(self):
 		""" Запрос редактирования признаков отключения """
 		self.EditExcludeAnalyticsItem()
+
+		self.LoadAnalyticsItemInModel()
+
+		self.AdjustTableItems_Size()
+
+	def on_RequestExpandExcludeAnalyticsItem(self):
+		""" Расширение признаков исключения """
+		self.ExpandExcludeAnalyticsItem()
 
 		self.LoadAnalyticsItemInModel()
 

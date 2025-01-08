@@ -1,7 +1,7 @@
 # ФОРМА АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
 from L00_containers     import CONTAINERS
-from L20_PySide6 import RequestConfirm, RequestMultipleText, RequestText
+from L20_PySide6 import RequestConfirm, RequestItems, RequestMultipleText, RequestText
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -52,16 +52,36 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		""" Редактирование признаков включения """
 		analytics_item           = C90_AnalyticsItem(self._processing_ido)
 
-		items : list[str] | None = RequestMultipleText("Элемент аналитики", analytics_item.Name(), analytics_item.Include())
+		items : list[str] | None = RequestMultipleText("Элемент аналитики", f"{analytics_item.Name()}\n\nКритерии включения (+)", analytics_item.Include())
 		if items is None: return
 
 		analytics_item.Include(items)
+
+	def ExpandIncludeAnalyticsItem(self):
+		""" Расширение признаков включения """
+		analytics_item            = C90_AnalyticsItem(self._processing_ido)
+
+		labels : list[str] | None = self.operations.Labels()
+		labels                    = RequestItems("Элемент аналитики", f"{analytics_item.Name()}\n\nРасширение критериев включения (+)", labels, analytics_item.Include())
+		if labels is None: return
+
+		analytics_item.Include(list(set(analytics_item.Include()).union(set(labels))))
 
 	def EditExcludeAnalyticsItem(self):
 		""" Редактирование признаков отключения """
 		analytics_item           = C90_AnalyticsItem(self._processing_ido)
 
-		items : list[str] | None = RequestMultipleText("Элемент аналитики", analytics_item.Name(), analytics_item.Exclude())
+		items : list[str] | None = RequestMultipleText("Элемент аналитики", f"{analytics_item.Name()}\n\nКритерии исключения (-)", analytics_item.Exclude())
 		if items is None: return
 
 		analytics_item.Exclude(items)
+
+	def ExpandExcludeAnalyticsItem(self):
+		""" Расширение признаков исключения """
+		analytics_item            = C90_AnalyticsItem(self._processing_ido)
+
+		labels : list[str] | None = self.operations.Labels()
+		labels                    = RequestItems("Элемент аналитики", f"{analytics_item.Name()}\n\nРасширение критериев исключения (-)", labels, analytics_item.Exclude())
+		if labels is None: return
+
+		analytics_item.Exclude(list(set(analytics_item.Exclude()).union(set(labels))))
