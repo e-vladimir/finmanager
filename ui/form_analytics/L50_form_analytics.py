@@ -10,6 +10,7 @@ class C50_FormAnalytics(C42_FormAnalytics):
 	def on_AnalyticsItemSelected(self): pass
 	def on_RequestCreateAnalyticsItem(self): pass
 	def on_RequestDeleteAnalyticsItem(self): pass
+	def on_RequestEditNameAnalyticsItem(self): pass
 
 	# Меню элементов аналитики
 	def on_RequestShowMenuItems(self): pass

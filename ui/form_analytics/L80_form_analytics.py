@@ -37,3 +37,16 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		if not RequestConfirm("Элемент аналитики", f"Удаление элемента аналитики:\n{analytics_item.Name()}"): return
 
 		analytics_item.DeleteObject(CONTAINERS.DISK)
+
+	def EditNameAnalyticsItem(self):
+		""" Редактирование названия элемента аналитики """
+		analytics_item   = C90_AnalyticsItem(self._processing_ido)
+
+		name: str | None = RequestText("Элемент аналитики", "Редактирование названия", analytics_item.Name())
+		if     name is None                  : return
+
+		name             = name.strip()
+		if not name                          : return
+		if     name in self.analytics.Names(): return
+
+		analytics_item.Name(name)

@@ -23,6 +23,7 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		""" Меню элементов аналитики: Настройка доступности """
 		flag_selected : bool = bool(self._processing_ido)
 
+		self.action_item_edit_name.setEnabled(flag_selected)
 		self.action_item_delete_item.setEnabled(flag_selected)
 
 	def AdjustMenuItems_Text(self):

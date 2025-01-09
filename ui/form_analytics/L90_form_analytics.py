@@ -12,10 +12,12 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		# Список элементов аналитики
 		self.list_items.clicked.connect(self.on_AnalyticsItemSelected)
 		self.list_items.customContextMenuRequested.connect(self.on_RequestShowMenuItems)
+		self.list_items.doubleClicked.connect(self.on_RequestEditNameAnalyticsItem)
 
 		# Меню элементов аналитики
 		self.action_items_create_item.triggered.connect(self.on_RequestCreateAnalyticsItem)
 		self.action_item_delete_item.triggered.connect(self.on_RequestDeleteAnalyticsItem)
+		self.action_item_edit_name.triggered.connect(self.on_RequestEditNameAnalyticsItem)
 
 	# Форма
 	def on_Open(self):
@@ -47,6 +49,14 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		self.InitModelItems()
 		self.ShowAnalyticsItems()
+
+	def on_RequestEditNameAnalyticsItem(self):
+		""" Запрос на редактирование названия элемента аналитики """
+		self.EditNameAnalyticsItem()
+
+		self.ShowAnalyticsItems()
+
+		self.AdjustListItems_Sort()
 
 	# Меню элементов аналитики
 	def on_RequestShowMenuItems(self):

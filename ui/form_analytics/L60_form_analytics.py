@@ -47,5 +47,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	# Параметры
 	def ReadProcessingIdoFromListItems(self):
 		""" Чтение текущего IDO из списка элементов аналитики """
-		current_index = self.list_items.currentIndex()
-		self._processing_ido = current_index.data(ROLES.IDO)
+		self._processing_ido = ""
+
+		try   : self._processing_ido = self.list_items.selectedIndexes()[0].data(ROLES.IDO)
+		except: pass
