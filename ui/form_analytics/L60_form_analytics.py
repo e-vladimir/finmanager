@@ -10,45 +10,42 @@ from L90_analytics      import C90_AnalyticsItem
 class C60_FormAnalytics(C50_FormAnalytics):
 	""" Форма Аналитика: Механика данных """
 
-	# Модель данных элементов аналитики
+	# Модель данных Элементы аналитики
 	def InitModelItems(self):
-		""" Инициализация модели данных элементов аналитики """
+		""" Инициализация модели данных Элементы аналитики """
 		self.model_items.removeAll()
 
-		self.model_items.setHorizontalHeaderLabels(["Наименование", "Признаки+", "Признаки-"])
+		self.model_data.setHorizontalHeaderLabels(["Элемент аналитики"])
 
-	def LoadAnalyticsItemInModel(self):
+	def LoadAnalyticsItemInModelItems(self):
+		""" Загрузка элемента аналитики в модель """
+		if not self._processing_ido: return
+
+		if not self.model_items.checkIdo(self._processing_ido):
+			item_name = C20_StandardItem("", self._processing_ido, ROLES.IDO)
+			self.model_items.invisibleRootItem().appendRow(item_name)
+
+		index_name : QModelIndex | None = self.model_items.indexByData(self._processing_ido, ROLES.IDO)
+		if index_name is None: return
+
+		analytics_item                  = C90_AnalyticsItem(self._processing_ido)
+
+		item_name  : C20_StandardItem   = self.model_items.itemFromIndex(index_name)
+		item_name.setText(analytics_item.Name())
+
+	# Модель данных Данные аналитики
+	def InitModelData(self):
+		""" Инициализация модели данных Данные аналитики """
+		self.model_data.removeAll()
+
+		self.model_data.setHorizontalHeaderLabels(["Показатель", "Значение"])
+
+	def LoadAnalyticsItemInModelData(self):
 		""" Загрузка элемента аналитики в модель данных """
 		if not self._processing_ido: return
 
-		analytics_item                   = C90_AnalyticsItem(self._processing_ido)
-
-		if not self.model_items.checkIdo(self._processing_ido):
-			item_name       = C20_StandardItem("", self._processing_ido, ROLES.IDO, flag_bold=True)
-			item_include    = C20_StandardItem("", self._processing_ido, ROLES.IDO)
-			item_exclude    = C20_StandardItem("", self._processing_ido, ROLES.IDO)
-
-			self.model_items.invisibleRootItem().appendRow([item_name, item_include, item_exclude])
-
-		indexes_row  : list[QModelIndex] = self.model_items.indexesInRowByIdo(self._processing_ido)
-
-		item_name    : C20_StandardItem  = self.model_items.itemFromIndex(indexes_row[0])
-		item_name.setText(analytics_item.Name())
-
-		item_include : C20_StandardItem  = self.model_items.itemFromIndex(indexes_row[1])
-		item_include.setText('\n'.join(analytics_item.Include()))
-
-		item_exclude : C20_StandardItem  = self.model_items.itemFromIndex(indexes_row[2])
-		item_exclude.setText('\n'.join(analytics_item.Exclude()))
-
 	# Параметры
-	def ReadProcessingIdoFromTableItems(self):
-		""" Чтение теущего IDO из таблицы Элементы аналитики """
-		current_index = self.table_items.currentIndex()
-
+	def ReadProcessingIdoFromListItems(self):
+		""" Чтение текущего IDO из списка элементов аналитики """
+		current_index = self.list_items.currentIndex()
 		self._processing_ido = current_index.data(ROLES.IDO)
-
-	def ReadProcessingColumnFromTableItems(self):
-		""" Чтение текущей колонки  """
-		current_index = self.table_items.currentIndex()
-		self._processing_column = current_index.column()
