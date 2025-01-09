@@ -11,7 +11,6 @@ from L90_form_operations            import C90_FormOperations
 from L90_form_processing_operations import C90_FormProcessingOperations
 from L90_form_statistic             import C90_FormStatistic
 from L90_form_processing_rule       import C90_FormProcessingRule
-from L90_form_analytics             import C90_FormAnalytics
 
 
 class C40_Application(C20_PySideApplication):
@@ -21,7 +20,6 @@ class C40_Application(C20_PySideApplication):
 		super().Init_10()
 
 		self.form_accounts              = C90_FormAccounts(self)
-		self.form_analytics             = C90_FormAnalytics(self)
 		self.form_archives              = C90_FormArchives(self)
 		self.form_export                = C90_FormExport(self)
 		self.form_import                = C90_FormImport(self)
