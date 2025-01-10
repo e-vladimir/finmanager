@@ -2,6 +2,7 @@
 
 from L20_PySide6                    import C20_PySideApplication
 from L90_form_accounts              import C90_FormAccounts
+from L90_form_analytics             import C90_FormAnalytics
 from L90_form_backups               import C90_FormArchives
 from L90_form_export                import C90_FormExport
 from L90_form_import                import C90_FormImport
@@ -29,3 +30,4 @@ class C40_Application(C20_PySideApplication):
 		self.form_processing_operations = C90_FormProcessingOperations(self)
 		self.form_processing_rule       = C90_FormProcessingRule(self)
 		self.form_statistic             = C90_FormStatistic(self)
+		self.form_analytics             = C90_FormAnalytics(self)

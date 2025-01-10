@@ -61,7 +61,7 @@ class C90_FormMain(C80_FormMain):
 
 	def on_RequestOpenFormAnalytics(self):
 		""" Запрос открытия формы Аналитика """
-		pass
+		self.application.form_analytics.Open()
 
 	# Панель рабочего периода
 	def on_RequestShiftDmToNext(self):
