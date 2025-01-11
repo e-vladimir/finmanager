@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsDhJURd.ui'
+## Form generated from reading UI file 'form_analyticsWNXzoM.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -51,7 +51,7 @@ class Ui_form_analytics(object):
         self.tree_data_options.setObjectName(u"tree_data_options")
         self.tree_data_options.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.tree_data_options.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.tree_data_options.setAlternatingRowColors(True)
+        self.tree_data_options.setAlternatingRowColors(False)
         self.tree_data_options.setRootIsDecorated(False)
         self.tree_data_options.setItemsExpandable(False)
         self.tree_data_options.setHeaderHidden(True)
@@ -66,11 +66,17 @@ class Ui_form_analytics(object):
         self.tab_data_dynamic.setObjectName(u"tab_data_dynamic")
         self.verticalLayout_2 = QVBoxLayout(self.tab_data_dynamic)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.dia_data_dynamic = C20_DiaDynamic(self.tab_data_dynamic)
-        self.dia_data_dynamic.setObjectName(u"dia_data_dynamic")
-        self.dia_data_dynamic.setMinimumSize(QSize(0, 300))
+        self.dia_data_dynamic_income = C20_DiaDynamic(self.tab_data_dynamic)
+        self.dia_data_dynamic_income.setObjectName(u"dia_data_dynamic_income")
+        self.dia_data_dynamic_income.setMinimumSize(QSize(0, 300))
 
-        self.verticalLayout_2.addWidget(self.dia_data_dynamic)
+        self.verticalLayout_2.addWidget(self.dia_data_dynamic_income)
+
+        self.dia_data_dynamic_outcome = C20_DiaDynamic(self.tab_data_dynamic)
+        self.dia_data_dynamic_outcome.setObjectName(u"dia_data_dynamic_outcome")
+        self.dia_data_dynamic_outcome.setMinimumSize(QSize(0, 300))
+
+        self.verticalLayout_2.addWidget(self.dia_data_dynamic_outcome)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -84,7 +90,7 @@ class Ui_form_analytics(object):
         self.tree_data_volume = QTreeView(self.tab_data_volume)
         self.tree_data_volume.setObjectName(u"tree_data_volume")
         self.tree_data_volume.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.tree_data_volume.setAlternatingRowColors(True)
+        self.tree_data_volume.setAlternatingRowColors(False)
         self.tree_data_volume.setRootIsDecorated(False)
         self.tree_data_volume.setItemsExpandable(False)
         self.tree_data_volume.setExpandsOnDoubleClick(False)
@@ -105,7 +111,7 @@ class Ui_form_analytics(object):
 
         self.retranslateUi(form_analytics)
 
-        self.tabs_data.setCurrentIndex(0)
+        self.tabs_data.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(form_analytics)

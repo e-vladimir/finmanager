@@ -66,6 +66,17 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		""" Инициализация модели Объёмная стоимость """
 		self.model_data_volumes.removeAll()
 
+	# Динамика
+	def InitDynamic(self):
+		""" Инициализация динамики """
+		pass
+
+		# self.dia_data_dynamic_income._labels.clear()
+		# self.dia_data_dynamic_income._amounts.clear()
+		#
+		# self.dia_data_dynamic_outcome._labels.clear()
+		# self.dia_data_dynamic_outcome._amounts.clear()
+
 	# Параметры
 	def ReadProcessingIdoFromListItems(self):
 		""" Чтение IDO из списка элементов аналитики """

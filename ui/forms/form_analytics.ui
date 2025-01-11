@@ -40,7 +40,7 @@
     <item>
      <widget class="QTabWidget" name="tabs_data">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_data_options">
        <attribute name="title">
@@ -56,7 +56,7 @@
            <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
           </property>
           <property name="alternatingRowColors">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="rootIsDecorated">
            <bool>false</bool>
@@ -86,7 +86,17 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="C20_DiaDynamic" name="dia_data_dynamic" native="true">
+         <widget class="C20_DiaDynamic" name="dia_data_dynamic_income" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>300</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="C20_DiaDynamic" name="dia_data_dynamic_outcome" native="true">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -121,7 +131,7 @@
            <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
           </property>
           <property name="alternatingRowColors">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="rootIsDecorated">
            <bool>false</bool>

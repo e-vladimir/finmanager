@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 24 ноя 2024
+# 11 янв 2025
 
 import enum
 
@@ -201,6 +201,22 @@ class C20_PySideForm(QMainWindow):
 # UI-Компоненты
 class C20_DiaFrame(QWidget):
 	""" UI-компонент область отрисовки """
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+
+		self.Init_00()
+		self.Init_01()
+		self.Init_10()
+		self.Init_11()
+		self.Init_20()
+
+	def Init_00(self): pass
+	def Init_01(self): pass
+	def Init_10(self): pass
+	def Init_11(self): pass
+	def Init_20(self): pass
+
 	def DrawBackground(self, painter: QPainter):
 		pass
 

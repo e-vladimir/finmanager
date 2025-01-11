@@ -1,6 +1,9 @@
 # ФОРМА АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
+from G10_datetime       import CalcDyDmByShiftDm
+
 from L00_containers     import CONTAINERS
+from L00_months         import MONTHS_SHORT
 from L20_PySide6        import RequestConfirm, RequestItems, RequestText
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
@@ -73,3 +76,30 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		if labels is None: return
 
 		analytics_item.Exclude(labels)
+
+	# Динамика
+	def CalcDynamic(self):
+		""" Расчёт данных динамики """
+		dy, dm              = self.workspace.DyDm()
+		analytics_item      = C90_AnalyticsItem(self._processing_ido)
+
+		incomes : list[int] = []
+		outcomes: list[int] = []
+		labels  : list[str] = []
+
+		for _ in range(12):
+			amounts = analytics_item.CalcAmountsInDm(dy, dm)
+
+			incomes.append(amounts.amount_income)
+			outcomes.append(amounts.amount_outcome)
+			labels.append(f"{MONTHS_SHORT[dm]}\n{dy}")
+
+			dy, dm = CalcDyDmByShiftDm(dy, dm, -1)
+
+		self.dia_data_dynamic_income._labels   = list(reversed(labels))
+		self.dia_data_dynamic_income._amounts  = list(reversed(incomes))
+		self.dia_data_dynamic_income.update()
+
+		self.dia_data_dynamic_outcome._labels  = list(reversed(labels))
+		self.dia_data_dynamic_outcome._amounts = list(reversed(outcomes))
+		self.dia_data_dynamic_outcome.update()

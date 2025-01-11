@@ -74,3 +74,9 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		match self._processing_ido:
 			case IDOS_ANALYTICS.INCLUDE: self.on_RequestEditOptionsInclude()
 			case IDOS_ANALYTICS.EXCLUDE: self.on_RequestEditOptionsExclude()
+
+	# Диаграммы динамики
+	def AdjustDiaDynamic_Title(self):
+		""" Настройка диаграмм динамики """
+		self.dia_data_dynamic_income._title  = "Поступления"
+		self.dia_data_dynamic_outcome._title = "Списания"

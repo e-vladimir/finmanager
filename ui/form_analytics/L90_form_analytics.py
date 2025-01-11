@@ -41,6 +41,9 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeOptions_Size()
 		self.AdjustTreeOptions_Color()
 
+		self.InitDynamic()
+		self.AdjustDiaDynamic_Title()
+
 		self.InitModelDataVolumes()
 
 	# Меню Элементы аналитики
@@ -69,6 +72,8 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ReadProcessingIdoFromListItems()
 
 		self.LoadModelDataOptions()
+
+		self.CalcDynamic()
 
 	def on_RequestCreateAnalyticsItem(self):
 		""" Запрос на создание элемента аналитики """
