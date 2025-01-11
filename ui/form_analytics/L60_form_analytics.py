@@ -2,6 +2,7 @@
 
 from PySide6.QtCore     import QModelIndex
 
+from L00_form_analytics import IDOS_ANALYTICS
 from L20_PySide6        import C20_StandardItem, ROLES
 from L50_form_analytics import C50_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
@@ -36,11 +37,34 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def InitModelDataOptions(self):
 		""" Инициализация модели Параметры """
 		self.model_data_options.removeAll()
+		self.model_data_options.setHorizontalHeaderLabels(["Параметр", "Значение"])
+
+		group_labels = C20_StandardItem("Основные параметры")
+		item_field   = C20_StandardItem("Признаки включения",  IDOS_ANALYTICS.INCLUDE, ROLES.IDO)
+		item_value   = C20_StandardItem("",                    IDOS_ANALYTICS.INCLUDE, ROLES.IDO)
+		group_labels.appendRow([item_field, item_value])
+		item_field   = C20_StandardItem("Признаки исключения", IDOS_ANALYTICS.EXCLUDE, ROLES.IDO)
+		item_value   = C20_StandardItem("",                    IDOS_ANALYTICS.EXCLUDE, ROLES.IDO)
+		group_labels.appendRow([item_field, item_value])
+
+		self.model_data_options.appendRow(group_labels)
+
+	def LoadModelDataOptions(self):
+		""" Загрузка модели данных Параметры """
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+
+		indexes        = self.model_data_options.indexesInRowByIdo(IDOS_ANALYTICS.INCLUDE)
+		item_data      = self.model_data_options.itemFromIndex(indexes[1])
+		item_data.setText('\n'.join(analytics_item.Include()))
+
+		indexes        = self.model_data_options.indexesInRowByIdo(IDOS_ANALYTICS.EXCLUDE)
+		item_data      = self.model_data_options.itemFromIndex(indexes[1])
+		item_data.setText('\n'.join(analytics_item.Exclude()))
 
 	# Модель данных Объёмная стоимость
 	def InitModelDataVolumes(self):
 		""" Инициализация модели Объёмная стоимость """
-		self.model_data_options.removeAll()
+		self.model_data_volumes.removeAll()
 
 	# Параметры
 	def ReadProcessingIdoFromListItems(self):

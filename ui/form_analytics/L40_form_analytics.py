@@ -20,7 +20,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHBoxLayout, QHe
     QStatusBar, QTabWidget, QTreeView, QVBoxLayout,
     QWidget)
 
-from L20_analytics import C20_DiaDynamic
+from L20_form_analytics import C20_DiaDynamic
 
 class Ui_form_analytics(object):
     def setupUi(self, form_analytics):

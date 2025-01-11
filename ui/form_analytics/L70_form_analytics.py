@@ -1,6 +1,7 @@
 # ФОРМА АНАЛИТИКА: МЕХАНИКА УПРАВЛЕНИЯ
 
 from PySide6.QtGui      import QCursor
+from PySide6.QtWidgets  import QHeaderView
 
 from L60_form_analytics import C60_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
@@ -36,3 +37,17 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	def ShowMenuItems(self):
 		""" Меню Элементы аналитики: Отображение """
 		self.menu_items.exec_(QCursor().pos())
+
+	# Дерево параметров
+	def AdjustTreeOptions_Size(self):
+		""" Дерево данных Параметры: Настройка размеров """
+		self.tree_data_options.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+		self.tree_data_options.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+
+	def AdjustTreeOptions_Expand(self):
+		""" Дерево данных Параметры: Настройка раскрытия """
+		self.tree_data_options.expandAll()
+
+	def AdjustTreeOptions_Color(self):
+		""" Дерево данных Параметры: Настройка цвета """
+		self.model_data_options.adjustGroupView(True, True)

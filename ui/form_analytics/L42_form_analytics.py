@@ -33,3 +33,5 @@ class C42_FormAnalytics(C41_FormAnalytics):
 		super().Init_20()
 
 		self.list_items.setModel(self.model_items)
+		self.tree_data_options.setModel(self.model_data_options)
+		self.tree_data_volume.setModel(self.model_data_volumes)

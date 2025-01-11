@@ -12,7 +12,7 @@ class C60_AnalyticsItem(C50_AnalyticsItem):
 		if text is None : return self.f_name.ToString(CONTAINERS.DISK).data
 		else            :        self.f_name.FromString(CONTAINERS.DISK, text)
 
-	def Include(self, labels: list[str]) -> list[str]:
+	def Include(self, labels: list[str] = None) -> list[str]:
 		""" Признаки включения """
 		if labels is None:
 			data : list[str] = self.f_include.ToStrings(CONTAINERS.DISK).data
@@ -22,7 +22,7 @@ class C60_AnalyticsItem(C50_AnalyticsItem):
 			if '' in data: data.remove('')
 			self.f_include.FromStrings(CONTAINERS.DISK, sorted(data))
 
-	def Exclude(self, labels: list[str]) -> list[str]:
+	def Exclude(self, labels: list[str] = None) -> list[str]:
 		""" Признаки исключения """
 		if labels is None:
 			data : list[str] = self.f_exclude.ToStrings(CONTAINERS.DISK).data

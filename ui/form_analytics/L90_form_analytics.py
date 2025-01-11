@@ -12,6 +12,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		# Список Элементы аналитики
 		self.list_items.customContextMenuRequested.connect(self.on_RequestShowMenuItems)
 		self.list_items.doubleClicked.connect(self.on_RequestEditNameAnalyticsItem)
+		self.list_items.clicked.connect(self.on_AnalyticsItemSelected)
 
 		# Меню Элементы аналитики
 		self.action_items_create_item.triggered.connect(self.on_RequestCreateAnalyticsItem)
@@ -25,10 +26,14 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.SwitchTabsToOptions()
 
 		self.InitModelItems()
-		self.InitModelDataOptions()
-		self.InitModelDataVolumes()
-
 		self.ShowAnalyticsItems()
+
+		self.InitModelDataOptions()
+		self.AdjustTreeOptions_Expand()
+		self.AdjustTreeOptions_Size()
+		self.AdjustTreeOptions_Color()
+
+		self.InitModelDataVolumes()
 
 	# Меню Элементы аналитики
 	def on_RequestShowMenuItems(self):
@@ -41,6 +46,12 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ShowMenuItems()
 
 	# Элемент аналитики
+	def on_AnalyticsItemSelected(self):
+		""" Выбран элемент аналитики """
+		self.ReadProcessingIdoFromListItems()
+
+		self.LoadModelDataOptions()
+
 	def on_RequestCreateAnalyticsItem(self):
 		""" Запрос на создание элемента аналитики """
 		self.CreateAnalyticsItem()
