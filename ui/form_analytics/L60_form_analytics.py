@@ -41,3 +41,9 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def InitModelDataVolumes(self):
 		""" Инициализация модели Объёмная стоимость """
 		self.model_data_options.removeAll()
+
+	# Параметры
+	def ReadProcessingIdoFromListItems(self):
+		""" Чтение IDO из списка элементов аналитики """
+		try   : self._processing_ido = self.list_items.selectedIndexes()[0].data(ROLES.IDO)
+		except: self._processing_ido = ""

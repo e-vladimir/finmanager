@@ -3,6 +3,7 @@
 from PySide6.QtGui      import QCursor
 
 from L60_form_analytics import C60_FormAnalytics
+from L90_analytics      import C90_AnalyticsItem
 
 
 class C70_FormAnalytics(C60_FormAnalytics):
@@ -21,11 +22,15 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	# Меню Элементы аналитики
 	def AdjustMenuItems_Text(self):
 		""" Меню Элементы аналитики: Настройка текста """
-		pass
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+
+		self.submenu_items_item.setTitle(analytics_item.Name() or "Элемент аналитики")
 
 	def AdjustMenuItems_Enable(self):
 		""" Меню Элементы аналитики: Настройка доступности """
-		pass
+		flag_selected : bool = bool(self._processing_ido)
+
+		self.action_items_delete_item.setEnabled(flag_selected)
 
 	def ShowMenuItems(self):
 		""" Меню Элементы аналитики: Отображение """

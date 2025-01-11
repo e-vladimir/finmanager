@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsYjQUbB.ui'
+## Form generated from reading UI file 'form_analyticsNSEAvT.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -19,6 +19,8 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHBoxLayout, QHe
     QListView, QMainWindow, QSizePolicy, QSpacerItem,
     QStatusBar, QTabWidget, QTreeView, QVBoxLayout,
     QWidget)
+
+from L20_analytics import C20_DiaDynamic
 
 class Ui_form_analytics(object):
     def setupUi(self, form_analytics):
@@ -63,7 +65,7 @@ class Ui_form_analytics(object):
         self.tab_data_dynamic.setObjectName(u"tab_data_dynamic")
         self.verticalLayout_2 = QVBoxLayout(self.tab_data_dynamic)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.dia_data_dynamic = QWidget(self.tab_data_dynamic)
+        self.dia_data_dynamic = C20_DiaDynamic(self.tab_data_dynamic)
         self.dia_data_dynamic.setObjectName(u"dia_data_dynamic")
         self.dia_data_dynamic.setMinimumSize(QSize(0, 300))
 
@@ -102,7 +104,7 @@ class Ui_form_analytics(object):
 
         self.retranslateUi(form_analytics)
 
-        self.tabs_data.setCurrentIndex(0)
+        self.tabs_data.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(form_analytics)

@@ -40,7 +40,7 @@
     <item>
      <widget class="QTabWidget" name="tabs_data">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_data_options">
        <attribute name="title">
@@ -83,7 +83,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QWidget" name="dia_data_dynamic" native="true">
+         <widget class="C20_DiaDynamic" name="dia_data_dynamic" native="true">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -145,6 +145,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>C20_DiaDynamic</class>
+   <extends>QWidget</extends>
+   <header location="global">L20_analytics</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -11,3 +11,4 @@ class C50_FormAnalytics(C42_FormAnalytics):
 
 	# Элемент аналитики
 	def on_RequestCreateAnalyticsItem(self): pass
+	def on_RequestDeleteAnalyticsItem(self): pass

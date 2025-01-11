@@ -1,7 +1,7 @@
 # ФОРМА АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestText
+from L20_PySide6 import RequestConfirm, RequestText
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -29,3 +29,11 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		analytics_item.RegisterObject(CONTAINERS.DISK)
 
 		analytics_item.Name(name)
+
+	def DeleteAnalyticsItem(self):
+		""" Удаление элемента аналитики """
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+
+		if not RequestConfirm("Элементы аналитики", f"Удаление элемента аналитики:\n{analytics_item.Name()}"): return
+
+		analytics_item.DeleteObject(CONTAINERS.DISK)
