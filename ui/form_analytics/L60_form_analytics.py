@@ -71,3 +71,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		""" Чтение IDO из списка элементов аналитики """
 		try   : self._processing_ido = self.list_items.selectedIndexes()[0].data(ROLES.IDO)
 		except: self._processing_ido = ""
+
+	def ReadProcessingIdoFromTreeOptions(self):
+		""" Чтение IDO из дерева параметров """
+		self._processing_ido = self.tree_data_options.currentIndex().data(ROLES.IDO)

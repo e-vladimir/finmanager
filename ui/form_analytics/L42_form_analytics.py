@@ -3,6 +3,7 @@
 from L20_PySide6        import C20_StandardItemModel
 from L41_form_analytics import C41_FormAnalytics
 from L90_analytics      import C90_Analytics
+from L90_operations     import C90_Operations
 from L90_workspace      import C90_Workspace
 
 
@@ -22,6 +23,7 @@ class C42_FormAnalytics(C41_FormAnalytics):
 		self.model_data_volumes = C20_StandardItemModel()
 
 		self.analytics          = C90_Analytics()
+		self.operations         = C90_Operations()
 		self.workspace          = C90_Workspace()
 
 	def Init_11(self):

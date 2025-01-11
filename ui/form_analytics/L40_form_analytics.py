@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsNSEAvT.ui'
+## Form generated from reading UI file 'form_analyticsDhJURd.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -49,6 +49,7 @@ class Ui_form_analytics(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.tree_data_options = QTreeView(self.tab_data_options)
         self.tree_data_options.setObjectName(u"tree_data_options")
+        self.tree_data_options.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.tree_data_options.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tree_data_options.setAlternatingRowColors(True)
         self.tree_data_options.setRootIsDecorated(False)
@@ -104,7 +105,7 @@ class Ui_form_analytics(object):
 
         self.retranslateUi(form_analytics)
 
-        self.tabs_data.setCurrentIndex(1)
+        self.tabs_data.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(form_analytics)

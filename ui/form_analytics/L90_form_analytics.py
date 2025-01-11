@@ -19,6 +19,14 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.action_items_item_edit_name.triggered.connect(self.on_RequestEditNameAnalyticsItem)
 		self.action_items_item_delete.triggered.connect(self.on_RequestDeleteAnalyticsItem)
 
+		# Дерево Параметры
+		self.tree_data_options.customContextMenuRequested.connect(self.on_RequestShowMenuOptions)
+		self.tree_data_options.doubleClicked.connect(self.on_RequestProcessingTreeOptionsDbClick)
+
+		# Меню Параметры
+		self.action_options_edit_include.triggered.connect(self.on_RequestEditOptionsInclude)
+		self.action_options_edit_exclude.triggered.connect(self.on_RequestEditOptionsExclude)
+
 	# Форма
 	def on_Open(self):
 		""" Открытие формы """
@@ -44,6 +52,16 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustMenuItems_Enable()
 
 		self.ShowMenuItems()
+
+	# Меню Параметры
+	def on_RequestShowMenuOptions(self):
+		""" Запрос вызова меню Параметры """
+		self.ReadProcessingIdoFromListItems()
+
+		self.AdjustMenuOptions_Text()
+		self.AdjustMenuOptions_Enable()
+
+		self.ShowMenuOptions()
 
 	# Элемент аналитики
 	def on_AnalyticsItemSelected(self):
@@ -72,3 +90,27 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.EditNameAnalyticsItem()
 
 		self.LoadItemAnalyticsInModelItems()
+
+	# Параметры
+	def on_RequestEditOptionsInclude(self):
+		""" Запрос редактирования признаков включения """
+		self.ReadProcessingIdoFromListItems()
+
+		self.EditOptionsInclude()
+
+		self.LoadModelDataOptions()
+
+	def on_RequestEditOptionsExclude(self):
+		""" Запрос редактирования признаков исключения """
+		self.ReadProcessingIdoFromListItems()
+
+		self.EditOptionsExclude()
+
+		self.LoadModelDataOptions()
+
+	# Дерево Параметры
+	def on_RequestProcessingTreeOptionsDbClick(self):
+		""" Запрос на обработку двойного клика по дереву параметров """
+		self.ReadProcessingIdoFromTreeOptions()
+
+		self.ProcessingTreeOptions_DbClick()

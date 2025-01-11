@@ -40,7 +40,7 @@
     <item>
      <widget class="QTabWidget" name="tabs_data">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_data_options">
        <attribute name="title">
@@ -49,6 +49,9 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QTreeView" name="tree_data_options">
+          <property name="contextMenuPolicy">
+           <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
+          </property>
           <property name="editTriggers">
            <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
           </property>
@@ -149,7 +152,7 @@
   <customwidget>
    <class>C20_DiaDynamic</class>
    <extends>QWidget</extends>
-   <header location="global">L20_analytics</header>
+   <header location="global">L20_form_analytics</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -3,6 +3,7 @@
 from PySide6.QtGui      import QCursor
 from PySide6.QtWidgets  import QHeaderView
 
+from L00_form_analytics import IDOS_ANALYTICS
 from L60_form_analytics import C60_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -38,6 +39,22 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		""" Меню Элементы аналитики: Отображение """
 		self.menu_items.exec_(QCursor().pos())
 
+	# Меню Параметры
+	def AdjustMenuOptions_Text(self):
+		""" Меню Параметры: Настройка текста """
+		pass
+
+	def AdjustMenuOptions_Enable(self):
+		""" Меню Параметры: Настройка доступности """
+		flag_selected : bool = bool(self._processing_ido)
+
+		self.action_options_edit_include.setEnabled(flag_selected)
+		self.action_options_edit_exclude.setEnabled(flag_selected)
+
+	def ShowMenuOptions(self):
+		""" Меню Параметры: Отображение меню """
+		self.menu_options.exec_(QCursor().pos())
+
 	# Дерево параметров
 	def AdjustTreeOptions_Size(self):
 		""" Дерево данных Параметры: Настройка размеров """
@@ -51,3 +68,9 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	def AdjustTreeOptions_Color(self):
 		""" Дерево данных Параметры: Настройка цвета """
 		self.model_data_options.adjustGroupView(True, True)
+
+	def ProcessingTreeOptions_DbClick(self):
+		""" Дерево параметров: Обработка двойного клика """
+		match self._processing_ido:
+			case IDOS_ANALYTICS.INCLUDE: self.on_RequestEditOptionsInclude()
+			case IDOS_ANALYTICS.EXCLUDE: self.on_RequestEditOptionsExclude()

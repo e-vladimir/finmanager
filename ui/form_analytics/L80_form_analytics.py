@@ -1,7 +1,7 @@
 # ФОРМА АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestText
+from L20_PySide6        import RequestConfirm, RequestItems, RequestText
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -50,3 +50,26 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		if     name in self.analytics.Names(): return
 
 		analytics_item.Name(name)
+
+	# Параметры
+	def EditOptionsInclude(self):
+		""" Редактирование признаков включения """
+		analytics_item            = C90_AnalyticsItem(self._processing_ido)
+		labels                    = RequestItems("Элемент аналитики",
+		                                         "Параметры включения",
+		                                         self.operations.Labels(),
+		                                         analytics_item.Include())
+		if labels is None: return
+
+		analytics_item.Include(labels)
+
+	def EditOptionsExclude(self):
+		""" Редактирование признаков исключения """
+		analytics_item            = C90_AnalyticsItem(self._processing_ido)
+		labels                    = RequestItems("Элемент аналитики",
+		                                         "Параметры исключения",
+		                                         self.operations.Labels(),
+		                                         analytics_item.Exclude())
+		if labels is None: return
+
+		analytics_item.Exclude(labels)
