@@ -25,3 +25,14 @@ class C80_Analytics(C70_Analytics):
 		filter_data.Capture(CONTAINERS.DISK)
 
 		return filter_data.Idos(idp_name).data
+
+	def Names(self) -> list[str]:
+		""" Список названий элементов аналитики """
+		analytics_item = C80_AnalyticsItem()
+		idc      : str = analytics_item.Idc().data
+		idp_name : str = analytics_item.f_name.Idp().data
+
+		filter_data    = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_name, True, True).data
