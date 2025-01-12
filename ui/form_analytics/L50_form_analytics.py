@@ -17,11 +17,17 @@ class C50_FormAnalytics(C42_FormAnalytics):
 
 	def on_RequestCreateAnalyticsItem(self): pass
 	def on_RequestDeleteAnalyticsItem(self): pass
-	def on_RequestEditNameAnalyticsItem(self): pass
+	def on_RequestEditName(self): pass
+
+	def on_RequestEditVolumeTitle(self): pass
+	def on_RequestEditVolumeValue(self): pass
 
 	# Параметры
-	def on_RequestEditOptionsInclude(self): pass
-	def on_RequestEditOptionsExclude(self): pass
+	def on_RequestEditInclude(self): pass
+	def on_RequestEditExclude(self): pass
 
 	# Дерево Параметры
 	def on_RequestProcessingTreeOptionsDbClick(self): pass
+
+	# Дерево Объёмная стоимость
+	def on_RequestProcessingTreeVolumesDbClick(self): pass

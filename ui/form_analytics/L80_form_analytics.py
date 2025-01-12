@@ -4,7 +4,7 @@ from G10_datetime       import CalcDyDmByShiftDm
 
 from L00_containers     import CONTAINERS
 from L00_months         import MONTHS_SHORT
-from L20_PySide6        import RequestConfirm, RequestItems, RequestText
+from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue
 from L20_data_struct    import T20_StatisticItem
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
@@ -42,7 +42,7 @@ class C80_FormAnalytics(C70_FormAnalytics):
 
 		analytics_item.DeleteObject(CONTAINERS.DISK)
 
-	def EditNameAnalyticsItem(self):
+	def EditName(self):
 		""" Редактирование названия элемента аналитики """
 		analytics_item = C90_AnalyticsItem(self._processing_ido)
 
@@ -56,24 +56,24 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		analytics_item.Name(name)
 
 	# Параметры
-	def EditOptionsInclude(self):
+	def EditInclude(self):
 		""" Редактирование признаков включения """
-		analytics_item            = C90_AnalyticsItem(self._processing_ido)
-		labels                    = RequestItems("Элемент аналитики",
-		                                         "Параметры включения",
-		                                         self.operations.Labels(),
-		                                         analytics_item.Include())
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+		labels         = RequestItems("Элемент аналитики",
+		                              "Параметры включения",
+		                              self.operations.Labels(),
+		                              analytics_item.Include())
 		if labels is None: return
 
 		analytics_item.Include(labels)
 
-	def EditOptionsExclude(self):
+	def EditExclude(self):
 		""" Редактирование признаков исключения """
-		analytics_item            = C90_AnalyticsItem(self._processing_ido)
-		labels                    = RequestItems("Элемент аналитики",
-		                                         "Параметры исключения",
-		                                         self.operations.Labels(),
-		                                         analytics_item.Exclude())
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+		labels         = RequestItems("Элемент аналитики",
+		                              "Параметры исключения",
+		                              self.operations.Labels(),
+		                              analytics_item.Exclude())
 		if labels is None: return
 
 		analytics_item.Exclude(labels)
@@ -95,3 +95,25 @@ class C80_FormAnalytics(C70_FormAnalytics):
 
 		self.dia_data_dynamic._statistics = list(reversed(statistics_items[:]))
 		self.dia_data_dynamic.update()
+
+	# Объёмная стоимость
+	def EditVolumeTitle(self):
+		""" Редактирование названия ед.изм. """
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+
+		name : str | None = RequestText("Элемент аналитики", "Редактирование названия единицы измерения", analytics_item.VolumeTitle())
+		if     name is None                  : return
+
+		name = name.strip()
+		if not name: return
+
+		analytics_item.VolumeTitle(name)
+
+	def EditVolumeValue(self):
+		""" Редактирование объёма ед.изм. """
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+
+		value : int | None = RequestValue("Элемент аналитики", "Редактирование объёма", analytics_item.VolumeValue(), 0, 100000000)
+		if value is None                  : return
+
+		analytics_item.VolumeValue(value)

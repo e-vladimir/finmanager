@@ -61,15 +61,43 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		item_data      = self.model_data_options.itemFromIndex(indexes[1])
 		item_data.setText('\n'.join(analytics_item.Exclude()))
 
+	# Динамика
+	def InitDynamic(self):
+		""" Инициализация динамики """
+		self.dia_data_dynamic._statistics.clear()
+
 	# Модель данных Объёмная стоимость
 	def InitModelDataVolumes(self):
 		""" Инициализация модели Объёмная стоимость """
 		self.model_data_volumes.removeAll()
 
-	# Динамика
-	def InitDynamic(self):
-		""" Инициализация динамики """
-		pass
+		self.model_data_volumes.setHorizontalHeaderLabels(["Критерий", "Объём", "%", "Стоимость"])
+
+		group_options = C20_StandardItem("Параметры изменений")
+		item_field    = C20_StandardItem("Единицы измерения",  IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
+		item_volume   = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
+		item_percent  = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
+		item_cost     = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
+		group_options.appendRow([item_field, item_volume, item_percent, item_cost])
+		item_field    = C20_StandardItem("Объём расчёта",      IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
+		item_volume   = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
+		item_percent  = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
+		item_cost     = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
+		group_options.appendRow([item_field, item_volume, item_percent, item_cost])
+
+		self.model_data_volumes.appendRow(group_options)
+
+	def LoadModelDataVolumes(self):
+		""" Загрузка данных в модель Объёмная стоимость """
+		analytics_item                 = C90_AnalyticsItem(self._processing_ido)
+
+		indexes    : list[QModelIndex] = self.model_data_volumes.indexesInRowByIdo(IDOS_ANALYTICS.VOLUME_TITLE)
+		item_value : C20_StandardItem  = self.model_data_volumes.itemFromIndex(indexes[3])
+		item_value.setText(analytics_item.VolumeTitle())
+
+		indexes    : list[QModelIndex] = self.model_data_volumes.indexesInRowByIdo(IDOS_ANALYTICS.VOLUME_VALUE)
+		item_value : C20_StandardItem  = self.model_data_volumes.itemFromIndex(indexes[3])
+		item_value.setText(f"{analytics_item.VolumeValue()}")
 
 	# Параметры
 	def ReadProcessingIdoFromListItems(self):
@@ -80,3 +108,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def ReadProcessingIdoFromTreeOptions(self):
 		""" Чтение IDO из дерева параметров """
 		self._processing_ido = self.tree_data_options.currentIndex().data(ROLES.IDO)
+
+	def ReadProcessingIdoFromTreeVolumes(self):
+		""" Чтение IDO из дерева Объёмная стоимость """
+		self._processing_ido = self.tree_data_volume.currentIndex().data(ROLES.IDO)

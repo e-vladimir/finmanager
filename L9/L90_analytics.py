@@ -11,6 +11,8 @@ class C90_AnalyticsItem(C80_AnalyticsItem):
 		self.Name("")
 		self.Include([])
 		self.Exclude([])
+		self.VolumeTitle("")
+		self.VolumeValue(0)
 
 
 class C90_Analytics(C80_Analytics):

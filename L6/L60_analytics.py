@@ -32,6 +32,16 @@ class C60_AnalyticsItem(C50_AnalyticsItem):
 			if '' in data: data.remove('')
 			self.f_exclude.FromStrings(CONTAINERS.DISK, sorted(data))
 
+	def VolumeTitle(self, text: str = None) -> str:
+		""" Название единицы измерения """
+		if text is None : return self.f_volume_title.ToString(CONTAINERS.DISK).data
+		else            :        self.f_volume_title.FromString(CONTAINERS.DISK, text)
+
+	def VolumeValue(self, value: int = None) -> int:
+		""" Объём """
+		if value is None : return self.f_volume_value.ToInteger(CONTAINERS.DISK).data
+		else             :        self.f_volume_value.FromInteger(CONTAINERS.DISK, value)
+
 
 class C60_Analytics(C50_Analytics):
 	""" Аналитика: Механика данных """
