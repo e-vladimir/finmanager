@@ -1,9 +1,11 @@
 # ФОРМА АНАЛИТИКА: МЕХАНИКА ДАННЫХ
 
-from PySide6.QtCore     import QModelIndex
+from PySide6.QtCore import QModelIndex, Qt
 
+from G11_convertor_data import AmountToString
 from L00_form_analytics import IDOS_ANALYTICS
 from L20_PySide6        import C20_StandardItem, ROLES
+from L20_data_struct    import T20_StatisticItem
 from L50_form_analytics import C50_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -73,31 +75,54 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 		self.model_data_volumes.setHorizontalHeaderLabels(["Критерий", "Объём", "%", "Стоимость"])
 
-		group_options = C20_StandardItem("Параметры изменений")
-		item_field    = C20_StandardItem("Единицы измерения",  IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
-		item_volume   = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
-		item_percent  = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
-		item_cost     = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
-		group_options.appendRow([item_field, item_volume, item_percent, item_cost])
-		item_field    = C20_StandardItem("Объём расчёта",      IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
-		item_volume   = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
-		item_percent  = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
-		item_cost     = C20_StandardItem("",                   IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO)
+		group_options = C20_StandardItem("Параметры определения объёмной стоимости")
+		item_field    = C20_StandardItem("Единица измерения объёмной стоимости", IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
+		item_volume   = C20_StandardItem("",                 )
+		item_percent  = C20_StandardItem("",                                     IDOS_ANALYTICS.VOLUME_VALUE, ROLES.IDO, flag_align_right=True)
+		item_cost     = C20_StandardItem("",                                     IDOS_ANALYTICS.VOLUME_TITLE, ROLES.IDO)
 		group_options.appendRow([item_field, item_volume, item_percent, item_cost])
 
 		self.model_data_volumes.appendRow(group_options)
 
 	def LoadModelDataVolumes(self):
 		""" Загрузка данных в модель Объёмная стоимость """
-		analytics_item                 = C90_AnalyticsItem(self._processing_ido)
+		analytics_item                         = C90_AnalyticsItem(self._processing_ido)
 
-		indexes    : list[QModelIndex] = self.model_data_volumes.indexesInRowByIdo(IDOS_ANALYTICS.VOLUME_TITLE)
-		item_value : C20_StandardItem  = self.model_data_volumes.itemFromIndex(indexes[3])
+		indexes      : list[QModelIndex]       = self.model_data_volumes.indexesInRowByIdo(IDOS_ANALYTICS.VOLUME_TITLE)
+		item_value   : C20_StandardItem        = self.model_data_volumes.itemFromIndex(indexes[2])
+		item_value.setText(f"{analytics_item.VolumeValue()}")
+
+		item_value   : C20_StandardItem        = self.model_data_volumes.itemFromIndex(indexes[3])
 		item_value.setText(analytics_item.VolumeTitle())
 
-		indexes    : list[QModelIndex] = self.model_data_volumes.indexesInRowByIdo(IDOS_ANALYTICS.VOLUME_VALUE)
-		item_value : C20_StandardItem  = self.model_data_volumes.itemFromIndex(indexes[3])
-		item_value.setText(f"{analytics_item.VolumeValue()}")
+		volume_title : str                     = analytics_item.VolumeTitle()
+		volume_value : int                     = analytics_item.VolumeValue()
+
+		volumes      : T20_StatisticItem       = analytics_item.CalcVolume()
+		volume_max   : int                     = max(abs(volumes.amount_income), abs(volumes.amount_outcome))
+
+		data         : list[T20_StatisticItem] = analytics_item.CaptureVolumes()
+		data         : list[list[str, int]]    = [[item.caption, max(abs(item.amount_income), abs(item.amount_outcome))] for item in data]
+		if not data: return
+
+		item_group                             = C20_StandardItem("Объёмная стоимость")
+		item_volume                            = C20_StandardItem("Объём"    , flag_align_right=True)
+		item_percent                           = C20_StandardItem("%"        , flag_align_right=True)
+		item_cost                              = C20_StandardItem("Стоимость", flag_align_right=True)
+		self.model_data_volumes.appendRow([item_group, item_volume, item_percent, item_cost])
+
+		for data_item in sorted(data, key=lambda item: item[1], reverse=True):
+			volume         : int = data_item[1]
+			volume_percent : int = 0 if not volume_max else int((volume / volume_max * 100))
+
+			if not volume_percent: continue
+
+			item_label           = C20_StandardItem(data_item[0])
+			item_volume          = C20_StandardItem(f"{AmountToString(volume)}", flag_align_right=True)
+			item_percent         = C20_StandardItem(f"{volume_percent}%", flag_align_right=True)
+			item_cost            = C20_StandardItem("" if not volume_value else f"{volume/volume_value:0.2f} / {volume_title}", flag_align_right=True)
+
+			item_group.appendRow([item_label, item_volume, item_percent, item_cost])
 
 	# Параметры
 	def ReadProcessingIdoFromListItems(self):

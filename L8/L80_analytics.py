@@ -1,5 +1,7 @@
 # АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
+from collections            import defaultdict
+
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -43,6 +45,37 @@ class C80_AnalyticsItem(C70_AnalyticsItem):
 	def CalcAmountsInDm(self, dy: int, dm: int) -> T20_StatisticItem:
 		""" Расчёт объёмов в месяце """
 		amounts : list[float] = list(map(lambda ido: C90_Operation(ido).Amount(), self.CaptureIdos(dy, dm)))
+
+		result                = T20_StatisticItem()
+		result.amount_income  = sum(filter(lambda amount: amount > 0, amounts))
+		result.amount_outcome = sum(filter(lambda amount: amount < 0, amounts))
+
+		return result
+
+	def CaptureVolumes(self) -> list[T20_StatisticItem]:
+		""" Захват объёмов элемента аналитики """
+		data : defaultdict[str, list[int]] = defaultdict(list)
+
+		for ido in self.CaptureIdos():
+			operation         = C90_Operation(ido)
+
+			amount: int       = int(operation.Amount())
+			labels: list[str] = operation.Labels()
+
+			for label in labels: data[label].append(amount)
+
+		result: list[T20_StatisticItem] = []
+		for label, amounts in data.items():
+			amount_income : int = sum(filter(lambda amount: amount > 0, amounts))
+			amount_outcome: int = sum(filter(lambda amount: amount < 0, amounts))
+
+			result.append(T20_StatisticItem(label, amount_income, amount_outcome))
+
+		return result
+
+	def CalcVolume(self) -> T20_StatisticItem:
+		""" Расчёт общего объёма """
+		amounts : list[float] = list(map(lambda ido: C90_Operation(ido).Amount(), self.CaptureIdos()))
 
 		result                = T20_StatisticItem()
 		result.amount_income  = sum(filter(lambda amount: amount > 0, amounts))

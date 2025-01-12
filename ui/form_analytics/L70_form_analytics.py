@@ -88,9 +88,9 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		self.tree_data_volume.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
 		self.tree_data_volume.header().setSectionResizeMode(3, QHeaderView.ResizeMode.Fixed)
 
-		self.tree_data_volume.setColumnWidth(1, 75)
-		self.tree_data_volume.setColumnWidth(2, 50)
-		self.tree_data_volume.setColumnWidth(3, 75)
+		self.tree_data_volume.setColumnWidth(1,  75)
+		self.tree_data_volume.setColumnWidth(2,  50)
+		self.tree_data_volume.setColumnWidth(3, 100)
 
 	def AdjustTreeVolumes_Expand(self):
 		""" Дерево данных Объёмная стоимость: Настройка раскрытия """
