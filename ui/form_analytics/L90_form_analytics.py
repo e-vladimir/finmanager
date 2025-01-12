@@ -42,7 +42,6 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeOptions_Color()
 
 		self.InitDynamic()
-		self.AdjustDiaDynamic_Title()
 
 		self.InitModelDataVolumes()
 
@@ -81,6 +80,8 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		self.ShowAnalyticsItems()
 
+		self.AdjustListItems_Sort()
+
 	def on_RequestDeleteAnalyticsItem(self):
 		""" Запрос на удаление элемента аналитики """
 		self.DeleteAnalyticsItem()
@@ -95,6 +96,8 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.EditNameAnalyticsItem()
 
 		self.LoadItemAnalyticsInModelItems()
+
+		self.AdjustListItems_Sort()
 
 	# Параметры
 	def on_RequestEditOptionsInclude(self):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsWNXzoM.ui'
+## Form generated from reading UI file 'form_analyticsUAAdnR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -66,17 +66,11 @@ class Ui_form_analytics(object):
         self.tab_data_dynamic.setObjectName(u"tab_data_dynamic")
         self.verticalLayout_2 = QVBoxLayout(self.tab_data_dynamic)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.dia_data_dynamic_income = C20_DiaDynamic(self.tab_data_dynamic)
-        self.dia_data_dynamic_income.setObjectName(u"dia_data_dynamic_income")
-        self.dia_data_dynamic_income.setMinimumSize(QSize(0, 300))
+        self.dia_data_dynamic = C20_DiaDynamic(self.tab_data_dynamic)
+        self.dia_data_dynamic.setObjectName(u"dia_data_dynamic")
+        self.dia_data_dynamic.setMinimumSize(QSize(0, 300))
 
-        self.verticalLayout_2.addWidget(self.dia_data_dynamic_income)
-
-        self.dia_data_dynamic_outcome = C20_DiaDynamic(self.tab_data_dynamic)
-        self.dia_data_dynamic_outcome.setObjectName(u"dia_data_dynamic_outcome")
-        self.dia_data_dynamic_outcome.setMinimumSize(QSize(0, 300))
-
-        self.verticalLayout_2.addWidget(self.dia_data_dynamic_outcome)
+        self.verticalLayout_2.addWidget(self.dia_data_dynamic)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 

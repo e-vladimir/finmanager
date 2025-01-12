@@ -1,6 +1,6 @@
 # ФОРМА АНАЛИТИКА: МЕХАНИКА УПРАВЛЕНИЯ
 
-from PySide6.QtGui      import QCursor
+from PySide6.QtGui      import QCursor, Qt
 from PySide6.QtWidgets  import QHeaderView
 
 from L00_form_analytics import IDOS_ANALYTICS
@@ -75,8 +75,7 @@ class C70_FormAnalytics(C60_FormAnalytics):
 			case IDOS_ANALYTICS.INCLUDE: self.on_RequestEditOptionsInclude()
 			case IDOS_ANALYTICS.EXCLUDE: self.on_RequestEditOptionsExclude()
 
-	# Диаграммы динамики
-	def AdjustDiaDynamic_Title(self):
-		""" Настройка диаграмм динамики """
-		self.dia_data_dynamic_income._title  = "Поступления"
-		self.dia_data_dynamic_outcome._title = "Списания"
+	# Список элементов аналитики
+	def AdjustListItems_Sort(self):
+		""" Список элементы аналитики: Сортировка """
+		self.model_items.sort(0, Qt.SortOrder.AscendingOrder)

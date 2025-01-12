@@ -86,17 +86,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="C20_DiaDynamic" name="dia_data_dynamic_income" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>300</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="C20_DiaDynamic" name="dia_data_dynamic_outcome" native="true">
+         <widget class="C20_DiaDynamic" name="dia_data_dynamic" native="true">
           <property name="minimumSize">
            <size>
             <width>0</width>
