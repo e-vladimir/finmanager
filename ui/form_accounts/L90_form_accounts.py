@@ -1,0 +1,180 @@
+# ФОРМА СЧЕТА: ЛОГИКА УПРАВЛЕНИЯ
+
+from L80_form_accounts import C80_FormAccounts
+
+
+class C90_FormAccounts(C80_FormAccounts):
+	""" Форма Счета: Логика управления """
+
+	def InitEvents(self):
+		super().InitEvents()
+
+		# Дерево данных
+		self.tree_data.customContextMenuRequested.connect(self.on_RequestShowMenuAccounts)
+		self.tree_data.doubleClicked.connect(self.on_RequestProcessingTreeDataDbClick)
+
+		# Счета
+		self.action_accounts_struct_create_account.triggered.connect(self.on_RequestCreateAccount)
+		self.action_accounts_struct_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsStructToPrevDm)
+		self.action_accounts_struct_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsStructToNextDm)
+		self.action_accounts_struct_reset.triggered.connect(self.on_RequestResetData)
+
+		# Группа счетов
+		self.action_account_group_rename.triggered.connect(self.on_RequestRenameAccountsGroup)
+		self.action_account_group_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountsGroupToPrevDm)
+		self.action_account_group_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountsGroupToNextDm)
+
+		# Счёт
+		self.action_account_set_balance_initial.triggered.connect(self.on_RequestSetBalanceInitial)
+		self.action_account_rename.triggered.connect(self.on_RequestRenameAccount)
+		self.action_account_delete.triggered.connect(self.on_RequestDeleteAccount)
+		self.action_account_change_group.triggered.connect(self.on_RequestChangeGroupForAccount)
+		self.action_account_transfer_prev_dm.triggered.connect(self.on_RequestTransferAccountToPrevDm)
+		self.action_account_transfer_next_dm.triggered.connect(self.on_RequestTransferAccountToNextDm)
+
+	# Форма
+	def on_Open(self):
+		super().on_Open()
+
+		self.ShowTitle()
+
+		self.InitModelData()
+		self.ShowAccounts()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	# Дерево данных
+	def on_RequestProcessingTreeDataDbClick(self):
+		""" Запрос реакции на двойной клик по дереву данных """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingGroupFromTreeData()
+		self.ReadProcessingNameFromTreeData()
+		self.ReadProcessingColumnFromTreeData()
+
+		self.ProcessingTreeDataDbClick()
+
+	# Меню Счета
+	def on_RequestShowMenuAccounts(self):
+		""" Запрос меню Счета """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingGroupFromTreeData()
+		self.ReadProcessingNameFromTreeData()
+
+		self.AdjustMenuAccounts_Enable()
+		self.AdjustMenuAccounts_Text()
+
+		self.ShowMenuAccounts()
+
+	# Меню Счета: Счета
+	def on_RequestCreateAccount(self):
+		""" Запрос создания счёта в структуре счетов """
+		self.CreateAccount()
+
+		self.ReadProcessingGroupFromAccount()
+
+		self.LoadAccountsGroup()
+		self.LoadAccount()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestTransferAccountsStructToPrevDm(self):
+		""" Запрос на перенос структуры счетов в прошлый месяц """
+		self.TransferAccountsStructToPrevDm()
+
+	def on_RequestTransferAccountsStructToNextDm(self):
+		""" Запрос на перенос структуры счетов в следующий месяц """
+		self.TransferAccountsStructToNextDm()
+
+	def on_RequestResetData(self):
+		""" Запрос сброса данных """
+		self.ResetData()
+
+		self.InitModelData()
+		self.ShowAccounts()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	# Меню Счета: Группа счетов
+	def on_RequestRenameAccountsGroup(self):
+		""" Запрос на переименование группы счетов """
+		self.RenameAccountsGroup()
+
+		self.InitModelData()
+		self.ShowAccounts()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestTransferAccountsGroupToPrevDm(self):
+		""" Запрос на перенос группы счетов в прошлый месяц """
+		self.TransferAccountsGroupToPrevDm()
+
+	def on_RequestTransferAccountsGroupToNextDm(self):
+		""" Запрос на перенос группы счетов в следующий месяц """
+		self.TransferAccountsGroupToNextDm()
+
+	# Меню Счета: Счёт
+	def on_RequestSetBalanceInitial(self):
+		""" Запрос установки остатка начального """
+		self.SetBalanceInitial()
+
+		self.LoadAccount()
+
+		self.AdjustTreeData_Color()
+
+	def on_RequestRenameAccount(self):
+		""" Запрос на переименование счёта """
+		self.RenameAccount()
+
+		self.ReadProcessingGroupFromAccount()
+
+		self.LoadAccountsGroup()
+		self.LoadAccount()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestDeleteAccount(self):
+		""" Запрос удаления счёта """
+		self.DeleteAccount()
+
+		self.InitModelData()
+		self.ShowAccounts()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestChangeGroupForAccount(self):
+		""" Запрос на перемещение счёта в другую группу """
+		self.ChangeGroupForAccount()
+
+		self.InitModelData()
+		self.ShowAccounts()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+
+	def on_RequestTransferAccountToPrevDm(self):
+		""" Запрос на перенос счёта в прошлый месяц """
+		self.TransferAccountToPrevDm()
+
+	def on_RequestTransferAccountToNextDm(self):
+		""" Запрос на перенос счёта в следующий месяц """
+		self.TransferAccountToNextDm()

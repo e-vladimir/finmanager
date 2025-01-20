@@ -1,0 +1,164 @@
+# ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
+
+from hashlib                import md5
+
+from G30_cactus_datafilters import C30_FilterLinear1D
+
+from L00_containers         import CONTAINERS
+from L00_fields import FIELDS
+from L00_months             import MONTHS
+
+from L70_operations         import C70_Operation, C70_Operations
+
+
+class C80_Operation(C70_Operation):
+	""" Финансовая операция: Логика данных """
+
+	# Данные
+	def DescriptionOrDestination(self) -> str:
+		""" Запрос описания или назначения """
+		destination : str = ', '.join(self.Destination())
+		
+		if not destination: return self.Description()
+
+		return destination
+
+	# Обработка
+	def Split(self, amount: int) -> str:
+		""" Разделение операции """
+		self.Amount(self.Amount() - amount)
+
+		dy              = self.Dy()
+		dm              = self.Dm()
+		dd              = self.Dd()
+		description     = self.Description()
+		destination     = self.Destination()
+		object_int      = self.ObjectInt()
+		object_ext      = self.ObjectExt()
+		crc             = self.Crc()
+		color           = self.Color()
+		accounts        = self.AccountsIdos()
+
+		self.GenerateIdo()
+		self.RegisterObject(CONTAINERS.DISK)
+
+		self.Dy(dy)
+		self.Dm(dm)
+		self.Dd(dd)
+		self.Amount(amount)
+		self.Description(description)
+		self.Destination(destination)
+		self.ObjectInt(object_int)
+		self.ObjectExt(object_ext)
+		self.Crc(crc)
+		self.Color(color)
+		self.AccountsIdos(accounts)
+
+		return self.Ido().data
+
+	# Преобразования
+	def DdDmDyToString(self) -> str:
+		""" ДД МЕС ГОД """
+		dd : str = f"{self.Dd():02d}"
+		dm : str = MONTHS(self.Dm()).name_short
+		dy : str = f"{self.Dy():04d}"
+
+		return f"{dd} {dm} {dy}"
+
+
+class C80_Operations(C70_Operations):
+	""" Финансовые операции: Логика данных """
+
+	# Дни
+	def DdsInDyDm(self, dy: int, dm: int) -> list[int]:
+		""" Список дней """
+		operation    = C80_Operation()
+		idc    : str = operation.Idc().data
+		idp_dy : str = operation.f_dy.Idp().data
+		idp_dm : str = operation.f_dm.Idp().data
+		idp_dd : str = operation.f_dd.Idp().data
+
+		filter_data = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToIntegers(idp_dd, True, True).data
+
+	# Финансовые операции
+	def OperationsIdosInDyDmDd(self, dy: int, dm: int, dd: int = None) -> list[str]:
+		""" Список IDO операций в указанном периоде """
+		operation         = C80_Operation()
+		idc        : str  = operation.Idc().data
+		idp_dy     : str  = operation.f_dy.Idp().data
+		idp_dm     : str  = operation.f_dm.Idp().data
+		idp_dd     : str  = operation.f_dd.Idp().data
+		idp_amount : str  = operation.f_amount.Idp().data
+
+		filter_data       = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		if dd is not None: filter_data.FilterIdpVlpByEqual(idp_dd, dd)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.Idos(idp_amount).data
+
+	# Проверки
+	def CheckOperationByCrc(self, dy: int, dm: int, crc: str) -> bool:
+		""" Проверка операции по CRC """
+		operation      = C80_Operation()
+		idc     : str  = operation.Idc().data
+		idp_dy  : str  = operation.f_dy.Idp().data
+		idp_dm  : str  = operation.f_dm.Idp().data
+		idp_crc : str  = operation.f_crc.Idp().data
+
+		filter_data    = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy,  dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm,  dm)
+		filter_data.FilterIdpVlpByEqual(idp_crc, crc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return bool(filter_data.Idos().data)
+
+	# Импорт данных
+	def ImportOperation(self, dy: int, dm: int, dd: int, account_ido: str, data: dict[str]) -> bool:
+		""" Импорт финансовой операции """
+		amount      : float     = data.get(FIELDS.AMOUNT, 0.00)
+		description : str       = data.get(FIELDS.DESCRIPTION, "")
+		destination : list[str] = data.get(FIELDS.DESTINATION, [])
+		object_int  : str       = data.get(FIELDS.OBJECT_INT, "")
+		object_ext  : str       = data.get(FIELDS.OBJECT_EXT, "")
+
+		crc = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
+
+		if self.CheckOperationByCrc(dy, dm, crc): return False
+
+		operation = C80_Operation()
+		operation.GenerateIdo()
+		operation.RegisterObject(CONTAINERS.DISK)
+
+		operation.Dy(dy)
+		operation.Dm(dm)
+		operation.Dd(dd)
+		operation.Crc(crc)
+		operation.Description(description)
+		operation.Destination(destination)
+		operation.ObjectInt(object_int)
+		operation.ObjectExt(object_ext)
+		operation.Amount(amount)
+		operation.AccountsIdos([account_ido])
+
+		return True
+
+	# Периоды
+	def DyStart(self) -> int:
+		""" Начало года операций """
+		operation          = C80_Operation()
+		idc    : str       = operation.Idc().data
+		idp_dy : str       = operation.f_dy.Idp().data
+
+		filter_data        = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		dys    : list[int] = filter_data.ToIntegers(idp_dy, True, True).data
+		return 0 if not dys else min(dys)

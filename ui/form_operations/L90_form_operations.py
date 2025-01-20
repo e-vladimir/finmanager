@@ -1,0 +1,211 @@
+# ФОРМА ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА УПРАВЛЕНИЯ
+
+from L80_form_operations import C80_FormOperations
+
+
+class C90_FormOperations(C80_FormOperations):
+	""" Форма Финансовые операции: Логика управления """
+
+	def InitEvents(self):
+		super().InitEvents()
+
+		# Дерево данных
+		self.tree_data.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
+		self.tree_data.doubleClicked.connect(self.on_RequestProcessingTreeDataDbClick)
+
+		# Меню Финансовые операции
+		self.action_operations_create_operation.triggered.connect(self.on_RequestCreateOperation)
+		self.action_operations_import.triggered.connect(self.on_RequestImportOperations)
+		self.action_operations_export.triggered.connect(self.on_RequestExportOperations)
+		self.action_operations_open_processing.triggered.connect(self.on_RequestOpenProcessing)
+		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
+
+		# Меню Пакет операций
+		self.action_operations_pack_clear_selection.triggered.connect(self.on_RequestUncheckedAllPackOperations)
+		self.action_operations_pack_expand_selection.triggered.connect(self.on_RequestExpandPackOperations)
+		self.action_operations_pack_collapse_selection.triggered.connect(self.on_RequestCollapsePackOperations)
+		self.action_operations_pack_delete_pack.triggered.connect(self.on_RequestDeletePackOperation)
+
+		# Меню Финансовая операция
+		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
+		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
+		self.action_operation_split.triggered.connect(self.on_RequestSplitOperation)
+		self.action_operation_set_description.triggered.connect(self.on_RequestSetOperationDescription)
+		self.action_operation_set_destination.triggered.connect(self.on_RequestSetOperationDestination)
+		self.action_operation_colors_set_black.triggered.connect(self.on_RequestSetOperationColorBlack)
+		self.action_operation_colors_set_gray.triggered.connect(self.on_RequestSetOperationColorGray)
+		self.action_operation_colors_set_green.triggered.connect(self.on_RequestSetOperationColorGreen)
+		self.action_operation_colors_set_blue.triggered.connect(self.on_RequestSetOperationColorBlue)
+		self.action_operation_colors_set_red.triggered.connect(self.on_RequestSetOperationColorRed)
+
+	# Форма
+	def on_Open(self):
+		""" Открытие формы """
+		self.ShowTitle()
+
+		self.InitModel()
+
+		self.ShowOperations()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
+
+	def on_UpdateDataPartial(self):
+		""" Частичное обновление данных """
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
+
+	def on_Resize(self):
+		""" Изменение размера окна """
+		self.AdjustTreeData_Size()
+
+	# Дерево данных
+	def on_RequestProcessingTreeDataDbClick(self):
+		""" Реакция на двойной клик по дереву данных """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingColumnFromTreeData()
+
+		self.ProcessingTreeDataDbClick()
+
+	# Меню операций по счетам
+	def on_RequestShowMenuOperations(self):
+		""" Запрос меню операций по счетам """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingDdFromTreeData()
+		self.ReadProcessingIdosFromTreeData()
+
+		self.AdjustMenuOperations_Text()
+		self.AdjustMenuOperations_Enable()
+
+		self.ShowMenuOperations()
+
+	# Финансовые операции
+	def on_RequestCreateOperation(self):
+		""" Запрос на создание финансовой операции """
+		self.CreateOperation()
+
+		self.LoadDd()
+		self.LoadOperation()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
+
+	def on_RequestImportOperations(self):
+		""" Запрос импорта операций """
+		self.application.form_import.Open()
+
+	def on_RequestExportOperations(self):
+		""" Запрос экспорта операций """
+		self.application.form_export.Open()
+
+	def on_RequestOpenProcessing(self):
+		""" Запрос на открытие формы Обработка операций """
+		self.application.form_processing_operations.Open()
+
+	def on_RequestResetData(self):
+		""" Запрос на сброс данных """
+		self.ResetData()
+
+		self.InitModel()
+
+		self.ShowOperations()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
+
+	# Пакет операций
+	def on_RequestUncheckedAllPackOperations(self):
+		""" Запрос сброса пакета операций """
+		self.UncheckedAllPackOperations()
+
+	def on_RequestExpandPackOperations(self):
+		""" Запрос расширения пакета операций """
+		self.ExpandPackOperations()
+
+	def on_RequestCollapsePackOperations(self):
+		""" Запрос сокращения пакета операций """
+		self.CollapsePackOperations()
+
+	def on_RequestDeletePackOperation(self):
+		""" Запрос на удаление пакета операций """
+		self.DeletePackOperations()
+
+		self.AdjustTreeData_Size()
+
+	# Финансовая операция
+	def on_RequestOpenOperation(self):
+		""" Запрос на открытие финансовой операции """
+		self.OpenOperation()
+
+	def on_RequestDeleteOperation(self):
+		""" Запрос на удаление финансовой операции """
+		self.DeleteOperation()
+
+		self.CleanOperation()
+		self.CleanDd()
+
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Sort()
+
+	def on_RequestSetOperationColorBlack(self):
+		""" Запрос на установку цвета операции: Чёрный """
+		self.SetProcessingColorBlack()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorGray(self):
+		""" Запрос на установку цвета операции: Серый """
+		self.SetProcessingColorGray()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorGreen(self):
+		""" Запрос на установку цвета операции: Зелёный """
+		self.SetProcessingColorGreen()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorBlue(self):
+		""" Запрос на установку цвета операции: Синий """
+		self.SetProcessingColorBlue()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationColorRed(self):
+		""" Запрос на установку цвета операции: Красный """
+		self.SetProcessingColorRed()
+		self.SetOperationColor()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationDestination(self):
+		""" Запрос на редактирование описания операции """
+		self.SetOperationDestination()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationDescription(self):
+		""" Запрос на редактирование описания операции """
+		self.SetOperationDescription()
+
+		self.LoadOperation()
+
+	def on_RequestSplitOperation(self):
+		""" Запрос на разделение операции """
+		self.SplitOperation()
+
+		self.LoadOperation()
+
+		self.AdjustTreeData_Sort()

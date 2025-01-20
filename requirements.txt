@@ -1,0 +1,8 @@
+PyPDF2
+PySide6
+fpdf2
+natsort
+pyexcel
+pyexcel-ods
+pyexcel-xls
+pyexcel-xlsx
