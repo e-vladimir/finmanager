@@ -26,6 +26,8 @@ class C70_FormOperations(C60_FormOperations):
 
 		match self._processing_column:
 			case 0: self.on_RequestOpenOperation()
+			case 2: self.on_RequestSetOperationObjectExt()
+			case 3: self.on_RequestSetOperationObjectInt()
 			case 4: self.on_RequestSetOperationDestination()
 
 	def AdjustTreeData_Size(self):
@@ -91,7 +93,8 @@ class C70_FormOperations(C60_FormOperations):
 		self.action_operation_split.setEnabled(flag_selected_operation)
 		self.action_operation_set_description.setEnabled(flag_selected_operation)
 		self.action_operation_set_destination.setEnabled(flag_selected_operation)
-		self.action_operation_set_labels.setEnabled(flag_selected_operation)
+		self.action_operation_set_object_int.setEnabled(flag_selected_operation)
+		self.action_operation_set_object_ext.setEnabled(flag_selected_operation)
 
 		self.submenu_operation_colors.setEnabled(flag_selected_operation)
 

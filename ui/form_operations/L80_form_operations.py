@@ -172,9 +172,8 @@ class C80_FormOperations(C70_FormOperations):
 	def DeleteOperation(self):
 		""" Удаление операции """
 		operation     = C90_Operation(self._processing_ido)
-		text    : str = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
-		                 f"Описание:\n{operation.Description()}\n\n"
-		                 f"Назначение:\n{operation.Destination()}")
+		text    : str = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
+		                 f"{operation.Description()}")
 
 		if not RequestConfirm("Удаление операции", text): return
 
@@ -189,6 +188,7 @@ class C80_FormOperations(C70_FormOperations):
 		""" Установка описания операции """
 		operation                = C90_Operation(self._processing_ido)
 		text        : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+		                            
 		                            f"Описание:")
 
 		description : str | None = RequestText("Редактирование операции", text, operation.Description())
@@ -200,21 +200,44 @@ class C80_FormOperations(C70_FormOperations):
 		""" Установка Назначения """
 		operation                      = C90_Operation(self._processing_ido)
 		text        : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
-		                                  f"{operation.Description()}")
+		                                  f"{operation.Description()}\n\n"
+		                                  
+		                                  f"Назначение:")
 
 		labels      : list[str] | None = RequestMultipleText("Редактирование операции", text, operation.Destination())
 		if labels is None: return
 
 		operation.Destination(labels)
 
+	def SetOperationObjectInt(self):
+		""" Установка объекта внутреннего для операции """
+		operation               = C90_Operation(self._processing_ido)
+		text       : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
+		                           f"{operation.Description()}\n\n"
+
+		                           f"Объект внутренний:")
+		object_int : str | None = RequestText("Редактирование операции", text, operation.ObjectInt())
+		if object_int is None: return
+
+		operation.ObjectInt(object_int)
+
+	def SetOperationObjectExt(self):
+		""" Установка объекта внешнего для операции """
+		operation               = C90_Operation(self._processing_ido)
+		text       : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
+		                           f"{operation.Description()}\n\n"
+		                           
+		                           f"Объект внешний")
+		object_ext : str | None = RequestText("Редактирование операции", text, operation.ObjectExt())
+		if object_ext is None: return
+
+		operation.ObjectExt(object_ext)
+
 	def SplitOperation(self):
 		""" Разделение операции """
 		operation           = C90_Operation(self._processing_ido)
 		text   : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
-		                       f"Описание:\n"
-		                       f"{operation.Description()}\n\n"
-		                       f"Назначение:\n"
-		                       f"{operation.Destination()}")
+		                       f"{operation.Description()}")
 
 		amount : int | None = RequestValue("Разделение операции", text, int(operation.Amount()), -99999999, 99999999)
 		if amount is None: return

@@ -32,6 +32,8 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operation_split.triggered.connect(self.on_RequestSplitOperation)
 		self.action_operation_set_description.triggered.connect(self.on_RequestSetOperationDescription)
 		self.action_operation_set_destination.triggered.connect(self.on_RequestSetOperationDestination)
+		self.action_operation_set_object_int.triggered.connect(self.on_RequestSetOperationObjectInt)
+		self.action_operation_set_object_ext.triggered.connect(self.on_RequestSetOperationObjectExt)
 		self.action_operation_colors_set_black.triggered.connect(self.on_RequestSetOperationColorBlack)
 		self.action_operation_colors_set_gray.triggered.connect(self.on_RequestSetOperationColorGray)
 		self.action_operation_colors_set_green.triggered.connect(self.on_RequestSetOperationColorGreen)
@@ -106,7 +108,7 @@ class C90_FormOperations(C80_FormOperations):
 
 	def on_RequestOpenProcessing(self):
 		""" Запрос на открытие формы Обработка операций """
-		self.application.form_processing_operations.Open()
+		pass
 
 	def on_RequestResetData(self):
 		""" Запрос на сброс данных """
@@ -199,6 +201,18 @@ class C90_FormOperations(C80_FormOperations):
 	def on_RequestSetOperationDescription(self):
 		""" Запрос на редактирование описания операции """
 		self.SetOperationDescription()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationObjectInt(self):
+		""" Запрос на редактирование объекта внутреннего операции """
+		self.SetOperationObjectInt()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationObjectExt(self):
+		""" Запрос на редактирование объекта внешнего операции """
+		self.SetOperationObjectExt()
 
 		self.LoadOperation()
 
