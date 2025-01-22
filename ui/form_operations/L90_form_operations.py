@@ -27,13 +27,9 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_pack_delete_pack.triggered.connect(self.on_RequestDeletePackOperation)
 
 		# Меню Финансовая операция
-		self.action_operation_open_operation.triggered.connect(self.on_RequestOpenOperation)
 		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
 		self.action_operation_split.triggered.connect(self.on_RequestSplitOperation)
 		self.action_operation_set_description.triggered.connect(self.on_RequestSetOperationDescription)
-		self.action_operation_set_destination.triggered.connect(self.on_RequestSetOperationDestination)
-		self.action_operation_set_object_int.triggered.connect(self.on_RequestSetOperationObjectInt)
-		self.action_operation_set_object_ext.triggered.connect(self.on_RequestSetOperationObjectExt)
 		self.action_operation_colors_set_black.triggered.connect(self.on_RequestSetOperationColorBlack)
 		self.action_operation_colors_set_gray.triggered.connect(self.on_RequestSetOperationColorGray)
 		self.action_operation_colors_set_green.triggered.connect(self.on_RequestSetOperationColorGreen)
@@ -143,10 +139,6 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 
 	# Финансовая операция
-	def on_RequestOpenOperation(self):
-		""" Запрос на открытие финансовой операции """
-		self.OpenOperation()
-
 	def on_RequestDeleteOperation(self):
 		""" Запрос на удаление финансовой операции """
 		self.DeleteOperation()
@@ -192,27 +184,9 @@ class C90_FormOperations(C80_FormOperations):
 
 		self.LoadOperation()
 
-	def on_RequestSetOperationDestination(self):
-		""" Запрос на редактирование описания операции """
-		self.SetOperationDestination()
-
-		self.LoadOperation()
-
 	def on_RequestSetOperationDescription(self):
 		""" Запрос на редактирование описания операции """
 		self.SetOperationDescription()
-
-		self.LoadOperation()
-
-	def on_RequestSetOperationObjectInt(self):
-		""" Запрос на редактирование объекта внутреннего операции """
-		self.SetOperationObjectInt()
-
-		self.LoadOperation()
-
-	def on_RequestSetOperationObjectExt(self):
-		""" Запрос на редактирование объекта внешнего операции """
-		self.SetOperationObjectExt()
 
 		self.LoadOperation()
 

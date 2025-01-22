@@ -7,7 +7,5 @@ class FIELDS(enum.StrEnum):
 	""" Каталог проекта: Типы полей """
 	AMOUNT      = "Сумма"
 	DATE        = "Дата"
+	LABELS      = "Метки"
 	DESCRIPTION = "Описание"
-	DESTINATION = "Назначение"
-	OBJECT_INT  = "Объект внутренний"
-	OBJECT_EXT  = "Объект внешний"

@@ -5,7 +5,7 @@ from hashlib                import md5
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
-from L00_fields import FIELDS
+from L00_fields             import FIELDS
 from L00_months             import MONTHS
 
 from L70_operations         import C70_Operation, C70_Operations
@@ -13,15 +13,6 @@ from L70_operations         import C70_Operation, C70_Operations
 
 class C80_Operation(C70_Operation):
 	""" Финансовая операция: Логика данных """
-
-	# Данные
-	def DescriptionOrDestination(self) -> str:
-		""" Запрос описания или назначения """
-		destination : str = ', '.join(self.Destination())
-		
-		if not destination: return self.Description()
-
-		return destination
 
 	# Обработка
 	def Split(self, amount: int) -> str:
@@ -32,9 +23,7 @@ class C80_Operation(C70_Operation):
 		dm              = self.Dm()
 		dd              = self.Dd()
 		description     = self.Description()
-		destination     = self.Destination()
-		object_int      = self.ObjectInt()
-		object_ext      = self.ObjectExt()
+		labels          = self.Labels()
 		crc             = self.Crc()
 		color           = self.Color()
 		accounts        = self.AccountsIdos()
@@ -47,9 +36,7 @@ class C80_Operation(C70_Operation):
 		self.Dd(dd)
 		self.Amount(amount)
 		self.Description(description)
-		self.Destination(destination)
-		self.ObjectInt(object_int)
-		self.ObjectExt(object_ext)
+		self.Labels(labels)
 		self.Crc(crc)
 		self.Color(color)
 		self.AccountsIdos(accounts)
@@ -125,9 +112,7 @@ class C80_Operations(C70_Operations):
 		""" Импорт финансовой операции """
 		amount      : float     = data.get(FIELDS.AMOUNT, 0.00)
 		description : str       = data.get(FIELDS.DESCRIPTION, "")
-		destination : list[str] = data.get(FIELDS.DESTINATION, [])
-		object_int  : str       = data.get(FIELDS.OBJECT_INT, "")
-		object_ext  : str       = data.get(FIELDS.OBJECT_EXT, "")
+		labels      : list[str] = data.get(FIELDS.LABELS, [])
 
 		crc = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
 
@@ -142,9 +127,7 @@ class C80_Operations(C70_Operations):
 		operation.Dd(dd)
 		operation.Crc(crc)
 		operation.Description(description)
-		operation.Destination(destination)
-		operation.ObjectInt(object_int)
-		operation.ObjectExt(object_ext)
+		operation.Labels(labels)
 		operation.Amount(amount)
 		operation.AccountsIdos([account_ido])
 

@@ -66,34 +66,6 @@ class C80_Report(C70_Report):
 			                          aligns      = [Align.L, Align.R, Align.R, Align.R, Align.R, Align.R])
 
 		generator_pdf.NewPage()
-		generator_pdf.AppendH2(f"Статистика")
-
-		statistic = self.statistics.CaptureDataInDm(dy, dm)
-
-		table_header : list[str]       = []
-		table_header.append("Метка статистики")
-		table_header.append("Объём поступлений")
-		table_header.append("Объём списаний")
-
-		table_data   : list[list[str]] = []
-
-		for statistic_item in statistic:
-			subdata : list[str] = []
-			subdata.append(statistic_item.caption)
-			subdata.append(AmountToString(statistic_item.amount_income,  flag_sign=True))
-			subdata.append(AmountToString(statistic_item.amount_outcome, flag_sign=True))
-
-			table_data.append(subdata)
-
-		table_data.sort()
-
-		generator_pdf.AppendTable(description = "Статистика по меткам",
-		                          header      = table_header,
-		                          data        = table_data,
-		                          sizes       = [100],
-		                          aligns      = [Align.L, Align.R, Align.R])
-
-		generator_pdf.NewPage()
 		generator_pdf.AppendH2(f"Реестр операций")
 
 		table_header : list[str]      = []

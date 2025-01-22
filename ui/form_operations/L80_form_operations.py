@@ -9,7 +9,6 @@ from L00_containers      import  CONTAINERS
 from L20_PySide6         import (RequestValue,
                                  RequestText,
                                  RequestConfirm,
-                                 RequestMultipleText,
                                  C20_StandardItem,
                                  ROLES)
 from L70_form_operations import  C70_FormOperations
@@ -165,10 +164,6 @@ class C80_FormOperations(C70_FormOperations):
 
 		self._processing_ido = operation.Ido().data
 
-	def OpenOperation(self):
-		""" Открытие операции """
-		self.workspace.IdoOperation(self._processing_ido)
-
 	def DeleteOperation(self):
 		""" Удаление операции """
 		operation     = C90_Operation(self._processing_ido)
@@ -195,43 +190,6 @@ class C80_FormOperations(C70_FormOperations):
 		if description is None: return
 
 		operation.Description(description)
-
-	def SetOperationDestination(self):
-		""" Установка Назначения """
-		operation                      = C90_Operation(self._processing_ido)
-		text        : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
-		                                  f"{operation.Description()}\n\n"
-		                                  
-		                                  f"Назначение:")
-
-		labels      : list[str] | None = RequestMultipleText("Редактирование операции", text, operation.Destination())
-		if labels is None: return
-
-		operation.Destination(labels)
-
-	def SetOperationObjectInt(self):
-		""" Установка объекта внутреннего для операции """
-		operation               = C90_Operation(self._processing_ido)
-		text       : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
-		                           f"{operation.Description()}\n\n"
-
-		                           f"Объект внутренний:")
-		object_int : str | None = RequestText("Редактирование операции", text, operation.ObjectInt())
-		if object_int is None: return
-
-		operation.ObjectInt(object_int)
-
-	def SetOperationObjectExt(self):
-		""" Установка объекта внешнего для операции """
-		operation               = C90_Operation(self._processing_ido)
-		text       : str        = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
-		                           f"{operation.Description()}\n\n"
-		                           
-		                           f"Объект внешний")
-		object_ext : str | None = RequestText("Редактирование операции", text, operation.ObjectExt())
-		if object_ext is None: return
-
-		operation.ObjectExt(object_ext)
 
 	def SplitOperation(self):
 		""" Разделение операции """

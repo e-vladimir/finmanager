@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainBqLgHa.ui'
+## Form generated from reading UI file 'form_mainUzHlNg.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -103,50 +103,6 @@ class Ui_form_main(object):
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_8)
-
-        self.verticalSpacer_9 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-
-        self.verticalLayout.addItem(self.verticalSpacer_9)
-
-        self.horizontalLayout_10 = QHBoxLayout()
-        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
-        self.label_5 = QLabel(self.centralwidget)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font)
-
-        self.horizontalLayout_10.addWidget(self.label_5)
-
-        self.line_7 = QFrame(self.centralwidget)
-        self.line_7.setObjectName(u"line_7")
-        self.line_7.setFrameShape(QFrame.Shape.HLine)
-        self.line_7.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.horizontalLayout_10.addWidget(self.line_7)
-
-        self.horizontalLayout_10.setStretch(1, 1)
-
-        self.verticalLayout.addLayout(self.horizontalLayout_10)
-
-        self.horizontalLayout_11 = QHBoxLayout()
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.btn_statistic = QPushButton(self.centralwidget)
-        self.btn_statistic.setObjectName(u"btn_statistic")
-        self.btn_statistic.setMinimumSize(QSize(120, 0))
-
-        self.horizontalLayout_11.addWidget(self.btn_statistic)
-
-        self.btn_analytics = QPushButton(self.centralwidget)
-        self.btn_analytics.setObjectName(u"btn_analytics")
-        self.btn_analytics.setMinimumSize(QSize(120, 0))
-
-        self.horizontalLayout_11.addWidget(self.btn_analytics)
-
-        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_11.addItem(self.horizontalSpacer_8)
-
-
-        self.verticalLayout.addLayout(self.horizontalLayout_11)
 
         self.verticalSpacer_10 = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
@@ -252,9 +208,6 @@ class Ui_form_main(object):
         self.label_4.setText(QCoreApplication.translate("form_main", u"\u0414\u0410\u041d\u041d\u042b\u0415", None))
         self.btn_accounts.setText(QCoreApplication.translate("form_main", u"\u0421\u0447\u0435\u0442\u0430", None))
         self.btn_operations.setText(QCoreApplication.translate("form_main", u"\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438", None))
-        self.label_5.setText(QCoreApplication.translate("form_main", u"\u0410\u041d\u0410\u041b\u0418\u0422\u0418\u041a\u0410", None))
-        self.btn_statistic.setText(QCoreApplication.translate("form_main", u"\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043a\u0430", None))
-        self.btn_analytics.setText(QCoreApplication.translate("form_main", u"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430", None))
         self.label_6.setText(QCoreApplication.translate("form_main", u"\u041e\u0422\u0427\u0401\u0422\u041d\u041e\u0421\u0422\u042c", None))
         self.btn_report_dm.setText(QCoreApplication.translate("form_main", u"\u0417\u0430 \u043c\u0435\u0441\u044f\u0446", None))
         self.btn_report_summary.setText(QCoreApplication.translate("form_main", u"\u0421\u0432\u043e\u0434\u043d\u0430\u044f", None))

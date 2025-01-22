@@ -19,16 +19,12 @@ class C90_FormMain(C80_FormMain):
 		self.btn_accounts.clicked.connect(self.on_RequestOpenFormAccounts)
 		self.btn_operations.clicked.connect(self.on_RequestOpenFormOperations)
 
-		# Панель Аналитика
-		self.btn_statistic.clicked.connect(self.on_RequestOpenFormStatistic)
-		self.btn_analytics.clicked.connect(self.on_RequestOpenFormAnalytics)
-
 		# Панель Отчётность
 		self.btn_report_dm.clicked.connect(self.on_RequestGenerateReportDm)
+		self.btn_report_summary.clicked.connect(self.on_RequestSummaryReport)
 
 		# Панель Утилиты
 		self.btn_archives.clicked.connect(self.on_RequestOpenFormArchives)
-		self.btn_report_summary.clicked.connect(self.on_RequestSummaryReport)
 
 	# Форма
 	def on_Open(self):
@@ -54,14 +50,6 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenFormOperations(self):
 		""" Запрос на открытие формы Финансовые операции """
 		self.application.form_operations.Open()
-
-	def on_RequestOpenFormStatistic(self):
-		""" Запрос открытия формы Статистика """
-		pass
-
-	def on_RequestOpenFormAnalytics(self):
-		""" Запрос открытия формы Аналитика """
-		pass
 
 	# Панель рабочего периода
 	def on_RequestShiftDmToNext(self):

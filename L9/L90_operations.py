@@ -13,13 +13,10 @@ class C90_Operation(C80_Operation):
 		self.Dm(0)
 		self.Dd(0)
 
-		self.AccountsIdos([])
-
 		self.Amount(0)
+		self.AccountsIdos([])
 		self.Description("")
-		self.Destination([])
-		self.ObjectInt("")
-		self.ObjectExt("")
+		self.Labels([])
 
 		self.Color(COLORS.BLACK)
 		self.Crc("")

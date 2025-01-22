@@ -18,7 +18,7 @@ class C60_FormOperations(C50_FormOperations):
 	def InitModel(self):
 		""" Инициализация модели """
 		self.model_data.removeAll()
-		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт/Счета", "Объект внешний", "Объект внутренний", "Описание/Назначение"])
+		self.model_data.setHorizontalHeaderLabels(["Дата/Сумма", "Счёт/Счета", "Описание/Назначение", "Метки"])
 
 	def LoadDd(self):
 		""" Загрузка дня в модель """
@@ -70,18 +70,15 @@ class C60_FormOperations(C50_FormOperations):
 		item_accounts                     = self.model_data.itemFromIndex(indexes[1])
 		item_accounts.setText(', '.join(self.accounts.IdosToNames(operation.AccountsIdos())))
 
-		item_object_ext                   = self.model_data.itemFromIndex(indexes[2])
-		item_object_ext.setText(operation.ObjectExt())
+		item_description                  = self.model_data.itemFromIndex(indexes[2])
+		item_description.setText(operation.Description())
 
-		item_object_int                   = self.model_data.itemFromIndex(indexes[3])
-		item_object_int.setText(operation.ObjectInt())
-
-		item_description                  = self.model_data.itemFromIndex(indexes[4])
-		item_description.setText(operation.DescriptionOrDestination())
+		item_labels                       = self.model_data.itemFromIndex(indexes[3])
+		item_labels.setText(', '.join(operation.Labels()))
 
 		text_color                        = QColor(150, 150, 150)
 
-		if operation.Destination():
+		if operation.Labels():
 			match operation.Color():
 				case COLORS.BLACK: text_color = QColor(  0,   0,   0)
 				case COLORS.BLUE : text_color = QColor( 50,  50, 150)

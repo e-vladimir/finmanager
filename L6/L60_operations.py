@@ -39,22 +39,10 @@ class C60_Operation(C50_Operation):
 		if text is None  : return self.f_description.ToString(CONTAINERS.DISK).data
 		else             :        self.f_description.FromString(CONTAINERS.DISK, text)
 
-	def Destination(self, labels: list[str] = None) -> list[str]:
-		""" Назначение + уточнения """
-		if labels is None  : return self.f_destination.ToStrings(CONTAINERS.DISK).data
-		else               :
-			data : list[str] = list(filter(bool, map(str.strip, labels)))
-			self.f_destination.FromStrings(CONTAINERS.DISK, data)
-
-	def ObjectInt(self, text: str = None) -> str:
-		""" Объект внутренний """
-		if text is None  : return self.f_object_int.ToString(CONTAINERS.DISK).data
-		else             :        self.f_object_int.FromString(CONTAINERS.DISK, text)
-
-	def ObjectExt(self, text: str = None) -> str:
-		""" Объект внешний """
-		if text is None  : return self.f_object_ext.ToString(CONTAINERS.DISK).data
-		else             :        self.f_object_ext.FromString(CONTAINERS.DISK, text)
+	def Labels(self, labels: list[str] = None) -> list[str]:
+		""" Метки операции """
+		if labels is None : return list(sorted(self.f_labels.ToStrings(CONTAINERS.DISK).data))
+		else              :        self.f_labels.FromStrings(CONTAINERS.DISK, list(sorted(set(filter(bool, map(str.strip, labels))))))
 
 	def AccountsIdos(self, idos: list[str] = None) -> list[str]:
 		""" Список IDO счетов """

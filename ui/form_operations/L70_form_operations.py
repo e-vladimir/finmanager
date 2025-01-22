@@ -25,22 +25,20 @@ class C70_FormOperations(C60_FormOperations):
 		if not self._processing_ido: return
 
 		match self._processing_column:
-			case 0: self.on_RequestOpenOperation()
-			case 2: self.on_RequestSetOperationObjectExt()
-			case 3: self.on_RequestSetOperationObjectInt()
-			case 4: self.on_RequestSetOperationDestination()
+			case 0: self.on_RequestSetOperationAmount()
+			case 1: self.on_RequestSetOperationAccounts()
+			case 2: self.on_RequestSetOperationDescription()
+			case 3: self.on_RequestSetOperationLabels()
 
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """
 		sizes_min : list[int] = [ 75,
 		                          200,
-		                          100,
-		                          100]
+		                          300]
 
 		sizes_max : list[int] = [    150,
 		                         max(200, self.width() // 5),
-		                         max(200, self.width() // 5),
-		                         max(200, self.width() // 5)]
+		                         max(200, self.width() // 2)]
 
 		for index_col in range(self.model_data.columnCount() - 1):
 			self.tree_data.resizeColumnToContents(index_col)
@@ -50,7 +48,7 @@ class C70_FormOperations(C60_FormOperations):
 
 			self.tree_data.setColumnWidth(index_col, column_size)
 
-		self.tree_data.header().setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
+		self.tree_data.header().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
 
 	def AdjustTreeData_Color(self):
 		""" Настройка дерева данных: Цвета """
@@ -83,18 +81,16 @@ class C70_FormOperations(C60_FormOperations):
 		flag_selected_operation : bool = bool(self._processing_ido)
 		flag_selected_pack      : bool = len(self._processing_idos) > 0
 
-		self.action_operation_open_operation.setEnabled(flag_selected_operation)
-		self.action_operation_delete_operation.setEnabled(flag_selected_operation)
-
 		self.action_operations_pack_clear_selection.setEnabled(flag_selected_pack)
 		self.action_operations_pack_collapse_selection.setEnabled(flag_selected_pack)
 		self.action_operations_pack_delete_pack.setEnabled(flag_selected_pack)
 
-		self.action_operation_split.setEnabled(flag_selected_operation)
+		self.action_operation_set_amount.setEnabled(flag_selected_operation)
+		self.action_operation_set_accounts.setEnabled(flag_selected_operation)
 		self.action_operation_set_description.setEnabled(flag_selected_operation)
-		self.action_operation_set_destination.setEnabled(flag_selected_operation)
-		self.action_operation_set_object_int.setEnabled(flag_selected_operation)
-		self.action_operation_set_object_ext.setEnabled(flag_selected_operation)
+		self.action_operation_set_labels.setEnabled(flag_selected_operation)
+		self.action_operation_split.setEnabled(flag_selected_operation)
+		self.action_operation_delete_operation.setEnabled(flag_selected_operation)
 
 		self.submenu_operation_colors.setEnabled(flag_selected_operation)
 
