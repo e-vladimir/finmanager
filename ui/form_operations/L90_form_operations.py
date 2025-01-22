@@ -190,6 +190,8 @@ class C90_FormOperations(C80_FormOperations):
 
 		self.LoadOperation()
 
+		self.AdjustTreeData_Size()
+
 	def on_RequestSplitOperation(self):
 		""" Запрос на разделение операции """
 		self.SplitOperation()

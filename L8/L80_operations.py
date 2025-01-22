@@ -114,22 +114,24 @@ class C80_Operations(C70_Operations):
 		description : str       = data.get(FIELDS.DESCRIPTION, "")
 		labels      : list[str] = data.get(FIELDS.LABELS, [])
 
-		crc = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
+		crc                     = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
 
 		if self.CheckOperationByCrc(dy, dm, crc): return False
 
-		operation = C80_Operation()
+		operation               = C80_Operation()
 		operation.GenerateIdo()
 		operation.RegisterObject(CONTAINERS.DISK)
 
 		operation.Dy(dy)
 		operation.Dm(dm)
 		operation.Dd(dd)
+
 		operation.Crc(crc)
-		operation.Description(description)
-		operation.Labels(labels)
+
 		operation.Amount(amount)
 		operation.AccountsIdos([account_ido])
+		operation.Description(description)
+		operation.Labels(labels)
 
 		return True
 
