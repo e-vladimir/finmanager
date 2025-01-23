@@ -184,9 +184,33 @@ class C90_FormOperations(C80_FormOperations):
 
 		self.LoadOperation()
 
+	def on_RequestSetOperationAmount(self):
+		""" Запрос на редактирование суммы операции """
+		self.SetOperationAmount()
+
+		self.LoadOperation()
+
+		self.AdjustTreeData_Size()
+
+	def on_RequestSetOperationAccounts(self):
+		""" Запрос на редактирование счета операции """
+		self.SetOperationAccounts()
+
+		self.LoadOperation()
+
+		self.AdjustTreeData_Size()
+
 	def on_RequestSetOperationDescription(self):
 		""" Запрос на редактирование описания операции """
 		self.SetOperationDescription()
+
+		self.LoadOperation()
+
+		self.AdjustTreeData_Size()
+
+	def on_RequestSetOperationLabels(self):
+		""" Запрос на редактирование меток операции """
+		self.SetOperationLabels()
 
 		self.LoadOperation()
 

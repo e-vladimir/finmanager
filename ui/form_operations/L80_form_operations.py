@@ -6,11 +6,11 @@ from PySide6.QtWidgets   import  QProgressDialog
 from G11_convertor_data  import  AmountToString
 
 from L00_containers      import  CONTAINERS
-from L20_PySide6         import (RequestValue,
-                                 RequestText,
-                                 RequestConfirm,
-                                 C20_StandardItem,
-                                 ROLES)
+from L20_PySide6 import (RequestItems, RequestMultipleText, RequestValue,
+                         RequestText,
+                         RequestConfirm,
+                         C20_StandardItem,
+                         ROLES)
 from L70_form_operations import  C70_FormOperations
 from L90_operations      import  C90_Operation
 
@@ -173,6 +173,47 @@ class C80_FormOperations(C70_FormOperations):
 		if not RequestConfirm("Удаление операции", text): return
 
 		operation.DeleteObject(CONTAINERS.DISK)
+
+	def SetOperationAmount(self):
+		""" Установка суммы операции """
+		operation = C90_Operation(self._processing_ido)
+		text  : str = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+
+		             f"Описание:")
+
+		amount: int | None = RequestValue("Редактирование операции", text, int(operation.Amount()), -9999999, 9999999)
+		if amount is None: return
+
+		operation.Amount(amount)
+
+	def SetOperationAccounts(self):
+		""" Редактирование счетов """
+		dy, dm                      = self.workspace.DyDm()
+		accounts : list[str]        = self.accounts.AccountsNamesInDyDm(dy, dm)
+		if not accounts: return
+
+		operation                   = C90_Operation(self._processing_ido)
+		selected : list[str]        = self.accounts.IdosToNames(operation.AccountsIdos())
+
+		text     : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+
+			                           f"Описание:")
+		names    : list[str] | None = RequestItems("Редактирование операции", text, accounts, selected)
+		if names is None: return
+
+		operation.AccountsIdos(self.accounts.NamesToIdos(dy, dm, names))
+
+	def SetOperationLabels(self):
+		""" Редактирование меток """
+		operation                 = C90_Operation(self._processing_ido)
+		text   : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+
+		                             f"Описание:")
+
+		labels : list[str] | None = RequestMultipleText("Редактирование операции", text, operation.Labels())
+		if labels is None: return
+
+		operation.Labels(labels)
 
 	def SetOperationColor(self):
 		""" Установка цвета операции """
