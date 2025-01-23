@@ -20,12 +20,6 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_open_processing.triggered.connect(self.on_RequestOpenProcessing)
 		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
 
-		# Меню Пакет операций
-		self.action_operations_pack_clear_selection.triggered.connect(self.on_RequestUncheckedAllPackOperations)
-		self.action_operations_pack_expand_selection.triggered.connect(self.on_RequestExpandPackOperations)
-		self.action_operations_pack_collapse_selection.triggered.connect(self.on_RequestCollapsePackOperations)
-		self.action_operations_pack_delete_pack.triggered.connect(self.on_RequestDeletePackOperation)
-
 		# Меню Финансовая операция
 		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
 		self.action_operation_split.triggered.connect(self.on_RequestSplitOperation)
@@ -118,25 +112,6 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
-
-	# Пакет операций
-	def on_RequestUncheckedAllPackOperations(self):
-		""" Запрос сброса пакета операций """
-		self.UncheckedAllPackOperations()
-
-	def on_RequestExpandPackOperations(self):
-		""" Запрос расширения пакета операций """
-		self.ExpandPackOperations()
-
-	def on_RequestCollapsePackOperations(self):
-		""" Запрос сокращения пакета операций """
-		self.CollapsePackOperations()
-
-	def on_RequestDeletePackOperation(self):
-		""" Запрос на удаление пакета операций """
-		self.DeletePackOperations()
-
-		self.AdjustTreeData_Size()
 
 	# Финансовая операция
 	def on_RequestDeleteOperation(self):

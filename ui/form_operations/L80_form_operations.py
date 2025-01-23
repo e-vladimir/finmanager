@@ -6,11 +6,11 @@ from PySide6.QtWidgets   import  QProgressDialog
 from G11_convertor_data  import  AmountToString
 
 from L00_containers      import  CONTAINERS
-from L20_PySide6 import (RequestItems, RequestMultipleText, RequestValue,
-                         RequestText,
-                         RequestConfirm,
-                         C20_StandardItem,
-                         ROLES)
+from L20_PySide6         import (RequestItems, RequestMultipleText, RequestValue,
+		                         RequestText,
+		                         RequestConfirm,
+		                         C20_StandardItem,
+		                         ROLES)
 from L70_form_operations import  C70_FormOperations
 from L90_operations      import  C90_Operation
 

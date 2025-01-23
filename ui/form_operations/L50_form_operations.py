@@ -19,12 +19,6 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestOpenProcessing(self): pass
 	def on_RequestResetData(self): pass
 
-	# Пакет операций
-	def on_RequestUncheckedAllPackOperations(self): pass
-	def on_RequestExpandPackOperations(self): pass
-	def on_RequestCollapsePackOperations(self): pass
-	def on_RequestDeletePackOperation(self): pass
-
 	# Финансовая операция
 	def on_RequestDeleteOperation(self): pass
 	def on_RequestSetOperationAmount(self): pass
