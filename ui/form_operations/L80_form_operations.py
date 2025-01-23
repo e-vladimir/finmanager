@@ -176,10 +176,11 @@ class C80_FormOperations(C70_FormOperations):
 
 	def SetOperationAmount(self):
 		""" Установка суммы операции """
-		operation = C90_Operation(self._processing_ido)
-		text  : str = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+		operation          = C90_Operation(self._processing_ido)
+		text   : str       = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
+		                      f"{operation.Description()}\n\n"
 
-		             f"Описание:")
+		                      f"Сумма:")
 
 		amount: int | None = RequestValue("Редактирование операции", text, int(operation.Amount()), -9999999, 9999999)
 		if amount is None: return
@@ -195,9 +196,10 @@ class C80_FormOperations(C70_FormOperations):
 		operation                   = C90_Operation(self._processing_ido)
 		selected : list[str]        = self.accounts.IdosToNames(operation.AccountsIdos())
 
-		text     : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+		text     : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
+		                               f"{operation.Description()}\n\n"
 
-			                           f"Описание:")
+		                               f"Счета:")
 		names    : list[str] | None = RequestItems("Редактирование операции", text, accounts, selected)
 		if names is None: return
 
@@ -206,9 +208,10 @@ class C80_FormOperations(C70_FormOperations):
 	def SetOperationLabels(self):
 		""" Редактирование меток """
 		operation                 = C90_Operation(self._processing_ido)
-		text   : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n\n"
+		text   : str              = (f"{AmountToString(operation.Amount(), flag_sign=True)} от {operation.DdDmDyToString()}\n"
+		                             f"{operation.Description()}\n\n"
 
-		                             f"Описание:")
+		                             f"Метки:")
 
 		labels : list[str] | None = RequestMultipleText("Редактирование операции", text, operation.Labels())
 		if labels is None: return
