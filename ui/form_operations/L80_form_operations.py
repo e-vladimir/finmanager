@@ -230,7 +230,7 @@ class C80_FormOperations(C70_FormOperations):
 		                            
 		                            f"Описание:")
 
-		description : str | None = RequestText("Редактирование операции", text, operation.Description())
+		description : str | None = RequestText("Редактирование операции", text, operation.Description(), self.operations.Descriptions())
 		if description is None: return
 
 		operation.Description(description)

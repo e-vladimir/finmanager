@@ -147,3 +147,15 @@ class C80_Operations(C70_Operations):
 
 		dys    : list[int] = filter_data.ToIntegers(idp_dy, True, True).data
 		return 0 if not dys else min(dys)
+
+	# Выборки данных
+	def Descriptions(self) -> list[str]:
+		""" Список описаний """
+		operation             = C80_Operation()
+		idc             : str = operation.Idc().data
+		idp_description : str = operation.f_description.Idp().data
+
+		filter_data           = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_description, True, True).data
