@@ -209,12 +209,13 @@ class C80_FormExport(C70_FormExport):
 						subdata.append(f"{operation.Dy():04d}-{operation.Dm():02d}-{operation.Dd():02d}")
 						subdata.append(f"{operation.Amount():0.2f}".replace('.', ','))
 						subdata.append(f"{operation.Description()}")
+						subdata.append(f"{operation.Destination()}")
 						subdata.append(', '.join(operation.Labels()))
 
 						file_data.append(';'.join(subdata) + ';')
 
 			if not file_data: continue
 
-			file_data.insert(0, "Дата;Сумма;Описание;Метки")
+			file_data.insert(0, "Дата;Сумма;Описание;Назначение;Метки")
 
 			with open(file_path, "w") as file_account: file_account.write('\n'.join(file_data))

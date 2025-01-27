@@ -19,27 +19,62 @@ class C80_Operation(C70_Operation):
 		""" Разделение операции """
 		self.Amount(self.Amount() - amount)
 
-		dy              = self.Dy()
-		dm              = self.Dm()
-		dd              = self.Dd()
-		description     = self.Description()
-		labels          = self.Labels()
-		crc             = self.Crc()
-		color           = self.Color()
 		accounts        = self.AccountsIdos()
+		color           = self.Color()
+		crc             = self.Crc()
+		dd              = self.Dd()
+		det             = self.Detail()
+		dm              = self.Dm()
+		dst             = self.Destination()
+		dy              = self.Dy()
+		obj_ext         = self.ObjectExt()
+		obj_int         = self.ObjectInt()
 
 		self.GenerateIdo()
 		self.RegisterObject(CONTAINERS.DISK)
 
-		self.Dy(dy)
-		self.Dm(dm)
-		self.Dd(dd)
-		self.Amount(amount)
-		self.Description(description)
-		self.Labels(labels)
-		self.Crc(crc)
-		self.Color(color)
 		self.AccountsIdos(accounts)
+		self.Amount(amount)
+		self.Color(color)
+		self.Crc(crc)
+		self.Dd(dd)
+		self.Destination(dst)
+		self.Detail(det)
+		self.Dm(dm)
+		self.Dy(dy)
+		self.ObjectExt(obj_ext)
+		self.ObjectInt(obj_int)
+
+		return self.Ido().data
+
+	def Copy(self) -> str:
+		""" Дублирование операции """
+		accounts        = self.AccountsIdos()
+		amount          = self.Amount()
+		color           = self.Color()
+		crc             = self.Crc()
+		dd              = self.Dd()
+		det             = self.Detail()
+		dm              = self.Dm()
+		dst             = self.Destination()
+		dy              = self.Dy()
+		obj_ext         = self.ObjectExt()
+		obj_int         = self.ObjectInt()
+
+		self.GenerateIdo()
+		self.RegisterObject(CONTAINERS.DISK)
+
+		self.AccountsIdos(accounts)
+		self.Amount(amount)
+		self.Color(color)
+		self.Crc(crc)
+		self.Dd(dd)
+		self.Destination(dst)
+		self.Detail(det)
+		self.Dm(dm)
+		self.Dy(dy)
+		self.ObjectExt(obj_ext)
+		self.ObjectInt(obj_int)
 
 		return self.Ido().data
 
@@ -110,11 +145,13 @@ class C80_Operations(C70_Operations):
 	# Импорт данных
 	def ImportOperation(self, dy: int, dm: int, dd: int, account_ido: str, data: dict[str]) -> bool:
 		""" Импорт финансовой операции """
-		amount      : float     = data.get(FIELDS.AMOUNT, 0.00)
-		description : str       = data.get(FIELDS.DESCRIPTION, "")
-		labels      : list[str] = data.get(FIELDS.LABELS, [])
+		amount      : float     = data.get(FIELDS.AMOUNT,      0.00)
+		destination : str       = data.get(FIELDS.DESTINATION, "")
+		detail      : str       = data.get(FIELDS.DETAILS,     "")
+		object_int  : str       = data.get(FIELDS.OBJECT_INT,  "")
+		object_ext  : str       = data.get(FIELDS.OBJECT_EXT,  "")
 
-		crc                     = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{description}".encode("utf-8")).hexdigest()
+		crc                     = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{destination}".encode("utf-8")).hexdigest()
 
 		if self.CheckOperationByCrc(dy, dm, crc): return False
 
@@ -122,16 +159,16 @@ class C80_Operations(C70_Operations):
 		operation.GenerateIdo()
 		operation.RegisterObject(CONTAINERS.DISK)
 
-		operation.Dy(dy)
-		operation.Dm(dm)
-		operation.Dd(dd)
-
-		operation.Crc(crc)
-
-		operation.Amount(amount)
 		operation.AccountsIdos([account_ido])
-		operation.Description(description)
-		operation.Labels(labels)
+		operation.Amount(amount)
+		operation.Crc(crc)
+		operation.Dd(dd)
+		operation.Destination(destination)
+		operation.Detail(detail)
+		operation.Dm(dm)
+		operation.Dy(dy)
+		operation.ObjectExt(object_ext)
+		operation.ObjectInt(object_int)
 
 		return True
 
@@ -147,15 +184,3 @@ class C80_Operations(C70_Operations):
 
 		dys    : list[int] = filter_data.ToIntegers(idp_dy, True, True).data
 		return 0 if not dys else min(dys)
-
-	# Выборки данных
-	def Descriptions(self) -> list[str]:
-		""" Список описаний """
-		operation             = C80_Operation()
-		idc             : str = operation.Idc().data
-		idp_description : str = operation.f_description.Idp().data
-
-		filter_data           = C30_FilterLinear1D(idc)
-		filter_data.Capture(CONTAINERS.DISK)
-
-		return filter_data.ToStrings(idp_description, True, True).data

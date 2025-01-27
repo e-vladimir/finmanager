@@ -77,10 +77,6 @@ class C70_FormOperations(C60_FormOperations):
 		flag_selected_operation : bool = bool(self._processing_ido)
 		flag_selected_pack      : bool = len(self._processing_idos) > 0
 
-		self.action_operations_pack_clear_selection.setEnabled(flag_selected_pack)
-		self.action_operations_pack_collapse_selection.setEnabled(flag_selected_pack)
-		self.action_operations_pack_delete_pack.setEnabled(flag_selected_pack)
-
 		self.action_operation_set_amount.setEnabled(flag_selected_operation)
 		self.action_operation_set_accounts.setEnabled(flag_selected_operation)
 		self.action_operation_set_description.setEnabled(flag_selected_operation)

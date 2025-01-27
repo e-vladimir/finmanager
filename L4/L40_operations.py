@@ -22,9 +22,10 @@ class C40_Operation(C31_StructFrameWithEvents):
 
 		self.f_accounts_idos = C30_StructField(self, "Счета")
 		self.f_amount        = C30_StructField(self, "Сумма")
-		self.f_description   = C30_StructField(self, "Описание")
-
-		self.f_labels        = C30_StructField(self, "Метки")
+		self.f_destination   = C30_StructField(self, "Назначение")
+		self.f_detail        = C30_StructField(self, "Уточнение")
+		self.f_object_int    = C30_StructField(self, "Объект внутренний")
+		self.f_object_ext    = C30_StructField(self, "Объект внешний")
 
 
 class C40_Operations(C20_MetaFrame):

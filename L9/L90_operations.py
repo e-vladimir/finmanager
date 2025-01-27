@@ -9,17 +9,17 @@ class C90_Operation(C80_Operation):
 
 	def on_ObjectRegistered(self, container_name: str):
 		""" Объект зарегистрирован """
-		self.Dy(0)
-		self.Dm(0)
-		self.Dd(0)
-
-		self.Amount(0)
 		self.AccountsIdos([])
-		self.Description("")
-		self.Labels([])
-
+		self.Amount(0)
 		self.Color(COLORS.BLACK)
 		self.Crc("")
+		self.Dd(0)
+		self.Destination("")
+		self.Detail("")
+		self.Dm(0)
+		self.Dy(0)
+		self.ObjectExt("")
+		self.ObjectInt("")
 
 
 class C90_Operations(C80_Operations):
