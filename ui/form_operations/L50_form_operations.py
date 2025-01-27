@@ -23,11 +23,14 @@ class C50_FormOperations(C42_FormOperations):
 	def on_RequestDeleteOperation(self): pass
 	def on_RequestSetOperationAmount(self): pass
 	def on_RequestSetOperationAccounts(self): pass
-	def on_RequestSetOperationDescription(self): pass
-	def on_RequestSetOperationLabels(self): pass
+	def on_RequestSetOperationDestination(self): pass
+	def on_RequestSetOperationDetail(self): pass
+	def on_RequestSetOperationObjectInt(self): pass
+	def on_RequestSetOperationObjectExt(self): pass
 	def on_RequestSetOperationColorBlack(self): pass
 	def on_RequestSetOperationColorGray(self): pass
 	def on_RequestSetOperationColorRed(self): pass
 	def on_RequestSetOperationColorBlue(self): pass
 	def on_RequestSetOperationColorGreen(self): pass
 	def on_RequestSplitOperation(self): pass
+	def on_RequestCloneOperation(self): pass

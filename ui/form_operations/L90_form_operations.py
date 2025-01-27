@@ -21,9 +21,15 @@ class C90_FormOperations(C80_FormOperations):
 		self.action_operations_reset.triggered.connect(self.on_RequestResetData)
 
 		# Меню Финансовая операция
+		self.action_operation_set_amount.triggered.connect(self.on_RequestSetOperationAmount)
+		self.action_operation_set_accounts.triggered.connect(self.on_RequestSetOperationAccounts)
+		self.action_operation_set_destination.triggered.connect(self.on_RequestSetOperationDestination)
+		self.action_operation_set_detail.triggered.connect(self.on_RequestSetOperationDetail)
+		self.action_operation_set_object_int.triggered.connect(self.on_RequestSetOperationObjectInt)
+		self.action_operation_set_object_ext.triggered.connect(self.on_RequestSetOperationObjectExt)
 		self.action_operation_delete_operation.triggered.connect(self.on_RequestDeleteOperation)
 		self.action_operation_split.triggered.connect(self.on_RequestSplitOperation)
-		self.action_operation_set_description.triggered.connect(self.on_RequestSetOperationDescription)
+		self.action_operation_clone.triggered.connect(self.on_RequestCloneOperation)
 		self.action_operation_colors_set_black.triggered.connect(self.on_RequestSetOperationColorBlack)
 		self.action_operation_colors_set_gray.triggered.connect(self.on_RequestSetOperationColorGray)
 		self.action_operation_colors_set_green.triggered.connect(self.on_RequestSetOperationColorGreen)
@@ -47,13 +53,8 @@ class C90_FormOperations(C80_FormOperations):
 	def on_UpdateDataPartial(self):
 		""" Частичное обновление данных """
 		self.AdjustTreeData_Expand()
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
-
-	def on_Resize(self):
-		""" Изменение размера окна """
-		self.AdjustTreeData_Size()
 
 	# Дерево данных
 	def on_RequestProcessingTreeDataDbClick(self):
@@ -84,7 +85,6 @@ class C90_FormOperations(C80_FormOperations):
 		self.LoadOperation()
 
 		self.AdjustTreeData_Expand()
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
 
@@ -109,11 +109,46 @@ class C90_FormOperations(C80_FormOperations):
 		self.ShowOperations()
 
 		self.AdjustTreeData_Expand()
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
 
 	# Финансовая операция
+	def on_RequestSetOperationAmount(self):
+		""" Запрос на редактирование суммы """
+		self.SetOperationAmount()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationAccounts(self):
+		""" Запрос на редактирование счёта """
+		self.SetOperationAccounts()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationDestination(self):
+		""" Запрос на редактирование назначения """
+		self.SetOperationDestination()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationDetail(self):
+		""" Запрос на редактирование уточнения """
+		self.SetOperationDetail()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationObjectInt(self):
+		""" Запрос на редактирование объекта внутреннего """
+		self.SetOperationObjectInt()
+
+		self.LoadOperation()
+
+	def on_RequestSetOperationObjectExt(self):
+		""" Запрос на редактирование объекта внешнего """
+		self.SetOperationObjectExt()
+
+		self.LoadOperation()
+
 	def on_RequestDeleteOperation(self):
 		""" Запрос на удаление финансовой операции """
 		self.DeleteOperation()
@@ -121,7 +156,6 @@ class C90_FormOperations(C80_FormOperations):
 		self.CleanOperation()
 		self.CleanDd()
 
-		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
 
 	def on_RequestSetOperationColorBlack(self):
@@ -159,42 +193,14 @@ class C90_FormOperations(C80_FormOperations):
 
 		self.LoadOperation()
 
-	def on_RequestSetOperationAmount(self):
-		""" Запрос на редактирование суммы операции """
-		self.SetOperationAmount()
-
-		self.LoadOperation()
-
-		self.AdjustTreeData_Size()
-
-	def on_RequestSetOperationAccounts(self):
-		""" Запрос на редактирование счета операции """
-		self.SetOperationAccounts()
-
-		self.LoadOperation()
-
-		self.AdjustTreeData_Size()
-
-	def on_RequestSetOperationDescription(self):
-		""" Запрос на редактирование описания операции """
-		self.SetOperationDescription()
-
-		self.LoadOperation()
-
-		self.AdjustTreeData_Size()
-
-	def on_RequestSetOperationLabels(self):
-		""" Запрос на редактирование меток операции """
-		self.SetOperationLabels()
-
-		self.LoadOperation()
-
-		self.AdjustTreeData_Size()
-
 	def on_RequestSplitOperation(self):
 		""" Запрос на разделение операции """
 		self.SplitOperation()
 
 		self.LoadOperation()
 
-		self.AdjustTreeData_Sort()
+	def on_RequestCloneOperation(self):
+		""" Запрос на клонирование операции """
+		self.CloneOperation()
+
+		self.LoadOperation()

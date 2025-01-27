@@ -3,7 +3,6 @@
 from PySide6.QtGui       import QCursor, Qt
 from PySide6.QtWidgets   import QHeaderView
 
-from G10_math_linear     import CalcBetween
 from G11_convertor_data  import AmountToString
 
 from L20_PySide6         import ROLES
@@ -27,28 +26,21 @@ class C70_FormOperations(C60_FormOperations):
 		match self._processing_column:
 			case 0: self.on_RequestSetOperationAmount()
 			case 1: self.on_RequestSetOperationAccounts()
-			case 2: self.on_RequestSetOperationDescription()
-			case 3: self.on_RequestSetOperationLabels()
+			case 2: self.on_RequestSetOperationDestination()
+			case 3: self.on_RequestSetOperationDetail()
+			case 4: self.on_RequestSetOperationObjectInt()
+			case 5: self.on_RequestSetOperationObjectExt()
 
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """
-		sizes_min : list[int] = [ 75,
-		                          200,
-		                          300]
-
-		sizes_max : list[int] = [    150,
-		                         max(200, self.width() // 5),
-		                         max(200, self.width() // 2)]
-
-		for index_col in range(self.model_data.columnCount() - 1):
-			self.tree_data.resizeColumnToContents(index_col)
-
-			column_size : int = self.tree_data.columnWidth(index_col)
-			column_size       = CalcBetween(sizes_min[index_col], column_size, sizes_max[index_col])
-
-			self.tree_data.setColumnWidth(index_col, column_size)
-
+		self.tree_data.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
+		self.tree_data.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+		self.tree_data.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
 		self.tree_data.header().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
+		self.tree_data.header().setSectionResizeMode(4, QHeaderView.ResizeMode.Stretch)
+		self.tree_data.header().setSectionResizeMode(5, QHeaderView.ResizeMode.Stretch)
+
+		self.tree_data.setColumnWidth(0, 125)
 
 	def AdjustTreeData_Color(self):
 		""" Настройка дерева данных: Цвета """
@@ -75,12 +67,13 @@ class C70_FormOperations(C60_FormOperations):
 	def AdjustMenuOperations_Enable(self):
 		""" Меню операций по счетам: Настройка доступности """
 		flag_selected_operation : bool = bool(self._processing_ido)
-		flag_selected_pack      : bool = len(self._processing_idos) > 0
 
 		self.action_operation_set_amount.setEnabled(flag_selected_operation)
 		self.action_operation_set_accounts.setEnabled(flag_selected_operation)
-		self.action_operation_set_description.setEnabled(flag_selected_operation)
-		self.action_operation_set_labels.setEnabled(flag_selected_operation)
+		self.action_operation_set_destination.setEnabled(flag_selected_operation)
+		self.action_operation_set_detail.setEnabled(flag_selected_operation)
+		self.action_operation_set_object_int.setEnabled(flag_selected_operation)
+		self.action_operation_set_object_ext.setEnabled(flag_selected_operation)
 		self.action_operation_split.setEnabled(flag_selected_operation)
 		self.action_operation_delete_operation.setEnabled(flag_selected_operation)
 

@@ -47,8 +47,8 @@ class C80_Operation(C70_Operation):
 
 		return self.Ido().data
 
-	def Copy(self) -> str:
-		""" Дублирование операции """
+	def Clone(self) -> str:
+		""" Клонирование операции """
 		accounts        = self.AccountsIdos()
 		amount          = self.Amount()
 		color           = self.Color()
@@ -183,3 +183,48 @@ class C80_Operations(C70_Operations):
 
 		dys    : list[int] = filter_data.ToIntegers(idp_dy, True, True).data
 		return 0 if not dys else min(dys)
+
+	# Выборки данных
+	def Destinations(self) -> list[str]:
+		""" Список назначений """
+		operation             = C80_Operation()
+		idc             : str = operation.Idc().data
+		idp_destination : str = operation.f_destination.Idp().data
+
+		filter_data           = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_destination, True, True).data
+
+	def Details(self) -> list[str]:
+		""" Список уточнений """
+		operation        = C80_Operation()
+		idc        : str = operation.Idc().data
+		idp_detail : str = operation.f_detail.Idp().data
+
+		filter_data      = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_detail, True, True).data
+
+	def ObjectsInt(self) -> list[str]:
+		""" Список объектов внутренних """
+		operation            = C80_Operation()
+		idc            : str = operation.Idc().data
+		idp_object_int : str = operation.f_object_int.Idp().data
+
+		filter_data          = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_object_int, True, True).data
+
+	def ObjectsExt(self) -> list[str]:
+		""" Список объектов внешних """
+		operation            = C80_Operation()
+		idc            : str = operation.Idc().data
+		idp_object_ext : str = operation.f_object_ext.Idp().data
+
+		filter_data           = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_object_ext, True, True).data
