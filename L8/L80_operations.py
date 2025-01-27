@@ -143,11 +143,10 @@ class C80_Operations(C70_Operations):
 		return bool(filter_data.Idos().data)
 
 	# Импорт данных
-	def ImportOperation(self, dy: int, dm: int, dd: int, account_ido: str, data: dict[str]) -> bool:
+	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, account_ido: str, data: dict[str]) -> bool:
 		""" Импорт финансовой операции """
-		amount      : float     = data.get(FIELDS.AMOUNT,      0.00)
 		destination : str       = data.get(FIELDS.DESTINATION, "")
-		detail      : str       = data.get(FIELDS.DETAILS,     "")
+		detail      : str       = data.get(FIELDS.DETAIL, "")
 		object_int  : str       = data.get(FIELDS.OBJECT_INT,  "")
 		object_ext  : str       = data.get(FIELDS.OBJECT_EXT,  "")
 

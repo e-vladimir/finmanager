@@ -78,15 +78,19 @@ class C80_FormImport(C70_FormImport):
 		""" Импорт финансовых операций """
 		index_date        : int        = -1
 		index_amount      : int        = -1
-		index_description : int        = -1
-		index_labels      : int        = -1
+		index_destination : int        = -1
+		index_detail      : int        = -1
+		index_object_int  : int        = -1
+		index_object_ext  : int        = -1
 
 		for index_field, field in enumerate(self._operations_fields):
 			match field:
 				case FIELDS.DATE        : index_date        = index_field
 				case FIELDS.AMOUNT      : index_amount      = index_field
-				case FIELDS.DESCRIPTION : index_description = index_field
-				case FIELDS.LABELS      : index_labels      = index_field
+				case FIELDS.DESTINATION : index_destination = index_field
+				case FIELDS.DETAIL      : index_detail      = index_field
+				case FIELDS.OBJECT_EXT  : index_object_ext  = index_field
+				case FIELDS.OBJECT_INT  : index_object_int  = index_field
 
 		if     index_date        == -1                         : return
 		if     index_amount      == -1                         : return
@@ -116,16 +120,16 @@ class C80_FormImport(C70_FormImport):
 
 			raw_date        : str             = data[index_date]
 			raw_amount      : str             = data[index_amount]
-			raw_description : str             = "" if index_description == -1 else data[index_description]
-			raw_labels      : str             = "" if index_labels      == -1 else data[index_description]
+			raw_destination : str             = "" if index_destination == -1 else data[index_destination]
+			raw_detail      : str             = "" if index_detail      == -1 else data[index_detail]
+			raw_object_int  : str             = "" if index_object_int  == -1 else data[index_object_int]
+			raw_object_ext  : str             = "" if index_object_ext  == -1 else data[index_object_ext]
 
 			date            : datetime | None = StringToDateTime(raw_date)
 			if     date is None             : continue
 
 			try   : amount = StringToFloat(raw_amount)
 			except: continue
-
-			description     : str             = raw_description
 
 			dy              : int             = date.year
 			dm              : int             = date.month
@@ -135,8 +139,9 @@ class C80_FormImport(C70_FormImport):
 			if not dm == self.workspace.Dm(): continue
 
 			data = dict()
-			data[FIELDS.AMOUNT]      = amount
-			data[FIELDS.DESCRIPTION] = description
-			data[FIELDS.LABELS]      = raw_labels.split(', ')
+			data[FIELDS.DESTINATION] = raw_destination.strip()
+			data[FIELDS.DETAIL]      = raw_detail.strip()
+			data[FIELDS.OBJECT_EXT]  = raw_object_ext.strip()
+			data[FIELDS.OBJECT_INT]  = raw_object_int.strip()
 
-			self.operations.ImportOperation(dy, dm, dd, account_ido, data)
+			self.operations.ImportOperation(dy, dm, dd, amount, account_ido, data)
