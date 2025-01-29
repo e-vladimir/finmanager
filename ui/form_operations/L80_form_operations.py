@@ -155,7 +155,7 @@ class C80_FormOperations(C70_FormOperations):
 		                        
 		                       f"Уточнение:")
 
-		detail : str | None = RequestText("Редактирование операции", text, operation.Destination(), self.operations.Details())
+		detail : str | None = RequestText("Редактирование операции", text, operation.Detail(), self.operations.Details())
 		if detail is None: return
 
 		operation.Detail(detail)
@@ -167,7 +167,7 @@ class C80_FormOperations(C70_FormOperations):
 		                            
 		                            f"Объект внутренний:")
 
-		object_int : str | None = RequestText("Редактирование операции", text, operation.Destination(), self.operations.ObjectsInt())
+		object_int : str | None = RequestText("Редактирование операции", text, operation.ObjectInt(), self.operations.ObjectsInt())
 		if object_int is None: return
 
 		operation.ObjectInt(object_int)
@@ -179,7 +179,7 @@ class C80_FormOperations(C70_FormOperations):
 		                            
 		                            f"Объект внешний:")
 
-		object_ext : str | None = RequestText("Редактирование операции", text, operation.Destination(), self.operations.ObjectsExt())
+		object_ext : str | None = RequestText("Редактирование операции", text, operation.ObjectExt(), self.operations.ObjectsExt())
 		if object_ext is None: return
 
 		operation.ObjectExt(object_ext)
