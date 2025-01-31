@@ -6,6 +6,8 @@ from G31_cactus_frame import C31_StructFrameWithEvents
 
 
 class C40_Workspace(C31_StructFrameWithEvents):
+	""" Рабочее пространство: Модель данных """
+
 	_idc = "Рабочее пространство"
 
 	def Init_10(self):
@@ -14,4 +16,4 @@ class C40_Workspace(C31_StructFrameWithEvents):
 		self.f_dy            = C30_StructField(self, "Год",   CurrentDy())
 		self.f_dm            = C30_StructField(self, "Месяц", CurrentDm())
 
-		self.f_ido_operation = C30_StructField(self, "IDO Финансовой операции",      "")
+		self.f_ido_operation = C30_StructField(self, "IDO Финансовой операции", "")

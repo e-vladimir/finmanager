@@ -42,7 +42,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTreeView" name="tree_data_items">
+         <widget class="QTreeView" name="tree_data_item">
           <property name="contextMenuPolicy">
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>

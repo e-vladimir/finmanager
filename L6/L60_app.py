@@ -16,6 +16,7 @@ from   G30_cactus_controller_containers import  controller_containers
 
 from   L00_containers                   import  CONTAINERS
 from   L40_accounts                     import  C40_Account
+from   L40_analytics                    import C40_AnalyticsItem
 from   L40_operations                   import  C40_Operation
 from   L50_app                          import  C50_Application
 
@@ -49,6 +50,7 @@ class C60_Application(C50_Application):
 		""" Инициализация данных """
 		C40_Account.RegisterClass(CONTAINERS.DISK)
 		C40_Operation.RegisterClass(CONTAINERS.DISK)
+		C40_AnalyticsItem.RegisterClass(CONTAINERS.DISK)
 
 	# Архивы данных
 	def InitArchives(self):

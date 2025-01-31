@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticslMadJb.ui'
+## Form generated from reading UI file 'form_analyticsaxtjOU.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -43,17 +43,17 @@ class Ui_frm_analytics(object):
 
         self.horizontalLayout.addWidget(self.list_items)
 
-        self.tree_data_items = QTreeView(self.tab_items)
-        self.tree_data_items.setObjectName(u"tree_data_items")
-        self.tree_data_items.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.tree_data_items.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.tree_data_items.setRootIsDecorated(False)
-        self.tree_data_items.setItemsExpandable(False)
-        self.tree_data_items.setHeaderHidden(False)
-        self.tree_data_items.setExpandsOnDoubleClick(False)
-        self.tree_data_items.header().setVisible(True)
+        self.tree_data_item = QTreeView(self.tab_items)
+        self.tree_data_item.setObjectName(u"tree_data_item")
+        self.tree_data_item.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tree_data_item.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tree_data_item.setRootIsDecorated(False)
+        self.tree_data_item.setItemsExpandable(False)
+        self.tree_data_item.setHeaderHidden(False)
+        self.tree_data_item.setExpandsOnDoubleClick(False)
+        self.tree_data_item.header().setVisible(True)
 
-        self.horizontalLayout.addWidget(self.tree_data_items)
+        self.horizontalLayout.addWidget(self.tree_data_item)
 
         self.horizontalLayout.setStretch(0, 1)
         self.horizontalLayout.setStretch(1, 2)

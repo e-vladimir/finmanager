@@ -6,4 +6,7 @@ from L70_form_analytics import C70_FormAnalytics
 class C80_FormAnalytics(C70_FormAnalytics):
 	""" Форма Аналитика: Логика данных """
 
-	pass
+	# Элементы аналитики
+	def ShowItems(self):
+		""" Отображение списка элементов аналитики """
+		for self._processing_ido in self.analytics.Idos(): self.LoadItemInModelDataItems()
