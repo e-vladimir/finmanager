@@ -87,6 +87,20 @@ class C80_Operation(C70_Operation):
 
 		return f"{dd} {dm} {dy}"
 
+	def Description(self) -> str:
+		""" Формирование описания по шаблону """
+		obj_ext     : str = self.ObjectExt()
+		obj_int     : str = self.ObjectInt()
+		destination : str = self.Destination()
+		detail      : str = self.Detail()
+		return (' '.join([f"{obj_ext}:" if obj_ext else "",
+		                  destination,
+		                  detail,
+		                 f"({obj_int})" if obj_int else ""])
+		           .replace('  ', ' ')
+		           .strip()
+		       )
+
 
 class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """

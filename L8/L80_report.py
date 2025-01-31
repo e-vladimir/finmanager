@@ -34,9 +34,9 @@ class C80_Report(C70_Report):
 		for account_group_name in self.accounts.GroupsNamesInDyDm(dy, dm):
 			table_header : list[str]       = []
 			table_header.append("Наименование счёта")
+			table_header.append("Остаток\nначальный")
 			table_header.append("Объём\nпоступлений")
 			table_header.append("Объём\nсписаний")
-			table_header.append("Остаток\nначальный")
 			table_header.append("Изменение\nостатка")
 			table_header.append("Остаток\nитоговый")
 
@@ -51,9 +51,9 @@ class C80_Report(C70_Report):
 
 				subdata : list[str] = []
 				subdata.append(account_name)
+				subdata.append(AmountToString( balance_initial,         flag_point=False, flag_sign=False))
 				subdata.append(AmountToString( account.AmountIncome(),  flag_point=False, flag_sign=True))
 				subdata.append(AmountToString(-account.AmountOutcome(), flag_point=False, flag_sign=True))
-				subdata.append(AmountToString( balance_initial,         flag_point=False, flag_sign=False))
 				subdata.append(AmountToString( balance_delta,           flag_point=False, flag_sign=True))
 				subdata.append(AmountToString( balance_final,           flag_point=False, flag_sign=False))
 
@@ -72,7 +72,7 @@ class C80_Report(C70_Report):
 		table_header.append("Дата")
 		table_header.append("Сумма")
 		table_header.append("Счёт")
-		table_header.append("Назначение")
+		table_header.append("Описание")
 
 		table_data   : list[list[str]] = []
 		for dd in range(1, 32):
