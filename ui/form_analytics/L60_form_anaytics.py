@@ -1,5 +1,6 @@
 # ФОРМА АНАЛИТИКА: МЕХАНИКА ДАННЫХ
 
+from L00_form_analytics import ANALYTICS
 from L20_PySide6        import C20_StandardItem, ROLES
 from L50_form_analytics import C50_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
@@ -11,7 +12,9 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	# Модель данных: Список элементов аналитики
 	def InitModelDataItems(self):
 		""" Инициализация модели данных: список элементов аналитики """
-		pass
+		self.model_items.removeAll()
+
+		self.model_items.setHorizontalHeaderLabels(["Элемент аналитики"])
 
 	def LoadItemInModelDataItems(self):
 		""" Загрузка элемента аналитики в модель данных """
@@ -28,3 +31,35 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 		item_name                            = self.model_items.itemFromIndex(index_name)
 		item_name.setText(analytics_item.Name())
+
+	# Модель данных: Элемент аналитики
+	def InitModelItem(self):
+		""" Инициализация модели данных: элемент аналитики """
+		self.model_item.removeAll()
+
+		self.model_item.setHorizontalHeaderLabels(["Параметр", "Значение"])
+
+		group_main   = C20_StandardItem("Основные параметры")
+		item_include = C20_StandardItem("Признаки+", ANALYTICS.INCLUDE, ROLES.IDO)
+		item_exclude = C20_StandardItem("Признаки-", ANALYTICS.EXCLUDE, ROLES.IDO)
+
+		self.model_item.appendRow([group_main, C20_StandardItem("")])
+		group_main.appendRow([item_include, C20_StandardItem("", ANALYTICS.INCLUDE, ROLES.IDO)])
+		group_main.appendRow([item_exclude, C20_StandardItem("", ANALYTICS.EXCLUDE, ROLES.IDO)])
+
+	def LoadModelItem(self):
+		""" Загрузка модели данных: элемент аналитики """
+		analytics_item = C90_AnalyticsItem(self._processing_ido)
+
+		indexes        = self.model_item.indexesInRowByIdo(ANALYTICS.INCLUDE)
+		item_include   = self.model_item.itemFromIndex(indexes[1])
+		item_include.setText('\n'.join(analytics_item.Include()))
+
+		indexes        = self.model_item.indexesInRowByIdo(ANALYTICS.EXCLUDE)
+		item_exclude   = self.model_item.itemFromIndex(indexes[1])
+		item_exclude.setText('\n'.join(analytics_item.Exclude()))
+
+	# Параметры
+	def ReadProcessingIdoFromListItems(self):
+		""" Чтение текущего IDO из списка элементов аналитики """
+		self._processing_ido = self.list_items.currentIndex().data(ROLES.IDO)
