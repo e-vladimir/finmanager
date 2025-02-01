@@ -95,6 +95,7 @@ class C80_Operation(C70_Operation):
 		detail      : str = self.Detail()
 		return (' '.join([f"{obj_ext}:" if obj_ext else "",
 		                  destination,
+		                  ' - ' if all([destination, detail]) else '',
 		                  detail,
 		                 f"({obj_int})" if obj_int else ""])
 		           .replace('  ', ' ')

@@ -8,3 +8,14 @@ class C50_FormAnalytics(C42_FormAnalytics):
 
 	# Элемент аналитики
 	def on_AnalyticsItemSelected(self): pass
+	def on_RequestCreateAnalyticsItem(self): pass
+	def on_RequestDeleteAnalyticsItem(self): pass
+	def on_RequestEditAnalyticsItemName(self): pass
+	def on_RequestEditAnalyticsItemInclude(self): pass
+	def on_RequestEditAnalyticsItemExclude(self): pass
+
+	# Дерево параметров элемента аналитики
+	def on_RequestProcessingTreeDataItem_DbClick(self): pass
+
+	# Меню Элементы аналитики
+	def on_RequestShowMenuItems(self): pass

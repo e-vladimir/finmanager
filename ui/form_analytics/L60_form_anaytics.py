@@ -33,7 +33,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		item_name.setText(analytics_item.Name())
 
 	# Модель данных: Элемент аналитики
-	def InitModelItem(self):
+	def InitModelDataItem(self):
 		""" Инициализация модели данных: элемент аналитики """
 		self.model_item.removeAll()
 
@@ -47,7 +47,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		group_main.appendRow([item_include, C20_StandardItem("", ANALYTICS.INCLUDE, ROLES.IDO)])
 		group_main.appendRow([item_exclude, C20_StandardItem("", ANALYTICS.EXCLUDE, ROLES.IDO)])
 
-	def LoadModelItem(self):
+	def LoadModelDataItem(self):
 		""" Загрузка модели данных: элемент аналитики """
 		analytics_item = C90_AnalyticsItem(self._processing_ido)
 
@@ -63,3 +63,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def ReadProcessingIdoFromListItems(self):
 		""" Чтение текущего IDO из списка элементов аналитики """
 		self._processing_ido = self.list_items.currentIndex().data(ROLES.IDO)
+
+	def ReadProcessingIdoFromTreeDataItem(self):
+		""" Чтение текущего IDO из дерева параметров элемента аналитики """
+		self._processing_ido = self.tree_data_item.currentIndex().data(ROLES.IDO)
