@@ -34,6 +34,8 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeDataItem_Color()
 		self.AdjustTreeDataItem_Expand()
 
+		self.ShowTitle()
+
 	# Элемент аналитики
 	def on_AnalyticsItemSelected(self):
 		""" Выбран элемент аналитики """
@@ -61,7 +63,6 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ReadProcessingIdoFromListItems()
 		self.EditAnalyticsItemName()
 		self.LoadItemInModelDataItems()
-		self.LoadModelDataItem()
 		self.AdjustListItems_Sort()
 
 	def on_RequestEditAnalyticsItemInclude(self):
@@ -86,6 +87,8 @@ class C90_FormAnalytics(C80_FormAnalytics):
 	def on_RequestShowMenuItems(self):
 		""" Запрос на отображение меню Элементы аналитики """
 		self.ReadProcessingIdoFromListItems()
+
+		self.LoadModelDataItem()
 
 		self.AdjustMenuItems_Text()
 		self.AdjustMenuItems_Enable()

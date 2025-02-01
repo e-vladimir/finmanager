@@ -12,6 +12,11 @@ from L90_analytics      import C90_AnalyticsItem
 class C70_FormAnalytics(C60_FormAnalytics):
 	""" Форма Аналитика: Механика управления """
 
+	# Форма
+	def ShowTitle(self):
+		""" Отображение заголовка формы """
+		self.setWindowTitle(f"Аналитика - {self.workspace.DmDyToString()}")
+
 	# Список элементов аналитики
 	def AdjustListItems_Sort(self):
 		""" Список элементов аналитики: Настройка сортировки """
