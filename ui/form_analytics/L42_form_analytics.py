@@ -43,3 +43,4 @@ class C42_FormAnalytics(C41_FormAnalytics):
 		self.tree_data_item.setModel(self.model_item)
 		self.tree_data_dm.setModel(self.model_dm)
 		self.tree_data_dy.setModel(self.model_dy)
+		self.tree_data_analytics.setModel(self.model_analytics)

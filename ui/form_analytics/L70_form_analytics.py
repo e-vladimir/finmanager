@@ -105,3 +105,26 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		""" Настройка заголовков вкладок """
 		self.tabs_main.setTabText(2, f"Динамика{' - ' + self._processing_object if self._processing_object else ''}")
 		self.tabs_main.setTabText(3, f"Аналитика{' - ' + self._processing_object if self._processing_object else ''}")
+
+	def SwitchTabsMainToFirst(self):
+		""" Переключение вкладок """
+		self.tabs_main.setCurrentIndex(0)
+
+	# Дерево данных Аналитика
+	def AdjustTreeDataAnalytics_Size(self):
+		""" Дерево данных аналитики: Настройка размеров """
+		self.tree_data_analytics.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+		self.tree_data_analytics.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
+		self.tree_data_analytics.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
+
+		self.tree_data_analytics.setColumnWidth(1, 100)
+		self.tree_data_analytics.setColumnWidth(2, 100)
+
+	def AdjustTreeDataAnalytics_Expand(self):
+		""" Дерево данных аналитики: Настройка вложенности """
+		self.tree_data_analytics.expandAll()
+
+	def AdjustTreeDataAnalytics_Color(self):
+		""" Дерево данных аналитики: Настройка цветовой схемы """
+		self.model_analytics.adjustGroupView(True, True, True)
+

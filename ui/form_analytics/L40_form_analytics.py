@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsaxtjOU.ui'
+## Form generated from reading UI file 'form_analyticsUsLurR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -93,6 +93,21 @@ class Ui_frm_analytics(object):
         self.tabs_main.addTab(self.tab_dy, "")
         self.tab_analytics = QWidget()
         self.tab_analytics.setObjectName(u"tab_analytics")
+        self.verticalLayout_2 = QVBoxLayout(self.tab_analytics)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.tree_data_analytics = QTreeView(self.tab_analytics)
+        self.tree_data_analytics.setObjectName(u"tree_data_analytics")
+        self.tree_data_analytics.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.tree_data_analytics.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tree_data_analytics.setRootIsDecorated(False)
+        self.tree_data_analytics.setItemsExpandable(False)
+        self.tree_data_analytics.setHeaderHidden(False)
+        self.tree_data_analytics.setExpandsOnDoubleClick(False)
+        self.tree_data_analytics.header().setVisible(True)
+        self.tree_data_analytics.header().setStretchLastSection(False)
+
+        self.verticalLayout_2.addWidget(self.tree_data_analytics)
+
         self.tabs_main.addTab(self.tab_analytics, "")
 
         self.verticalLayout.addWidget(self.tabs_main)
@@ -104,7 +119,7 @@ class Ui_frm_analytics(object):
 
         self.retranslateUi(frm_analytics)
 
-        self.tabs_main.setCurrentIndex(0)
+        self.tabs_main.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(frm_analytics)

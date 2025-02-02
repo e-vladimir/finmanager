@@ -49,6 +49,12 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeDataDy_Color()
 		self.AdjustTreeDataDy_Expand()
 
+		self.InitModelDataAnalytics()
+		self.AdjustTreeDataAnalytics_Size()
+		self.AdjustTreeDataAnalytics_Color()
+		self.AdjustTreeDataAnalytics_Expand()
+
+		self.SwitchTabsMainToFirst()
 		self.ShowTitle()
 
 	# Элемент аналитики
@@ -119,5 +125,10 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.LoadModelDataDy()
 		self.AdjustTreeDataDy_Expand()
 		self.AdjustTreeDataDy_Color()
+
+		self.InitModelDataAnalytics()
+		self.LoadModelDataAnalytics()
+		self.AdjustTreeDataAnalytics_Color()
+		self.AdjustTreeDataAnalytics_Expand()
 
 		self.AdjustTabsMain_Text()
