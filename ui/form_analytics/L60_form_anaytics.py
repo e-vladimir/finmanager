@@ -1,5 +1,7 @@
 # ФОРМА АНАЛИТИКА: МЕХАНИКА ДАННЫХ
 
+from G11_convertor_data import AmountToString
+
 from L00_form_analytics import ANALYTICS
 from L20_PySide6        import C20_StandardItem, ROLES
 from L50_form_analytics import C50_FormAnalytics
@@ -13,7 +15,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def InitModelDataItems(self):
 		""" Инициализация модели данных: список элементов аналитики """
 		self.model_items.removeAll()
-
 		self.model_items.setHorizontalHeaderLabels(["Элемент аналитики"])
 
 	def LoadItemInModelDataItems(self):
@@ -36,7 +37,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def InitModelDataItem(self):
 		""" Инициализация модели данных: элемент аналитики """
 		self.model_item.removeAll()
-
 		self.model_item.setHorizontalHeaderLabels(["Параметр", "Значение"])
 
 		group_main   = C20_StandardItem("Основные параметры")
@@ -58,6 +58,53 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		indexes        = self.model_item.indexesInRowByIdo(ANALYTICS.EXCLUDE)
 		item_exclude   = self.model_item.itemFromIndex(indexes[1])
 		item_exclude.setText('\n'.join(analytics_item.Exclude()))
+
+	# Модель данных: Структура месяца
+	def InitModelDataDm(self):
+		""" Инициализация модели Структура месяца """
+		self.model_dm.removeAll()
+		self.model_dm.setHorizontalHeaderLabels(["Элемент аналитики", "Поступление", "Списание"])
+
+	def LoadModelDataDm(self):
+		""" Загрузка модели данных Структура месяца """
+		dy, dm     = self.workspace.DyDm()
+
+		item_group = C20_StandardItem("Назначение")
+		for data in self.statistic.CaptureDestinationsInDm(dy, dm):
+			item_name    = C20_StandardItem(data.name)
+			item_income  = C20_StandardItem(AmountToString(data.amount_income,  flag_sign=True), flag_align_right=True)
+			item_outcome = C20_StandardItem(AmountToString(data.amount_outcome, flag_sign=True), flag_align_right=True)
+
+			item_group.appendRow([item_name, item_income, item_outcome])
+		self.model_dm.appendRow([item_group, C20_StandardItem(""), C20_StandardItem("")])
+
+		item_group = C20_StandardItem("Объект внутренний")
+		for data in self.statistic.CaptureObjectsIntInDm(dy, dm):
+			item_name    = C20_StandardItem(data.name)
+			item_income  = C20_StandardItem(AmountToString(data.amount_income,  flag_sign=True), flag_align_right=True)
+			item_outcome = C20_StandardItem(AmountToString(data.amount_outcome, flag_sign=True), flag_align_right=True)
+
+			item_group.appendRow([item_name, item_income, item_outcome])
+		self.model_dm.appendRow([item_group, C20_StandardItem(""), C20_StandardItem("")])
+
+		item_group = C20_StandardItem("Объект внешний")
+		for data in self.statistic.CaptureObjectsExtInDm(dy, dm):
+			item_name    = C20_StandardItem(data.name)
+			item_income  = C20_StandardItem(AmountToString(data.amount_income,  flag_sign=True), flag_align_right=True)
+			item_outcome = C20_StandardItem(AmountToString(data.amount_outcome, flag_sign=True), flag_align_right=True)
+
+			item_group.appendRow([item_name, item_income, item_outcome])
+		self.model_dm.appendRow([item_group, C20_StandardItem(""), C20_StandardItem("")])
+
+		item_group = C20_StandardItem("Элементы аналитики")
+		for ido in self.analytics.Idos():
+			data         = C90_AnalyticsItem(ido).CaptureAmountInDm(dy, dm)
+			item_name    = C20_StandardItem(data.name)
+			item_income  = C20_StandardItem(AmountToString(data.amount_income,  flag_sign=True), flag_align_right=True)
+			item_outcome = C20_StandardItem(AmountToString(data.amount_outcome, flag_sign=True), flag_align_right=True)
+
+			item_group.appendRow([item_name, item_income, item_outcome])
+		self.model_dm.appendRow([item_group, C20_StandardItem(""), C20_StandardItem("")])
 
 	# Параметры
 	def ReadProcessingIdoFromListItems(self):

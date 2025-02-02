@@ -59,3 +59,25 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	def ShowMenuItems(self):
 		""" Отображение меню Элементы аналитики """
 		self.menu_items_items.exec_(QCursor().pos())
+
+	# Дерево данных Структура месяца
+	def AdjustTreeDataDm_Size(self):
+		""" Настройка размеров дерева данных Структура месяца """
+		self.tree_data_dm.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+		self.tree_data_dm.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
+		self.tree_data_dm.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
+
+		self.tree_data_dm.setColumnWidth(1, 100)
+		self.tree_data_dm.setColumnWidth(2, 100)
+
+	def AdjustTreeDataDm_Expand(self):
+		""" Дерево параметров Структура месяца: Настройка вложенности """
+		self.tree_data_dm.expandAll()
+
+	def AdjustTreeDataDm_Color(self):
+		""" Настройка цветовой схемы дерева данных Структура месяца """
+		self.model_dm.adjustGroupView(True, True, True)
+
+	def AdjustTreeDataDm_Sort(self):
+		""" Настройка сортировки дерева данных Структура месяца """
+		self.tree_data_dm.sortByColumn(0, Qt.SortOrder.AscendingOrder)

@@ -34,6 +34,13 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeDataItem_Color()
 		self.AdjustTreeDataItem_Expand()
 
+		self.InitModelDataDm()
+		self.LoadModelDataDm()
+		self.AdjustTreeDataDm_Expand()
+		self.AdjustTreeDataDm_Size()
+		self.AdjustTreeDataDm_Color()
+		self.AdjustTreeDataDm_Sort()
+
 		self.ShowTitle()
 
 	# Элемент аналитики

@@ -107,6 +107,7 @@ class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """
 
 	# Дни
+	@classmethod
 	def DdsInDyDm(self, dy: int, dm: int) -> list[int]:
 		""" Список дней """
 		operation    = C80_Operation()
@@ -123,6 +124,7 @@ class C80_Operations(C70_Operations):
 		return filter_data.ToIntegers(idp_dd, True, True).data
 
 	# Финансовые операции
+	@classmethod
 	def OperationsIdosInDyDmDd(self, dy: int, dm: int, dd: int = None) -> list[str]:
 		""" Список IDO операций в указанном периоде """
 		operation         = C80_Operation()
@@ -141,6 +143,7 @@ class C80_Operations(C70_Operations):
 		return filter_data.Idos(idp_amount).data
 
 	# Проверки
+	@classmethod
 	def CheckOperationByCrc(self, dy: int, dm: int, crc: str) -> bool:
 		""" Проверка операции по CRC """
 		operation      = C80_Operation()
@@ -158,6 +161,7 @@ class C80_Operations(C70_Operations):
 		return bool(filter_data.Idos().data)
 
 	# Импорт данных
+	@classmethod
 	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, account_ido: str, data: dict[str]) -> bool:
 		""" Импорт финансовой операции """
 		destination : str       = data.get(FIELDS.DESTINATION, "")
@@ -187,6 +191,7 @@ class C80_Operations(C70_Operations):
 		return True
 
 	# Периоды
+	@classmethod
 	def DyStart(self) -> int:
 		""" Начало года операций """
 		operation          = C80_Operation()
@@ -200,6 +205,7 @@ class C80_Operations(C70_Operations):
 		return 0 if not dys else min(dys)
 
 	# Выборки данных
+	@classmethod
 	def Destinations(self) -> list[str]:
 		""" Список назначений """
 		operation             = C80_Operation()
@@ -211,6 +217,7 @@ class C80_Operations(C70_Operations):
 
 		return filter_data.ToStrings(idp_destination, True, True).data
 
+	@classmethod
 	def Details(self) -> list[str]:
 		""" Список уточнений """
 		operation        = C80_Operation()
@@ -222,6 +229,7 @@ class C80_Operations(C70_Operations):
 
 		return filter_data.ToStrings(idp_detail, True, True).data
 
+	@classmethod
 	def ObjectsInt(self) -> list[str]:
 		""" Список объектов внутренних """
 		operation            = C80_Operation()
@@ -233,6 +241,7 @@ class C80_Operations(C70_Operations):
 
 		return filter_data.ToStrings(idp_object_int, True, True).data
 
+	@classmethod
 	def ObjectsExt(self) -> list[str]:
 		""" Список объектов внешних """
 		operation            = C80_Operation()
