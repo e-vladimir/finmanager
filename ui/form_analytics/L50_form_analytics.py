@@ -14,6 +14,9 @@ class C50_FormAnalytics(C42_FormAnalytics):
 	def on_RequestEditAnalyticsItemInclude(self): pass
 	def on_RequestEditAnalyticsItemExclude(self): pass
 
+	# Параметры аналитики
+	def on_ProcessingObjectSelected(self): pass
+
 	# Дерево параметров элемента аналитики
 	def on_RequestProcessingTreeDataItem_DbClick(self): pass
 

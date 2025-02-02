@@ -81,3 +81,27 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	def AdjustTreeDataDm_Sort(self):
 		""" Настройка сортировки дерева данных Структура месяца """
 		self.tree_data_dm.sortByColumn(0, Qt.SortOrder.AscendingOrder)
+
+	# Дерево данных Динамика
+	def AdjustTreeDataDy_Size(self):
+		""" Настройка размеров дерева данных Структура месяца """
+		self.tree_data_dy.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+		self.tree_data_dy.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
+		self.tree_data_dy.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
+
+		self.tree_data_dy.setColumnWidth(1, 100)
+		self.tree_data_dy.setColumnWidth(2, 100)
+
+	def AdjustTreeDataDy_Expand(self):
+		""" Дерево параметров Структура месяца: Настройка вложенности """
+		self.tree_data_dy.expandAll()
+
+	def AdjustTreeDataDy_Color(self):
+		""" Настройка цветовой схемы дерева данных Структура месяца """
+		self.model_dy.adjustGroupView(True, True, True)
+
+	# Панель вкладок
+	def AdjustTabsMain_Text(self):
+		""" Настройка заголовков вкладок """
+		self.tabs_main.setTabText(2, f"Динамика{' - ' + self._processing_object if self._processing_object else ''}")
+		self.tabs_main.setTabText(3, f"Аналитика{' - ' + self._processing_object if self._processing_object else ''}")

@@ -17,6 +17,9 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		# Дерево параметров элемента аналитики
 		self.tree_data_item.doubleClicked.connect(self.on_RequestProcessingTreeDataItem_DbClick)
 
+		# Дерево данных Структура месяца
+		self.tree_data_dm.doubleClicked.connect(self.on_ProcessingObjectSelected)
+
 		# Меню Элементы аналитики
 		self.action_items_create_item.triggered.connect(self.on_RequestCreateAnalyticsItem)
 		self.action_items_delete_item.triggered.connect(self.on_RequestDeleteAnalyticsItem)
@@ -40,6 +43,11 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeDataDm_Size()
 		self.AdjustTreeDataDm_Color()
 		self.AdjustTreeDataDm_Sort()
+
+		self.InitModelDataDy()
+		self.AdjustTreeDataDy_Size()
+		self.AdjustTreeDataDy_Color()
+		self.AdjustTreeDataDy_Expand()
 
 		self.ShowTitle()
 
@@ -101,3 +109,15 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustMenuItems_Enable()
 
 		self.ShowMenuItems()
+
+	# Параметры аналитики
+	def on_ProcessingObjectSelected(self):
+		""" Выбран объект обработки """
+		self.ReadProcessingObjectFromTreeDataDm()
+
+		self.InitModelDataDy()
+		self.LoadModelDataDy()
+		self.AdjustTreeDataDy_Expand()
+		self.AdjustTreeDataDy_Color()
+
+		self.AdjustTabsMain_Text()

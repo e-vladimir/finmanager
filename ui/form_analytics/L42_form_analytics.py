@@ -14,7 +14,8 @@ class C42_FormAnalytics(C41_FormAnalytics):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_ido : str = ""
+		self._processing_ido    : str = ""
+		self._processing_object : str = ""
 
 	def Init_10(self):
 		super().Init_10()

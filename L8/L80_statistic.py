@@ -70,3 +70,48 @@ class C80_Statistic(C70_Statistic):
 			              )
 
 		return result
+
+	def CaptureDestinationInDm(self, dy: int, dm: int, destination: str) -> T20_StructStatistic:
+		""" Захват данных по назначению за месяц """
+		amounts: list[float] = []
+
+		for ido in C90_Operations.OperationsIdosInDyDmDd(dy, dm):
+			operation = C90_Operation(ido)
+			if not operation.Destination() == destination: continue
+
+			amounts.append(operation.Amount())
+
+		return T20_StructStatistic(destination,
+		                           int(sum(filter(lambda amount: amount > 0, amounts))),
+		                           int(sum(filter(lambda amount: amount < 0, amounts)))
+		                           )
+
+	def CaptureObjectIntInDm(self, dy: int, dm: int, object_int: str) -> T20_StructStatistic:
+		""" Захват данных по объектам внутренним за месяц """
+		amounts: list[float] = []
+
+		for ido in C90_Operations.OperationsIdosInDyDmDd(dy, dm):
+			operation = C90_Operation(ido)
+			if not operation.ObjectInt() == object_int: continue
+
+			amounts.append(operation.Amount())
+
+		return T20_StructStatistic(object_int,
+		                           int(sum(filter(lambda amount: amount > 0, amounts))),
+		                           int(sum(filter(lambda amount: amount < 0, amounts)))
+		                           )
+
+	def CaptureObjectExtInDm(self, dy: int, dm: int, object_ext: str) -> T20_StructStatistic:
+		""" Захват данных по объектам внешним за месяц """
+		amounts : list[float]  = []
+
+		for ido in C90_Operations.OperationsIdosInDyDmDd(dy, dm):
+			operation = C90_Operation(ido)
+			if not operation.ObjectExt() == object_ext: continue
+
+			amounts.append(operation.Amount())
+
+		return T20_StructStatistic(object_ext,
+                                   int(sum(filter(lambda amount: amount > 0, amounts))),
+                                   int(sum(filter(lambda amount: amount < 0, amounts)))
+                                   )
