@@ -98,6 +98,18 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.EditAnalyticsItemExclude()
 		self.LoadModelDataItem()
 
+	def on_RequestEditAnalyticsItemMeasurementUnit(self):
+		""" Запрос редактирования объёмной единицы измерения """
+		self.ReadProcessingIdoFromListItems()
+		self.EditAnalyticsItemMeasurementUnit()
+		self.LoadModelDataItem()
+
+	def on_RequestEditAnalyticsItemMeasurementValue(self):
+		""" Запрос редактирования объёмной величины """
+		self.ReadProcessingIdoFromListItems()
+		self.EditAnalyticsItemMeasurementValue()
+		self.LoadModelDataItem()
+
 	# Дерево параметров элемент аналитики
 	def on_RequestProcessingTreeDataItem_DbClick(self):
 		""" Запрос на обработку двойного клика по дереву параметров элемента аналитики """

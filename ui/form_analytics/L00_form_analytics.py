@@ -11,3 +11,13 @@ class ANALYTICS(enum.StrEnum):
 	OBJECT_INT  = "Объект внутренний"
 	OBJECT_EXT  = "Объект внешний"
 	ITEM        = "Элемент аналитики"
+
+	INCOME      = "Поступление"
+	OUTCOME     = "Списание"
+
+	AMOUNTS     = "Суммы"
+	DATES       = "Даты"
+	INTERVALS   = "Интервалы"
+
+	UNIT        = "Объёмная единица измерения"
+	VALUE       = "Объёмная величина"

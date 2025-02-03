@@ -13,6 +13,8 @@ class C50_FormAnalytics(C42_FormAnalytics):
 	def on_RequestEditAnalyticsItemName(self): pass
 	def on_RequestEditAnalyticsItemInclude(self): pass
 	def on_RequestEditAnalyticsItemExclude(self): pass
+	def on_RequestEditAnalyticsItemMeasurementUnit(self): pass
+	def on_RequestEditAnalyticsItemMeasurementValue(self): pass
 
 	# Параметры аналитики
 	def on_ProcessingObjectSelected(self): pass

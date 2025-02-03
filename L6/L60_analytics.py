@@ -24,6 +24,16 @@ class C60_AnalyticsItem(C50_AnalyticsItem):
 		if items is None : return self.f_exclude.ToStrings(CONTAINERS.DISK).data
 		else             :        self.f_exclude.FromStrings(CONTAINERS.DISK, items)
 
+	def MeasurementUnit(self, text: str = None) -> str | None:
+		""" Объёмная единица измерения """
+		if text is None : return self.f_measurement_unit.ToString(CONTAINERS.DISK).data
+		else            :        self.f_measurement_unit.FromString(CONTAINERS.DISK, text)
+
+	def MeasurementValue(self, value: int = None) -> int:
+		""" Сумма """
+		if value is None : return self.f_measurement_value.ToInteger(CONTAINERS.DISK).data
+		else             :        self.f_measurement_value.FromInteger(CONTAINERS.DISK, value)
+
 	# Переключение
 	def SwitchByName(self, name: str) -> bool:
 		""" Переключение по названию """

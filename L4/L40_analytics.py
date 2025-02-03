@@ -13,9 +13,12 @@ class C40_AnalyticsItem(C31_StructFrameWithEvents):
 	def Init_10(self):
 		super().Init_10()
 
-		self.f_name    = C30_StructField(self, "Название")
-		self.f_include = C30_StructField(self, "Признаки+")
-		self.f_exclude = C30_StructField(self, "Признаки-")
+		self.f_name              = C30_StructField(self, "Название")
+		self.f_include           = C30_StructField(self, "Признаки+")
+		self.f_exclude           = C30_StructField(self, "Признаки-")
+
+		self.f_measurement_unit  = C30_StructField(self, "Объёмная единица измерения")
+		self.f_measurement_value = C30_StructField(self, "Объёмная величина")
 
 
 class C40_Analytics(C20_MetaFrame):

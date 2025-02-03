@@ -1,5 +1,6 @@
 # ФОРМА АНАЛИТИКА: МОДЕЛЬ ДАННЫХ
 
+from L00_form_analytics import ANALYTICS
 from L20_PySide6        import C20_StandardItemModel
 from L41_form_analytics import C41_FormAnalytics
 from L90_analytics      import C90_Analytics
@@ -14,8 +15,9 @@ class C42_FormAnalytics(C41_FormAnalytics):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_ido    : str = ""
-		self._processing_object : str = ""
+		self._processing_ido    : str       = ""
+		self._processing_object : str       = ""
+		self._processing_mode   : ANALYTICS = ANALYTICS.OUTCOME
 
 	def Init_10(self):
 		super().Init_10()

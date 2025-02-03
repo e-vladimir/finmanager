@@ -1,7 +1,7 @@
 # ФОРМА АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestItems, RequestText
+from L20_PySide6 import RequestConfirm, RequestItems, RequestText, RequestValue
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -91,3 +91,31 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		if name in self.analytics.Names(): return
 
 		analytics_item.Name(name)
+
+	def EditAnalyticsItemMeasurementUnit(self):
+		""" Редактирование названия единицы объёмного измерения """
+		if not self._processing_ido: return
+
+		analytics_item    = C90_AnalyticsItem(self._processing_ido)
+
+		unit : str | None = RequestText("Элемент аналитики",
+		                                f"{analytics_item.Name()}\n\nЕдиницы объёмного измерения:",
+		                                analytics_item.MeasurementUnit())
+		if unit is None                  : return
+
+		analytics_item.MeasurementUnit(unit)
+
+	def EditAnalyticsItemMeasurementValue(self):
+		""" Редактирование названия объёма измерения """
+		if not self._processing_ido: return
+
+		analytics_item     = C90_AnalyticsItem(self._processing_ido)
+
+		value : int | None = RequestValue("Элемент аналитики",
+		                                  f"{analytics_item.Name()}\n\nОбъём измерения:",
+		                                  analytics_item.MeasurementValue(),
+		                                  -99999999,
+		                                   99999999)
+		if value is None                  : return
+
+		analytics_item.MeasurementValue(value)
