@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 11 янв 2025
+# 05 фев 2025
 
 import enum
 
@@ -536,6 +536,8 @@ class C20_StandardItemModel(QStandardItemModel):
 		""" Перезапись служебного метода """
 		self.index_processing = index
 
+		result = super().setData(index, value, role)
+
 		if   role == Qt.ItemDataRole.DisplayRole:
 			self.dataChanged.emit()
 
@@ -546,7 +548,7 @@ class C20_StandardItemModel(QStandardItemModel):
 			if value == Qt.CheckState.Checked.value : self.itemChecked.emit()
 			else                                    : self.itemUnchecked.emit()
 
-		return super().setData(index, value, role)
+		return result
 
 	# Инструментарий
 	def removeAll(self):

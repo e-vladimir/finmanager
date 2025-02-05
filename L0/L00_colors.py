@@ -5,6 +5,7 @@ import enum
 
 class COLORS(enum.StrEnum):
 	""" Каталог цветов """
+	NONE  = ""
 	BLACK = "Чёрный"
 	BLUE  = "Синий"
 	GRAY  = "Серый"

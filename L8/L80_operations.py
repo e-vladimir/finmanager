@@ -125,7 +125,7 @@ class C80_Operations(C70_Operations):
 
 	# Финансовые операции
 	@classmethod
-	def OperationsIdosInDyDmDd(self, dy: int, dm: int, dd: int = None) -> list[str]:
+	def OperationsIdosInDyDmDd(self, dy: int = None, dm: int = None, dd: int = None) -> list[str]:
 		""" Список IDO операций в указанном периоде """
 		operation         = C80_Operation()
 		idc        : str  = operation.Idc().data
@@ -137,7 +137,7 @@ class C80_Operations(C70_Operations):
 		filter_data       = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		if dd is not None: filter_data.FilterIdpVlpByEqual(idp_dd, dd)
+		filter_data.FilterIdpVlpByEqual(idp_dd, dd)
 		filter_data.Capture(CONTAINERS.DISK)
 
 		return filter_data.Idos(idp_amount).data
@@ -206,13 +206,17 @@ class C80_Operations(C70_Operations):
 
 	# Выборки данных
 	@classmethod
-	def Destinations(self) -> list[str]:
+	def Destinations(self, dy: int = None, dm: int = None) -> list[str]:
 		""" Список назначений """
 		operation             = C80_Operation()
 		idc             : str = operation.Idc().data
 		idp_destination : str = operation.f_destination.Idp().data
+		idp_dy          : str = operation.f_dy.Idp().data
+		idp_dm          : str = operation.f_dm.Idp().data
 
 		filter_data           = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
 		filter_data.Capture(CONTAINERS.DISK)
 
 		return filter_data.ToStrings(idp_destination, True, True).data

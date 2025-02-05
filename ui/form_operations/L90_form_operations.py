@@ -50,6 +50,17 @@ class C90_FormOperations(C80_FormOperations):
 		self.AdjustTreeData_Color()
 		self.AdjustTreeData_Sort()
 
+	def on_UpdateData(self):
+		""" Обновление данных """
+		self.InitModel()
+
+		self.ShowOperations()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Sort()
+
 	def on_UpdateDataPartial(self):
 		""" Частичное обновление данных """
 		self.AdjustTreeData_Expand()
@@ -98,7 +109,7 @@ class C90_FormOperations(C80_FormOperations):
 
 	def on_RequestOpenProcessing(self):
 		""" Запрос на открытие формы Обработка операций """
-		pass
+		self.application.form_processing.Open()
 
 	def on_RequestResetData(self):
 		""" Запрос на сброс данных """

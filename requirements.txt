@@ -2,7 +2,10 @@ PyPDF2
 PySide6
 fpdf2
 natsort
+psycopg2
 pyexcel
 pyexcel-ods
 pyexcel-xls
 pyexcel-xlsx
+pytz
+s3m

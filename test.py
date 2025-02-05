@@ -1,1 +1,1 @@
-print(f"{(100 * 1 /abs(7894)):.0f}%")
+print('' in "143323" if '' else False)

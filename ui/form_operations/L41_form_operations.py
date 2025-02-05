@@ -38,7 +38,7 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.action_operations_create_operation        = QAction(icon_item_plus,  "Создать операцию")
 		self.action_operations_import                  = QAction(icon_import,     "Импорт операций")
 		self.action_operations_export                  = QAction(icon_upload,     "Экспорт операций")
-		self.action_operations_open_processing         = QAction(icon_layers,     "Обработка операций")
+		self.action_operations_open_processing         = QAction(icon_layers,     "Обработка данных")
 		self.action_operations_reset                   = QAction(icon_reload,     "Сброс данных")
 		self.action_operation_delete_operation         = QAction(icon_delete,     "Удалить операцию")
 		self.action_operation_split                    = QAction(icon_arrows_l_r, "Разделить операцию")
@@ -62,6 +62,8 @@ class C41_FormOperations(C20_PySideForm, Ui_frm_operations):
 		self.submenu_operations.addSeparator()
 		self.submenu_operations.addAction(self.action_operations_import)
 		self.submenu_operations.addAction(self.action_operations_export)
+		self.submenu_operations.addSeparator()
+		self.submenu_operations.addAction(self.action_operations_open_processing)
 		self.submenu_operations.addSeparator()
 		self.submenu_operations.addAction(self.action_operations_reset)
 
