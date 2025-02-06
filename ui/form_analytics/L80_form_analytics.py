@@ -54,7 +54,7 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		                                          sorted(labels),
 		                                          analytics_item.Include()
 		                                          )
-		if include: return
+		if not include: return
 
 		analytics_item.Include(include)
 
@@ -74,7 +74,7 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		                                          sorted(labels),
 		                                          analytics_item.Include()
 		                                          )
-		if exclude: return
+		if not exclude: return
 
 		analytics_item.Exclude(exclude)
 
