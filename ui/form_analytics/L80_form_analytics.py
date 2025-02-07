@@ -1,7 +1,7 @@
 # ФОРМА АНАЛИТИКА: ЛОГИКА ДАННЫХ
 
 from L00_containers     import CONTAINERS
-from L20_PySide6 import RequestConfirm, RequestItems, RequestText, RequestValue
+from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 

@@ -25,15 +25,15 @@ class C41_FormAnalytics(C20_PySideForm, Ui_frm_analytics):
 		icon_grid_1_3    = QIcon("./L0/icons/grid_1_3.svg")
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
 
-		self.action_items_create_item       = QAction(icon_item_plus,   "Создать элемент аналитики")
-		self.action_items_delete_item       = QAction(icon_item_delete, "Удалить")
-		self.action_items_edit_item_name    = QAction(icon_edit,        "Редактировать название")
+		self.action_items_create_item    = QAction(icon_item_plus,   "Создать элемент аналитики")
+		self.action_items_delete_item    = QAction(icon_item_delete, "Удалить")
+		self.action_items_edit_item_name = QAction(icon_edit,        "Редактировать название")
 
-		self.menu_items_items               = QMenu("Элементы аналитики")
-		self.submenu_items_items            = self.menu_items_items.addMenu(icon_grid_1_3, "Элементы аналитики")
+		self.menu_items_items            = QMenu("Элементы аналитики")
+		self.submenu_items_items         = self.menu_items_items.addMenu(icon_grid_1_3, "Элементы аналитики")
 		self.submenu_items_items.addAction(self.action_items_create_item)
 
-		self.submenu_items_item            = self.menu_items_items.addMenu(icon_grid_3_3, "Элемент аналитики")
+		self.submenu_items_item          = self.menu_items_items.addMenu(icon_grid_3_3, "Элемент аналитики")
 		self.submenu_items_item.addAction(self.action_items_edit_item_name)
 		self.submenu_items_item.addSeparator()
 		self.submenu_items_item.addAction(self.action_items_delete_item)
