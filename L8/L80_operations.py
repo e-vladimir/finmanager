@@ -1,7 +1,5 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
 
-from hashlib                import md5
-
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -21,7 +19,6 @@ class C80_Operation(C70_Operation):
 
 		accounts        = self.AccountsIdos()
 		color           = self.Color()
-		crc             = self.Crc()
 		dd              = self.Dd()
 		det             = self.Detail()
 		dm              = self.Dm()
@@ -36,7 +33,6 @@ class C80_Operation(C70_Operation):
 		self.AccountsIdos(accounts)
 		self.Amount(amount)
 		self.Color(color)
-		self.Crc(crc)
 		self.Dd(dd)
 		self.Destination(dst)
 		self.Detail(det)
@@ -52,7 +48,6 @@ class C80_Operation(C70_Operation):
 		accounts        = self.AccountsIdos()
 		amount          = self.Amount()
 		color           = self.Color()
-		crc             = self.Crc()
 		dd              = self.Dd()
 		det             = self.Detail()
 		dm              = self.Dm()
@@ -67,7 +62,6 @@ class C80_Operation(C70_Operation):
 		self.AccountsIdos(accounts)
 		self.Amount(amount)
 		self.Color(color)
-		self.Crc(crc)
 		self.Dd(dd)
 		self.Destination(dst)
 		self.Detail(det)
@@ -142,24 +136,6 @@ class C80_Operations(C70_Operations):
 
 		return filter_data.Idos(idp_amount).data
 
-	# Проверки
-	@classmethod
-	def CheckOperationByCrc(self, dy: int, dm: int, crc: str) -> bool:
-		""" Проверка операции по CRC """
-		operation      = C80_Operation()
-		idc     : str  = operation.Idc().data
-		idp_dy  : str  = operation.f_dy.Idp().data
-		idp_dm  : str  = operation.f_dm.Idp().data
-		idp_crc : str  = operation.f_crc.Idp().data
-
-		filter_data    = C30_FilterLinear1D(idc)
-		filter_data.FilterIdpVlpByEqual(idp_dy,  dy)
-		filter_data.FilterIdpVlpByEqual(idp_dm,  dm)
-		filter_data.FilterIdpVlpByEqual(idp_crc, crc)
-		filter_data.Capture(CONTAINERS.DISK)
-
-		return bool(filter_data.Idos().data)
-
 	# Импорт данных
 	@classmethod
 	def ImportOperation(self, dy: int, dm: int, dd: int, amount: float, account_ido: str, data: dict[str]) -> bool:
@@ -169,17 +145,12 @@ class C80_Operations(C70_Operations):
 		object_int  : str       = data.get(FIELDS.OBJECT_INT,  "")
 		object_ext  : str       = data.get(FIELDS.OBJECT_EXT,  "")
 
-		crc                     = md5(f"{amount:0.2f}{dy:04d}{dm:02d}{dd:02d}{destination}".encode("utf-8")).hexdigest()
-
-		if self.CheckOperationByCrc(dy, dm, crc): return False
-
 		operation               = C80_Operation()
 		operation.GenerateIdo()
 		operation.RegisterObject(CONTAINERS.DISK)
 
 		operation.AccountsIdos([account_ido])
 		operation.Amount(amount)
-		operation.Crc(crc)
 		operation.Dd(dd)
 		operation.Destination(destination)
 		operation.Detail(detail)

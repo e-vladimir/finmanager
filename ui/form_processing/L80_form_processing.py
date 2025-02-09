@@ -1,12 +1,13 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: ЛОГИКА ДАННЫХ
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QProgressDialog
+
+from PySide6.QtCore      import Qt
+from PySide6.QtWidgets   import QProgressDialog
 
 from L00_colors          import COLORS
 from L00_form_processing import INTERVALS, OPERATIONS
 from L20_PySide6         import RequestItem, RequestText
 from L70_form_processing import C70_FormProcessing
-from L90_operations import C90_Operation
+from L90_operations      import C90_Operation
 
 
 class C80_FormProcessing(C70_FormProcessing):

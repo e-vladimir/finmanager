@@ -24,11 +24,6 @@ class C60_Operation(C50_Operation):
 		if day is None   : return self.f_dd.ToInteger(CONTAINERS.DISK).data
 		else             :        self.f_dd.FromInteger(CONTAINERS.DISK, day)
 
-	def Crc(self, data: str = None) -> str:
-		""" CRC """
-		if data is None  : return self.f_crc.ToString(CONTAINERS.DISK).data
-		else             :        self.f_crc.FromString(CONTAINERS.DISK, data)
-
 	def Amount(self, value: float = None) -> float:
 		""" Сумма """
 		if value is None : return self.f_amount.ToFloat(CONTAINERS.DISK).data
