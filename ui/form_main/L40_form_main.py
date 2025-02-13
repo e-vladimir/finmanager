@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainBTZKKp.ui'
+## Form generated from reading UI file 'form_mainYCacRj.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.1
 ##
@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QLabel,
     QWidget)
 
 from L20_PySide6 import C20_ActiveLabel
+from L21_dia_dm_view import C21_DiaDmView
 
 class Ui_form_main(object):
     def setupUi(self, form_main):
@@ -99,11 +100,11 @@ class Ui_form_main(object):
 
         self.verticalLayout_3.addWidget(self.label_delta)
 
-        self.label__subdelta = QLabel(self.gbox_operations)
-        self.label__subdelta.setObjectName(u"label__subdelta")
-        self.label__subdelta.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.label_subdelta = QLabel(self.gbox_operations)
+        self.label_subdelta.setObjectName(u"label_subdelta")
+        self.label_subdelta.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_3.addWidget(self.label__subdelta)
+        self.verticalLayout_3.addWidget(self.label_subdelta)
 
 
         self.horizontalLayout_3.addWidget(self.gbox_operations)
@@ -134,6 +135,13 @@ class Ui_form_main(object):
 
         self.gbox_dm_view = QGroupBox(self.centralwidget)
         self.gbox_dm_view.setObjectName(u"gbox_dm_view")
+        self.verticalLayout_5 = QVBoxLayout(self.gbox_dm_view)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.widget = C21_DiaDmView(self.gbox_dm_view)
+        self.widget.setObjectName(u"widget")
+
+        self.verticalLayout_5.addWidget(self.widget)
+
 
         self.verticalLayout_2.addWidget(self.gbox_dm_view)
 
@@ -165,7 +173,7 @@ class Ui_form_main(object):
         self.label_5.setText(QCoreApplication.translate("form_main", u"\u043e\u0441\u0442\u0430\u0442\u043e\u043a \u043d\u0430 \u043d\u0430\u0447\u0430\u043b\u043e \u043c\u0435\u0441\u044f\u0446\u0430", None))
         self.gbox_operations.setTitle(QCoreApplication.translate("form_main", u"\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438", None))
         self.label_delta.setText(QCoreApplication.translate("form_main", u"+000 000", None))
-        self.label__subdelta.setText(QCoreApplication.translate("form_main", u"+000 000 / -000 000", None))
+        self.label_subdelta.setText(QCoreApplication.translate("form_main", u"+000 000 / -000 000", None))
         self.gbox_backup.setTitle(QCoreApplication.translate("form_main", u"\u041a\u043e\u043f\u0438\u044f \u0434\u0430\u043d\u043d\u044b\u0445", None))
         self.label_backup_dd_dm_dy.setText(QCoreApplication.translate("form_main", u"00 \u041c\u0415\u0421 0000", None))
         self.label_backup_th_tm.setText(QCoreApplication.translate("form_main", u"00:00", None))

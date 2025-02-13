@@ -133,7 +133,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label__subdelta">
+          <widget class="QLabel" name="label_subdelta">
            <property name="text">
             <string>+000 000 / -000 000</string>
            </property>
@@ -189,6 +189,11 @@
       <property name="title">
        <string>Обзор месяца</string>
       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="C21_DiaDmView" name="widget" native="true"/>
+       </item>
+      </layout>
      </widget>
     </item>
     <item>
@@ -207,6 +212,12 @@
    <class>C20_ActiveLabel</class>
    <extends>QLabel</extends>
    <header location="global">L20_PySide6</header>
+  </customwidget>
+  <customwidget>
+   <class>C21_DiaDmView</class>
+   <extends>QWidget</extends>
+   <header location="global">L21_dia_dm_view</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

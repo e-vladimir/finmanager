@@ -12,5 +12,5 @@ class C40_Workspace(C31_StructFrameWithEvents):
 	def Init_10(self):
 		super().Init_10()
 
-		self.F_Dy = C30_StructField(self, "Год",   CurrentDy())
-		self.F_Dm = C30_StructField(self, "Месяц", CurrentDm())
+		self.FDy = C30_StructField(self, "Год",   CurrentDy())
+		self.FDm = C30_StructField(self, "Месяц", CurrentDm())
