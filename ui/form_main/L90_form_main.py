@@ -13,7 +13,10 @@ class C90_FormMain(C80_FormMain):
 		# Панель Рабочий период
 		self.label_dm_dy_prev.clicked.connect(self.on_RequestSwitchDyDmToPrevDm)
 		self.label_dm_dy_next.clicked.connect(self.on_RequestSwitchDyDmToNextDm)
+
 		self.label_dm_dy.clicked.connect(self.on_RequestSetDyDm)
+		self.label_dm_dy.wheelMovedUp.connect(self.on_RequestSwitchDyDmToNextDm)
+		self.label_dm_dy.wheelMovedDown.connect(self.on_RequestSwitchDyDmToPrevDm)
 
 	# Форма
 	def on_RequestOpen(self):

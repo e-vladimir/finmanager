@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 12 фев 2025
+# 14 фев 2025
 
 import enum
 
@@ -8,11 +8,11 @@ from   PySide6           import  QtGui
 from   PySide6.QtCore    import (Qt,
                                  QModelIndex,
                                  Signal)
-from   PySide6.QtGui     import (QStandardItemModel,
-                                 QStandardItem,
-                                 QPainter,
-                                 QColor,
-                                 QFont)
+from   PySide6.QtGui     import (QMouseEvent, QStandardItemModel,
+	                             QStandardItem,
+	                             QPainter,
+	                             QColor,
+	                             QFont)
 from   PySide6.QtWidgets import (QApplication,
                                  QFileDialog,
                                  QGroupBox, QInputDialog,
@@ -240,23 +240,33 @@ class C20_DiaFrame(QWidget):
 class C20_ActiveLabel(QLabel):
 	""" Label с реакцией на клик """
 
-	clicked = Signal()
+	clicked        = Signal()
+	wheelMovedUp   = Signal()
+	wheelMovedDown = Signal()
 
-	def mouseReleaseEvent(self, ev):
+	def mouseReleaseEvent(self, ev: QMouseEvent):
 		super().mouseReleaseEvent(ev)
 
-		self.clicked.emit()
+		match ev.button():
+			case Qt.MouseButton.LeftButton: self.clicked.emit()
 
+	def wheelEvent(self, event):
+		try   :
+			if   event.angleDelta().y() < 0: self.wheelMovedDown.emit()
+			elif event.angleDelta().y() > 0: self.wheelMovedUp.emit()
+		except: pass
+		super().wheelEvent(event)
 
 class C20_ActiveGroupBox(QGroupBox):
 	""" GroupBox с реакцией на клик """
 
 	clicked = Signal()
 
-	def mouseReleaseEvent(self, ev):
+	def mouseReleaseEvent(self, ev: QMouseEvent):
 		super().mouseReleaseEvent(ev)
 
-		self.clicked.emit()
+		match ev.button():
+			case Qt.MouseButton.LeftButton: self.clicked.emit()
 
 
 # ИНСТРУМЕНТАРИЙ СООБЩЕНИЙ
