@@ -10,7 +10,7 @@ from L90_account       import C90_Account
 class C80_FormAccounts(C70_FormAccounts):
 	""" Форма Счета: Логика данных """
 
-	# Структура счетов
+	# Счета
 	def LoadGroups(self):
 		""" Загрузка счетов """
 		dy, dm = self.Workspace.DyDm()
@@ -22,6 +22,15 @@ class C80_FormAccounts(C70_FormAccounts):
 		dy, dm = self.Workspace.DyDm()
 
 		for self.processing_ido   in self.Accounts.Idos(dy, dm)  : self.LoadAccountInModelData()
+
+	def ResetAccounts(self):
+		""" Сброс данных """
+		if not RequestConfirm("Сброс данных", f"Сброс счетов на {self.Workspace.DmDyToString()}"): return
+
+		dy, dm = self.Workspace.DyDm()
+		for ido in self.Accounts.Idos(dy, dm): C90_Account(ido).DeleteObject(CONTAINERS.DISK)
+
+		self.on_AccountsChanged()
 
 	# Группа счетов
 	def EditGroupName(self):

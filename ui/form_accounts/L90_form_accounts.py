@@ -16,6 +16,7 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Меню Счета
 		self.ActionCreateAccount.triggered.connect(self.on_RequestCreateAccount)
+		self.ActionResetAccounts.triggered.connect(self.on_RequestResetAccounts)
 
 		# Меню Группа счетов
 		self.ActionEditGroupName.triggered.connect(self.on_RequestEditGroupName)
@@ -54,7 +55,11 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		self.ShowMenuAccounts()
 
-	# Структура счетов
+	# Счета
+	def on_RequestResetAccounts(self):
+		""" Запрос на сброс данных """
+		self.ResetAccounts()
+
 	def on_AccountsChanged(self):
 		""" Структура счетов изменилась """
 		self.InitModelData()

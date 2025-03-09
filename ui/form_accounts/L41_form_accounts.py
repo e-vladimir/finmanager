@@ -20,23 +20,28 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		""" Инициализация меню Счета """
 		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
 		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
+		icon_reload      = QIcon("./L0/icons/reload.svg")
 		icon_edit        = QIcon("./L0/icons/edit.svg")
 		icon_grid_1_3    = QIcon("./L0/icons/grid_1_3.svg")
 		icon_grid_2_2    = QIcon("./L0/icons/grid_2_2.svg")
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
 
-		self.ActionCreateAccount             = QAction(icon_item_plus,   "Создать счёт")
-		self.ActionEditAccountName           = QAction(icon_edit, "Изменить наименование")
-		self.ActionEditAccountGroup          = QAction(icon_edit, "Изменить группу счетов")
-		self.ActionEditAccountInitialBalance = QAction(icon_edit, "Изменить остаток начальный")
-		self.ActionDeleteAccount             = QAction(icon_item_delete, "Удалить счёт")
+		self.ActionResetAccounts             = QAction(icon_reload,      "Сбросить данные")
 
-		self.ActionEditGroupName             = QAction(icon_edit, "Изменить наименование")
+		self.ActionEditGroupName             = QAction(icon_edit,        "Изменить наименование")
+
+		self.ActionCreateAccount             = QAction(icon_item_plus,   "Создать счёт")
+		self.ActionEditAccountName           = QAction(icon_edit,        "Изменить наименование")
+		self.ActionEditAccountGroup          = QAction(icon_edit,        "Изменить группу счетов")
+		self.ActionEditAccountInitialBalance = QAction(icon_edit,        "Изменить остаток начальный")
+		self.ActionDeleteAccount             = QAction(icon_item_delete, "Удалить счёт")
 
 		self.MenuAccounts                    = QMenu("Счета")
 
 		self.SubmenuAccounts                 = QMenu("Счета",         icon=icon_grid_1_3)
 		self.SubmenuAccounts.addAction(self.ActionCreateAccount)
+		self.SubmenuAccounts.addSeparator()
+		self.SubmenuAccounts.addAction(self.ActionResetAccounts)
 
 		self.SubmenuGroup                    = QMenu("Группа счетов", icon=icon_grid_2_2)
 		self.SubmenuGroup.addAction(self.ActionCreateAccount)

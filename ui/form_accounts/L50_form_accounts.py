@@ -13,7 +13,9 @@ class C50_FormAccounts(C42_FormAccounts):
 	# Дерево счетов
 	def on_TreeDataDbClicked(self): pass
 
-	# Структура счетов
+	# Счета
+	def on_RequestResetAccounts(self): pass
+
 	def on_AccountsChanged(self): pass
 
 	# Группа счетов
