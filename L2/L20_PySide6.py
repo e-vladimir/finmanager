@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 14 фев 2025
+# 09 мар 2025
 
 import enum
 
@@ -32,8 +32,9 @@ from   PySide6.QtWidgets import (QApplication,
 class ROLES(enum.IntEnum):
 	TEXT              = Qt.ItemDataRole.DisplayRole
 	IDO               = 100
-	FILENAME          = 101
-	GROUP             = 102
+	IDP               = 101
+	FILENAME          = 102
+	GROUP             = 103
 	VISUAL_STYLE_CELL = 200
 	VISUAL_STYLE_ROW  = 201
 	SORT_INDEX        = 300

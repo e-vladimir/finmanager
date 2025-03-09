@@ -79,3 +79,12 @@ class C70_FormAccounts(C60_FormAccounts):
 	def AdjustTreeData_Sort(self):
 		""" Дерево Данных: Настройка сортировки """
 		self.TreeData.sortByColumn(0, Qt.SortOrder.AscendingOrder)
+
+	def ControlProcessingIdp(self):
+		""" Контроль рабочего IDP """
+		if not self.processing_ido: return
+
+		account = C90_Account()
+
+		if   self.processing_idp == account.FName.Idp().data          : self.on_RequestSetNameAccount()
+		elif self.processing_idp == account.FInitialBalance.Idp().data: self.on_RequestSetInitialBalance()

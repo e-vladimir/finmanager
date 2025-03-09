@@ -25,6 +25,19 @@ class C60_FormAccounts(C50_FormAccounts):
 		""" Чтение IDO из дерева данных """
 		self.processing_ido = self.TreeData.currentIndex().data(ROLES.IDO)
 
+	# Параметры: Рабочее IDP
+	@property
+	def processing_idp(self) -> str:
+		return self._processing_idp
+
+	@processing_idp.setter
+	def processing_idp(self, idp: str):
+		self._processing_idp = idp
+
+	def ReadProcessingIdpFromTreeData(self):
+		""" Чтение IDP из дерева данных """
+		self.processing_idp = self.TreeData.currentIndex().data(ROLES.IDP)
+
 	# Параметры: Рабочая группа
 	@property
 	def processing_group(self) -> str:
@@ -63,20 +76,24 @@ class C60_FormAccounts(C50_FormAccounts):
 
 		if not self.ModelData.checkIdo(self.processing_ido):
 			item_name                            = C20_StandardItem("")
-			item_name.setData(self.processing_ido,   ROLES.IDO)
-			item_name.setData(group, ROLES.GROUP)
+			item_name.setData(self.processing_ido,      ROLES.IDO)
+			item_name.setData(account.FName.Idp().data, ROLES.IDP)
+			item_name.setData(group,                    ROLES.GROUP)
 
 			item_initial_balance                 = C20_StandardItem(AmountToString(0, flag_point=False, flag_sign=False), flag_align_right=True)
-			item_initial_balance.setData(self.processing_ido,   ROLES.IDO)
-			item_initial_balance.setData(group, ROLES.GROUP)
+			item_initial_balance.setData(self.processing_ido,                ROLES.IDO)
+			item_initial_balance.setData(account.FInitialBalance.Idp().data, ROLES.IDP)
+			item_initial_balance.setData(group,                              ROLES.GROUP)
 
-			item_delta_balance                    = C20_StandardItem(AmountToString(0, flag_point=False, flag_sign=False), flag_align_right=True)
-			item_delta_balance.setData(self.processing_ido,   ROLES.IDO)
-			item_delta_balance.setData(group, ROLES.GROUP)
+			item_delta_balance                   = C20_StandardItem(AmountToString(0, flag_point=False, flag_sign=False), flag_align_right=True)
+			item_delta_balance.setData(self.processing_ido, ROLES.IDO)
+			item_delta_balance.setData("", ROLES.IDP)
+			item_delta_balance.setData(group,               ROLES.GROUP)
 
 			item_calculated_balance              = C20_StandardItem(AmountToString(0, flag_point=False, flag_sign=False), flag_align_right=True)
-			item_calculated_balance.setData(self.processing_ido,   ROLES.IDO)
-			item_calculated_balance.setData(group, ROLES.GROUP)
+			item_calculated_balance.setData(self.processing_ido, ROLES.IDO)
+			item_calculated_balance.setData("", ROLES.IDP)
+			item_calculated_balance.setData(group,               ROLES.GROUP)
 
 			item_group.appendRow([item_name,
 			                      item_initial_balance,

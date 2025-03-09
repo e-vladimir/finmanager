@@ -10,6 +10,9 @@ class C50_FormAccounts(C42_FormAccounts):
 	# Меню Счета
 	def on_RequestShowMenuAccounts(self): pass
 
+	# Дерево счетов
+	def on_TreeData_DbClicked(self): pass
+
 	# Счёт
 	def on_RequestCreateAccount(self): pass
 	def on_RequestSetNameAccount(self): pass

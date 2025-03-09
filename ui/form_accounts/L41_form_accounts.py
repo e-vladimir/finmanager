@@ -26,11 +26,11 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
 
 		self.ActionCreateAccount     = QAction(icon_item_plus,   "Создать счёт")
-		self.ActionSetNameAccount    = QAction(icon_edit,        "Переименовать счёт")
+		self.ActionSetNameAccount    = QAction(icon_edit,        "Изменить наименование")
 		self.ActionDeleteAccount     = QAction(icon_item_delete, "Удалить счёт")
-		self.ActionSetInitialBalance = QAction(icon_edit,        "Установить баланс начальный")
+		self.ActionSetInitialBalance = QAction(icon_edit,        "Изменить остаток начальный")
 
-		self.ActionSetNameGroup      = QAction(icon_edit,        "Переименовать группу счетов")
+		self.ActionSetNameGroup      = QAction(icon_edit,        "Изменить наименование")
 
 		self.MenuAccounts            = QMenu("Счета")
 

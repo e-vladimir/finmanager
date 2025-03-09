@@ -12,6 +12,7 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Дерево данных: Счета
 		self.TreeData.customContextMenuRequested.connect(self.on_RequestShowMenuAccounts)
+		self.TreeData.doubleClicked.connect(self.on_TreeData_DbClicked)
 
 		# Меню Счета
 		self.ActionCreateAccount.triggered.connect(self.on_RequestCreateAccount)
@@ -92,3 +93,12 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
+	# Дерево данных
+	def on_TreeData_DbClicked(self):
+		""" По дереву данных выполнен двойной клик """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingIdpFromTreeData()
+		self.ReadProcessingGroupFromTreeData()
+
+		self.ControlProcessingIdp()
