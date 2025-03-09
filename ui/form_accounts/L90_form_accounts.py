@@ -18,10 +18,10 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.ActionCreateAccount.triggered.connect(self.on_RequestCreateAccount)
 
 		# Меню Счёт
-		self.ActionSetNameAccount.triggered.connect(self.on_RequestSetNameAccount)
+		self.ActionSetNameAccount.triggered.connect(self.on_RequestEditAccountName)
 		self.ActionDeleteAccount.triggered.connect(self.on_RequestDeleteAccount)
 
-		self.ActionSetInitialBalance.triggered.connect(self.on_RequestSetInitialBalance)
+		self.ActionSetInitialBalance.triggered.connect(self.on_RequestEditAccountInitialBalance)
 
 	# Форма
 	def on_Opened(self):
@@ -55,17 +55,17 @@ class C90_FormAccounts(C80_FormAccounts):
 		""" Запрос на создание счёта """
 		self.CreateAccount()
 
-	def on_RequestSetNameAccount(self):
-		""" Запрос редактирования названия счёта """
-		self.SetNameAccount()
-
 	def on_RequestDeleteAccount(self):
 		""" Запрос на удаление счёта """
 		self.DeleteAccount()
 
-	def on_RequestSetInitialBalance(self):
+	def on_RequestEditAccountName(self):
+		""" Запрос редактирования названия счёта """
+		self.EditAccountName()
+
+	def on_RequestEditAccountInitialBalance(self):
 		""" Запрос на установку баланса начального """
-		self.SetInitialBalance()
+		self.EditAccountInitialBalance()
 
 	def on_AccountCreated(self):
 		""" Счёт создан """

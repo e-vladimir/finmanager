@@ -86,5 +86,5 @@ class C70_FormAccounts(C60_FormAccounts):
 
 		account = C90_Account()
 
-		if   self.processing_idp == account.FName.Idp().data          : self.on_RequestSetNameAccount()
-		elif self.processing_idp == account.FInitialBalance.Idp().data: self.on_RequestSetInitialBalance()
+		if   self.processing_idp == account.FName.Idp().data          : self.on_RequestEditAccountName()
+		elif self.processing_idp == account.FInitialBalance.Idp().data: self.on_RequestEditAccountInitialBalance()

@@ -2,7 +2,7 @@
 # 14 фев 2025
 
 from L00_containers    import CONTAINERS
-from L20_PySide6 import RequestConfirm, RequestText, RequestValue
+from L20_PySide6       import RequestConfirm, RequestText, RequestValue
 from L70_form_accounts import C70_FormAccounts
 from L90_account       import C90_Account
 
@@ -38,17 +38,6 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		self.on_AccountCreated()
 
-	def SetNameAccount(self):
-		""" Редактирование названия счёта """
-		account           = C90_Account(self.processing_ido)
-
-		name : str | None = RequestText("Редактирование счёта", "Наименование счёта:", account.name)
-		if not name: return
-
-		account.name = name
-
-		self.on_AccountChanged()
-
 	def DeleteAccount(self):
 		""" Удаление счёта """
 		account = C90_Account(self.processing_ido)
@@ -59,11 +48,22 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		self.on_AccountDeleted()
 
-	def SetInitialBalance(self):
+	def EditAccountName(self):
+		""" Редактирование названия счёта """
+		account           = C90_Account(self.processing_ido)
+
+		name : str | None = RequestText("Редактирование счёта", "Наименование счёта:", account.name)
+		if not name: return
+
+		account.name = name
+
+		self.on_AccountChanged()
+
+	def EditAccountInitialBalance(self):
 		""" Установка баланса начального """
 		account              = C90_Account(self.processing_ido)
 
-		balance : int | None = RequestValue("Остаток на начало месяца", f"{account.group}\n{account.name}", account.initial_balance, -99999999, 99999999)
+		balance : int | None = RequestValue("Остаток на начало месяца", f"{account.group}\n{account.name}\n\nОстаток на начало месяца:", account.initial_balance, -99999999, 99999999)
 		if not balance: return
 
 		account.initial_balance = balance

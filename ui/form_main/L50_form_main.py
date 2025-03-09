@@ -10,7 +10,7 @@ class C50_FormMain(C42_FormMain):
 	# Рабочий период
 	def on_RequestSwitchDyDmToNextDm(self): pass
 	def on_RequestSwitchDyDmToPrevDm(self): pass
-	def on_RequestSetDyDm(self): pass
+	def on_RequestEditDyDm(self): pass
 
 	def on_DyDm_Changed(self): pass
 

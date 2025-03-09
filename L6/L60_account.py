@@ -75,7 +75,7 @@ class C60_Accounts(C50_Accounts):
 	""" Контроллер счетов: Механика данных """
 
 	# Выборка данных
-	def InitialBalanceTotal(self, dy: int, dm: int) -> int:
+	def CalcInitialBalance(self, dy: int, dm: int) -> int:
 		""" Общий баланс на начало месяца """
 		account           = C60_Account()
 		idc         : str = account.Idc().data

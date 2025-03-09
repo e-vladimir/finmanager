@@ -15,9 +15,10 @@ class C50_FormAccounts(C42_FormAccounts):
 
 	# Счёт
 	def on_RequestCreateAccount(self): pass
-	def on_RequestSetNameAccount(self): pass
 	def on_RequestDeleteAccount(self): pass
-	def on_RequestSetInitialBalance(self): pass
+	def on_RequestEditAccountName(self): pass
+	def on_RequestEditAccountGroup(self): pass
+	def on_RequestEditAccountInitialBalance(self): pass
 
 	def on_AccountCreated(self): pass
 	def on_AccountChanged(self): pass

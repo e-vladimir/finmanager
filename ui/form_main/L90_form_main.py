@@ -14,7 +14,7 @@ class C90_FormMain(C80_FormMain):
 		self.LabelPrevDmDy.clicked.connect(self.on_RequestSwitchDyDmToPrevDm)
 		self.LabelNextDmDy.clicked.connect(self.on_RequestSwitchDyDmToNextDm)
 
-		self.LabelDmDy.clicked.connect(self.on_RequestSetDyDm)
+		self.LabelDmDy.clicked.connect(self.on_RequestEditDyDm)
 		self.LabelDmDy.wheelMovedUp.connect(self.on_RequestSwitchDyDmToNextDm)
 		self.LabelDmDy.wheelMovedDown.connect(self.on_RequestSwitchDyDmToPrevDm)
 
@@ -51,9 +51,9 @@ class C90_FormMain(C80_FormMain):
 
 		self.on_DyDm_Changed()
 
-	def on_RequestSetDyDm(self):
+	def on_RequestEditDyDm(self):
 		""" Запрос на редактирование рабочего периода """
-		self.SetDyDm()
+		self.EditDyDm()
 
 	# Счета
 	def on_RequestOpenAccounts(self):

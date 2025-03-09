@@ -10,7 +10,7 @@ class C80_FormMain(C70_FormMain):
 	""" Форма Основная: Логика данных """
 
 	# Рабочий период
-	def SetDyDm(self):
+	def EditDyDm(self):
 		""" Редактирование рабочего периода """
 		text  : str | None = RequestText("Рабочий период", "Формат: месяц год", self.Workspace.DmDyToString())
 		if not text                  : return
