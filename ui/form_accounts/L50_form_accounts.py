@@ -11,7 +11,10 @@ class C50_FormAccounts(C42_FormAccounts):
 	def on_RequestShowMenuAccounts(self): pass
 
 	# Дерево счетов
-	def on_TreeData_DbClicked(self): pass
+	def on_TreeDataDbClicked(self): pass
+
+	# Структура счетов
+	def on_AccountsChanged(self): pass
 
 	# Счёт
 	def on_RequestCreateAccount(self): pass

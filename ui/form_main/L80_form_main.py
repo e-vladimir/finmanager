@@ -28,4 +28,4 @@ class C80_FormMain(C70_FormMain):
 		self.Workspace.dm  = MONTHS_SHORT.index(raw_dm)
 		self.Workspace.dy  = int(raw_dy)
 
-		self.on_DyDm_Changed()
+		self.on_DyDmChanged()

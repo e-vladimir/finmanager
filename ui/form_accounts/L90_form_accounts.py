@@ -12,16 +12,17 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Дерево данных: Счета
 		self.TreeData.customContextMenuRequested.connect(self.on_RequestShowMenuAccounts)
-		self.TreeData.doubleClicked.connect(self.on_TreeData_DbClicked)
+		self.TreeData.doubleClicked.connect(self.on_TreeDataDbClicked)
 
 		# Меню Счета
 		self.ActionCreateAccount.triggered.connect(self.on_RequestCreateAccount)
 
 		# Меню Счёт
-		self.ActionSetNameAccount.triggered.connect(self.on_RequestEditAccountName)
 		self.ActionDeleteAccount.triggered.connect(self.on_RequestDeleteAccount)
 
-		self.ActionSetInitialBalance.triggered.connect(self.on_RequestEditAccountInitialBalance)
+		self.ActionEditAccountName.triggered.connect(self.on_RequestEditAccountName)
+		self.ActionEditAccountInitialBalance.triggered.connect(self.on_RequestEditAccountInitialBalance)
+		self.ActionEditAccountGroup.triggered.connect(self.on_RequestEditAccountGroup)
 
 	# Форма
 	def on_Opened(self):
@@ -50,6 +51,19 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		self.ShowMenuAccounts()
 
+	# Структура счетов
+	def on_AccountsChanged(self):
+		""" Структура счетов изменилась """
+		self.InitModelData()
+
+		self.LoadGroups()
+		self.LoadAccounts()
+
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Sort()
+
 	# Счёта
 	def on_RequestCreateAccount(self):
 		""" Запрос на создание счёта """
@@ -66,6 +80,10 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestEditAccountInitialBalance(self):
 		""" Запрос на установку баланса начального """
 		self.EditAccountInitialBalance()
+
+	def on_RequestEditAccountGroup(self):
+		""" Запрос на редактирование группы счетов для счёта """
+		self.EditAccountGroup()
 
 	def on_AccountCreated(self):
 		""" Счёт создан """
@@ -95,7 +113,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Sort()
 
 	# Дерево данных
-	def on_TreeData_DbClicked(self):
+	def on_TreeDataDbClicked(self):
 		""" По дереву данных выполнен двойной клик """
 		self.ReadProcessingIdoFromTreeData()
 		self.ReadProcessingIdpFromTreeData()

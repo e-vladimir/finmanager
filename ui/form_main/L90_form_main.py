@@ -31,7 +31,7 @@ class C90_FormMain(C80_FormMain):
 		self.ShowBackup()
 
 	# Рабочий период
-	def on_DyDm_Changed(self):
+	def on_DyDmChanged(self):
 		""" Изменился год и месяц """
 		self.ShowTitle()
 		self.ShowWorkspace()
@@ -43,13 +43,13 @@ class C90_FormMain(C80_FormMain):
 		""" Запрос на переключение рабочего периода на следующий месяц """
 		self.Workspace.SwitchDyDmToNextDm()
 
-		self.on_DyDm_Changed()
+		self.on_DyDmChanged()
 
 	def on_RequestSwitchDyDmToPrevDm(self):
 		""" Запрос на переключение рабочего периода на предыдущий месяц """
 		self.Workspace.SwitchDyDmToPrevDm()
 
-		self.on_DyDm_Changed()
+		self.on_DyDmChanged()
 
 	def on_RequestEditDyDm(self):
 		""" Запрос на редактирование рабочего периода """

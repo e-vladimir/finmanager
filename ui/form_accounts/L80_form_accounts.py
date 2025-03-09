@@ -69,3 +69,17 @@ class C80_FormAccounts(C70_FormAccounts):
 		account.initial_balance = balance
 
 		self.on_AccountChanged()
+
+	def EditAccountGroup(self):
+		""" Редактирование группы счетов для счёта """
+		if not self.processing_ido: return
+
+		account            = C90_Account(self.processing_ido)
+
+		dy, dm             = self.Workspace.DyDm()
+		group : str | None = RequestText("Редактирование счёта", "Группа счетов:", account.group, self.Accounts.Groups(dy, dm))
+		if not group              : return
+
+		account.group = group
+
+		self.on_AccountsChanged()

@@ -12,7 +12,7 @@ class C50_FormMain(C42_FormMain):
 	def on_RequestSwitchDyDmToPrevDm(self): pass
 	def on_RequestEditDyDm(self): pass
 
-	def on_DyDm_Changed(self): pass
+	def on_DyDmChanged(self): pass
 
 	# Счета
 	def on_RequestOpenAccounts(self): pass

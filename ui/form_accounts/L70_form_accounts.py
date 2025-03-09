@@ -26,11 +26,12 @@ class C70_FormAccounts(C60_FormAccounts):
 			account = C90_Account(self.processing_ido)
 
 			self.MenuAccounts.addSection(account.name)
-			self.MenuAccounts.addAction(self.ActionSetInitialBalance)
+			self.MenuAccounts.addAction(self.ActionEditAccountInitialBalance)
+			self.MenuAccounts.addAction(self.ActionEditAccountGroup)
 
 		elif self.processing_group:
 			self.MenuAccounts.addSection(self.processing_group)
-			self.MenuAccounts.addAction(self.ActionSetNameGroup)
+			self.MenuAccounts.addAction(self.ActionEditGroupName)
 			self.MenuAccounts.addAction(self.ActionCreateAccount)
 		else                      :
 			self.MenuAccounts.addAction(self.ActionCreateAccount)
