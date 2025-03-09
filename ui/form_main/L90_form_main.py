@@ -11,12 +11,15 @@ class C90_FormMain(C80_FormMain):
 		super().InitEvents()
 
 		# Панель Рабочий период
-		self.label_dm_dy_prev.clicked.connect(self.on_RequestSwitchDyDmToPrevDm)
-		self.label_dm_dy_next.clicked.connect(self.on_RequestSwitchDyDmToNextDm)
+		self.LabelPrevDmDy.clicked.connect(self.on_RequestSwitchDyDmToPrevDm)
+		self.LabelNextDmDy.clicked.connect(self.on_RequestSwitchDyDmToNextDm)
 
-		self.label_dm_dy.clicked.connect(self.on_RequestSetDyDm)
-		self.label_dm_dy.wheelMovedUp.connect(self.on_RequestSwitchDyDmToNextDm)
-		self.label_dm_dy.wheelMovedDown.connect(self.on_RequestSwitchDyDmToPrevDm)
+		self.LabelDmDy.clicked.connect(self.on_RequestSetDyDm)
+		self.LabelDmDy.wheelMovedUp.connect(self.on_RequestSwitchDyDmToNextDm)
+		self.LabelDmDy.wheelMovedDown.connect(self.on_RequestSwitchDyDmToPrevDm)
+
+		# Панель Счета
+		self.LabelInitialBalance.clicked.connect(self.on_RequestOpenAccounts)
 
 	# Форма
 	def on_RequestOpen(self):
@@ -28,20 +31,31 @@ class C90_FormMain(C80_FormMain):
 		self.ShowBackup()
 
 	# Рабочий период
+	def on_DyDm_Changed(self):
+		""" Изменился год и месяц """
+		self.ShowTitle()
+		self.ShowWorkspace()
+		self.ShowAccounts()
+		self.ShowOperations()
+		self.ShowBackup()
+
 	def on_RequestSwitchDyDmToNextDm(self):
 		""" Запрос на переключение рабочего периода на следующий месяц """
 		self.Workspace.SwitchDyDmToNextDm()
 
-		self.ShowWorkspace()
+		self.on_DyDm_Changed()
 
 	def on_RequestSwitchDyDmToPrevDm(self):
 		""" Запрос на переключение рабочего периода на предыдущий месяц """
 		self.Workspace.SwitchDyDmToPrevDm()
 
-		self.ShowWorkspace()
+		self.on_DyDm_Changed()
 
 	def on_RequestSetDyDm(self):
 		""" Запрос на редактирование рабочего периода """
 		self.SetDyDm()
 
-		self.ShowWorkspace()
+	# Счета
+	def on_RequestOpenAccounts(self):
+		""" Запрос на открытие формы Счета """
+		self.Application.FormAccounts.Open()

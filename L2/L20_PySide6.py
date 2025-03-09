@@ -110,7 +110,7 @@ class C20_PySideForm(QMainWindow):
 	def __init__(self, application: C20_PySideApplication, *args, **kwargs):
 		super().__init__(None)
 
-		self.application = application
+		self.Application = application
 
 		self.InitUi()
 

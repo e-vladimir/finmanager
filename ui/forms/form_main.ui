@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>form_main</class>
- <widget class="QMainWindow" name="form_main">
+ <class>FormMain</class>
+ <widget class="QMainWindow" name="FormMain">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -18,13 +18,13 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <widget class="QGroupBox" name="gbox_dm_dy">
+       <widget class="QGroupBox" name="GBoxDmDy">
         <property name="title">
          <string>Рабочий период</string>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="C20_ActiveLabel" name="label_dm_dy_prev">
+          <widget class="C20_ActiveLabel" name="LabelPrevDmDy">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
@@ -37,7 +37,7 @@
           </widget>
          </item>
          <item>
-          <widget class="C20_ActiveLabel" name="label_dm_dy">
+          <widget class="C20_ActiveLabel" name="LabelDmDy">
            <property name="font">
             <font>
              <pointsize>10</pointsize>
@@ -56,7 +56,7 @@
           </widget>
          </item>
          <item>
-          <widget class="C20_ActiveLabel" name="label_dm_dy_next">
+          <widget class="C20_ActiveLabel" name="LabelNextDmDy">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
@@ -72,13 +72,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="gbox_accounts">
+       <widget class="QGroupBox" name="GBoxAccounts">
         <property name="title">
          <string>Счета</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="C20_ActiveLabel" name="label_amout">
+          <widget class="C20_ActiveLabel" name="LabelInitialBalance">
            <property name="font">
             <font>
              <bold>true</bold>
@@ -109,13 +109,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="gbox_operations">
+       <widget class="QGroupBox" name="GBoxOperations">
         <property name="title">
          <string>Операции</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="C20_ActiveLabel" name="label_delta">
+          <widget class="C20_ActiveLabel" name="LabelDelta">
            <property name="font">
             <font>
              <bold>true</bold>
@@ -133,7 +133,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_subdelta">
+          <widget class="QLabel" name="LabelSubdelta">
            <property name="text">
             <string>+000 000 / -000 000</string>
            </property>
@@ -146,13 +146,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="gbox_backup">
+       <widget class="QGroupBox" name="GBoxBackup">
         <property name="title">
          <string>Копия данных</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
-          <widget class="C20_ActiveLabel" name="label_backup_dd_dm_dy">
+          <widget class="C20_ActiveLabel" name="LabelBackupDdDmDy">
            <property name="font">
             <font>
              <bold>true</bold>
@@ -170,7 +170,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_backup_th_tm">
+          <widget class="QLabel" name="LabelBackupThTm">
            <property name="text">
             <string>00:00</string>
            </property>
@@ -185,19 +185,19 @@
      </layout>
     </item>
     <item>
-     <widget class="QGroupBox" name="gbox_dm_view">
+     <widget class="QGroupBox" name="GBoxDmView">
       <property name="title">
        <string>Обзор месяца</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="C21_DiaDmView" name="widget" native="true"/>
+        <widget class="C21_DiaDmView" name="DiaDmViewer" native="true"/>
        </item>
       </layout>
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="gbox_dm_analytics">
+     <widget class="QGroupBox" name="GBoxDmAnalytics">
       <property name="title">
        <string>Аналитика месяца</string>
       </property>

@@ -12,7 +12,7 @@ class C80_FormMain(C70_FormMain):
 	# Рабочий период
 	def SetDyDm(self):
 		""" Редактирование рабочего периода """
-		text  : str | None = RequestText("Рабочий период", "Формат: мес год", self.Workspace.DmDyToString())
+		text  : str | None = RequestText("Рабочий период", "Формат: месяц год", self.Workspace.DmDyToString())
 		if not text                  : return
 
 		items : list[str]  = (text.lower()
@@ -20,9 +20,12 @@ class C80_FormMain(C70_FormMain):
 		                          .split(' '))
 
 		if not len(items) == 2       : return
+
 		raw_dm, raw_dy     = items
 		if not raw_dm in MONTHS_SHORT: return
 		if not raw_dy.isdigit()      : return
 
-		self.Workspace.dm = MONTHS_SHORT.index(raw_dm)
-		self.Workspace.dy = int(raw_dy)
+		self.Workspace.dm  = MONTHS_SHORT.index(raw_dm)
+		self.Workspace.dy  = int(raw_dy)
+
+		self.on_DyDm_Changed()

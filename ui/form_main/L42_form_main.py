@@ -2,6 +2,7 @@
 # 12 фев 2025
 
 from L41_form_main import C41_FormMain
+from L90_account   import C90_Accounts
 from L90_workspace import C90_Workspace
 
 
@@ -11,6 +12,7 @@ class C42_FormMain(C41_FormMain):
 	def Init_10(self):
 		super().Init_10()
 
+		self.accounts  = C90_Accounts()
 		self.Workspace = C90_Workspace()
 
 	def Init_11(self):
