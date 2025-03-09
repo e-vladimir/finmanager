@@ -79,3 +79,22 @@ class C80_Accounts(C70_Accounts):
 		account.group = group
 
 		return account.Ido().data
+
+	# Управление группами счетов
+	def EditGroupName(self, dy: int, dm: int, name_old: str, name_new: str):
+		""" Редактирование имени группы счетов """
+		account         = C80_Account()
+		idc       : str = account.Idc().data
+		idp_dy    : str = account.FDy.Idp().data
+		idp_dm    : str = account.FDm.Idp().data
+		idp_group : str = account.FGroup.Idp().data
+
+		filter_data     = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.FilterIdpVlpByEqual(idp_group, name_old)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		for ido in filter_data.Idos().data:
+			account = C80_Account(ido)
+			account.group = name_new

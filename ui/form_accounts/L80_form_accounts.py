@@ -10,7 +10,7 @@ from L90_account       import C90_Account
 class C80_FormAccounts(C70_FormAccounts):
 	""" Форма Счета: Логика данных """
 
-	# Счета
+	# Структура счетов
 	def LoadGroups(self):
 		""" Загрузка счетов """
 		dy, dm = self.Workspace.DyDm()
@@ -22,6 +22,18 @@ class C80_FormAccounts(C70_FormAccounts):
 		dy, dm = self.Workspace.DyDm()
 
 		for self.processing_ido   in self.Accounts.Idos(dy, dm)  : self.LoadAccountInModelData()
+
+	# Группа счетов
+	def EditGroupName(self):
+		""" Редактирование названия группы счетов """
+		dy, dm                = self.Workspace.DyDm()
+		name_old : str        = self.processing_group
+		name_new : str | None = RequestText("Редактирование группы счетов", "Группа счетов:", name_old, self.Accounts.Groups(dy, dm))
+		if not name_new: return
+
+		self.Accounts.EditGroupName(dy, dm, name_old, name_new)
+
+		self.on_AccountsChanged()
 
 	# Счёт
 	def CreateAccount(self):

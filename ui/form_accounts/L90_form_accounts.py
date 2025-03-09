@@ -17,6 +17,9 @@ class C90_FormAccounts(C80_FormAccounts):
 		# Меню Счета
 		self.ActionCreateAccount.triggered.connect(self.on_RequestCreateAccount)
 
+		# Меню Группа счетов
+		self.ActionEditGroupName.triggered.connect(self.on_RequestEditGroupName)
+
 		# Меню Счёт
 		self.ActionDeleteAccount.triggered.connect(self.on_RequestDeleteAccount)
 
@@ -63,6 +66,11 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
+	# Группа счетов
+	def on_RequestEditGroupName(self):
+		""" Запрос на редактиование названия группы счетов """
+		self.EditGroupName()
 
 	# Счёта
 	def on_RequestCreateAccount(self):
