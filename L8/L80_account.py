@@ -1,6 +1,7 @@
 # СЧЁТ: ЛОГИКА ДАННЫХ
 # 14 фев 2025
 
+from G10_datetime           import CalcDyDmByShiftDm
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -9,8 +10,32 @@ from L70_account            import C70_Account, C70_Accounts
 
 class C80_Account(C70_Account):
 	""" Счёт: Логика данных """
-	pass
 
+	# Расчёт данных
+	def CalcCalculatedBalance(self) -> int:
+		""" Вычисление остатка итогового """
+		return 0
+
+	# Перенос
+	def TransferToDm(self, count_dm: int = 1):
+		""" Перенос счёта в следующий месяц """
+		if not count_dm: return
+
+		dy, dm                   = CalcDyDmByShiftDm(self.dy, self.dm, count_dm)
+		name               : str = self.name
+		group              : str = self.group
+		calculated_balance : int = self.CalcCalculatedBalance()
+
+		if not self.SwitchByName(dy, dm, name):
+			self.GenerateIdo()
+			self.RegisterObject(CONTAINERS.DISK)
+			self.dy   = dy
+			self.dm   = dm
+			self.name = name
+
+		self.group = group
+
+		if count_dm > 0: self.initial_balance = calculated_balance
 
 class C80_Accounts(C70_Accounts):
 	""" Контроллер счетов: Логика данных """

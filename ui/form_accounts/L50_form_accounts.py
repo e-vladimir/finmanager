@@ -27,6 +27,8 @@ class C50_FormAccounts(C42_FormAccounts):
 	def on_RequestEditAccountName(self): pass
 	def on_RequestEditAccountGroup(self): pass
 	def on_RequestEditAccountInitialBalance(self): pass
+	def on_RequestTransferAccountToNextDm(self): pass
+	def on_RequestTransferAccountToPrevDm(self): pass
 
 	def on_AccountCreated(self): pass
 	def on_AccountChanged(self): pass

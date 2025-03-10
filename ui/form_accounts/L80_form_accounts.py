@@ -93,8 +93,6 @@ class C80_FormAccounts(C70_FormAccounts):
 
 	def EditAccountGroup(self):
 		""" Редактирование группы счетов для счёта """
-		if not self.processing_ido: return
-
 		account            = C90_Account(self.processing_ido)
 
 		dy, dm             = self.Workspace.DyDm()
@@ -104,3 +102,13 @@ class C80_FormAccounts(C70_FormAccounts):
 		account.group = group
 
 		self.on_AccountsChanged()
+
+	def TransferAccountToNextDm(self):
+		""" Перенос счёта в следующий месяц """
+		account = C90_Account(self.processing_ido)
+		account.TransferToDm(1)
+
+	def TransferAccountToPrevDm(self):
+		""" Перенос счёта в предыдущий месяц """
+		account = C90_Account(self.processing_ido)
+		account.TransferToDm(-1)

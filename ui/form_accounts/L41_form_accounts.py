@@ -22,6 +22,8 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_reload      = QIcon("./L0/icons/reload.svg")
 		icon_edit        = QIcon("./L0/icons/edit.svg")
+		icon_left        = QIcon("./L0/icons/arrow_left.svg")
+		icon_right       = QIcon("./L0/icons/arrow_right.svg")
 		icon_grid_1_3    = QIcon("./L0/icons/grid_1_3.svg")
 		icon_grid_2_2    = QIcon("./L0/icons/grid_2_2.svg")
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
@@ -35,6 +37,8 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.ActionEditAccountGroup          = QAction(icon_edit,        "Изменить группу счетов")
 		self.ActionEditAccountInitialBalance = QAction(icon_edit,        "Изменить остаток начальный")
 		self.ActionDeleteAccount             = QAction(icon_item_delete, "Удалить счёт")
+		self.ActionTransferAccountToNextDm   = QAction(icon_right,       "Перенести в следующий месяц")
+		self.ActionTransferAccountToPrevDm   = QAction(icon_left,        "Перенести в прошлый месяц")
 
 		self.MenuAccounts                    = QMenu("Счета")
 
@@ -55,3 +59,6 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.SubmenuAccount.addAction(self.ActionEditAccountName)
 		self.SubmenuAccount.addAction(self.ActionEditAccountGroup)
 		self.SubmenuAccount.addAction(self.ActionEditAccountInitialBalance)
+		self.SubmenuAccount.addSeparator()
+		self.SubmenuAccount.addAction(self.ActionTransferAccountToPrevDm)
+		self.SubmenuAccount.addAction(self.ActionTransferAccountToNextDm)

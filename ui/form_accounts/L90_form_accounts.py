@@ -27,6 +27,8 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.ActionEditAccountName.triggered.connect(self.on_RequestEditAccountName)
 		self.ActionEditAccountInitialBalance.triggered.connect(self.on_RequestEditAccountInitialBalance)
 		self.ActionEditAccountGroup.triggered.connect(self.on_RequestEditAccountGroup)
+		self.ActionTransferAccountToPrevDm.triggered.connect(self.on_RequestTransferAccountToPrevDm)
+		self.ActionTransferAccountToNextDm.triggered.connect(self.on_RequestTransferAccountToNextDm)
 
 	# Форма
 	def on_Opened(self):
@@ -97,6 +99,14 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestEditAccountGroup(self):
 		""" Запрос на редактирование группы счетов для счёта """
 		self.EditAccountGroup()
+
+	def on_RequestTransferAccountToNextDm(self):
+		""" Запрос на перенос счёта в следующий месяц """
+		self.TransferAccountToNextDm()
+
+	def on_RequestTransferAccountToPrevDm(self):
+		""" Запрос на перенос счёта в предыдущий месяц """
+		self.TransferAccountToPrevDm()
 
 	def on_AccountCreated(self):
 		""" Счёт создан """

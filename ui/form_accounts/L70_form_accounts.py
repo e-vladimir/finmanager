@@ -28,6 +28,7 @@ class C70_FormAccounts(C60_FormAccounts):
 			self.MenuAccounts.addSection(account.name)
 			self.MenuAccounts.addAction(self.ActionEditAccountInitialBalance)
 			self.MenuAccounts.addAction(self.ActionEditAccountGroup)
+			self.MenuAccounts.addAction(self.ActionTransferAccountToNextDm)
 
 		elif self.processing_group:
 			self.MenuAccounts.addSection(self.processing_group)
@@ -47,7 +48,9 @@ class C70_FormAccounts(C60_FormAccounts):
 
 	def AdjustMenuAccounts_Enable(self):
 		""" Меню Счета: Настройка доступности """
-		pass
+		flag_exists_accounts  : bool = self.ModelData.rowCount()
+
+		self.ActionResetAccounts.setEnabled(flag_exists_accounts)
 
 	def AdjustMenuAccounts_Text(self):
 		""" Меню Счета: Настройка текста """
