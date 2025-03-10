@@ -41,17 +41,19 @@ class C80_Accounts(C70_Accounts):
 	""" Контроллер счетов: Логика данных """
 
 	# Выборка данных
-	def Idos(self, dy: int = None, dm: int = None) -> list[str]:
+	def Idos(self, dy: int = None, dm: int = None, group: str = None) -> list[str]:
 		""" Список IDO счетов в указанном месяце """
-		account        = C80_Account()
-		idc      : str = account.Idc().data
-		idp_dy   : str = account.FDy.Idp().data
-		idp_dm   : str = account.FDm.Idp().data
-		idp_name : str = account.FName.Idp().data
+		account         = C80_Account()
+		idc       : str = account.Idc().data
+		idp_dy    : str = account.FDy.Idp().data
+		idp_dm    : str = account.FDm.Idp().data
+		idp_group : str = account.FGroup.Idp().data
+		idp_name  : str = account.FName.Idp().data
 
 		filter_data    = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.FilterIdpVlpByEqual(idp_group, group)
 		filter_data.Capture(CONTAINERS.DISK)
 
 		return filter_data.Idos(idp_name).data

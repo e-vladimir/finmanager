@@ -16,6 +16,8 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Меню Счета
 		self.ActionCreateAccount.triggered.connect(self.on_RequestCreateAccount)
+		self.ActionTransferAccountsToPrevDm.triggered.connect(self.on_RequestTransferAccountsToPrevDm)
+		self.ActionTransferAccountsToNextDm.triggered.connect(self.on_RequestTransferAccountsToNextDm)
 		self.ActionResetAccounts.triggered.connect(self.on_RequestResetAccounts)
 
 		# Меню Группа счетов
@@ -63,6 +65,14 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestResetAccounts(self):
 		""" Запрос на сброс данных """
 		self.ResetAccounts()
+
+	def on_RequestTransferAccountsToPrevDm(self):
+		""" Запрос переноса всех счетов в предыдущий месяц """
+		self.TransferAccountsToPrevDm()
+
+	def on_RequestTransferAccountsToNextDm(self):
+		""" Запрос переноса всех счетов в следующий месяц """
+		self.TransferAccountsToNextDm()
 
 	def on_AccountsChanged(self):
 		""" Структура счетов изменилась """

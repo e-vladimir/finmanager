@@ -28,24 +28,29 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		icon_grid_2_2    = QIcon("./L0/icons/grid_2_2.svg")
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
 
-		self.ActionResetAccounts             = QAction(icon_reload,      "Сбросить данные")
+		self.ActionResetAccounts             = QAction(icon_reload, "Сбросить данные")
+		self.ActionTransferAccountsToPrevDm  = QAction(icon_left, "Перенести в прошлый месяц")
+		self.ActionTransferAccountsToNextDm  = QAction(icon_right, "Перенести в следующий месяц")
 
 		self.ActionEditGroupName             = QAction(icon_edit,        "Изменить наименование")
-		self.ActionTransferGroupToNextDm     = QAction(icon_right,       "Перенести в следующий месяц")
 		self.ActionTransferGroupToPrevDm     = QAction(icon_left,        "Перенести в прошлый месяц")
+		self.ActionTransferGroupToNextDm     = QAction(icon_right,       "Перенести в следующий месяц")
 
 		self.ActionCreateAccount             = QAction(icon_item_plus,   "Создать счёт")
 		self.ActionEditAccountName           = QAction(icon_edit,        "Изменить наименование")
 		self.ActionEditAccountGroup          = QAction(icon_edit,        "Изменить группу счетов")
 		self.ActionEditAccountInitialBalance = QAction(icon_edit,        "Изменить остаток начальный")
 		self.ActionDeleteAccount             = QAction(icon_item_delete, "Удалить счёт")
-		self.ActionTransferAccountToNextDm   = QAction(icon_right,       "Перенести в следующий месяц")
 		self.ActionTransferAccountToPrevDm   = QAction(icon_left,        "Перенести в прошлый месяц")
+		self.ActionTransferAccountToNextDm   = QAction(icon_right,       "Перенести в следующий месяц")
 
 		self.MenuAccounts                    = QMenu("Счета")
 
 		self.SubmenuAccounts                 = QMenu("Счета",         icon=icon_grid_1_3)
 		self.SubmenuAccounts.addAction(self.ActionCreateAccount)
+		self.SubmenuAccounts.addSeparator()
+		self.SubmenuAccounts.addAction(self.ActionTransferAccountsToPrevDm)
+		self.SubmenuAccounts.addAction(self.ActionTransferAccountsToNextDm)
 		self.SubmenuAccounts.addSeparator()
 		self.SubmenuAccounts.addAction(self.ActionResetAccounts)
 

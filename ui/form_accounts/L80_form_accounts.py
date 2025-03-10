@@ -32,6 +32,22 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		self.on_AccountsChanged()
 
+	def TransferAccountsToNextDm(self):
+		""" Перенос счётов в следующий месяц """
+		dy, dm = self.Workspace.DyDm()
+
+		for ido in self.Accounts.Idos(dy, dm):
+			account = C90_Account(ido)
+			account.TransferToDm(1)
+
+	def TransferAccountsToPrevDm(self):
+		""" Перенос счётов в предыдущий месяц """
+		dy, dm = self.Workspace.DyDm()
+
+		for ido in self.Accounts.Idos(dy, dm):
+			account = C90_Account(ido)
+			account.TransferToDm(-1)
+
 	# Группа счетов
 	def EditGroupName(self):
 		""" Редактирование названия группы счетов """
@@ -48,7 +64,7 @@ class C80_FormAccounts(C70_FormAccounts):
 		""" Перенос счёта в следующий месяц """
 		dy, dm = self.Workspace.DyDm()
 
-		for ido in self.Accounts.Idos(dy, dm):
+		for ido in self.Accounts.Idos(dy, dm, self.processing_group):
 			account = C90_Account(ido)
 			account.TransferToDm(1)
 
@@ -56,7 +72,7 @@ class C80_FormAccounts(C70_FormAccounts):
 		""" Перенос счёта в предыдущий месяц """
 		dy, dm = self.Workspace.DyDm()
 
-		for ido in self.Accounts.Idos(dy, dm):
+		for ido in self.Accounts.Idos(dy, dm, self.processing_group):
 			account = C90_Account(ido)
 			account.TransferToDm(-1)
 

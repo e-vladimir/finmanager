@@ -15,6 +15,8 @@ class C50_FormAccounts(C42_FormAccounts):
 
 	# Счета
 	def on_RequestResetAccounts(self): pass
+	def on_RequestTransferAccountsToNextDm(self): pass
+	def on_RequestTransferAccountsToPrevDm(self): pass
 
 	def on_AccountsChanged(self): pass
 
