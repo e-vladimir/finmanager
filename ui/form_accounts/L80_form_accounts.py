@@ -44,6 +44,22 @@ class C80_FormAccounts(C70_FormAccounts):
 
 		self.on_AccountsChanged()
 
+	def TransferGroupToNextDm(self):
+		""" Перенос счёта в следующий месяц """
+		dy, dm = self.Workspace.DyDm()
+
+		for ido in self.Accounts.Idos(dy, dm):
+			account = C90_Account(ido)
+			account.TransferToDm(1)
+
+	def TransferGroupToPrevDm(self):
+		""" Перенос счёта в предыдущий месяц """
+		dy, dm = self.Workspace.DyDm()
+
+		for ido in self.Accounts.Idos(dy, dm):
+			account = C90_Account(ido)
+			account.TransferToDm(-1)
+
 	# Счёт
 	def CreateAccount(self):
 		""" Создание счёта """

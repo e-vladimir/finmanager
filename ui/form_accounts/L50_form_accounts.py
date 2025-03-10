@@ -20,6 +20,8 @@ class C50_FormAccounts(C42_FormAccounts):
 
 	# Группа счетов
 	def on_RequestEditGroupName(self): pass
+	def on_RequestTransferGroupToNextDm(self): pass
+	def on_RequestTransferGroupToPrevDm(self): pass
 
 	# Счёт
 	def on_RequestCreateAccount(self): pass

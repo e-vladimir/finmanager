@@ -31,6 +31,8 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.ActionResetAccounts             = QAction(icon_reload,      "Сбросить данные")
 
 		self.ActionEditGroupName             = QAction(icon_edit,        "Изменить наименование")
+		self.ActionTransferGroupToNextDm     = QAction(icon_right,       "Перенести в следующий месяц")
+		self.ActionTransferGroupToPrevDm     = QAction(icon_left,        "Перенести в прошлый месяц")
 
 		self.ActionCreateAccount             = QAction(icon_item_plus,   "Создать счёт")
 		self.ActionEditAccountName           = QAction(icon_edit,        "Изменить наименование")
@@ -51,6 +53,9 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.SubmenuGroup.addAction(self.ActionCreateAccount)
 		self.SubmenuGroup.addSeparator()
 		self.SubmenuGroup.addAction(self.ActionEditGroupName)
+		self.SubmenuGroup.addSeparator()
+		self.SubmenuGroup.addAction(self.ActionTransferGroupToPrevDm)
+		self.SubmenuGroup.addAction(self.ActionTransferGroupToNextDm)
 
 		self.SubmenuAccount                  = QMenu("Счёт",          icon=icon_grid_3_3)
 		self.SubmenuAccount.addAction(self.ActionEditAccountName)

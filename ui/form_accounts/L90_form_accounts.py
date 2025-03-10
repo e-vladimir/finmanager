@@ -20,6 +20,8 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Меню Группа счетов
 		self.ActionEditGroupName.triggered.connect(self.on_RequestEditGroupName)
+		self.ActionTransferGroupToPrevDm.triggered.connect(self.on_RequestTransferGroupToPrevDm)
+		self.ActionTransferGroupToNextDm.triggered.connect(self.on_RequestTransferGroupToNextDm)
 
 		# Меню Счёт
 		self.ActionDeleteAccount.triggered.connect(self.on_RequestDeleteAccount)
@@ -78,6 +80,14 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestEditGroupName(self):
 		""" Запрос на редактиование названия группы счетов """
 		self.EditGroupName()
+
+	def on_RequestTransferGroupToPrevDm(self):
+		""" Запрос на перенос группы счетов в предыдущий месяц """
+		self.TransferGroupToPrevDm()
+
+	def on_RequestTransferGroupToNextDm(self):
+		""" Запрос на перенос группы счетов в следующий месяц """
+		self.TransferGroupToNextDm()
 
 	# Счёта
 	def on_RequestCreateAccount(self):
