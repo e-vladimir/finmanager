@@ -102,8 +102,8 @@ class C60_FormAccounts(C50_FormAccounts):
 			                      ])
 
 		initial_balance    : int                     = account.initial_balance
-		calculated_balance : int                     = 0
-		delta_balance      : int                     = 0
+		calculated_balance : int                     = account.CalcCalculatedBalance()
+		delta_balance      : int                     = calculated_balance - initial_balance
 
 		indexes                                      = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
