@@ -10,6 +10,7 @@ class C90_Application(C80_Application):
 	def on_Inited(self):
 		super().on_Inited()
 
+		self.InitDirectories()
 		self.InitContainers()
 
 	def on_Start(self):

@@ -1,8 +1,10 @@
 # ФОРМА СЧЕТА: ЛОГИКА ДАННЫХ
 # 14 фев 2025
 
+from pathlib           import Path
+
 from L00_containers    import CONTAINERS
-from L20_PySide6       import RequestConfirm, RequestText, RequestValue
+from L20_PySide6       import RequestConfirm, RequestText, RequestValue, ShowMessage
 from L70_form_accounts import C70_FormAccounts
 from L90_account       import C90_Account
 
@@ -47,6 +49,18 @@ class C80_FormAccounts(C70_FormAccounts):
 		for ido in self.Accounts.Idos(dy, dm):
 			account = C90_Account(ido)
 			account.TransferToDm(-1)
+
+	def GenerateReportBalances(self):
+		""" Генерация отчёта по остаткам """
+		pdf_file : Path | None = self.Report.GenerateReportBalances()
+		if not pdf_file:
+			ShowMessage("Отчёт по остаткам",
+			            "Генерация отчёта прервана")
+			return
+
+		ShowMessage( "Отчёт по остаткам",
+		            f"Отчёт сохранён в файл {pdf_file.name}",
+		            f"{pdf_file.absolute()}")
 
 	# Группа счетов
 	def EditGroupName(self):

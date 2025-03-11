@@ -1,5 +1,7 @@
 # ПРИЛОЖЕНИЕ: МЕХАНИКА ДАННЫХ
 # 12 фев 2025
+import os
+from pathlib import Path
 
 from G30_cactus_controller_containers import controller_containers
 
@@ -22,3 +24,12 @@ class C60_Application(C50_Application):
 		container_disk.ConnectMode_Auto(True)
 
 		C40_Account.RegisterClass(CONTAINERS.DISK)
+
+	# Директории
+	def InitDirectories(self):
+		""" Инициализация директорий """
+		directories : list[str] = ["reports"]
+
+		for directory in directories:
+			try   : os.mkdir(Path("./") / directory)
+			except: pass

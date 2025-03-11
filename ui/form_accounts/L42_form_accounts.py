@@ -4,6 +4,7 @@
 from L20_PySide6       import C20_StandardItemModel
 from L41_form_accounts import C41_FormAccounts
 from L90_account       import C90_Accounts
+from L90_report        import C90_Report
 from L90_workspace     import C90_Workspace
 
 
@@ -23,6 +24,7 @@ class C42_FormAccounts(C41_FormAccounts):
 		self.ModelData = C20_StandardItemModel()
 
 		self.Accounts  = C90_Accounts()
+		self.Report    = C90_Report()
 		self.Workspace = C90_Workspace()
 
 	def Init_11(self):

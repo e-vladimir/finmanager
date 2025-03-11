@@ -63,7 +63,7 @@ class C60_Account(C50_Account):
 		filter_data    = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		filter_data.FilterIdpVlpByEqual(idp_name, str)
+		filter_data.FilterIdpVlpByEqual(idp_name, name)
 		filter_data.Capture(CONTAINERS.DISK)
 
 		try   : self.Ido(filter_data.Idos().data[0])

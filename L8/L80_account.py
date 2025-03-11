@@ -90,6 +90,17 @@ class C80_Accounts(C70_Accounts):
 
 		return filter_data.ToStrings(idp_group, True, True).data
 
+	def AvailableDys(self) -> list[int]:
+		""" Список годов с доступными счетами """
+		account         = C80_Account()
+		idc       : str = account.Idc().data
+		idp_dy    : str = account.FDy.Idp().data
+
+		filter_data     = C30_FilterLinear1D(idc)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToIntegers(idp_dy, True, True).data
+
 	# Управление счетами
 	def CreateAccount(self, dy: int, dm: int, group: str, name: str) -> str:
 		""" Создание счёта """
