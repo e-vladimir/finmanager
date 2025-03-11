@@ -27,26 +27,26 @@ class META_CLASSES(ClassInfo, enum.Enum):
 
 # ПАРАМЕТРЫ ГЕНЕРАЦИИ
 # Мета-класс
-META_CLASS       = META_CLASSES.C20_META_FRAME
+META_CLASS       = META_CLASSES.C20_PYSIDE_FORM
 
 # Имя класса
-CLASS_NAME        = "Operations"
+CLASS_NAME        = "FormOperation"
 
 # Описание класса
-CLASS_DESCRIPTION = "Финансовые операции"
+CLASS_DESCRIPTION = "Форма Операции"
 
 # Имя файла
 # Если оставить пустым, сгенерируется автоматически из имени класса
 FILE_NAME         = ""
 
 # Корневая папка генерации файлов/директорий L
-DIR_ROOT          = ""
+DIR_ROOT          = "./ui/form_operations"
 
 # Генерация UI-Класса
-TARGET_IS_UI      = False
+TARGET_IS_UI      = True
 
 # Генерация файлов без деления по папкам
-TARGET_IS_FLAT    = False
+TARGET_IS_FLAT    = True
 
 # Генерация единого файла, без разделения на L4-9
 TARGET_IS_SINGLE  = False

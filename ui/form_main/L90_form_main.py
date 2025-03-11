@@ -10,7 +10,7 @@ class C90_FormMain(C80_FormMain):
 	def InitEvents(self):
 		super().InitEvents()
 
-		# Панель Рабочий период
+		# Блок Рабочий период
 		self.LabelPrevDmDy.clicked.connect(self.on_RequestSwitchDyDmToPrevDm)
 		self.LabelNextDmDy.clicked.connect(self.on_RequestSwitchDyDmToNextDm)
 
@@ -18,8 +18,11 @@ class C90_FormMain(C80_FormMain):
 		self.LabelDmDy.wheelMovedUp.connect(self.on_RequestSwitchDyDmToNextDm)
 		self.LabelDmDy.wheelMovedDown.connect(self.on_RequestSwitchDyDmToPrevDm)
 
-		# Панель Счета
+		# Блок Счета
 		self.LabelInitialBalance.clicked.connect(self.on_RequestOpenAccounts)
+
+		# Блок Операции
+		self.LabelDelta.clicked.connect(self.on_RequestOpenOperations)
 
 	# Форма
 	def on_RequestOpen(self):
@@ -59,3 +62,8 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenAccounts(self):
 		""" Запрос на открытие формы Счета """
 		self.Application.FormAccounts.Open()
+
+	# Операции
+	def on_RequestOpenOperations(self):
+		""" Запрос на открытие формы Операции """
+		self.Application.FormOperations.Open()

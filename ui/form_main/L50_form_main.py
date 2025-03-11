@@ -16,3 +16,6 @@ class C50_FormMain(C42_FormMain):
 
 	# Счета
 	def on_RequestOpenAccounts(self): pass
+
+	# Операции
+	def on_RequestOpenOperations(self): pass
