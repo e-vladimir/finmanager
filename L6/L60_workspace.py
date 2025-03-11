@@ -10,7 +10,7 @@ from L50_workspace  import C50_Workspace
 class C60_Workspace(C50_Workspace):
 	""" Рабочее пространство: Механика данных """
 
-	# Параметры
+	# Год
 	@property
 	def dy(self) -> int:
 		return self.FDy.ToInteger(CONTAINERS.MEMORY).data
@@ -18,6 +18,7 @@ class C60_Workspace(C50_Workspace):
 	def dy(self, year: int):
 		self.FDy.FromInteger(CONTAINERS.MEMORY, year)
 
+	# Месяц
 	@property
 	def dm(self) -> int:
 		return self.FDm.ToInteger(CONTAINERS.MEMORY).data
@@ -25,12 +26,12 @@ class C60_Workspace(C50_Workspace):
 	def dm(self, month: int):
 		self.FDm.FromInteger(CONTAINERS.MEMORY, month)
 
-	# Управление IDO
+	# IDO
 	def SwitchToMain(self):
 		""" Переключение на рабочее пространство: Основное """
 		self.Ido("WORKSPACE_MAIN")
 
-	# Управление Рабочим периодом
+	# Рабочий период
 	def SwitchDyDmToNextDm(self):
 		""" Смещение рабочего периода в следующий месяц """
 		self.dy, self.dm = CalcDyDmByShiftDm(self.dy, self.dm,  1)

@@ -30,10 +30,10 @@ class META_CLASSES(ClassInfo, enum.Enum):
 META_CLASS       = META_CLASSES.C20_META_FRAME
 
 # Имя класса
-CLASS_NAME        = "Report"
+CLASS_NAME        = "Operations"
 
 # Описание класса
-CLASS_DESCRIPTION = "Генератор отчётов"
+CLASS_DESCRIPTION = "Финансовые операции"
 
 # Имя файла
 # Если оставить пустым, сгенерируется автоматически из имени класса

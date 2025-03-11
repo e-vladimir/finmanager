@@ -6,6 +6,7 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L70_account            import C70_Account, C70_Accounts
+from L90_operations         import C90_Operations
 
 
 class C80_Account(C70_Account):
@@ -14,7 +15,9 @@ class C80_Account(C70_Account):
 	# Расчёт данных
 	def CalcCalculatedBalance(self) -> int:
 		""" Вычисление остатка итогового """
-		return 0
+		operations = C90_Operations()
+
+		return self.initial_balance + sum(operations.Amounts(self.dy, self.dm, account_ido=self.Ido().data))
 
 	# Перенос
 	def TransferToDm(self, count_dm: int = 1):
@@ -36,6 +39,7 @@ class C80_Account(C70_Account):
 		self.group = group
 
 		if count_dm > 0: self.initial_balance = calculated_balance
+
 
 class C80_Accounts(C70_Accounts):
 	""" Контроллер счетов: Логика данных """

@@ -33,16 +33,18 @@ class C70_FormMain(C60_FormMain):
 		""" Отображение данных Счета """
 		dy, dm = self.Workspace.DyDm()
 
-		self.LabelInitialBalance.setText(AmountToString(self.accounts.CalcInitialBalance(dy, dm),
+		self.LabelInitialBalance.setText(AmountToString(self.Accounts.CalcInitialBalance(dy, dm),
 		                                                flag_point=False,
 		                                                flag_sign =False))
 
 	# Панель Операции
 	def ShowOperations(self):
 		""" Отображение данных Операции """
-		amount_income  : int = 0
-		amount_outcome : int = 0
-		amount_delta   : int = amount_income - amount_outcome
+		dy,dm                        = self.Workspace.DyDm()
+		amounts        : list[float] = self.Operations.Amounts(dy, dm)
+		amount_income  : int         = sum(filter(lambda amount: amount > 0, amounts))
+		amount_outcome : int         = sum(filter(lambda amount: amount < 0, amounts))
+		amount_delta   : int         = amount_income - amount_outcome
 
 		self.LabelDelta.setText(AmountToString(amount_delta, flag_sign=True))
 		self.LabelSubdelta.setText(f"{AmountToString(amount_income, flag_sign=True)}  |  {AmountToString(amount_outcome, flag_sign=True)}")

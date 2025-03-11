@@ -10,7 +10,7 @@ from L50_account            import C50_Account, C50_Accounts
 class C60_Account(C50_Account):
 	""" Счёт: Механика данных """
 
-	# Параметры: Год
+	# Год
 	@property
 	def dy(self) -> int:
 		return self.FDy.ToInteger(CONTAINERS.DISK).data
@@ -18,7 +18,7 @@ class C60_Account(C50_Account):
 	def dy(self, year: int):
 		self.FDy.FromInteger(CONTAINERS.DISK, year)
 
-	# Параметры: Месяц
+	# Месяц
 	@property
 	def dm(self) -> int:
 		return self.FDm.ToInteger(CONTAINERS.DISK).data
@@ -26,7 +26,7 @@ class C60_Account(C50_Account):
 	def dm(self, month: int):
 		self.FDm.FromInteger(CONTAINERS.DISK, month)
 
-	# Параметры: Название счёта
+	# Название счёта
 	@property
 	def name(self) -> str:
 		return self.FName.ToString(CONTAINERS.DISK).data
@@ -34,7 +34,7 @@ class C60_Account(C50_Account):
 	def name(self, text: str):
 		self.FName.FromString(CONTAINERS.DISK, text)
 
-	# Параметры: Группа счетов
+	# Группа счетов
 	@property
 	def group(self) -> str:
 		return self.FGroup.ToString(CONTAINERS.DISK).data
@@ -42,7 +42,7 @@ class C60_Account(C50_Account):
 	def group(self, name: str):
 		self.FGroup.FromString(CONTAINERS.DISK, name)
 
-	# Параметры: Остаток на начало месяца
+	# Остаток на начало месяца
 	@property
 	def initial_balance(self) -> int:
 		return self.FInitialBalance.ToInteger(CONTAINERS.DISK).data
@@ -50,7 +50,7 @@ class C60_Account(C50_Account):
 	def initial_balance(self, amount: int):
 		self.FInitialBalance.FromInteger(CONTAINERS.DISK, amount)
 
-	# Управление IDO
+	# IDO
 	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:
 		""" Переключение по названию счёта """
 		if not name: return False
