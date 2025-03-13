@@ -4,7 +4,7 @@
 from G11_convertor_data import AmountToString
 
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestText, RequestValue
+from L20_PySide6        import RequestConfirm, RequestText, RequestValue
 from L70_form_operation import C70_FormOperation
 from L90_operations     import C90_Operation
 
@@ -17,7 +17,7 @@ class C80_FormOperation(C70_FormOperation):
 		""" Отображение операций """
 		dy, dm = self.Workspace.DyDm()
 
-		for self.processing_dd  in self.Operations.Dys(dy, dm) : self.LoadDdInModelData()
+		for self.processing_dd  in self.Operations.Dds(dy, dm) : self.LoadDdInModelData()
 		for self.processing_ido in self.Operations.Idos(dy, dm): self.LoadOperationOnModelData()
 
 	# Операция
@@ -45,3 +45,12 @@ class C80_FormOperation(C70_FormOperation):
 		self.processing_ido = operation.Ido().data
 
 		self.on_OperationCreated()
+
+	def DeleteOperation(self):
+		""" Удаление операции """
+		operation = C90_Operation(self.processing_ido)
+		if not RequestConfirm("Удаление операции", operation.InfoToString()): return
+
+		operation.DeleteObject(CONTAINERS.DISK)
+
+		self.on_OperationDeleted()

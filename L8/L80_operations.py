@@ -1,6 +1,7 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
 # 11 мар 2025
 
+from G11_convertor_data     import AmountToString
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -14,6 +15,11 @@ class C80_Operation(C70_Operation):
 	def DdDmDyToString(self) -> str:
 		""" Дата в строку """
 		return f"{self.dd:02d} {MONTHS_SHORT[self.dm]} {self.dy:04d}"
+
+	def InfoToString(self, flag_flat: bool = False) -> str:
+		""" Информация об операции """
+		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()} ({self.description})"
+		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}\n{self.description}"
 
 
 class C80_Operations(C70_Operations):
@@ -58,7 +64,7 @@ class C80_Operations(C70_Operations):
 
 		return filter_data.ToFloats(idp_amount).data
 
-	def Dys(self, dy: int, dm: int) -> list[float]:
+	def Dds(self, dy: int, dm: int) -> list[float]:
 		""" Список чисел месяца финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data

@@ -1,12 +1,13 @@
 # ФОРМА ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 # 11 мар 2025
 
-from PySide6.QtCore import QModelIndex, Qt
+from PySide6.QtCore     import QModelIndex
 
 from G11_convertor_data import AmountToString
+
 from L20_PySide6        import C20_StandardItem, ROLES
 from L50_form_operation import C50_FormOperation
-from L90_operations import C90_Operation, C90_Operations
+from L90_operations     import C90_Operation
 
 
 class C60_FormOperation(C50_FormOperation):
@@ -98,3 +99,23 @@ class C60_FormOperation(C50_FormOperation):
 
 		item_description                   = self.ModelData.itemFromIndex(indexes[2])
 		item_description.setText(operation.description)
+
+	def CleanModelData(self):
+		""" Очистка модели от некорректных данных """
+		dy, dm           = self.Workspace.DyDm()
+		idos : list[str] = self.Operations.Idos(dy, dm)
+		dds  : list[int] = self.Operations.Dds(dy, dm)
+
+		for index_dd in self.ModelData.indexes(QModelIndex()):
+			dd : int = int(index_dd.data(ROLES.GROUP))
+
+			if dd not in dds:
+				self.ModelData.removeRow(index_dd.row())
+				continue
+
+			for index_ido in self.ModelData.indexes(index_dd):
+				ido : str = index_ido.data(ROLES.IDO)
+
+				if ido in idos: continue
+
+				self.ModelData.removeRow(index_ido.row(), index_dd)

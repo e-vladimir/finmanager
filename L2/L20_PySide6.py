@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 09 мар 2025
+# 13 мар 2025
 
 import enum
 
@@ -678,9 +678,10 @@ class C20_StandardItemModel(QStandardItemModel):
 					item_model.setForeground(color_fg)
 
 	# Выборки данных
-	def indexes(self) -> list[QModelIndex]:
+	def indexes(self, parent: QModelIndex = None) -> list[QModelIndex]:
 		""" Список всех индексов в колонке 0 """
-		return IndexesFromStandardModel(self)
+		if parent is None: return IndexesFromStandardModel(self)
+		else             : return [self.index(idx_row, 0, parent) for idx_row in range(self.rowCount(parent))]
 
 	def indexByData(self, text: str, role : Qt.ItemDataRole | ROLES = Qt.ItemDataRole.DisplayRole) -> QModelIndex | None:
 		""" Поиск индекса по данным """

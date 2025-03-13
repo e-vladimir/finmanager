@@ -20,7 +20,12 @@ class C70_FormOperation(C60_FormOperation):
 		""" Настройка меню операций """
 		self.MenuOperation.clear()
 
+		if not self.processing_ido:
+			self.MenuOperation.addAction(self.ActionCreateOperation)
+			self.MenuOperation.addSeparator()
+
 		self.MenuOperation.addMenu(self.SubmenuOperations)
+		self.MenuOperation.addMenu(self.SubmenuOperation)
 
 	def AdjustMenuOperation_Enable(self):
 		""" Настройка меню операций: Доступность """

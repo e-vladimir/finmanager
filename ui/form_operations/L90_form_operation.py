@@ -16,6 +16,9 @@ class C90_FormOperation(C80_FormOperation):
 		# Меню Операции
 		self.ActionCreateOperation.triggered.connect(self.on_RequestCreateOperation)
 
+		# Меню Операция
+		self.ActionDeleteOperation.triggered.connect(self.on_RequestDeleteOperation)
+
 	# Форма
 	def on_Opened(self):
 		""" Форма открыта """
@@ -27,6 +30,8 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Colors()
+
+		self.CleanModelData()
 
 	# Меню операций
 	def on_RequestMenuOperation(self):
@@ -45,6 +50,10 @@ class C90_FormOperation(C80_FormOperation):
 		""" Запрос создания операции """
 		self.CreateOperation()
 
+	def on_RequestDeleteOperation(self):
+		""" Запрос удаления операции """
+		self.DeleteOperation()
+
 	def on_OperationCreated(self):
 		""" Операция создана """
 		self.LoadDdInModelData()
@@ -53,3 +62,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Colors()
+
+	def on_OperationDeleted(self):
+		""" Операция удалена """
+		self.CleanModelData()

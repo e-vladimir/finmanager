@@ -20,11 +20,17 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 	def InitMenuOperations(self):
 		""" Инициализацию меню операций """
 		icon_grid_1_3    = QIcon("./L0/icons/grid_1_3.svg")
+		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
+		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
 
 		self.ActionCreateOperation = QAction(icon_item_plus,   "Создать операцию")
+		self.ActionDeleteOperation = QAction(icon_item_delete, "Удалить операцию")
 
 		self.MenuOperation         = QMenu("Операции")
 
 		self.SubmenuOperations     = QMenu("Операции",         icon=icon_grid_1_3)
 		self.SubmenuOperations.addAction(self.ActionCreateOperation)
+
+		self.SubmenuOperation      = QMenu("Операция",         icon=icon_grid_3_3)
+		self.SubmenuOperation.addAction(self.ActionDeleteOperation)
