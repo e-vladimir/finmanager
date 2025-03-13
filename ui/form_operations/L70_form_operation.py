@@ -5,6 +5,7 @@ from PySide6.QtGui      import QCursor, Qt
 
 from L20_PySide6        import ROLES
 from L60_form_operation import C60_FormOperation
+from L90_operations     import C90_Operation
 
 
 class C70_FormOperation(C60_FormOperation):
@@ -24,6 +25,14 @@ class C70_FormOperation(C60_FormOperation):
 			self.MenuOperation.addAction(self.ActionCreateOperation)
 			self.MenuOperation.addSeparator()
 
+		else:
+			self.MenuOperation.addAction(self.ActionEditOperationAmount)
+			self.MenuOperation.addAction(self.ActionEditOperationAccounts)
+			self.MenuOperation.addAction(self.ActionEditOperationDescription)
+			self.MenuOperation.addSeparator()
+			self.MenuOperation.addAction(self.ActionCreateOperation)
+			self.MenuOperation.addSeparator()
+
 		self.MenuOperation.addMenu(self.SubmenuOperations)
 		self.MenuOperation.addMenu(self.SubmenuOperation)
 
@@ -40,6 +49,19 @@ class C70_FormOperation(C60_FormOperation):
 		self.MenuOperation.exec_(QCursor().pos())
 
 	# Дерево данных
+	def ControlOperationIdp(self):
+		""" Контроль рабочего IDP при двойном клике по дереву данных """
+		if not self.processing_ido: return
+
+		operation             = C90_Operation()
+		idp_amount      : str = operation.FAmount.Idp().data
+		idp_accounts    : str = operation.FAccountIdos.Idp().data
+		idp_description : str = operation.FDescription.Idp().data
+
+		if   self.processing_idp == idp_amount     : self.on_RequestEditOperationAmount()
+		elif self.processing_idp == idp_accounts   : self.on_RequestEditOperationAccounts()
+		elif self.processing_idp == idp_description: self.on_RequestEditOperationDescriptions()
+
 	def AdjustTreeData_Sort(self):
 		""" Настройка дерева данных: Сортировка """
 		self.ModelData.setSortRole(ROLES.SORT_INDEX)

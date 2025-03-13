@@ -54,3 +54,25 @@ class C80_FormOperation(C70_FormOperation):
 		operation.DeleteObject(CONTAINERS.DISK)
 
 		self.on_OperationDeleted()
+
+	def EditAmountOperation(self):
+		""" Редактирование суммы операции """
+		operation           = C90_Operation(self.processing_ido)
+
+		amount : int | None = RequestValue("Редактирование операции", f"{operation.InfoToString()}\n\nСумма:", int(operation.amount), -99999999, 99999999)
+		if amount is None: return
+
+		operation.amount = amount
+
+		self.on_OperationChanged()
+
+	def EditDescriptionOperation(self):
+		""" Редактирование описания операции """
+		operation                = C90_Operation(self.processing_ido)
+
+		description : str | None = RequestText("Редактирование операции", f"{operation.InfoToString()}\n\nОписание:", operation.description)
+		if description is None: return
+
+		operation.description = description
+
+		self.on_OperationChanged()

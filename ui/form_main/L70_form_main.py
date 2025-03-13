@@ -44,7 +44,7 @@ class C70_FormMain(C60_FormMain):
 		amounts        : list[float] = self.Operations.Amounts(dy, dm)
 		amount_income  : int         = sum(filter(lambda amount: amount > 0, amounts))
 		amount_outcome : int         = sum(filter(lambda amount: amount < 0, amounts))
-		amount_delta   : int         = amount_income - amount_outcome
+		amount_delta   : int         = amount_income + amount_outcome
 
 		self.LabelDelta.setText(AmountToString(amount_delta, flag_sign=True))
 		self.LabelSubdelta.setText(f"{AmountToString(amount_income, flag_sign=True)}  |  {AmountToString(amount_outcome, flag_sign=True)}")

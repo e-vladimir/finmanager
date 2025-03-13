@@ -10,9 +10,17 @@ class C50_FormOperation(C42_FormOperation):
 	# Меню операций
 	def on_RequestMenuOperation(self): pass
 
+	# Дерево данных
+	def on_TreeDataDoubleClicked(self): pass
+
 	# Операция
 	def on_RequestCreateOperation(self): pass
 	def on_RequestDeleteOperation(self): pass
+	def on_RequestEditOperationDd(self): pass
+	def on_RequestEditOperationAmount(self): pass
+	def on_RequestEditOperationAccounts(self): pass
+	def on_RequestEditOperationDescriptions(self): pass
 
 	def on_OperationCreated(self): pass
 	def on_OperationDeleted(self): pass
+	def on_OperationChanged(self): pass

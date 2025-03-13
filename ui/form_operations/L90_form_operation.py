@@ -12,11 +12,16 @@ class C90_FormOperation(C80_FormOperation):
 
 		# Дерево данных
 		self.TreeData.customContextMenuRequested.connect(self.on_RequestMenuOperation)
+		self.TreeData.doubleClicked.connect(self.on_TreeDataDoubleClicked)
 
 		# Меню Операции
 		self.ActionCreateOperation.triggered.connect(self.on_RequestCreateOperation)
 
 		# Меню Операция
+		self.ActionEditOperationDd.triggered.connect(self.on_RequestEditOperationDd)
+		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
+		self.ActionEditOperationAccounts.triggered.connect(self.on_RequestEditOperationAccounts)
+		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescriptions)
 		self.ActionDeleteOperation.triggered.connect(self.on_RequestDeleteOperation)
 
 	# Форма
@@ -45,6 +50,15 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.ShowMenuOperation()
 
+	# Дерево данных
+	def on_TreeDataDoubleClicked(self):
+		""" Двойной клик по дереву данных """
+		self.ReadProcessingIdoFromTreeData()
+		self.ReadProcessingIdpFromTreeData()
+		self.ReadProcessingDdFromTreeData()
+
+		self.ControlOperationIdp()
+
 	# Операция
 	def on_RequestCreateOperation(self):
 		""" Запрос создания операции """
@@ -53,6 +67,14 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestDeleteOperation(self):
 		""" Запрос удаления операции """
 		self.DeleteOperation()
+
+	def on_RequestEditOperationAmount(self):
+		""" Запрос редактирования суммы операции """
+		self.EditAmountOperation()
+
+	def on_RequestEditOperationDescriptions(self):
+		""" Запрос редактирования описания операции """
+		self.EditDescriptionOperation()
 
 	def on_OperationCreated(self):
 		""" Операция создана """
@@ -66,3 +88,9 @@ class C90_FormOperation(C80_FormOperation):
 	def on_OperationDeleted(self):
 		""" Операция удалена """
 		self.CleanModelData()
+
+	def on_OperationChanged(self):
+		""" Операция изменилась """
+		self.LoadOperationOnModelData()
+
+		self.AdjustTreeData_Sort()

@@ -25,6 +25,18 @@ class C60_FormOperation(C50_FormOperation):
 		""" Чтение IDO из дерева данных """
 		self.processing_ido = self.TreeData.currentIndex().data(ROLES.IDO)
 
+	# Рабочий IDP
+	@property
+	def processing_idp(self) -> str:
+		return self._processing_idp
+	@processing_idp.setter
+	def processing_idp(self, idp: str):
+		self._processing_idp = idp
+
+	def ReadProcessingIdpFromTreeData(self):
+		""" Чтение IDP из дерева данных """
+		self.processing_idp = self.TreeData.currentIndex().data(ROLES.IDP)
+
 	# Рабочее число месяца
 	@property
 	def processing_dd(self) -> int:
@@ -67,8 +79,12 @@ class C60_FormOperation(C50_FormOperation):
 		""" Загрузка операции в модель """
 		if not self.processing_ido: return
 
-		operation                          = C90_Operation(self.processing_ido)
-		item_dd : C20_StandardItem | None  = self.ModelData.itemByData(operation.DdDmDyToString(), ROLES.TEXT)
+		operation                                  = C90_Operation(self.processing_ido)
+		idp_amount      : str                      = operation.FAmount.Idp().data
+		idp_accounts    : str                      = operation.FAccountIdos.Idp().data
+		idp_description : str                      = operation.FDescription.Idp().data
+
+		item_dd         : C20_StandardItem | None  = self.ModelData.itemByData(operation.DdDmDyToString(), ROLES.TEXT)
 		if item_dd is None: return
 
 		if not self.ModelData.checkIdo(self.processing_ido):
@@ -76,28 +92,31 @@ class C60_FormOperation(C50_FormOperation):
 			item_amount.setData(self.processing_ido, ROLES.IDO)
 			item_amount.setData(operation.amount,    ROLES.SORT_INDEX)
 			item_amount.setData(operation.dd,        ROLES.GROUP)
+			item_amount.setData(idp_amount,          ROLES.IDP)
 
 			item_accounts    = C20_StandardItem("")
 			item_accounts.setData(self.processing_ido, ROLES.IDO)
 			item_accounts.setData(operation.amount,    ROLES.SORT_INDEX)
 			item_accounts.setData(operation.dd,        ROLES.GROUP)
+			item_accounts.setData(idp_accounts,        ROLES.IDP)
 
 			item_description = C20_StandardItem("")
 			item_description.setData(self.processing_ido, ROLES.IDO)
 			item_description.setData(operation.amount,    ROLES.SORT_INDEX)
 			item_description.setData(operation.dd,        ROLES.GROUP)
+			item_description.setData(idp_description,     ROLES.IDP)
 
 			item_dd.appendRow([item_amount, item_accounts, item_description])
 
-		indexes : list[QModelIndex]        = self.ModelData.indexesInRowByIdo(self.processing_ido)
+		indexes         : list[QModelIndex]        = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
-		item_amount                        = self.ModelData.itemFromIndex(indexes[0])
+		item_amount                                = self.ModelData.itemFromIndex(indexes[0])
 		item_amount.setText(AmountToString(operation.amount, flag_sign=True))
 
-		item_accounts                      = self.ModelData.itemFromIndex(indexes[1])
+		item_accounts                              = self.ModelData.itemFromIndex(indexes[1])
 		item_accounts.setText("")
 
-		item_description                   = self.ModelData.itemFromIndex(indexes[2])
+		item_description                           = self.ModelData.itemFromIndex(indexes[2])
 		item_description.setText(operation.description)
 
 	def CleanModelData(self):
