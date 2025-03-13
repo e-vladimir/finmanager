@@ -31,6 +31,12 @@ class C70_FormOperation(C60_FormOperation):
 			self.MenuOperation.addAction(self.ActionEditOperationAccounts)
 			self.MenuOperation.addAction(self.ActionEditOperationDescription)
 			self.MenuOperation.addSeparator()
+			self.MenuOperation.addAction(self.ActionSetOperationColorBlack)
+			self.MenuOperation.addAction(self.ActionSetOperationColorGray)
+			self.MenuOperation.addAction(self.ActionSetOperationColorGreen)
+			self.MenuOperation.addAction(self.ActionSetOperationColorBlue)
+			self.MenuOperation.addAction(self.ActionSetOperationColorRed)
+			self.MenuOperation.addSeparator()
 			self.MenuOperation.addAction(self.ActionCreateOperation)
 			self.MenuOperation.addSeparator()
 

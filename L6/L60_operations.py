@@ -1,6 +1,6 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 # 11 мар 2025
-
+from L00_colors import COLORS
 from L00_containers import CONTAINERS
 from L50_operations import C50_Operation, C50_Operations
 
@@ -55,6 +55,14 @@ class C60_Operation(C50_Operation):
 	@description.setter
 	def description(self, text: str):
 		self.FDescription.FromString(CONTAINERS.DISK, text)
+
+	# Цветовая метка
+	@property
+	def color(self) -> COLORS:
+		return COLORS(self.FColor.ToString(CONTAINERS.DISK).data)
+	@color.setter
+	def color(self, color: COLORS):
+		self.FColor.FromString(CONTAINERS.DISK, color.value)
 
 
 class C60_Operations(C50_Operations):

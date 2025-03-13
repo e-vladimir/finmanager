@@ -19,6 +19,11 @@ class C50_FormOperation(C42_FormOperation):
 	def on_RequestEditOperationAmount(self): pass
 	def on_RequestEditOperationAccounts(self): pass
 	def on_RequestEditOperationDescriptions(self): pass
+	def on_RequestSetOperationColorToBlack(self): pass
+	def on_RequestSetOperationColorToGray(self): pass
+	def on_RequestSetOperationColorToGreen(self): pass
+	def on_RequestSetOperationColorToBlue(self): pass
+	def on_RequestSetOperationColorToRed(self): pass
 
 	def on_OperationCreated(self): pass
 	def on_OperationDeleted(self): pass

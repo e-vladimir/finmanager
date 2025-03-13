@@ -2,9 +2,11 @@
 # 11 мар 2025
 
 from PySide6.QtCore     import QModelIndex
+from PySide6.QtGui      import QColor
 
 from G11_convertor_data import AmountToString
 
+from L00_colors         import COLORS
 from L20_PySide6        import C20_StandardItem, ROLES
 from L50_form_operation import C50_FormOperation
 from L90_operations     import C90_Operation
@@ -118,6 +120,21 @@ class C60_FormOperation(C50_FormOperation):
 
 		item_description                           = self.ModelData.itemFromIndex(indexes[2])
 		item_description.setText(operation.description)
+
+		color_bg : QColor = QColor(255, 255, 255)
+		color_fg : QColor = QColor(  0,   0,   0)
+
+		match operation.color:
+			case COLORS.BLACK: color_fg = QColor(  0,   0,   0)
+			case COLORS.GRAY : color_fg = QColor(150, 150, 150)
+			case COLORS.GREEN: color_fg = QColor( 30, 130,  30)
+			case COLORS.BLUE : color_fg = QColor( 30,  30, 130)
+			case COLORS.RED  : color_fg = QColor(130,  30,  30)
+
+		self.ModelData.setRowColor(item_dd,
+		                           item_amount.row(),
+		                           color_bg,
+		                           color_fg)
 
 	def CleanModelData(self):
 		""" Очистка модели от некорректных данных """

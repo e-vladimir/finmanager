@@ -1,6 +1,7 @@
 # ФОРМА ОПЕРАЦИИ: ЛОГИКА УПРАВЛЕНИЯ
 # 11 мар 2025
 
+from L00_colors         import COLORS
 from L80_form_operation import C80_FormOperation
 
 
@@ -22,6 +23,11 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionEditOperationAccounts.triggered.connect(self.on_RequestEditOperationAccounts)
 		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescriptions)
 		self.ActionDeleteOperation.triggered.connect(self.on_RequestDeleteOperation)
+		self.ActionSetOperationColorBlack.triggered.connect(self.on_RequestSetOperationColorToBlack)
+		self.ActionSetOperationColorGray.triggered.connect(self.on_RequestSetOperationColorToGray)
+		self.ActionSetOperationColorGreen.triggered.connect(self.on_RequestSetOperationColorToGreen)
+		self.ActionSetOperationColorBlue.triggered.connect(self.on_RequestSetOperationColorToBlue)
+		self.ActionSetOperationColorRed.triggered.connect(self.on_RequestSetOperationColorToRed)
 
 	# Форма
 	def on_Opened(self):
@@ -79,6 +85,26 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestEditOperationDescriptions(self):
 		""" Запрос редактирования описания операции """
 		self.EditDescriptionOperation()
+
+	def on_RequestSetOperationColorToBlack(self):
+		""" Установка цвета операции: Чёрный """
+		self.SetOperationColor(COLORS.BLACK)
+
+	def on_RequestSetOperationColorToGray(self):
+		""" Установка цвета операции: Серый """
+		self.SetOperationColor(COLORS.GRAY)
+
+	def on_RequestSetOperationColorToGreen(self):
+		""" Установка цвета операции: Зелёный """
+		self.SetOperationColor(COLORS.GREEN)
+
+	def on_RequestSetOperationColorToBlue(self):
+		""" Установка цвета операции: Синий """
+		self.SetOperationColor(COLORS.BLUE)
+
+	def on_RequestSetOperationColorToRed(self):
+		""" Установка цвета операции: Красный """
+		self.SetOperationColor(COLORS.RED)
 
 	def on_OperationCreated(self):
 		""" Операция создана """

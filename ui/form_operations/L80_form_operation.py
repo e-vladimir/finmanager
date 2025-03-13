@@ -3,6 +3,7 @@
 
 from G11_convertor_data import AmountToString
 
+from L00_colors         import COLORS
 from L00_containers     import CONTAINERS
 from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue
 from L70_form_operation import C70_FormOperation
@@ -89,5 +90,12 @@ class C80_FormOperation(C70_FormOperation):
 		if description is None: return
 
 		operation.description = description
+
+		self.on_OperationChanged()
+
+	def SetOperationColor(self, color: COLORS):
+		""" Установка цвета операции """
+		operation = C90_Operation(self.processing_ido)
+		operation.color = color
 
 		self.on_OperationChanged()
