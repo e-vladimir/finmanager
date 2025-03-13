@@ -4,12 +4,16 @@
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
+from L00_months             import MONTHS_SHORT
 from L70_operations         import C70_Operation, C70_Operations
 
 
 class C80_Operation(C70_Operation):
 	""" Финансовая операция: Логика данных """
-	pass
+
+	def DdDmDyToString(self) -> str:
+		""" Дата в строку """
+		return f"{self.dd:02d} {MONTHS_SHORT[self.dm]} {self.dy:04d}"
 
 
 class C80_Operations(C70_Operations):
@@ -53,3 +57,18 @@ class C80_Operations(C70_Operations):
 		filter_data.Capture(CONTAINERS.DISK)
 
 		return filter_data.ToFloats(idp_amount).data
+
+	def Dys(self, dy: int, dm: int) -> list[float]:
+		""" Список чисел месяца финансовых операций """
+		operation         = C80_Operation()
+		idc         : str = operation.Idc().data
+		idp_dy      : str = operation.FDy.Idp().data
+		idp_dm      : str = operation.FDm.Idp().data
+		idp_dd      : str = operation.FDd.Idp().data
+
+		filter_data       = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToIntegers(idp_dd, flag_sort=True, flag_distinct=True).data

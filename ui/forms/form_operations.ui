@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QTreeView" name="tree_data">
+     <widget class="QTreeView" name="TreeData">
       <property name="contextMenuPolicy">
        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
       </property>
@@ -26,6 +26,9 @@ background: white;
 border: 1px solid lightgray;
 border-radius: 5px;
 padding: 3px;
+}
+QTreeView::branch {
+border: none;
 }</string>
       </property>
       <property name="editTriggers">

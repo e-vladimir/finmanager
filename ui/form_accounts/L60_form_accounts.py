@@ -13,7 +13,7 @@ from L90_account        import C90_Account
 class C60_FormAccounts(C50_FormAccounts):
 	""" Форма Счета: Механика данных """
 
-	# Параметры: Рабочее IDO
+	# Рабочий IDO
 	@property
 	def processing_ido(self) -> str:
 		return self._processing_ido
@@ -25,7 +25,7 @@ class C60_FormAccounts(C50_FormAccounts):
 		""" Чтение IDO из дерева данных """
 		self.processing_ido = self.TreeData.currentIndex().data(ROLES.IDO)
 
-	# Параметры: Рабочее IDP
+	# Рабочий IDP
 	@property
 	def processing_idp(self) -> str:
 		return self._processing_idp
@@ -38,7 +38,7 @@ class C60_FormAccounts(C50_FormAccounts):
 		""" Чтение IDP из дерева данных """
 		self.processing_idp = self.TreeData.currentIndex().data(ROLES.IDP)
 
-	# Параметры: Рабочая группа
+	# Рабочая группа
 	@property
 	def processing_group(self) -> str:
 		return self._processing_group

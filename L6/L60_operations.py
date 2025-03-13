@@ -46,15 +46,15 @@ class C60_Operation(C50_Operation):
 		return self.FAmount.ToFloat(CONTAINERS.DISK).data
 	@amount.setter
 	def amount(self, amount: float):
-		self.FAmount.FromInteger(CONTAINERS.DISK, amount)
+		self.FAmount.FromFloat(CONTAINERS.DISK, amount)
 
 	# Описание
 	@property
 	def description(self) -> str:
-		return self.FDescription.ToFloat(CONTAINERS.DISK).data
+		return self.FDescription.ToString(CONTAINERS.DISK).data
 	@description.setter
 	def description(self, text: str):
-		self.FDescription.FromInteger(CONTAINERS.DISK, text)
+		self.FDescription.FromString(CONTAINERS.DISK, text)
 
 
 class C60_Operations(C50_Operations):

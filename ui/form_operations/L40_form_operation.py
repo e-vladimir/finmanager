@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_operationsNhUloo.ui'
+## Form generated from reading UI file 'form_operationsDoTmMb.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -28,22 +28,25 @@ class Ui_form_operations(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.tree_data = QTreeView(self.centralwidget)
-        self.tree_data.setObjectName(u"tree_data")
-        self.tree_data.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.tree_data.setStyleSheet(u"QTreeView {\n"
+        self.TreeData = QTreeView(self.centralwidget)
+        self.TreeData.setObjectName(u"TreeData")
+        self.TreeData.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.TreeData.setStyleSheet(u"QTreeView {\n"
 "background: white;\n"
 "border: 1px solid lightgray;\n"
 "border-radius: 5px;\n"
 "padding: 3px;\n"
+"}\n"
+"QTreeView::branch {\n"
+"border: none;\n"
 "}")
-        self.tree_data.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.tree_data.setAlternatingRowColors(True)
-        self.tree_data.setRootIsDecorated(False)
-        self.tree_data.setItemsExpandable(False)
-        self.tree_data.setExpandsOnDoubleClick(False)
+        self.TreeData.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.TreeData.setAlternatingRowColors(True)
+        self.TreeData.setRootIsDecorated(False)
+        self.TreeData.setItemsExpandable(False)
+        self.TreeData.setExpandsOnDoubleClick(False)
 
-        self.horizontalLayout.addWidget(self.tree_data)
+        self.horizontalLayout.addWidget(self.TreeData)
 
         form_operations.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(form_operations)
