@@ -140,3 +140,20 @@ class C80_Accounts(C70_Accounts):
 		for ido in filter_data.Idos().data:
 			account = C80_Account(ido)
 			account.group = name_new
+
+	# Преобразования
+	def IdosToNames(self, idos: list[str]) -> list[str]:
+		""" Преобразование IDO в названия счетов """
+		return sorted([C80_Account(ido).name for ido in idos])
+
+	def NamesToIdos(self, dy: int, dm: int, names: list[str]) -> list[str]:
+		""" Преобразование названий счетов в список IDO """
+		result : list[str] = []
+
+		for name in names:
+			account = C80_Account()
+			if not account.SwitchByName(dy, dm, name): continue
+
+			result.append(account.Ido().data)
+
+		return result

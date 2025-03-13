@@ -18,7 +18,6 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionCreateOperation.triggered.connect(self.on_RequestCreateOperation)
 
 		# Меню Операция
-		self.ActionEditOperationDd.triggered.connect(self.on_RequestEditOperationDd)
 		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
 		self.ActionEditOperationAccounts.triggered.connect(self.on_RequestEditOperationAccounts)
 		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescriptions)
@@ -35,6 +34,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Colors()
+		self.AdjustTreeData_Size()
 
 		self.CleanModelData()
 
@@ -72,6 +72,10 @@ class C90_FormOperation(C80_FormOperation):
 		""" Запрос редактирования суммы операции """
 		self.EditAmountOperation()
 
+	def on_RequestEditOperationAccounts(self):
+		""" Запрос редактирования счетов операции """
+		self.EditAccountsOperation()
+
 	def on_RequestEditOperationDescriptions(self):
 		""" Запрос редактирования описания операции """
 		self.EditDescriptionOperation()
@@ -93,4 +97,5 @@ class C90_FormOperation(C80_FormOperation):
 		""" Операция изменилась """
 		self.LoadOperationOnModelData()
 
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()

@@ -34,10 +34,10 @@ class C60_Operation(C50_Operation):
 
 	# Счета
 	@property
-	def accounts_ido(self) -> list[str]:
+	def account_idos(self) -> list[str]:
 		return self.FAccountIdos.ToStrings(CONTAINERS.DISK).data
-	@accounts_ido.setter
-	def accounts_ido(self, idos: list[str]):
+	@account_idos.setter
+	def account_idos(self, idos: list[str]):
 		self.FAccountIdos.FromStrings(CONTAINERS.DISK, idos)
 
 	# Сумма

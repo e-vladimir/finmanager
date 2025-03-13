@@ -14,7 +14,7 @@ class C90_Operation(C80_Operation):
 
 		self.amount       = 0
 		self.description  = ""
-		self.accounts_ido = []
+		self.account_idos = []
 
 
 class C90_Operations(C80_Operations):

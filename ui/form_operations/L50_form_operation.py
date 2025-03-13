@@ -16,7 +16,6 @@ class C50_FormOperation(C42_FormOperation):
 	# Операция
 	def on_RequestCreateOperation(self): pass
 	def on_RequestDeleteOperation(self): pass
-	def on_RequestEditOperationDd(self): pass
 	def on_RequestEditOperationAmount(self): pass
 	def on_RequestEditOperationAccounts(self): pass
 	def on_RequestEditOperationDescriptions(self): pass

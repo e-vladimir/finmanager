@@ -2,6 +2,7 @@
 # 11 мар 2025
 
 from PySide6.QtGui      import QCursor, Qt
+from PySide6.QtWidgets  import QHeaderView
 
 from L20_PySide6        import ROLES
 from L60_form_operation import C60_FormOperation
@@ -74,3 +75,10 @@ class C70_FormOperation(C60_FormOperation):
 	def AdjustTreeData_Colors(self):
 		""" Настройка дерева данных: Цветовая схема """
 		self.ModelData.adjustGroupView(True, True, True)
+
+	def AdjustTreeData_Size(self):
+		""" Настройка дерева данных: Размеры """
+		self.TreeData.resizeColumnToContents(0)
+		self.TreeData.resizeColumnToContents(1)
+
+		self.TreeData.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)

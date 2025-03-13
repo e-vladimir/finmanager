@@ -4,7 +4,7 @@
 from G11_convertor_data import AmountToString
 
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestText, RequestValue
+from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue
 from L70_form_operation import C70_FormOperation
 from L90_operations     import C90_Operation
 
@@ -63,6 +63,21 @@ class C80_FormOperation(C70_FormOperation):
 		if amount is None: return
 
 		operation.amount = amount
+
+		self.on_OperationChanged()
+
+	def EditAccountsOperation(self):
+		""" Редактирование счетов операции """
+		dy, dm                           = self.Workspace.DyDm()
+		operation                        = C90_Operation(self.processing_ido)
+
+		account_names : list[str] | None = RequestItems( "Редактирование операции",
+		                                                f"{operation.InfoToString()}\n\nСчета",
+		                                                 self.Accounts.Names(dy, dm),
+		                                                 self.Accounts.IdosToNames(operation.account_idos))
+		if account_names is None: return
+
+		operation.account_idos = self.Accounts.NamesToIdos(dy, dm, account_names)
 
 		self.on_OperationChanged()
 
