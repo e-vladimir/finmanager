@@ -30,17 +30,17 @@ class META_CLASSES(ClassInfo, enum.Enum):
 META_CLASS       = META_CLASSES.C20_PYSIDE_FORM
 
 # Имя класса
-CLASS_NAME        = "FormOperation"
+CLASS_NAME        = "FormImport"
 
 # Описание класса
-CLASS_DESCRIPTION = "Форма Операции"
+CLASS_DESCRIPTION = "Форма Импорт данных"
 
 # Имя файла
 # Если оставить пустым, сгенерируется автоматически из имени класса
 FILE_NAME         = ""
 
 # Корневая папка генерации файлов/директорий L
-DIR_ROOT          = "./ui/form_operations"
+DIR_ROOT          = "./ui/form_import"
 
 # Генерация UI-Класса
 TARGET_IS_UI      = True

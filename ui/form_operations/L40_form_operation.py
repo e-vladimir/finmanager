@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_operationsDoTmMb.ui'
+## Form generated from reading UI file 'form_operationsegymGh.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -38,6 +38,7 @@ class Ui_form_operations(object):
 "padding: 3px;\n"
 "}\n"
 "QTreeView::branch {\n"
+"background: white;\n"
 "border: none;\n"
 "}")
         self.TreeData.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)

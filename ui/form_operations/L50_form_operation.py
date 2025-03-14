@@ -13,6 +13,9 @@ class C50_FormOperation(C42_FormOperation):
 	# Дерево данных
 	def on_TreeDataDoubleClicked(self): pass
 
+	# Операции
+	def on_RequestOpenFormImport(self): pass
+
 	# Операция
 	def on_RequestCreateOperation(self): pass
 	def on_RequestDeleteOperation(self): pass

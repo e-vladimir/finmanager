@@ -17,6 +17,7 @@ class C90_FormOperation(C80_FormOperation):
 
 		# Меню Операции
 		self.ActionCreateOperation.triggered.connect(self.on_RequestCreateOperation)
+		self.ActionImportOperations.triggered.connect(self.on_RequestOpenFormImport)
 
 		# Меню Операция
 		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
@@ -64,6 +65,11 @@ class C90_FormOperation(C80_FormOperation):
 		self.ReadProcessingDdFromTreeData()
 
 		self.ControlOperationIdp()
+
+	# Операции
+	def on_RequestOpenFormImport(self):
+		""" Запрос на открытие формы Импорт данных """
+		self.Application.FormImport.Open()
 
 	# Операция
 	def on_RequestCreateOperation(self):

@@ -22,11 +22,7 @@ class C70_FormOperation(C60_FormOperation):
 		""" Настройка меню операций """
 		self.MenuOperation.clear()
 
-		if not self.processing_ido:
-			self.MenuOperation.addAction(self.ActionCreateOperation)
-			self.MenuOperation.addSeparator()
-
-		else:
+		if self.processing_ido:
 			self.MenuOperation.addAction(self.ActionEditOperationAmount)
 			self.MenuOperation.addAction(self.ActionEditOperationAccounts)
 			self.MenuOperation.addAction(self.ActionEditOperationDescription)
@@ -39,6 +35,10 @@ class C70_FormOperation(C60_FormOperation):
 			self.MenuOperation.addSeparator()
 			self.MenuOperation.addAction(self.ActionCreateOperation)
 			self.MenuOperation.addSeparator()
+
+		self.MenuOperation.addAction(self.ActionCreateOperation)
+		self.MenuOperation.addAction(self.ActionImportOperations)
+		self.MenuOperation.addSeparator()
 
 		self.MenuOperation.addMenu(self.SubmenuOperations)
 
