@@ -17,6 +17,7 @@ class C90_FormImport(C80_FormImport):
 		# Меню Импорт операций
 		self.ActionLoadOperationsFromFile.triggered.connect(self.on_RequestLoadOperationsFromFile)
 		self.ActionEditOperationsStructField.triggered.connect(self.on_RequestEditOperationsField)
+		self.ActionImportOperations.triggered.connect(self.on_RequestImportOperations)
 
 	# Форма
 	def on_Opened(self):
@@ -47,6 +48,10 @@ class C90_FormImport(C80_FormImport):
 		self.ReadProcessingRowFromTableDataOperations()
 
 		self.EditOperationsStructField()
+
+	def on_RequestImportOperations(self):
+		""" Запрос импорта операций """
+		pass
 
 	def on_OperationsDataLoaded(self):
 		""" Данные импорта операций загружены """

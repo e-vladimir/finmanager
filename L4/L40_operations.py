@@ -9,14 +9,14 @@ from G31_cactus_frame import C31_StructFrameWithEvents
 class C40_Operation(C31_StructFrameWithEvents):
 	""" Финансовая операция: Модель данных """
 
-	_idc = "Операция"
+	_idc = "Финансовая операция"
 
 	def Init_10(self):
 		self.FDy          = C30_StructField(self, "Год")
 		self.FDm          = C30_StructField(self, "Месяц")
-		self.FDd          = C30_StructField(self, "Число")
+		self.FDd          = C30_StructField(self, "День")
 
-		self.FAccountIdos = C30_StructField(self, "IDO счетов")
+		self.FAccountIdos = C30_StructField(self, "Счета")
 		self.FAmount      = C30_StructField(self, "Сумма")
 		self.FDescription = C30_StructField(self, "Описание")
 		self.FColor       = C30_StructField(self, "Цветовая метка")

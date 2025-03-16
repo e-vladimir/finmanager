@@ -22,6 +22,7 @@ class C70_FormImport(C60_FormImport):
 	def AdjustMenuOperations_Enable(self):
 		""" Настройка меню операций: Доступность """
 		self.ActionEditOperationsStructField.setEnabled(self.processing_row > -1)
+		self.ActionImportOperations.setEnabled(bool(self.operations_data))
 
 	def AdjustMenuOperations_Text(self):
 		""" Настройка меню операций: Текст """

@@ -57,8 +57,8 @@ class C60_FormAccounts(C50_FormAccounts):
 
 		self.ModelData.setHorizontalHeaderLabels(["Группа счетов\nСчёт",
 		                                          "Остаток\nначальный",
-		                                          "Остаток\nизменение",
-		                                          "Остаток\nрасчётный",
+		                                          "Изменение\nостатка",
+		                                          "Остаток\nитоговый",
 		                                          ])
 
 		for idx_column in range(1, self.ModelData.columnCount()):
@@ -102,8 +102,8 @@ class C60_FormAccounts(C50_FormAccounts):
 			                      ])
 
 		initial_balance    : int                     = account.initial_balance
-		calculated_balance : int                     = account.CalcCalculatedBalance()
-		delta_balance      : int                     = calculated_balance - initial_balance
+		summary_balance    : int                     = account.summary_balance
+		delta_balance      : int                     = summary_balance - initial_balance
 
 		indexes                                      = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
@@ -117,7 +117,7 @@ class C60_FormAccounts(C50_FormAccounts):
 		item_delta_balance.setText(AmountToString(delta_balance, flag_point=False, flag_sign=False))
 
 		item_calculated_balance                      = self.ModelData.itemFromIndex(indexes[3])
-		item_calculated_balance.setText(AmountToString(calculated_balance, flag_point=False, flag_sign=False))
+		item_calculated_balance.setText(AmountToString(summary_balance, flag_point=False, flag_sign=False))
 
 	def LoadGroupInModelData(self):
 		""" Загрузка группы счетов в модель данных """

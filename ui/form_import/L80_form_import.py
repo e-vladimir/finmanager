@@ -62,3 +62,7 @@ class C80_FormImport(C70_FormImport):
 		self.SetOperationsStructField(struct_name, FIELDS(struct_field))
 
 		self.on_OperationsStructChanged()
+
+	def ImportOperations(self):
+		""" Импорт операция """
+		pass

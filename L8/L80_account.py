@@ -6,28 +6,20 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L70_account            import C70_Account, C70_Accounts
-from L90_operations         import C90_Operations
 
 
 class C80_Account(C70_Account):
 	""" Счёт: Логика данных """
-
-	# Расчёт данных
-	def CalcCalculatedBalance(self) -> int:
-		""" Вычисление остатка итогового """
-		operations = C90_Operations()
-
-		return self.initial_balance + sum(operations.Amounts(self.dy, self.dm, account_ido=self.Ido().data))
 
 	# Перенос
 	def TransferToDm(self, count_dm: int = 1):
 		""" Перенос счёта в следующий месяц """
 		if not count_dm: return
 
-		dy, dm                   = CalcDyDmByShiftDm(self.dy, self.dm, count_dm)
-		name               : str = self.name
-		group              : str = self.group
-		calculated_balance : int = self.CalcCalculatedBalance()
+		dy, dm                = CalcDyDmByShiftDm(self.dy, self.dm, count_dm)
+		name            : str = self.name
+		group           : str = self.group
+		summary_balance : int = self.summary_balance
 
 		if not self.SwitchByName(dy, dm, name):
 			self.GenerateIdo()
@@ -38,13 +30,14 @@ class C80_Account(C70_Account):
 
 		self.group = group
 
-		if count_dm > 0: self.initial_balance = calculated_balance
+		if count_dm > 0: self.initial_balance = summary_balance
 
 
 class C80_Accounts(C70_Accounts):
 	""" Контроллер счетов: Логика данных """
 
 	# Выборка данных
+	@classmethod
 	def Idos(self, dy: int = None, dm: int = None, group: str = None) -> list[str]:
 		""" Список IDO счетов в указанном месяце """
 		account         = C80_Account()
@@ -62,6 +55,7 @@ class C80_Accounts(C70_Accounts):
 
 		return filter_data.Idos(idp_name).data
 
+	@classmethod
 	def Names(self, dy: int = None, dm: int = None, group: str = None) -> list[str]:
 		""" Названия счетов в указанном месяце """
 		account         = C80_Account()
@@ -79,6 +73,7 @@ class C80_Accounts(C70_Accounts):
 
 		return filter_data.ToStrings(idp_name, True, True).data
 
+	@classmethod
 	def Groups(self, dy: int = None, dm: int = None) -> list[str]:
 		""" Названия групп счетов в указанном месяце """
 		account         = C80_Account()
@@ -94,6 +89,7 @@ class C80_Accounts(C70_Accounts):
 
 		return filter_data.ToStrings(idp_group, True, True).data
 
+	@classmethod
 	def AvailableDys(self) -> list[int]:
 		""" Список годов с доступными счетами """
 		account         = C80_Account()
@@ -106,6 +102,7 @@ class C80_Accounts(C70_Accounts):
 		return filter_data.ToIntegers(idp_dy, True, True).data
 
 	# Управление счетами
+	@classmethod
 	def CreateAccount(self, dy: int, dm: int, group: str, name: str) -> str:
 		""" Создание счёта """
 		if not name                      : return ""
@@ -123,6 +120,7 @@ class C80_Accounts(C70_Accounts):
 		return account.Ido().data
 
 	# Управление группами счетов
+	@classmethod
 	def EditGroupName(self, dy: int, dm: int, name_old: str, name_new: str):
 		""" Редактирование имени группы счетов """
 		account         = C80_Account()
@@ -142,10 +140,12 @@ class C80_Accounts(C70_Accounts):
 			account.group = name_new
 
 	# Преобразования
+	@classmethod
 	def IdosToNames(self, idos: list[str]) -> list[str]:
 		""" Преобразование IDO в названия счетов """
 		return sorted([C80_Account(ido).name for ido in idos])
 
+	@classmethod
 	def NamesToIdos(self, dy: int, dm: int, names: list[str]) -> list[str]:
 		""" Преобразование названий счетов в список IDO """
 		result : list[str] = []

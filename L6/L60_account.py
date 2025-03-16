@@ -5,6 +5,7 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L50_account            import C50_Account, C50_Accounts
+from L90_operations         import C90_Operations
 
 
 class C60_Account(C50_Account):
@@ -49,6 +50,11 @@ class C60_Account(C50_Account):
 	@initial_balance.setter
 	def initial_balance(self, amount: int):
 		self.FInitialBalance.FromInteger(CONTAINERS.DISK, amount)
+
+	# Остаток на конец месяца
+	@property
+	def summary_balance(self) -> int:
+		return int(self.initial_balance + sum(C90_Operations.Amounts(dy=self.dy, dm=self.dm, account_ido=self.Ido().data)))
 
 	# IDO
 	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:
