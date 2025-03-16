@@ -12,9 +12,11 @@ class C90_FormImport(C80_FormImport):
 
 		# Таблица данных импорта операций
 		self.TableDataOperations.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
+		self.TableDataOperations.doubleClicked.connect(self.on_RequestEditOperationsField)
 
 		# Меню Импорт операций
 		self.ActionLoadOperationsFromFile.triggered.connect(self.on_RequestLoadOperationsFromFile)
+		self.ActionEditOperationsStructField.triggered.connect(self.on_RequestEditOperationsField)
 
 	# Форма
 	def on_Opened(self):
@@ -27,6 +29,8 @@ class C90_FormImport(C80_FormImport):
 	# Меню Импорт операций
 	def on_RequestShowMenuOperations(self):
 		""" Запрос меню импорта операций """
+		self.ReadProcessingRowFromTableDataOperations()
+
 		self.AdjustMenuOperations()
 		self.AdjustMenuOperations_Text()
 		self.AdjustMenuOperations_Enable()
@@ -38,11 +42,25 @@ class C90_FormImport(C80_FormImport):
 		""" Запрос загрузки данных импорта операций из файла """
 		self.LoadOperationsDataFromFile()
 
+	def on_RequestEditOperationsField(self):
+		""" Запрос установки типа поля для структуры данных импорта операций """
+		self.ReadProcessingRowFromTableDataOperations()
+
+		self.EditOperationsStructField()
+
 	def on_OperationsDataLoaded(self):
 		""" Данные импорта операций загружены """
 		self.InitModelDataOperations()
+
+		self.AutodetectOperationsStructFields()
 		self.LoadModelDataOperations()
 
 		self.AdjustTableOperations_Size()
 
 		self.AdjustLabelOperations()
+
+	def on_OperationsStructChanged(self):
+		""" Структура данных импорта операций изменилась """
+		self.LoadModelDataOperations()
+
+		self.AdjustTableOperations_Size()

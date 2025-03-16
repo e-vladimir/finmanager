@@ -4,7 +4,7 @@
 from pathlib         import Path
 
 from L00_fields      import FIELDS
-from L20_PySide6 import C20_StandardItem
+from L20_PySide6     import C20_StandardItem
 from L20_form_import import T20_OperationsStruct
 from L50_form_import import C50_FormImport
 
@@ -33,15 +33,33 @@ class C60_FormImport(C50_FormImport):
 
 	# Импорт операций: Структура данных
 	@property
-	def operations_struct(self) -> list[str]:
+	def operations_struct_names(self) -> list[str]:
 		return [item.name for item in self._operations_struct]
-	@operations_struct.setter
-	def operations_struct(self, names: list[str]):
+	@operations_struct_names.setter
+	def operations_struct_names(self, names: list[str]):
 		self._operations_struct = [T20_OperationsStruct(name=name) for name in names]
+
+	def GetOperationsStructField(self, name_or_index: str | int) -> FIELDS:
+		""" Получение типа поля для структуры данных операции """
+		match type(name_or_index):
+			case str():
+				for item in self._operations_struct:
+					if not item.name == name_or_index: continue
+
+					return item.field
+				else:
+					return FIELDS.NONE
+
+			case int():
+				try   : return self._operations_struct[name_or_index].field
+				except: pass
+
+		return FIELDS.NONE
 
 	def SetOperationsStructField(self, name_or_index: str | int, field: FIELDS):
 		""" Установка типа поля для структуры данных операций """
-		match type(name_or_index):
+
+		match name_or_index:
 			case str():
 				for item in self._operations_struct:
 					if not item.name == name_or_index: continue
@@ -53,11 +71,37 @@ class C60_FormImport(C50_FormImport):
 				try   : self._operations_struct[name_or_index].field = field
 				except: pass
 
-	def IndexOperationsStructField(self, field: FIELDS) -> int:
+	def IndexOperationsStructByField(self, field: FIELDS) -> int:
 		""" Индекс поля структуры данных импорта операций """
 		for idx, item in enumerate(self._operations_struct):
 			if item.field == field: return idx
 		else: return -1
+
+	def AutodetectOperationsStructFields(self):
+		""" Авто-определение типов полей структуры операций """
+		for field in FIELDS:
+			if field == FIELDS.NONE: continue
+
+			for struct_item in self._operations_struct:
+				flag_equal : bool = field.value      in struct_item.name
+				flag_equal       |= struct_item.name in field.value
+
+				if not flag_equal: continue
+
+				struct_item.field = field
+				break
+
+	# Рабочий индекс строки
+	@property
+	def processing_row(self) -> int:
+		return self._processing_row
+	@processing_row.setter
+	def processing_row(self, idx: int):
+		self._processing_row = idx
+
+	def ReadProcessingRowFromTableDataOperations(self):
+		""" Чтение рабочей строки из таблицы данных импорта операций """
+		self.processing_row = self.TableDataOperations.currentIndex().row()
 
 	# Модель данных
 	def InitModelDataOperations(self):
@@ -66,7 +110,7 @@ class C60_FormImport(C50_FormImport):
 
 		self.ModelDataOperations.setHorizontalHeaderLabels(["Заголовок", "Параметр", "Данные"])
 
-		for struct_item in self.operations_struct:
+		for struct_item in self.operations_struct_names:
 			self.ModelDataOperations.appendRow([C20_StandardItem(struct_item),
 			                                    C20_StandardItem(""),
 			                                    C20_StandardItem("")])
@@ -76,5 +120,8 @@ class C60_FormImport(C50_FormImport):
 		data = self.operations_data[0]
 
 		for idx_row, subdata in enumerate(data):
-			item_data = self.ModelDataOperations.item(idx_row, 2)
+			item_field = self.ModelDataOperations.item(idx_row, 1)
+			item_field.setText(self._operations_struct[idx_row].field)
+
+			item_data  = self.ModelDataOperations.item(idx_row, 2)
 			item_data.setText(subdata)

@@ -18,6 +18,7 @@ class C42_FormImport(C41_FormImport):
 		self._operations_data     : list                       = []
 		self._operations_filepath : Path | None                = None
 		self._operations_struct   : list[T20_OperationsStruct] = []
+		self._processing_row      : int                        = -1
 
 	def Init_10(self):
 		super().Init_10()

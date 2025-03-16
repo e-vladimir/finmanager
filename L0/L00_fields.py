@@ -6,7 +6,7 @@ import enum
 class FIELDS(enum.StrEnum):
 	""" Каталог проекта: Типы полей """
 
-	NONE        = "Неизвестно"
+	NONE        = ""
 
 	AMOUNT      = "Сумма"
 	DATE        = "Дата"

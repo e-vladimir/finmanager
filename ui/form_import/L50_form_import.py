@@ -12,5 +12,7 @@ class C50_FormImport(C42_FormImport):
 
 	# Импорт операций
 	def on_RequestLoadOperationsFromFile(self): pass
+	def on_RequestEditOperationsField(self): pass
 
 	def on_OperationsDataLoaded(self): pass
+	def on_OperationsStructChanged(self): pass

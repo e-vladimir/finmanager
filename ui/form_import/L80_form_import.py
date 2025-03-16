@@ -5,7 +5,8 @@ import pyexcel
 
 from   pathlib         import Path
 
-from   L20_PySide6     import RequestFilepath
+from   L00_fields      import FIELDS
+from   L20_PySide6     import RequestFilepath, RequestItem
 from   L70_form_import import C70_FormImport
 
 
@@ -47,7 +48,17 @@ class C80_FormImport(C70_FormImport):
 
 		if not raw: return
 
-		self.operations_struct = raw[0]
-		self.operations_data   = raw[1:]
+		self.operations_struct_names = raw[0][:]
+		self.operations_data         = raw[1:]
 
 		self.on_OperationsDataLoaded()
+
+	def EditOperationsStructField(self):
+		""" Редактирование типа поля структуры данных импорта операций """
+		struct_name  : str        = self.operations_struct_names[self.processing_row]
+		struct_field : str | None = RequestItem("Импорт операций", f"{struct_name}", [field.value for field in FIELDS])
+		if struct_field is None: return
+
+		self.SetOperationsStructField(struct_name, FIELDS(struct_field))
+
+		self.on_OperationsStructChanged()
