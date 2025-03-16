@@ -6,4 +6,11 @@ from L42_form_import import C42_FormImport
 
 class C50_FormImport(C42_FormImport):
 	""" Форма Импорт данных: Модель событий """
-	pass
+
+	# Меню Импорт операций
+	def on_RequestShowMenuOperations(self): pass
+
+	# Импорт операций
+	def on_RequestLoadOperationsFromFile(self): pass
+
+	def on_OperationsDataLoaded(self): pass

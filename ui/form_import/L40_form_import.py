@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_importtNPmbW.ui'
+## Form generated from reading UI file 'form_importBVfNne.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHBoxLayout, QHeaderView,
-    QMainWindow, QSizePolicy, QStatusBar, QTabWidget,
-    QTableView, QVBoxLayout, QWidget)
+    QLabel, QMainWindow, QSizePolicy, QStatusBar,
+    QTabWidget, QTableView, QVBoxLayout, QWidget)
 
 class Ui_form_import(object):
     def setupUi(self, form_import):
@@ -47,8 +47,18 @@ class Ui_form_import(object):
         self.TableDataOperations.setAlternatingRowColors(True)
         self.TableDataOperations.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.TableDataOperations.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.TableDataOperations.horizontalHeader().setMinimumSectionSize(20)
+        self.TableDataOperations.horizontalHeader().setStretchLastSection(True)
+        self.TableDataOperations.verticalHeader().setVisible(False)
+        self.TableDataOperations.verticalHeader().setMinimumSectionSize(22)
+        self.TableDataOperations.verticalHeader().setDefaultSectionSize(22)
 
         self.verticalLayout.addWidget(self.TableDataOperations)
+
+        self.LabelOperationsFilepath = QLabel(self.TabOperations)
+        self.LabelOperationsFilepath.setObjectName(u"LabelOperationsFilepath")
+
+        self.verticalLayout.addWidget(self.LabelOperationsFilepath)
 
         self.TabsMain.addTab(self.TabOperations, "")
 
@@ -69,6 +79,7 @@ class Ui_form_import(object):
 
     def retranslateUi(self, form_import):
         form_import.setWindowTitle(QCoreApplication.translate("form_import", u"MainWindow", None))
+        self.LabelOperationsFilepath.setText(QCoreApplication.translate("form_import", u"TextLabel", None))
         self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabOperations), QCoreApplication.translate("form_import", u"\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438", None))
     # retranslateUi
 
