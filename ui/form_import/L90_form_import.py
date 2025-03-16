@@ -51,7 +51,7 @@ class C90_FormImport(C80_FormImport):
 
 	def on_RequestImportOperations(self):
 		""" Запрос импорта операций """
-		pass
+		self.ImportOperations()
 
 	def on_OperationsDataLoaded(self):
 		""" Данные импорта операций загружены """

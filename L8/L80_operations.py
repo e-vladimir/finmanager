@@ -27,7 +27,7 @@ class C80_Operations(C70_Operations):
 
 	# Выборки данных
 	@classmethod
-	def Idos(self, dy: int, dm: int, dd: int = None, account_ido: str = None) -> list[str]:
+	def Idos(cls, dy: int, dm: int, dd: int = None, account_ido: str = None) -> list[str]:
 		""" Список IDO финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -47,7 +47,7 @@ class C80_Operations(C70_Operations):
 		return filter_data.Idos(idp_amount).data
 
 	@classmethod
-	def Amounts(self, dy: int, dm: int, dd: int = None, account_ido: str = None) -> list[float]:
+	def Amounts(cls, dy: int, dm: int, dd: int = None, account_ido: str = None) -> list[float]:
 		""" Список сумм финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -67,7 +67,7 @@ class C80_Operations(C70_Operations):
 		return filter_data.ToFloats(idp_amount).data
 
 	@classmethod
-	def Dds(self, dy: int, dm: int) -> list[float]:
+	def Dds(cls, dy: int, dm: int) -> list[float]:
 		""" Список чисел месяца финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data

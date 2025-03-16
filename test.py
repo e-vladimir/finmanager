@@ -1,13 +1,22 @@
-from random import randint
+class Cls_01:
+    _x : str | int = "0"
 
-a = [12, 20, 11, 10, 14, 16, 15, 10]
-N = len(a)  # количество элементов в списке
-print(a)  # вывод исходного неотсортированного списка
+    @property
+    def x(self) -> int:
+        return int(self._x)
+    @x.setter
+    def x(self, value: int):
+        self._x = value
+    @x.setter
+    def x(self, text: str):
+        self._x = text
 
-# Сама сортировка методом "пузырька"
-for i in range(2):
-    for j in range(N-1-i):
-        if a[j] > a[j+1]:
-            a[j], a[j+1] = a[j+1], a[j]
 
-print(a)
+obj = Cls_01()
+print(obj.x)
+
+obj.x = 2
+print(obj.x)
+
+obj.x = "20"
+print(obj.x)

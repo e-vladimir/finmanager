@@ -1,13 +1,21 @@
 # ФОРМА ИМПОРТ ДАННЫХ: ЛОГИКА ДАННЫХ
 # 14 мар 2025
 
+import datetime
 import pyexcel
 
-from   pathlib         import Path
+from   pathlib              import Path
+from   PySide6.QtCore       import Qt
+from   PySide6.QtWidgets    import QProgressDialog
 
-from   L00_fields      import FIELDS
-from   L20_PySide6     import RequestFilepath, RequestItem
-from   L70_form_import import C70_FormImport
+from   G10_convertor_format import StringToDateTime, StringToFloat
+
+from   L00_containers       import CONTAINERS
+from   L00_fields           import FIELDS
+from   L20_PySide6          import RequestFilepath, RequestItem
+from   L70_form_import      import C70_FormImport
+from   L90_account          import C90_Account, C90_Accounts
+from   L90_operations       import C90_Operation
 
 
 class C80_FormImport(C70_FormImport):
@@ -64,5 +72,55 @@ class C80_FormImport(C70_FormImport):
 		self.on_OperationsStructChanged()
 
 	def ImportOperations(self):
-		""" Импорт операция """
-		pass
+		""" Импорт операций """
+		dy, dm                         = self.Workspace.DyDm()
+
+		idx_date        : int        = self.IndexOperationsStructByField(FIELDS.DATE)
+		idx_amount      : int        = self.IndexOperationsStructByField(FIELDS.AMOUNT)
+		idx_description : int        = self.IndexOperationsStructByField(FIELDS.DESCRIPTION)
+
+		if     idx_date   == -1                        : return
+		if     idx_amount == -1                        : return
+
+		account_name      : str | None = RequestItem( "Импорт операций",
+		                                             f"Период импорта: {self.Workspace.DmDyToString()}",
+		                                              C90_Accounts.Names(dy, dm)
+		                                             )
+		if     account_name is None                      : return
+
+		account                        = C90_Account()
+		if not account.SwitchByName(dy, dm, account_name): return
+
+		account_ido       : str        = account.Ido().data
+
+		dialog_import                  = QProgressDialog(self)
+		dialog_import.setWindowTitle("Импорт финансовых операций")
+		dialog_import.setMaximum(len(self.operations_data))
+		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_import.setLabelText(f"Осталось обработать записей: {dialog_import.maximum()}")
+		dialog_import.setMinimumWidth(480)
+		dialog_import.forceShow()
+
+		for idx_data, data in enumerate(self.operations_data):
+			dialog_import.setValue(idx_data + 1)
+			dialog_import.setLabelText(f"Осталось обработать записей: {dialog_import.maximum() - dialog_import.value()}")
+
+			try:
+				amount      : float             = StringToFloat(data[idx_amount])
+				date        : datetime.datetime = StringToDateTime(data[idx_date])
+				description : str               = data[idx_description]
+			except: continue
+
+			if not date.year  == dy: continue
+			if not date.month == dm: continue
+
+			operation              = C90_Operation()
+			operation.GenerateIdo()
+			operation.RegisterObject(CONTAINERS.DISK)
+
+			operation.dy           = dy
+			operation.dm           = dm
+			operation.dd           = date.day
+			operation.amount       = amount
+			operation.description  = description
+			operation.account_idos = [account_ido]
