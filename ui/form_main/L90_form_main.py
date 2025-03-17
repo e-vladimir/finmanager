@@ -32,6 +32,7 @@ class C90_FormMain(C80_FormMain):
 		self.ShowAccounts()
 		self.ShowOperations()
 		self.ShowBackup()
+		self.ShowMonthView()
 
 	# Рабочий период
 	def on_DyDmChanged(self):
@@ -41,6 +42,7 @@ class C90_FormMain(C80_FormMain):
 		self.ShowAccounts()
 		self.ShowOperations()
 		self.ShowBackup()
+		self.ShowMonthView()
 
 	def on_RequestSwitchDyDmToNextDm(self):
 		""" Запрос на переключение рабочего периода на следующий месяц """

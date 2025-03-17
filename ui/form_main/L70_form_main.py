@@ -56,3 +56,11 @@ class C70_FormMain(C60_FormMain):
 		backup_th_tm    : str = "--:--"
 		self.LabelBackupDdDmDy.setText(backup_dy_dm_dd)
 		self.LabelBackupThTm.setText(backup_th_tm)
+
+	# Панель Обзор месяца
+	def ShowMonthView(self):
+		""" Отображение обзора месяца """
+		dy, dm = self.Workspace.DyDm()
+
+		self.DiaDmViewer.InitDaysFromDyDm(dy, dm)
+		self.update()

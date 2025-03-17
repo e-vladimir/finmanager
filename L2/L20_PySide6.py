@@ -234,7 +234,6 @@ class C20_DiaFrame(QWidget):
 		painter = QPainter(self)
 
 		self.DrawBackground(painter)
-
 		self.DrawBorder(painter)
 
 
