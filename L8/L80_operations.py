@@ -45,6 +45,29 @@ class C80_Operation(C70_Operation):
 
 		return self.Ido().data
 
+	def Copy(self) -> str:
+		""" Копирование операции """
+		accounts    = self.account_idos
+		amount      = self.amount
+		color       = self.color
+		description = self.description
+		dy          = self.dy
+		dm          = self.dm
+		dd          = self.dd
+
+		self.GenerateIdo()
+		self.RegisterObject(CONTAINERS.DISK)
+
+		self.account_idos = accounts
+		self.amount       = amount
+		self.color        = color
+		self.description  = description
+		self.dy           = dy
+		self.dm           = dm
+		self.dd           = dd
+
+		return self.Ido().data
+
 
 class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """

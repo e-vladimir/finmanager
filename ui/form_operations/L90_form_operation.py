@@ -30,6 +30,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionSetOperationColorBlue.triggered.connect(self.on_RequestSetOperationColorToBlue)
 		self.ActionSetOperationColorRed.triggered.connect(self.on_RequestSetOperationColorToRed)
 		self.ActionSplitOperation.triggered.connect(self.on_RequestSplitOperation)
+		self.ActionCopyOperation.triggered.connect(self.on_RequestCopyOperation)
 
 	# Форма
 	def on_Opened(self):
@@ -116,6 +117,10 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestSplitOperation(self):
 		""" Запрос разделения операции """
 		self.SplitOperation()
+
+	def on_RequestCopyOperation(self):
+		""" Запрос копирования операции """
+		self.CopyOperation()
 
 	def on_OperationCreated(self):
 		""" Операция создана """

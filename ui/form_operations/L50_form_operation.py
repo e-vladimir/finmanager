@@ -28,6 +28,7 @@ class C50_FormOperation(C42_FormOperation):
 	def on_RequestSetOperationColorToBlue(self): pass
 	def on_RequestSetOperationColorToRed(self): pass
 	def on_RequestSplitOperation(self): pass
+	def on_RequestCopyOperation(self): pass
 
 	def on_OperationCreated(self): pass
 	def on_OperationDeleted(self): pass

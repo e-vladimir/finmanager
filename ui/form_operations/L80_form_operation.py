@@ -112,3 +112,8 @@ class C80_FormOperation(C70_FormOperation):
 
 		self.processing_ido = new_ido
 		self.on_OperationCreated()
+
+	def CopyOperation(self):
+		""" Копирование операции """
+		self.processing_ido = C90_Operation(self.processing_ido).Copy()
+		self.on_OperationCreated()
