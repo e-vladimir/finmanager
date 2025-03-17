@@ -21,6 +21,16 @@ class C80_FormOperation(C70_FormOperation):
 		for self.processing_dd  in self.Operations.Dds(dy, dm) : self.LoadDdInModelData()
 		for self.processing_ido in self.Operations.Idos(dy, dm): self.LoadOperationOnModelData()
 
+	def ResetOperations(self):
+		""" Сброс операций """
+		if not RequestConfirm("Сброс операций", f"Сброс операций за {self.Workspace.DmDyToString()}"): return
+
+		dy, dm = self.Workspace.DyDm()
+
+		for ido in self.Operations.Idos(dy, dm): C90_Operation(ido).DeleteObject(CONTAINERS.DISK)
+
+		self.on_OperationsReset()
+
 	# Операция
 	def CreateOperation(self):
 		""" Создание операции """

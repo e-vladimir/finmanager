@@ -18,6 +18,7 @@ class C90_FormOperation(C80_FormOperation):
 		# Меню Операции
 		self.ActionCreateOperation.triggered.connect(self.on_RequestCreateOperation)
 		self.ActionImportOperations.triggered.connect(self.on_RequestOpenFormImport)
+		self.ActionResetOperations.triggered.connect(self.on_RequestResetOperations)
 
 		# Меню Операция
 		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
@@ -72,6 +73,20 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestOpenFormImport(self):
 		""" Запрос на открытие формы Импорт данных """
 		self.Application.FormImport.Open()
+
+	def on_RequestResetOperations(self):
+		""" Запрос на сброс данных """
+		self.ResetOperations()
+
+	def on_OperationsReset(self):
+		""" Операции сброшены """
+		self.InitModelData()
+		self.ShowOperations()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Colors()
+		self.AdjustTreeData_Size()
 
 	# Операция
 	def on_RequestCreateOperation(self):
