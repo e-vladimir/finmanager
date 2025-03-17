@@ -1,11 +1,12 @@
 # КОМПОНЕНТ ОБЗОР МЕСЯЦА
 # 12 фев 2025
 
-from dataclasses   import dataclass
-from PySide6.QtGui import QColor, QFont, QPainter, QPen, Qt
+from dataclasses    import dataclass
+from PySide6.QtGui  import QColor, QFont, QPainter, QPen, Qt
 
-from G10_datetime  import DTime
-from L20_PySide6   import C20_DiaFrame
+from G10_datetime   import DTime
+
+from L20_PySide6    import C20_DiaFrame
 from L90_operations import C90_Operations
 
 

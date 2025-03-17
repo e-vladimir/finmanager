@@ -32,6 +32,7 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
 		icon_money       = QIcon("./L0/icons/money.svg")
 		icon_wallet      = QIcon("./L0/icons/wallet.svg")
+		icon_arrow_lr    = QIcon("./L0/icons/arrow_left_right.svg")
 
 		self.ActionImportOperations         = QAction(icon_download,    "Импорт операций")
 
@@ -45,6 +46,7 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		self.ActionSetOperationColorGray    = QAction(icon_color_gray,  "Серый")
 		self.ActionSetOperationColorGreen   = QAction(icon_color_green, "Зелёный")
 		self.ActionSetOperationColorRed     = QAction(icon_color_red,   "Красный")
+		self.ActionSplitOperation           = QAction(icon_arrow_lr,    "Разделить операцию")
 
 		self.MenuOperation                  = QMenu("Операции")
 
@@ -63,5 +65,7 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		self.SubmenuOperation.addAction(self.ActionSetOperationColorGreen)
 		self.SubmenuOperation.addAction(self.ActionSetOperationColorBlue)
 		self.SubmenuOperation.addAction(self.ActionSetOperationColorRed)
+		self.SubmenuOperation.addSeparator()
+		self.SubmenuOperation.addAction(self.ActionSplitOperation)
 		self.SubmenuOperation.addSeparator()
 		self.SubmenuOperation.addAction(self.ActionDeleteOperation)

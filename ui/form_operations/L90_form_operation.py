@@ -29,6 +29,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionSetOperationColorGreen.triggered.connect(self.on_RequestSetOperationColorToGreen)
 		self.ActionSetOperationColorBlue.triggered.connect(self.on_RequestSetOperationColorToBlue)
 		self.ActionSetOperationColorRed.triggered.connect(self.on_RequestSetOperationColorToRed)
+		self.ActionSplitOperation.triggered.connect(self.on_RequestSplitOperation)
 
 	# Форма
 	def on_Opened(self):
@@ -111,6 +112,10 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestSetOperationColorToRed(self):
 		""" Установка цвета операции: Красный """
 		self.SetOperationColor(COLORS.RED)
+
+	def on_RequestSplitOperation(self):
+		""" Запрос разделения операции """
+		self.SplitOperation()
 
 	def on_OperationCreated(self):
 		""" Операция создана """

@@ -50,7 +50,7 @@ class C80_FormOperation(C70_FormOperation):
 	def DeleteOperation(self):
 		""" Удаление операции """
 		operation = C90_Operation(self.processing_ido)
-		if not RequestConfirm("Удаление операции", operation.InfoToString()): return
+		if not RequestConfirm("Удаление операции", operation.Information()): return
 
 		operation.DeleteObject(CONTAINERS.DISK)
 
@@ -60,7 +60,7 @@ class C80_FormOperation(C70_FormOperation):
 		""" Редактирование суммы операции """
 		operation           = C90_Operation(self.processing_ido)
 
-		amount : int | None = RequestValue("Редактирование операции", f"{operation.InfoToString()}\n\nСумма:", int(operation.amount), -99999999, 99999999)
+		amount : int | None = RequestValue("Редактирование операции", f"{operation.Information()}\n\nСумма:", int(operation.amount), -99999999, 99999999)
 		if amount is None: return
 
 		operation.amount = amount
@@ -73,7 +73,7 @@ class C80_FormOperation(C70_FormOperation):
 		operation                        = C90_Operation(self.processing_ido)
 
 		account_names : list[str] | None = RequestItems( "Редактирование операции",
-		                                                f"{operation.InfoToString()}\n\nСчета",
+		                                                f"{operation.Information()}\n\nСчета",
 		                                                 self.Accounts.Names(dy, dm),
 		                                                 self.Accounts.IdosToNames(operation.account_idos))
 		if account_names is None: return
@@ -86,7 +86,7 @@ class C80_FormOperation(C70_FormOperation):
 		""" Редактирование описания операции """
 		operation                = C90_Operation(self.processing_ido)
 
-		description : str | None = RequestText("Редактирование операции", f"{operation.InfoToString()}\n\nОписание:", operation.description)
+		description : str | None = RequestText("Редактирование операции", f"{operation.Information()}\n\nОписание:", operation.description)
 		if description is None: return
 
 		operation.description = description
@@ -99,3 +99,16 @@ class C80_FormOperation(C70_FormOperation):
 		operation.color = color
 
 		self.on_OperationChanged()
+
+	def SplitOperation(self):
+		""" Разделение операции """
+		operation           = C90_Operation(self.processing_ido)
+
+		amount : int | None = RequestValue("Разделение операции", f"{operation.Information()}", int(operation.amount), -99999999, 99999999)
+		if amount is None: return
+
+		new_ido : str = operation.Split(amount)
+		self.on_OperationChanged()
+
+		self.processing_ido = new_ido
+		self.on_OperationCreated()

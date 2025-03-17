@@ -16,10 +16,34 @@ class C80_Operation(C70_Operation):
 		""" Дата в строку """
 		return f"{self.dd:02d} {MONTHS_SHORT[self.dm]} {self.dy:04d}"
 
-	def InfoToString(self, flag_flat: bool = False) -> str:
+	def Information(self, flag_flat: bool = False) -> str:
 		""" Информация об операции """
 		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()} ({self.description})"
 		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}\n{self.description}"
+
+	def Split(self, amount: int) -> str:
+		""" Разделение операции """
+		accounts    = self.account_idos
+		color       = self.color
+		description = self.description
+		dy          = self.dy
+		dm          = self.dm
+		dd          = self.dd
+
+		self.amount -= amount
+
+		self.GenerateIdo()
+		self.RegisterObject(CONTAINERS.DISK)
+
+		self.account_idos = accounts
+		self.amount       = amount
+		self.color        = color
+		self.description  = description
+		self.dy           = dy
+		self.dm           = dm
+		self.dd           = dd
+
+		return self.Ido().data
 
 
 class C80_Operations(C70_Operations):

@@ -35,7 +35,7 @@ class C80_FormImport(C70_FormImport):
 
 		match filepath.suffix:
 			case ".csv" :
-				for encoding in ["utf-8", "cp1251"]:
+				for encoding in ["cp1251", "utf-8"]:
 					try:
 						with open(self.operations_filepath, mode='r', encoding=encoding) as file_data:
 							raw = [subdata.strip().split(';') for subdata in file_data.readlines()]
