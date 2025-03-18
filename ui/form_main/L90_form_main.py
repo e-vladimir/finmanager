@@ -24,6 +24,9 @@ class C90_FormMain(C80_FormMain):
 		# Блок Операции
 		self.LabelDelta.clicked.connect(self.on_RequestOpenOperations)
 
+		# Блок Копии архива данных
+		self.LabelBackupDdDmDy.clicked.connect(self.on_RequestOpenBackups)
+
 	# Форма
 	def on_RequestOpen(self):
 		""" Открытие формы """
@@ -69,3 +72,8 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenOperations(self):
 		""" Запрос на открытие формы Операции """
 		self.Application.FormOperations.Open()
+
+	# Копии архива данных
+	def on_RequestOpenBackups(self):
+		""" Запрос на открытие формы Копии архива данных """
+		self.Application.FormBackups.Open()

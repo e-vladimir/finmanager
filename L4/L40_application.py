@@ -3,6 +3,7 @@
 
 from L20_PySide6        import C20_PySideApplication
 from L90_form_accounts  import C90_FormAccounts
+from L90_form_backups   import C90_FormBackups
 from L90_form_import    import C90_FormImport
 from L90_form_main      import C90_FormMain
 from L90_form_operation import C90_FormOperation
@@ -18,3 +19,4 @@ class C40_Application(C20_PySideApplication):
 		self.FormAccounts   = C90_FormAccounts(self)
 		self.FormOperations = C90_FormOperation(self)
 		self.FormImport     = C90_FormImport(self)
+		self.FormBackups    = C90_FormBackups(self)

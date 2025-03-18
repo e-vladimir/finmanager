@@ -148,7 +148,7 @@
       <item>
        <widget class="QGroupBox" name="GBoxBackup">
         <property name="title">
-         <string>Копия данных</string>
+         <string>Копия архива данных</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
