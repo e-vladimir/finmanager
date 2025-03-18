@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 13 мар 2025
+# 18 мар 2025
 
 import enum
 
@@ -80,7 +80,7 @@ class C20_PySideApplication(QApplication):
 	def Init_01(self):
 		""" Инициализация директорий """
 		self._path_common : Path = Path.cwd()
-		self._path_ui     : Path = Path.joinpath(self._path_common, "ui")
+		self._path_ui     : Path = self._path_common / "ui"
 
 	def Init_10(self)   : pass
 	def Init_11(self)   : pass

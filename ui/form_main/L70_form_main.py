@@ -1,6 +1,6 @@
 # ФОРМА ОСНОВНАЯ: МЕХАНИКА УПРАВЛЕНИЯ
 # 12 фев 2025
-
+from G10_convertor_format import UTimeToDTime
 from G10_datetime       import CalcDyDmByShiftDm
 from G11_convertor_data import AmountToString
 
@@ -54,6 +54,18 @@ class C70_FormMain(C60_FormMain):
 		""" Отображение данных Копия данных """
 		backup_dy_dm_dd : str = "Нет копии"
 		backup_th_tm    : str = "--:--"
+		self.LabelBackupDdDmDy.setText(backup_dy_dm_dd)
+		self.LabelBackupThTm.setText(backup_th_tm)
+
+		if not self.Application.backup_names: return
+
+		backup_name : str = sorted(self.Application.backup_names)[-1].split('.')[0]
+		if not backup_name.isnumeric(): return
+
+		dtime = UTimeToDTime(int(backup_name))
+
+		backup_dy_dm_dd : str = f"{dtime.day:02d} {MONTHS_SHORT[dtime.month]} {dtime.year}"
+		backup_th_tm    : str = f"{dtime.hour:02d}:{dtime.minute:02d}"
 		self.LabelBackupDdDmDy.setText(backup_dy_dm_dd)
 		self.LabelBackupThTm.setText(backup_th_tm)
 

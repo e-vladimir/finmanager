@@ -11,6 +11,9 @@ class C90_Application(C80_Application):
 		super().on_Inited()
 
 		self.InitDirectories()
+
+		self.CreateBackup(True)
+
 		self.InitContainers()
 
 	def on_Start(self):
