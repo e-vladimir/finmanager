@@ -15,6 +15,8 @@ class C90_FormBackups(C80_FormBackups):
 
 		# Меню Копии архива данных
 		self.ActionCreateBackup.triggered.connect(self.on_RequestCreateBackup)
+		self.ActionDeleteBackup.triggered.connect(self.on_RequestDeleteBackup)
+		self.ActionRestoreFromBackup.triggered.connect(self.on_RequestRestoreFromBackup)
 
 	# Форма
 	def on_Opened(self):
@@ -33,9 +35,22 @@ class C90_FormBackups(C80_FormBackups):
 		self.ShowMenuBackups()
 
 	# Копии архива данных
+	def on_BackupsChanged(self):
+		""" Список копий архива данных изменился """
+		self.InitModelData()
+		self.LoadModelData()
+
+	# Копии архива данных
 	def on_RequestCreateBackup(self):
 		""" Создание копии архива данных """
 		self.Application.CreateBackup()
 
-		self.InitModelData()
-		self.LoadModelData()
+		self.on_BackupsChanged()
+
+	def on_RequestRestoreFromBackup(self):
+		""" Запрос восстановления архива данных из копии """
+		self.RestoreFromBackup()
+
+	def on_RequestDeleteBackup(self):
+		""" Запрос удаления копии архива данных """
+		self.DeleteBackup()

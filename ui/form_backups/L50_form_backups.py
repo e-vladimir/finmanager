@@ -10,6 +10,9 @@ class C50_FormBackups(C42_FormBackups):
 	# Меню Копии архива данных
 	def on_RequestShowMenuBackups(self): pass
 
+	# Копии архива данных
+	def on_BackupsChanged(self): pass
+
 	# Копия архива данных
 	def on_RequestCreateBackup(self): pass
 	def on_RequestRestoreFromBackup(self): pass

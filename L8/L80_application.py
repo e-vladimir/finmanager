@@ -101,3 +101,13 @@ class C80_Application(C70_Application):
 		container.Connect()
 
 		return True
+
+	def DeleteBackup(self, filename: str) -> bool:
+		""" Удаление копии архива данных """
+		path_archives : Path = self._path_common / "backups"
+		path_archive  : Path = path_archives / filename
+
+		try   :	os.remove(path_archive)
+		except: return False
+
+		return True
