@@ -8,6 +8,12 @@ from L41_form_backups import C41_FormBackups
 class C42_FormBackups(C41_FormBackups):
 	""" Форма Копии архива данных: Модель данных """
 
+	def Init_00(self):
+		super().Init_00()
+
+		self._processing_filename : str = ""
+		self._processing_name     : str = ""
+
 	def Init_10(self):
 		super().Init_10()
 

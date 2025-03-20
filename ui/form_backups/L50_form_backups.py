@@ -6,4 +6,11 @@ from L42_form_backups import C42_FormBackups
 
 class C50_FormBackups(C42_FormBackups):
 	""" Форма Копии архива данных: Модель событий """
-	pass
+
+	# Меню Копии архива данных
+	def on_RequestShowMenuBackups(self): pass
+
+	# Копия архива данных
+	def on_RequestCreateBackup(self): pass
+	def on_RequestRestoreFromBackup(self): pass
+	def on_RequestDeleteBackup(self): pass
