@@ -132,12 +132,12 @@ class C21_DiaDmView(C20_DiaFrame):
 
 	def DrawAmounts(self, painter: QPainter):
 		""" Отрисовка объёма """
-		income_max   : int   = int(max([day.amount_income for day in self._days]))
+		income_max   : int   = int(max([day.amount_income  for day in self._days]))
 		outcome_max  : int   = int(min([day.amount_outcome for day in self._days]))
 
 		w            : int   = 24
 		x0           : int   = self._margin_l
-		x1           : int   = self.width() - 1 - self._margin_r
+		x1           : int   = self.width()   - 1 - self._margin_r
 		y            : int   = self.height() // 2
 
 		step_x       : float = (x1 - x0) / (len(self._days) - 1)
@@ -157,6 +157,41 @@ class C21_DiaDmView(C20_DiaFrame):
 			painter.setBrush(QColor(225, 255, 225))
 			painter.drawRect(x - w // 2, y - self._margin_c, w, -h_income)
 
+	def DrawAmountsDynamic(self, painter: QPainter):
+		""" Отрисовка динамики объёма """
+		x0           : int   = self._margin_l
+		x1           : int   = self.width() - 1 - self._margin_r
+		y            : int   = self.height() // 2
+		step_x       : float = (x1 - x0) / (len(self._days) - 1)
+		income_sum   : int   = int(sum([day.amount_income  for day in self._days]))
+		income_val   : int   = 0
+		outcome_sum  : int   = int(sum([day.amount_outcome for day in self._days]))
+		outcome_val  : int   = 0
+		step_income  : float = (y - self._margin_t - self._margin_c) / (income_sum  or 1)
+		step_outcome : float = (y - self._margin_b - self._margin_c) / (outcome_sum or 1)
+
+		x_prev         : int = x0
+		y_income_prev  : int = y - self._margin_c
+		y_outcome_prev : int = y + self._margin_c
+
+		for idx_day, day in enumerate(self._days):
+			x         : int = x0 + int(step_x * idx_day)
+			income_val     += day.amount_income
+			outcome_val    += day.amount_outcome
+
+			y_income  : int = y - int(income_val  * step_income)  - self._margin_c
+			y_outcome : int = y + int(outcome_val * step_outcome) + self._margin_c
+
+			painter.setPen(QPen(QColor(225, 195, 195), 3))
+			painter.drawLine(x_prev, y_outcome_prev, x, y_outcome)
+
+			painter.setPen(QPen(QColor(195, 225, 195), 3))
+			painter.drawLine(x_prev, y_income_prev, x, y_income)
+
+			x_prev = x
+			y_income_prev = y_income
+			y_outcome_prev = y_outcome
+
 	# Логика данных
 	pass
 
@@ -164,6 +199,8 @@ class C21_DiaDmView(C20_DiaFrame):
 	def paintEvent(self, event):
 		""" Отрисовка """
 		painter = QPainter(self)
+		painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+		painter.translate(0.5, 0.5)
 
 		self.DrawBackground(painter)
 		self.DrawBorder(painter)
@@ -172,3 +209,6 @@ class C21_DiaDmView(C20_DiaFrame):
 		self.DrawLabels(painter)
 
 		self.DrawAmounts(painter)
+		self.DrawAmountsDynamic(painter)
+
+		painter.resetTransform()
