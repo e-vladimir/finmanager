@@ -18,7 +18,7 @@ class C60_FormMain(C50_FormMain):
 		self._amounts.clear()
 
 		dy, dm                   = self.Workspace.DyDm()
-		account_idos : list[str] = self.Accounts.PriorityIdos(dy, dm)
+		account_idos : list[str] = self.Accounts.PriorityIdos(dy, dm) or self.Accounts.Idos(dy, dm)
 		operation                = C90_Operation()
 
 		for operation_ido in self.Operations.Idos(dy, dm):
