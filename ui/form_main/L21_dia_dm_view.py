@@ -4,12 +4,13 @@
 from collections           import defaultdict
 
 from PySide6.QtGui         import QColor, QFont, QPainter, QPen, Qt
+from matplotlib.pyplot import draw_if_interactive
 
-from G10_datetime          import CountDdInDyDm
+from G10_datetime import CountDdInDyDm, DTime
 from L20_PySide6           import C20_DiaFrame
 from L20_finmanager_struct import T20_Day
 from L90_operations        import C90_Operations
-from L90_workspace import C90_Workspace
+from L90_workspace         import C90_Workspace
 
 
 class C21_DiaDmView(C20_DiaFrame):
@@ -79,10 +80,11 @@ class C21_DiaDmView(C20_DiaFrame):
 		painter.setFont(font_labels)
 
 		for idx_day in range(CountDdInDyDm(self.Workspace.dy, self.Workspace.dm)):
-			day = self._days[idx_day + 1]
-			x : int = x0 + int(step_x * idx_day)
+			dtime               = DTime(self.Workspace.dy, self.Workspace.dm, idx_day + 1, 0, 0, 0)
+			flag_weekend : bool = dtime.weekday() >= 5
+			x            : int  = x0 + int(step_x * idx_day)
 
-			if day.is_weekend:
+			if flag_weekend:
 				painter.setPen(QColor(155, 155, 155))
 				painter.setBrush(QColor(155, 155, 155))
 			else:
@@ -91,17 +93,13 @@ class C21_DiaDmView(C20_DiaFrame):
 
 			painter.drawRect(x - w // 2, y - h // 2, w, h)
 
-			if day.is_weekend:
-				painter.setPen(QColor(255, 255, 255))
-			else:
-				painter.setPen(QColor(105, 105, 105))
-
+			painter.setPen(QColor(255, 255, 255) if flag_weekend else QColor(105, 105, 105))
 			painter.drawText(x - 5, y + 3, f"{idx_day + 1:02d}")
 
 	def DrawAmounts(self, painter: QPainter):
 		""" Отрисовка объёма """
-		income_max   : int   = int(max([day.amount_income  for day in self._days.values()]))
-		outcome_max  : int   = int(min([day.amount_outcome for day in self._days.values()]))
+		income_max   : int   = int(max([0] + [day.amount_income  for day in self._days.values()]))
+		outcome_max  : int   = int(min([0] + [day.amount_outcome for day in self._days.values()]))
 
 		w            : int   = 24
 		x0           : int   = self._margin_l
