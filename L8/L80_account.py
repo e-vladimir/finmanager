@@ -103,6 +103,24 @@ class C80_Accounts(C70_Accounts):
 
 		return filter_data.ToIntegers(idp_dy, True, True).data
 
+	@classmethod
+	def PriorityIdos(cls, dy: int, dm: int) -> list[str]:
+		""" Список IDO приоритетных счетов """
+		account            = C80_Account()
+		idc          : str = account.Idc().data
+		idp_dy       : str = account.FDy.Idp().data
+		idp_dm       : str = account.FDm.Idp().data
+		idp_name     : str = account.FName.Idp().data
+		idp_priority : str = account.FPriority.Idp().data
+
+		filter_data        = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.FilterIdpVlpByMore(idp_priority, 0)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.Idos(idp_name).data
+
 	# Управление счетами
 	@classmethod
 	def CreateAccount(self, dy: int, dm: int, group: str, name: str) -> str:

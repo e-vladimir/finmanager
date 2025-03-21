@@ -7,6 +7,7 @@ from PySide6.QtGui  import QColor, QFont, QPainter, QPen, Qt
 from G10_datetime   import DTime
 
 from L20_PySide6    import C20_DiaFrame
+from L90_account import C90_Accounts
 from L90_operations import C90_Operations
 
 
@@ -53,9 +54,16 @@ class C21_DiaDmView(C20_DiaFrame):
 		self._days.clear()
 		for dd in range(1, dds + 1):
 			dtime                 = DTime(dy, dm, dd, 0, 0, 0)
-			amounts : list[float] = self.Operations.Amounts(dy, dm, dd)
 
-			self._days.append(T20_Day(is_weekend    =dtime.weekday() >= 5,
+			priority_idos : list[str] = C90_Accounts.PriorityIdos(dy, dm)
+			if not priority_idos:
+				amounts : list[float] = self.Operations.Amounts(dy, dm, dd)
+			else:
+				amounts : list[float] = []
+
+				for ido in priority_idos: amounts.extend(self.Operations.Amounts(dy, dm, dd, ido))
+
+			self._days.append(T20_Day(is_weekend    = dtime.weekday() >= 5,
 			                          amount_income = sum(filter(lambda amount: amount > 0, amounts)),
 			                          amount_outcome= sum(filter(lambda amount: amount < 0, amounts))
 			                          )
@@ -182,10 +190,10 @@ class C21_DiaDmView(C20_DiaFrame):
 			y_income  : int = y - int(income_val  * step_income)  - self._margin_c
 			y_outcome : int = y + int(outcome_val * step_outcome) + self._margin_c
 
-			painter.setPen(QPen(QColor(225, 195, 195), 3))
+			painter.setPen(QPen(QColor(205, 175, 175), 3))
 			painter.drawLine(x_prev, y_outcome_prev, x, y_outcome)
 
-			painter.setPen(QPen(QColor(195, 225, 195), 3))
+			painter.setPen(QPen(QColor(175, 205, 175), 3))
 			painter.drawLine(x_prev, y_income_prev, x, y_income)
 
 			x_prev = x
