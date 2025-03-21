@@ -28,12 +28,12 @@ class C90_FormAccounts(C80_FormAccounts):
 
 		# Меню Счёт
 		self.ActionDeleteAccount.triggered.connect(self.on_RequestDeleteAccount)
-
 		self.ActionEditAccountName.triggered.connect(self.on_RequestEditAccountName)
 		self.ActionEditAccountInitialBalance.triggered.connect(self.on_RequestEditAccountInitialBalance)
 		self.ActionEditAccountGroup.triggered.connect(self.on_RequestEditAccountGroup)
 		self.ActionTransferAccountToPrevDm.triggered.connect(self.on_RequestTransferAccountToPrevDm)
 		self.ActionTransferAccountToNextDm.triggered.connect(self.on_RequestTransferAccountToNextDm)
+		self.ActionSwitchAccountPriority.triggered.connect(self.on_RequestSwitchAccountPriority)
 
 	# Форма
 	def on_Opened(self):
@@ -132,6 +132,10 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestTransferAccountToPrevDm(self):
 		""" Запрос на перенос счёта в предыдущий месяц """
 		self.TransferAccountToPrevDm()
+
+	def on_RequestSwitchAccountPriority(self):
+		""" Запрос на смену приоритетности счёта """
+		self.SwitchAccountPriority()
 
 	def on_AccountCreated(self):
 		""" Счёт создан """

@@ -158,3 +158,10 @@ class C80_FormAccounts(C70_FormAccounts):
 		""" Перенос счёта в предыдущий месяц """
 		account = C90_Account(self.processing_ido)
 		account.TransferToDm(-1)
+
+	def SwitchAccountPriority(self):
+		""" Переключение приоритетности счёта """
+		account = C90_Account(self.processing_ido)
+		account.priority = abs(account.priority - 1)
+
+		self.on_AccountChanged()

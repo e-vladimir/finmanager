@@ -28,6 +28,7 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		icon_left        = QIcon("./L0/icons/arrow_left.svg")
 		icon_reload      = QIcon("./L0/icons/reload.svg")
 		icon_right       = QIcon("./L0/icons/arrow_right.svg")
+		icon_star        = QIcon("./L0/icons/star.svg")
 
 		self.ActionResetAccounts             = QAction(icon_reload,      "Сбросить данные")
 		self.ActionTransferAccountsToPrevDm  = QAction(icon_left,        "Перенести в прошлый месяц")
@@ -45,6 +46,7 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.ActionDeleteAccount             = QAction(icon_item_delete, "Удалить счёт")
 		self.ActionTransferAccountToPrevDm   = QAction(icon_left,        "Перенести в прошлый месяц")
 		self.ActionTransferAccountToNextDm   = QAction(icon_right,       "Перенести в следующий месяц")
+		self.ActionSwitchAccountPriority     = QAction(icon_star,        "Установить как приоритетный")
 
 		self.MenuAccounts                    = QMenu("Счета")
 
@@ -70,6 +72,8 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.SubmenuAccount.addAction(self.ActionEditAccountName)
 		self.SubmenuAccount.addAction(self.ActionEditAccountGroup)
 		self.SubmenuAccount.addAction(self.ActionEditAccountInitialBalance)
+		self.SubmenuAccount.addSeparator()
+		self.SubmenuAccount.addAction(self.ActionSwitchAccountPriority)
 		self.SubmenuAccount.addSeparator()
 		self.SubmenuAccount.addAction(self.ActionTransferAccountToPrevDm)
 		self.SubmenuAccount.addAction(self.ActionTransferAccountToNextDm)

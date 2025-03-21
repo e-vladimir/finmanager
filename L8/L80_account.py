@@ -20,6 +20,7 @@ class C80_Account(C70_Account):
 		name            : str = self.name
 		group           : str = self.group
 		summary_balance : int = self.summary_balance
+		priority        : int = self.priority
 
 		if not self.SwitchByName(dy, dm, name):
 			self.GenerateIdo()
@@ -28,7 +29,8 @@ class C80_Account(C70_Account):
 			self.dm   = dm
 			self.name = name
 
-		self.group = group
+		self.group    = group
+		self.priority = priority
 
 		if count_dm > 0: self.initial_balance = summary_balance
 

@@ -85,7 +85,7 @@ class C21_DiaDmView(C20_DiaFrame):
 		painter.setPen(QColor(205, 205, 205))
 		painter.drawLine(x0, y, x1, y)
 
-		for shift in [h * 0.5, h * 0.80]:
+		for shift in [h * 0.25, h * 0.50, h * 0.75]:
 			y  : int = int(yC + shift)
 			painter.setPen(QPen(QColor(205, 205, 205), 1, Qt.PenStyle.DashLine))
 			painter.drawLine(x0, y, x1, y)

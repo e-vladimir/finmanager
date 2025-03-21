@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 18 мар 2025
+# 20 мар 2025
 
 import enum
 
@@ -624,14 +624,14 @@ class C20_StandardItemModel(QStandardItemModel):
 		item_child.setBackground(color_bg)
 		item_child.setForeground(color_fg)
 
-	def setRowBold(self, parent: QStandardItem, row: int):
+	def setRowBold(self, parent: QStandardItem, row: int, flag: bool = True):
 		""" Установка шрифта строки Жирный """
 		for index_col in range(self.columnCount()):
 			item_child : QStandardItem | None = parent.child(row, index_col)
 			if item_child is None: continue
 
 			font_item  : QFont                = item_child.font()
-			font_item.setBold(True)
+			font_item.setBold(flag)
 
 			item_child.setFont(font_item)
 

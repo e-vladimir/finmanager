@@ -56,6 +56,14 @@ class C60_Account(C50_Account):
 	def summary_balance(self) -> int:
 		return int(self.initial_balance + sum(C90_Operations.Amounts(dy=self.dy, dm=self.dm, account_ido=self.Ido().data)))
 
+	# Приоритетность счёта
+	@property
+	def priority(self) -> int:
+		return self.FPriority.ToInteger(CONTAINERS.DISK).data
+	@priority.setter
+	def priority(self, level: int):
+		self.FPriority.FromInteger(CONTAINERS.DISK, level)
+
 	# IDO
 	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:
 		""" Переключение по названию счёта """

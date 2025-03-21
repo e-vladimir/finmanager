@@ -119,6 +119,8 @@ class C60_FormAccounts(C50_FormAccounts):
 		item_calculated_balance                      = self.ModelData.itemFromIndex(indexes[3])
 		item_calculated_balance.setText(AmountToString(summary_balance, flag_point=False, flag_sign=False))
 
+		self.ModelData.setRowBold(item_group, item_name.row(), account.priority > 0)
+
 	def LoadGroupInModelData(self):
 		""" Загрузка группы счетов в модель данных """
 		if not self.processing_group                                        : return
