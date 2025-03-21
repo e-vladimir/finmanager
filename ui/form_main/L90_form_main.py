@@ -30,16 +30,14 @@ class C90_FormMain(C80_FormMain):
 	# Форма
 	def on_RequestOpen(self):
 		""" Открытие формы """
-		self.ShowTitle()
-		self.ShowWorkspace()
-		self.ShowAccounts()
-		self.ShowOperations()
-		self.ShowBackup()
-		self.ShowMonthView()
+		self.on_DyDmChanged()
 
 	# Рабочий период
 	def on_DyDmChanged(self):
 		""" Изменился год и месяц """
+		self.LoadAmounts()
+		self.SendAmountsToDiaDmView()
+
 		self.ShowTitle()
 		self.ShowWorkspace()
 		self.ShowAccounts()

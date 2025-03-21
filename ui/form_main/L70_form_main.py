@@ -1,11 +1,12 @@
 # ФОРМА ОСНОВНАЯ: МЕХАНИКА УПРАВЛЕНИЯ
 # 12 фев 2025
-from G10_convertor_format import UTimeToDTime
-from G10_datetime       import CalcDyDmByShiftDm
-from G11_convertor_data import AmountToString
 
-from L00_months         import MONTHS_SHORT
-from L60_form_main      import C60_FormMain
+from G10_convertor_format import UTimeToDTime
+from G10_datetime         import CalcDyDmByShiftDm
+from G11_convertor_data   import AmountToString
+
+from L00_months           import MONTHS_SHORT
+from L60_form_main        import C60_FormMain
 
 
 class C70_FormMain(C60_FormMain):
@@ -40,11 +41,9 @@ class C70_FormMain(C60_FormMain):
 	# Панель Операции
 	def ShowOperations(self):
 		""" Отображение данных Операции """
-		dy,dm                        = self.Workspace.DyDm()
-		amounts        : list[float] = self.Operations.Amounts(dy, dm)
-		amount_income  : int         = sum(filter(lambda amount: amount > 0, amounts))
-		amount_outcome : int         = sum(filter(lambda amount: amount < 0, amounts))
-		amount_delta   : int         = amount_income + amount_outcome
+		amount_income  : int = sum([amount.amount_income  for amount in self.amounts.values()])
+		amount_outcome : int = sum([amount.amount_outcome for amount in self.amounts.values()])
+		amount_delta   : int = amount_income + amount_outcome
 
 		self.LabelDelta.setText(AmountToString(amount_delta, flag_sign=True))
 		self.LabelSubdelta.setText(f"{AmountToString(amount_income, flag_sign=True)}  |  {AmountToString(amount_outcome, flag_sign=True)}")
@@ -72,7 +71,4 @@ class C70_FormMain(C60_FormMain):
 	# Панель Обзор месяца
 	def ShowMonthView(self):
 		""" Отображение обзора месяца """
-		dy, dm = self.Workspace.DyDm()
-
-		self.DiaDmViewer.InitDaysFromDyDm(dy, dm)
 		self.update()
