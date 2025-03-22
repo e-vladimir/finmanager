@@ -12,54 +12,67 @@ class C60_Operation(C50_Operation):
 	@property
 	def dy(self) -> int:
 		return self.FDy.ToInteger(CONTAINERS.DISK).data
+
 	@dy.setter
 	def dy(self, year: int):
 		self.FDy.FromInteger(CONTAINERS.DISK, year)
+
 
 	# Месяц
 	@property
 	def dm(self) -> int:
 		return self.FDm.ToInteger(CONTAINERS.DISK).data
+
 	@dm.setter
 	def dm(self, month: int):
 		self.FDm.FromInteger(CONTAINERS.DISK, month)
+
 
 	# Число месяца
 	@property
 	def dd(self) -> int:
 		return self.FDd.ToInteger(CONTAINERS.DISK).data
+
 	@dd.setter
 	def dd(self, day: int):
 		self.FDd.FromInteger(CONTAINERS.DISK, day)
+
 
 	# Счета
 	@property
 	def account_idos(self) -> list[str]:
 		return self.FAccountIdos.ToStrings(CONTAINERS.DISK).data
+
 	@account_idos.setter
 	def account_idos(self, idos: list[str]):
 		self.FAccountIdos.FromStrings(CONTAINERS.DISK, idos)
+
 
 	# Сумма
 	@property
 	def amount(self) -> float:
 		return self.FAmount.ToFloat(CONTAINERS.DISK).data
+
 	@amount.setter
 	def amount(self, amount: float):
 		self.FAmount.FromFloat(CONTAINERS.DISK, amount)
+
 
 	# Описание
 	@property
 	def description(self) -> str:
 		return self.FDescription.ToString(CONTAINERS.DISK).data
+
 	@description.setter
 	def description(self, text: str):
 		self.FDescription.FromString(CONTAINERS.DISK, text)
+
 
 	# Цветовая метка
 	@property
 	def color(self) -> COLORS:
 		return COLORS(self.FColor.ToString(CONTAINERS.DISK).data)
+
 	@color.setter
 	def color(self, color: COLORS):
 		self.FColor.FromString(CONTAINERS.DISK, color.value)

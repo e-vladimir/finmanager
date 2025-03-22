@@ -14,22 +14,27 @@ class C60_Workspace(C50_Workspace):
 	@property
 	def dy(self) -> int:
 		return self.FDy.ToInteger(CONTAINERS.MEMORY).data
+
 	@dy.setter
 	def dy(self, year: int):
 		self.FDy.FromInteger(CONTAINERS.MEMORY, year)
+
 
 	# Месяц
 	@property
 	def dm(self) -> int:
 		return self.FDm.ToInteger(CONTAINERS.MEMORY).data
+
 	@dm.setter
 	def dm(self, month: int):
 		self.FDm.FromInteger(CONTAINERS.MEMORY, month)
+
 
 	# IDO
 	def SwitchToMain(self):
 		""" Переключение на рабочее пространство: Основное """
 		self.Ido("WORKSPACE_MAIN")
+
 
 	# Рабочий период
 	def SwitchDyDmToNextDm(self):

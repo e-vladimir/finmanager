@@ -15,54 +15,67 @@ class C60_Account(C50_Account):
 	@property
 	def dy(self) -> int:
 		return self.FDy.ToInteger(CONTAINERS.DISK).data
+
 	@dy.setter
 	def dy(self, year: int):
 		self.FDy.FromInteger(CONTAINERS.DISK, year)
+
 
 	# Месяц
 	@property
 	def dm(self) -> int:
 		return self.FDm.ToInteger(CONTAINERS.DISK).data
+
 	@dm.setter
 	def dm(self, month: int):
 		self.FDm.FromInteger(CONTAINERS.DISK, month)
+
 
 	# Название счёта
 	@property
 	def name(self) -> str:
 		return self.FName.ToString(CONTAINERS.DISK).data
+
 	@name.setter
 	def name(self, text: str):
 		self.FName.FromString(CONTAINERS.DISK, text)
+
 
 	# Группа счетов
 	@property
 	def group(self) -> str:
 		return self.FGroup.ToString(CONTAINERS.DISK).data
+
 	@group.setter
 	def group(self, name: str):
 		self.FGroup.FromString(CONTAINERS.DISK, name)
+
 
 	# Остаток на начало месяца
 	@property
 	def initial_balance(self) -> int:
 		return self.FInitialBalance.ToInteger(CONTAINERS.DISK).data
+
 	@initial_balance.setter
 	def initial_balance(self, amount: int):
 		self.FInitialBalance.FromInteger(CONTAINERS.DISK, amount)
+
 
 	# Остаток на конец месяца
 	@property
 	def summary_balance(self) -> int:
 		return int(self.initial_balance + sum(C90_Operations.Amounts(dy=self.dy, dm=self.dm, account_ido=self.Ido().data)))
 
+
 	# Приоритетность счёта
 	@property
 	def priority(self) -> int:
 		return self.FPriority.ToInteger(CONTAINERS.DISK).data
+
 	@priority.setter
 	def priority(self, level: int):
 		self.FPriority.FromInteger(CONTAINERS.DISK, level)
+
 
 	# IDO
 	def SwitchByName(self, dy: int, dm: int, name: str) -> bool:

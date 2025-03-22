@@ -32,6 +32,10 @@ class C90_FormMain(C80_FormMain):
 		""" Открытие формы """
 		self.on_DyDmChanged()
 
+	def on_RequestClose(self):
+		""" Закрытие формы """
+		self.Application.Close()
+
 	# Рабочий период
 	def on_DyDmChanged(self):
 		""" Изменился год и месяц """

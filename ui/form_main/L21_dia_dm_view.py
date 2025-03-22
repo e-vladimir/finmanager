@@ -2,11 +2,10 @@
 # 12 фев 2025
 
 from collections           import defaultdict
-
 from PySide6.QtGui         import QColor, QFont, QPainter, QPen, Qt
-from matplotlib.pyplot import draw_if_interactive
 
-from G10_datetime import CountDdInDyDm, DTime
+from G10_datetime          import CountDdInDyDm, DTime
+
 from L20_PySide6           import C20_DiaFrame
 from L20_finmanager_struct import T20_Day
 from L90_operations        import C90_Operations
@@ -106,7 +105,7 @@ class C21_DiaDmView(C20_DiaFrame):
 		x1           : int   = self.width()   - 1 - self._margin_r
 		y            : int   = self.height() // 2
 
-		step_x       : float = (x1 - x0) / (len(self._days) - 1)
+		step_x : float     = (x1 - x0) / (CountDdInDyDm(self.Workspace.dy, self.Workspace.dm) - 1)
 		step_income  : float = (y - self._margin_t - self._margin_c) / (income_max  or 1)
 		step_outcome : float = (y - self._margin_b - self._margin_c) / (outcome_max or 1)
 

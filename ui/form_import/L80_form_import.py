@@ -11,7 +11,7 @@ from   PySide6.QtWidgets    import QProgressDialog
 from   G10_convertor_format import StringToDateTime, StringToFloat
 
 from   L00_containers       import CONTAINERS
-from   L00_fields           import FIELDS
+from   L00_fields           import DATA_FIELDS
 from   L20_PySide6          import RequestFilepath, RequestItem
 from   L70_form_import      import C70_FormImport
 from   L90_account          import C90_Account, C90_Accounts
@@ -64,10 +64,10 @@ class C80_FormImport(C70_FormImport):
 	def EditOperationsStructField(self):
 		""" Редактирование типа поля структуры данных импорта операций """
 		struct_name  : str        = self.operations_struct_names[self.processing_row]
-		struct_field : str | None = RequestItem("Импорт операций", f"{struct_name}", [field.value for field in FIELDS])
+		struct_field : str | None = RequestItem("Импорт операций", f"{struct_name}", [field.value for field in DATA_FIELDS])
 		if struct_field is None: return
 
-		self.SetOperationsStructField(struct_name, FIELDS(struct_field))
+		self.SetOperationsStructField(struct_name, DATA_FIELDS(struct_field))
 
 		self.on_OperationsStructChanged()
 
@@ -75,9 +75,9 @@ class C80_FormImport(C70_FormImport):
 		""" Импорт операций """
 		dy, dm                         = self.Workspace.DyDm()
 
-		idx_date        : int        = self.IndexOperationsStructByField(FIELDS.DATE)
-		idx_amount      : int        = self.IndexOperationsStructByField(FIELDS.AMOUNT)
-		idx_description : int        = self.IndexOperationsStructByField(FIELDS.DESCRIPTION)
+		idx_date        : int        = self.IndexOperationsStructByField(DATA_FIELDS.DATE)
+		idx_amount      : int        = self.IndexOperationsStructByField(DATA_FIELDS.AMOUNT)
+		idx_description : int        = self.IndexOperationsStructByField(DATA_FIELDS.DESCRIPTION)
 
 		if     idx_date   == -1                        : return
 		if     idx_amount == -1                        : return

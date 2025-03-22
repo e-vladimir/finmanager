@@ -17,6 +17,7 @@ class C60_FormAccounts(C50_FormAccounts):
 	@property
 	def processing_ido(self) -> str:
 		return self._processing_ido
+
 	@processing_ido.setter
 	def processing_ido(self, ido: str):
 		self._processing_ido = ido
@@ -24,6 +25,7 @@ class C60_FormAccounts(C50_FormAccounts):
 	def ReadProcessingIdoFromTreeData(self):
 		""" Чтение IDO из дерева данных """
 		self.processing_ido = self.TreeData.currentIndex().data(ROLES.IDO)
+
 
 	# Рабочий IDP
 	@property
@@ -38,10 +40,12 @@ class C60_FormAccounts(C50_FormAccounts):
 		""" Чтение IDP из дерева данных """
 		self.processing_idp = self.TreeData.currentIndex().data(ROLES.IDP)
 
+
 	# Рабочая группа
 	@property
 	def processing_group(self) -> str:
 		return self._processing_group
+
 	@processing_group.setter
 	def processing_group(self, name: str):
 		self._processing_group = name
@@ -49,6 +53,7 @@ class C60_FormAccounts(C50_FormAccounts):
 	def ReadProcessingGroupFromTreeData(self):
 		""" Чтение группы из дерева данных """
 		self.processing_group = self.TreeData.currentIndex().data(ROLES.GROUP)
+
 
 	# Модель данных
 	def InitModelData(self):

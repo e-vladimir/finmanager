@@ -19,6 +19,7 @@ class C60_FormOperation(C50_FormOperation):
 	@property
 	def processing_ido(self) -> str:
 		return self._processing_ido
+
 	@processing_ido.setter
 	def processing_ido(self, ido: str):
 		self._processing_ido = ido
@@ -27,10 +28,12 @@ class C60_FormOperation(C50_FormOperation):
 		""" Чтение IDO из дерева данных """
 		self.processing_ido = self.TreeData.currentIndex().data(ROLES.IDO)
 
+
 	# Рабочий IDP
 	@property
 	def processing_idp(self) -> str:
 		return self._processing_idp
+
 	@processing_idp.setter
 	def processing_idp(self, idp: str):
 		self._processing_idp = idp
@@ -39,10 +42,12 @@ class C60_FormOperation(C50_FormOperation):
 		""" Чтение IDP из дерева данных """
 		self.processing_idp = self.TreeData.currentIndex().data(ROLES.IDP)
 
+
 	# Рабочее число месяца
 	@property
 	def processing_dd(self) -> int:
 		return self._processing_dd
+
 	@processing_dd.setter
 	def processing_dd(self, dd: int):
 		self._processing_dd = dd
@@ -50,6 +55,7 @@ class C60_FormOperation(C50_FormOperation):
 	def ReadProcessingDdFromTreeData(self):
 		""" Чтение рабочего дня из дерева данных """
 		self.processing_dd = self.TreeData.currentIndex().data(ROLES.GROUP)
+
 
 	# Модель данных
 	def InitModelData(self):

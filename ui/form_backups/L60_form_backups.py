@@ -13,6 +13,25 @@ from L50_form_backups     import C50_FormBackups
 class C60_FormBackups(C50_FormBackups):
 	""" Форма Копии архива данных: Механика данных """
 
+	# Рабочее имя файла
+	@property
+	def processing_filename(self) -> str:
+		return self._processing_filename
+
+	def ReadProcessingFilenameFromListData(self):
+		"""  """
+		self._processing_filename = self.ListData.currentIndex().data(ROLES.FILENAME)
+
+
+	@property
+	def processing_name(self) -> str:
+		return self._processing_name
+
+	def ReadProcessingNameFromListData(self):
+		"""  """
+		self._processing_name = self.ListData.currentIndex().data(ROLES.TEXT)
+
+
 	# Модель данных
 	def InitModelData(self):
 		""" Инициализация модели данных """
@@ -33,20 +52,3 @@ class C60_FormBackups(C50_FormBackups):
 			item_backup.setData(filename, ROLES.FILENAME)
 
 			self.ModelData.appendRow(item_backup)
-
-	# Рабочее имя файла
-	@property
-	def processing_filename(self) -> str:
-		return self._processing_filename
-
-	def ReadProcessingFilenameFromListData(self):
-		"""  """
-		self._processing_filename = self.ListData.currentIndex().data(ROLES.FILENAME)
-
-	@property
-	def processing_name(self) -> str:
-		return self._processing_name
-
-	def ReadProcessingNameFromListData(self):
-		"""  """
-		self._processing_name = self.ListData.currentIndex().data(ROLES.TEXT)

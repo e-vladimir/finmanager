@@ -3,7 +3,7 @@
 import enum
 
 
-class FIELDS(enum.StrEnum):
+class DATA_FIELDS(enum.StrEnum):
 	""" Каталог проекта: Типы полей """
 
 	NONE        = ""

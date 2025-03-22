@@ -3,7 +3,7 @@
 
 from pathlib         import Path
 
-from L00_fields      import FIELDS
+from L00_fields      import DATA_FIELDS
 from L20_PySide6     import C20_StandardItem
 from L20_form_import import T20_OperationsStruct
 from L50_form_import import C50_FormImport
@@ -39,7 +39,7 @@ class C60_FormImport(C50_FormImport):
 	def operations_struct_names(self, names: list[str]):
 		self._operations_struct = [T20_OperationsStruct(name=name) for name in names]
 
-	def GetOperationsStructField(self, name_or_index: str | int) -> FIELDS:
+	def GetOperationsStructField(self, name_or_index: str | int) -> DATA_FIELDS:
 		""" Получение типа поля для структуры данных операции """
 		match type(name_or_index):
 			case str():
@@ -48,15 +48,15 @@ class C60_FormImport(C50_FormImport):
 
 					return item.field
 				else:
-					return FIELDS.NONE
+					return DATA_FIELDS.NONE
 
 			case int():
 				try   : return self._operations_struct[name_or_index].field
 				except: pass
 
-		return FIELDS.NONE
+		return DATA_FIELDS.NONE
 
-	def SetOperationsStructField(self, name_or_index: str | int, field: FIELDS):
+	def SetOperationsStructField(self, name_or_index: str | int, field: DATA_FIELDS):
 		""" Установка типа поля для структуры данных операций """
 
 		match name_or_index:
@@ -71,7 +71,7 @@ class C60_FormImport(C50_FormImport):
 				try   : self._operations_struct[name_or_index].field = field
 				except: pass
 
-	def IndexOperationsStructByField(self, field: FIELDS) -> int:
+	def IndexOperationsStructByField(self, field: DATA_FIELDS) -> int:
 		""" Индекс поля структуры данных импорта операций """
 		for idx, item in enumerate(self._operations_struct):
 			if item.field == field: return idx
@@ -79,8 +79,8 @@ class C60_FormImport(C50_FormImport):
 
 	def AutodetectOperationsStructFields(self):
 		""" Авто-определение типов полей структуры операций """
-		for field in FIELDS:
-			if field == FIELDS.NONE: continue
+		for field in DATA_FIELDS:
+			if field == DATA_FIELDS.NONE: continue
 
 			for struct_item in self._operations_struct:
 				flag_equal : bool = field.value      in struct_item.name

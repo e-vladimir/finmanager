@@ -1,9 +1,74 @@
-# ФОРМА ОБРАБОТКА ДАННЫХ: КАРКАС UI
-# 22 мар 2025
+# -*- coding: utf-8 -*-
 
-from L20_PySide6 import C20_PySideForm
+################################################################################
+## Form generated from reading UI file 'form_processingpmjqMp.ui'
+##
+## Created by: Qt User Interface Compiler version 6.8.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHeaderView, QMainWindow,
+    QSizePolicy, QStatusBar, QTabWidget, QTreeView,
+    QVBoxLayout, QWidget)
+
+class Ui_FormProcessing(object):
+    def setupUi(self, FormProcessing):
+        if not FormProcessing.objectName():
+            FormProcessing.setObjectName(u"FormProcessing")
+        FormProcessing.resize(800, 600)
+        self.centralwidget = QWidget(FormProcessing)
+        self.centralwidget.setObjectName(u"centralwidget")
+        self.verticalLayout = QVBoxLayout(self.centralwidget)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(6, 6, -1, -1)
+        self.TabsMain = QTabWidget(self.centralwidget)
+        self.TabsMain.setObjectName(u"TabsMain")
+        self.TabOperations = QWidget()
+        self.TabOperations.setObjectName(u"TabOperations")
+        self.verticalLayout_2 = QVBoxLayout(self.TabOperations)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.TreeDataOperations = QTreeView(self.TabOperations)
+        self.TreeDataOperations.setObjectName(u"TreeDataOperations")
+        self.TreeDataOperations.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.TreeDataOperations.setStyleSheet(u"QTreeView {\n"
+"background: white;\n"
+"border: 1px solid lightgray;\n"
+"border-radius: 5px;\n"
+"padding: 3px;\n"
+"}")
+        self.TreeDataOperations.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.TreeDataOperations.setAlternatingRowColors(True)
+        self.TreeDataOperations.setRootIsDecorated(False)
+
+        self.verticalLayout_2.addWidget(self.TreeDataOperations)
+
+        self.TabsMain.addTab(self.TabOperations, "")
+
+        self.verticalLayout.addWidget(self.TabsMain)
+
+        FormProcessing.setCentralWidget(self.centralwidget)
+        self.statusbar = QStatusBar(FormProcessing)
+        self.statusbar.setObjectName(u"statusbar")
+        FormProcessing.setStatusBar(self.statusbar)
+
+        self.retranslateUi(FormProcessing)
+
+        self.TabsMain.setCurrentIndex(0)
 
 
-class C40_FormProcessing(C20_PySideForm):
-	""" Форма Обработка данных: Каркас UI """
-	pass
+        QMetaObject.connectSlotsByName(FormProcessing)
+    # setupUi
+
+    def retranslateUi(self, FormProcessing):
+        FormProcessing.setWindowTitle(QCoreApplication.translate("FormProcessing", u"MainWindow", None))
+        self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabOperations), QCoreApplication.translate("FormProcessing", u"\u041e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u043e\u043f\u0435\u0440\u0430\u0446\u0438\u0439", None))
+    # retranslateUi
+
