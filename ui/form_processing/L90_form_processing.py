@@ -12,6 +12,13 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		# Дерево данных Обработка операций
 		self.TreeDataOperations.doubleClicked.connect(self.on_TreeDataProcessingOperationsDoubleClicked)
+		self.TreeDataOperations.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
+
+		# Меню Обработка операций
+		self.ActionSetOperationsFilterDescription.triggered.connect(self.on_RequestSetOperationsFilterDescription)
+		self.ActionSetOperationsProcessingReplaceDescription.triggered.connect(self.on_RequestSetOperationsProcessingReplaceDescription)
+		self.ActionSetOperationsProcessingSetDescription.triggered.connect(self.on_RequestSetOperationsProcessingSetDescription)
+		self.ActionSetOperationsProcessingSetColor.triggered.connect(self.on_RequestSetOperationsProcessingSetColor)
 
 	# Форма
 	def on_Opened(self):
@@ -28,15 +35,15 @@ class C90_FormProcessing(C80_FormProcessing):
 		""" Запрос изменения параметра Описание содержит """
 		self.SetOperationsFilterDescription()
 
-	def on_RequestSetOperationsReplaceDescription(self):
+	def on_RequestSetOperationsProcessingReplaceDescription(self):
 		""" Запрос изменения параметра Замена фрагмента описания """
-		self.SetOperationsReplaceDescription()
+		self.SetOperationsProcessingReplaceDescription()
 
-	def on_RequestSetOperationsSetDescription(self):
+	def on_RequestSetOperationsProcessingSetDescription(self):
 		""" Запрос изменения параметра Установка описания """
 		self.SetOperationsProcessingSetDescription()
 
-	def on_RequestSetOperationsSetColor(self):
+	def on_RequestSetOperationsProcessingSetColor(self):
 		""" Запрос изменения параметра Установка цвета """
 		self.SetOperationsProcessingSetColor()
 
@@ -50,3 +57,8 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ReadProcessingFieldFromTreeDataOperations()
 
 		self.ControlProcessingField()
+
+	# Меню Обработка операций
+	def on_RequestShowMenuOperations(self):
+		""" Запрос меню Обработка операций """
+		self.ShowMenuOperations()

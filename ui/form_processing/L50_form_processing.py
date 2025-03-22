@@ -9,11 +9,14 @@ class C50_FormProcessing(C42_FormProcessing):
 
 	# Параметры Обработка операций
 	def on_RequestSetOperationsFilterDescription(self): pass
-	def on_RequestSetOperationsReplaceDescription(self): pass
-	def on_RequestSetOperationsSetDescription(self): pass
-	def on_RequestSetOperationsSetColor(self): pass
+	def on_RequestSetOperationsProcessingReplaceDescription(self): pass
+	def on_RequestSetOperationsProcessingSetDescription(self): pass
+	def on_RequestSetOperationsProcessingSetColor(self): pass
 
 	def on_ProcessingOperationsChanged(self): pass
 
 	# Дерево данных Обработка операций
 	def on_TreeDataProcessingOperationsDoubleClicked(self): pass
+
+	# Меню Обработка операций
+	def on_RequestShowMenuOperations(self): pass

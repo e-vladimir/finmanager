@@ -3,7 +3,7 @@
 
 from L00_colors          import COLORS
 from L00_form_processing import PROCESSING_FIELDS
-from L20_PySide6 import C20_StandardItem, ROLES, RequestItem, RequestText
+from L20_PySide6         import C20_StandardItem, ROLES, RequestItem, RequestText
 from L50_form_processing import C50_FormProcessing
 
 
@@ -41,7 +41,7 @@ class C60_FormProcessing(C50_FormProcessing):
 	def operations_processing_replace_description(self, text: str):
 		self._operations_processing_replace_description = text
 
-	def SetOperationsReplaceDescription(self):
+	def SetOperationsProcessingReplaceDescription(self):
 		""" Установка значения """
 		value : str | None = RequestText( "Обработка операций",
 		                                 f"Замена {self.operations_filter_description} на:",
