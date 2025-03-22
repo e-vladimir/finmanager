@@ -17,6 +17,7 @@ class C90_FormOperation(C80_FormOperation):
 
 		# Меню Операции
 		self.ActionCreateOperation.triggered.connect(self.on_RequestCreateOperation)
+		self.ActionOpenProcessing.triggered.connect(self.on_RequestOpenProcessing)
 		self.ActionImportOperations.triggered.connect(self.on_RequestOpenFormImport)
 		self.ActionResetOperations.triggered.connect(self.on_RequestResetOperations)
 
@@ -156,3 +157,8 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
+	# Обработка данных
+	def on_RequestOpenProcessing(self):
+		""" Запрос на переход в форму Обработка данных """
+		self.Application.FormProcessing.Open()

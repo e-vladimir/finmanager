@@ -30,17 +30,17 @@ class META_CLASSES(ClassInfo, enum.Enum):
 META_CLASS       = META_CLASSES.C20_PYSIDE_FORM
 
 # Имя класса
-CLASS_NAME        = "FormBackups"
+CLASS_NAME        = "FormProcessing"
 
 # Описание класса
-CLASS_DESCRIPTION = "Форма Копии архива данных"
+CLASS_DESCRIPTION = "Форма Обработка данных"
 
 # Имя файла
 # Если оставить пустым, сгенерируется автоматически из имени класса
 FILE_NAME         = ""
 
 # Корневая папка генерации файлов/директорий L
-DIR_ROOT          = "./ui/form_backups"
+DIR_ROOT          = "./ui/form_processing"
 
 # Генерация UI-Класса
 TARGET_IS_UI      = True

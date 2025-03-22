@@ -34,10 +34,12 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
 		icon_money       = QIcon("./L0/icons/money.svg")
 		icon_processing  = QIcon("./L0/icons/processing.svg")
+		icon_replace     = QIcon("./L0/icons/replace.svg")
 		icon_wallet      = QIcon("./L0/icons/wallet.svg")
 
 		self.ActionImportOperations         = QAction(icon_download,    "Импорт операций")
-		self.ActionResetOperations          = QAction(icon_processing,  "Сброс операций")
+		self.ActionOpenProcessing           = QAction(icon_processing,  "Обработка операций")
+		self.ActionResetOperations          = QAction(icon_replace,     "Сброс операций")
 
 		self.ActionCreateOperation          = QAction(icon_item_plus,   "Создать операцию")
 		self.ActionDeleteOperation          = QAction(icon_item_delete, "Удалить операцию")
@@ -57,7 +59,9 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		self.SubmenuOperations              = QMenu("Операции",         icon=icon_grid_1_3)
 		self.SubmenuOperations.addAction(self.ActionCreateOperation)
 		self.SubmenuOperations.addSeparator()
+		self.SubmenuOperations.addAction(self.ActionOpenProcessing)
 		self.SubmenuOperations.addAction(self.ActionImportOperations)
+		self.SubmenuOperations.addSeparator()
 		self.SubmenuOperations.addAction(self.ActionResetOperations)
 
 		self.SubmenuOperation               = QMenu("Операция",         icon=icon_grid_3_3)

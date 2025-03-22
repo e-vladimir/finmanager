@@ -36,3 +36,6 @@ class C50_FormOperation(C42_FormOperation):
 	def on_OperationCreated(self): pass
 	def on_OperationDeleted(self): pass
 	def on_OperationChanged(self): pass
+
+	# Обработка данных
+	def on_RequestOpenProcessing(self): pass
