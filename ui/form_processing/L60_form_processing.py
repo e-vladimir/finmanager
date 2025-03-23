@@ -24,10 +24,11 @@ class C60_FormProcessing(C50_FormProcessing):
 
 	def SetOperationsFilterDescription(self):
 		""" Установка значения """
+		dy, dm             = self.Workspace.DyDm()
 		value : str | None = RequestText("Обработка операций",
 		                                 "Описание операций содержит:",
 		                                 self.operations_filter_description,
-		                                 self.Operations.Descriptions())
+		                                 self.Operations.Descriptions(dy, dm))
 		if value is None: return
 
 		self.operations_filter_description = value
@@ -81,7 +82,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		""" Установка значения """
 		value : str | None = RequestText( "Обработка операций",
 		                                 f"Замена описания на:",
-		                                  self.operations_processing_replace_description,
+		                                  self.operations_processing_set_description,
 		                                  self.Operations.Descriptions())
 		if value is None: return
 
