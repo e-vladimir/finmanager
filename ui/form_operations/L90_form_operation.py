@@ -49,6 +49,15 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.CleanModelData()
 
+	def on_RequestPartialUpdateData(self):
+		""" Частичное обновление данных """
+		self.ShowOperations()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Colors()
+		self.AdjustTreeData_Size()
+
 	# Меню операций
 	def on_RequestMenuOperation(self):
 		""" Запрос меню операций """

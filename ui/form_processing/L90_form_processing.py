@@ -19,6 +19,7 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ActionSetOperationsProcessingReplaceDescription.triggered.connect(self.on_RequestSetOperationsProcessingReplaceDescription)
 		self.ActionSetOperationsProcessingSetDescription.triggered.connect(self.on_RequestSetOperationsProcessingSetDescription)
 		self.ActionSetOperationsProcessingSetColor.triggered.connect(self.on_RequestSetOperationsProcessingSetColor)
+		self.ActionProcessingOperations.triggered.connect(self.on_RequestProcessingOperations)
 
 	# Форма
 	def on_Opened(self):
@@ -30,7 +31,7 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.AdjustTreeDataOperations_Size()
 		self.AdjustTreeDataOperations_Color()
 
-	# Параметры Обработка операций
+	# Обработка операций
 	def on_RequestSetOperationsFilterDescription(self):
 		""" Запрос изменения параметра Описание содержит """
 		self.SetOperationsFilterDescription()
@@ -46,6 +47,17 @@ class C90_FormProcessing(C80_FormProcessing):
 	def on_RequestSetOperationsProcessingSetColor(self):
 		""" Запрос изменения параметра Установка цвета """
 		self.SetOperationsProcessingSetColor()
+
+	def on_RequestProcessingOperations(self):
+		""" Запрос обработки операций """
+		self.ReadOperationsFilterDescription()
+		self.ReadOperationsProcessingReplaceDescription()
+		self.ReadOperationsProcessingSetDescription()
+		self.ReadOperationsProcessingSetColor()
+
+		self.ProcessingOperations()
+
+		self.Application.FormOperations.PartialUpdateData()
 
 	def on_ProcessingOperationsChanged(self):
 		""" Параметры обработки операций изменились """

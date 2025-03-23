@@ -1,8 +1,11 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 22 мар 2025
 
+from PySide6.QtCore      import Qt
+
 from L00_colors          import COLORS
 from L00_form_processing import PROCESSING_FIELDS
+
 from L20_PySide6         import C20_StandardItem, ROLES, RequestItem, RequestText
 from L50_form_processing import C50_FormProcessing
 
@@ -13,11 +16,11 @@ class C60_FormProcessing(C50_FormProcessing):
 	# Обработка операций: Описание содержит
 	@property
 	def operations_filter_description(self) -> str:
-		return self._operations_filter_description
+		return self._operations_filter_description.data
 
 	@operations_filter_description.setter
 	def operations_filter_description(self, text: str):
-		self._operations_filter_description = text
+		self._operations_filter_description.data = text
 
 	def SetOperationsFilterDescription(self):
 		""" Установка значения """
@@ -31,15 +34,21 @@ class C60_FormProcessing(C50_FormProcessing):
 
 		self.on_ProcessingOperationsChanged()
 
+	def ReadOperationsFilterDescription(self):
+		""" Чтение параметра """
+		indexes    = self.ModelDataOperations.indexesInRowByIdo(PROCESSING_FIELDS.FILTER_DESCRIPTION)
+		item_value = self.ModelDataOperations.itemFromIndex(indexes[0])
+		self._operations_filter_description.enable = item_value.checkState() == Qt.CheckState.Checked
+
 
 	# Обработка операций: Замена текстового фрагмента в описании
 	@property
 	def operations_processing_replace_description(self) -> str:
-		return self._operations_processing_replace_description
+		return self._operations_processing_replace_description.data
 
 	@operations_processing_replace_description.setter
 	def operations_processing_replace_description(self, text: str):
-		self._operations_processing_replace_description = text
+		self._operations_processing_replace_description.data = text
 
 	def SetOperationsProcessingReplaceDescription(self):
 		""" Установка значения """
@@ -52,15 +61,21 @@ class C60_FormProcessing(C50_FormProcessing):
 
 		self.on_ProcessingOperationsChanged()
 
+	def ReadOperationsProcessingReplaceDescription(self):
+		""" Чтение параметра """
+		indexes    = self.ModelDataOperations.indexesInRowByIdo(PROCESSING_FIELDS.PROCESSING_REPLACE_DESCRIPTION)
+		item_value = self.ModelDataOperations.itemFromIndex(indexes[0])
+		self._operations_processing_replace_description.enable = item_value.checkState() == Qt.CheckState.Checked
+
 
 	# Обработка операций: Установка описания
 	@property
 	def operations_processing_set_description(self) -> str:
-		return self._operations_processing_set_description
+		return self._operations_processing_set_description.data
 
 	@operations_processing_set_description.setter
 	def operations_processing_set_description(self, text: str):
-		self._operations_processing_set_description = text
+		self._operations_processing_set_description.data = text
 
 	def SetOperationsProcessingSetDescription(self):
 		""" Установка значения """
@@ -74,15 +89,21 @@ class C60_FormProcessing(C50_FormProcessing):
 
 		self.on_ProcessingOperationsChanged()
 
+	def ReadOperationsProcessingSetDescription(self):
+		""" Чтение параметра """
+		indexes    = self.ModelDataOperations.indexesInRowByIdo(PROCESSING_FIELDS.PROCESSING_SET_DESCRIPTION)
+		item_value = self.ModelDataOperations.itemFromIndex(indexes[0])
+		self._operations_processing_set_description.enable = item_value.checkState() == Qt.CheckState.Checked
+
 
 	# Обработка операций: Установка цвета
 	@property
 	def operations_processing_set_color(self) -> COLORS:
-		return self._operations_processing_set_color
+		return self._operations_processing_set_color.data
 
 	@operations_processing_set_color.setter
 	def operations_processing_set_color(self, color: COLORS):
-		self._operations_processing_set_color = color
+		self._operations_processing_set_color.data = color
 
 	def SetOperationsProcessingSetColor(self):
 		""" Установка цвета """
@@ -94,6 +115,13 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.operations_processing_set_color = COLORS(color)
 
 		self.on_ProcessingOperationsChanged()
+
+	def ReadOperationsProcessingSetColor(self):
+		""" Чтение параметра """
+		indexes    = self.ModelDataOperations.indexesInRowByIdo(PROCESSING_FIELDS.PROCESSING_SET_COLOR)
+		item_value = self.ModelDataOperations.itemFromIndex(indexes[0])
+		self._operations_processing_set_color.enable = item_value.checkState() == Qt.CheckState.Checked
+
 
 	# Рабочее поле
 	@property
