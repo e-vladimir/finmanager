@@ -26,13 +26,13 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="TabOperations">
+      <widget class="QWidget" name="TabManual">
        <attribute name="title">
-        <string>Обработка операций</string>
+        <string>Ручная обработка</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTreeView" name="TreeDataOperations">
+         <widget class="QTreeView" name="TreeDataManual">
           <property name="contextMenuPolicy">
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
@@ -52,6 +52,25 @@ padding: 3px;
           </property>
           <property name="rootIsDecorated">
            <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="TabAuto">
+       <attribute name="title">
+        <string>Автоматическая обработка</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTableView" name="TableDataAuto">
+          <property name="styleSheet">
+           <string notr="true">QTableView {
+background: white;
+border: 1px solid lightgray;
+border-radius: 5px;
+padding: 3px;
+}</string>
           </property>
          </widget>
         </item>
