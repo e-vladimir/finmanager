@@ -33,16 +33,24 @@ class C80_FormProcessing(C70_FormProcessing):
 
 			flag_processing : bool = False
 
-			if self._operations_filter_description.enable:
-				flag_processing |= self.operations_filter_description in operation.description
+			if self._operations_description_include.enable:
+				flag_processing |= self.operations_description_include in operation.description
+
+			if self._operations_description_equal.enable:
+				flag_processing |= self.operations_description_equal == operation.description
 
 			if not flag_processing: continue
 
-			if self._operations_processing_replace_description.enable:
-				operation.description = operation.description.replace(self.operations_filter_description, self.operations_processing_replace_description)
+			if self._operations_description_replace.enable:
+				src : str = ""
 
-			if self._operations_processing_set_description.enable:
-				operation.description = self.operations_processing_set_description
+				if   self._operations_description_include.enable: src = self.operations_description_include
+				elif self._operations_description_equal.enable  : src = self.operations_description_equal
 
-			if self._operations_processing_set_color.enable:
-				operation.color = self.operations_processing_set_color
+				if src: operation.description = operation.description.replace(src, self.operations_description_replace)
+
+			if self._operations_description_set.enable:
+				operation.description = self.operations_description_set
+
+			if self._operations_color_set.enable:
+				operation.color = self.operations_color_set

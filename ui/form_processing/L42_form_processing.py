@@ -17,12 +17,13 @@ class C42_FormProcessing(C41_FormProcessing):
 	def Init_00(self):
 		super().Init_00()
 
-		self._operations_filter_description             : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._operations_processing_replace_description : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._operations_processing_set_description     : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._operations_processing_set_color           : T20_ProcessingItem = T20_ProcessingItem(False, COLORS.BLACK)
+		self._operations_description_include : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._operations_description_equal   : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._operations_description_replace : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._operations_description_set     : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._operations_color_set           : T20_ProcessingItem = T20_ProcessingItem(False, COLORS.BLACK)
 
-		self._processing_field                          : PROCESSING_FIELDS = PROCESSING_FIELDS.NONE
+		self._processing_field               : PROCESSING_FIELDS  = PROCESSING_FIELDS.NONE
 
 	def Init_10(self):
 		super().Init_10()

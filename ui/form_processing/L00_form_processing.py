@@ -6,13 +6,14 @@ import enum
 
 class PROCESSING_FIELDS(enum.Enum):
 	""" Поля """
-	NONE                           = enum.auto()
+	NONE                = enum.auto()
 
-	FILTER_DESCRIPTION             = enum.auto()
+	DESCRIPTION_EQUAL   = enum.auto()
+	DESCRIPTION_INCLUDE = enum.auto()
 
-	PROCESSING_REPLACE_DESCRIPTION = enum.auto()
-	PROCESSING_SET_DESCRIPTION     = enum.auto()
-	PROCESSING_SET_COLOR           = enum.auto()
+	DESCRIPTION_REPLACE = enum.auto()
+	DESCRIPTION_SET     = enum.auto()
+	COLOR_SET           = enum.auto()
 
 	@classmethod
 	def _missing_(cls, value): return cls.NONE

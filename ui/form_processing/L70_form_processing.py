@@ -15,10 +15,11 @@ class C70_FormProcessing(C60_FormProcessing):
 	def ControlProcessingField(self):
 		""" Контроль значения рабочего поля """
 		match self.processing_field:
-			case PROCESSING_FIELDS.FILTER_DESCRIPTION            : self.on_RequestSetOperationsFilterDescription()
-			case PROCESSING_FIELDS.PROCESSING_REPLACE_DESCRIPTION: self.on_RequestSetOperationsProcessingReplaceDescription()
-			case PROCESSING_FIELDS.PROCESSING_SET_DESCRIPTION    : self.on_RequestSetOperationsProcessingSetDescription()
-			case PROCESSING_FIELDS.PROCESSING_SET_COLOR          : self.on_RequestSetOperationsProcessingSetColor()
+			case PROCESSING_FIELDS.DESCRIPTION_INCLUDE : self.on_RequestSetOperationsDescriptionInclude()
+			case PROCESSING_FIELDS.DESCRIPTION_EQUAL   : self.on_RequestSetOperationsDescriptionEqual()
+			case PROCESSING_FIELDS.DESCRIPTION_REPLACE : self.on_RequestSetOperationsDescriptionReplace()
+			case PROCESSING_FIELDS.DESCRIPTION_SET     : self.on_RequestSetOperationsDescriptionSet()
+			case PROCESSING_FIELDS.COLOR_SET           : self.on_RequestSetOperationsColorSet()
 
 	# Дерево параметров Обработка операций
 	def AdjustTreeDataOperations_Expand(self):

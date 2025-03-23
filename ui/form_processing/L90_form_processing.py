@@ -15,10 +15,11 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.TreeDataOperations.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
 
 		# Меню Обработка операций
-		self.ActionSetOperationsFilterDescription.triggered.connect(self.on_RequestSetOperationsFilterDescription)
-		self.ActionSetOperationsProcessingReplaceDescription.triggered.connect(self.on_RequestSetOperationsProcessingReplaceDescription)
-		self.ActionSetOperationsProcessingSetDescription.triggered.connect(self.on_RequestSetOperationsProcessingSetDescription)
-		self.ActionSetOperationsProcessingSetColor.triggered.connect(self.on_RequestSetOperationsProcessingSetColor)
+		self.ActionSetOperationsDescriptionInclude.triggered.connect(self.on_RequestSetOperationsDescriptionInclude)
+		self.ActionSetOperationsDescriptionEqual.triggered.connect(self.on_RequestSetOperationsDescriptionEqual)
+		self.ActionSetOperationsDescriptionReplace.triggered.connect(self.on_RequestSetOperationsDescriptionReplace)
+		self.ActionSetOperationsDescriptionSet.triggered.connect(self.on_RequestSetOperationsDescriptionSet)
+		self.ActionSetOperationsColorSet.triggered.connect(self.on_RequestSetOperationsColorSet)
 		self.ActionProcessingOperations.triggered.connect(self.on_RequestProcessingOperations)
 
 	# Форма
@@ -32,28 +33,32 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.AdjustTreeDataOperations_Color()
 
 	# Обработка операций
-	def on_RequestSetOperationsFilterDescription(self):
+	def on_RequestSetOperationsDescriptionInclude(self):
 		""" Запрос изменения параметра Описание содержит """
-		self.SetOperationsFilterDescription()
+		self.SetOperationsDescriptionInclude()
 
-	def on_RequestSetOperationsProcessingReplaceDescription(self):
+	def on_RequestSetOperationsDescriptionEqual(self):
+		""" Запрос изменения параметра Описание идентично """
+		self.SetOperationsDescriptionEqual()
+
+	def on_RequestSetOperationsDescriptionReplace(self):
 		""" Запрос изменения параметра Замена фрагмента описания """
-		self.SetOperationsProcessingReplaceDescription()
+		self.SetOperationsDescriptionReplace()
 
-	def on_RequestSetOperationsProcessingSetDescription(self):
+	def on_RequestSetOperationsDescriptionSet(self):
 		""" Запрос изменения параметра Установка описания """
-		self.SetOperationsProcessingSetDescription()
+		self.SetOperationsDescriptionSet()
 
-	def on_RequestSetOperationsProcessingSetColor(self):
+	def on_RequestSetOperationsColorSet(self):
 		""" Запрос изменения параметра Установка цвета """
-		self.SetOperationsProcessingSetColor()
+		self.SetOperationsColorSet()
 
 	def on_RequestProcessingOperations(self):
 		""" Запрос обработки операций """
-		self.ReadOperationsFilterDescription()
-		self.ReadOperationsProcessingReplaceDescription()
-		self.ReadOperationsProcessingSetDescription()
-		self.ReadOperationsProcessingSetColor()
+		self.ReadOperationsDescriptionInclude()
+		self.ReadOperationsDescriptionReplace()
+		self.ReadOperationsDescriptionSet()
+		self.ReadOperationsColorSet()
 
 		self.ProcessingOperations()
 
