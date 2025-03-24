@@ -1,6 +1,7 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: МОДЕЛЬ ДАННЫХ
 # 22 мар 2025
 
+from L00_form_processing import OBJECTS_TYPE
 from L20_PySide6         import C20_StandardItemModel
 from L41_form_processing import C41_FormProcessing
 from L90_operations      import C90_Operations
@@ -12,6 +13,8 @@ class C42_FormProcessing(C41_FormProcessing):
 
 	def Init_00(self):
 		super().Init_00()
+
+		self._processing_object_type : OBJECTS_TYPE = OBJECTS_TYPE.NONE
 
 	def Init_10(self):
 		super().Init_10()

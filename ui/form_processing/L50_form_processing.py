@@ -6,4 +6,15 @@ from L42_form_processing import C42_FormProcessing
 
 class C50_FormProcessing(C42_FormProcessing):
 	""" Форма Обработка данных: Модель событий """
-	pass
+
+	# Вкладки режимов обработки
+	def on_TabMainChanged(self): pass
+
+	# Меню ручной обработки данных
+	def on_RequestShowMenuManual(self): pass
+
+	# Параметры ручной обработки данных
+	def on_RequestSwitchProcessingObjectsTypeToOperations(self): pass
+	def on_RequestSwitchProcessingObjectsTypeToLabels(self): pass
+
+	def on_ProcessingObjectsTypeChanged(self): pass
