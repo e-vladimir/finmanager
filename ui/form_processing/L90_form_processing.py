@@ -18,6 +18,8 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
 		self.ActionManualObjectsTypeLabels.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToLabels)
 
+		self.ActionManualProcessing.triggered.connect(self.on_RequestManualProcessing)
+
 	# Форма
 	def on_Opened(self):
 		""" Открытие формы """
@@ -58,3 +60,13 @@ class C90_FormProcessing(C80_FormProcessing):
 	def on_OptionsManualChanged(self):
 		""" Изменились параметры ручной обработки данных """
 		self.LoadModelDataManual()
+
+	def on_RequestManualProcessing(self):
+		""" Запрос выполнения ручной обработки данных """
+		self.ReadManualDescriptionInclude()
+		self.ReadManualDescriptionReplace()
+		self.ReadManualDescriptionSet()
+
+		self.ManualProcessing()
+
+		self.Application.FormOperations.PartialUpdateData()

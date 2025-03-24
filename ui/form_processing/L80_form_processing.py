@@ -1,8 +1,12 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: ЛОГИКА ДАННЫХ
 # 22 мар 2025
 
-from L00_form_processing import PROCESSING_FIELDS
+from PySide6.QtCore      import Qt
+from PySide6.QtWidgets   import QProgressDialog
+
+from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L70_form_processing import C70_FormProcessing
+from L90_operations      import C90_Operation
 
 
 class C80_FormProcessing(C70_FormProcessing):
@@ -14,3 +18,43 @@ class C80_FormProcessing(C70_FormProcessing):
 			case PROCESSING_FIELDS.DESCRIPTION_INCLUDE: self.SetManualDescriptionInclude()
 			case PROCESSING_FIELDS.DESCRIPTION_REPLACE: self.SetManualDescriptionReplace()
 			case PROCESSING_FIELDS.DESCRIPTION_SET    : self.SetManualDescriptionSet()
+
+	# Ручная обработка данных
+	def ManualProcessingOperations(self):
+		""" Выполнение ручной обработки данных операций """
+		dy, dm           = self.Workspace.DyDm()
+		idos : list[str] = self.Operations.Idos(dy, dm)
+
+		dialog_import    = QProgressDialog(self)
+		dialog_import.setWindowTitle("Обработка операций")
+		dialog_import.setMaximum(len(idos))
+		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_import.setLabelText(f"Осталось обработать операций: {dialog_import.maximum()}")
+		dialog_import.setMinimumWidth(480)
+		dialog_import.forceShow()
+
+		for index_data, ido in enumerate(idos):
+			dialog_import.setValue(index_data + 1)
+			dialog_import.setLabelText(f"Осталось обработать операций: {dialog_import.maximum() - dialog_import.value()}")
+
+			operation          = C90_Operation(ido)
+			description : str  = operation.description
+
+			flag_skip   : bool = False
+
+			if self._manual_description_include.enable: flag_skip |= self._manual_description_include.data not in description
+
+			if flag_skip: continue
+
+			if self._manual_description_replace.enable: description = description.replace(self._manual_description_include.data,
+			                                                                              self._manual_description_replace.data)
+
+			if self._manual_description_set.enable    : description = self._manual_description_set.data
+
+			operation.description = description
+
+
+	def ManualProcessing(self):
+		""" Выполнение ручной обработки данных """
+		match self.processing_objects_type:
+			case OBJECTS_TYPE.OPERATIONS: self.ManualProcessingOperations()

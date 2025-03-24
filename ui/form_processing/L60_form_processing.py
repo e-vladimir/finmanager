@@ -1,5 +1,6 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 22 мар 2025
+from PySide6.QtCore import Qt
 
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L20_PySide6         import C20_StandardItem, ROLES, RequestText
@@ -46,6 +47,13 @@ class C60_FormProcessing(C50_FormProcessing):
 
 
 	# Параметр ручной обработки: Описание включает
+	def ReadManualDescriptionInclude(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
+		                                                                 ROLES.IDO)
+
+		self._manual_description_include.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
 	def SetManualDescriptionInclude(self):
 		""" Установка параметра """
 		dy, dm            = self.Workspace.DyDm()
@@ -61,9 +69,15 @@ class C60_FormProcessing(C50_FormProcessing):
 
 
 	# Параметр ручной обработки: Замена фрагмента описания
+	def ReadManualDescriptionReplace(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESCRIPTION_REPLACE,
+		                                                                 ROLES.IDO)
+
+		self._manual_description_replace.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
 	def SetManualDescriptionReplace(self):
 		""" Установка параметра """
-		dy, dm            = self.Workspace.DyDm()
 		text : str | None = RequestText("Обработка данных",
 		                                "Замена фрагмента описания:",
 		                                self._manual_description_replace.data,
@@ -76,9 +90,15 @@ class C60_FormProcessing(C50_FormProcessing):
 
 
 	# Параметр ручной обработки: Замена описания
+	def ReadManualDescriptionSet(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESCRIPTION_SET,
+		                                                                 ROLES.IDO)
+
+		self._manual_description_set.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
 	def SetManualDescriptionSet(self):
 		""" Установка параметра """
-		dy, dm            = self.Workspace.DyDm()
 		text : str | None = RequestText("Обработка данных",
 		                                "Замена описания:",
 		                                self._manual_description_set.data,

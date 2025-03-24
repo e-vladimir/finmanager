@@ -16,10 +16,9 @@ class C50_FormProcessing(C42_FormProcessing):
 	# Параметры ручной обработки данных
 	def on_RequestSwitchProcessingObjectsTypeToOperations(self): pass
 	def on_RequestSwitchProcessingObjectsTypeToLabels(self): pass
-
-	def on_ProcessingObjectsTypeChanged(self): pass
-
-	# Параметры ручной обработки данных
 	def on_RequestEditOptionsManual(self): pass
 
+	def on_ProcessingObjectsTypeChanged(self): pass
 	def on_OptionsManualChanged(self): pass
+
+	def on_RequestManualProcessing(self): pass

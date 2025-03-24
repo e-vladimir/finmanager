@@ -18,14 +18,19 @@ class C41_FormProcessing(C20_PySideForm, Ui_FormProcessing):
 
 	def InitMenuManual(self):
 		""" Инициализация меню Ручная обработка """
-		icon_blocks   = QIcon("./L0/icons/blocks.svg")
-		icon_layers   = QIcon("./L0/icons/layers.svg")
-		icon_grid_1_3 = QIcon("./L0/icons/grid_1_3.svg")
+		icon_blocks     = QIcon("./L0/icons/blocks.svg")
+		icon_grid_1_3   = QIcon("./L0/icons/grid_1_3.svg")
+		icon_layers     = QIcon("./L0/icons/layers.svg")
+		icon_processing = QIcon("./L0/icons/processing.svg")
 
-		self.ActionManualObjectsTypeOperations = QAction(icon_blocks,   "Операции")
-		self.ActionManualObjectsTypeLabels     = QAction(icon_grid_1_3, "Метки")
+		self.ActionManualObjectsTypeOperations = QAction(icon_blocks,     "Операции")
+		self.ActionManualObjectsTypeLabels     = QAction(icon_grid_1_3,   "Метки")
+		self.ActionManualProcessing            = QAction(icon_processing, "Выполнить обработку")
 
 		self.MenuManual                        = QMenu("Ручная обработка")
 		self.SubmenuManualObjectsType          = self.MenuManual.addMenu(icon_layers, "Тип объекта не выбран")
 		self.SubmenuManualObjectsType.addAction(self.ActionManualObjectsTypeOperations)
 		self.SubmenuManualObjectsType.addAction(self.ActionManualObjectsTypeLabels)
+
+		self.MenuManual.addSeparator()
+		self.MenuManual.addAction(self.ActionManualProcessing)
