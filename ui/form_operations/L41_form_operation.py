@@ -38,7 +38,7 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		icon_wallet      = QIcon("./L0/icons/wallet.svg")
 
 		self.ActionImportOperations         = QAction(icon_download,    "Импорт операций")
-		self.ActionOpenProcessing           = QAction(icon_processing,  "Обработка операций")
+		self.ActionOpenProcessing           = QAction(icon_processing,  "Обработка данных")
 		self.ActionResetOperations          = QAction(icon_replace,     "Сброс операций")
 
 		self.ActionCreateOperation          = QAction(icon_item_plus,   "Создать операцию")
