@@ -13,3 +13,12 @@ class OBJECTS_TYPE(enum.StrEnum):
 
 	@classmethod
 	def _missing_(cls, value): return cls.NONE
+
+
+class PROCESSING_FIELDS(enum.StrEnum):
+	""" Параметры обработки """
+	NONE                = "Нет данных"
+
+	DESCRIPTION_INCLUDE = "Описание включает"
+	DESCRIPTION_REPLACE = "Заменить фрагмент описания"
+	DESCRIPTION_SET     = "Заменить описание"

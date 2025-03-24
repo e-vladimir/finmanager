@@ -2,6 +2,7 @@
 # 22 мар 2025
 
 from PySide6.QtGui       import QCursor
+from PySide6.QtWidgets   import QHeaderView
 
 from L60_form_processing import C60_FormProcessing
 
@@ -12,9 +13,7 @@ class C70_FormProcessing(C60_FormProcessing):
 	# Форма
 	def ShowTitle(self):
 		""" Отображение заголовка """
-		match self.TabsMain.currentIndex():
-			case 0: self.setWindowTitle(f"Ручная обработка: {self.processing_objects_type} - {self.Workspace.DmDyToString()}")
-			case _: self.setWindowTitle(f"Обработка данных - {self.Workspace.DmDyToString()}")
+		self.setWindowTitle(f"Обработка данных - {self.Workspace.DmDyToString()}")
 
 	# Меню ручной обработки данных
 	def AdjustMenuManual(self):
@@ -32,3 +31,23 @@ class C70_FormProcessing(C60_FormProcessing):
 	def ShowMenuManual(self):
 		""" Отображение меню ручной обработки данных """
 		self.MenuManual.exec_(QCursor().pos())
+
+	# Вкладки режима обработки
+	def AdjustTabsMainText(self):
+		""" Настройка названий вкладок режима обработки """
+		self.TabsMain.setTabText(0, f"Ручная обработка: {self.processing_objects_type}")
+
+	# Дерево данных ручной обработки данных
+	def AdjustTreeDataManualSize(self):
+		""" Настройка размеров дерева данных ручной обработки данных """
+		self.TreeDataManual.resizeColumnToContents(0)
+
+	def AdjustTreeDataManualExpand(self):
+		""" Настройка раскрытия дерева данных ручной обработки данных """
+		self.TreeDataManual.expandAll()
+
+	def AdjustTreeDataManualColor(self):
+		""" Настройка цветовой схемы дерева данных ручной обработки данных """
+		self.ModelDataManual.adjustGroupView(True,
+		                                     True,
+		                                     True)

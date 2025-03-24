@@ -1,7 +1,8 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 22 мар 2025
 
-from L00_form_processing import OBJECTS_TYPE
+from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
+from L20_PySide6         import C20_StandardItem, ROLES
 from L50_form_processing import C50_FormProcessing
 
 
@@ -28,3 +29,62 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.processing_objects_type = OBJECTS_TYPE.LABELS
 
 		self.on_ProcessingObjectsTypeChanged()
+
+	# Модель данных ручной обработки
+	def InitModelDataManual(self):
+		""" Инициализация модели данных ручной обработки """
+		self.ModelDataManual.removeAll()
+
+		match self.processing_objects_type:
+			case OBJECTS_TYPE.OPERATIONS:
+				self.ModelDataManual.setHorizontalHeaderLabels(["Параметр", "Значение"])
+
+				group_filter      = C20_StandardItem("Параметры фильтрации")
+				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
+				                                     data         = PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
+				                                     data_role    = ROLES.IDO,
+				                                     flag_checked = False)
+				item_value        = C20_StandardItem("",
+				                                     PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
+				                                     ROLES.IDO)
+				group_filter.appendRow([item_field, item_value])
+
+				self.ModelDataManual.appendRow([group_filter, C20_StandardItem("")])
+
+				group_processing  = C20_StandardItem("Параметры обработки")
+				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.DESCRIPTION_REPLACE,
+				                                     data         = PROCESSING_FIELDS.DESCRIPTION_REPLACE,
+				                                     data_role    = ROLES.IDO,
+				                                     flag_checked = False)
+				item_value        = C20_StandardItem("",
+				                                     PROCESSING_FIELDS.DESCRIPTION_REPLACE,
+				                                     ROLES.IDO)
+				group_processing.appendRow([item_field, item_value])
+
+				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.DESCRIPTION_SET,
+				                                     data         = PROCESSING_FIELDS.DESCRIPTION_SET,
+				                                     data_role    = ROLES.IDO,
+				                                     flag_checked = False)
+				item_value        = C20_StandardItem("",
+				                                     PROCESSING_FIELDS.DESCRIPTION_SET,
+				                                     ROLES.IDO)
+				group_processing.appendRow([item_field, item_value])
+
+				self.ModelDataManual.appendRow([group_processing, C20_StandardItem("")])
+
+			case OBJECTS_TYPE.LABELS:
+				pass
+
+	def LoadModelDataManual(self):
+		""" Загрузка данных в модель данных ручной обработки """
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESCRIPTION_INCLUDE):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_INCLUDE)[1])
+			item_value.setText(self._manual_description_include.data)
+
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESCRIPTION_REPLACE):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_REPLACE)[1])
+			item_value.setText(self._manual_description_replace.data)
+
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESCRIPTION_SET):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_SET)[1])
+			item_value.setText(self._manual_description_set.data)

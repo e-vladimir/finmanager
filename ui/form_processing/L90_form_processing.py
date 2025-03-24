@@ -10,9 +10,6 @@ class C90_FormProcessing(C80_FormProcessing):
 	def InitEvents(self):
 		super().InitEvents()
 
-		# Вкладки режимов обработки
-		self.TabsMain.currentChanged.connect(self.on_TabMainChanged)
-
 		# Дерево данных ручной обработки данных
 		self.TreeDataManual.customContextMenuRequested.connect(self.on_RequestShowMenuManual)
 
@@ -23,11 +20,6 @@ class C90_FormProcessing(C80_FormProcessing):
 	# Форма
 	def on_Opened(self):
 		""" Открытие формы """
-		self.ShowTitle()
-
-	# Вкладки режимов обработки
-	def on_TabMainChanged(self):
-		""" Изменилась текущая вкладка режима обработки """
 		self.ShowTitle()
 
 	# Меню ручной обработки данных
@@ -49,5 +41,10 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.SwitchProcessingObjectsTypeToLabels()
 
 	def on_ProcessingObjectsTypeChanged(self):
-		""" Изменился тип объекта для ручной обработки данных """
-		self.ShowTitle()
+		""" Изменился тип объектов в режиме ручной обработки """
+		self.InitModelDataManual()
+		self.LoadModelDataManual()
+
+		self.AdjustTreeDataManualExpand()
+		self.AdjustTreeDataManualColor()
+		self.AdjustTreeDataManualSize()
