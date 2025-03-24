@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 20 мар 2025
+# 24 мар 2025
 
 import enum
 
@@ -389,11 +389,12 @@ def RequestText(title: str, message: str, old_text: str = "", items: list[str] |
 	dialog.setWindowTitle(title)
 	dialog.setLabelText(message)
 	dialog.resize(480, 150)
-	dialog.setTextValue(old_text)
 
 	if items is not None:
 		dialog.setComboBoxItems(items)
 		dialog.setComboBoxEditable(True)
+
+	dialog.setTextValue(old_text)
 
 	if not dialog.exec_(): return None
 	return dialog.textValue()

@@ -12,6 +12,7 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		# Дерево данных ручной обработки данных
 		self.TreeDataManual.customContextMenuRequested.connect(self.on_RequestShowMenuManual)
+		self.TreeDataManual.doubleClicked.connect(self.on_RequestEditOptionsManual)
 
 		# Меню ручной обработки данных
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
@@ -48,3 +49,12 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.AdjustTreeDataManualExpand()
 		self.AdjustTreeDataManualColor()
 		self.AdjustTreeDataManualSize()
+
+	def on_RequestEditOptionsManual(self):
+		""" Запрос редактирования параметров ручной обработки данных """
+		self.ReadProcessingFieldFromTreeDataManual()
+		self.EditOptionsManual()
+
+	def on_OptionsManualChanged(self):
+		""" Изменились параметры ручной обработки данных """
+		self.LoadModelDataManual()

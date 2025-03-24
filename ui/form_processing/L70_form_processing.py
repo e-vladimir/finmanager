@@ -2,7 +2,6 @@
 # 22 мар 2025
 
 from PySide6.QtGui       import QCursor
-from PySide6.QtWidgets   import QHeaderView
 
 from L60_form_processing import C60_FormProcessing
 

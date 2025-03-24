@@ -1,7 +1,7 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: МОДЕЛЬ ДАННЫХ
 # 22 мар 2025
 
-from L00_form_processing import OBJECTS_TYPE
+from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L20_PySide6         import C20_StandardItemModel
 from L20_form_processing import T20_ProcessingItem
 from L41_form_processing import C41_FormProcessing
@@ -16,6 +16,7 @@ class C42_FormProcessing(C41_FormProcessing):
 		super().Init_00()
 
 		self._processing_object_type     : OBJECTS_TYPE       = OBJECTS_TYPE.NONE
+		self._processing_field           : PROCESSING_FIELDS  = PROCESSING_FIELDS.NONE
 
 		self._manual_description_include : T20_ProcessingItem = T20_ProcessingItem(False, "")
 		self._manual_description_replace : T20_ProcessingItem = T20_ProcessingItem(False, "")

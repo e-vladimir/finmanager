@@ -2,7 +2,7 @@
 # 22 мар 2025
 
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
-from L20_PySide6         import C20_StandardItem, ROLES
+from L20_PySide6         import C20_StandardItem, ROLES, RequestText
 from L50_form_processing import C50_FormProcessing
 
 
@@ -29,6 +29,65 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.processing_objects_type = OBJECTS_TYPE.LABELS
 
 		self.on_ProcessingObjectsTypeChanged()
+
+
+	# Рабочее поле
+	@property
+	def processing_field(self) -> PROCESSING_FIELDS:
+		return self._processing_field
+
+	@processing_field.setter
+	def processing_field(self, field: PROCESSING_FIELDS):
+		self._processing_field = field
+
+	def ReadProcessingFieldFromTreeDataManual(self):
+		"""  Чтение из дерева данных ручной обработки """
+		self.processing_field = PROCESSING_FIELDS(self.TreeDataManual.currentIndex().data(ROLES.IDO))
+
+
+	# Параметр ручной обработки: Описание включает
+	def SetManualDescriptionInclude(self):
+		""" Установка параметра """
+		dy, dm            = self.Workspace.DyDm()
+		text : str | None = RequestText("Обработка данных",
+		                                "Описание включает:",
+		                                self._manual_description_include.data,
+		                                self.Operations.Descriptions(dy, dm))
+		if text is None: return
+
+		self._manual_description_include.data   = text
+
+		self.on_OptionsManualChanged()
+
+
+	# Параметр ручной обработки: Замена фрагмента описания
+	def SetManualDescriptionReplace(self):
+		""" Установка параметра """
+		dy, dm            = self.Workspace.DyDm()
+		text : str | None = RequestText("Обработка данных",
+		                                "Замена фрагмента описания:",
+		                                self._manual_description_replace.data,
+		                                self.Operations.Descriptions())
+		if text is None: return
+
+		self._manual_description_replace.data   = text
+
+		self.on_OptionsManualChanged()
+
+
+	# Параметр ручной обработки: Замена описания
+	def SetManualDescriptionSet(self):
+		""" Установка параметра """
+		dy, dm            = self.Workspace.DyDm()
+		text : str | None = RequestText("Обработка данных",
+		                                "Замена описания:",
+		                                self._manual_description_set.data,
+		                                self.Operations.Descriptions())
+		if text is None: return
+
+		self._manual_description_set.data   = text
+
+		self.on_OptionsManualChanged()
 
 	# Модель данных ручной обработки
 	def InitModelDataManual(self):
