@@ -22,3 +22,12 @@ class PROCESSING_FIELDS(enum.StrEnum):
 	DESCRIPTION_INCLUDE = "Описание включает"
 	DESCRIPTION_REPLACE = "Заменить фрагмент описания"
 	DESCRIPTION_SET     = "Заменить описание"
+
+	LABELS_ADD          = "Добавить метку"
+	LABELS_EXCLUDE      = "Метки не содержат"
+	LABELS_INCLUDE      = "Поиск по метке"
+	LABELS_REMOVE       = "Убрать метку"
+	LABELS_REPLACE      = "Заменить на метку"
+
+	@classmethod
+	def _missing_(cls, value): return cls.NONE

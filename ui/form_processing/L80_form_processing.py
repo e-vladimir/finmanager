@@ -18,6 +18,11 @@ class C80_FormProcessing(C70_FormProcessing):
 			case PROCESSING_FIELDS.DESCRIPTION_INCLUDE: self.SetManualDescriptionInclude()
 			case PROCESSING_FIELDS.DESCRIPTION_REPLACE: self.SetManualDescriptionReplace()
 			case PROCESSING_FIELDS.DESCRIPTION_SET    : self.SetManualDescriptionSet()
+			case PROCESSING_FIELDS.LABELS_ADD         : self.SetManualLabelsAdd()
+			case PROCESSING_FIELDS.LABELS_EXCLUDE     : self.SetManualLabelsExclude()
+			case PROCESSING_FIELDS.LABELS_INCLUDE     : self.SetManualLabelsInclude()
+			case PROCESSING_FIELDS.LABELS_REMOVE      : self.SetManualLabelsRemove()
+			case PROCESSING_FIELDS.LABELS_REPLACE     : self.SetManualLabelsReplace()
 
 	# Ручная обработка данных
 	def ManualProcessingOperations(self):
@@ -52,7 +57,6 @@ class C80_FormProcessing(C70_FormProcessing):
 			if self._manual_description_set.enable    : description = self._manual_description_set.data
 
 			operation.description = description
-
 
 	def ManualProcessing(self):
 		""" Выполнение ручной обработки данных """

@@ -22,6 +22,13 @@ class C42_FormProcessing(C41_FormProcessing):
 		self._manual_description_replace : T20_ProcessingItem = T20_ProcessingItem(False, "")
 		self._manual_description_set     : T20_ProcessingItem = T20_ProcessingItem(False, "")
 
+		self._manual_labels_add          : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_labels_exclude      : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_labels_include      : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_labels_remove       : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_labels_set          : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_labels_replace      : T20_ProcessingItem = T20_ProcessingItem(False, "")
+
 	def Init_10(self):
 		super().Init_10()
 
