@@ -43,23 +43,10 @@ class C90_FormProcessing(C80_FormProcessing):
 		""" Запрос на переключение объекта ручной обработки данных на метки """
 		self.SwitchProcessingObjectsTypeToLabels()
 
-	def on_ProcessingObjectsTypeChanged(self):
-		""" Изменился тип объектов в режиме ручной обработки """
-		self.InitModelDataManual()
-		self.LoadModelDataManual()
-
-		self.AdjustTreeDataManualExpand()
-		self.AdjustTreeDataManualColor()
-		self.AdjustTreeDataManualSize()
-
 	def on_RequestEditOptionsManual(self):
 		""" Запрос редактирования параметров ручной обработки данных """
 		self.ReadProcessingFieldFromTreeDataManual()
 		self.EditOptionsManual()
-
-	def on_OptionsManualChanged(self):
-		""" Изменились параметры ручной обработки данных """
-		self.LoadModelDataManual()
 
 	def on_RequestManualProcessing(self):
 		""" Запрос выполнения ручной обработки данных """
@@ -70,3 +57,18 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ManualProcessing()
 
 		self.Application.FormOperations.PartialUpdateData()
+
+	def on_ProcessingObjectsTypeChanged(self):
+		""" Изменился тип объектов в режиме ручной обработки """
+		self.InitModelDataManual()
+		self.LoadModelDataManual()
+
+		self.AdjustTreeDataManualExpand()
+		self.AdjustTreeDataManualColor()
+		self.AdjustTreeDataManualSize()
+
+		self.AdjustTabsMainText()
+
+	def on_OptionsManualChanged(self):
+		""" Изменились параметры ручной обработки данных """
+		self.LoadModelDataManual()
