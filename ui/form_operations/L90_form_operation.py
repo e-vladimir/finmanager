@@ -25,6 +25,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
 		self.ActionEditOperationAccounts.triggered.connect(self.on_RequestEditOperationAccounts)
 		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescriptions)
+		self.ActionEditOperationLabels.triggered.connect(self.on_RequestEditOperationLabels)
 		self.ActionDeleteOperation.triggered.connect(self.on_RequestDeleteOperation)
 		self.ActionSetOperationColorBlack.triggered.connect(self.on_RequestSetOperationColorToBlack)
 		self.ActionSetOperationColorGray.triggered.connect(self.on_RequestSetOperationColorToGray)
@@ -118,6 +119,10 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestEditOperationDescriptions(self):
 		""" Запрос редактирования описания операции """
 		self.EditDescriptionOperation()
+
+	def on_RequestEditOperationLabels(self):
+		""" Запрос редактирования меток операции """
+		self.EditLabelsOperation()
 
 	def on_RequestSetOperationColorToBlack(self):
 		""" Установка цвета операции: Чёрный """

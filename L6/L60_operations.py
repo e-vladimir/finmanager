@@ -1,6 +1,7 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 # 11 мар 2025
-from L00_colors import COLORS
+
+from L00_colors     import COLORS
 from L00_containers import CONTAINERS
 from L50_operations import C50_Operation, C50_Operations
 
@@ -76,6 +77,16 @@ class C60_Operation(C50_Operation):
 	@color.setter
 	def color(self, color: COLORS):
 		self.FColor.FromString(CONTAINERS.DISK, color.value)
+
+
+	# Метки
+	@property
+	def labels(self) -> list[str]:
+		return sorted(self.FLabels.ToStrings(CONTAINERS.DISK).data)
+
+	@labels.setter
+	def labels(self, items: list[str]):
+		self.FLabels.FromStrings(CONTAINERS.DISK, sorted(items))
 
 
 class C60_Operations(C50_Operations):

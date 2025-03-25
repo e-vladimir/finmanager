@@ -5,7 +5,7 @@ from G11_convertor_data import AmountToString
 
 from L00_colors         import COLORS
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue
+from L20_PySide6 import RequestConfirm, RequestItems, RequestMultipleText, RequestText, RequestValue
 from L70_form_operation import C70_FormOperation
 from L90_operations     import C90_Operation
 
@@ -100,6 +100,17 @@ class C80_FormOperation(C70_FormOperation):
 		if description is None: return
 
 		operation.description = description
+
+		self.on_OperationChanged()
+
+	def EditLabelsOperation(self):
+		""" Редактирование меток """
+		operation                 = C90_Operation(self.processing_ido)
+
+		labels : list[str] | None = RequestMultipleText("Редактирование операции", f"{operation.Information()}\n\nМетки:", operation.labels)
+		if labels is None: return
+
+		operation.labels = labels
 
 		self.on_OperationChanged()
 

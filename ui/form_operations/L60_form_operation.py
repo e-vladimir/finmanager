@@ -64,7 +64,8 @@ class C60_FormOperation(C50_FormOperation):
 
 		self.ModelData.setHorizontalHeaderLabels(["Дата/Сумма",
 		                                          "Счёт",
-		                                          "Описание"])
+		                                          "Описание",
+		                                          "Метки"])
 
 	def LoadDdInModelData(self):
 		""" Загрузка дня в модель """
@@ -81,6 +82,7 @@ class C60_FormOperation(C50_FormOperation):
 
 		self.ModelData.appendRow([item_dd,
 		                          C20_StandardItem(""),
+		                          C20_StandardItem(""),
 		                          C20_StandardItem("")])
 
 	def LoadOperationOnModelData(self):
@@ -91,6 +93,7 @@ class C60_FormOperation(C50_FormOperation):
 		idp_amount      : str                      = operation.FAmount.Idp().data
 		idp_accounts    : str                      = operation.FAccountIdos.Idp().data
 		idp_description : str                      = operation.FDescription.Idp().data
+		idp_labels      : str                      = operation.FLabels.Idp().data
 
 		item_dd         : C20_StandardItem | None  = self.ModelData.itemByData(operation.DdDmDyToString(), ROLES.TEXT)
 		if item_dd is None: return
@@ -104,17 +107,20 @@ class C60_FormOperation(C50_FormOperation):
 
 			item_accounts    = C20_StandardItem("")
 			item_accounts.setData(self.processing_ido, ROLES.IDO)
-			item_accounts.setData(operation.amount,    ROLES.SORT_INDEX)
 			item_accounts.setData(operation.dd,        ROLES.GROUP)
 			item_accounts.setData(idp_accounts,        ROLES.IDP)
 
 			item_description = C20_StandardItem("")
 			item_description.setData(self.processing_ido, ROLES.IDO)
-			item_description.setData(operation.amount,    ROLES.SORT_INDEX)
 			item_description.setData(operation.dd,        ROLES.GROUP)
 			item_description.setData(idp_description,     ROLES.IDP)
 
-			item_dd.appendRow([item_amount, item_accounts, item_description])
+			item_labels = C20_StandardItem("")
+			item_labels.setData(self.processing_ido, ROLES.IDO)
+			item_labels.setData(operation.dd,        ROLES.GROUP)
+			item_labels.setData(idp_labels,          ROLES.IDP)
+
+			item_dd.appendRow([item_amount, item_accounts, item_description, item_labels])
 
 		indexes         : list[QModelIndex]        = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
@@ -126,6 +132,9 @@ class C60_FormOperation(C50_FormOperation):
 
 		item_description                           = self.ModelData.itemFromIndex(indexes[2])
 		item_description.setText(operation.description)
+
+		item_labels                                = self.ModelData.itemFromIndex(indexes[3])
+		item_labels.setText(', '.join(operation.labels))
 
 		color_bg : QColor = QColor(255, 255, 255)
 		color_fg : QColor = QColor(  0,   0,   0)
