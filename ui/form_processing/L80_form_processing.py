@@ -42,21 +42,37 @@ class C80_FormProcessing(C70_FormProcessing):
 			dialog_import.setValue(index_data + 1)
 			dialog_import.setLabelText(f"Осталось обработать операций: {dialog_import.maximum() - dialog_import.value()}")
 
-			operation          = C90_Operation(ido)
-			description : str  = operation.description
+			operation               = C90_Operation(ido)
+			description : str       = operation.description
+			labels      : set[str]  = set(operation.labels)
 
-			flag_skip   : bool = False
+			flag_skip   : bool      = False
 
 			if self._manual_description_include.enable: flag_skip |= self._manual_description_include.data not in description
+			if self._manual_labels_include.enable     : flag_skip |= self._manual_labels_include.data      not in labels
+			if self._manual_labels_exclude.enable     : flag_skip |= self._manual_labels_exclude.data          in labels
 
 			if flag_skip: continue
 
-			if self._manual_description_replace.enable: description = description.replace(self._manual_description_include.data,
-			                                                                              self._manual_description_replace.data)
+			if self._manual_description_replace.enable:
+				description = description.replace(self._manual_description_include.data,
+				                                  self._manual_description_replace.data)
 
-			if self._manual_description_set.enable    : description = self._manual_description_set.data
+			if self._manual_description_set.enable    :
+				description = self._manual_description_set.data
+
+			if self._manual_labels_add.enable         :
+				labels.add(self._manual_labels_add.data)
+
+			if self._manual_labels_replace.enable     :
+				labels.remove(self._manual_labels_include.data)
+				labels.add(self._manual_labels_replace.data)
+
+			if self._manual_labels_remove.enable     :
+				labels.remove(self._manual_labels_remove.data)
 
 			operation.description = description
+			operation.labels      = list(labels)
 
 	def ManualProcessing(self):
 		""" Выполнение ручной обработки данных """

@@ -1,9 +1,10 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 22 мар 2025
-from PySide6.QtCore import Qt
+
+from PySide6.QtCore      import Qt
 
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
-from L20_PySide6 import C20_StandardItem, ROLES, RequestMultipleText, RequestText
+from L20_PySide6         import C20_StandardItem, ROLES, RequestText
 from L50_form_processing import C50_FormProcessing
 
 
@@ -22,12 +23,6 @@ class C60_FormProcessing(C50_FormProcessing):
 	def SwitchProcessingObjectsTypeToOperations(self):
 		""" Смена типа объектов на операции """
 		self.processing_objects_type = OBJECTS_TYPE.OPERATIONS
-
-		self.on_ProcessingObjectsTypeChanged()
-
-	def SwitchProcessingObjectsTypeToLabels(self):
-		""" Смена типа объектов на метки """
-		self.processing_objects_type = OBJECTS_TYPE.LABELS
 
 		self.on_ProcessingObjectsTypeChanged()
 
@@ -224,111 +219,48 @@ class C60_FormProcessing(C50_FormProcessing):
 		""" Инициализация модели данных ручной обработки """
 		self.ModelDataManual.removeAll()
 
-		match self.processing_objects_type:
-			case OBJECTS_TYPE.OPERATIONS:
-				self.ModelDataManual.setHorizontalHeaderLabels(["Параметр", "Значение"])
+		self.ModelDataManual.setHorizontalHeaderLabels(["Параметр", "Значение"])
 
-				group_filter      = C20_StandardItem("Параметры фильтрации")
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
-				                                     data         = PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
-				                                     ROLES.IDO)
-				group_filter.appendRow([item_field, item_value])
+		items             = [PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
+					         PROCESSING_FIELDS.LABELS_INCLUDE,
+					         PROCESSING_FIELDS.LABELS_EXCLUDE,
+		                     ]
 
-				self.ModelDataManual.appendRow([group_filter, C20_StandardItem("")])
+		group_filter      = C20_StandardItem("Параметры фильтрации")
 
-				group_processing  = C20_StandardItem("Параметры обработки")
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.DESCRIPTION_REPLACE,
-				                                     data         = PROCESSING_FIELDS.DESCRIPTION_REPLACE,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.DESCRIPTION_REPLACE,
-				                                     ROLES.IDO)
-				group_processing.appendRow([item_field, item_value])
+		for item in items:
+			item_field        = C20_StandardItem(title        = item,
+			                                     data         = item,
+			                                     data_role    = ROLES.IDO,
+			                                     flag_checked = False)
+			item_value        = C20_StandardItem("",
+			                                     item,
+			                                     ROLES.IDO)
+			group_filter.appendRow([item_field, item_value])
 
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.DESCRIPTION_SET,
-				                                     data         = PROCESSING_FIELDS.DESCRIPTION_SET,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.DESCRIPTION_SET,
-				                                     ROLES.IDO)
-				group_processing.appendRow([item_field, item_value])
-
-				self.ModelDataManual.appendRow([group_processing, C20_StandardItem("")])
-
-			case OBJECTS_TYPE.LABELS:
-				self.ModelDataManual.setHorizontalHeaderLabels(["Параметр", "Значение"])
-
-				group_filter      = C20_StandardItem("Параметры фильтрации")
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
-				                                     data         = PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
-				                                     ROLES.IDO)
-				group_filter.appendRow([item_field, item_value])
+		self.ModelDataManual.appendRow([group_filter, C20_StandardItem("")])
 
 
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.LABELS_INCLUDE,
-				                                     data         = PROCESSING_FIELDS.LABELS_INCLUDE,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.LABELS_INCLUDE,
-				                                     ROLES.IDO)
-				group_filter.appendRow([item_field, item_value])
+		items             = [PROCESSING_FIELDS.DESCRIPTION_REPLACE,
+					         PROCESSING_FIELDS.DESCRIPTION_SET,
+					         PROCESSING_FIELDS.LABELS_ADD,
+		                     PROCESSING_FIELDS.LABELS_REMOVE,
+		                     PROCESSING_FIELDS.LABELS_REPLACE,
+		                     ]
 
+		group_processing  = C20_StandardItem("Параметры обработки")
 
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.LABELS_EXCLUDE,
-				                                     data         = PROCESSING_FIELDS.LABELS_EXCLUDE,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.LABELS_EXCLUDE,
-				                                     ROLES.IDO)
-				group_filter.appendRow([item_field, item_value])
+		for item in items:
+			item_field        = C20_StandardItem(title        = item,
+			                                     data         = item,
+			                                     data_role    = ROLES.IDO,
+			                                     flag_checked = False)
+			item_value        = C20_StandardItem("",
+			                                     item,
+			                                     ROLES.IDO)
+			group_processing.appendRow([item_field, item_value])
 
-				self.ModelDataManual.appendRow([group_filter, C20_StandardItem("")])
-
-
-				group_processing  = C20_StandardItem("Параметры обработки")
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.LABELS_REPLACE,
-				                                     data         = PROCESSING_FIELDS.LABELS_REPLACE,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.LABELS_REPLACE,
-				                                     ROLES.IDO)
-				group_processing.appendRow([item_field, item_value])
-
-
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.LABELS_ADD,
-				                                     data         = PROCESSING_FIELDS.LABELS_ADD,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.LABELS_ADD,
-				                                     ROLES.IDO)
-				group_processing.appendRow([item_field, item_value])
-
-
-				item_field        = C20_StandardItem(title        = PROCESSING_FIELDS.LABELS_REMOVE,
-				                                     data         = PROCESSING_FIELDS.LABELS_REMOVE,
-				                                     data_role    = ROLES.IDO,
-				                                     flag_checked = False)
-				item_value        = C20_StandardItem("",
-				                                     PROCESSING_FIELDS.LABELS_REMOVE,
-				                                     ROLES.IDO)
-				group_processing.appendRow([item_field, item_value])
-
-
-				self.ModelDataManual.appendRow([group_processing, C20_StandardItem("")])
+		self.ModelDataManual.appendRow([group_processing, C20_StandardItem("")])
 
 	def LoadModelDataManual(self):
 		""" Загрузка данных в модель данных ручной обработки """

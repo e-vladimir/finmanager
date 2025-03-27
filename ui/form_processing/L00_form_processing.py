@@ -20,12 +20,12 @@ class PROCESSING_FIELDS(enum.StrEnum):
 	NONE                = "Нет данных"
 
 	DESCRIPTION_INCLUDE = "Описание включает"
-	DESCRIPTION_REPLACE = "Заменить фрагмент описания"
+	DESCRIPTION_REPLACE = "Заменить на фрагмент описания"
 	DESCRIPTION_SET     = "Заменить описание"
 
 	LABELS_ADD          = "Добавить метку"
 	LABELS_EXCLUDE      = "Метки не содержат"
-	LABELS_INCLUDE      = "Поиск по метке"
+	LABELS_INCLUDE      = "Метки содержат"
 	LABELS_REMOVE       = "Убрать метку"
 	LABELS_REPLACE      = "Заменить на метку"
 

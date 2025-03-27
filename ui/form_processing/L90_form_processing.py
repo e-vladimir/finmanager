@@ -16,7 +16,6 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		# Меню ручной обработки данных
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
-		self.ActionManualObjectsTypeLabels.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToLabels)
 
 		self.ActionManualProcessing.triggered.connect(self.on_RequestManualProcessing)
 
@@ -39,10 +38,6 @@ class C90_FormProcessing(C80_FormProcessing):
 		""" Запрос на переключение объекта ручной обработки данных на операции """
 		self.SwitchProcessingObjectsTypeToOperations()
 
-	def on_RequestSwitchProcessingObjectsTypeToLabels(self):
-		""" Запрос на переключение объекта ручной обработки данных на метки """
-		self.SwitchProcessingObjectsTypeToLabels()
-
 	def on_RequestEditOptionsManual(self):
 		""" Запрос редактирования параметров ручной обработки данных """
 		self.ReadProcessingFieldFromTreeDataManual()
@@ -53,6 +48,11 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ReadManualDescriptionInclude()
 		self.ReadManualDescriptionReplace()
 		self.ReadManualDescriptionSet()
+		self.ReadManualLabelsAdd()
+		self.ReadManualLabelsExclude()
+		self.ReadManualLabelsInclude()
+		self.ReadManualLabelsRemove()
+		self.ReadManualLabelsReplace()
 
 		self.ManualProcessing()
 

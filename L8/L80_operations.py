@@ -159,4 +159,8 @@ class C80_Operations(C70_Operations):
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
 		filter_data.Capture(CONTAINERS.DISK)
 
-		return filter_data.ToStrings(idp_labels, True, True).data
+		labels : set[str] = set()
+
+		for item in filter_data.ToStrings(idp_labels, True, True).data: labels.update(item.split('\n'))
+
+		return sorted(labels)
