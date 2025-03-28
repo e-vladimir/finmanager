@@ -13,6 +13,9 @@ class C50_FormProcessing(C42_FormProcessing):
 	# Меню ручной обработки данных
 	def on_RequestShowMenuManual(self): pass
 
+	# Меню автоматической обработки данных
+	def on_RequestShowMenuAuto(self): pass
+
 	# Параметры ручной обработки данных
 	def on_RequestSwitchProcessingObjectsTypeToOperations(self): pass
 	def on_RequestEditOptionsManual(self): pass

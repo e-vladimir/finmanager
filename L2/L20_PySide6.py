@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 24 мар 2025
+# 28 мар 2025
 
 import enum
 
@@ -8,25 +8,29 @@ from   PySide6           import  QtGui
 from   PySide6.QtCore    import (Qt,
                                  QModelIndex,
                                  Signal)
-from   PySide6.QtGui     import (QMouseEvent, QStandardItemModel,
-	                             QStandardItem,
+from   PySide6.QtGui     import (QColor,
+	                             QFont,
 	                             QPainter,
-	                             QColor,
-	                             QFont)
+	                             QStandardItem,
+	                             QTextCursor,
+								 QKeyEvent,
+                                 QMouseEvent,
+                                 QStandardItemModel)
 from   PySide6.QtWidgets import (QApplication,
-                                 QFileDialog,
-                                 QGroupBox, QInputDialog,
-                                 QMainWindow,
-                                 QMessageBox,
-                                 QWidget,
-                                 QDialog,
-                                 QFormLayout,
-                                 QLabel,
-                                 QDialogButtonBox,
-                                 QListWidget,
-                                 QListWidgetItem,
-                                 QPlainTextEdit,
-                                 QLineEdit)
+	                             QDialog,
+	                             QDialogButtonBox,
+	                             QFileDialog,
+	                             QFormLayout,
+	                             QGroupBox,
+	                             QInputDialog,
+	                             QLabel,
+	                             QLineEdit,
+	                             QListWidget,
+	                             QListWidgetItem,
+	                             QMainWindow,
+	                             QMessageBox,
+	                             QPlainTextEdit,
+	                             QWidget)
 
 
 class ROLES(enum.IntEnum):
@@ -257,6 +261,7 @@ class C20_ActiveLabel(QLabel):
 		except: pass
 		super().wheelEvent(event)
 
+
 class C20_ActiveGroupBox(QGroupBox):
 	""" GroupBox с реакцией на клик """
 
@@ -267,6 +272,86 @@ class C20_ActiveGroupBox(QGroupBox):
 
 		match ev.button():
 			case Qt.MouseButton.LeftButton: self.clicked.emit()
+
+
+class C20_PlainTextEditWithCompleter(QPlainTextEdit):
+	""" Текстовое поле ввода с поддержкой автодополнения """
+	
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+
+		self._raw_dictionary : list[str] = []
+		self._dictionary     : list[str] = []
+
+		self._text_cursor   = self.textCursor()
+
+	@property
+	def dictionary(self) -> list[str]:
+		return sorted(self._raw_dictionary)
+
+	@dictionary.setter
+	def dictionary(self, words: list[str]):
+		self._raw_dictionary = ' '.join(filter(lambda word: len(word) > 3, words)).replace(' ', ' ').split(' ')
+		self._dictionary     = sorted([word.lower() for word in self._raw_dictionary])
+
+	def _requestComplete(self):
+		self._text_cursor.select(QTextCursor.SelectionType.WordUnderCursor)
+		selected_text = self._text_cursor.selectedText().lower()
+
+		if len(selected_text) >= 3:
+			for item in self._dictionary:
+				if selected_text not in item: continue
+
+				pos = self._text_cursor.position()
+
+				self._text_cursor.setPosition(pos)
+				self._text_cursor.insertText(item[len(selected_text):])
+				self._text_cursor.setPosition(pos)
+				self._text_cursor.setPosition(pos + len(item) - len(selected_text), QTextCursor.MoveMode.KeepAnchor)
+
+				self.setTextCursor(self._text_cursor)
+
+				break
+
+	def _requestApplyComplete(self) -> bool:
+		if not self._text_cursor.selectedText(): return False
+
+		self._text_cursor.setPosition(self._text_cursor.selectionEnd())
+		self._text_cursor.insertText(' ')
+		self.setTextCursor(self._text_cursor)
+
+		return True
+
+	def keyPressEvent(self, event: QKeyEvent) -> None:
+		if event.key() == Qt.Key.Key_Return:
+			if self._requestApplyComplete(): return
+
+		super().keyPressEvent(event)
+
+		match event.key():
+			case Qt.Key.Key_Left     : return
+			case Qt.Key.Key_Right    : return
+			case Qt.Key.Key_Up       : return
+			case Qt.Key.Key_Down     : return
+			case Qt.Key.Key_Backspace: return
+			case Qt.Key.Key_Space    : return
+			case Qt.Key.Key_Control  : return
+			case Qt.Key.Key_Shift    : return
+			case Qt.Key.Key_F1       : return
+			case Qt.Key.Key_F2       : return
+			case Qt.Key.Key_F3       : return
+			case Qt.Key.Key_F4       : return
+			case Qt.Key.Key_F5       : return
+			case Qt.Key.Key_F6       : return
+			case Qt.Key.Key_F7       : return
+			case Qt.Key.Key_F8       : return
+			case Qt.Key.Key_F9       : return
+			case Qt.Key.Key_F10      : return
+			case Qt.Key.Key_F11      : return
+			case Qt.Key.Key_F12      : return
+			case Qt.Key.Key_Return   : return
+
+			case _                   : self._requestComplete()
 
 
 # ИНСТРУМЕНТАРИЙ СООБЩЕНИЙ
@@ -358,7 +443,7 @@ class QFindReplaceTextDialog(QDialog):
 
 
 class QMultipleTextInputDialog(QDialog):
-	def __init__(self,  title, message, items: list[any], parent=None):
+	def __init__(self, title, message, items: list[any], parent=None, dictionary : list[str] = []):
 		super().__init__(parent)
 
 		self.setWindowTitle(title)
@@ -368,8 +453,10 @@ class QMultipleTextInputDialog(QDialog):
 		layout_form    = QFormLayout(self)
 		layout_form.addRow(QLabel(message))
 
-		self.edit_text   = QPlainTextEdit()
+		self.edit_text   = C20_PlainTextEditWithCompleter()
+		self.edit_text.dictionary = dictionary
 		self.edit_text.setPlainText('\n'.join(items))
+
 		layout_form.addRow(self.edit_text)
 
 		btn_box     = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, Qt.Orientation.Horizontal, self)
@@ -400,9 +487,9 @@ def RequestText(title: str, message: str, old_text: str = "", items: list[str] |
 	return dialog.textValue()
 
 
-def RequestMultipleText(title: str, message: str, old_text: list[str] = []) -> None | list[str]:
+def RequestMultipleText(title: str, message: str, old_text: list[str] = [], dictionary: list[str] = []) -> None | list[str]:
 	""" Запрос многострочного текста """
-	dialog = QMultipleTextInputDialog(title, message, old_text)
+	dialog = QMultipleTextInputDialog(title, message, old_text, None, dictionary)
 
 	if not dialog.exec_(): return None
 	return dialog.textValues()

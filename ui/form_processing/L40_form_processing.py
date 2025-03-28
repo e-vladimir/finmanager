@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_processingbnWIyv.ui'
+## Form generated from reading UI file 'form_processingaAVbOM.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHeaderView, QMainWindow,
-    QSizePolicy, QStatusBar, QTabWidget, QTableView,
-    QTreeView, QVBoxLayout, QWidget)
+    QSizePolicy, QStatusBar, QTabWidget, QTreeView,
+    QVBoxLayout, QWidget)
 
 class Ui_FormProcessing(object):
     def setupUi(self, FormProcessing):
@@ -51,22 +51,6 @@ class Ui_FormProcessing(object):
         self.verticalLayout_2.addWidget(self.TreeDataManual)
 
         self.TabsMain.addTab(self.TabManual, "")
-        self.TabAuto = QWidget()
-        self.TabAuto.setObjectName(u"TabAuto")
-        self.verticalLayout_3 = QVBoxLayout(self.TabAuto)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.TableDataAuto = QTableView(self.TabAuto)
-        self.TableDataAuto.setObjectName(u"TableDataAuto")
-        self.TableDataAuto.setStyleSheet(u"QTableView {\n"
-"background: white;\n"
-"border: 1px solid lightgray;\n"
-"border-radius: 5px;\n"
-"padding: 3px;\n"
-"}")
-
-        self.verticalLayout_3.addWidget(self.TableDataAuto)
-
-        self.TabsMain.addTab(self.TabAuto, "")
 
         self.verticalLayout.addWidget(self.TabsMain)
 
@@ -86,6 +70,5 @@ class Ui_FormProcessing(object):
     def retranslateUi(self, FormProcessing):
         FormProcessing.setWindowTitle(QCoreApplication.translate("FormProcessing", u"MainWindow", None))
         self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabManual), QCoreApplication.translate("FormProcessing", u"\u0420\u0443\u0447\u043d\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430", None))
-        self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabAuto), QCoreApplication.translate("FormProcessing", u"\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u0430\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0430", None))
     # retranslateUi
 

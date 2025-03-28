@@ -14,6 +14,7 @@ from   G30_cactus_controller_containers import controller_containers
 from   L00_containers                   import CONTAINERS
 from   L40_account                      import C40_Account
 from   L40_operations                   import C40_Operation
+from   L40_processing_rules             import C40_ProcessingRule
 from   L70_application                  import C70_Application
 
 
@@ -32,6 +33,7 @@ class C80_Application(C70_Application):
 
 		C40_Account.RegisterClass(CONTAINERS.DISK)
 		C40_Operation.RegisterClass(CONTAINERS.DISK)
+		C40_ProcessingRule.RegisterClass(CONTAINERS.DISK)
 
 	# Директории
 	def InitDirectories(self):
@@ -75,16 +77,15 @@ class C80_Application(C70_Application):
 
 					result_skip              = True
 
-				except:
-					continue
+				except: continue
 
-		if result_skip: return
+		if     result_skip       : return
 
 		ExecSingleCmdInShell(cmd)
 
 	def RestoreBackup(self, filename: str) -> bool:
 		""" Восстановление архива данных из копии """
-		if not filename: return False
+		if not filename             : return False
 
 		container            = controller_containers.Container(CONTAINERS.DISK)
 		container.Disconnect()

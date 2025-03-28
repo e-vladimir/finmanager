@@ -16,13 +16,15 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		# Меню ручной обработки данных
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
-
 		self.ActionManualProcessing.triggered.connect(self.on_RequestManualProcessing)
 
 	# Форма
 	def on_Opened(self):
 		""" Открытие формы """
 		self.ShowTitle()
+
+		self.SwitchTabsMainToManual()
+		self.SwitchProcessingObjectsTypeToOperations()
 
 	# Меню ручной обработки данных
 	def on_RequestShowMenuManual(self):

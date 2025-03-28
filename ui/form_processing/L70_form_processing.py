@@ -36,6 +36,10 @@ class C70_FormProcessing(C60_FormProcessing):
 		""" Настройка названий вкладок режима обработки """
 		self.TabsMain.setTabText(0, f"Ручная обработка: {self.processing_objects_type}")
 
+	def SwitchTabsMainToManual(self):
+		""" Переключение основной вкладки на Ручную обработку  """
+		self.TabsMain.setCurrentIndex(0)
+
 	# Дерево данных ручной обработки данных
 	def AdjustTreeDataManualSize(self):
 		""" Настройка размеров дерева данных ручной обработки данных """

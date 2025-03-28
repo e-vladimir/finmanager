@@ -18,16 +18,19 @@ class C42_FormProcessing(C41_FormProcessing):
 		self._processing_object_type     : OBJECTS_TYPE       = OBJECTS_TYPE.NONE
 		self._processing_field           : PROCESSING_FIELDS  = PROCESSING_FIELDS.NONE
 
-		self._manual_description_include : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_description_add     : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_description_include : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_description_exclude : T20_ProcessingItem = T20_ProcessingItem(False, [])
 		self._manual_description_replace : T20_ProcessingItem = T20_ProcessingItem(False, "")
 		self._manual_description_set     : T20_ProcessingItem = T20_ProcessingItem(False, "")
 
-		self._manual_labels_add          : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._manual_labels_exclude      : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._manual_labels_include      : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._manual_labels_remove       : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._manual_labels_set          : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_labels_add          : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_labels_exclude      : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_labels_include      : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_labels_remove       : T20_ProcessingItem = T20_ProcessingItem(False, [])
 		self._manual_labels_replace      : T20_ProcessingItem = T20_ProcessingItem(False, "")
+
+		self._processing_ido             : str                = ""
 
 	def Init_10(self):
 		super().Init_10()
