@@ -3,6 +3,8 @@
 
 from PySide6.QtCore      import Qt
 
+from G10_list_extended   import FilteringList
+
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L20_PySide6         import C20_StandardItem, ROLES, RequestMultipleText, RequestText
 from L50_form_processing import C50_FormProcessing
@@ -69,7 +71,7 @@ class C60_FormProcessing(C50_FormProcessing):
 						                               self.Operations.Descriptions(dy, dm))
 		if words is None: return
 
-		self._manual_description_include.data = words
+		self._manual_description_include.data = FilteringList(words)
 
 		self.on_OptionsManualChanged()
 
@@ -92,7 +94,7 @@ class C60_FormProcessing(C50_FormProcessing):
 						                               self.Operations.Descriptions(dy, dm))
 		if words is None: return
 
-		self._manual_description_exclude.data = words
+		self._manual_description_exclude.data = FilteringList(words)
 
 		self.on_OptionsManualChanged()
 
@@ -176,7 +178,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		                                                self.Operations.Labels())
 		if labels is None: return
 
-		self._manual_labels_add.data = labels
+		self._manual_labels_add.data = FilteringList(labels)
 
 		self.on_OptionsManualChanged()
 
@@ -198,7 +200,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		                                                self.Operations.Labels(dy, dm))
 		if labels is None: return
 
-		self._manual_labels_exclude.data = labels
+		self._manual_labels_exclude.data = FilteringList(labels)
 
 		self.on_OptionsManualChanged()
 
@@ -220,7 +222,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		                                                self.Operations.Labels(dy, dm))
 		if labels is None: return
 
-		self._manual_labels_include.data = labels
+		self._manual_labels_include.data = FilteringList(labels)
 
 		self.on_OptionsManualChanged()
 
@@ -242,7 +244,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		                                                self.Operations.Labels(dy, dm))
 		if labels is None: return
 
-		self._manual_labels_remove.data = labels
+		self._manual_labels_remove.data = FilteringList(labels)
 
 		self.on_OptionsManualChanged()
 

@@ -1,8 +1,7 @@
 # ФОРМА ОСНОВНАЯ: ЛОГИКА УПРАВЛЕНИЯ
 # 12 фев 2025
-from L20_PySide6 import RequestMultipleText
+
 from L80_form_main import C80_FormMain
-from L90_operations import C90_Operations
 
 
 class C90_FormMain(C80_FormMain):
@@ -36,12 +35,6 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestClose(self):
 		""" Закрытие формы """
 		self.Application.Close()
-
-	def on_Opened(self):
-		RequestMultipleText("Test",
-		                    "Multiple + Completer",
-		                    [],
-		                    """Представим что у меня есть картинка я хочу ее двигать по нажатию клавиши на клавиатуре Возможно мне нужно пользоваться слотами но как дать компу понять что нажата та или иная клавиша""".split(' '))
 
 	# Рабочий период
 	def on_DyDmChanged(self):

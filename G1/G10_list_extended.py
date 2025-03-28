@@ -31,3 +31,8 @@ def DistinctAndNatSortList2D(values: list, index_processing_item: int, flag_dist
 
 		return result
 	except: return []
+
+
+def FilteringList(items: list[str]) -> list[str]:
+	""" Фильтрация списка """
+	return sorted(filter(lambda item: len(item) > 0, [item.strip() for item in items]))
