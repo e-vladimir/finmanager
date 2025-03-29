@@ -3,7 +3,7 @@
 
 from PySide6.QtCore      import Qt
 
-from G10_list_extended   import FilteringList
+from G10_list            import ClearList
 
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L20_PySide6         import C20_StandardItem, ROLES, RequestMultipleText, RequestText
@@ -68,10 +68,10 @@ class C60_FormProcessing(C50_FormProcessing):
 		words : list[str] | None = RequestMultipleText("Обработка данных",
 						                               "Описание включает:",
 						                               self._manual_description_include.data,
-						                               self.Operations.Descriptions(dy, dm))
+						                               ClearList(' '.join(self.Operations.Descriptions(dy, dm)).split(' ')))
 		if words is None: return
 
-		self._manual_description_include.data = FilteringList(words)
+		self._manual_description_include.data = ClearList(words, clear_simbols=False, clear_short=False, clear_numbers=False)
 
 		self.on_OptionsManualChanged()
 
@@ -91,10 +91,10 @@ class C60_FormProcessing(C50_FormProcessing):
 		words : list[str] | None = RequestMultipleText("Обработка данных",
 						                               "Описание исключает:",
 						                               self._manual_description_exclude.data,
-						                               self.Operations.Descriptions(dy, dm))
+						                               ClearList(' '.join(self.Operations.Descriptions(dy, dm)).split(' ')))
 		if words is None: return
 
-		self._manual_description_exclude.data = FilteringList(words)
+		self._manual_description_exclude.data = ClearList(words, clear_simbols=False, clear_short=False, clear_numbers=False)
 
 		self.on_OptionsManualChanged()
 
@@ -112,10 +112,10 @@ class C60_FormProcessing(C50_FormProcessing):
 		text : str | None = RequestText("Обработка данных",
 		                                "Замена фрагментов описания: " +', '.join(self._manual_description_include.data),
 		                                self._manual_description_replace.data,
-		                                self.Operations.Descriptions())
+		                                ClearList(' '.join(self.Operations.Descriptions()).split(' ')))
 		if text is None: return
 
-		self._manual_description_replace.data   = text
+		self._manual_description_replace.data = text
 
 		self.on_OptionsManualChanged()
 
@@ -131,9 +131,9 @@ class C60_FormProcessing(C50_FormProcessing):
 	def SetManualDescriptionAdd(self):
 		""" Установка параметра """
 		text : str | None = RequestText("Обработка данных",
-		                                "Дополнение фрагмента описания:",
+		                                "Дополнение описания:",
 		                                self._manual_description_add.data,
-		                                self.Operations.Descriptions())
+		                                ClearList(' '.join(self.Operations.Descriptions()).split(' ')))
 		if text is None: return
 
 		self._manual_description_add.data = text
@@ -157,7 +157,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		                                self.Operations.Descriptions())
 		if text is None: return
 
-		self._manual_description_set.data   = text
+		self._manual_description_set.data = text
 
 		self.on_OptionsManualChanged()
 
@@ -175,10 +175,10 @@ class C60_FormProcessing(C50_FormProcessing):
 		labels : list[str] | None = RequestMultipleText("Обработка операций",
 		                                                "Добавление меток",
 		                                                self._manual_labels_add.data,
-		                                                self.Operations.Labels())
+		                                                ClearList(self.Operations.Labels()))
 		if labels is None: return
 
-		self._manual_labels_add.data = FilteringList(labels)
+		self._manual_labels_add.data = ClearList(labels, clear_short=False)
 
 		self.on_OptionsManualChanged()
 
@@ -197,10 +197,10 @@ class C60_FormProcessing(C50_FormProcessing):
 		labels : list[str] | None = RequestMultipleText("Обработка операций",
 		                                                "Метки не содержат",
 		                                                self._manual_labels_exclude.data,
-		                                                self.Operations.Labels(dy, dm))
+		                                                ClearList(self.Operations.Labels(dy, dm)))
 		if labels is None: return
 
-		self._manual_labels_exclude.data = FilteringList(labels)
+		self._manual_labels_exclude.data = ClearList(labels, clear_short=False)
 
 		self.on_OptionsManualChanged()
 
@@ -219,10 +219,10 @@ class C60_FormProcessing(C50_FormProcessing):
 		labels : list[str] | None = RequestMultipleText("Обработка операций",
 		                                                "Метки содержат",
 		                                                self._manual_labels_include.data,
-		                                                self.Operations.Labels(dy, dm))
+		                                                ClearList(self.Operations.Labels(dy, dm)))
 		if labels is None: return
 
-		self._manual_labels_include.data = FilteringList(labels)
+		self._manual_labels_include.data = ClearList(labels, clear_short=False)
 
 		self.on_OptionsManualChanged()
 
@@ -241,10 +241,10 @@ class C60_FormProcessing(C50_FormProcessing):
 		labels : list[str] | None = RequestMultipleText("Обработка операций",
 		                                                "Убрать метки",
 		                                                self._manual_labels_remove.data,
-		                                                self.Operations.Labels(dy, dm))
+		                                                ClearList(self.Operations.Labels(dy, dm)))
 		if labels is None: return
 
-		self._manual_labels_remove.data = FilteringList(labels)
+		self._manual_labels_remove.data = ClearList(labels, clear_short=False)
 
 		self.on_OptionsManualChanged()
 
@@ -263,7 +263,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		text : str | None = RequestText("Обработка данных",
 		                                "Замена меток: " + ', '.join(self._manual_labels_include.data),
 		                                self._manual_labels_replace.data,
-		                                self.Operations.Labels(dy, dm))
+		                                ClearList(self.Operations.Labels(dy, dm)))
 		if text is None: return
 
 		self._manual_labels_replace.data   = text

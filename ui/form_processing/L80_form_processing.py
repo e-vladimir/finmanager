@@ -52,8 +52,8 @@ class C80_FormProcessing(C70_FormProcessing):
 
 			if flag_skip: continue
 
-			operation.description = description
-			operation.labels      = list(labels)
+			# operation.description = description
+			# operation.labels      = list(labels)
 
 	def ManualProcessing(self):
 		""" Выполнение ручной обработки данных """
