@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 28 мар 2025
+# 29 мар 2025
 
 import enum
 
@@ -314,7 +314,7 @@ class C20_PlainTextEditWithCompleter(QPlainTextEdit):
 				break
 
 	def _requestApplyComplete(self) -> bool:
-		if not self._text_cursor.selectedText(): return False
+		if not self.textCursor().selection().toPlainText().strip(): return False
 
 		self._text_cursor.setPosition(self._text_cursor.selectionEnd())
 		self._text_cursor.insertText(' ')
@@ -329,15 +329,14 @@ class C20_PlainTextEditWithCompleter(QPlainTextEdit):
 		super().keyPressEvent(event)
 
 		match event.key():
-			case Qt.Key.Key_Left     : return
-			case Qt.Key.Key_Right    : return
-			case Qt.Key.Key_Up       : return
-			case Qt.Key.Key_Down     : return
 			case Qt.Key.Key_Backspace: return
-			case Qt.Key.Key_Space    : return
 			case Qt.Key.Key_Control  : return
-			case Qt.Key.Key_Shift    : return
+			case Qt.Key.Key_Copy     : return
+			case Qt.Key.Key_Down     : return
 			case Qt.Key.Key_F1       : return
+			case Qt.Key.Key_F10      : return
+			case Qt.Key.Key_F11      : return
+			case Qt.Key.Key_F12      : return
 			case Qt.Key.Key_F2       : return
 			case Qt.Key.Key_F3       : return
 			case Qt.Key.Key_F4       : return
@@ -346,10 +345,13 @@ class C20_PlainTextEditWithCompleter(QPlainTextEdit):
 			case Qt.Key.Key_F7       : return
 			case Qt.Key.Key_F8       : return
 			case Qt.Key.Key_F9       : return
-			case Qt.Key.Key_F10      : return
-			case Qt.Key.Key_F11      : return
-			case Qt.Key.Key_F12      : return
+			case Qt.Key.Key_Left     : return
+			case Qt.Key.Key_Paste    : return
 			case Qt.Key.Key_Return   : return
+			case Qt.Key.Key_Right    : return
+			case Qt.Key.Key_Shift    : return
+			case Qt.Key.Key_Space    : return
+			case Qt.Key.Key_Up       : return
 
 			case _                   : self._requestComplete()
 
