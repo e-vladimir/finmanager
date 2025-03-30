@@ -14,9 +14,15 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.TreeDataManual.customContextMenuRequested.connect(self.on_RequestShowMenuManual)
 		self.TreeDataManual.doubleClicked.connect(self.on_RequestEditOptionsManual)
 
+		# Таблица данных автоматической обработки данных
+		self.TableDataAuto.customContextMenuRequested.connect(self.on_RequestShowMenuAuto)
+
 		# Меню ручной обработки данных
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
 		self.ActionManualProcessing.triggered.connect(self.on_RequestManualProcessing)
+
+		# Меню автоматической обработки данных
+		self.ActionAutoRulesTypeReplaceDescription.triggered.connect(self.on_RequestSwitchProcessingRulesTypeToReplaceDescription)
 
 	# Форма
 	def on_Opened(self):
@@ -34,6 +40,15 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.AdjustMenuManualEnable()
 
 		self.ShowMenuManual()
+
+	# Меню автоматической обработки данных
+	def on_RequestShowMenuAuto(self):
+		""" Запрос отображению меню автоматической обработки данных """
+		self.AdjustMenuAuto()
+		self.AdjustMenuAutoText()
+		self.AdjustMenuAutoEnable()
+
+		self.ShowMenuAuto()
 
 	# Параметры ручной обработки данных
 	def on_RequestSwitchProcessingObjectsTypeToOperations(self):
@@ -76,3 +91,12 @@ class C90_FormProcessing(C80_FormProcessing):
 	def on_OptionsManualChanged(self):
 		""" Изменились параметры ручной обработки данных """
 		self.LoadModelDataManual()
+
+	# Параметры автоматической обработки данных
+	def on_RequestSwitchProcessingRulesTypeToReplaceDescription(self):
+		""" Запрос на изменение типа правил на замену описания """
+		self.SwitchProcessingRulesTypeToReplaceDescription()
+
+	def on_ProcessingRulesTypeChanged(self):
+		""" Изменился тип правил в режиме автоматической обработки """
+		self.AdjustTabsMainText()

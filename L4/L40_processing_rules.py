@@ -1,0 +1,25 @@
+# ПРАВИЛА ОБРАБОТКИ ДАННЫХ: МОДЕЛЬ ДАННЫХ
+# 30 мар 2025
+
+from G20_meta_frame   import C20_MetaFrame
+from G30_cactus_frame import C30_StructField
+from G31_cactus_frame import C31_StructFrameWithEvents
+
+
+class C40_ProcessingRule(C31_StructFrameWithEvents):
+	""" Правило обработки данных: Модель данных """
+
+	_idc = "Правило обработки данных"
+
+	def Init_10(self):
+		super().Init_10()
+
+		self.FRulesType  = C30_StructField(self, "Тип правил")
+		self.FInput      = C30_StructField(self, "Вход")
+		self.FBlock      = C30_StructField(self, "Блокировка")
+		self.FOutput     = C30_StructField(self, "Выход")
+
+
+class C40_ProcessingRules(C20_MetaFrame):
+	""" Правила обработки данных: Модель данных """
+	pass

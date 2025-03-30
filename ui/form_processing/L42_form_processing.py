@@ -2,6 +2,7 @@
 # 22 мар 2025
 
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
+from L00_rules           import RULES
 from L20_PySide6         import C20_StandardItemModel
 from L20_form_processing import T20_ProcessingItem
 from L41_form_processing import C41_FormProcessing
@@ -15,6 +16,7 @@ class C42_FormProcessing(C41_FormProcessing):
 	def Init_00(self):
 		super().Init_00()
 
+		self._processing_rules_type      : RULES              = RULES.NONE
 		self._processing_object_type     : OBJECTS_TYPE       = OBJECTS_TYPE.NONE
 		self._processing_field           : PROCESSING_FIELDS  = PROCESSING_FIELDS.NONE
 
@@ -36,6 +38,7 @@ class C42_FormProcessing(C41_FormProcessing):
 		super().Init_10()
 
 		self.ModelDataManual = C20_StandardItemModel()
+		self.ModelDataAuto   = C20_StandardItemModel()
 
 		self.Operations      = C90_Operations()
 		self.Workspace       = C90_Workspace()
@@ -49,3 +52,4 @@ class C42_FormProcessing(C41_FormProcessing):
 		super().Init_20()
 
 		self.TreeDataManual.setModel(self.ModelDataManual)
+		self.TableDataAuto.setModel(self.ModelDataAuto)

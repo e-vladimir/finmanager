@@ -6,6 +6,7 @@ from PySide6.QtCore      import Qt
 from G10_list            import ClearList
 
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
+from L00_rules           import RULES
 from L20_PySide6         import C20_StandardItem, ROLES, RequestMultipleText, RequestText
 from L50_form_processing import C50_FormProcessing
 
@@ -27,6 +28,22 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.processing_objects_type = OBJECTS_TYPE.OPERATIONS
 
 		self.on_ProcessingObjectsTypeChanged()
+
+
+	# Тип правил обработки данных
+	@property
+	def processing_rules_type(self) -> RULES:
+		return self._processing_rules_type
+
+	@processing_rules_type.setter
+	def processing_rules_type(self, rules_type: RULES):
+		self._processing_rules_type = rules_type
+
+	def SwitchProcessingRulesTypeToReplaceDescription(self):
+		""" Смена типа правил на замену фрагмента описания """
+		self.processing_rules_type = RULES.REPLACE_DESCRIPTION
+
+		self.on_ProcessingRulesTypeChanged()
 
 
 	# Рабочее поле

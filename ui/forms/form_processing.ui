@@ -24,7 +24,7 @@
     <item>
      <widget class="QTabWidget" name="TabsMain">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="TabManual">
        <attribute name="title">
@@ -53,6 +53,49 @@ padding: 3px;
           <property name="rootIsDecorated">
            <bool>false</bool>
           </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="TabAuto">
+       <attribute name="title">
+        <string>Автоматическая обработка</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QTableView" name="TableDataAuto">
+          <property name="contextMenuPolicy">
+           <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QTableView {
+background: white;
+border: 1px solid lightgray;
+border-radius: 5px;
+padding: 3px;
+}</string>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+          </property>
+          <attribute name="verticalHeaderVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderMinimumSectionSize">
+           <number>22</number>
+          </attribute>
+          <attribute name="verticalHeaderDefaultSectionSize">
+           <number>22</number>
+          </attribute>
          </widget>
         </item>
        </layout>

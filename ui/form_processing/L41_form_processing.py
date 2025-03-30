@@ -15,6 +15,7 @@ class C41_FormProcessing(C20_PySideForm, Ui_FormProcessing):
 
 	def InitMenus(self):
 		self.InitMenuManual()
+		self.InitMenuAuto()
 
 	def InitMenuManual(self):
 		""" Инициализация меню Ручная обработка """
@@ -31,3 +32,14 @@ class C41_FormProcessing(C20_PySideForm, Ui_FormProcessing):
 
 		self.MenuManual.addSeparator()
 		self.MenuManual.addAction(self.ActionManualProcessing)
+
+	def InitMenuAuto(self):
+		""" Инициализация меню Автоматическая обработка """
+		icon_blocks     = QIcon("./L0/icons/blocks.svg")
+		icon_layers     = QIcon("./L0/icons/layers.svg")
+
+		self.ActionAutoRulesTypeReplaceDescription = QAction(icon_blocks, "Замена фрагментов описания")
+
+		self.MenuAuto                              = QMenu("Автоматическая обработка")
+		self.SubmenuAutoRulesType                  = self.MenuAuto.addMenu(icon_layers, "Тип правил не выбран")
+		self.SubmenuAutoRulesType.addAction(self.ActionAutoRulesTypeReplaceDescription)
