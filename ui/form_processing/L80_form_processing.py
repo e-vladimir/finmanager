@@ -7,6 +7,7 @@ from PySide6.QtWidgets   import QProgressDialog
 from L00_containers      import CONTAINERS
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L00_rules           import RULES
+from L20_PySide6         import RequestConfirm
 from L70_form_processing import C70_FormProcessing
 from L90_operations      import C90_Operation
 from L90_rules           import C90_ProcessingRule
@@ -119,3 +120,21 @@ class C80_FormProcessing(C70_FormProcessing):
 		self.processing_ido = rule.Ido().data
 
 		self.on_RuleCreated()
+
+	def DeleteRule(self):
+		""" Удаление правила автоматической обработки """
+		rule              = C90_ProcessingRule(self.processing_ido)
+
+		text_input  : str = ""
+		text_output : str = ""
+
+		match self.processing_rules_type:
+			case RULES.REPLACE_DESCRIPTION:
+				text_input  = "Поиск\n"  + ', '.join(rule.inputs)[:30]
+				text_output = "Замена\n" + ', '.join(rule.outputs)[:30]
+
+		if not RequestConfirm("Удаление правила автоматической обработки", f"Тип правила: {self.processing_rules_type}\n\n{text_input}\n\n{text_output}"): return
+
+		rule.DeleteObject(CONTAINERS.DISK)
+
+		self.on_RuleDeleted()

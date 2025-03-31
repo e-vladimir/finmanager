@@ -45,6 +45,14 @@ class C70_FormProcessing(C60_FormProcessing):
 
 		if self.processing_rules_type == RULES.NONE: return
 
+		if self.processing_ido:
+			self.MenuAuto.addAction(self.ActionAutoEditRuleInput)
+			self.MenuAuto.addAction(self.ActionAutoEditRuleBlock)
+			self.MenuAuto.addAction(self.ActionAutoEditRuleOutput)
+			self.MenuAuto.addSeparator()
+			self.MenuAuto.addAction(self.ActionAutoDeleteRule)
+			self.MenuAuto.addSeparator()
+
 		self.MenuAuto.addAction(self.ActionAutoCreateRule)
 		self.MenuAuto.addSeparator()
 
@@ -56,6 +64,17 @@ class C70_FormProcessing(C60_FormProcessing):
 	def AdjustMenuAutoText(self):
 		""" Настройка названий элементов меню ручной обработки """
 		self.SubmenuAutoRulesType.setTitle("Тип правил не выбран" if self._processing_rules_type == RULES.NONE else self._processing_rules_type)
+
+		match self.processing_rules_type:
+			case RULES.REPLACE_DESCRIPTION:
+				self.ActionAutoEditRuleInput.setText("Редактировать поиск фрагмента")
+				self.ActionAutoEditRuleBlock.setText("Редактировать условие пропуска")
+				self.ActionAutoEditRuleOutput.setText("Редактировать замену на фрагмент")
+
+			case _                        :
+				self.ActionAutoEditRuleInput.setText("Редактировать input")
+				self.ActionAutoEditRuleBlock.setText("Редактировать block")
+				self.ActionAutoEditRuleOutput.setText("Редактировать output")
 
 	def AdjustMenuAutoEnable(self):
 		""" Настройка доступности элементов меню автоматической обработки """

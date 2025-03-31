@@ -70,6 +70,9 @@ class C60_FormProcessing(C50_FormProcessing):
 	def processing_ido(self, ido: str):
 		self._processing_ido = ido
 
+	def ReadProcessingIdoFromTableDataAuto(self):
+		""" Чтение из таблицы данных автоматической обработки """
+		self.processing_ido = self.TableDataAuto.currentIndex().data(ROLES.IDO)
 
 	# Параметр ручной обработки: Описание включает
 	def ReadManualDescriptionInclude(self):

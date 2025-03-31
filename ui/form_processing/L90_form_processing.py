@@ -26,6 +26,7 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ActionAutoRulesTypeReplaceDescription.triggered.connect(self.on_RequestSwitchProcessingRulesTypeToReplaceDescription)
 
 		self.ActionAutoCreateRule.triggered.connect(self.on_RequestCreateRule)
+		self.ActionAutoDeleteRule.triggered.connect(self.on_RequestDeleteRule)
 
 	# Форма
 	def on_Opened(self):
@@ -35,36 +36,38 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.SwitchTabsMainToManual()
 		self.SwitchProcessingObjectsTypeToOperations()
 
-	# Меню ручной обработки данных
+	# Меню ручной обработки
 	def on_RequestShowMenuManual(self):
-		""" Запрос отображению меню ручной обработки данных """
+		""" Запрос отображению меню ручной обработки """
 		self.AdjustMenuManual()
 		self.AdjustMenuManualText()
 		self.AdjustMenuManualEnable()
 
 		self.ShowMenuManual()
 
-	# Меню автоматической обработки данных
+	# Меню автоматической обработки
 	def on_RequestShowMenuAuto(self):
-		""" Запрос отображению меню автоматической обработки данных """
+		""" Запрос отображению меню автоматической обработки """
+		self.ReadProcessingIdoFromTableDataAuto()
+
 		self.AdjustMenuAuto()
 		self.AdjustMenuAutoText()
 		self.AdjustMenuAutoEnable()
 
 		self.ShowMenuAuto()
 
-	# Параметры ручной обработки данных
+	# Параметры ручной обработки
 	def on_RequestSwitchProcessingObjectsTypeToOperations(self):
-		""" Запрос на переключение объекта ручной обработки данных на операции """
+		""" Запрос на переключение объекта ручной обработки на операции """
 		self.SwitchProcessingObjectsTypeToOperations()
 
 	def on_RequestEditOptionsManual(self):
-		""" Запрос редактирования параметров ручной обработки данных """
+		""" Запрос редактирования параметров ручной обработки """
 		self.ReadProcessingFieldFromTreeDataManual()
 		self.EditOptionsManual()
 
 	def on_RequestManualProcessing(self):
-		""" Запрос выполнения ручной обработки данных """
+		""" Запрос выполнения ручной обработки """
 		self.ReadManualDescriptionAdd()
 		self.ReadManualDescriptionExclude()
 		self.ReadManualDescriptionInclude()
@@ -92,10 +95,10 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.AdjustTabsMainText()
 
 	def on_OptionsManualChanged(self):
-		""" Изменились параметры ручной обработки данных """
+		""" Изменились параметры ручной обработки """
 		self.LoadModelDataManual()
 
-	# Параметры автоматической обработки данных
+	# Параметры автоматической обработки
 	def on_RequestSwitchProcessingRulesTypeToReplaceDescription(self):
 		""" Запрос на изменение типа правил на замену описания """
 		self.SwitchProcessingRulesTypeToReplaceDescription()
@@ -114,7 +117,16 @@ class C90_FormProcessing(C80_FormProcessing):
 		""" Запрос создания правила автоматической обработки """
 		self.CreateRule()
 
+	def on_RequestDeleteRule(self):
+		""" Запрос удаления правила автоматической обработки """
+		self.DeleteRule()
+
 	def on_RuleCreated(self):
 		""" Создано правило автоматической обработки """
 		match self.processing_rules_type:
 			case RULES.REPLACE_DESCRIPTION: self.LoadRuleReplaceDescriptionInModel()
+
+	def on_RuleDeleted(self):
+		""" Удалено правила автоматической обработки """
+		self.InitModelDataAuto()
+		self.LoadRules()
