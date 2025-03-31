@@ -7,6 +7,7 @@ from L20_PySide6         import C20_StandardItemModel
 from L20_form_processing import T20_ProcessingItem
 from L41_form_processing import C41_FormProcessing
 from L90_operations      import C90_Operations
+from L90_rules           import C90_ProcessingRules
 from L90_workspace       import C90_Workspace
 
 
@@ -40,6 +41,7 @@ class C42_FormProcessing(C41_FormProcessing):
 		self.ModelDataManual = C20_StandardItemModel()
 		self.ModelDataAuto   = C20_StandardItemModel()
 
+		self.ProcessingRules = C90_ProcessingRules()
 		self.Operations      = C90_Operations()
 		self.Workspace       = C90_Workspace()
 

@@ -1,7 +1,7 @@
 # ПРАВИЛА ОБРАБОТКИ ДАННЫХ: МЕХАНИКА УПРАВЛЕНИЯ
 # 30 мар 2025
 
-from L60_processing_rules import C60_ProcessingRule, C60_ProcessingRules
+from L60_rules import C60_ProcessingRule, C60_ProcessingRules
 
 
 class C70_ProcessingRule(C60_ProcessingRule):

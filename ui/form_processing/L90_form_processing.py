@@ -99,4 +99,9 @@ class C90_FormProcessing(C80_FormProcessing):
 
 	def on_ProcessingRulesTypeChanged(self):
 		""" Изменился тип правил в режиме автоматической обработки """
+		self.InitModelDataAuto()
+		self.LoadRules()
+
 		self.AdjustTabsMainText()
+		self.AdjustTableDataAutoSort()
+		self.AdjustTableDataAutoSize()

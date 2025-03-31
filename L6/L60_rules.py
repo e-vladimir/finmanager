@@ -3,7 +3,7 @@
 
 from L00_containers       import CONTAINERS
 from L00_rules            import RULES
-from L50_processing_rules import C50_ProcessingRule, C50_ProcessingRules
+from L50_rules import C50_ProcessingRule, C50_ProcessingRules
 
 
 class C60_ProcessingRule(C50_ProcessingRule):

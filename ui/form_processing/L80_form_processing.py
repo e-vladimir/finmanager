@@ -5,6 +5,7 @@ from PySide6.QtCore      import Qt
 from PySide6.QtWidgets   import QProgressDialog
 
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
+from L00_rules           import RULES
 from L70_form_processing import C70_FormProcessing
 from L90_operations      import C90_Operation
 
@@ -12,7 +13,7 @@ from L90_operations      import C90_Operation
 class C80_FormProcessing(C70_FormProcessing):
 	""" Форма Обработка данных: Логика данных """
 
-	# Параметры ручной обработки данных
+	# Параметры ручной обработки
 	def EditOptionsManual(self):
 		match self.processing_field:
 			case PROCESSING_FIELDS.DESCRIPTION_ADD    : self.SetManualDescriptionAdd()
@@ -26,7 +27,7 @@ class C80_FormProcessing(C70_FormProcessing):
 			case PROCESSING_FIELDS.LABELS_REMOVE      : self.SetManualLabelsRemove()
 			case PROCESSING_FIELDS.LABELS_REPLACE     : self.SetManualLabelsReplace()
 
-	# Ручная обработка данных
+	# Ручная обработка
 	def ManualProcessingOperations(self):
 		""" Выполнение ручной обработки данных операций """
 		dy, dm           = self.Workspace.DyDm()
@@ -97,3 +98,10 @@ class C80_FormProcessing(C70_FormProcessing):
 		""" Выполнение ручной обработки данных """
 		match self.processing_objects_type:
 			case OBJECTS_TYPE.OPERATIONS: self.ManualProcessingOperations()
+
+	# Автоматическая обработка
+	def LoadRules(self):
+		""" Загрузка данных в модель автоматической обработки """
+		for self.processing_ido in self.ProcessingRules.Idos(self.processing_rules_type):
+			match self.processing_rules_type:
+				case RULES.REPLACE_DESCRIPTION:	self.LoadRuleReplaceDescriptionInModel()

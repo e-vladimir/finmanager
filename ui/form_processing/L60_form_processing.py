@@ -9,6 +9,7 @@ from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L00_rules           import RULES
 from L20_PySide6         import C20_StandardItem, ROLES, RequestMultipleText, RequestText
 from L50_form_processing import C50_FormProcessing
+from L90_rules import C90_ProcessingRule
 
 
 class C60_FormProcessing(C50_FormProcessing):
@@ -379,3 +380,40 @@ class C60_FormProcessing(C50_FormProcessing):
 		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.LABELS_REPLACE):
 			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.LABELS_REPLACE)[1])
 			item_value.setText(self._manual_labels_replace.data)
+
+
+	# Модель данных автоматической обработки
+	def InitModelDataAuto(self):
+		""" Инициализация модели данных автоматической обработки """
+		self.ModelDataAuto.removeAll()
+
+		match self.processing_rules_type:
+			case RULES.REPLACE_DESCRIPTION: self.ModelDataAuto.setHorizontalHeaderLabels(["Поиск фрагмента", "Условие пропуска", "Замена на фрагмент"])
+
+	def LoadRuleReplaceDescriptionInModel(self):
+		""" Загрузка правила обработки замены описания в модель """
+		if not self.processing_ido: return
+
+		rule        = C90_ProcessingRule(self.processing_ido)
+
+		if not self.ModelDataAuto.checkIdo(self.processing_ido):
+			item_input  = C20_StandardItem("")
+			item_input.setData(self.processing_ido, ROLES.IDO)
+
+			item_output = C20_StandardItem("")
+			item_output.setData(self.processing_ido, ROLES.IDO)
+
+			item_block  = C20_StandardItem("")
+			item_block.setData(self.processing_ido, ROLES.IDO)
+
+			self.ModelDataAuto.appendRow([item_input, item_block, item_output])
+
+		indexes     = self.ModelDataAuto.indexesInRowByIdo(self.processing_ido)
+		item_input  = self.ModelDataAuto.itemFromIndex(indexes[0])
+		item_input.setText('\n'.join(rule.inputs))
+
+		item_block  = self.ModelDataAuto.itemFromIndex(indexes[1])
+		item_block.setText('\n'.join(rule.blocks))
+
+		item_output = self.ModelDataAuto.itemFromIndex(indexes[2])
+		item_output.setText('\n'.join(rule.outputs))

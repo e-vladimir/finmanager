@@ -36,10 +36,20 @@ class C41_FormProcessing(C20_PySideForm, Ui_FormProcessing):
 	def InitMenuAuto(self):
 		""" Инициализация меню Автоматическая обработка """
 		icon_blocks     = QIcon("./L0/icons/blocks.svg")
+		icon_grid_2_2   = QIcon("./L0/icons/grid_2_2.svg")
+		icon_grid_3_3   = QIcon("./L0/icons/grid_3_3.svg")
 		icon_layers     = QIcon("./L0/icons/layers.svg")
+		icon_item_plus  = QIcon("./L0/icons/item_plus.svg")
 
-		self.ActionAutoRulesTypeReplaceDescription = QAction(icon_blocks, "Замена фрагментов описания")
+		self.ActionAutoRulesTypeReplaceDescription = QAction(icon_blocks,    "Замена фрагментов описания")
+		self.ActionAutoCreateRule                  = QAction(icon_item_plus, "Создать правило")
 
 		self.MenuAuto                              = QMenu("Автоматическая обработка")
 		self.SubmenuAutoRulesType                  = self.MenuAuto.addMenu(icon_layers, "Тип правил не выбран")
 		self.SubmenuAutoRulesType.addAction(self.ActionAutoRulesTypeReplaceDescription)
+
+		self.MenuAuto.addSeparator()
+		self.SubmenuAutoRules                      = self.MenuAuto.addMenu(icon_grid_2_2, "Правила")
+		self.SubmenuAutoRules.addAction(self.ActionAutoCreateRule)
+
+		self.SubmenuAutoRule                       = self.MenuAuto.addMenu(icon_grid_3_3, "Правило")
