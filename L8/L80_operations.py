@@ -68,6 +68,24 @@ class C80_Operation(C70_Operation):
 
 		return self.Ido().data
 
+	# Применение правил
+	def ApplyReplaceDescription(self, data_inputs: list[str], data_blocks: list[str], data_output: str) -> bool:
+		""" Применение правила замены фрагмента описания """
+		description = self.description
+
+		if not data_output                    : return False
+
+		for data_block in data_blocks:
+			if data_block in description: return False
+
+		for data_input in data_inputs:
+			description = description.replace(data_input, data_output)
+
+		if     description == self.description: return False
+
+		self.description = description
+		return True
+
 
 class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """

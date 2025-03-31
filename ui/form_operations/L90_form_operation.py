@@ -52,6 +52,8 @@ class C90_FormOperation(C80_FormOperation):
 
 	def on_RequestPartialUpdateData(self):
 		""" Частичное обновление данных """
+		if not self.isVisible(): return
+
 		self.ShowOperations()
 
 		self.AdjustTreeData_Expand()

@@ -26,6 +26,9 @@ class C90_FormProcessing(C80_FormProcessing):
 		# Меню автоматической обработки
 		self.ActionAutoRulesTypeReplaceDescription.triggered.connect(self.on_RequestSwitchProcessingRulesTypeToReplaceDescription)
 
+		self.ActionAutoApplyRule.triggered.connect(self.on_RequestApplyRule)
+		self.ActionAutoApplyRules.triggered.connect(self.on_RequestApplyRules)
+
 		self.ActionAutoCreateRule.triggered.connect(self.on_RequestCreateRule)
 		self.ActionAutoDeleteRule.triggered.connect(self.on_RequestDeleteRule)
 		self.ActionAutoEditRuleInput.triggered.connect(self.EditRuleInput)
@@ -133,6 +136,18 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		self.EditRule()
 
+	def on_RequestApplyRule(self):
+		""" Запрос применения правила автоматической обработки """
+		self.ApplyRule()
+
+		self.Application.FormOperations.PartialUpdateData()
+
+	def on_RequestApplyRules(self):
+		""" Запрос применения правила автоматической обработки """
+		self.ApplyRules()
+
+		self.Application.FormOperations.PartialUpdateData()
+
 	def on_RuleCreated(self):
 		""" Создано правило автоматической обработки """
 		match self.processing_rules_type:
@@ -146,3 +161,5 @@ class C90_FormProcessing(C80_FormProcessing):
 	def on_RuleChanged(self):
 		match self.processing_rules_type:
 			case RULES.REPLACE_DESCRIPTION: self.LoadRuleReplaceDescriptionInModel()
+
+		self.AdjustTableDataAutoSize()

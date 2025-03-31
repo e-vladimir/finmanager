@@ -35,6 +35,8 @@ class C50_FormProcessing(C42_FormProcessing):
 	def on_RequestCreateRule(self): pass
 	def on_RequestDeleteRule(self): pass
 	def on_RequestEditRule(self): pass
+	def on_RequestApplyRule(self): pass
+	def on_RequestApplyRules(self): pass
 
 	def on_RuleCreated(self): pass
 	def on_RuleDeleted(self): pass

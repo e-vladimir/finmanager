@@ -17,7 +17,7 @@ class C80_ProcessingRules(C70_ProcessingRules):
 
 	# Выборка данных
 	@classmethod
-	def Idos(cls, rules_type: RULES) -> list[str]:
+	def Idos(cls, rules_type: RULES = None) -> list[str]:
 		""" Список IDO """
 		rule       = C80_ProcessingRule()
 		idc        = rule.Idc().data

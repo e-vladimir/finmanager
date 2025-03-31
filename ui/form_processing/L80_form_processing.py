@@ -4,7 +4,8 @@
 from PySide6.QtCore      import Qt
 from PySide6.QtWidgets   import QProgressDialog
 
-from G10_list import ClearList
+from G10_list            import ClearList
+
 from L00_containers      import CONTAINERS
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L00_rules           import RULES
@@ -160,7 +161,8 @@ class C80_FormProcessing(C70_FormProcessing):
 				inputs : list[str] | None = RequestMultipleText( "Редактирование правила автоматической обработки",
 				                                                f"{', '.join(rule.inputs)}\n"
 				                                                f"замена на\n"
-				                                                f"{rule.output}",
+				                                                f"{rule.output}\n\n"
+				                                                f"Поиск фрагментов:",
 				                                                rule.inputs,
 				                                                self.Operations.Descriptions())
 				if inputs is None: return
@@ -178,7 +180,8 @@ class C80_FormProcessing(C70_FormProcessing):
 				output : str | None = RequestText( "Редактирование правила автоматической обработки",
                                                   f"{', '.join(rule.inputs)}\n"
                                                   f"замена на\n"
-                                                  f"{rule.output}",
+                                                  f"{rule.output}\n\n"
+                                                  f"Замена на фрагмент:",
                                                   rule.output,
                                                   self.Operations.Descriptions())
 				if output is None: return
@@ -196,7 +199,8 @@ class C80_FormProcessing(C70_FormProcessing):
 				blocks : list[str] | None = RequestMultipleText( "Редактирование правила автоматической обработки",
 				                                                f"{', '.join(rule.inputs)}\n"
 				                                                f"замена на\n"
-				                                                f"{rule.output}\n\nПризнаки пропуска:",
+				                                                f"{rule.output}\n\n"
+				                                                f"Признаки пропуска:",
 				                                                rule.blocks,
 				                                                self.Operations.Descriptions())
 				if blocks is None: return
@@ -204,3 +208,55 @@ class C80_FormProcessing(C70_FormProcessing):
 				rule.blocks = ClearList(blocks, clear_simbols=False)
 
 				self.on_RuleChanged()
+
+	def ApplyRule(self):
+		""" Применение правила автоматической обработки """
+		dy, dm                     = self.Workspace.DyDm()
+		operation_idos : list[str] = self.Operations.Idos(dy, dm)
+
+		rule                       = C90_ProcessingRule(self.processing_ido)
+
+		dialog_import              = QProgressDialog(self)
+		dialog_import.setWindowTitle("Автоматическая обработка")
+		dialog_import.setMaximum(len(operation_idos))
+		dialog_import.setValue(1)
+		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_import.setLabelText(f"Применяется: {self.processing_rules_type}\n\nОсталось обработать: {dialog_import.maximum()}")
+		dialog_import.setMinimumWidth(480)
+		dialog_import.forceShow()
+
+		for idx_data, ido in enumerate(operation_idos):
+			dialog_import.setValue(dialog_import.value() + 1)
+			dialog_import.setLabelText(f"Применяется: {self.processing_rules_type}\n\nОсталось обработать: {dialog_import.maximum() - dialog_import.value()}")
+
+			C90_Operation(ido).ApplyReplaceDescription(rule.inputs, rule.blocks, rule.output)
+
+		dialog_import.close()
+
+	def ApplyRules(self):
+		""" Применение правил автоматической обработки """
+		dy, dm                     = self.Workspace.DyDm()
+		operation_idos : list[str] = self.Operations.Idos(dy, dm)
+		rule_idos      : list[str] = self.ProcessingRules.Idos()
+
+		dialog_import              = QProgressDialog(self)
+		dialog_import.setWindowTitle("Автоматическая обработка")
+		dialog_import.setMaximum(len(operation_idos) * len(rule_idos))
+		dialog_import.setValue(1)
+		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_import.setLabelText(f"Применяется: ...\n\nОсталось обработать: {dialog_import.maximum()}")
+		dialog_import.setMinimumWidth(480)
+		dialog_import.forceShow()
+
+		for rule_ido in rule_idos:
+			rule      = C90_ProcessingRule(rule_ido)
+
+			rule_type = rule.rules_type
+
+			for operation_ido in operation_idos:
+				dialog_import.setValue(dialog_import.value() + 1)
+				dialog_import.setLabelText(f"Применяется: {rule_type}\n\nОсталось обработать: {dialog_import.maximum() - dialog_import.value()}")
+
+				C90_Operation(operation_ido).ApplyReplaceDescription(rule.inputs, rule.blocks, rule.output)
+
+		dialog_import.close()

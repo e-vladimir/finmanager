@@ -52,6 +52,8 @@ class C70_FormProcessing(C60_FormProcessing):
 			self.MenuAuto.addSeparator()
 			self.MenuAuto.addAction(self.ActionAutoDeleteRule)
 			self.MenuAuto.addSeparator()
+			self.MenuAuto.addAction(self.ActionAutoApplyRule)
+			self.MenuAuto.addSeparator()
 
 		self.MenuAuto.addAction(self.ActionAutoCreateRule)
 		self.MenuAuto.addSeparator()
@@ -68,7 +70,7 @@ class C70_FormProcessing(C60_FormProcessing):
 		match self.processing_rules_type:
 			case RULES.REPLACE_DESCRIPTION:
 				self.ActionAutoEditRuleInput.setText("Редактировать поиск фрагмента")
-				self.ActionAutoEditRuleBlock.setText("Редактировать условие пропуска")
+				self.ActionAutoEditRuleBlock.setText("Редактировать признаки пропуска")
 				self.ActionAutoEditRuleOutput.setText("Редактировать замену на фрагмент")
 
 			case _                        :
@@ -78,7 +80,8 @@ class C70_FormProcessing(C60_FormProcessing):
 
 	def AdjustMenuAutoEnable(self):
 		""" Настройка доступности элементов меню автоматической обработки """
-		pass
+		self.ActionAutoApplyRule.setEnabled(bool(self.processing_ido))
+		self.ActionAutoApplyRules.setEnabled(bool(self.ProcessingRules.Idos(self.processing_rules_type)))
 
 	def ShowMenuAuto(self):
 		""" Отображение меню автоматической обработки """
@@ -118,6 +121,11 @@ class C70_FormProcessing(C60_FormProcessing):
 		""" Настройка размеров таблицы данных автоматической обработки """
 		for idx_col in range(self.ModelDataAuto.columnCount()):
 			self.TableDataAuto.horizontalHeader().setSectionResizeMode(idx_col, QHeaderView.ResizeMode.Stretch)
+
+		self.TableDataAuto.resizeRowsToContents()
+
+		for idx_row in range(self.ModelDataAuto.rowCount()):
+			self.TableDataAuto.setRowHeight(idx_row, 22 * (self.TableDataAuto.rowHeight(idx_row) // 21))
 
 	def AdjustTableDataAutoSort(self):
 		""" Настройка сортировки таблицы данных автоматической обработки """
