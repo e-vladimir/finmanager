@@ -17,6 +17,7 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		# Таблица данных автоматической обработки
 		self.TableDataAuto.customContextMenuRequested.connect(self.on_RequestShowMenuAuto)
+		self.TableDataAuto.doubleClicked.connect(self.on_RequestEditRule)
 
 		# Меню ручной обработки
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
@@ -27,6 +28,9 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		self.ActionAutoCreateRule.triggered.connect(self.on_RequestCreateRule)
 		self.ActionAutoDeleteRule.triggered.connect(self.on_RequestDeleteRule)
+		self.ActionAutoEditRuleInput.triggered.connect(self.EditRuleInput)
+		self.ActionAutoEditRuleOutput.triggered.connect(self.EditRuleOutput)
+		self.ActionAutoEditRuleBlock.triggered.connect(self.EditRuleBlock)
 
 	# Форма
 	def on_Opened(self):
@@ -49,6 +53,7 @@ class C90_FormProcessing(C80_FormProcessing):
 	def on_RequestShowMenuAuto(self):
 		""" Запрос отображению меню автоматической обработки """
 		self.ReadProcessingIdoFromTableDataAuto()
+		self.ReadProcessingIdpFromTableDataAuto()
 
 		self.AdjustMenuAuto()
 		self.AdjustMenuAutoText()
@@ -121,6 +126,13 @@ class C90_FormProcessing(C80_FormProcessing):
 		""" Запрос удаления правила автоматической обработки """
 		self.DeleteRule()
 
+	def on_RequestEditRule(self):
+		""" Запрос на редактирование правила автоматической обработки """
+		self.ReadProcessingIdoFromTableDataAuto()
+		self.ReadProcessingIdpFromTableDataAuto()
+
+		self.EditRule()
+
 	def on_RuleCreated(self):
 		""" Создано правило автоматической обработки """
 		match self.processing_rules_type:
@@ -130,3 +142,7 @@ class C90_FormProcessing(C80_FormProcessing):
 		""" Удалено правила автоматической обработки """
 		self.InitModelDataAuto()
 		self.LoadRules()
+
+	def on_RuleChanged(self):
+		match self.processing_rules_type:
+			case RULES.REPLACE_DESCRIPTION: self.LoadRuleReplaceDescriptionInModel()

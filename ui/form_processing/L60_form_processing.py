@@ -74,6 +74,20 @@ class C60_FormProcessing(C50_FormProcessing):
 		""" Чтение из таблицы данных автоматической обработки """
 		self.processing_ido = self.TableDataAuto.currentIndex().data(ROLES.IDO)
 
+
+	# Рабочий PID
+	@property
+	def processing_idp(self) -> str:
+		return self._processing_idp
+
+	@processing_idp.setter
+	def processing_idp(self, idp: str):
+		self._processing_idp = idp
+
+	def ReadProcessingIdpFromTableDataAuto(self):
+		""" Чтение из таблицы дынных автоматической обработки """
+		self.processing_idp = self.TableDataAuto.currentIndex().data(ROLES.IDP)
+
 	# Параметр ручной обработки: Описание включает
 	def ReadManualDescriptionInclude(self):
 		""" Чтение параметра из дерева данных """
@@ -391,7 +405,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.ModelDataAuto.removeAll()
 
 		match self.processing_rules_type:
-			case RULES.REPLACE_DESCRIPTION: self.ModelDataAuto.setHorizontalHeaderLabels(["Поиск фрагмента", "Условие пропуска", "Замена на фрагмент"])
+			case RULES.REPLACE_DESCRIPTION: self.ModelDataAuto.setHorizontalHeaderLabels(["Поиск фрагмента", "Признаки пропуска", "Замена на фрагмент"])
 
 	def LoadRuleReplaceDescriptionInModel(self):
 		""" Загрузка правила обработки замены описания в модель """
@@ -399,15 +413,22 @@ class C60_FormProcessing(C50_FormProcessing):
 
 		rule        = C90_ProcessingRule(self.processing_ido)
 
+		idp_input   = rule.FInput.Idp().data
+		idp_output  = rule.FOutput.Idp().data
+		idp_block   = rule.FBlock.Idp().data
+
 		if not self.ModelDataAuto.checkIdo(self.processing_ido):
 			item_input  = C20_StandardItem("")
 			item_input.setData(self.processing_ido, ROLES.IDO)
+			item_input.setData(idp_input,           ROLES.IDP)
 
 			item_output = C20_StandardItem("")
 			item_output.setData(self.processing_ido, ROLES.IDO)
+			item_output.setData(idp_output,          ROLES.IDP)
 
 			item_block  = C20_StandardItem("")
 			item_block.setData(self.processing_ido, ROLES.IDO)
+			item_block.setData(idp_block,           ROLES.IDP)
 
 			self.ModelDataAuto.appendRow([item_input, item_block, item_output])
 

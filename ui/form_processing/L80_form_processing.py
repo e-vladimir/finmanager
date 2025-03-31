@@ -4,10 +4,11 @@
 from PySide6.QtCore      import Qt
 from PySide6.QtWidgets   import QProgressDialog
 
+from G10_list import ClearList
 from L00_containers      import CONTAINERS
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L00_rules           import RULES
-from L20_PySide6         import RequestConfirm
+from L20_PySide6         import RequestConfirm, RequestMultipleText, RequestText
 from L70_form_processing import C70_FormProcessing
 from L90_operations      import C90_Operation
 from L90_rules           import C90_ProcessingRule
@@ -138,3 +139,68 @@ class C80_FormProcessing(C70_FormProcessing):
 		rule.DeleteObject(CONTAINERS.DISK)
 
 		self.on_RuleDeleted()
+
+	def EditRule(self):
+		""" Редактирование правила автоматической обработки """
+		rule       = C90_ProcessingRule()
+		idp_input  = rule.FInput.Idp().data
+		idp_output = rule.FOutput.Idp().data
+		idp_block  = rule.FBlock.Idp().data
+
+		if   self.processing_idp == idp_input : self.EditRuleInput()
+		elif self.processing_idp == idp_output: self.EditRuleOutput()
+		elif self.processing_idp == idp_block : self.EditRuleBlock()
+
+	def EditRuleInput(self):
+		""" Редактирование параметра input для правила автоматической обработки """
+		rule       = C90_ProcessingRule(self.processing_ido)
+
+		match rule.rules_type:
+			case RULES.REPLACE_DESCRIPTION:
+				inputs : list[str] | None = RequestMultipleText( "Редактирование правила автоматической обработки",
+				                                                f"{', '.join(rule.inputs)}\n"
+				                                                f"замена на\n"
+				                                                f"{rule.output}",
+				                                                rule.inputs,
+				                                                self.Operations.Descriptions())
+				if inputs is None: return
+
+				rule.inputs = ClearList(inputs, clear_simbols=False)
+
+				self.on_RuleChanged()
+
+	def EditRuleOutput(self):
+		""" Редактирование параметра output для правила автоматической обработки """
+		rule       = C90_ProcessingRule(self.processing_ido)
+
+		match rule.rules_type:
+			case RULES.REPLACE_DESCRIPTION:
+				output : str | None = RequestText( "Редактирование правила автоматической обработки",
+                                                  f"{', '.join(rule.inputs)}\n"
+                                                  f"замена на\n"
+                                                  f"{rule.output}",
+                                                  rule.output,
+                                                  self.Operations.Descriptions())
+				if output is None: return
+
+				rule.output = output
+
+				self.on_RuleChanged()
+
+	def EditRuleBlock(self):
+		""" Редактирование параметра block для правила автоматической обработки """
+		rule       = C90_ProcessingRule(self.processing_ido)
+
+		match rule.rules_type:
+			case RULES.REPLACE_DESCRIPTION:
+				blocks : list[str] | None = RequestMultipleText( "Редактирование правила автоматической обработки",
+				                                                f"{', '.join(rule.inputs)}\n"
+				                                                f"замена на\n"
+				                                                f"{rule.output}\n\nПризнаки пропуска:",
+				                                                rule.blocks,
+				                                                self.Operations.Descriptions())
+				if blocks is None: return
+
+				rule.blocks = ClearList(blocks, clear_simbols=False)
+
+				self.on_RuleChanged()

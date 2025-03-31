@@ -34,6 +34,8 @@ class C50_FormProcessing(C42_FormProcessing):
 	# Правило автоматической обработки
 	def on_RequestCreateRule(self): pass
 	def on_RequestDeleteRule(self): pass
+	def on_RequestEditRule(self): pass
 
 	def on_RuleCreated(self): pass
 	def on_RuleDeleted(self): pass
+	def on_RuleChanged(self): pass
