@@ -10,13 +10,13 @@ class C50_FormProcessing(C42_FormProcessing):
 	# Вкладки режимов обработки
 	def on_TabMainChanged(self): pass
 
-	# Меню ручной обработки данных
+	# Меню ручной обработки
 	def on_RequestShowMenuManual(self): pass
 
-	# Меню автоматической обработки данных
+	# Меню автоматической обработки
 	def on_RequestShowMenuAuto(self): pass
 
-	# Параметры ручной обработки данных
+	# Ручная обработка
 	def on_RequestSwitchProcessingObjectsTypeToOperations(self): pass
 
 	def on_RequestEditOptionsManual(self): pass
@@ -26,7 +26,12 @@ class C50_FormProcessing(C42_FormProcessing):
 
 	def on_RequestManualProcessing(self): pass
 
-	# Параметры автоматической обработки данных
+	# Автоматическая обработка
 	def on_RequestSwitchProcessingRulesTypeToReplaceDescription(self): pass
 
 	def on_ProcessingRulesTypeChanged(self): pass
+
+	# Правило автоматической обработки
+	def on_RequestCreateRule(self): pass
+
+	def on_RuleCreated(self): pass

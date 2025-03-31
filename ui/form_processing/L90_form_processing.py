@@ -1,6 +1,7 @@
 # ФОРМА ОБРАБОТКА ДАННЫХ: ЛОГИКА УПРАВЛЕНИЯ
 # 22 мар 2025
 
+from L00_rules           import RULES
 from L80_form_processing import C80_FormProcessing
 
 
@@ -10,19 +11,21 @@ class C90_FormProcessing(C80_FormProcessing):
 	def InitEvents(self):
 		super().InitEvents()
 
-		# Дерево данных ручной обработки данных
+		# Дерево данных ручной обработки
 		self.TreeDataManual.customContextMenuRequested.connect(self.on_RequestShowMenuManual)
 		self.TreeDataManual.doubleClicked.connect(self.on_RequestEditOptionsManual)
 
-		# Таблица данных автоматической обработки данных
+		# Таблица данных автоматической обработки
 		self.TableDataAuto.customContextMenuRequested.connect(self.on_RequestShowMenuAuto)
 
-		# Меню ручной обработки данных
+		# Меню ручной обработки
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
 		self.ActionManualProcessing.triggered.connect(self.on_RequestManualProcessing)
 
-		# Меню автоматической обработки данных
+		# Меню автоматической обработки
 		self.ActionAutoRulesTypeReplaceDescription.triggered.connect(self.on_RequestSwitchProcessingRulesTypeToReplaceDescription)
+
+		self.ActionAutoCreateRule.triggered.connect(self.on_RequestCreateRule)
 
 	# Форма
 	def on_Opened(self):
@@ -105,3 +108,13 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.AdjustTabsMainText()
 		self.AdjustTableDataAutoSort()
 		self.AdjustTableDataAutoSize()
+
+	# Правило автоматической обработки
+	def on_RequestCreateRule(self):
+		""" Запрос создания правила автоматической обработки """
+		self.CreateRule()
+
+	def on_RuleCreated(self):
+		""" Создано правило автоматической обработки """
+		match self.processing_rules_type:
+			case RULES.REPLACE_DESCRIPTION: self.LoadRuleReplaceDescriptionInModel()

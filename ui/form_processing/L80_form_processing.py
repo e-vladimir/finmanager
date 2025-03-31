@@ -4,10 +4,12 @@
 from PySide6.QtCore      import Qt
 from PySide6.QtWidgets   import QProgressDialog
 
+from L00_containers      import CONTAINERS
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L00_rules           import RULES
 from L70_form_processing import C70_FormProcessing
 from L90_operations      import C90_Operation
+from L90_rules           import C90_ProcessingRule
 
 
 class C80_FormProcessing(C70_FormProcessing):
@@ -105,3 +107,15 @@ class C80_FormProcessing(C70_FormProcessing):
 		for self.processing_ido in self.ProcessingRules.Idos(self.processing_rules_type):
 			match self.processing_rules_type:
 				case RULES.REPLACE_DESCRIPTION:	self.LoadRuleReplaceDescriptionInModel()
+
+	def CreateRule(self):
+		""" Создание правила автоматической обработки """
+		rule = C90_ProcessingRule()
+		rule.GenerateIdo()
+		rule.RegisterObject(CONTAINERS.DISK)
+
+		rule.rules_type = self.processing_rules_type
+
+		self.processing_ido = rule.Ido().data
+
+		self.on_RuleCreated()

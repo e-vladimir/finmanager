@@ -6,7 +6,12 @@ from L80_rules import C80_ProcessingRule, C80_ProcessingRules
 
 class C90_ProcessingRule(C80_ProcessingRule):
 	""" Правило обработки данных: Логика управления """
-	pass
+
+	def on_ObjectRegistered(self, container_name: str):
+		""" Объект зарегистрирован """
+		self.input  = ""
+		self.output = ""
+		self.block  = ""
 
 
 class C90_ProcessingRules(C80_ProcessingRules):
