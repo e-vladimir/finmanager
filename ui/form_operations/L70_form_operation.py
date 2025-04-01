@@ -38,6 +38,7 @@ class C70_FormOperation(C60_FormOperation):
 			self.MenuOperation.addAction(self.ActionCopyOperation)
 			self.MenuOperation.addSeparator()
 			self.MenuOperation.addAction(self.ActionCreateOperation)
+			self.MenuOperation.addAction(self.ActionOpenProcessing)
 			self.MenuOperation.addSeparator()
 
 		self.MenuOperation.addAction(self.ActionCreateOperation)

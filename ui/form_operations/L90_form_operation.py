@@ -19,6 +19,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionCreateOperation.triggered.connect(self.on_RequestCreateOperation)
 		self.ActionOpenProcessing.triggered.connect(self.on_RequestOpenProcessing)
 		self.ActionImportOperations.triggered.connect(self.on_RequestOpenFormImport)
+		self.ActionExportOperations.triggered.connect(self.on_RequestOpenFormExport)
 		self.ActionResetOperations.triggered.connect(self.on_RequestResetOperations)
 
 		# Меню Операция
@@ -86,6 +87,10 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestOpenFormImport(self):
 		""" Запрос на открытие формы Импорт данных """
 		self.Application.FormImport.Open()
+
+	def on_RequestOpenFormExport(self):
+		""" Запрос на открытие формы Экспорт данных """
+		self.Application.FormExport.Open()
 
 	def on_RequestResetOperations(self):
 		""" Запрос на сброс данных """

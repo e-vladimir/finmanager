@@ -27,18 +27,19 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		icon_color_red   = QIcon("./L0/icons/square_red.svg")
 		icon_copy        = QIcon("./L0/icons/copy.svg")
 		icon_download    = QIcon("./L0/icons/download.svg")
+		icon_upload      = QIcon("./L0/icons/upload.svg")
 		icon_edit        = QIcon("./L0/icons/edit.svg")
 		icon_grid_1_3    = QIcon("./L0/icons/grid_1_3.svg")
 		icon_grid_3_3    = QIcon("./L0/icons/grid_3_3.svg")
 		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
-		icon_list        = QIcon("./L0/icons/list.svg")
 		icon_money       = QIcon("./L0/icons/money.svg")
 		icon_processing  = QIcon("./L0/icons/processing.svg")
 		icon_replace     = QIcon("./L0/icons/replace.svg")
 		icon_wallet      = QIcon("./L0/icons/wallet.svg")
 
 		self.ActionImportOperations         = QAction(icon_download,    "Импорт операций")
+		self.ActionExportOperations         = QAction(icon_upload,      "Экспорт операций")
 		self.ActionOpenProcessing           = QAction(icon_processing,  "Обработка данных")
 		self.ActionResetOperations          = QAction(icon_replace,     "Сброс операций")
 
@@ -63,6 +64,7 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		self.SubmenuOperations.addSeparator()
 		self.SubmenuOperations.addAction(self.ActionOpenProcessing)
 		self.SubmenuOperations.addAction(self.ActionImportOperations)
+		self.SubmenuOperations.addAction(self.ActionExportOperations)
 		self.SubmenuOperations.addSeparator()
 		self.SubmenuOperations.addAction(self.ActionResetOperations)
 
