@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_exportEZtIJz.ui'
+## Form generated from reading UI file 'form_exportDIbvZX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QHeaderView, QMainWindow,
-    QSizePolicy, QStatusBar, QTreeView, QVBoxLayout,
-    QWidget)
+    QSizePolicy, QStatusBar, QTabWidget, QTreeView,
+    QVBoxLayout, QWidget)
 
 class Ui_FormExport(object):
     def setupUi(self, FormExport):
@@ -28,11 +28,16 @@ class Ui_FormExport(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(6, 6, -1, -1)
-        self.TreeData = QTreeView(self.centralwidget)
-        self.TreeData.setObjectName(u"TreeData")
-        self.TreeData.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.TreeData.setStyleSheet(u"QTreeView {\n"
+        self.TabsMain = QTabWidget(self.centralwidget)
+        self.TabsMain.setObjectName(u"TabsMain")
+        self.TabOperations = QWidget()
+        self.TabOperations.setObjectName(u"TabOperations")
+        self.verticalLayout_2 = QVBoxLayout(self.TabOperations)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.TreeDataOperations = QTreeView(self.TabOperations)
+        self.TreeDataOperations.setObjectName(u"TreeDataOperations")
+        self.TreeDataOperations.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.TreeDataOperations.setStyleSheet(u"QTreeView {\n"
 "background: white;\n"
 "border: 1px solid lightgray;\n"
 "border-radius: 5px;\n"
@@ -43,14 +48,18 @@ class Ui_FormExport(object):
 "background: white;\n"
 "border: none;\n"
 "}")
-        self.TreeData.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.TreeData.setAlternatingRowColors(True)
-        self.TreeData.setRootIsDecorated(False)
-        self.TreeData.setItemsExpandable(False)
-        self.TreeData.setExpandsOnDoubleClick(False)
-        self.TreeData.header().setVisible(False)
+        self.TreeDataOperations.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.TreeDataOperations.setAlternatingRowColors(True)
+        self.TreeDataOperations.setRootIsDecorated(False)
+        self.TreeDataOperations.setItemsExpandable(False)
+        self.TreeDataOperations.setExpandsOnDoubleClick(False)
+        self.TreeDataOperations.header().setVisible(False)
 
-        self.verticalLayout.addWidget(self.TreeData)
+        self.verticalLayout_2.addWidget(self.TreeDataOperations)
+
+        self.TabsMain.addTab(self.TabOperations, "")
+
+        self.verticalLayout.addWidget(self.TabsMain)
 
         FormExport.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(FormExport)
@@ -59,10 +68,14 @@ class Ui_FormExport(object):
 
         self.retranslateUi(FormExport)
 
+        self.TabsMain.setCurrentIndex(0)
+
+
         QMetaObject.connectSlotsByName(FormExport)
     # setupUi
 
     def retranslateUi(self, FormExport):
         FormExport.setWindowTitle(QCoreApplication.translate("FormExport", u"MainWindow", None))
+        self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabOperations), QCoreApplication.translate("FormExport", u"\u041e\u043f\u0435\u0440\u0430\u0446\u0438\u0438", None))
     # retranslateUi
 
