@@ -44,7 +44,7 @@ class C41_FormProcessing(C20_PySideForm, Ui_FormProcessing):
 		icon_item_delete = QIcon("./L0/icons/item_delete.svg")
 		icon_item_plus   = QIcon("./L0/icons/item_plus.svg")
 		icon_layers      = QIcon("./L0/icons/layers.svg")
-		icon_processing = QIcon("./L0/icons/processing.svg")
+		icon_processing  = QIcon("./L0/icons/processing.svg")
 
 		self.ActionAutoRulesTypeReplaceDescription = QAction(icon_blocks,      "Замена фрагментов описания")
 		self.ActionAutoCreateRule                  = QAction(icon_item_plus,   "Создать правило")

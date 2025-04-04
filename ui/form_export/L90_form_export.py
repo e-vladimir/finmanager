@@ -11,7 +11,16 @@ class C90_FormExport(C80_FormExport):
 		super().InitEvents()
 
 		# Дерево данных экспорта операций
-		self.TreeDataOperations.doubleClicked.connect(self.on_RequestEditOptionsOperations)
+		self.TreeDataOperations.doubleClicked.connect(self.on_RequestEditOperations)
+		self.TreeDataOperations.customContextMenuRequested.connect(self.on_RequestShowMenuOperations)
+
+		# Меню Экспорт операций
+		self.ActionOperationsEditInterval.triggered.connect(self.on_RequestEditOperationsInterval)
+		self.ActionOperationsEditAccounts.triggered.connect(self.on_RequestEditOperationsAccounts)
+		self.ActionOperationsEditDirectory.triggered.connect(self.on_RequestEditOperationsDirectory)
+
+		self.ActionExportOperations.triggered.connect(self.on_RequestExportOperations)
+
 
 	# Форма
 	def on_Opened(self):
@@ -22,12 +31,45 @@ class C90_FormExport(C80_FormExport):
 		self.AdjustTreeDataOperationsExpand()
 		self.AdjustTreeDataOperationsSize()
 
-	# Парамеры экспорта операций
-	def on_RequestEditOptionsOperations(self):
+
+	# Экспорт операций
+	def on_RequestEditOperations(self):
 		""" Запрос редактирования параметров экспорта операций """
 		self.ReadProcessingFieldFromTreeDataOperations()
 		self.EditOptionsOperations()
 
+	def on_RequestEditOperationsInterval(self):
+		""" Запрос редактирования интервала экспорта операций """
+		self.SetOperationsIntervalMode()
+		self.SetOperationsIntervalDy()
+		self.SetOperationsIntervalDm()
+
+	def on_RequestEditOperationsAccounts(self):
+		""" Запрос редактирования счетов экспорта операций """
+		self.SetOperationsAccountsMode()
+		self.SetOperationsAccountsGroup()
+		self.SetOperationsAccountsAccount()
+
+	def on_RequestEditOperationsDirectory(self):
+		""" Запрос редактирования директории экспорта операций """
+		self.SetOperationsDirectory()
+
+	def on_RequestExportOperations(self):
+		""" Запрос экспорта операций """
+		self.ExportOperations()
+
 	def on_OptionsOperationsChanged(self):
 		""" Параметры экспорта операций изменились """
 		self.LoadModelDataOperations()
+
+
+	# Меню экспорта операций
+	def on_RequestShowMenuOperations(self):
+		""" Запрос отображению меню экспорта операций """
+		self.ReadProcessingFieldFromTreeDataOperations()
+
+		self.AdjustMenuOperations()
+		self.AdjustMenuOperationsText()
+		self.AdjustMenuOperationsEnable()
+
+		self.ShowMenuOperations()

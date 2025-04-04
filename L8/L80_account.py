@@ -40,7 +40,7 @@ class C80_Accounts(C70_Accounts):
 
 	# Выборка данных
 	@classmethod
-	def Idos(self, dy: int = None, dm: int = None, group: str = None) -> list[str]:
+	def Idos(cls, dy: int = None, dm: int = None, group: str = None) -> list[str]:
 		""" Список IDO счетов в указанном месяце """
 		account         = C80_Account()
 		idc       : str = account.Idc().data
@@ -58,7 +58,7 @@ class C80_Accounts(C70_Accounts):
 		return filter_data.Idos(idp_name).data
 
 	@classmethod
-	def Names(self, dy: int = None, dm: int = None, group: str = None) -> list[str]:
+	def Names(cls, dy: int = None, dm: int = None, group: str = None) -> list[str]:
 		""" Названия счетов в указанном месяце """
 		account         = C80_Account()
 		idc       : str = account.Idc().data
@@ -76,7 +76,7 @@ class C80_Accounts(C70_Accounts):
 		return filter_data.ToStrings(idp_name, True, True).data
 
 	@classmethod
-	def Groups(self, dy: int = None, dm: int = None) -> list[str]:
+	def Groups(cls, dy: int = None, dm: int = None) -> list[str]:
 		""" Названия групп счетов в указанном месяце """
 		account         = C80_Account()
 		idc       : str = account.Idc().data
@@ -92,7 +92,7 @@ class C80_Accounts(C70_Accounts):
 		return filter_data.ToStrings(idp_group, True, True).data
 
 	@classmethod
-	def AvailableDys(self) -> list[int]:
+	def AvailableDys(cls) -> list[int]:
 		""" Список годов с доступными счетами """
 		account         = C80_Account()
 		idc       : str = account.Idc().data
@@ -123,10 +123,10 @@ class C80_Accounts(C70_Accounts):
 
 	# Управление счетами
 	@classmethod
-	def CreateAccount(self, dy: int, dm: int, group: str, name: str) -> str:
+	def CreateAccount(cls, dy: int, dm: int, group: str, name: str) -> str:
 		""" Создание счёта """
 		if not name                      : return ""
-		if     name in self.Names(dy, dm): return ""
+		if     name in cls.Names(dy, dm): return ""
 
 		account       = C80_Account()
 		account.GenerateIdo()
@@ -141,7 +141,7 @@ class C80_Accounts(C70_Accounts):
 
 	# Управление группами счетов
 	@classmethod
-	def EditGroupName(self, dy: int, dm: int, name_old: str, name_new: str):
+	def EditGroupName(cls, dy: int, dm: int, name_old: str, name_new: str):
 		""" Редактирование имени группы счетов """
 		account         = C80_Account()
 		idc       : str = account.Idc().data
@@ -161,12 +161,12 @@ class C80_Accounts(C70_Accounts):
 
 	# Преобразования
 	@classmethod
-	def IdosToNames(self, idos: list[str]) -> list[str]:
+	def IdosToNames(cls, idos: list[str]) -> list[str]:
 		""" Преобразование IDO в названия счетов """
 		return sorted([C80_Account(ido).name for ido in idos])
 
 	@classmethod
-	def NamesToIdos(self, dy: int, dm: int, names: list[str]) -> list[str]:
+	def NamesToIdos(cls, dy: int, dm: int, names: list[str]) -> list[str]:
 		""" Преобразование названий счетов в список IDO """
 		result : list[str] = []
 

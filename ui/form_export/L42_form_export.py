@@ -9,6 +9,7 @@ from L00_form_export import ACCOUNTS, EXPORT_FIELDS, INTERVALS
 from L20_PySide6     import C20_StandardItemModel
 from L41_form_export import C41_FormExport
 from L90_account     import C90_Accounts
+from L90_operations  import C90_Operations
 from L90_workspace   import C90_Workspace
 
 
@@ -36,6 +37,7 @@ class C42_FormExport(C41_FormExport):
 		self.ModelDataOperations = C20_StandardItemModel()
 
 		self.Accounts            = C90_Accounts()
+		self.Operations          = C90_Operations()
 		self.Workspace           = C90_Workspace()
 
 	def Init_11(self):
