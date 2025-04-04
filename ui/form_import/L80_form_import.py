@@ -1,5 +1,5 @@
 # ФОРМА ИМПОРТ ДАННЫХ: ЛОГИКА ДАННЫХ
-# 14 мар 2025
+# 04 апр 2025
 
 import datetime
 import pyexcel
@@ -12,6 +12,8 @@ from   G10_convertor_format import StringToDateTime, StringToFloat
 
 from   L00_containers       import CONTAINERS
 from   L00_fields           import DATA_FIELDS
+from   L00_form_import      import FORMATS
+from   L10_form_import      import ParsePdf_Sberbank_2024_11
 from   L20_PySide6          import RequestFilepath, RequestItem
 from   L70_form_import      import C70_FormImport
 from   L90_account          import C90_Account, C90_Accounts
@@ -24,14 +26,14 @@ class C80_FormImport(C70_FormImport):
 	# Данные импорта операций
 	def LoadOperationsDataFromFile(self):
 		""" Загрузка данных импорта операций из файла """
-		filepath : Path | None = RequestFilepath("Импорт операций", "", "Поддерживаемые форматы (*.csv *.ods *.xls *.xlsx)")
+		filepath : Path | None     = RequestFilepath("Импорт операций", "", "Поддерживаемые форматы (*.csv *.ods *.xls *.xlsx *.pdf)")
 		if     filepath is None : return
 		if     filepath.is_dir(): return
 		if not filepath.exists(): return
 
-		self.operations_filepath = filepath
+		self.operations_filepath     = filepath
 
-		raw : list[list[str]] = []
+		raw      : list[list[str]] = []
 
 		match filepath.suffix:
 			case ".csv" :
@@ -54,7 +56,16 @@ class C80_FormImport(C70_FormImport):
 				try   : raw = [[str(item) for item in subdata] for subdata in pyexcel.get_sheet(file_name=f"{self.operations_filepath}").rows()]
 				except: pass
 
-		if not raw: return
+			case ".pdf" :
+				pdf_formats : list[str]  = [FORMATS.SBERBANK_2024_11]
+				pdf_format  : str | None = RequestItem("Импорт операций", "Структура данных PDF", pdf_formats)
+				if pdf_format is None: return
+
+				match FORMATS(pdf_format):
+					case FORMATS.SBERBANK_2024_11: raw = [subdata.strip().split(';') for subdata in ParsePdf_Sberbank_2024_11(filepath)]
+					case _                       : return
+
+		if not raw              : return
 
 		self.operations_struct_names = raw[0][:]
 		self.operations_data         = raw[1:]
@@ -64,7 +75,7 @@ class C80_FormImport(C70_FormImport):
 	def EditOperationsStructField(self):
 		""" Редактирование типа поля структуры данных импорта операций """
 		struct_name  : str        = self.operations_struct_names[self.processing_row]
-		struct_field : str | None = RequestItem("Импорт операций", f"{struct_name}", [field.value for field in DATA_FIELDS])
+		struct_field : str | None = RequestItem("Импорт операций", f"{struct_name}", [field for field in DATA_FIELDS])
 		if struct_field is None: return
 
 		self.SetOperationsStructField(struct_name, DATA_FIELDS(struct_field))
@@ -75,9 +86,9 @@ class C80_FormImport(C70_FormImport):
 		""" Импорт операций """
 		dy, dm                         = self.Workspace.DyDm()
 
-		idx_date        : int        = self.IndexOperationsStructByField(DATA_FIELDS.DATE)
-		idx_amount      : int        = self.IndexOperationsStructByField(DATA_FIELDS.AMOUNT)
-		idx_description : int        = self.IndexOperationsStructByField(DATA_FIELDS.DESCRIPTION)
+		idx_date          : int        = self.IndexOperationsStructByField(DATA_FIELDS.DATE)
+		idx_amount        : int        = self.IndexOperationsStructByField(DATA_FIELDS.AMOUNT)
+		idx_description   : int        = self.IndexOperationsStructByField(DATA_FIELDS.DESCRIPTION)
 
 		if     idx_date   == -1                        : return
 		if     idx_amount == -1                        : return
