@@ -163,11 +163,11 @@ class C80_FormProcessing(C70_FormProcessing):
 				                                                f"замена на\n"
 				                                                f"{rule.output}\n\n"
 				                                                f"Поиск фрагментов:",
-				                                                rule.inputs,
-				                                                self.Operations.Descriptions())
+				                                                 rule.inputs,
+				                                                 self.Operations.Descriptions())
 				if inputs is None: return
 
-				rule.inputs = ClearList(inputs, clear_simbols=False)
+				rule.inputs = ClearList(inputs, clear_short=False, clear_numbers=False, clear_simbols=False)
 
 				self.on_RuleChanged()
 
@@ -241,7 +241,7 @@ class C80_FormProcessing(C70_FormProcessing):
 
 		dialog_import              = QProgressDialog(self)
 		dialog_import.setWindowTitle("Автоматическая обработка")
-		dialog_import.setMaximum(len(operation_idos) * len(rule_idos))
+		dialog_import.setMaximum(len(rule_idos))
 		dialog_import.setValue(1)
 		dialog_import.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_import.setLabelText(f"Применяется: ...\n\nОсталось обработать: {dialog_import.maximum()}")
@@ -249,12 +249,12 @@ class C80_FormProcessing(C70_FormProcessing):
 		dialog_import.forceShow()
 
 		for rule_ido in rule_idos:
-			rule      = C90_ProcessingRule(rule_ido)
+			dialog_import.setValue(dialog_import.value() + 1)
 
+			rule      = C90_ProcessingRule(rule_ido)
 			rule_type = rule.rules_type
 
 			for operation_ido in operation_idos:
-				dialog_import.setValue(dialog_import.value() + 1)
 				dialog_import.setLabelText(f"Применяется: {rule_type}\n\nОсталось обработать: {dialog_import.maximum() - dialog_import.value()}")
 
 				C90_Operation(operation_ido).ApplyReplaceDescription(rule.inputs, rule.blocks, rule.output)

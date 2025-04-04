@@ -88,6 +88,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		""" Чтение из таблицы дынных автоматической обработки """
 		self.processing_idp = self.TableDataAuto.currentIndex().data(ROLES.IDP)
 
+
 	# Параметр ручной обработки: Описание включает
 	def ReadManualDescriptionInclude(self):
 		""" Чтение параметра из дерева данных """

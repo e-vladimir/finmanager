@@ -158,7 +158,10 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.InitModelDataAuto()
 		self.LoadRules()
 
+		self.AdjustTableDataAutoSize()
+
 	def on_RuleChanged(self):
+		""" Правило изменилось  """
 		match self.processing_rules_type:
 			case RULES.REPLACE_DESCRIPTION: self.LoadRuleReplaceDescriptionInModel()
 
