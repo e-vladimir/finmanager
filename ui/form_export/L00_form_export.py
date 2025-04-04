@@ -4,7 +4,7 @@
 import enum
 
 
-class EXPORT(enum.StrEnum):
+class EXPORT_FIELDS(enum.StrEnum):
 	""" Общий набор параметров экспорта """
 	NONE      = "Нет данных"
 
@@ -28,7 +28,7 @@ class ACCOUNTS(enum.StrEnum):
 
 class INTERVALS(enum.StrEnum):
 	""" Виды интервалов """
-	ALL = "Весь доступный период"
+	ALL = "За всё время"
 	DY  = "Год"
 	DM  = "Месяц"
 
