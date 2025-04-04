@@ -596,7 +596,7 @@ def RequestItem(title: str, message: str, items: list[str] | dict[str, QIcon]) -
 	size_w     : int = min(480, max_length * 15)
 	size_w           = max(360, size_w)
 	size_h     : int = min(640, len(items) * 40)
-	size_h           = max(240, size_h)
+	size_h           = max(240, size_h)*
 
 	dialog_items.resize(size_w, size_h)
 
@@ -605,11 +605,15 @@ def RequestItem(title: str, message: str, items: list[str] | dict[str, QIcon]) -
 	return dialog_items.selectedItem()
 
 
-def RequestItems(title: str, message: str, items: list[str], items_checked: list[str] | dict[str, QIcon] = []) -> list[str] | None:
+def RequestItems(title: str, message: str, items: list[str] | dict[str, QIcon], items_checked: list[str] = []) -> list[str] | None:
 	""" Запрос значений из списка """
 	if not items               : return None
 	
-	max_length : int = max(list(map(len, items)))
+	match items:
+		case list(): max_length : int = max(list(map(len, items)))
+		case dict(): max_length : int = max(list(map(len, items.keys())))
+		case _     : max_length : int = 480
+
 	size_w     : int = min(480, max_length * 15)
 	size_w           = max(360, size_w)
 	size_h     : int = min(640, len(items) * 55)
