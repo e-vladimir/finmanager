@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 29 мар 2025
+# 04 апр 2025
 
 import enum
 
@@ -10,12 +10,13 @@ from   PySide6.QtCore    import (Qt,
                                  Signal)
 from   PySide6.QtGui     import (QColor,
 	                             QFont,
+	                             QIcon,
+	                             QKeyEvent,
+	                             QMouseEvent,
 	                             QPainter,
 	                             QStandardItem,
-	                             QTextCursor,
-								 QKeyEvent,
-                                 QMouseEvent,
-                                 QStandardItemModel)
+	                             QStandardItemModel,
+	                             QTextCursor)
 from   PySide6.QtWidgets import (QApplication,
 	                             QDialog,
 	                             QDialogButtonBox,
@@ -369,7 +370,7 @@ def ShowMessage(title: str, message: str, description: str = ""):
 
 # ИНСТРУМЕНТАРИЙ ЗАПРОСОВ
 class QMultipleItemsInputDialog(QDialog):
-	def __init__(self,  title, message, items: list[str], parent=None, items_checked: list[str] = []):
+	def __init__(self,  title, message, items: list[str] | dict[str, QIcon], parent=None, items_checked: list[str] = []):
 		super().__init__(parent)
 
 		self.setWindowTitle(title)
@@ -379,12 +380,24 @@ class QMultipleItemsInputDialog(QDialog):
 
 		self.list_items   = QListWidget()
 
-		for item in items:
-			item_text = QListWidgetItem()
-			item_text.setText(item)
-			item_text.setCheckState(Qt.CheckState.Unchecked if item not in items_checked else Qt.CheckState.Checked)
+		match items:
+			case list():
+				for item in items:
+					item_text = QListWidgetItem()
+					item_text.setText(item)
+					item_text.setCheckState(Qt.CheckState.Unchecked if item not in items_checked else Qt.CheckState.Checked)
 
-			self.list_items.addItem(item_text)
+					self.list_items.addItem(item_text)
+
+			case dict():
+				for text, icon in items.items():
+					item_text = QListWidgetItem()
+					item_text.setIcon(icon)
+					item_text.setText(text)
+					item_text.setCheckState(Qt.CheckState.Unchecked if text not in items_checked else Qt.CheckState.Checked)
+
+					self.list_items.addItem(item_text)
+
 
 		layout_form.addRow(self.list_items)
 
@@ -404,6 +417,45 @@ class QMultipleItemsInputDialog(QDialog):
 			result.append(item_text.data(Qt.ItemDataRole.DisplayRole))
 
 		return result
+
+
+class QItemsInputDialog(QDialog):
+	def __init__(self,  title, message, items: list[str] | dict[str, QIcon], parent=None):
+		super().__init__(parent)
+
+		self.setWindowTitle(title)
+
+		layout_form     = QFormLayout(self)
+		layout_form.addRow(QLabel(message))
+
+		self.list_items = QListWidget()
+
+		match items:
+			case list():
+				for text in items:
+					item_text = QListWidgetItem()
+					item_text.setText(text)
+
+					self.list_items.addItem(item_text)
+
+			case dict():
+				for text, icon in items.items():
+					item_text = QListWidgetItem()
+					item_text.setIcon(icon)
+					item_text.setText(text)
+
+					self.list_items.addItem(item_text)
+
+		layout_form.addRow(self.list_items)
+
+		btn_box         = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel, Qt.Orientation.Horizontal, self)
+		layout_form.addRow(btn_box)
+
+		btn_box.accepted.connect(self.accept)
+		btn_box.rejected.connect(self.reject)
+
+	def selectedItem(self) -> str | None:
+		return self.list_items.currentItem().data(Qt.ItemDataRole.DisplayRole)
 
 
 class QFindReplaceTextDialog(QDialog):
@@ -530,17 +582,16 @@ def RequestConfirm(title: str, message: str, flag_btn_cancel: bool = False) -> b
 	return result == QMessageBox.StandardButton.Yes
 
 
-def RequestItem(title: str, message: str, items: list[str]) -> str | None:
+def RequestItem(title: str, message: str, items: list[str] | dict[str, QIcon]) -> str | None:
 	""" Запрос значения из списка """
 	if not items               : return None
 
-	dialog_items     = QInputDialog(None)
-	dialog_items.setWindowTitle(title)
-	dialog_items.setLabelText(message)
-	dialog_items.setComboBoxItems(items)
-	dialog_items.setOption(dialog_items.InputDialogOption.UseListViewForComboBoxItems, True)
+	dialog_items     = QItemsInputDialog(title, message, items)
 
-	max_length : int = max(list(map(len, items)))
+	match items:
+		case list(): max_length : int = max(list(map(len, items)))
+		case dict(): max_length : int = max(list(map(len, items.keys())))
+		case _     : max_length : int = 480
 
 	size_w     : int = min(480, max_length * 15)
 	size_w           = max(360, size_w)
@@ -551,10 +602,10 @@ def RequestItem(title: str, message: str, items: list[str]) -> str | None:
 
 	if not dialog_items.exec_(): return None
 
-	return dialog_items.textValue()
+	return dialog_items.selectedItem()
 
 
-def RequestItems(title: str, message: str, items: list[str], items_checked: list[str] = []) -> list[str] | None:
+def RequestItems(title: str, message: str, items: list[str], items_checked: list[str] | dict[str, QIcon] = []) -> list[str] | None:
 	""" Запрос значений из списка """
 	if not items               : return None
 	

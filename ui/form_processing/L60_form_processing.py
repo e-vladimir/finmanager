@@ -9,7 +9,7 @@ from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
 from L00_rules           import RULES
 from L20_PySide6         import C20_StandardItem, ROLES, RequestMultipleText, RequestText
 from L50_form_processing import C50_FormProcessing
-from L90_rules import C90_ProcessingRule
+from L90_rules           import C90_ProcessingRule
 
 
 class C60_FormProcessing(C50_FormProcessing):

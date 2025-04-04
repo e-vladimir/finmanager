@@ -7,7 +7,7 @@ from G10_datetime    import CurrentDy
 
 from L00_form_export import ACCOUNTS, EXPORT_FIELDS, INTERVALS
 from L00_months      import MONTHS_SHORT
-from L20_PySide6 import C20_StandardItem, ROLES, RequestDirectory, RequestItem, RequestText, RequestValue
+from L20_PySide6     import C20_StandardItem, ROLES, RequestDirectory, RequestItem, RequestText, RequestValue
 from L50_form_export import C50_FormExport
 
 
