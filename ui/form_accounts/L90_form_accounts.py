@@ -50,6 +50,22 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
 
+	def on_RequestUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.ShowTitle()
+
+		self.InitModelData()
+
+		self.LoadGroups()
+		self.LoadAccounts()
+
+		self.AdjustTreeData_Color()
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Sort()
+
 	# Меню Счета
 	def on_RequestShowMenuAccounts(self):
 		""" Запрос отображения меню Счета """

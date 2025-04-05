@@ -49,7 +49,19 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Colors()
 		self.AdjustTreeData_Size()
 
-		self.CleanModelData()
+	def on_RequestUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.ShowTitle()
+
+		self.InitModelData()
+		self.ShowOperations()
+
+		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Colors()
+		self.AdjustTreeData_Size()
 
 	def on_RequestPartialUpdateData(self):
 		""" Частичное обновление данных """
@@ -61,6 +73,8 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Colors()
 		self.AdjustTreeData_Size()
+
+		self.CleanModelData()
 
 	# Меню операций
 	def on_RequestMenuOperation(self):

@@ -49,6 +49,9 @@ class C90_FormMain(C80_FormMain):
 		self.ShowBackup()
 		self.ShowMonthView()
 
+		self.Application.FormOperations.UpdateData()
+		self.Application.FormAccounts.UpdateData()
+
 	def on_RequestSwitchDyDmToNextDm(self):
 		""" Запрос на переключение рабочего периода на следующий месяц """
 		self.Workspace.SwitchDyDmToNextDm()
