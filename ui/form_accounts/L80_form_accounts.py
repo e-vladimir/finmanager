@@ -62,6 +62,19 @@ class C80_FormAccounts(C70_FormAccounts):
 		            f"Отчёт сохранён в файл {pdf_file.name}",
 		            f"{pdf_file.absolute()}")
 
+	def GenerateReportDm(self):
+		""" Генерация отчёта по остаткам """
+		dy, dm                 = self.Workspace.DyDm()
+		pdf_file : Path | None = self.Report.GenerateReportDm(dy, dm)
+		if not pdf_file:
+			ShowMessage("Отчёт за месяц",
+			            "Генерация отчёта прервана")
+			return
+
+		ShowMessage( "Отчёт за месяц",
+		            f"Отчёт сохранён в файл {pdf_file.name}",
+		            f"{pdf_file.absolute()}")
+
 	# Группа счетов
 	def EditGroupName(self):
 		""" Редактирование названия группы счетов """

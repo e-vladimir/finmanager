@@ -18,6 +18,7 @@ class C50_FormAccounts(C42_FormAccounts):
 	def on_RequestTransferAccountsToNextDm(self): pass
 	def on_RequestTransferAccountsToPrevDm(self): pass
 	def on_RequestGenerateReportBalances(self): pass
+	def on_RequestGenerateReportDm(self): pass
 
 	def on_AccountsChanged(self): pass
 

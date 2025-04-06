@@ -20,6 +20,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.ActionTransferAccountsToNextDm.triggered.connect(self.on_RequestTransferAccountsToNextDm)
 		self.ActionResetAccounts.triggered.connect(self.on_RequestResetAccounts)
 		self.ActionGenerateReportBalances.triggered.connect(self.on_RequestGenerateReportBalances)
+		self.ActionGenerateReportDm.triggered.connect(self.on_RequestGenerateReportDm)
 
 		# Меню Группа счетов
 		self.ActionEditGroupName.triggered.connect(self.on_RequestEditGroupName)
@@ -94,6 +95,10 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestGenerateReportBalances(self):
 		""" Запрос генерации отчёта по остаткам """
 		self.GenerateReportBalances()
+
+	def on_RequestGenerateReportDm(self):
+		""" Запрос генерации отчёта за месяц """
+		self.GenerateReportDm()
 
 	def on_AccountsChanged(self):
 		""" Структура счетов изменилась """

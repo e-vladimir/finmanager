@@ -20,6 +20,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionOpenProcessing.triggered.connect(self.on_RequestOpenProcessing)
 		self.ActionImportOperations.triggered.connect(self.on_RequestOpenFormImport)
 		self.ActionExportOperations.triggered.connect(self.on_RequestOpenFormExport)
+		self.ActionGenerateReportDm.triggered.connect(self.on_RequestGenerateReportDm)
 		self.ActionResetOperations.triggered.connect(self.on_RequestResetOperations)
 
 		# Меню Операция
@@ -109,6 +110,10 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestResetOperations(self):
 		""" Запрос на сброс данных """
 		self.ResetOperations()
+
+	def on_RequestGenerateReportDm(self):
+		""" Запрос генерации отчёта за месяц """
+		self.GenerateReportDm()
 
 	def on_OperationsReset(self):
 		""" Операции сброшены """

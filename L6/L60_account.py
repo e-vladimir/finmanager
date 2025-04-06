@@ -64,7 +64,11 @@ class C60_Account(C50_Account):
 	# Остаток на конец месяца
 	@property
 	def summary_balance(self) -> int:
-		return int(self.initial_balance + sum(C90_Operations.Amounts(dy=self.dy, dm=self.dm, account_ido=self.Ido().data)))
+		return int(self.initial_balance + sum(C90_Operations.Amounts(dy=self.dy,
+		                                                             dm=self.dm,
+		                                                             account_ido=self.Ido().data)
+		                                      )
+		           )
 
 
 	# Приоритетность счёта
@@ -75,6 +79,27 @@ class C60_Account(C50_Account):
 	@priority.setter
 	def priority(self, level: int):
 		self.FPriority.FromInteger(CONTAINERS.DISK, level)
+
+
+	# Объём поступлений
+	@property
+	def income_amount(self) -> int:
+		return sum(filter(lambda amount: amount > 0,
+		                  C90_Operations.Amounts(dy         =self.dy,
+		                                         dm         =self.dm,
+		                                         account_ido=self.Ido().data)
+		                  )
+		           )
+
+	# Объём списаний
+	@property
+	def outcome_amount(self) -> int:
+		return sum(filter(lambda amount: amount < 0,
+		                  C90_Operations.Amounts(dy         =self.dy,
+		                                         dm         =self.dm,
+		                                         account_ido=self.Ido().data)
+		                  )
+		           )
 
 
 	# IDO
@@ -97,6 +122,7 @@ class C60_Account(C50_Account):
 		except: return False
 
 		return True
+
 
 class C60_Accounts(C50_Accounts):
 	""" Контроллер счетов: Механика данных """

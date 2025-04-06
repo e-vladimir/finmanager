@@ -1,5 +1,5 @@
 # ГЕНЕРАТОР ОТЧЁТОВ НА БАЗЕ FPDF
-# 10 мар 2025
+# 06 апр 2025
 
 import enum
 
@@ -298,14 +298,16 @@ class C30_ProcessorReportsFpdf2(FPDF):
 		self.SwitchFont(BLOCKS.DESCRIPTION)
 		self.SwitchColors(BLOCKS.DESCRIPTION)
 
-		self.multi_cell(w     = 0.00,
-		                text  = description,
-		                align = Align.R,)
+		if description:
+			self.multi_cell(w     = 0.00,
+			                text  = description,
+			                align = Align.R,)
 
 		self.SwitchFont(BLOCKS.TABLE)
 		self.SwitchColors(BLOCKS.TABLE)
 
-		self.ln(2)
+		if description:
+			self.ln(2)
 
 		style_header = FontFace(color      =   0,
 		                        fill_color = 230,

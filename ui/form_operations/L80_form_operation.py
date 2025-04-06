@@ -1,12 +1,14 @@
 # ФОРМА ОПЕРАЦИИ: ЛОГИКА ДАННЫХ
 # 11 мар 2025
 
+from pathlib            import Path
+
 from G10_list           import ClearList
 from G11_convertor_data import AmountToString
 
 from L00_colors         import COLORS
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestItems, RequestMultipleText, RequestText, RequestValue
+from L20_PySide6        import RequestConfirm, RequestItems, RequestMultipleText, RequestText, RequestValue, ShowMessage
 from L70_form_operation import C70_FormOperation
 from L90_operations     import C90_Operation
 
@@ -31,6 +33,19 @@ class C80_FormOperation(C70_FormOperation):
 		for ido in self.Operations.Idos(dy, dm): C90_Operation(ido).DeleteObject(CONTAINERS.DISK)
 
 		self.on_OperationsReset()
+
+	def GenerateReportDm(self):
+		""" Генерация отчёта по остаткам """
+		dy, dm                 = self.Workspace.DyDm()
+		pdf_file : Path | None = self.Report.GenerateReportDm(dy, dm)
+		if not pdf_file:
+			ShowMessage("Отчёт за месяц",
+			            "Генерация отчёта прервана")
+			return
+
+		ShowMessage( "Отчёт за месяц",
+		            f"Отчёт сохранён в файл {pdf_file.name}",
+		            f"{pdf_file.absolute()}")
 
 	# Операция
 	def CreateOperation(self):

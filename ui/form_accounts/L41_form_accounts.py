@@ -34,6 +34,7 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.ActionTransferAccountsToPrevDm  = QAction(icon_left,        "Перенести в прошлый месяц")
 		self.ActionTransferAccountsToNextDm  = QAction(icon_right,       "Перенести в следующий месяц")
 		self.ActionGenerateReportBalances    = QAction(icon_file,        "Отчёт по остаткам")
+		self.ActionGenerateReportDm          = QAction(icon_file,        "Отчёт за месяц")
 
 		self.ActionEditGroupName             = QAction(icon_edit,        "Изменить наименование")
 		self.ActionTransferGroupToPrevDm     = QAction(icon_left,        "Перенести в прошлый месяц")
@@ -57,6 +58,7 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.SubmenuAccounts.addAction(self.ActionTransferAccountsToNextDm)
 		self.SubmenuAccounts.addSeparator()
 		self.SubmenuAccounts.addAction(self.ActionGenerateReportBalances)
+		self.SubmenuAccounts.addAction(self.ActionGenerateReportDm)
 		self.SubmenuAccounts.addSeparator()
 		self.SubmenuAccounts.addAction(self.ActionResetAccounts)
 
