@@ -94,7 +94,7 @@ class C80_FormExport(C70_FormExport):
 
 		for account_name in account_names:
 			data : list = []
-			data.append(';'.join(["Дата", "Сумма", "Описание", "Метки"]))
+			data.append(';'.join(["Дата", "Сумма", "Описание", "Назначение", "Метки"]))
 
 			for dy, dm in product(dys, dms):
 				account = C90_Account()
@@ -109,6 +109,7 @@ class C80_FormExport(C70_FormExport):
 						subdata : list[str] = [operation.DdDmDyToString(),
 						                       AmountToString(operation.amount, flag_point=True),
 						                       operation.description,
+						                       operation.destination,
 						                       ', '.join(operation.labels),
 						                       ]
 
