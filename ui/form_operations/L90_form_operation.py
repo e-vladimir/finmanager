@@ -136,19 +136,19 @@ class C90_FormOperation(C80_FormOperation):
 
 	def on_RequestEditOperationAmount(self):
 		""" Запрос редактирования суммы операции """
-		self.EditAmountOperation()
+		self.EditOperationAmount()
 
 	def on_RequestEditOperationAccounts(self):
 		""" Запрос редактирования счетов операции """
-		self.EditAccountsOperation()
+		self.EditOperationAccounts()
 
 	def on_RequestEditOperationDescriptions(self):
 		""" Запрос редактирования описания операции """
-		self.EditDescriptionOperation()
+		self.EditOperationDestination()
 
 	def on_RequestEditOperationLabels(self):
 		""" Запрос редактирования меток операции """
-		self.EditLabelsOperation()
+		self.EditOperationLabels()
 
 	def on_RequestSetOperationColorToBlack(self):
 		""" Установка цвета операции: Чёрный """

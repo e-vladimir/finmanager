@@ -82,7 +82,7 @@ class C80_FormOperation(C70_FormOperation):
 
 		self.on_OperationDeleted()
 
-	def EditAmountOperation(self):
+	def EditOperationAmount(self):
 		""" Редактирование суммы операции """
 		operation           = C90_Operation(self.processing_ido)
 
@@ -93,7 +93,7 @@ class C80_FormOperation(C70_FormOperation):
 
 		self.on_OperationChanged()
 
-	def EditAccountsOperation(self):
+	def EditOperationAccounts(self):
 		""" Редактирование счетов операции """
 		dy, dm                           = self.Workspace.DyDm()
 		operation                        = C90_Operation(self.processing_ido)
@@ -108,18 +108,18 @@ class C80_FormOperation(C70_FormOperation):
 
 		self.on_OperationChanged()
 
-	def EditDescriptionOperation(self):
-		""" Редактирование описания операции """
+	def EditOperationDestination(self):
+		""" Редактирование назначения операции """
 		operation                = C90_Operation(self.processing_ido)
 
-		description : str | None = RequestText("Редактирование операции", f"{operation.Information()}\n\nОписание:", operation.description)
-		if description is None: return
+		destination : str | None = RequestText("Редактирование операции", f"{operation.ShortInformation()}\n{operation.description}", operation.DestinationOrDescription())
+		if destination is None: return
 
-		operation.description = description
+		operation.destination = destination
 
 		self.on_OperationChanged()
 
-	def EditLabelsOperation(self):
+	def EditOperationLabels(self):
 		""" Редактирование меток """
 		operation                 = C90_Operation(self.processing_ido)
 

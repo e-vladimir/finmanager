@@ -20,6 +20,10 @@ class C80_Operation(C70_Operation):
 		""" Дата в строку """
 		return f"{self.dd:02d} {MONTHS_SHORT[self.dm]} {self.dy:04d}"
 
+	def ShortInformation(self) -> str:
+		""" Краткая информация об операции """
+		return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}"
+
 	def Information(self, flag_flat: bool = False) -> str:
 		""" Информация об операции """
 		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
