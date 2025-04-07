@@ -12,20 +12,25 @@ from L70_operations         import C70_Operation, C70_Operations
 class C80_Operation(C70_Operation):
 	""" Финансовая операция: Логика данных """
 
+	def DestinationOrDescription(self) -> str:
+		""" Назначение или описание """
+		return self.destination or self.description
+
 	def DdDmDyToString(self) -> str:
 		""" Дата в строку """
 		return f"{self.dd:02d} {MONTHS_SHORT[self.dm]} {self.dy:04d}"
 
 	def Information(self, flag_flat: bool = False) -> str:
 		""" Информация об операции """
-		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()} ({self.description})"
-		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}\n{self.description}"
+		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
+		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}\n{self.DestinationOrDescription()}"
 
 	def Split(self, amount: int) -> str:
 		""" Разделение операции """
 		accounts    = self.account_idos
 		color       = self.color
 		description = self.description
+		destination = self.destination
 		dy          = self.dy
 		dm          = self.dm
 		dd          = self.dd
@@ -39,6 +44,7 @@ class C80_Operation(C70_Operation):
 		self.amount       = amount
 		self.color        = color
 		self.description  = description
+		self.destination  = destination
 		self.dy           = dy
 		self.dm           = dm
 		self.dd           = dd
@@ -51,6 +57,7 @@ class C80_Operation(C70_Operation):
 		amount      = self.amount
 		color       = self.color
 		description = self.description
+		destination = self.destination
 		dy          = self.dy
 		dm          = self.dm
 		dd          = self.dd
@@ -62,29 +69,12 @@ class C80_Operation(C70_Operation):
 		self.amount       = amount
 		self.color        = color
 		self.description  = description
+		self.destination  = destination
 		self.dy           = dy
 		self.dm           = dm
 		self.dd           = dd
 
 		return self.Ido().data
-
-	# Применение правил
-	def ApplyReplaceDescription(self, data_inputs: list[str], data_blocks: list[str], data_output: str) -> bool:
-		""" Применение правила замены фрагмента описания """
-		description = self.description
-
-		if not data_output                    : return False
-
-		for data_block in data_blocks:
-			if data_block in description: return False
-
-		for data_input in data_inputs:
-			description = description.replace(data_input, data_output)
-
-		if     description == self.description: return False
-
-		self.description = description
-		return True
 
 
 class C80_Operations(C70_Operations):

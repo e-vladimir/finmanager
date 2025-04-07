@@ -110,17 +110,17 @@ class C60_FormOperation(C50_FormOperation):
 			item_accounts.setData(operation.dd,        ROLES.GROUP)
 			item_accounts.setData(idp_accounts,        ROLES.IDP)
 
-			item_description = C20_StandardItem("")
-			item_description.setData(self.processing_ido, ROLES.IDO)
-			item_description.setData(operation.dd,        ROLES.GROUP)
-			item_description.setData(idp_description,     ROLES.IDP)
+			item_destination = C20_StandardItem("")
+			item_destination.setData(self.processing_ido, ROLES.IDO)
+			item_destination.setData(operation.dd,        ROLES.GROUP)
+			item_destination.setData(idp_description,     ROLES.IDP)
 
 			item_labels = C20_StandardItem("")
 			item_labels.setData(self.processing_ido, ROLES.IDO)
 			item_labels.setData(operation.dd,        ROLES.GROUP)
 			item_labels.setData(idp_labels,          ROLES.IDP)
 
-			item_dd.appendRow([item_amount, item_accounts, item_description, item_labels])
+			item_dd.appendRow([item_amount, item_accounts, item_destination, item_labels])
 
 		indexes         : list[QModelIndex]        = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
@@ -130,8 +130,8 @@ class C60_FormOperation(C50_FormOperation):
 		item_accounts                              = self.ModelData.itemFromIndex(indexes[1])
 		item_accounts.setText('\n'.join(self.Accounts.IdosToNames(operation.account_idos)))
 
-		item_description                           = self.ModelData.itemFromIndex(indexes[2])
-		item_description.setText(operation.description)
+		item_destination                           = self.ModelData.itemFromIndex(indexes[2])
+		item_destination.setText(operation.DestinationOrDescription())
 
 		item_labels                                = self.ModelData.itemFromIndex(indexes[3])
 		item_labels.setText(', '.join(operation.labels))
@@ -145,6 +145,8 @@ class C60_FormOperation(C50_FormOperation):
 			case COLORS.GREEN: color_fg = QColor( 30, 130,  30)
 			case COLORS.BLUE : color_fg = QColor( 30,  30, 130)
 			case COLORS.RED  : color_fg = QColor(130,  30,  30)
+
+		if not operation.destination: color_fg = QColor(150, 150, 150)
 
 		self.ModelData.setRowColor(item_dd,
 		                           item_amount.row(),

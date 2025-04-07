@@ -19,6 +19,7 @@ class C40_Operation(C31_StructFrameWithEvents):
 		self.FAccountIdos = C30_StructField(self, "Счета")
 		self.FAmount      = C30_StructField(self, "Сумма")
 		self.FDescription = C30_StructField(self, "Описание")
+		self.FDestination = C30_StructField(self, "Назначение")
 		self.FColor       = C30_StructField(self, "Цветовая метка")
 		self.FLabels      = C30_StructField(self, "Метки")
 

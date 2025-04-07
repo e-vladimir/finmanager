@@ -71,6 +71,16 @@ class C60_Operation(C50_Operation):
 		self.FDescription.FromString(CONTAINERS.DISK, text)
 
 
+	# Назначение
+	@property
+	def destination(self) -> str:
+		return self.FDestination.ToString(CONTAINERS.DISK).data
+
+	@destination.setter
+	def destination(self, text: str):
+		self.FDestination.FromString(CONTAINERS.DISK, text)
+
+
 	# Цветовая метка
 	@property
 	def color(self) -> COLORS:
