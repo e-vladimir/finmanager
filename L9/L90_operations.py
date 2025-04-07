@@ -14,6 +14,7 @@ class C90_Operation(C80_Operation):
 
 		self.amount       = 0
 		self.description  = ""
+		self.destination  = ""
 		self.account_idos = []
 
 
