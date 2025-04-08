@@ -22,12 +22,12 @@ class C42_FormOperation(C41_FormOperation):
 	def Init_10(self):
 		super().Init_10()
 
-		self.ModelData  = C20_StandardItemModel()
+		self.ModelData     = C20_StandardItemModel()
 
-		self.Accounts   = C90_Accounts()
-		self.Operations = C90_Operations()
-		self.Report     = C90_Report()
-		self.Workspace  = C90_Workspace()
+		self.Accounts      = C90_Accounts()
+		self.Operations    = C90_Operations()
+		self.Report        = C90_Report()
+		self.Workspace     = C90_Workspace()
 
 	def Init_11(self):
 		super().Init_11()

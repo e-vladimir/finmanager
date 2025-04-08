@@ -6,6 +6,7 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L00_months             import MONTHS_SHORT
+from L20_finmanager_struct  import T20_RawOperation
 from L70_operations         import C70_Operation, C70_Operations
 
 
@@ -79,6 +80,12 @@ class C80_Operation(C70_Operation):
 		self.dd           = dd
 
 		return self.Ido().data
+
+	# Конвертация
+	def ToT20_RawOperation(self) -> T20_RawOperation:
+		return T20_RawOperation(amount      = int(self.amount),
+		                        description = self.description,
+		                        destination = self.destination)
 
 
 class C80_Operations(C70_Operations):

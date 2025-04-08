@@ -112,10 +112,16 @@ class C80_FormOperation(C70_FormOperation):
 		""" Редактирование назначения операции """
 		operation                = C90_Operation(self.processing_ido)
 
-		destination : str | None = RequestText("Редактирование операции", f"{operation.ShortInformation()}\n{operation.description}", operation.DestinationOrDescription())
+		destination : str | None = RequestText( "Редактирование операции",
+		                                       f"{operation.ShortInformation()}\n{operation.description}",
+		                                         operation.destination or self.Application.DataCompleter.PredictDestination(operation.description),
+		                                         self.Application.DataCompleter.PredictDestinations(operation.description))
 		if destination is None: return
 
 		operation.destination = destination
+
+		self.Application.DataCompleter.AppendDataOperations(operation.Ido().data)
+		self.Application.DataCompleter.CalcDataDestination()
 
 		self.on_OperationChanged()
 

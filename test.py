@@ -1,1 +1,5 @@
-print([i for i in range(ord('а'), ord('я') + 1)])
+from L20_finmanager_struct import T20_PredictItem
+
+data = {'Магнит': T20_PredictItem(intput='', inputs={}, output='', outputs={'Магнит: Продукты': 0.05, 'Магнит: Продукты питания': 0.95}), 'Занятие с логопедом': T20_PredictItem(intput='', inputs={}, output='', outputs={'Занятие с логопедом (Андрей)': 1.0}), 'Инвесткопилка': T20_PredictItem(intput='', inputs={}, output='', outputs={'Инвестирование': 1.0}), 'Петровский': T20_PredictItem(intput='', inputs={}, output='', outputs={'Петровский: Продукты питания': 1.0}), 'Плата за оповещения об операциях': T20_PredictItem(intput='', inputs={}, output='', outputs={'Т-Банк: Подписка на оповещения об операциях': 1.0}), 'Макси': T20_PredictItem(intput='', inputs={}, output='', outputs={'Макси: Продукты питания': 1.0}), 'Пополнение. VB24 D. 12, PR-KT MOSK ARKHANGELSK G RUS': T20_PredictItem(intput='', inputs={}, output='', outputs={'Продажа увлажнителя и рейки': 1.0}), 'Регулярный перевод в Инвесткопилку': T20_PredictItem(intput='', inputs={}, output='', outputs={'Инвестирование': 1.0}), 'Кэшбэк': T20_PredictItem(intput='', inputs={}, output='', outputs={'Т-Банк: Кэшбэк': 1.0}), 'Повышенный кэшбэк': T20_PredictItem(intput='', inputs={}, output='', outputs={'Т-Банк: Кэшбэк': 1.0})}
+
+print(sorted(data.get("Магнит").outputs.items(), key=lambda item:item, reverse=True))

@@ -27,26 +27,26 @@ class META_CLASSES(ClassInfo, enum.Enum):
 
 # ПАРАМЕТРЫ ГЕНЕРАЦИИ
 # Мета-класс
-META_CLASS       = META_CLASSES.C20_PYSIDE_FORM
+META_CLASS       = META_CLASSES.C31_CACTUS_FRAME
 
 # Имя класса
-CLASS_NAME        = "FormExport"
+CLASS_NAME        = "DataCompleter"
 
 # Описание класса
-CLASS_DESCRIPTION = "Форма экспорт данных"
+CLASS_DESCRIPTION = "Предиктивный анализатор данных"
 
 # Имя файла
 # Если оставить пустым, сгенерируется автоматически из имени класса
 FILE_NAME         = ""
 
 # Корневая папка генерации файлов/директорий L
-DIR_ROOT          = "./ui/form_export"
+DIR_ROOT          = "."
 
 # Генерация UI-Класса
-TARGET_IS_UI      = True
+TARGET_IS_UI      = False
 
 # Генерация файлов без деления по папкам
-TARGET_IS_FLAT    = True
+TARGET_IS_FLAT    = False
 
 # Генерация единого файла, без разделения на L4-9
 TARGET_IS_SINGLE  = False

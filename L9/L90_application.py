@@ -11,10 +11,12 @@ class C90_Application(C80_Application):
 		super().on_Inited()
 
 		self.InitDirectories()
-
 		self.CreateBackup(True)
 
 		self.InitContainers()
+
+		self.DataCompleter.ReadDataOperations()
+		self.DataCompleter.CalcDataDestination()
 
 	def on_Start(self):
 		super().on_Start()

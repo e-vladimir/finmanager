@@ -2,6 +2,7 @@
 # 12 фев 2025
 
 from L20_PySide6         import C20_PySideApplication
+from L90_data_completer  import C90_DataCompleter
 from L90_form_accounts   import C90_FormAccounts
 from L90_form_backups    import C90_FormBackups
 from L90_form_export     import C90_FormExport
@@ -16,6 +17,8 @@ class C40_Application(C20_PySideApplication):
 
 	def Init_10(self):
 		super().Init_10()
+
+		self.DataCompleter  = C90_DataCompleter()
 
 		self.FormMain       = C90_FormMain(self)
 		self.FormAccounts   = C90_FormAccounts(self)
