@@ -118,7 +118,7 @@ class C80_FormOperation(C70_FormOperation):
 		                                         self.Application.DataCompleter.PredictDestinations(operation.description))
 		if destination is None: return
 
-		operation.destination = destination
+		operation.destination    = destination
 
 		self.Application.DataCompleter.AppendDataOperations(operation.Ido().data)
 		self.Application.DataCompleter.CalcDataDestination()

@@ -1,9 +1,10 @@
 # ПРЕДИКТИВНЫЙ АНАЛИЗАТОР ДАННЫХ: ЛОГИКА ДАННЫХ
 # 08 апр 2025
+
 import operator
 
-from L20_finmanager_struct import T20_PredictItem
-from L70_data_completer    import C70_DataCompleter
+from   L20_finmanager_struct import T20_PredictItem
+from   L70_data_completer    import C70_DataCompleter
 
 
 class C80_DataCompleter(C70_DataCompleter):
