@@ -11,8 +11,7 @@ from   PySide6.QtWidgets    import QProgressDialog
 from   G10_convertor_format import StringToDateTime, StringToFloat
 
 from   L00_containers       import CONTAINERS
-from   L00_fields           import DATA_FIELDS
-from   L00_form_import      import FORMATS
+from   L00_form_import      import DATA_FIELDS, FORMATS
 from   L10_form_import      import ParsePdf_Sberbank_2024_11
 from   L20_PySide6          import RequestFilepath, RequestItem
 from   L70_form_import      import C70_FormImport

@@ -3,7 +3,7 @@
 
 from pathlib         import Path
 
-from L00_fields      import DATA_FIELDS
+from L00_form_import import DATA_FIELDS
 from L20_PySide6     import C20_StandardItem
 from L20_form_import import T20_OperationsStruct
 from L50_form_import import C50_FormImport
@@ -16,14 +16,17 @@ class C60_FormImport(C50_FormImport):
 	@property
 	def operations_data(self) -> list:
 		return self._operations_data[:]
+
 	@operations_data.setter
 	def operations_data(self, data: list):
 		self._operations_data = data[:]
+
 
 	# Импорт операций: Путь к файлу
 	@property
 	def operations_filepath(self) -> Path | None:
 		return self._operations_filepath
+
 	@operations_filepath.setter
 	def operations_filepath(self, path: Path):
 		if not path.exists(): return
@@ -31,10 +34,12 @@ class C60_FormImport(C50_FormImport):
 
 		self._operations_filepath = path
 
+
 	# Импорт операций: Структура данных
 	@property
 	def operations_struct_names(self) -> list[str]:
 		return [item.name for item in self._operations_struct]
+
 	@operations_struct_names.setter
 	def operations_struct_names(self, names: list[str]):
 		self._operations_struct = [T20_OperationsStruct(name=name) for name in names]
@@ -91,6 +96,7 @@ class C60_FormImport(C50_FormImport):
 				struct_item.field = field
 				break
 
+
 	# Рабочий индекс строки
 	@property
 	def processing_row(self) -> int:
@@ -102,6 +108,7 @@ class C60_FormImport(C50_FormImport):
 	def ReadProcessingRowFromTableDataOperations(self):
 		""" Чтение рабочей строки из таблицы данных импорта операций """
 		self.processing_row = self.TableDataOperations.currentIndex().row()
+
 
 	# Модель данных
 	def InitModelDataOperations(self):
@@ -117,11 +124,13 @@ class C60_FormImport(C50_FormImport):
 
 	def LoadModelDataOperations(self):
 		""" Загрузка данных в модель данных импорта операций """
-		data = self.operations_data[0]
+		try:
+			data = self.operations_data[0]
 
-		for idx_row, subdata in enumerate(data):
-			item_field = self.ModelDataOperations.item(idx_row, 1)
-			item_field.setText(self._operations_struct[idx_row].field)
+			for idx_row, subdata in enumerate(data):
+				item_field = self.ModelDataOperations.item(idx_row, 1)
+				item_field.setText(self._operations_struct[idx_row].field)
 
-			item_data  = self.ModelDataOperations.item(idx_row, 2)
-			item_data.setText(subdata)
+				item_data  = self.ModelDataOperations.item(idx_row, 2)
+				item_data.setText(subdata)
+		except: pass
