@@ -14,7 +14,6 @@ from   G30_cactus_controller_containers import controller_containers
 from   L00_containers                   import CONTAINERS
 from   L40_account                      import C40_Account
 from   L40_operations                   import C40_Operation
-from   L40_rules                        import C40_ProcessingRule
 from   L70_application                  import C70_Application
 
 
@@ -33,7 +32,6 @@ class C80_Application(C70_Application):
 
 		C40_Account.RegisterClass(CONTAINERS.DISK)
 		C40_Operation.RegisterClass(CONTAINERS.DISK)
-		C40_ProcessingRule.RegisterClass(CONTAINERS.DISK)
 
 	# Директории
 	def InitDirectories(self):

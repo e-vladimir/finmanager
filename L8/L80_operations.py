@@ -157,6 +157,21 @@ class C80_Operations(C70_Operations):
 
 		return filter_data.ToStrings(idp_description, True, True).data
 
+	def Destinations(cls, dy: int = None, dm: int = None) -> list[str]:
+		""" Список описаний """
+		operation             = C80_Operation()
+		idc             : str = operation.Idc().data
+		idp_dy          : str = operation.FDy.Idp().data
+		idp_dm          : str = operation.FDm.Idp().data
+		idp_destination : str = operation.FDestination.Idp().data
+
+		filter_data           = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_destination, True, True).data
+
 	@classmethod
 	def Labels(cls, dy: int = None, dm: int = None) -> list[str]:
 		""" Список описаний """

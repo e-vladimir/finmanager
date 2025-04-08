@@ -21,15 +21,20 @@ class PROCESSING_FIELDS(enum.StrEnum):
 
 	DESCRIPTION_INCLUDE = "Описание включает"
 	DESCRIPTION_EXCLUDE = "Описание исключает"
-	DESCRIPTION_REPLACE = "Заменить на фрагмент"
-	DESCRIPTION_SET     = "Заменить описание"
-	DESCRIPTION_ADD     = "Дополнить описание"
+
+	DESTINATION_INCLUDE = "Назначение включает"
+	DESTINATION_EXCLUDE = "Назначение исключает"
+	DESTINATION_REPLACE = "Заменить назначение"
+	DESTINATION_SET     = "Установить назначение"
+	DESTINATION_ADD     = "Дополнить назначение"
 
 	LABELS_ADD          = "Добавить метку"
 	LABELS_EXCLUDE      = "Метки не содержат"
 	LABELS_INCLUDE      = "Метки содержат"
 	LABELS_REMOVE       = "Убрать метку"
-	LABELS_REPLACE      = "Заменить на метку"
+	LABELS_REPLACE      = "Заменить метку"
+
+	COLOR_SET           = "Установить цветовую метку"
 
 	@classmethod
 	def _missing_(cls, value): return cls.NONE
