@@ -38,7 +38,10 @@ class C60_DataCompleter(C50_DataCompleter):
 
 	def AppendDataOperations(self, ido: str):
 		""" Добавление данных """
-		self._data_operations.add(C90_Operation(ido).ToT20_RawOperation())
+		data = C90_Operation(ido).ToT20_RawOperation()
+		if data in self._data_operations: self._data_operations.remove(data)
+
+		self._data_operations.add(data)
 
 
 	# Данные предиктивного определения назначения
@@ -47,18 +50,30 @@ class C60_DataCompleter(C50_DataCompleter):
 		self._data_destination.clear()
 
 		for operation in self._data_operations:
-			predict_item                                = self._data_destination.get(operation.description, T20_PredictItem())
-			predict_item.outputs[operation.destination] = predict_item.outputs.get(operation.destination, 0) + 1
+			predict_item                                  = self._data_destination.get(operation.description, T20_PredictItem())
+			predict_item.IncOutputs([operation.destination])
 
 			self._data_destination[operation.description] = predict_item
 
 		for description, predict_item in self._data_destination.items():
-			count  : int = sum([count for _, count in predict_item.outputs.items()])
-			memory : int = 0
+			predict_item.CalcOutputsWights()
+			predict_item.CalcOutput()
 
-			for item, subcount in predict_item.outputs.items():
-				predict_item.outputs[item] = subcount / count
 
-				if subcount <= memory: continue
+	# Данные предиктивного определения меток
+	def CalcDataLabels(self):
+		""" Формирование данных """
+		self._data_labels.clear()
 
-				predict_item.output = item
+		for operation in self._data_operations:
+			if not operation.labels: continue
+
+			for label in operation.labels:
+				predict_item = self._data_labels.get(label, T20_PredictItem())
+				predict_item.IncInputs(operation.description.lower().split(' '))
+				predict_item.IncInputs(operation.destination.lower().split(' '))
+
+				self._data_labels[label] = predict_item
+
+		for label, predict_item in self._data_labels.items():
+			predict_item.CalcInputsWights()

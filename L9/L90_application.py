@@ -17,6 +17,7 @@ class C90_Application(C80_Application):
 
 		self.DataCompleter.ReadDataOperations()
 		self.DataCompleter.CalcDataDestination()
+		self.DataCompleter.CalcDataLabels()
 
 	def on_Start(self):
 		super().on_Start()

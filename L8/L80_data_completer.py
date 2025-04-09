@@ -22,3 +22,35 @@ class C80_DataCompleter(C70_DataCompleter):
 				                                  T20_PredictItem()).outputs.items(),
 				       key=operator.itemgetter(1))).keys()
 		        or [description])
+
+
+	# Предиктивная модель определения меток
+	def PredictLabels(self, description: str, destination: str) -> list[str]:
+		""" Предиктивное определение меток """
+		labels     : dict[str, float] = dict()
+
+		src        : str              = f"{description} {destination}".lower()
+
+		for label, predict_item in self._data_labels.items():
+			processing_weight : float = 0.00
+
+			for word, weight in predict_item.inputs.items():
+				if word not in src: continue
+
+				processing_weight += weight
+
+			if not processing_weight: continue
+
+			labels[label] = processing_weight
+
+		if not labels: return []
+
+		max_weight : float            = max(labels.values())
+		result     : list[str]        = []
+
+		for label, weight in labels.items():
+			if weight / max_weight < 0.750: continue
+
+			result.append(label)
+
+		return result

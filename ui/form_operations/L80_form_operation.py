@@ -122,6 +122,7 @@ class C80_FormOperation(C70_FormOperation):
 
 		self.Application.DataCompleter.AppendDataOperations(operation.Ido().data)
 		self.Application.DataCompleter.CalcDataDestination()
+		self.Application.DataCompleter.CalcDataLabels()
 
 		self.on_OperationChanged()
 
@@ -129,13 +130,18 @@ class C80_FormOperation(C70_FormOperation):
 		""" Редактирование меток """
 		operation                 = C90_Operation(self.processing_ido)
 
+		processing_labels : set[str] = set(operation.labels).union(self.Application.DataCompleter.PredictLabels(operation.description, operation.destination))
+
 		labels : list[str] | None = RequestMultipleText("Редактирование операции",
 		                                                f"{operation.Information()}\n\nМетки:",
-		                                                operation.labels,
+		                                                list(sorted(processing_labels)),
 		                                                ClearList(self.Operations.Labels()))
 		if labels is None: return
 
 		operation.labels = labels
+
+		self.Application.DataCompleter.AppendDataOperations(operation.Ido().data)
+		self.Application.DataCompleter.CalcDataLabels()
 
 		self.on_OperationChanged()
 

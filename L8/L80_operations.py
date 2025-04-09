@@ -85,7 +85,8 @@ class C80_Operation(C70_Operation):
 	def ToT20_RawOperation(self) -> T20_RawOperation:
 		return T20_RawOperation(amount      = int(self.amount),
 		                        description = self.description,
-		                        destination = self.destination)
+		                        destination = self.destination,
+		                        labels      = self.labels)
 
 
 class C80_Operations(C70_Operations):

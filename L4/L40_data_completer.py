@@ -12,3 +12,4 @@ class C40_DataCompleter(C31_StructFrameWithEvents):
 	def Init_00(self):
 		self._data_operations  : set[T20_RawOperation]      = set()
 		self._data_destination : dict[str, T20_PredictItem] = dict()
+		self._data_labels      : dict[str, T20_PredictItem] = dict()
