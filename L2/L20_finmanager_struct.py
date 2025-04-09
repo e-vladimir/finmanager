@@ -43,9 +43,9 @@ class T20_PredictItem:
 
 			self.input = item
 
-	def IncOutputs(self, items: list[str]):
+	def IncOutputs(self, items: list[str], mode_raw: bool = False):
 		""" Добавление значения в выходные условия """
-		for item in ClearList(items):
+		for item in ClearList(items, clear_short = not mode_raw, clear_numbers = not mode_raw, clear_simbols = not mode_raw):
 			self.outputs[item] = self.outputs.get(item, 0) + 1
 
 	def CalcOutputsWights(self):

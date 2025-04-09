@@ -55,8 +55,8 @@ def ClearList(items: list[str], clear_short: bool = True, clear_empty: bool = Tr
 	""" Очистка списка от пустых строк, пробелов, чисел, спецсимволов """
 	result = items[:]
 
-	if clear_numbers: result = [re.sub(r'[0-9]',                 '', item) for item in result]
-	if clear_simbols: result = [re.sub(r'[^a-zA-Zа-яА-Я0-9\s.]', '', item) for item in result]
+	if clear_numbers: result = [re.sub(r'[0-9]',                   '', item) for item in result]
+	if clear_simbols: result = [re.sub(r'[^a-zA-Zа-яА-Я0-9ёЁ\s.]', '', item) for item in result]
 	if clear_spaces : result = [item.strip().replace('  ', ' ')            for item in result]
 	if clear_empty  : result = filter(lambda item: len(item) > 0, result)
 	if clear_short  : result = filter(lambda item: len(item) > 3, result)

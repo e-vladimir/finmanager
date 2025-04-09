@@ -36,20 +36,18 @@ class C80_DataCompleter(C70_DataCompleter):
 
 			for word, weight in predict_item.inputs.items():
 				if word not in src: continue
-
 				processing_weight += weight
 
-			if not processing_weight: continue
+			if processing_weight < 0.05 : continue
 
 			labels[label] = processing_weight
 
 		if not labels: return []
 
-		max_weight : float            = max(labels.values())
 		result     : list[str]        = []
 
 		for label, weight in labels.items():
-			if weight / max_weight < 0.750: continue
+			if weight < 0.50: continue
 
 			result.append(label)
 

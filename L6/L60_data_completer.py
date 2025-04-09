@@ -51,7 +51,7 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		for operation in self._data_operations:
 			predict_item                                  = self._data_destination.get(operation.description, T20_PredictItem())
-			predict_item.IncOutputs([operation.destination])
+			predict_item.IncOutputs([operation.destination], mode_raw=True)
 
 			self._data_destination[operation.description] = predict_item
 

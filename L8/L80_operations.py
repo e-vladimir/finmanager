@@ -27,8 +27,8 @@ class C80_Operation(C70_Operation):
 
 	def Information(self, flag_flat: bool = False) -> str:
 		""" Информация об операции """
-		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
-		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}\n{self.DestinationOrDescription()}"
+		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
+		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()}\n{self.DestinationOrDescription()}"
 
 	def Split(self, amount: int) -> str:
 		""" Разделение операции """
