@@ -1,14 +1,16 @@
 # ГЕНЕРАТОР ОТЧЁТОВ НА БАЗЕ FPDF
-# 06 апр 2025
+# 09 апр 2025
 
 import enum
 
-from   dataclasses import dataclass
-from   datetime    import datetime
-from   pathlib     import Path
-from   fpdf        import Align, FPDF, FontFace, XPos, YPos
-from   fpdf.enums  import TableBordersLayout, VAlign
-from   fpdf.table  import Row
+from   PIL           import Image
+from   PIL.ImageFile import ImageFile
+from   dataclasses   import dataclass
+from   datetime      import datetime
+from   fpdf          import Align, FPDF, FontFace, XPos, YPos
+from   fpdf.enums    import TableBordersLayout, VAlign
+from   fpdf.table    import Row
+from   pathlib       import Path
 
 
 MONTHS_SHORT = ["", "янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек"]
@@ -295,10 +297,10 @@ class C30_ProcessorReportsFpdf2(FPDF):
 		for idx, size  in enumerate(sizes) : column_sizes[idx]  = size
 		for idx, align in enumerate(aligns): column_aligns[idx] = align
 
-		self.SwitchFont(BLOCKS.DESCRIPTION)
-		self.SwitchColors(BLOCKS.DESCRIPTION)
-
 		if description:
+			self.SwitchFont(BLOCKS.DESCRIPTION)
+			self.SwitchColors(BLOCKS.DESCRIPTION)
+
 			self.multi_cell(w     = 0.00,
 			                text  = description,
 			                align = Align.R,)
@@ -327,6 +329,36 @@ class C30_ProcessorReportsFpdf2(FPDF):
 
 				for data_cell in data_row:
 					row.cell(data_cell)
+
+	def AppendImage(self, img: str | Path | ImageFile, description: str = "", width: int = 0, height: int = 0):
+		""" Добавление изображения """
+		try:
+			match img:
+				case str()      : data = Image.open(img)
+				case Path()     : data = Image.open(img)
+				case ImageFile(): data = img
+				case _          : return
+		except: return
+
+		data_width = width or self.epw
+
+		self.ln(5)
+		self.image(name              = data,
+		           alt_text          = description,
+		           h                 = height,
+		           keep_aspect_ratio = True,
+		           w                 = data_width,
+		           x                 = self.margins_page.l + (self.epw - data_width) / 2)
+
+		if description:
+			self.SwitchFont(BLOCKS.DESCRIPTION)
+			self.SwitchColors(BLOCKS.DESCRIPTION)
+
+			self.ln(1)
+
+			self.multi_cell(w     = 0.00,
+			                text  = description,
+			                align = Align.C)
 
 	def AppendHeader(self):
 		""" Размещение колонтитула верхнего """

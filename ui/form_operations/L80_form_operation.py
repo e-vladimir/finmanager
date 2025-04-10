@@ -120,9 +120,7 @@ class C80_FormOperation(C70_FormOperation):
 
 		operation.destination    = destination
 
-		self.Application.DataCompleter.AppendDataOperations(operation.Ido().data)
-		self.Application.DataCompleter.CalcDataDestination()
-		self.Application.DataCompleter.CalcDataLabels()
+		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
 
 		self.on_OperationChanged()
 
@@ -140,8 +138,7 @@ class C80_FormOperation(C70_FormOperation):
 
 		operation.labels = labels
 
-		self.Application.DataCompleter.AppendDataOperations(operation.Ido().data)
-		self.Application.DataCompleter.CalcDataLabels()
+		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
 
 		self.on_OperationChanged()
 

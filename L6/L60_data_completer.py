@@ -1,11 +1,13 @@
 # ПРЕДИКТИВНЫЙ АНАЛИЗАТОР ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 08 апр 2025
 
+from pprint import pprint
+
 from G10_datetime           import CurrentDy
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
-from L20_finmanager_struct  import T20_PredictItem
+from L20_finmanager_struct import T20_PredictItem
 from L50_data_completer     import C50_DataCompleter
 from L90_operations         import C90_Operation
 
@@ -34,14 +36,16 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		idos            : list[str] = filter_data.Idos().data
 
-		for ido in idos[-300:]: self.AppendDataOperations(ido)
+		for ido in idos[-300:]: self.UpdateDataOperations(ido, True)
 
-	def AppendDataOperations(self, ido: str):
-		""" Добавление данных """
-		data = C90_Operation(ido).ToT20_RawOperation()
-		if data in self._data_operations: self._data_operations.remove(data)
+	def UpdateDataOperations(self, ido: str, skip_calc: bool = False):
+		""" Обновление данных """
+		self._data_operations[ido] = C90_Operation(ido).ToT20_RawOperation()
 
-		self._data_operations.add(data)
+		if skip_calc: return
+
+		self.CalcDataDestination()
+		self.CalcDataLabels()
 
 
 	# Данные предиктивного определения назначения
@@ -49,31 +53,17 @@ class C60_DataCompleter(C50_DataCompleter):
 		""" Формирование данных """
 		self._data_destination.clear()
 
-		for operation in self._data_operations:
-			predict_item                                  = self._data_destination.get(operation.description, T20_PredictItem())
-			predict_item.IncOutputs([operation.destination], mode_raw=True)
+		for operation in self._data_operations.values():
+			if operation.description not in self._data_destination: self._data_destination[operation.description] = T20_PredictItem()
 
-			self._data_destination[operation.description] = predict_item
+			processing_string : str = ""
 
-		for description, predict_item in self._data_destination.items():
-			predict_item.CalcOutputsWights()
-			predict_item.CalcOutput()
+			for word in operation.destination.split(' '):
+				processing_string = (processing_string + ' ' + word).strip()
 
+				self._data_destination[operation.description].Append(processing_string)
 
 	# Данные предиктивного определения меток
 	def CalcDataLabels(self):
 		""" Формирование данных """
-		self._data_labels.clear()
-
-		for operation in self._data_operations:
-			if not operation.labels: continue
-
-			for label in operation.labels:
-				predict_item = self._data_labels.get(label, T20_PredictItem())
-				predict_item.IncInputs(operation.description.lower().split(' '))
-				predict_item.IncInputs(operation.destination.lower().split(' '))
-
-				self._data_labels[label] = predict_item
-
-		for label, predict_item in self._data_labels.items():
-			predict_item.CalcInputsWights()
+		pass
