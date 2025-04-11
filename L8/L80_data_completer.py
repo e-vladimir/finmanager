@@ -28,4 +28,24 @@ class C80_DataCompleter(C70_DataCompleter):
 	# Предиктивная модель определения меток
 	def PredictLabels(self, description: str, destination: str) -> list[str]:
 		""" Предиктивное определение меток """
-		return []
+		data_output : dict[str, float] = dict()
+		data_input  : str              = f"{description} {destination}".lower()
+
+		for label, predict_item in self._data_labels.items():
+			for word, weight in predict_item.data.items():
+				if word not in data_input: continue
+
+				data_output[label] = data_output.get(label, 0.00) + weight
+
+		if not data_output: return []
+
+		avg_weight = sum(data_output.values()) / len(data_output)
+
+		result : list[str] = []
+
+		for label, weight in data_output.items():
+			if weight < avg_weight: continue
+
+			result.append(label)
+
+		return result

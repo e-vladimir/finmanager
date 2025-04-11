@@ -1,13 +1,12 @@
 # ПРЕДИКТИВНЫЙ АНАЛИЗАТОР ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 08 апр 2025
 
-from pprint import pprint
-
 from G10_datetime           import CurrentDy
+from G10_list               import ClearList
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
-from L20_finmanager_struct import T20_PredictItem
+from L20_finmanager_struct  import T20_PredictItem
 from L50_data_completer     import C50_DataCompleter
 from L90_operations         import C90_Operation
 
@@ -66,4 +65,17 @@ class C60_DataCompleter(C50_DataCompleter):
 	# Данные предиктивного определения меток
 	def CalcDataLabels(self):
 		""" Формирование данных """
-		pass
+		self._data_labels.clear()
+
+		for operation in self._data_operations.values():
+			if not operation.labels: continue
+
+			words = ClearList(f'{operation.description} {operation.destination}'.lower().split(' '))
+
+			for label in operation.labels:
+				if label not in self._data_labels: self._data_labels[label] = T20_PredictItem()
+
+				for word in words: self._data_labels[label].Append(word)
+
+		for item in self._data_labels.values():
+			item.CalcWeights()
