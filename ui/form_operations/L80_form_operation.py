@@ -115,7 +115,7 @@ class C80_FormOperation(C70_FormOperation):
 		destination : str | None = RequestText( "Редактирование операции",
 		                                       f"{operation.ShortInformation()}\n{operation.description}",
 		                                         operation.destination or self.Application.DataCompleter.PredictDestination(operation.description),
-		                                         self.Application.DataCompleter.PredictDestinations(operation.description))
+		                                         self.Application.DataCompleter.PredictDestinations(operation.description) or self.Operations.Destinations())
 		if destination is None: return
 
 		operation.destination    = destination

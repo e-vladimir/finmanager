@@ -30,10 +30,10 @@ class META_CLASSES(ClassInfo, enum.Enum):
 META_CLASS       = META_CLASSES.C31_CACTUS_FRAME
 
 # Имя класса
-CLASS_NAME        = "DataCompleter"
+CLASS_NAME        = "AnalyticsItem"
 
 # Описание класса
-CLASS_DESCRIPTION = "Предиктивный анализатор данных"
+CLASS_DESCRIPTION = "Аналитика данных"
 
 # Имя файла
 # Если оставить пустым, сгенерируется автоматически из имени класса

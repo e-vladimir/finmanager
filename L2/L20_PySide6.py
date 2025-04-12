@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 06 апр 2025
+# 11 апр 2025
 
 import enum
 
@@ -223,6 +223,8 @@ class C20_PySideForm(QMainWindow):
 class C20_DiaFrame(QWidget):
 	""" UI-компонент область отрисовки """
 
+	clicked        = Signal()
+
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 
@@ -249,6 +251,12 @@ class C20_DiaFrame(QWidget):
 
 		self.DrawBackground(painter)
 		self.DrawBorder(painter)
+
+	def mouseReleaseEvent(self, ev: QMouseEvent):
+		super().mouseReleaseEvent(ev)
+
+		match ev.button():
+			case Qt.MouseButton.LeftButton: self.clicked.emit()
 
 
 class C20_ActiveLabel(QLabel):

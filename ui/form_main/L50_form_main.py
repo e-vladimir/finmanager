@@ -22,3 +22,6 @@ class C50_FormMain(C42_FormMain):
 
 	# Копии архива данных
 	def on_RequestOpenBackups(self): pass
+
+	# Аналитика
+	def on_RequestOpenAnalytics(self): pass

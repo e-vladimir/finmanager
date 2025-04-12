@@ -4,6 +4,7 @@
 from L20_PySide6         import C20_PySideApplication
 from L90_data_completer  import C90_DataCompleter
 from L90_form_accounts   import C90_FormAccounts
+from L90_form_analytics  import C90_FormAnalytics
 from L90_form_backups    import C90_FormBackups
 from L90_form_export     import C90_FormExport
 from L90_form_import     import C90_FormImport
@@ -27,3 +28,4 @@ class C40_Application(C20_PySideApplication):
 		self.FormBackups    = C90_FormBackups(self)
 		self.FormProcessing = C90_FormProcessing(self)
 		self.FormExport     = C90_FormExport(self)
+		self.FormAnalytics  = C90_FormAnalytics(self)

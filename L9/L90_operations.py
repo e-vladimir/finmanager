@@ -16,6 +16,7 @@ class C90_Operation(C80_Operation):
 		self.description  = ""
 		self.destination  = ""
 		self.account_idos = []
+		self.labels       = []
 
 
 class C90_Operations(C80_Operations):

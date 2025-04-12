@@ -27,6 +27,10 @@ class C90_FormMain(C80_FormMain):
 		# Блок Копии архива данных
 		self.LabelBackupDdDmDy.clicked.connect(self.on_RequestOpenBackups)
 
+		# Блок Обзор месяца
+		self.DiaDmViewer.clicked.connect(self.on_RequestOpenAnalytics)
+
+
 	# Форма
 	def on_RequestOpen(self):
 		""" Открытие формы """
@@ -35,6 +39,7 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestClose(self):
 		""" Закрытие формы """
 		self.Application.Close()
+
 
 	# Рабочий период
 	def on_DyDmChanged(self):
@@ -68,17 +73,26 @@ class C90_FormMain(C80_FormMain):
 		""" Запрос на редактирование рабочего периода """
 		self.EditDyDm()
 
+
 	# Счета
 	def on_RequestOpenAccounts(self):
-		""" Запрос на открытие формы Счета """
+		""" Запрос на переход в форму Счета """
 		self.Application.FormAccounts.Open()
+
 
 	# Операции
 	def on_RequestOpenOperations(self):
-		""" Запрос на открытие формы Операции """
+		""" Запрос на переход в форму Операции """
 		self.Application.FormOperations.Open()
+
 
 	# Копии архива данных
 	def on_RequestOpenBackups(self):
-		""" Запрос на открытие формы Копии архива данных """
+		""" Запрос на переход в форму Копии архива данных """
 		self.Application.FormBackups.Open()
+
+
+	# Аналитика
+	def on_RequestOpenAnalytics(self):
+		""" Запрос на переход в форму Аналитика данных """
+		self.Application.FormAnalytics.Open()

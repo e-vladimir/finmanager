@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_mainMldMQf.ui'
+## Form generated from reading UI file 'form_mainufKzak.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGroupBox, QHBoxLayout, QLabel,
-    QMainWindow, QSizePolicy, QStatusBar, QVBoxLayout,
-    QWidget)
+    QMainWindow, QSizePolicy, QSpacerItem, QStatusBar,
+    QVBoxLayout, QWidget)
 
 from L20_PySide6 import C20_ActiveLabel
 from L21_dia_dm_view import C21_DiaDmView
@@ -135,23 +135,23 @@ class Ui_FormMain(object):
 
         self.GBoxDmView = QGroupBox(self.centralwidget)
         self.GBoxDmView.setObjectName(u"GBoxDmView")
+        self.GBoxDmView.setMaximumSize(QSize(16777215, 300))
         self.verticalLayout_5 = QVBoxLayout(self.GBoxDmView)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.DiaDmViewer = C21_DiaDmView(self.GBoxDmView)
         self.DiaDmViewer.setObjectName(u"DiaDmViewer")
+        self.DiaDmViewer.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.verticalLayout_5.addWidget(self.DiaDmViewer)
 
 
         self.verticalLayout_2.addWidget(self.GBoxDmView)
 
-        self.GBoxDmAnalytics = QGroupBox(self.centralwidget)
-        self.GBoxDmAnalytics.setObjectName(u"GBoxDmAnalytics")
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.verticalLayout_2.addWidget(self.GBoxDmAnalytics)
+        self.verticalLayout_2.addItem(self.verticalSpacer)
 
         self.verticalLayout_2.setStretch(1, 1)
-        self.verticalLayout_2.setStretch(2, 1)
         FormMain.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(FormMain)
         self.statusbar.setObjectName(u"statusbar")
@@ -178,6 +178,5 @@ class Ui_FormMain(object):
         self.LabelBackupDdDmDy.setText(QCoreApplication.translate("FormMain", u"00 \u041c\u0415\u0421 0000", None))
         self.LabelBackupThTm.setText(QCoreApplication.translate("FormMain", u"00:00", None))
         self.GBoxDmView.setTitle(QCoreApplication.translate("FormMain", u"\u041e\u0431\u0437\u043e\u0440 \u043c\u0435\u0441\u044f\u0446\u0430", None))
-        self.GBoxDmAnalytics.setTitle(QCoreApplication.translate("FormMain", u"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430 \u043c\u0435\u0441\u044f\u0446\u0430", None))
     # retranslateUi
 
