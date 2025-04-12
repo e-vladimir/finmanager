@@ -404,7 +404,7 @@ class C32_ContainerSQLite(C31_ContainerSQL):
 											   subcodes = {CODES_DATA.NO_DATA})
 
 		result                   = T21_StructResult_StructCell()
-		result.data              = CODES_COMPLETION.COMPLETED
+		result.code              = CODES_COMPLETION.COMPLETED
 
 		try                                 :
 			result_cell     = T20_StructCell()

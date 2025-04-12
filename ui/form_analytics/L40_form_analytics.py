@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsICuBDY.ui'
+## Form generated from reading UI file 'form_analyticsOgTqbi.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.2
+## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -28,7 +28,6 @@ class Ui_FormAnalytics(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout = QVBoxLayout(self.centralwidget)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(6, 6, -1, -1)
         self.TabsMain = QTabWidget(self.centralwidget)
         self.TabsMain.setObjectName(u"TabsMain")
         self.TabItems = QWidget()
@@ -62,16 +61,40 @@ class Ui_FormAnalytics(object):
 "}")
         self.TreeDataItem.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.TreeDataItem.setAlternatingRowColors(True)
-        self.TreeDataItem.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
+        self.TreeDataItem.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.TreeDataItem.setRootIsDecorated(False)
         self.TreeDataItem.setItemsExpandable(False)
         self.TreeDataItem.setExpandsOnDoubleClick(False)
+        self.TreeDataItem.header().setVisible(False)
 
         self.horizontalLayout.addWidget(self.TreeDataItem)
 
         self.horizontalLayout.setStretch(0, 2)
         self.horizontalLayout.setStretch(1, 3)
         self.TabsMain.addTab(self.TabItems, "")
+        self.TabAnalytics = QWidget()
+        self.TabAnalytics.setObjectName(u"TabAnalytics")
+        self.verticalLayout_2 = QVBoxLayout(self.TabAnalytics)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.TreeViewAnalytics = QTreeView(self.TabAnalytics)
+        self.TreeViewAnalytics.setObjectName(u"TreeViewAnalytics")
+        self.TreeViewAnalytics.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.TreeViewAnalytics.setStyleSheet(u"QTreeView {\n"
+"background: white;\n"
+"border: 1px solid lightgray;\n"
+"border-radius: 5px;\n"
+"padding: 3px;\n"
+"}")
+        self.TreeViewAnalytics.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.TreeViewAnalytics.setAlternatingRowColors(True)
+        self.TreeViewAnalytics.setRootIsDecorated(False)
+        self.TreeViewAnalytics.setItemsExpandable(False)
+        self.TreeViewAnalytics.setExpandsOnDoubleClick(False)
+        self.TreeViewAnalytics.header().setVisible(False)
+
+        self.verticalLayout_2.addWidget(self.TreeViewAnalytics)
+
+        self.TabsMain.addTab(self.TabAnalytics, "")
 
         self.verticalLayout.addWidget(self.TabsMain)
 
@@ -91,5 +114,6 @@ class Ui_FormAnalytics(object):
     def retranslateUi(self, FormAnalytics):
         FormAnalytics.setWindowTitle(QCoreApplication.translate("FormAnalytics", u"MainWindow", None))
         self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabItems), QCoreApplication.translate("FormAnalytics", u"\u042d\u043b\u0435\u043c\u0435\u043d\u0442\u044b \u0430\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0438", None))
+        self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabAnalytics), QCoreApplication.translate("FormAnalytics", u"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430", None))
     # retranslateUi
 
