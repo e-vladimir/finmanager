@@ -15,6 +15,7 @@ class C41_FormAnalytics(C20_PySideForm, Ui_FormAnalytics):
 
 	def InitMenus(self):
 		self.InitMenuItems()
+		self.InitMenuItem()
 
 	def InitMenuItems(self):
 		""" Инициализация меню элементов аналитики """
@@ -28,3 +29,15 @@ class C41_FormAnalytics(C20_PySideForm, Ui_FormAnalytics):
 
 		self.MenuItems        = QMenu("Элементы аналитики")
 		self.MenuItems.addAction(self.ActionCreateItem)
+
+	def InitMenuItem(self):
+		""" Инициализация меню элементов аналитики """
+		icon_checked   = QIcon("./L0/icons/checked_check.svg")
+		icon_unchecked = QIcon("./L0/icons/checked_uncheck.svg")
+
+		self.ActionEditItemInclude   = QAction(icon_checked,   "Указать Признаки+")
+		self.ActionEditItemExclude   = QAction(icon_unchecked, "Указать Признаки-")
+
+		self.MenuItem        = QMenu("Элемент аналитики")
+		self.MenuItem.addAction(self.ActionEditItemInclude)
+		self.MenuItem.addAction(self.ActionEditItemExclude)

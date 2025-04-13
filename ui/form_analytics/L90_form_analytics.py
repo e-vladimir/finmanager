@@ -15,11 +15,18 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ListDataItems.clicked.connect(self.on_ItemSwitched)
 		self.ListDataItems.doubleClicked.connect(self.on_RequestEditItemName)
 
+		# Дерево параметров элемента аналитики
+		self.TreeDataItem.customContextMenuRequested.connect(self.on_RequestShowMenuItem)
+		self.TreeDataItem.doubleClicked.connect(self.on_RequestEditItem)
+
 		# Меню элементов аналитики
 		self.ActionCreateItem.triggered.connect(self.on_RequestCreateItem)
 		self.ActionDeleteItem.triggered.connect(self.on_RequestDeleteItem)
 		self.ActionEditItemName.triggered.connect(self.on_RequestEditItemName)
 
+		# Меню элемента аналитики
+		self.ActionEditItemInclude.triggered.connect(self.on_RequestEditItemInclude)
+		self.ActionEditItemExclude.triggered.connect(self.on_RequestEditItemExclude)
 
 	# Форма
 	def on_Opened(self):
@@ -31,6 +38,9 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.InitModelDataItems()
 		self.LoadAnalyticsItems()
 		self.AdjustListItems_Sort()
+
+		self.ReadProcessingIdoFromListDataItems()
+		self.ReadProcessingFieldFromTreeDataIte()
 
 		self.InitModelDataItem()
 		self.LoadModelDataItem()
@@ -51,6 +61,20 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ShowMenuItems()
 
 
+	# Меню Элемент аналитики
+	def on_RequestShowMenuItem(self):
+		""" Запрос отображения меню элемента аналитики """
+		self.ReadProcessingIdoFromListDataItems()
+
+		self.AdjustMenuItems_Text()
+
+		self.AdjustMenuItem()
+		self.AdjustMenuItem_Text()
+		self.AdjustMenuItem_Enable()
+
+		self.ShowMenuItem()
+
+
 	# Элемент аналитики
 	def on_RequestCreateItem(self):
 		""" Запрос создания элемента аналитики """
@@ -60,9 +84,23 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		""" Запрос удаления элемента аналитики """
 		self.DeleteItem()
 
+	def on_RequestEditItem(self):
+		""" Запрос редактирования элемента аналитики """
+		self.ReadProcessingFieldFromTreeDataIte()
+
+		self.EditItem()
+
 	def on_RequestEditItemName(self):
 		""" Запрос редактирования названия элемента аналитики """
 		self.EditItemName()
+
+	def on_RequestEditItemInclude(self):
+		""" Запрос редактирования параметра Признаки+ """
+		self.EditItemInclude()
+
+	def on_RequestEditItemExclude(self):
+		""" Запрос редактирования параметра Признаки- """
+		self.EditItemExclude()
 
 	def on_ItemCreated(self):
 		""" Создан элемент аналитики """
@@ -86,5 +124,6 @@ class C90_FormAnalytics(C80_FormAnalytics):
 	def on_ItemChanged(self):
 		""" Элемент аналитики изменился """
 		self.LoadAnalyticsItemInModel()
-
 		self.AdjustListItems_Sort()
+
+		self.LoadModelDataItem()

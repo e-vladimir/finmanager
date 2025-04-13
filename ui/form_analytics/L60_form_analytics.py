@@ -26,6 +26,20 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		self.processing_ido = self.ListDataItems.currentIndex().data(ROLES.IDO)
 
 
+	# Рабочий параметр
+	@property
+	def processing_field(self) -> ANALYTICS_FIELDS:
+		return self._processing_field
+
+	@processing_field.setter
+	def processing_field(self, field: ANALYTICS_FIELDS):
+		self._processing_field = field
+
+	def ReadProcessingFieldFromTreeDataIte(self):
+		""" Чтение из дерева параметров элемента аналитики """
+		self.processing_field = self.TreeDataItem.currentIndex().data(ROLES.IDO)
+
+
 	# Модель данных - Элементы аналитики
 	def InitModelDataItems(self):
 		""" Инициализация модели """
@@ -63,13 +77,13 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		self.ModelDataItem.removeAll()
 		self.ModelDataItem.setHorizontalHeaderLabels(["Параметр", "Значение"])
 
-		items = [ANALYTICS_FIELDS.INCLUDE,
-		         ANALYTICS_FIELDS.EXCLUDE]
+		fields     = [ANALYTICS_FIELDS.INCLUDE,
+		              ANALYTICS_FIELDS.EXCLUDE]
 
 		item_group = C20_StandardItem("")
-		item_group.setText("Пространство действия")
+		item_group.setText("Область действия")
 
-		for item in items:
+		for item in fields:
 			item_field = C20_StandardItem(f"{item}", item, ROLES.IDO)
 			item_value = C20_StandardItem(f""      , item, ROLES.IDO)
 			item_group.appendRow([item_field, item_value])
@@ -78,4 +92,12 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 	def LoadModelDataItem(self):
 		""" Загрузка модели данных элемента аналитики """
-		pass
+		analytics_item = C90_AnalyticsItem(self.processing_ido)
+
+		indexes        = self.ModelDataItem.indexesInRowByIdo(ANALYTICS_FIELDS.INCLUDE)
+		item_value     = self.ModelDataItem.itemFromIndex(indexes[1])
+		item_value.setText('\n'.join(analytics_item.include))
+
+		indexes        = self.ModelDataItem.indexesInRowByIdo(ANALYTICS_FIELDS.EXCLUDE)
+		item_value     = self.ModelDataItem.itemFromIndex(indexes[1])
+		item_value.setText('\n'.join(analytics_item.exclude))

@@ -5,6 +5,7 @@ from PySide6.QtCore     import Qt
 from PySide6.QtGui      import QCursor
 from PySide6.QtWidgets  import QHeaderView
 
+from L00_form_analytics import ANALYTICS_FIELDS
 from L60_form_analytics import C60_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -50,6 +51,31 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		self.MenuItems.exec_(QCursor().pos())
 
 
+	# Меню Элемент аналитики
+	def AdjustMenuItem(self):
+		""" Настройка меню элементов аналитики """
+		self.MenuItem.clear()
+
+		if not self.processing_ido: return
+
+		self.MenuItem.addAction(self.ActionEditItemName)
+		self.MenuItem.addSeparator()
+		self.MenuItem.addAction(self.ActionEditItemInclude)
+		self.MenuItem.addAction(self.ActionEditItemExclude)
+
+	def AdjustMenuItem_Text(self):
+		""" Настройка заголовков меню элементов аналитики """
+		pass
+
+	def AdjustMenuItem_Enable(self):
+		""" Настройка доступности меню элементов аналитики """
+		pass
+
+	def ShowMenuItem(self):
+		""" Отображению меню элементов аналитики """
+		self.MenuItem.exec_(QCursor().pos())
+
+
 	# Основные вкладки
 	def SwitchTabsMainToItems(self):
 		""" Переключение вкладки на Элементы аналитики """
@@ -69,3 +95,11 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		""" Настройка размеров дерева параметров элемента аналитики """
 		self.TreeDataItem.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
 		self.TreeDataItem.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+
+
+	# Элемент аналитики
+	def EditItem(self):
+		""" Редактирование элемента аналитики """
+		match self.processing_field:
+			case ANALYTICS_FIELDS.INCLUDE: self.on_RequestEditItemInclude()
+			case ANALYTICS_FIELDS.EXCLUDE: self.on_RequestEditItemExclude()
