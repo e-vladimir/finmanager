@@ -130,7 +130,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		""" Инициализация модели данных аналитики """
 		self.ModelDataAnalytics.removeAll()
 
-		self.ModelDataAnalytics.setHorizontalHeaderLabels(["Показатель", "Значение-", "Значение+", "Баланс"])
+		self.ModelDataAnalytics.setHorizontalHeaderLabels(["Показатель", "Значение+", "Значение-", "Баланс"])
 
 	def LoadDataDynamicDyInModel(self):
 		""" Загрузка данных динамики за год в модель """
@@ -139,13 +139,13 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			item_group.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
 			item_group.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
 
-			item_outcome = C20_StandardItem("Объём +", flag_align_right=True)
-			item_outcome.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
-			item_outcome.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
-
-			item_income  = C20_StandardItem("Объём -", flag_align_right=True)
+			item_income  = C20_StandardItem("Объём +", flag_align_right=True)
 			item_income.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
 			item_income.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
+
+			item_outcome = C20_StandardItem("Объём -", flag_align_right=True)
+			item_outcome.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
+			item_outcome.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
 
 			item_delta   = C20_StandardItem("Баланс", flag_align_right=True)
 			item_delta.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
@@ -158,8 +158,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 		for data_item in self._data_dynamic_dy:
 			item_name    = C20_StandardItem(f"{MONTHS_SHORT[data_item.dm]} {data_item.dy}")
-			item_outcome = C20_StandardItem(f"{AmountToString(data_item.amount_outcome)}", flag_align_right=True)
-			item_income  = C20_StandardItem(f"{AmountToString(data_item.amount_income)}", flag_align_right=True)
+			item_outcome = C20_StandardItem(f"{AmountToString(data_item.amount_outcome)}",                                flag_align_right=True)
+			item_income  = C20_StandardItem(f"{AmountToString(data_item.amount_income)}",                                 flag_align_right=True)
 			item_delta   = C20_StandardItem(f"{AmountToString(data_item.amount_income - abs(data_item.amount_outcome))}", flag_align_right=True)
 
 			item_group.appendRow([item_name, item_income, item_outcome, item_delta])
