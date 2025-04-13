@@ -3,7 +3,9 @@
 
 from L00_form_analytics import ANALYTICS_FIELDS
 from L20_PySide6        import C20_StandardItemModel
+from L20_form_analytics import T20_DynamicDyItem
 from L41_form_analytics import C41_FormAnalytics
+from L90_account        import C90_Accounts
 from L90_analytics      import C90_Analytics
 from L90_operations     import C90_Operations
 from L90_workspace      import C90_Workspace
@@ -15,18 +17,25 @@ class C42_FormAnalytics(C41_FormAnalytics):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_ido   : str              = ""
-		self._processing_field : ANALYTICS_FIELDS = ANALYTICS_FIELDS.NONE
+		self._processing_ido     : str                     = ""
+		self._processing_field   : ANALYTICS_FIELDS        = ANALYTICS_FIELDS.NONE
+
+		self._data_dynamic_dy    : list[T20_DynamicDyItem] = list()
+
+		self._processing_include : list[str]               = []
+		self._processing_exclude : list[str]               = []
 
 	def Init_10(self):
 		super().Init_10()
 
-		self.ModelDataItem  = C20_StandardItemModel()
-		self.ModelDataItems = C20_StandardItemModel()
+		self.ModelDataItem      = C20_StandardItemModel()
+		self.ModelDataItems     = C20_StandardItemModel()
+		self.ModelDataAnalytics = C20_StandardItemModel()
 
-		self.Analytics      = C90_Analytics()
-		self.Operations     = C90_Operations()
-		self.Workspace      = C90_Workspace()
+		self.Accounts           = C90_Accounts()
+		self.Analytics          = C90_Analytics()
+		self.Operations         = C90_Operations()
+		self.Workspace          = C90_Workspace()
 
 	def Init_11(self):
 		super().Init_11()
@@ -38,3 +47,4 @@ class C42_FormAnalytics(C41_FormAnalytics):
 
 		self.ListDataItems.setModel(self.ModelDataItems)
 		self.TreeDataItem.setModel(self.ModelDataItem)
+		self.TreeDataAnalytics.setModel(self.ModelDataAnalytics)

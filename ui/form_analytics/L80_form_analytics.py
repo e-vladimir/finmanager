@@ -1,8 +1,11 @@
 # ФОРМА АНАЛИТИКА ДАННЫХ: ЛОГИКА ДАННЫХ
 # 11 апр 2025
 
+from G10_datetime       import CalcDyDmByShiftDm
+
 from L00_containers     import CONTAINERS
 from L20_PySide6        import RequestConfirm, RequestItems, RequestText
+from L20_form_analytics import T20_DynamicDyItem
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -86,3 +89,24 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		analytics_item.exclude = labels
 
 		self.on_ItemChanged()
+
+
+	# Данные аналитики
+	def CaptureDataAnalytics(self):
+		""" Захват данных аналитики данных """
+		self._data_dynamic_dy.clear()
+
+		dy, dm = self.Workspace.DyDm()
+
+		for _ in range(13):
+			amounts : list[float]          = self.Operations.Amounts(dy, dm)
+
+			dynamic_dy_item                = T20_DynamicDyItem()
+			dynamic_dy_item.dm             = dm
+			dynamic_dy_item.dy             = dy
+			dynamic_dy_item.amount_income  = int(sum(filter(lambda amount: amount > 0, amounts)))
+			dynamic_dy_item.amount_outcome = int(sum(filter(lambda amount: amount < 0, amounts)))
+
+			self._data_dynamic_dy.append(dynamic_dy_item)
+
+			dy, dm = CalcDyDmByShiftDm(dy, dm, -1)

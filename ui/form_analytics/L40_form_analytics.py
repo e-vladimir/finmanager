@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsOgTqbi.ui'
+## Form generated from reading UI file 'form_analyticsHJjKbX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -76,23 +76,24 @@ class Ui_FormAnalytics(object):
         self.TabAnalytics.setObjectName(u"TabAnalytics")
         self.verticalLayout_2 = QVBoxLayout(self.TabAnalytics)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.TreeViewAnalytics = QTreeView(self.TabAnalytics)
-        self.TreeViewAnalytics.setObjectName(u"TreeViewAnalytics")
-        self.TreeViewAnalytics.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.TreeViewAnalytics.setStyleSheet(u"QTreeView {\n"
+        self.TreeDataAnalytics = QTreeView(self.TabAnalytics)
+        self.TreeDataAnalytics.setObjectName(u"TreeDataAnalytics")
+        self.TreeDataAnalytics.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.TreeDataAnalytics.setStyleSheet(u"QTreeView {\n"
 "background: white;\n"
 "border: 1px solid lightgray;\n"
 "border-radius: 5px;\n"
 "padding: 3px;\n"
 "}")
-        self.TreeViewAnalytics.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.TreeViewAnalytics.setAlternatingRowColors(True)
-        self.TreeViewAnalytics.setRootIsDecorated(False)
-        self.TreeViewAnalytics.setItemsExpandable(False)
-        self.TreeViewAnalytics.setExpandsOnDoubleClick(False)
-        self.TreeViewAnalytics.header().setVisible(False)
+        self.TreeDataAnalytics.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.TreeDataAnalytics.setAlternatingRowColors(True)
+        self.TreeDataAnalytics.setRootIsDecorated(False)
+        self.TreeDataAnalytics.setItemsExpandable(False)
+        self.TreeDataAnalytics.setExpandsOnDoubleClick(False)
+        self.TreeDataAnalytics.header().setVisible(False)
+        self.TreeDataAnalytics.header().setStretchLastSection(False)
 
-        self.verticalLayout_2.addWidget(self.TreeViewAnalytics)
+        self.verticalLayout_2.addWidget(self.TreeDataAnalytics)
 
         self.TabsMain.addTab(self.TabAnalytics, "")
 

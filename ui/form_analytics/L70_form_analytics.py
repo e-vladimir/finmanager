@@ -97,6 +97,26 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		self.TreeDataItem.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
 
 
+	# Дерево данных аналитики
+	def AdjustTreeDataAnalytics_Color(self):
+		""" Настройка цветовой схемы дерева параметров элемента аналитики """
+		self.ModelDataAnalytics.adjustGroupView(True, True, True)
+
+	def AdjustTreeDataAnalytics_Expand(self):
+		""" Настройка раскрытия дерева параметров элемента аналитики """
+		self.TreeDataAnalytics.expandAll()
+
+	def AdjustTreeDataAnalytics_Size(self):
+		""" Настройка размеров дерева параметров элемента аналитики """
+		self.TreeDataAnalytics.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
+		self.TreeDataAnalytics.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
+		self.TreeDataAnalytics.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
+
+		self.TreeDataAnalytics.setColumnWidth(1, 75)
+		self.TreeDataAnalytics.setColumnWidth(2, 75)
+		self.TreeDataAnalytics.setColumnWidth(3, 75)
+
+
 	# Элемент аналитики
 	def EditItem(self):
 		""" Редактирование элемента аналитики """

@@ -40,13 +40,24 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustListItems_Sort()
 
 		self.ReadProcessingIdoFromListDataItems()
-		self.ReadProcessingFieldFromTreeDataIte()
+		self.ReadProcessingFieldFromTreeDataItem()
 
 		self.InitModelDataItem()
 		self.LoadModelDataItem()
 		self.AdjustTreeDataItem_Color()
 		self.AdjustTreeDataItem_Size()
 		self.AdjustTreeDataItem_Expand()
+
+		self.CaptureDataAnalytics()
+
+		self.InitModelDataAnalytics()
+		self.LoadDataDynamicDyInModel()
+		self.LoadDataDynamicDmInModel()
+		self.LoadDataIntervalsInModel()
+		self.LoadDataDistributionInModel()
+		self.AdjustTreeDataAnalytics_Expand()
+		self.AdjustTreeDataAnalytics_Color()
+		self.AdjustTreeDataAnalytics_Size()
 
 
 	# Меню Элементы аналитики
@@ -86,7 +97,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 	def on_RequestEditItem(self):
 		""" Запрос редактирования элемента аналитики """
-		self.ReadProcessingFieldFromTreeDataIte()
+		self.ReadProcessingFieldFromTreeDataItem()
 
 		self.EditItem()
 

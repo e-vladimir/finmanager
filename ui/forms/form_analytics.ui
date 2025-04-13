@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="TabsMain">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="TabItems">
        <attribute name="title">
@@ -96,7 +96,7 @@ padding: 3px;
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTreeView" name="TreeViewAnalytics">
+         <widget class="QTreeView" name="TreeDataAnalytics">
           <property name="contextMenuPolicy">
            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
           </property>
@@ -124,6 +124,9 @@ padding: 3px;
            <bool>false</bool>
           </property>
           <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerStretchLastSection">
            <bool>false</bool>
           </attribute>
          </widget>
