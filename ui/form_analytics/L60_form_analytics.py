@@ -220,6 +220,25 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		                                                                    income  = income,
 		                                                                    outcome = outcome)
 
+
+	# Данные распределения объёма
+	def ReadDataDistribution(self):
+		""" Чтение данных """
+		self._data_distribution.clear()
+
+		dy, dm = self.Workspace.DyDm()
+
+		for label in self.Operations.Labels(dy, dm):
+			amounts : list[float] = [operation.amount for operation in self._operations if label in operation.labels]
+
+			income  : int         =     int(sum([amount for amount in amounts if amount > 0]))
+			outcome : int         = abs(int(sum([amount for amount in amounts if amount < 0])))
+
+			self._data_distribution[label] = T20_AnalyticItem(name    = label,
+			                                                  income  = income,
+			                                                  outcome = outcome)
+
+
 	# Модель данных - Элементы аналитики
 	def InitModelDataItems(self):
 		""" Инициализация модели """
@@ -433,7 +452,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 	def LoadDataOperationsInModel(self):
 		""" Загрузка данных интервалов в модель """
-		item_root = C20_StandardItem("АНАЛИТИКА ОПЕРАЦИЙ")
+		item_root = C20_StandardItem(f"АНАЛИТИКА ОПЕРАЦИЙ ЗА {self.Workspace.DmDyToString().upper()}")
 		self.ModelDataAnalytics.appendRow([item_root,
 		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
 		                                   C20_StandardItem("+",       flag_align_right=True),
@@ -465,13 +484,29 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 	def LoadDataDistributionInModel(self):
 		""" Загрузка данных распределения в модель """
-		item_root = C20_StandardItem("АНАЛИТИКА РАСПРЕДЕЛЕНИЯ ОБЪЁМА")
-
+		item_root = C20_StandardItem(f"АНАЛИТИКА РАСПРЕДЕЛЕНИЯ ОБЪЁМА ЗА {self.Workspace.DmDyToString().upper()}")
 		self.ModelDataAnalytics.appendRow([item_root,
 		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
-		                                   C20_StandardItem("+"      , flag_align_right=True),
-		                                   C20_StandardItem("+ (%)"  , flag_align_right=True),
-		                                   C20_StandardItem("-"      , flag_align_right=True),
-		                                   C20_StandardItem("- (%)"  , flag_align_right=True),
-		                                   C20_StandardItem("Разница", flag_align_right=True),
+		                                   C20_StandardItem("+",       flag_align_right=True),
+		                                   C20_StandardItem("+ (%)",   flag_align_right=True),
+		                                   C20_StandardItem("-",       flag_align_right=True),
+		                                   C20_StandardItem("- (%)",   flag_align_right=True),
+		                                   C20_StandardItem("",        flag_align_right=True),
 		                                   ])
+
+		incomes      : int      =     sum([item.income  for item in self._data_dynamic_dy])
+		outcomes     : int      = abs(sum([item.outcome for item in self._data_dynamic_dy]))
+
+		for label in sorted(self._data_distribution.keys()):
+			item = self._data_distribution[label]
+
+			if not item.name: continue
+
+			item_root.appendRow([C20_StandardItem(f"{item.name}"),
+			                     C20_StandardItem(f"руб",                                                          flag_align_right=True),
+			                     C20_StandardItem(f"{AmountToString(item.income,                flag_sign=True)}", flag_align_right=True),
+			                     C20_StandardItem(f"{100 * item.income  / max(1, incomes):.0f}%",                  flag_align_right=True),
+			                     C20_StandardItem(f"{AmountToString(-item.outcome,              flag_sign=True)}", flag_align_right=True),
+			                     C20_StandardItem(f"{100 * item.outcome / max(1, outcomes):.0f}%",                 flag_align_right=True),
+			                     C20_StandardItem(f"",                                                             flag_align_right=True),
+			                     ])
