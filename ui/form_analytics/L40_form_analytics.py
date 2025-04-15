@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsHJjKbX.ui'
+## Form generated from reading UI file 'form_analyticsFdpwoo.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -30,6 +30,30 @@ class Ui_FormAnalytics(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.TabsMain = QTabWidget(self.centralwidget)
         self.TabsMain.setObjectName(u"TabsMain")
+        self.TabAnalytics = QWidget()
+        self.TabAnalytics.setObjectName(u"TabAnalytics")
+        self.verticalLayout_2 = QVBoxLayout(self.TabAnalytics)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.TreeDataAnalytics = QTreeView(self.TabAnalytics)
+        self.TreeDataAnalytics.setObjectName(u"TreeDataAnalytics")
+        self.TreeDataAnalytics.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.TreeDataAnalytics.setStyleSheet(u"QTreeView {\n"
+"background: white;\n"
+"border: 1px solid lightgray;\n"
+"border-radius: 5px;\n"
+"padding: 3px;\n"
+"}")
+        self.TreeDataAnalytics.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.TreeDataAnalytics.setAlternatingRowColors(True)
+        self.TreeDataAnalytics.setRootIsDecorated(False)
+        self.TreeDataAnalytics.setItemsExpandable(False)
+        self.TreeDataAnalytics.setExpandsOnDoubleClick(False)
+        self.TreeDataAnalytics.header().setVisible(False)
+        self.TreeDataAnalytics.header().setStretchLastSection(False)
+
+        self.verticalLayout_2.addWidget(self.TreeDataAnalytics)
+
+        self.TabsMain.addTab(self.TabAnalytics, "")
         self.TabItems = QWidget()
         self.TabItems.setObjectName(u"TabItems")
         self.horizontalLayout = QHBoxLayout(self.TabItems)
@@ -72,30 +96,6 @@ class Ui_FormAnalytics(object):
         self.horizontalLayout.setStretch(0, 2)
         self.horizontalLayout.setStretch(1, 3)
         self.TabsMain.addTab(self.TabItems, "")
-        self.TabAnalytics = QWidget()
-        self.TabAnalytics.setObjectName(u"TabAnalytics")
-        self.verticalLayout_2 = QVBoxLayout(self.TabAnalytics)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.TreeDataAnalytics = QTreeView(self.TabAnalytics)
-        self.TreeDataAnalytics.setObjectName(u"TreeDataAnalytics")
-        self.TreeDataAnalytics.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.TreeDataAnalytics.setStyleSheet(u"QTreeView {\n"
-"background: white;\n"
-"border: 1px solid lightgray;\n"
-"border-radius: 5px;\n"
-"padding: 3px;\n"
-"}")
-        self.TreeDataAnalytics.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.TreeDataAnalytics.setAlternatingRowColors(True)
-        self.TreeDataAnalytics.setRootIsDecorated(False)
-        self.TreeDataAnalytics.setItemsExpandable(False)
-        self.TreeDataAnalytics.setExpandsOnDoubleClick(False)
-        self.TreeDataAnalytics.header().setVisible(False)
-        self.TreeDataAnalytics.header().setStretchLastSection(False)
-
-        self.verticalLayout_2.addWidget(self.TreeDataAnalytics)
-
-        self.TabsMain.addTab(self.TabAnalytics, "")
 
         self.verticalLayout.addWidget(self.TabsMain)
 
@@ -114,7 +114,7 @@ class Ui_FormAnalytics(object):
 
     def retranslateUi(self, FormAnalytics):
         FormAnalytics.setWindowTitle(QCoreApplication.translate("FormAnalytics", u"MainWindow", None))
-        self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabItems), QCoreApplication.translate("FormAnalytics", u"\u042d\u043b\u0435\u043c\u0435\u043d\u0442\u044b \u0430\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0438", None))
         self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabAnalytics), QCoreApplication.translate("FormAnalytics", u"\u0410\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0430", None))
+        self.TabsMain.setTabText(self.TabsMain.indexOf(self.TabItems), QCoreApplication.translate("FormAnalytics", u"\u042d\u043b\u0435\u043c\u0435\u043d\u0442\u044b \u0430\u043d\u0430\u043b\u0438\u0442\u0438\u043a\u0438", None))
     # retranslateUi
 

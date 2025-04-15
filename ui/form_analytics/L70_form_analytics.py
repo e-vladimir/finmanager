@@ -77,8 +77,8 @@ class C70_FormAnalytics(C60_FormAnalytics):
 
 
 	# Основные вкладки
-	def SwitchTabsMainToItems(self):
-		""" Переключение вкладки на Элементы аналитики """
+	def SwitchTabsMainToAnalytics(self):
+		""" Переключение вкладки на Аналитика """
 		self.TabsMain.setCurrentIndex(0)
 
 
@@ -100,7 +100,7 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	# Дерево данных аналитики
 	def AdjustTreeDataAnalytics_Color(self):
 		""" Настройка цветовой схемы дерева параметров элемента аналитики """
-		self.ModelDataAnalytics.adjustGroupView(True, True, True)
+		self.ModelDataAnalytics.adjustGroupView(False, True, True)
 
 	def AdjustTreeDataAnalytics_Expand(self):
 		""" Настройка раскрытия дерева параметров элемента аналитики """
@@ -111,10 +111,17 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		self.TreeDataAnalytics.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
 		self.TreeDataAnalytics.header().setSectionResizeMode(1, QHeaderView.ResizeMode.Fixed)
 		self.TreeDataAnalytics.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Fixed)
+		self.TreeDataAnalytics.header().setSectionResizeMode(3, QHeaderView.ResizeMode.Fixed)
+		self.TreeDataAnalytics.header().setSectionResizeMode(4, QHeaderView.ResizeMode.Fixed)
+		self.TreeDataAnalytics.header().setSectionResizeMode(5, QHeaderView.ResizeMode.Fixed)
+		self.TreeDataAnalytics.header().setSectionResizeMode(6, QHeaderView.ResizeMode.Fixed)
 
 		self.TreeDataAnalytics.setColumnWidth(1, 75)
 		self.TreeDataAnalytics.setColumnWidth(2, 75)
-		self.TreeDataAnalytics.setColumnWidth(3, 75)
+		self.TreeDataAnalytics.setColumnWidth(3, 50)
+		self.TreeDataAnalytics.setColumnWidth(4, 75)
+		self.TreeDataAnalytics.setColumnWidth(5, 50)
+		self.TreeDataAnalytics.setColumnWidth(6, 75)
 
 
 	# Элемент аналитики

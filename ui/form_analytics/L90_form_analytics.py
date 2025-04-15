@@ -31,7 +31,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 	# Форма
 	def on_Opened(self):
 		""" Форма открыта """
-		self.SwitchTabsMainToItems()
+		self.SwitchTabsMainToAnalytics()
 
 		self.ShowTitle()
 
@@ -48,12 +48,13 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeDataItem_Size()
 		self.AdjustTreeDataItem_Expand()
 
-		self.CaptureDataAnalytics()
+		self.ReadOperations()
+		self.ReadDataDynamicDy()
 
 		self.InitModelDataAnalytics()
 		self.LoadDataDynamicDyInModel()
 		self.LoadDataDynamicDmInModel()
-		self.LoadDataIntervalsInModel()
+		self.LoadDataOperationsInModel()
 		self.LoadDataDistributionInModel()
 		self.AdjustTreeDataAnalytics_Expand()
 		self.AdjustTreeDataAnalytics_Color()

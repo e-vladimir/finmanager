@@ -3,12 +3,16 @@
 
 from PySide6.QtCore     import QModelIndex
 
+from G10_datetime       import CalcDyDmByShiftDm
 from G11_convertor_data import AmountToString
-from L00_form_analytics import ANALYTICS_DATA, ANALYTICS_FIELDS
+
+from L00_form_analytics import ANALYTICS_FIELDS
 from L00_months import MONTHS_SHORT
 from L20_PySide6        import C20_StandardItem, ROLES
+from L20_form_analytics import T20_AnalyticItem, T20_Operation
 from L50_form_analytics import C50_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
+from L90_operations     import C90_Operation
 
 
 class C60_FormAnalytics(C50_FormAnalytics):
@@ -60,6 +64,63 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	@processing_exclude.setter
 	def processing_exclude(self, items: list[str]):
 		self._processing_exclude = items[:]
+
+
+	# Данные об операциях
+	def ReadOperations(self):
+		""" Чтение данных """
+		self._operations.clear()
+
+		dy, dm    = self.Workspace.DyDm()
+		operation = C90_Operation()
+		for ido in self.Operations.Idos(dy, dm):
+			operation.Ido(ido)
+
+			labels    : set[str] = set(operation.labels)
+
+			flag_skip : bool     = True
+			flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
+			flag_skip           &= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
+
+			if flag_skip: continue
+
+			self._operations.append(T20_Operation(dd     = operation.dd,
+			                                      amount = operation.amount,
+			                                      labels = labels))
+
+
+	# Данные динамики за год
+	def ReadDataDynamicDy(self):
+		""" Чтение данных """
+		self._data_dynamic_dy.clear()
+
+		operation = C90_Operation()
+		dy, dm    = self.Workspace.DyDm()
+
+		for _ in range(12):
+			amounts : list[float] = []
+
+			for ido in self.Operations.Idos(dy, dm):
+				operation.Ido(ido)
+
+				labels    : set[str] = set(operation.labels)
+
+				flag_skip : bool     = True
+				flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
+				flag_skip           &= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
+
+				if flag_skip: continue
+
+				amounts.append(operation.amount)
+
+			income  : int         = int(sum([amount for amount in amounts if amount > 0]))
+			outcome : int         = int(sum([amount for amount in amounts if amount < 0]))
+
+			self._data_dynamic_dy.append(T20_AnalyticItem(name    = f"{MONTHS_SHORT[dm]} {dy}",
+			                                              income  = income,
+			                                              outcome = abs(outcome)))
+
+			dy, dm                = CalcDyDmByShiftDm(dy, dm, -1)
 
 
 	# Модель данных - Элементы аналитики
@@ -130,48 +191,93 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		""" Инициализация модели данных аналитики """
 		self.ModelDataAnalytics.removeAll()
 
-		self.ModelDataAnalytics.setHorizontalHeaderLabels(["Показатель", "Значение+", "Значение-", "Баланс"])
+		self.ModelDataAnalytics.setHorizontalHeaderLabels(["Показатель", "ед.изм", "+", "+ (%)", "-", "- (%)", "Разница"])
 
 	def LoadDataDynamicDyInModel(self):
 		""" Загрузка данных динамики за год в модель """
-		if not self.ModelDataAnalytics.checkIdo(ANALYTICS_DATA.DYNAMIC_DY):
-			item_group   = C20_StandardItem("ДИНАМИКА ОБЪЁМА ЗА ГОД")
-			item_group.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
-			item_group.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
+		item_root               = C20_StandardItem("ДИНАМИКА ОБЪЁМА ЗА ГОД")
 
-			item_income  = C20_StandardItem("Объём +", flag_align_right=True)
-			item_income.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
-			item_income.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
+		self.ModelDataAnalytics.appendRow([item_root,
+		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
+		                                   C20_StandardItem("+"      , flag_align_right=True),
+		                                   C20_StandardItem("+ (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("-"      , flag_align_right=True),
+		                                   C20_StandardItem("- (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("Разница", flag_align_right=True),
+		                                   ])
 
-			item_outcome = C20_StandardItem("Объём -", flag_align_right=True)
-			item_outcome.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
-			item_outcome.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
+		incomes      : int      =     sum([item.income  for item in self._data_dynamic_dy])
+		outcomes     : int      = abs(sum([item.outcome for item in self._data_dynamic_dy]))
 
-			item_delta   = C20_StandardItem("Баланс", flag_align_right=True)
-			item_delta.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
-			item_delta.setData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.GROUP)
+		for item in self._data_dynamic_dy:
+			item_root.appendRow([C20_StandardItem(f"{item.name}"),
+			                     C20_StandardItem(f"руб",                                                          flag_align_right=True),
+			                     C20_StandardItem(f"{AmountToString(item.income,                flag_sign=True)}", flag_align_right=True),
+			                     C20_StandardItem(f"{100 * item.income  / max(1, incomes):.0f}%",                  flag_align_right=True),
+			                     C20_StandardItem(f"{AmountToString(-item.outcome,              flag_sign=True)}", flag_align_right=True),
+			                     C20_StandardItem(f"{100 * item.outcome / max(1, outcomes):.0f}%",                 flag_align_right=True),
+			                     C20_StandardItem(f"{AmountToString(item.income - item.outcome, flag_sign=True)}", flag_align_right=True),
+			                     ])
 
-			self.ModelDataAnalytics.appendRow([item_group, item_income, item_outcome, item_delta])
+		avg_income  : int       = incomes  // 12
+		avg_outcome : int       = outcomes // 12
+		item_root.appendRow([C20_StandardItem(f"Средний объём за месяц"),
+		                     C20_StandardItem(f"руб",                                                        flag_align_right=True),
+		                     C20_StandardItem(f"{AmountToString(avg_income,               flag_sign=True)}", flag_align_right=True),
+		                     C20_StandardItem(f""),
+		                     C20_StandardItem(f"{AmountToString(-avg_outcome,             flag_sign=True)}", flag_align_right=True),
+		                     C20_StandardItem(f""),
+		                     C20_StandardItem(f"{AmountToString(avg_income - avg_outcome, flag_sign=True)}", flag_align_right=True),
+		                     ])
 
-		item_group = self.ModelDataAnalytics.itemByData(ANALYTICS_DATA.DYNAMIC_DY, ROLES.IDO)
-		item_group.removeRows(0, item_group.rowCount())
-
-		for data_item in self._data_dynamic_dy:
-			item_name    = C20_StandardItem(f"{MONTHS_SHORT[data_item.dm]} {data_item.dy}")
-			item_outcome = C20_StandardItem(f"{AmountToString(data_item.amount_outcome)}",                                flag_align_right=True)
-			item_income  = C20_StandardItem(f"{AmountToString(data_item.amount_income)}",                                 flag_align_right=True)
-			item_delta   = C20_StandardItem(f"{AmountToString(data_item.amount_income - abs(data_item.amount_outcome))}", flag_align_right=True)
-
-			item_group.appendRow([item_name, item_income, item_outcome, item_delta])
+		incomes     : list[int] = [item.income  for item in self._data_dynamic_dy if item.income  > 0]
+		outcomes    : list[int] = [item.outcome for item in self._data_dynamic_dy if item.outcome > 0]
+		avg_income  : int       = sum(incomes)  // max(1, len(incomes))
+		avg_outcome : int       = sum(outcomes) // max(1, len(outcomes))
+		item_root.appendRow([C20_StandardItem(f"Базовый объём за месяц"),
+		                     C20_StandardItem(f"руб",                                                        flag_align_right=True),
+		                     C20_StandardItem(f"{AmountToString(avg_income,               flag_sign=True)}", flag_align_right=True),
+		                     C20_StandardItem(f""),
+		                     C20_StandardItem(f"{AmountToString(-avg_outcome,             flag_sign=True)}", flag_align_right=True),
+		                     C20_StandardItem(f""),
+		                     C20_StandardItem(f"{AmountToString(avg_income - avg_outcome, flag_sign=True)}", flag_align_right=True),
+		                     ])
 
 	def LoadDataDynamicDmInModel(self):
 		""" Загрузка данных динамики за месяц в модель """
-		pass
+		item_root = C20_StandardItem(f"ДИНАМИКА ОБЪЁМА ЗА {self.Workspace.DmDyToString().upper()}")
 
-	def LoadDataIntervalsInModel(self):
+		self.ModelDataAnalytics.appendRow([item_root,
+		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
+		                                   C20_StandardItem("+"      , flag_align_right=True),
+		                                   C20_StandardItem("+ (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("-"      , flag_align_right=True),
+		                                   C20_StandardItem("- (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("Разница", flag_align_right=True),
+		                                   ])
+
+	def LoadDataOperationsInModel(self):
 		""" Загрузка данных интервалов в модель """
-		pass
+		item_root = C20_StandardItem("АНАЛИТИКА ОПЕРАЦИЙ")
+		
+		self.ModelDataAnalytics.appendRow([item_root,
+		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
+		                                   C20_StandardItem("+"      , flag_align_right=True),
+		                                   C20_StandardItem("+ (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("-"      , flag_align_right=True),
+		                                   C20_StandardItem("- (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("Разница", flag_align_right=True),
+		                                   ])
 
 	def LoadDataDistributionInModel(self):
 		""" Загрузка данных распределения в модель """
-		pass
+		item_root = C20_StandardItem("АНАЛИТИКА РАСПРЕДЕЛЕНИЯ ОБЪЁМА")
+
+		self.ModelDataAnalytics.appendRow([item_root,
+		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
+		                                   C20_StandardItem("+"      , flag_align_right=True),
+		                                   C20_StandardItem("+ (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("-"      , flag_align_right=True),
+		                                   C20_StandardItem("- (%)"  , flag_align_right=True),
+		                                   C20_StandardItem("Разница", flag_align_right=True),
+		                                   ])
