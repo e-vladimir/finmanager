@@ -5,7 +5,7 @@ import statistics
 
 from PySide6.QtCore     import QModelIndex
 
-from G10_datetime import CalcDyDmByShiftDm, CountDdInDyDm
+from G10_datetime       import CalcDyDmByShiftDm, CountDdInDyDm
 from G11_convertor_data import AmountToString
 
 from L00_form_analytics import ANALYTICS_DATA, ANALYTICS_FIELDS
@@ -237,6 +237,23 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			self._data_distribution[label] = T20_AnalyticItem(name    = label,
 			                                                  income  = income,
 			                                                  outcome = outcome)
+
+		for ido in self.Analytics.Idos():
+			analytic_item         = C90_AnalyticsItem(ido)
+			amounts : list[float] = []
+
+			for operation in self._operations:
+				if analytic_item.include and not set(analytic_item.include).intersection(operation.labels): continue
+				if analytic_item.exclude and     set(analytic_item.exclude).intersection(operation.labels): continue
+
+				amounts.append(operation.amount)
+
+			income  : int         =     int(sum([amount for amount in amounts if amount > 0]))
+			outcome : int         = abs(int(sum([amount for amount in amounts if amount < 0])))
+
+			self._data_distribution[analytic_item.name] = T20_AnalyticItem(name    = analytic_item.name,
+						                                                   income  = income,
+						                                                   outcome = outcome)
 
 
 	# Модель данных - Элементы аналитики
