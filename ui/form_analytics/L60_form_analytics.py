@@ -3,11 +3,11 @@
 
 from PySide6.QtCore     import QModelIndex
 
-from G10_datetime       import CalcDyDmByShiftDm
+from G10_datetime import CalcDyDmByShiftDm, CountDdInDyDm
 from G11_convertor_data import AmountToString
 
-from L00_form_analytics import ANALYTICS_FIELDS
-from L00_months import MONTHS_SHORT
+from L00_form_analytics import ANALYTICS_DATA, ANALYTICS_FIELDS
+from L00_months         import MONTHS_SHORT
 from L20_PySide6        import C20_StandardItem, ROLES
 from L20_form_analytics import T20_AnalyticItem, T20_Operation
 from L50_form_analytics import C50_FormAnalytics
@@ -122,6 +122,68 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 			dy, dm                = CalcDyDmByShiftDm(dy, dm, -1)
 
+
+	# Данные динамики за месяц
+	def ReadDataDynamicDm(self):
+		""" Чтение данных """
+		incomes_dd  : list[int] = [0 for _ in range(32)]
+		outcomes_dd : list[int] = [0 for _ in range(32)]
+
+		for operation in self._operations:
+			if operation.amount > 0: incomes_dd[operation.dd]  +=     operation.amount
+			else                   : outcomes_dd[operation.dd] += abs(operation.amount)
+
+		self._data_dynamic_dm[ANALYTICS_DATA.VOLUME] = T20_AnalyticItem(name    = "Общий объём",
+		                                                                income  = int(sum(incomes_dd)),
+		                                                                outcome = int(sum(outcomes_dd)))
+
+		income_25   : int       = 0
+		income_50   : int       = 0
+		income_75   : int       = 0
+		outcome_25  : int       = 0
+		outcome_50  : int       = 0
+		outcome_75  : int       = 0
+
+		volume      : int       = 0
+		for idx_dd, amount in enumerate(incomes_dd):
+			volume += amount
+
+			if (not income_25) and volume > sum(incomes_dd) * 0.25: income_25 = idx_dd
+			if (not income_50) and volume > sum(incomes_dd) * 0.50: income_50 = idx_dd
+			if (not income_75) and volume > sum(incomes_dd) * 0.75: income_75 = idx_dd
+
+		volume      : int       = 0
+		for idx_dd, amount in enumerate(outcomes_dd):
+			volume += amount
+
+			if (not outcome_25) and volume > sum(outcomes_dd) * 0.25: outcome_25 = idx_dd
+			if (not outcome_50) and volume > sum(outcomes_dd) * 0.50: outcome_50 = idx_dd
+			if (not outcome_75) and volume > sum(outcomes_dd) * 0.75: outcome_75 = idx_dd
+
+		self._data_dynamic_dm[ANALYTICS_DATA.VOLUME_25] = T20_AnalyticItem(name    = "25% объёма",
+		                                                                   income  = income_25,
+		                                                                   outcome = outcome_25)
+
+		self._data_dynamic_dm[ANALYTICS_DATA.VOLUME_50] = T20_AnalyticItem(name    = "50% объёма",
+		                                                                   income  = income_50,
+		                                                                   outcome = outcome_50)
+
+		self._data_dynamic_dm[ANALYTICS_DATA.VOLUME_75] = T20_AnalyticItem(name    = "75% объёма",
+		                                                                   income  = income_75,
+		                                                                   outcome = outcome_75)
+
+		self._data_dynamic_dm[ANALYTICS_DATA.DW_1] = T20_AnalyticItem(name   = "1 неделя",
+		                                                              income = int(sum(incomes_dd[:8])),
+		                                                              outcome= int(sum(outcomes_dd[:8])))
+		self._data_dynamic_dm[ANALYTICS_DATA.DW_2] = T20_AnalyticItem(name   = "2 неделя",
+		                                                              income = int(sum(incomes_dd[8:16])),
+		                                                              outcome= int(sum(outcomes_dd[8:16])))
+		self._data_dynamic_dm[ANALYTICS_DATA.DW_3] = T20_AnalyticItem(name   = "3 неделя",
+		                                                              income = int(sum(incomes_dd[16:24])),
+		                                                              outcome= int(sum(outcomes_dd[16:24])))
+		self._data_dynamic_dm[ANALYTICS_DATA.DW_4] = T20_AnalyticItem(name   = "4 неделя",
+		                                                              income = int(sum(incomes_dd[24:])),
+		                                                              outcome= int(sum(outcomes_dd[24:])))
 
 	# Модель данных - Элементы аналитики
 	def InitModelDataItems(self):
@@ -245,16 +307,95 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 	def LoadDataDynamicDmInModel(self):
 		""" Загрузка данных динамики за месяц в модель """
-		item_root = C20_StandardItem(f"ДИНАМИКА ОБЪЁМА ЗА {self.Workspace.DmDyToString().upper()}")
+		item_root    = C20_StandardItem(f"ДИНАМИКА ОБЪЁМА ЗА {self.Workspace.DmDyToString().upper()}")
 
 		self.ModelDataAnalytics.appendRow([item_root,
-		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
-		                                   C20_StandardItem("+"      , flag_align_right=True),
-		                                   C20_StandardItem("+ (%)"  , flag_align_right=True),
-		                                   C20_StandardItem("-"      , flag_align_right=True),
-		                                   C20_StandardItem("- (%)"  , flag_align_right=True),
-		                                   C20_StandardItem("Разница", flag_align_right=True),
+		                                   C20_StandardItem(""),
+		                                   C20_StandardItem(""),
+		                                   C20_StandardItem(""),
+		                                   C20_StandardItem(""),
+		                                   C20_StandardItem(""),
+		                                   C20_StandardItem(""),
 		                                   ])
+
+		item_subroot = C20_StandardItem("Достижение объёма")
+		item_root.appendRow([item_subroot,
+                             C20_StandardItem("ед.изм.", flag_align_right=True),
+                             C20_StandardItem("+",       flag_align_right=True),
+                             C20_StandardItem("",        flag_align_right=True),
+                             C20_StandardItem("-",       flag_align_right=True),
+                             C20_StandardItem("",        flag_align_right=True),
+                             C20_StandardItem("Разница", flag_align_right=True),
+                             ])
+
+		for item in [ANALYTICS_DATA.VOLUME_25, ANALYTICS_DATA.VOLUME_50, ANALYTICS_DATA.VOLUME_75]:
+			data = self._data_dynamic_dm[item]
+			item_subroot.appendRow([C20_StandardItem(f"{data.name}"),
+		                            C20_StandardItem(f"день",                                                         flag_align_right=True),
+		                            C20_StandardItem(f"{data.income}",                                                flag_align_right=True),
+		                            C20_StandardItem(f"",                                                             flag_align_right=True),
+		                            C20_StandardItem(f"{data.outcome}",                                               flag_align_right=True),
+		                            C20_StandardItem(f"",                                                             flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString(data.outcome - data.income, flag_sign=True)}", flag_align_right=True),
+		                            ])
+
+
+		item_subroot = C20_StandardItem("Распределение объёма")
+		item_root.appendRow([item_subroot,
+                             C20_StandardItem("ед.изм.", flag_align_right=True),
+                             C20_StandardItem("+"      , flag_align_right=True),
+                             C20_StandardItem("+ (%)"  , flag_align_right=True),
+                             C20_StandardItem("-"      , flag_align_right=True),
+                             C20_StandardItem("- (%)"  , flag_align_right=True),
+                             C20_StandardItem("Разница", flag_align_right=True),
+                             ])
+
+		income  = self._data_dynamic_dm[ANALYTICS_DATA.VOLUME].income
+		outcome = self._data_dynamic_dm[ANALYTICS_DATA.VOLUME].outcome
+
+		for item in [ANALYTICS_DATA.DW_1, ANALYTICS_DATA.DW_2, ANALYTICS_DATA.DW_3, ANALYTICS_DATA.DW_4]:
+			data = self._data_dynamic_dm[item]
+			item_subroot.appendRow([C20_StandardItem(f"{data.name}"),
+		                            C20_StandardItem(f"руб, %",                                                       flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString( data.income,               flag_sign=True)}", flag_align_right=True),
+		                            C20_StandardItem(f"{100 * data.income  / max(1, income):.0f}%",                   flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString(-data.outcome,              flag_sign=True)}", flag_align_right=True),
+		                            C20_StandardItem(f"{100 * data.outcome / max(1, outcome):.0f}%",                  flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString(data.income - data.outcome, flag_sign=True)}", flag_align_right=True),
+		                            ])
+
+
+		item_subroot = C20_StandardItem("Скорость изменения объёма")
+		item_root.appendRow([item_subroot,
+                             C20_StandardItem("ед.изм.", flag_align_right=True),
+                             C20_StandardItem("+",       flag_align_right=True),
+                             C20_StandardItem("",        flag_align_right=True),
+                             C20_StandardItem("-",       flag_align_right=True),
+                             C20_StandardItem("",        flag_align_right=True),
+                             C20_StandardItem("Разница", flag_align_right=True),
+                             ])
+
+		for item in [ANALYTICS_DATA.DW_1, ANALYTICS_DATA.DW_2, ANALYTICS_DATA.DW_3, ANALYTICS_DATA.DW_4]:
+			data = self._data_dynamic_dm[item]
+			item_subroot.appendRow([C20_StandardItem(f"{data.name}"),
+		                            C20_StandardItem(f"руб/день",                                                            flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString( data.income                 // 7, flag_sign=True)}", flag_align_right=True),
+		                            C20_StandardItem(f"",                                                                    flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString(-data.outcome                // 7, flag_sign=True)}", flag_align_right=True),
+		                            C20_StandardItem(f"",                                                                    flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString((data.income - data.outcome) // 7, flag_sign=True)}", flag_align_right=True),
+		                            ])
+
+		dy, dm   = self.Workspace.DyDm()
+		count_dd = CountDdInDyDm(dy, dm)
+		item_subroot.appendRow([C20_StandardItem(f"Средняя скорость"),
+	                            C20_StandardItem(f"руб/день",                                                         flag_align_right=True),
+	                            C20_StandardItem(f"{AmountToString( income            // count_dd, flag_sign=True)}", flag_align_right=True),
+	                            C20_StandardItem(f"",                                                                 flag_align_right=True),
+	                            C20_StandardItem(f"{AmountToString(-outcome           // count_dd, flag_sign=True)}", flag_align_right=True),
+	                            C20_StandardItem(f"",                                                                 flag_align_right=True),
+	                            C20_StandardItem(f"{AmountToString((income - outcome) // count_dd, flag_sign=True)}", flag_align_right=True),
+	                            ])
 
 	def LoadDataOperationsInModel(self):
 		""" Загрузка данных интервалов в модель """
