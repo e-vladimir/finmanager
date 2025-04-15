@@ -1,6 +1,8 @@
 # ФОРМА АНАЛИТИКА ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 11 апр 2025
 
+import statistics
+
 from PySide6.QtCore     import QModelIndex
 
 from G10_datetime import CalcDyDmByShiftDm, CountDdInDyDm
@@ -71,8 +73,9 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		""" Чтение данных """
 		self._operations.clear()
 
-		dy, dm    = self.Workspace.DyDm()
-		operation = C90_Operation()
+		dy, dm                   = self.Workspace.DyDm()
+		account_idos : list[str] = self.Accounts.PriorityIdos(dy, dm) or self.Accounts.Idos(dy, dm)
+		operation                = C90_Operation()
 		for ido in self.Operations.Idos(dy, dm):
 			operation.Ido(ido)
 
@@ -81,6 +84,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			flag_skip : bool     = True
 			flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
 			flag_skip           &= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
+			flag_skip           &= not set(operation.account_idos).intersection(account_idos)
 
 			if flag_skip: continue
 
@@ -184,6 +188,37 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		self._data_dynamic_dm[ANALYTICS_DATA.DW_4] = T20_AnalyticItem(name   = "4 неделя",
 		                                                              income = int(sum(incomes_dd[24:])),
 		                                                              outcome= int(sum(outcomes_dd[24:])))
+
+
+	# Данные анализа операций
+	def ReadDataOperations(self):
+		""" Чтение данных """
+		incomes  : list[int] = [int(item.amount)      for item in self._operations if item.amount > 0]
+		outcomes : list[int] = [int(abs(item.amount)) for item in self._operations if item.amount < 0]
+
+		income   : int       = int(statistics.mean(incomes))  if bool(incomes)  else 0
+		outcome  : int       = int(statistics.mean(outcomes)) if bool(outcomes) else 0
+		self._data_operations[ANALYTICS_DATA.VOLUME_AVG] = T20_AnalyticItem(name    = "Средний объём операции",
+		                                                                    income  = income,
+		                                                                    outcome = outcome)
+
+		income   : int       = int(statistics.mode(incomes))  if bool(incomes)  else 0
+		outcome  : int       = int(statistics.mode(outcomes)) if bool(outcomes) else 0
+		self._data_operations[ANALYTICS_DATA.VOLUME_MODA] = T20_AnalyticItem(name    = "Базовый объём операции",
+		                                                                    income  = income,
+		                                                                    outcome = outcome)
+
+		income   : int       = int(statistics.mode(sorted(incomes)[:int(len(incomes)   * 0.5)])) if bool(incomes)  else 0
+		outcome  : int       = int(statistics.mode(sorted(outcomes)[:int(len(outcomes) * 0.5)])) if bool(outcomes) else 0
+		self._data_operations[ANALYTICS_DATA.VOLUME_50] = T20_AnalyticItem(name    = "Базовый объём 50% операций",
+		                                                                    income  = income,
+		                                                                    outcome = outcome)
+
+		income   : int       = int(statistics.mode(sorted(incomes)[:int(len(incomes)   * 0.8)])) if bool(incomes)  else 0
+		outcome  : int       = int(statistics.mode(sorted(outcomes)[:int(len(outcomes) * 0.8)])) if bool(outcomes) else 0
+		self._data_operations[ANALYTICS_DATA.VOLUME_80] = T20_AnalyticItem(name    = "Базовый объём 80% операций",
+		                                                                    income  = income,
+		                                                                    outcome = outcome)
 
 	# Модель данных - Элементы аналитики
 	def InitModelDataItems(self):
@@ -308,7 +343,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def LoadDataDynamicDmInModel(self):
 		""" Загрузка данных динамики за месяц в модель """
 		item_root    = C20_StandardItem(f"ДИНАМИКА ОБЪЁМА ЗА {self.Workspace.DmDyToString().upper()}")
-
 		self.ModelDataAnalytics.appendRow([item_root,
 		                                   C20_StandardItem(""),
 		                                   C20_StandardItem(""),
@@ -400,15 +434,34 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def LoadDataOperationsInModel(self):
 		""" Загрузка данных интервалов в модель """
 		item_root = C20_StandardItem("АНАЛИТИКА ОПЕРАЦИЙ")
-		
 		self.ModelDataAnalytics.appendRow([item_root,
 		                                   C20_StandardItem("ед.изм.", flag_align_right=True),
-		                                   C20_StandardItem("+"      , flag_align_right=True),
-		                                   C20_StandardItem("+ (%)"  , flag_align_right=True),
-		                                   C20_StandardItem("-"      , flag_align_right=True),
-		                                   C20_StandardItem("- (%)"  , flag_align_right=True),
-		                                   C20_StandardItem("Разница", flag_align_right=True),
+		                                   C20_StandardItem("+",       flag_align_right=True),
+		                                   C20_StandardItem("",        flag_align_right=True),
+		                                   C20_StandardItem("-",       flag_align_right=True),
+		                                   C20_StandardItem("",        flag_align_right=True),
+		                                   C20_StandardItem("",        flag_align_right=True),
 		                                   ])
+
+		item_subroot = C20_StandardItem("Объём")
+		item_root.appendRow([item_subroot,
+		                     C20_StandardItem("ед.изм.", flag_align_right=True),
+		                     C20_StandardItem("+",       flag_align_right=True),
+		                     C20_StandardItem("",        flag_align_right=True),
+		                     C20_StandardItem("-",       flag_align_right=True),
+		                     C20_StandardItem("",        flag_align_right=True),
+		                     C20_StandardItem("",        flag_align_right=True),
+		                     ])
+		for item in [ANALYTICS_DATA.VOLUME_AVG, ANALYTICS_DATA.VOLUME_MODA, ANALYTICS_DATA.VOLUME_50, ANALYTICS_DATA.VOLUME_80]:
+			data = self._data_operations[item]
+			item_subroot.appendRow([C20_StandardItem(f"{data.name}"),
+		                            C20_StandardItem(f"руб",                                             flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString(data.income,   flag_sign=True)}", flag_align_right=True),
+		                            C20_StandardItem(f"",                                                flag_align_right=True),
+		                            C20_StandardItem(f"{AmountToString(-data.outcome, flag_sign=True)}", flag_align_right=True),
+		                            C20_StandardItem(f"",                                                flag_align_right=True),
+		                            C20_StandardItem(f"",                                                flag_align_right=True),
+		                            ])
 
 	def LoadDataDistributionInModel(self):
 		""" Загрузка данных распределения в модель """

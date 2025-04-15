@@ -19,8 +19,12 @@ class ANALYTICS_DATA(enum.StrEnum):
 	VOLUME_25 = "Объём 25%"
 	VOLUME_50 = "Объём 50%"
 	VOLUME_75 = "Объём 75%"
+	VOLUME_80 = "Объём 80%"
 
 	DW_1      = "1 неделя"
 	DW_2      = "2 неделя"
 	DW_3      = "3 неделя"
 	DW_4      = "4 неделя"
+
+	VOLUME_AVG  = "Средний объём"
+	VOLUME_MODA = "Базовый объём"

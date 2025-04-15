@@ -51,6 +51,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ReadOperations()
 		self.ReadDataDynamicDy()
 		self.ReadDataDynamicDm()
+		self.ReadDataOperations()
 
 		self.InitModelDataAnalytics()
 		self.LoadDataDynamicDyInModel()
