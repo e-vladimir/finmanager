@@ -34,11 +34,12 @@ class C80_Operation(C70_Operation):
 		""" Разделение операции """
 		accounts    = self.account_idos
 		color       = self.color
+		dd          = self.dd
 		description = self.description
 		destination = self.destination
-		dy          = self.dy
 		dm          = self.dm
-		dd          = self.dd
+		dy          = self.dy
+		skip        = self.skip
 
 		self.amount -= amount
 
@@ -48,11 +49,12 @@ class C80_Operation(C70_Operation):
 		self.account_idos = accounts
 		self.amount       = amount
 		self.color        = color
+		self.dd           = dd
 		self.description  = description
 		self.destination  = destination
-		self.dy           = dy
 		self.dm           = dm
-		self.dd           = dd
+		self.dy           = dy
+		self.skip         = skip
 
 		return self.Ido().data
 
@@ -61,11 +63,12 @@ class C80_Operation(C70_Operation):
 		accounts    = self.account_idos
 		amount      = self.amount
 		color       = self.color
+		dd          = self.dd
 		description = self.description
 		destination = self.destination
-		dy          = self.dy
 		dm          = self.dm
-		dd          = self.dd
+		dy          = self.dy
+		skip        = self.skip
 
 		self.GenerateIdo()
 		self.RegisterObject(CONTAINERS.DISK)
@@ -73,13 +76,15 @@ class C80_Operation(C70_Operation):
 		self.account_idos = accounts
 		self.amount       = amount
 		self.color        = color
+		self.dd           = dd
 		self.description  = description
 		self.destination  = destination
-		self.dy           = dy
 		self.dm           = dm
-		self.dd           = dd
+		self.dy           = dy
+		self.skip         = skip
 
 		return self.Ido().data
+
 
 	# Конвертация
 	def ToT20_RawOperation(self) -> T20_RawOperation:

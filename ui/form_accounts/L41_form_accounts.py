@@ -75,8 +75,6 @@ class C41_FormAccounts(C20_PySideForm, Ui_FormAccounts):
 		self.SubmenuAccount.addAction(self.ActionEditAccountGroup)
 		self.SubmenuAccount.addAction(self.ActionEditAccountInitialBalance)
 		self.SubmenuAccount.addSeparator()
-		self.SubmenuAccount.addAction(self.ActionSwitchAccountPriority)
-		self.SubmenuAccount.addSeparator()
 		self.SubmenuAccount.addAction(self.ActionTransferAccountToPrevDm)
 		self.SubmenuAccount.addAction(self.ActionTransferAccountToNextDm)
 		self.SubmenuAccount.addSeparator()

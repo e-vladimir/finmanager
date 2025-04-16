@@ -29,7 +29,6 @@ class C70_FormAccounts(C60_FormAccounts):
 			self.MenuAccounts.addAction(self.ActionEditAccountInitialBalance)
 			self.MenuAccounts.addAction(self.ActionEditAccountGroup)
 			self.MenuAccounts.addAction(self.ActionTransferAccountToNextDm)
-			self.MenuAccounts.addAction(self.ActionSwitchAccountPriority)
 
 		elif self.processing_group:
 			self.MenuAccounts.addSection(self.processing_group)
@@ -60,11 +59,10 @@ class C70_FormAccounts(C60_FormAccounts):
 		self.SubmenuGroup.setTitle(self.processing_group)
 		self.SubmenuAccount.setTitle(account.name)
 
-		self.ActionSwitchAccountPriority.setText("Установить приоритетным" if (account.priority == 0) else "Отменить приоритетность")
-
 	def ShowMenuAccounts(self):
 		""" Отображение меню Счета """
 		self.MenuAccounts.exec_(QCursor().pos())
+
 
 	# Дерево данных
 	def AdjustTreeData_Color(self):

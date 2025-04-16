@@ -71,16 +71,6 @@ class C60_Account(C50_Account):
 		           )
 
 
-	# Приоритетность счёта
-	@property
-	def priority(self) -> int:
-		return self.FPriority.ToInteger(CONTAINERS.DISK).data
-
-	@priority.setter
-	def priority(self, level: int):
-		self.FPriority.FromInteger(CONTAINERS.DISK, level)
-
-
 	# Объём поступлений
 	@property
 	def income_amount(self) -> int:

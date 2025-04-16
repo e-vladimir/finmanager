@@ -35,7 +35,6 @@ class C50_FormAccounts(C42_FormAccounts):
 	def on_RequestEditAccountInitialBalance(self): pass
 	def on_RequestTransferAccountToNextDm(self): pass
 	def on_RequestTransferAccountToPrevDm(self): pass
-	def on_RequestSwitchAccountPriority(self): pass
 
 	def on_AccountCreated(self): pass
 	def on_AccountChanged(self): pass

@@ -11,7 +11,7 @@ from L00_months         import MONTHS
 from L30_reports_fpdf   import C30_ProcessorReportsFpdf2, MONTHS_SHORT
 from L70_report         import C70_Report
 from L90_account        import C90_Account
-from L90_operations import C90_Operation
+from L90_operations     import C90_Operation
 
 
 class C80_Report(C70_Report):

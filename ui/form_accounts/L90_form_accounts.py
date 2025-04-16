@@ -34,7 +34,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.ActionEditAccountGroup.triggered.connect(self.on_RequestEditAccountGroup)
 		self.ActionTransferAccountToPrevDm.triggered.connect(self.on_RequestTransferAccountToPrevDm)
 		self.ActionTransferAccountToNextDm.triggered.connect(self.on_RequestTransferAccountToNextDm)
-		self.ActionSwitchAccountPriority.triggered.connect(self.on_RequestSwitchAccountPriority)
+
 
 	# Форма
 	def on_Opened(self):
@@ -67,6 +67,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
 
+
 	# Меню Счета
 	def on_RequestShowMenuAccounts(self):
 		""" Запрос отображения меню Счета """
@@ -78,6 +79,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustMenuAccounts_Text()
 
 		self.ShowMenuAccounts()
+
 
 	# Счета
 	def on_RequestResetAccounts(self):
@@ -112,6 +114,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
 
+
 	# Группа счетов
 	def on_RequestEditGroupName(self):
 		""" Запрос на редактиование названия группы счетов """
@@ -124,6 +127,7 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_RequestTransferGroupToNextDm(self):
 		""" Запрос на перенос группы счетов в следующий месяц """
 		self.TransferGroupToNextDm()
+
 
 	# Счёта
 	def on_RequestCreateAccount(self):
@@ -154,10 +158,6 @@ class C90_FormAccounts(C80_FormAccounts):
 		""" Запрос на перенос счёта в предыдущий месяц """
 		self.TransferAccountToPrevDm()
 
-	def on_RequestSwitchAccountPriority(self):
-		""" Запрос на смену приоритетности счёта """
-		self.SwitchAccountPriority()
-
 	def on_AccountCreated(self):
 		""" Счёт создан """
 		self.LoadGroups()
@@ -184,6 +184,7 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
 
 	# Дерево данных
 	def on_TreeDataDbClicked(self):

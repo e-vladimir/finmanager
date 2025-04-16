@@ -17,7 +17,6 @@ class C40_Account(C31_StructFrameWithEvents):
 		self.FGroup          = C30_StructField(self, "Группа счетов")
 		self.FInitialBalance = C30_StructField(self, "Остаток начальный")
 		self.FName           = C30_StructField(self, "Название счёта")
-		self.FPriority       = C30_StructField(self, "Приоритетность счёта", 0)
 
 
 class C40_Accounts(C20_MetaFrame):

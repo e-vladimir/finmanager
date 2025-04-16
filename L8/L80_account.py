@@ -20,7 +20,6 @@ class C80_Account(C70_Account):
 		name            : str = self.name
 		group           : str = self.group
 		summary_balance : int = self.summary_balance
-		priority        : int = self.priority
 
 		if not self.SwitchByName(dy, dm, name):
 			self.GenerateIdo()
@@ -30,7 +29,6 @@ class C80_Account(C70_Account):
 			self.name = name
 
 		self.group    = group
-		self.priority = priority
 
 		if count_dm > 0: self.initial_balance = summary_balance
 
@@ -103,23 +101,6 @@ class C80_Accounts(C70_Accounts):
 
 		return filter_data.ToIntegers(idp_dy, True, True).data
 
-	@classmethod
-	def PriorityIdos(cls, dy: int, dm: int) -> list[str]:
-		""" Список IDO приоритетных счетов """
-		account            = C80_Account()
-		idc          : str = account.Idc().data
-		idp_dy       : str = account.FDy.Idp().data
-		idp_dm       : str = account.FDm.Idp().data
-		idp_name     : str = account.FName.Idp().data
-		idp_priority : str = account.FPriority.Idp().data
-
-		filter_data        = C30_FilterLinear1D(idc)
-		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
-		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		filter_data.FilterIdpVlpByMore(idp_priority, 0)
-		filter_data.Capture(CONTAINERS.DISK)
-
-		return filter_data.Idos(idp_name).data
 
 	# Управление счетами
 	@classmethod
@@ -138,6 +119,7 @@ class C80_Accounts(C70_Accounts):
 		account.group = group
 
 		return account.Ido().data
+
 
 	# Управление группами счетов
 	@classmethod
@@ -158,6 +140,7 @@ class C80_Accounts(C70_Accounts):
 		for ido in filter_data.Idos().data:
 			account = C80_Account(ido)
 			account.group = name_new
+
 
 	# Преобразования
 	@classmethod

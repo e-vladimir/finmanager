@@ -74,9 +74,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		self._operations.clear()
 
 		dy, dm                   = self.Workspace.DyDm()
-		account_idos : list[str] = self.Accounts.PriorityIdos(dy, dm) or self.Accounts.Idos(dy, dm)
 		operation                = C90_Operation()
-		for ido in self.Operations.Idos(dy, dm):
+		for ido in self.Operations.Idos(dy, dm, include_skip=False):
 			operation.Ido(ido)
 
 			labels    : set[str] = set(operation.labels)
@@ -84,7 +83,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			flag_skip : bool     = True
 			flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
 			flag_skip           &= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
-			flag_skip           &= not set(operation.account_idos).intersection(account_idos)
 
 			if flag_skip: continue
 
@@ -104,7 +102,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		for _ in range(12):
 			amounts : list[float] = []
 
-			for ido in self.Operations.Idos(dy, dm):
+			for ido in self.Operations.Idos(dy, dm, include_skip=False):
 				operation.Ido(ido)
 
 				labels    : set[str] = set(operation.labels)

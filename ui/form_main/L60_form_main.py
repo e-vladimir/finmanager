@@ -18,13 +18,11 @@ class C60_FormMain(C50_FormMain):
 		self._amounts.clear()
 
 		dy, dm                   = self.Workspace.DyDm()
-		account_idos : list[str] = self.Accounts.PriorityIdos(dy, dm) or self.Accounts.Idos(dy, dm)
 		operation                = C90_Operation()
 
-		for operation_ido in self.Operations.Idos(dy, dm):
+		for operation_ido in self.Operations.Idos(dy, dm, include_skip=False):
 			operation.Ido(operation_ido)
 
-			if not set(operation.account_idos).intersection(account_idos): continue
 			amount = operation.amount
 
 			if amount > 0: self._amounts[operation.dd].amount_income  += amount

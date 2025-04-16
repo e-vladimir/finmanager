@@ -75,6 +75,7 @@ class C80_FormAccounts(C70_FormAccounts):
 		            f"Отчёт сохранён в файл {pdf_file.name}",
 		            f"{pdf_file.absolute()}")
 
+
 	# Группа счетов
 	def EditGroupName(self):
 		""" Редактирование названия группы счетов """
@@ -102,6 +103,7 @@ class C80_FormAccounts(C70_FormAccounts):
 		for ido in self.Accounts.Idos(dy, dm, self.processing_group):
 			account = C90_Account(ido)
 			account.TransferToDm(-1)
+
 
 	# Счёт
 	def CreateAccount(self):
@@ -171,10 +173,3 @@ class C80_FormAccounts(C70_FormAccounts):
 		""" Перенос счёта в предыдущий месяц """
 		account = C90_Account(self.processing_ido)
 		account.TransferToDm(-1)
-
-	def SwitchAccountPriority(self):
-		""" Переключение приоритетности счёта """
-		account = C90_Account(self.processing_ido)
-		account.priority = abs(account.priority - 1)
-
-		self.on_AccountChanged()
