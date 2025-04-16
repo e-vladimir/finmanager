@@ -2,7 +2,7 @@
 # 11 мар 2025
 
 from PySide6.QtCore     import QModelIndex
-from PySide6.QtGui      import QColor
+from PySide6.QtGui      import QColor, QIcon
 
 from G11_convertor_data import AmountToString
 
@@ -152,6 +152,11 @@ class C60_FormOperation(C50_FormOperation):
 		                           item_amount.row(),
 		                           color_bg,
 		                           color_fg)
+
+		icon_hide = QIcon("./L0/icons/hide.svg")
+		icon_show = QIcon()
+
+		item_amount.setIcon(icon_hide if operation.skip else icon_show)
 
 	def CleanModelData(self):
 		""" Очистка модели от некорректных данных """

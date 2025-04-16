@@ -101,6 +101,16 @@ class C60_Operation(C50_Operation):
 		self.FLabels.FromStrings(CONTAINERS.DISK, ClearList(items))
 
 
+	# Отметка Не учитывать
+	@property
+	def skip(self) -> bool:
+		return self.FSkip.ToBoolean(CONTAINERS.DISK).data
+
+	@skip.setter
+	def skip(self, flag: bool):
+		self.FSkip.FromBoolean(CONTAINERS.DISK, flag)
+
+
 class C60_Operations(C50_Operations):
 	""" Финансовые операции: Механика данных """
 	pass

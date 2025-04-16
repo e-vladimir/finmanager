@@ -22,6 +22,7 @@ class C40_Operation(C31_StructFrameWithEvents):
 		self.FDestination = C30_StructField(self, "Назначение")
 		self.FColor       = C30_StructField(self, "Цветовая метка")
 		self.FLabels      = C30_StructField(self, "Метки")
+		self.FSkip        = C30_StructField(self, "Не учитывать")
 
 
 class C40_Operations(C20_MetaFrame):

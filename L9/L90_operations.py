@@ -12,11 +12,12 @@ class C90_Operation(C80_Operation):
 		self.dm           = 0
 		self.dy           = 0
 
+		self.account_idos = []
 		self.amount       = 0
 		self.description  = ""
 		self.destination  = ""
-		self.account_idos = []
 		self.labels       = []
+		self.skip         = False
 
 
 class C90_Operations(C80_Operations):
