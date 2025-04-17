@@ -1,7 +1,7 @@
 # ФОРМА ОПЕРАЦИИ: МЕХАНИКА УПРАВЛЕНИЯ
 # 11 мар 2025
 
-from PySide6.QtGui      import QCursor, Qt
+from PySide6.QtGui import QCursor, QIcon, Qt
 from PySide6.QtWidgets  import QHeaderView
 
 from L20_PySide6        import ROLES
@@ -27,6 +27,7 @@ class C70_FormOperation(C60_FormOperation):
 			self.MenuOperation.addAction(self.ActionEditOperationAccounts)
 			self.MenuOperation.addAction(self.ActionEditOperationDescription)
 			self.MenuOperation.addAction(self.ActionEditOperationLabels)
+			self.MenuOperation.addAction(self.ActionSwitchOperationSkip)
 			self.MenuOperation.addSeparator()
 			self.MenuOperation.addAction(self.ActionSetOperationColorBlack)
 			self.MenuOperation.addAction(self.ActionSetOperationColorGray)
@@ -56,7 +57,14 @@ class C70_FormOperation(C60_FormOperation):
 
 	def AdjustMenuOperation_Text(self):
 		""" Настройка меню операций: Название """
-		pass
+		operation = C90_Operation(self.processing_ido)
+
+		if operation.skip:
+			self.ActionSwitchOperationSkip.setText("Учитывать операцию")
+			self.ActionSwitchOperationSkip.setIcon(QIcon("./L0/icons/show.svg"))
+		else:
+			self.ActionSwitchOperationSkip.setText("Не учитывать операцию")
+			self.ActionSwitchOperationSkip.setIcon(QIcon("./L0/icons/hide.svg"))
 
 	def ShowMenuOperation(self):
 		""" Отображению меню операций """

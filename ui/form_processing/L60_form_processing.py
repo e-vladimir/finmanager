@@ -356,6 +356,21 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.on_OptionsManualChanged()
 
 
+	# Параметр ручной обработки: Установить пропуск операции
+	def ReadManualSkipSet(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.SKIP_SET,
+		                                                                 ROLES.IDO)
+
+		self._manual_skip_set.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
+	def SwitchManualSkipSet(self):
+		""" Установка параметра """
+		self._manual_skip_set.data = not self._manual_skip_set.data
+
+		self.on_OptionsManualChanged()
+
+
 	# Модель данных ручной обработки
 	def InitModelDataManual(self):
 		""" Инициализация модели данных ручной обработки """
@@ -393,6 +408,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		                     PROCESSING_FIELDS.LABELS_REPLACE,
 		                     PROCESSING_FIELDS.LABELS_REMOVE,
 		                     PROCESSING_FIELDS.COLOR_SET,
+		                     PROCESSING_FIELDS.SKIP_SET,
 		                     ]
 
 		group_processing  = C20_StandardItem("Параметры обработки")
@@ -462,3 +478,7 @@ class C60_FormProcessing(C50_FormProcessing):
 		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.COLOR_SET):
 			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.COLOR_SET)[1])
 			item_value.setText(self._manual_color_set.data)
+
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.SKIP_SET):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.SKIP_SET)[1])
+			item_value.setText("Не учитывать операцию" if self._manual_skip_set.data else "Учитывать операцию")

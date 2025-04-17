@@ -47,6 +47,7 @@ class C80_FormOperation(C70_FormOperation):
 		            f"Отчёт сохранён в файл {pdf_file.name}",
 		            f"{pdf_file.absolute()}")
 
+
 	# Операция
 	def CreateOperation(self):
 		""" Создание операции """
@@ -114,7 +115,7 @@ class C80_FormOperation(C70_FormOperation):
 
 		destination : str | None = RequestText( "Редактирование операции",
 		                                       f"{operation.ShortInformation()}\n{operation.description}",
-		                                         operation.destination or self.Application.DataCompleter.PredictDestination(operation.description),
+		                                         operation.destination or self.Application.DataCompleter.PredictDestination(operation.description) or operation.DestinationOrDescription(),
 		                                         self.Application.DataCompleter.PredictDestinations(operation.description) or self.Operations.Destinations())
 		if destination is None: return
 
@@ -166,3 +167,10 @@ class C80_FormOperation(C70_FormOperation):
 		""" Копирование операции """
 		self.processing_ido = C90_Operation(self.processing_ido).Copy()
 		self.on_OperationCreated()
+
+	def SwitchOperationSkip(self):
+		""" Смена учёта операции """
+		operation      = C90_Operation(self.processing_ido)
+		operation.skip = not operation.skip
+
+		self.on_OperationChanged()

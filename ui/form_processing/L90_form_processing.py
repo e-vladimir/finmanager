@@ -60,6 +60,7 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ReadManualLabelsInclude()
 		self.ReadManualLabelsRemove()
 		self.ReadManualLabelsReplace()
+		self.ReadManualSkipSet()
 
 		self.ManualProcessing()
 

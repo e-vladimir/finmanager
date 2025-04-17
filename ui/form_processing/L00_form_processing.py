@@ -36,5 +36,7 @@ class PROCESSING_FIELDS(enum.StrEnum):
 
 	COLOR_SET           = "Установить цветовую метку"
 
+	SKIP_SET            = "Установить пропуск операции"
+
 	@classmethod
 	def _missing_(cls, value): return cls.NONE

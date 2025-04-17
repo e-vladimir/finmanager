@@ -28,6 +28,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionEditOperationAccounts.triggered.connect(self.on_RequestEditOperationAccounts)
 		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescriptions)
 		self.ActionEditOperationLabels.triggered.connect(self.on_RequestEditOperationLabels)
+		self.ActionSwitchOperationSkip.triggered.connect(self.on_RequestSwitchOperationSkip)
 		self.ActionDeleteOperation.triggered.connect(self.on_RequestDeleteOperation)
 		self.ActionSetOperationColorBlack.triggered.connect(self.on_RequestSetOperationColorToBlack)
 		self.ActionSetOperationColorGray.triggered.connect(self.on_RequestSetOperationColorToGray)
@@ -36,6 +37,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionSetOperationColorRed.triggered.connect(self.on_RequestSetOperationColorToRed)
 		self.ActionSplitOperation.triggered.connect(self.on_RequestSplitOperation)
 		self.ActionCopyOperation.triggered.connect(self.on_RequestCopyOperation)
+
 
 	# Форма
 	def on_Opened(self):
@@ -77,6 +79,7 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.CleanModelData()
 
+
 	# Меню операций
 	def on_RequestMenuOperation(self):
 		""" Запрос меню операций """
@@ -89,6 +92,7 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.ShowMenuOperation()
 
+
 	# Дерево данных
 	def on_TreeDataDoubleClicked(self):
 		""" Двойной клик по дереву данных """
@@ -97,6 +101,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ReadProcessingDdFromTreeData()
 
 		self.ControlOperationIdp()
+
 
 	# Операции
 	def on_RequestOpenFormImport(self):
@@ -125,6 +130,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Colors()
 		self.AdjustTreeData_Size()
 
+
 	# Операция
 	def on_RequestCreateOperation(self):
 		""" Запрос создания операции """
@@ -149,6 +155,10 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestEditOperationLabels(self):
 		""" Запрос редактирования меток операции """
 		self.EditOperationLabels()
+
+	def on_RequestSwitchOperationSkip(self):
+		""" Запрос на смену учёта операции """
+		self.SwitchOperationSkip()
 
 	def on_RequestSetOperationColorToBlack(self):
 		""" Установка цвета операции: Чёрный """
@@ -197,6 +207,7 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
 
 	# Обработка данных
 	def on_RequestOpenProcessing(self):

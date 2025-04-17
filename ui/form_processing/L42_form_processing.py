@@ -38,6 +38,8 @@ class C42_FormProcessing(C41_FormProcessing):
 
 		self._manual_color_set           : T20_ProcessingItem = T20_ProcessingItem(False, COLORS.BLACK)
 
+		self._manual_skip_set            : T20_ProcessingItem = T20_ProcessingItem(False, False)
+
 	def Init_10(self):
 		super().Init_10()
 

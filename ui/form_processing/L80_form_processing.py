@@ -33,6 +33,8 @@ class C80_FormProcessing(C70_FormProcessing):
 
 			case PROCESSING_FIELDS.COLOR_SET          : self.SetManualColorSet()
 
+			case PROCESSING_FIELDS.SKIP_SET               : self.SwitchManualSkipSet()
+
 	# Ручная обработка
 	def ManualProcessingOperations(self):
 		""" Выполнение ручной обработки данных операций """
