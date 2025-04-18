@@ -27,6 +27,13 @@ class C90_FormImport(C80_FormImport):
 		self.InitModelDataOperations()
 		self.AdjustLabelOperations()
 
+	def on_RequestUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.ShowTitle()
+
+
 	# Меню Импорт операций
 	def on_RequestShowMenuOperations(self):
 		""" Запрос меню импорта операций """
@@ -37,6 +44,7 @@ class C90_FormImport(C80_FormImport):
 		self.AdjustMenuOperations_Enable()
 
 		self.ShowMenuOperations()
+
 
 	# Импорт операций
 	def on_RequestLoadOperationsFromFile(self):

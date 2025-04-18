@@ -31,6 +31,12 @@ class C90_FormExport(C80_FormExport):
 		self.AdjustTreeDataOperationsExpand()
 		self.AdjustTreeDataOperationsSize()
 
+	def on_RequestUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.ShowTitle()
+
 
 	# Экспорт операций
 	def on_RequestEditOperations(self):

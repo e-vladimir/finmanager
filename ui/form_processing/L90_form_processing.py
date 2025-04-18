@@ -18,6 +18,7 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ActionManualObjectsTypeOperations.triggered.connect(self.on_RequestSwitchProcessingObjectsTypeToOperations)
 		self.ActionManualProcessing.triggered.connect(self.on_RequestManualProcessing)
 
+
 	# Форма
 	def on_Opened(self):
 		""" Открытие формы """
@@ -25,6 +26,13 @@ class C90_FormProcessing(C80_FormProcessing):
 
 		self.SwitchTabsMainToManual()
 		self.SwitchProcessingObjectsTypeToOperations()
+
+	def on_RequestUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.ShowTitle()
+
 
 	# Меню ручной обработки
 	def on_RequestShowMenuManual(self):
@@ -34,6 +42,7 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.AdjustMenuManualEnable()
 
 		self.ShowMenuManual()
+
 
 	# Параметры ручной обработки
 	def on_RequestSwitchProcessingObjectsTypeToOperations(self):

@@ -68,6 +68,33 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeDataAnalytics_Color()
 		self.AdjustTreeDataAnalytics_Size()
 
+	def on_RequestUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.ShowTitle()
+
+		self.InitModelDataItem()
+		self.LoadModelDataItem()
+		self.AdjustTreeDataItem_Color()
+		self.AdjustTreeDataItem_Size()
+		self.AdjustTreeDataItem_Expand()
+
+		self.ReadOperations()
+		self.ReadDataDynamicDy()
+		self.ReadDataDynamicDm()
+		self.ReadDataOperations()
+		self.ReadDataDistribution()
+
+		self.InitModelDataAnalytics()
+		self.LoadDataDynamicDyInModel()
+		self.LoadDataDynamicDmInModel()
+		self.LoadDataOperationsInModel()
+		self.LoadDataDistributionInModel()
+		self.AdjustTreeDataAnalytics_Expand()
+		self.AdjustTreeDataAnalytics_Color()
+		self.AdjustTreeDataAnalytics_Size()
+
 
 	# Меню Элементы аналитики
 	def on_RequestShowMenuItems(self):
