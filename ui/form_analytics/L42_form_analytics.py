@@ -19,15 +19,15 @@ class C42_FormAnalytics(C41_FormAnalytics):
 
 		self._processing_ido     : str                         = ""
 		self._processing_field   : ANALYTICS_FIELDS            = ANALYTICS_FIELDS.NONE
+		self._processing_include : list[str]                   = []
+		self._processing_exclude : list[str]                   = []
+		self._processing_name    : str                         = ""
 
 		self._operations         : list[T20_Operation]         = list()
 		self._data_dynamic_dy    : list[T20_AnalyticItem]      = list()
 		self._data_dynamic_dm    : dict[str, T20_AnalyticItem] = dict()
 		self._data_operations    : dict[str, T20_AnalyticItem] = dict()
 		self._data_distribution  : dict[str, T20_AnalyticItem] = dict()
-
-		self._processing_include : list[str]                   = []
-		self._processing_exclude : list[str]                   = []
 
 	def Init_10(self):
 		super().Init_10()

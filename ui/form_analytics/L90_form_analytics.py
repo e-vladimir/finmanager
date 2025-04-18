@@ -28,12 +28,17 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ActionEditItemInclude.triggered.connect(self.on_RequestEditItemInclude)
 		self.ActionEditItemExclude.triggered.connect(self.on_RequestEditItemExclude)
 
+		# Дерево результатов анализа
+		self.TreeDataAnalytics.doubleClicked.connect(self.on_RequestSwitchProcessingIncludeAndExclude)
+
+
 	# Форма
 	def on_Opened(self):
 		""" Форма открыта """
 		self.SwitchTabsMainToAnalytics()
 
 		self.ShowTitle()
+		self.AdjustTabsMainText()
 
 		self.InitModelDataItems()
 		self.LoadAnalyticsItems()
@@ -142,3 +147,30 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustListItems_Sort()
 
 		self.LoadModelDataItem()
+
+
+	# Параметры аналитики
+	def on_RequestSwitchProcessingIncludeAndExclude(self):
+		""" Запрос на изменение параметров аналитики """
+		self.ReadProcessingNameFromTreeDataAnalytics()
+		self.SwitchProcessingIncludeAndExclude()
+
+	def on_ProcessingIncludeOrExcludeChanged(self):
+		""" Изменился набор параметров аналитики """
+		self.ShowTitle()
+		self.AdjustTabsMainText()
+
+		self.ReadOperations()
+		self.ReadDataDynamicDy()
+		self.ReadDataDynamicDm()
+		self.ReadDataOperations()
+		self.ReadDataDistribution()
+
+		self.InitModelDataAnalytics()
+		self.LoadDataDynamicDyInModel()
+		self.LoadDataDynamicDmInModel()
+		self.LoadDataOperationsInModel()
+		self.LoadDataDistributionInModel()
+		self.AdjustTreeDataAnalytics_Expand()
+		self.AdjustTreeDataAnalytics_Color()
+		self.AdjustTreeDataAnalytics_Size()

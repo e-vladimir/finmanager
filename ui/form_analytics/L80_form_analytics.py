@@ -2,7 +2,8 @@
 # 11 апр 2025
 
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestItems, RequestText
+from L00_form_analytics import ANALYTICS_DATA
+from L20_PySide6        import ROLES, RequestConfirm, RequestItems, RequestText
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -86,3 +87,21 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		analytics_item.exclude = labels
 
 		self.on_ItemChanged()
+
+
+	# Параметры аналитики
+	def SwitchProcessingIncludeAndExclude(self):
+		""" Смена параметров аналитики """
+		current_index  = self.TreeDataAnalytics.currentIndex()
+		if not current_index.data(ROLES.GROUP) == ANALYTICS_DATA.DISTRIBUTION: return
+
+		analytics_item = C90_AnalyticsItem()
+		if analytics_item.SwitchByName(current_index.data(ROLES.TEXT)):
+			self.processing_include = analytics_item.include
+			self.processing_exclude = analytics_item.exclude
+
+		else:
+			self.processing_include = [current_index.data(ROLES.TEXT)]
+			self.processing_exclude = []
+
+		self.on_ProcessingIncludeOrExcludeChanged()

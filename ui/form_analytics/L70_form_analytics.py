@@ -16,7 +16,10 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	# Форма
 	def ShowTitle(self):
 		""" Отображение заголовка формы """
-		self.setWindowTitle(f"Аналитика данных - {self.Workspace.DmDyToString()}")
+		title : str = f"Аналитика данных - {self.Workspace.DmDyToString()}"
+		title      += f": {self.processing_name}" if self.processing_name else ""
+
+		self.setWindowTitle(title)
 
 
 	# Список элементов аналитики
@@ -80,6 +83,14 @@ class C70_FormAnalytics(C60_FormAnalytics):
 	def SwitchTabsMainToAnalytics(self):
 		""" Переключение вкладки на Аналитика """
 		self.TabsMain.setCurrentIndex(0)
+
+	def AdjustTabsMainText(self):
+		""" Настройка заголовков """
+		self.TabsMain.setTabText(0, f"Аналитика")
+
+		if not self._processing_name: return
+
+		self.TabsMain.setTabText(0, f"Аналитика: {self.processing_name}")
 
 
 	# Дерево параметров элемента аналитики

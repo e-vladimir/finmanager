@@ -57,6 +57,10 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def processing_include(self, items: list[str]):
 		self._processing_include = items[:]
 
+	def ResetProcessingInclude(self):
+		""" Сброс данных """
+		self.processing_include = []
+
 
 	# Рабочий набор Признаки-
 	@property
@@ -66,6 +70,28 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	@processing_exclude.setter
 	def processing_exclude(self, items: list[str]):
 		self._processing_exclude = items[:]
+
+	def ResetProcessingExclude(self):
+		""" Сброс даных """
+		self.processing_exclude = []
+
+
+	# Рабочее название
+	@property
+	def processing_name(self) -> str:
+		return self._processing_name
+
+	@ processing_name.setter
+	def processing_name(self, name: str):
+		self._processing_name = name
+
+	def ReadProcessingNameFromTreeDataAnalytics(self):
+		""" Чтение из дерева данных """
+		self.processing_name = self.TreeDataAnalytics.currentIndex().data(ROLES.TEXT)
+
+	def ResetProcessingName(self):
+		""" Сброс """
+		self.processing_name = ""
 
 
 	# Данные об операциях
@@ -82,7 +108,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 			flag_skip : bool     = True
 			flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
-			flag_skip           &= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
+			flag_skip           |= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
 
 			if flag_skip: continue
 
@@ -109,7 +135,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 				flag_skip : bool     = True
 				flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
-				flag_skip           &= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
+				flag_skip           |= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
 
 				if flag_skip: continue
 
@@ -194,27 +220,27 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		incomes  : list[int] = [int(item.amount)      for item in self._operations if item.amount > 0]
 		outcomes : list[int] = [int(abs(item.amount)) for item in self._operations if item.amount < 0]
 
-		income   : int       = int(statistics.mean(incomes))  if bool(incomes)  else 0
-		outcome  : int       = int(statistics.mean(outcomes)) if bool(outcomes) else 0
+		income   : int       = 0 if len(incomes)  < 1 else int(statistics.mean(incomes))
+		outcome  : int       = 0 if len(outcomes) < 1 else int(statistics.mean(outcomes))
 		self._data_operations[ANALYTICS_DATA.VOLUME_AVG] = T20_AnalyticItem(name    = "Средний объём операции",
 		                                                                    income  = income,
 		                                                                    outcome = outcome)
 
-		income   : int       = int(statistics.mode(incomes))  if bool(incomes)  else 0
-		outcome  : int       = int(statistics.mode(outcomes)) if bool(outcomes) else 0
-		self._data_operations[ANALYTICS_DATA.VOLUME_MODA] = T20_AnalyticItem(name    = "Базовый объём операции",
+		income   : int       = 0 if len(incomes)  < 2 else int(statistics.mode(incomes))
+		outcome  : int       = 0 if len(outcomes) < 2 else int(statistics.mode(outcomes))
+		self._data_operations[ANALYTICS_DATA.VOLUME_MODA] = T20_AnalyticItem(name    = "Обычный объём операции",
 		                                                                    income  = income,
 		                                                                    outcome = outcome)
 
-		income   : int       = int(statistics.mode(sorted(incomes)[:int(len(incomes)   * 0.5)])) if bool(incomes)  else 0
-		outcome  : int       = int(statistics.mode(sorted(outcomes)[:int(len(outcomes) * 0.5)])) if bool(outcomes) else 0
-		self._data_operations[ANALYTICS_DATA.VOLUME_50] = T20_AnalyticItem(name    = "Базовый объём 50% операций",
+		income   : int       = 0 if len(incomes)  < 2 else int(statistics.mode(sorted(incomes)[:int(len(incomes)   * 0.5)]))
+		outcome  : int       = 0 if len(outcomes) < 2 else int(statistics.mode(sorted(outcomes)[:int(len(outcomes) * 0.5)]))
+		self._data_operations[ANALYTICS_DATA.VOLUME_50] = T20_AnalyticItem(name    = "Обычный объём 50% операций",
 		                                                                    income  = income,
 		                                                                    outcome = outcome)
 
-		income   : int       = int(statistics.mode(sorted(incomes)[:int(len(incomes)   * 0.8)])) if bool(incomes)  else 0
-		outcome  : int       = int(statistics.mode(sorted(outcomes)[:int(len(outcomes) * 0.8)])) if bool(outcomes) else 0
-		self._data_operations[ANALYTICS_DATA.VOLUME_80] = T20_AnalyticItem(name    = "Базовый объём 80% операций",
+		income   : int       = 0 if len(incomes)  < 2 else int(statistics.mode(sorted(incomes)[:int(len(incomes)   * 0.8)]))
+		outcome  : int       = 0 if len(outcomes) < 2 else int(statistics.mode(sorted(outcomes)[:int(len(outcomes) * 0.8)]))
+		self._data_operations[ANALYTICS_DATA.VOLUME_80] = T20_AnalyticItem(name    = "Обычный объём 80% операций",
 		                                                                    income  = income,
 		                                                                    outcome = outcome)
 
@@ -365,7 +391,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		outcomes    : list[int] = [item.outcome for item in self._data_dynamic_dy if item.outcome > 0]
 		avg_income  : int       = sum(incomes)  // max(1, len(incomes))
 		avg_outcome : int       = sum(outcomes) // max(1, len(outcomes))
-		item_root.appendRow([C20_StandardItem(f"Базовый объём за месяц"),
+		item_root.appendRow([C20_StandardItem(f"Обычный объём за месяц"),
 		                     C20_StandardItem(f"руб",                                                        flag_align_right=True),
 		                     C20_StandardItem(f"{AmountToString(avg_income,               flag_sign=True)}", flag_align_right=True),
 		                     C20_StandardItem(f""),
@@ -521,7 +547,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 			if not item.name: continue
 
-			item_root.appendRow([C20_StandardItem(f"{item.name}"),
+			item_root.appendRow([C20_StandardItem(f"{item.name}", ANALYTICS_DATA.DISTRIBUTION, ROLES.GROUP),
 			                     C20_StandardItem(f"руб",                                                          flag_align_right=True),
 			                     C20_StandardItem(f"{AmountToString(item.income,                flag_sign=True)}", flag_align_right=True),
 			                     C20_StandardItem(f"{100 * item.income  / max(1, incomes):.0f}%",                  flag_align_right=True),

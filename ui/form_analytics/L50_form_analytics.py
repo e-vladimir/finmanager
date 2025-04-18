@@ -27,3 +27,8 @@ class C50_FormAnalytics(C42_FormAnalytics):
 	def on_ItemDeleted(self): pass
 	def on_ItemSwitched(self): pass
 	def on_ItemChanged(self): pass
+
+
+	# Параметры аналитики
+	def on_RequestSwitchProcessingIncludeAndExclude(self): pass
+	def on_ProcessingIncludeOrExcludeChanged(self): pass
