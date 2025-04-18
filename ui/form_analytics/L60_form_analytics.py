@@ -374,6 +374,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		                     C20_StandardItem(f"{AmountToString(avg_income - avg_outcome, flag_sign=True)}", flag_align_right=True),
 		                     ])
 
+		self.ModelDataAnalytics.fastAppendLabels([""])
+
 	def LoadDataDynamicDmInModel(self):
 		""" Загрузка данных динамики за месяц в модель """
 		item_root    = C20_StandardItem(f"ДИНАМИКА ОБЪЁМА ЗА {self.Workspace.DmDyToString().upper()}")
@@ -407,7 +409,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		                            C20_StandardItem(f"{AmountToString(data.outcome - data.income, flag_sign=True)}", flag_align_right=True),
 		                            ])
 
-
 		item_subroot = C20_StandardItem("Распределение объёма")
 		item_root.appendRow([item_subroot,
                              C20_StandardItem("ед.изм.", flag_align_right=True),
@@ -431,7 +432,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		                            C20_StandardItem(f"{100 * data.outcome / max(1, outcome):.0f}%",                  flag_align_right=True),
 		                            C20_StandardItem(f"{AmountToString(data.income - data.outcome, flag_sign=True)}", flag_align_right=True),
 		                            ])
-
 
 		item_subroot = C20_StandardItem("Скорость изменения объёма")
 		item_root.appendRow([item_subroot,
@@ -465,6 +465,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	                            C20_StandardItem(f"{AmountToString((income - outcome) // count_dd, flag_sign=True)}", flag_align_right=True),
 	                            ])
 
+		self.ModelDataAnalytics.fastAppendLabels([""])
+
 	def LoadDataOperationsInModel(self):
 		""" Загрузка данных интервалов в модель """
 		item_root = C20_StandardItem(f"АНАЛИТИКА ОПЕРАЦИЙ ЗА {self.Workspace.DmDyToString().upper()}")
@@ -496,6 +498,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		                            C20_StandardItem(f"",                                                flag_align_right=True),
 		                            C20_StandardItem(f"",                                                flag_align_right=True),
 		                            ])
+
+		self.ModelDataAnalytics.fastAppendLabels([""])
 
 	def LoadDataDistributionInModel(self):
 		""" Загрузка данных распределения в модель """

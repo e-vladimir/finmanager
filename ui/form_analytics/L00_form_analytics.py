@@ -15,6 +15,8 @@ class ANALYTICS_DATA(enum.StrEnum):
 	""" Каталог структуры данных аналитики """
 	NONE      = "Нет данных"
 
+	DISTRIBUTION = "Распределение"
+
 	VOLUME    = "Объём"
 	VOLUME_25 = "Объём 25%"
 	VOLUME_50 = "Объём 50%"

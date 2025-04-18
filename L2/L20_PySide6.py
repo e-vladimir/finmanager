@@ -1,5 +1,5 @@
 # ПАКЕТ ДЛЯ РАБОТЫ С PYSIDE-6
-# 11 апр 2025
+# 18 апр 2025
 
 import enum
 
@@ -49,6 +49,7 @@ class ROLES(enum.IntEnum):
 	IDP               = 101
 	FILENAME          = 102
 	GROUP             = 103
+	PARENT            = 104
 	VISUAL_STYLE_CELL = 200
 	VISUAL_STYLE_ROW  = 201
 	SORT_INDEX        = 300
