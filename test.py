@@ -1,14 +1,10 @@
-labels: set[str] = {"Макси", "Продукты питания"}
+from G10_list import DifferenceLists
 
-processing_include = ["Макси"]
-processing_exclude = []
+list_1 = [1, 2, 3, 4, 5]
+list_2 = [4, 5, 6, 7, 8]
 
-print(f"{bool(processing_include) and not bool(labels.intersection(processing_include))} = {bool(processing_include)} and {not bool(labels.intersection(processing_include))}")
-print(f"{bool(processing_exclude) and     bool(labels.intersection(processing_exclude))} = {bool(processing_exclude)} and {bool(labels.intersection(processing_exclude))}")
-print(f"")
+print(DifferenceLists(list_1, list_2))
+print(DifferenceLists(list_1, list_2, True))
 
-flag_skip: bool = True
-flag_skip &= bool(processing_include) and not bool(labels.intersection(processing_include))
-flag_skip |= bool(processing_exclude) and     bool(labels.intersection(processing_exclude))
-
-print(flag_skip)
+print(set(list_2).difference(list_1))
+print(set(list_1).difference(list_2))
