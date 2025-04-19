@@ -539,8 +539,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		                                   C20_StandardItem("",        flag_align_right=True),
 		                                   ])
 
-		incomes      : int      =     sum([item.income  for item in self._data_dynamic_dy])
-		outcomes     : int      = abs(sum([item.outcome for item in self._data_dynamic_dy]))
+		incomes      : int      =     sum([item.amount for item in self._operations if item.amount > 0])
+		outcomes     : int      = abs(sum([item.amount for item in self._operations if item.amount < 0]))
 
 		for label in sorted(self._data_distribution.keys()):
 			item = self._data_distribution[label]

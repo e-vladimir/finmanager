@@ -35,7 +35,7 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		idos            : list[str] = filter_data.Idos().data
 
-		for ido in idos[-300:]: self.UpdateDataOperations(ido, True)
+		for ido in idos[-1000:]: self.UpdateDataOperations(ido, True)
 
 	def UpdateDataOperations(self, ido: str, skip_calc: bool = False):
 		""" Обновление данных """
