@@ -1,10 +1,3 @@
-from G10_list import DifferenceLists
+data = {'174517-429479-127108-880502': False, '174517-434091-465401-050641': True, '174515-092011-722204-810090': True}
 
-list_1 = [1, 2, 3, 4, 5]
-list_2 = [4, 5, 6, 7, 8]
-
-print(DifferenceLists(list_1, list_2))
-print(DifferenceLists(list_1, list_2, True))
-
-print(set(list_2).difference(list_1))
-print(set(list_1).difference(list_2))
+print({ido for ido, result in data.items() if result})

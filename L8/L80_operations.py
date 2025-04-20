@@ -45,6 +45,7 @@ class C80_Operation(C70_Operation):
 
 		self.GenerateIdo()
 		self.RegisterObject(CONTAINERS.DISK)
+		self.RegisterObject(CONTAINERS.CACHE)
 
 		self.account_idos = accounts
 		self.amount       = amount
@@ -72,6 +73,7 @@ class C80_Operation(C70_Operation):
 
 		self.GenerateIdo()
 		self.RegisterObject(CONTAINERS.DISK)
+		self.RegisterObject(CONTAINERS.CACHE)
 
 		self.account_idos = accounts
 		self.amount       = amount
@@ -99,7 +101,7 @@ class C80_Operations(C70_Operations):
 
 	# Выборки данных
 	@classmethod
-	def Idos(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, include_skip: bool = True) -> list[str]:
+	def Idos(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, include_skip: bool = True, use_cache: bool = False) -> list[str]:
 		""" Список IDO финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -116,12 +118,12 @@ class C80_Operations(C70_Operations):
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_skip, None if include_skip else include_skip)
 		filter_data.FilterIdpVlpByInclude(idp_account, account_ido)
-		filter_data.Capture(CONTAINERS.DISK)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.Idos(idp_amount).data
 
 	@classmethod
-	def Amounts(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, include_skip: bool = True) -> list[float]:
+	def Amounts(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, include_skip: bool = True, use_cache: bool = False) -> list[float]:
 		""" Список сумм финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -138,12 +140,12 @@ class C80_Operations(C70_Operations):
 		filter_data.FilterIdpVlpByEqual(idp_dd, dd)
 		filter_data.FilterIdpVlpByEqual(idp_skip, None if include_skip else include_skip)
 		filter_data.FilterIdpVlpByInclude(idp_account, account_ido)
-		filter_data.Capture(CONTAINERS.DISK)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToFloats(idp_amount).data
 
 	@classmethod
-	def Dds(cls, dy: int, dm: int, include_skip: bool = True) -> list[float]:
+	def Dds(cls, dy: int, dm: int, include_skip: bool = True, use_cache: bool = False) -> list[float]:
 		""" Список чисел месяца финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -156,12 +158,12 @@ class C80_Operations(C70_Operations):
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
 		filter_data.FilterIdpVlpByEqual(idp_skip, None if include_skip else include_skip)
-		filter_data.Capture(CONTAINERS.DISK)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToIntegers(idp_dd, flag_sort=True, flag_distinct=True).data
 
 	@classmethod
-	def Descriptions(cls, dy: int = None, dm: int = None) -> list[str]:
+	def Descriptions(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
 		""" Список описаний """
 		operation             = C80_Operation()
 		idc             : str = operation.Idc().data
@@ -172,12 +174,12 @@ class C80_Operations(C70_Operations):
 		filter_data           = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		filter_data.Capture(CONTAINERS.DISK)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToStrings(idp_description, True, True).data
 
 	@classmethod
-	def Destinations(cls, dy: int = None, dm: int = None) -> list[str]:
+	def Destinations(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
 		""" Список описаний """
 		operation             = C80_Operation()
 		idc             : str = operation.Idc().data
@@ -188,12 +190,12 @@ class C80_Operations(C70_Operations):
 		filter_data           = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		filter_data.Capture(CONTAINERS.DISK)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToStrings(idp_destination, True, True).data
 
 	@classmethod
-	def Labels(cls, dy: int = None, dm: int = None) -> list[str]:
+	def Labels(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
 		""" Список описаний """
 		operation             = C80_Operation()
 		idc             : str = operation.Idc().data
@@ -204,7 +206,7 @@ class C80_Operations(C70_Operations):
 		filter_data           = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		filter_data.Capture(CONTAINERS.DISK)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		labels : set[str] = set()
 

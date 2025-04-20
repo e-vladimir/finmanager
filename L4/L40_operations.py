@@ -11,7 +11,14 @@ class C40_Operation(C31_StructFrameWithEvents):
 
 	_idc = "Финансовая операция"
 
+	def Init_00(self):
+		super().Init_00()
+
+		self._use_cache : bool = False
+
 	def Init_10(self):
+		super().Init_10()
+
 		self.FDy          = C30_StructField(self, "Год")
 		self.FDm          = C30_StructField(self, "Месяц")
 		self.FDd          = C30_StructField(self, "День")

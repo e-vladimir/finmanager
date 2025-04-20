@@ -61,8 +61,6 @@ class C90_FormImport(C80_FormImport):
 		""" Запрос импорта операций """
 		self.ImportOperations()
 
-		self.Application.FormOperations.PartialUpdateData()
-
 	def on_OperationsDataLoaded(self):
 		""" Данные импорта операций загружены """
 		self.InitModelDataOperations()
@@ -79,3 +77,13 @@ class C90_FormImport(C80_FormImport):
 		self.LoadModelDataOperations()
 
 		self.AdjustTableOperations_Size()
+
+	def on_Imported(self):
+		""" Выполнен импорт данных """
+		self.Workspace.CachingData()
+
+		self.Application.FormOperations.PartialUpdateData()
+
+		self.Application.FormAccounts.UpdateData()
+		self.Application.FormMain.UpdateData()
+		self.Application.FormAnalytics.UpdateData()

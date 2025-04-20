@@ -90,6 +90,8 @@ class C60_FormOperation(C50_FormOperation):
 		if not self.processing_ido: return
 
 		operation                                  = C90_Operation(self.processing_ido)
+		operation.use_cache                        = True
+
 		idp_amount      : str                      = operation.FAmount.Idp().data
 		idp_accounts    : str                      = operation.FAccountIdos.Idp().data
 		idp_description : str                      = operation.FDescription.Idp().data

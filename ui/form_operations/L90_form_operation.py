@@ -122,6 +122,8 @@ class C90_FormOperation(C80_FormOperation):
 
 	def on_OperationsReset(self):
 		""" Операции сброшены """
+		self.Workspace.CachingData()
+
 		self.InitModelData()
 		self.ShowOperations()
 
@@ -130,6 +132,8 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Colors()
 		self.AdjustTreeData_Size()
 
+		self.Application.FormMain.UpdateData()
+		self.Application.FormAccounts.PartialUpdateData()
 
 	# Операция
 	def on_RequestCreateOperation(self):
@@ -197,9 +201,15 @@ class C90_FormOperation(C80_FormOperation):
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Colors()
 
+		self.Application.FormMain.UpdateData()
+		self.Application.FormAccounts.PartialUpdateData()
+
 	def on_OperationDeleted(self):
 		""" Операция удалена """
 		self.CleanModelData()
+
+		self.Application.FormMain.UpdateData()
+		self.Application.FormAccounts.PartialUpdateData()
 
 	def on_OperationChanged(self):
 		""" Операция изменилась """
@@ -207,6 +217,9 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
+		self.Application.FormMain.UpdateData()
+		self.Application.FormAccounts.PartialUpdateData()
 
 
 	# Обработка данных

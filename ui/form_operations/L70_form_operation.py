@@ -57,7 +57,8 @@ class C70_FormOperation(C60_FormOperation):
 
 	def AdjustMenuOperation_Text(self):
 		""" Настройка меню операций: Название """
-		operation = C90_Operation(self.processing_ido)
+		operation           = C90_Operation(self.processing_ido)
+		operation.use_cache = True
 
 		if operation.skip:
 			self.ActionSwitchOperationSkip.setText("Учитывать операцию")
@@ -76,6 +77,8 @@ class C70_FormOperation(C60_FormOperation):
 		if not self.processing_ido: return
 
 		operation             = C90_Operation()
+		operation.use_cache   = True
+
 		idp_amount      : str = operation.FAmount.Idp().data
 		idp_accounts    : str = operation.FAccountIdos.Idp().data
 		idp_description : str = operation.FDescription.Idp().data

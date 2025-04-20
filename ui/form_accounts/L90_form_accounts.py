@@ -67,6 +67,12 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
 
+	def on_RequestPartialUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.LoadAccounts()
+
 
 	# Меню Счета
 	def on_RequestShowMenuAccounts(self):
@@ -171,7 +177,11 @@ class C90_FormAccounts(C80_FormAccounts):
 	def on_AccountChanged(self):
 		""" Счёт изменился """
 		self.LoadAccountInModelData()
+
 		self.AdjustTreeData_Sort()
+
+		self.Application.FormMain.PartialUpdateData()
+
 
 	def on_AccountDeleted(self):
 		""" Удалён счёт """
@@ -184,6 +194,8 @@ class C90_FormAccounts(C80_FormAccounts):
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+
+		self.Application.FormMain.PartialUpdateData()
 
 
 	# Дерево данных

@@ -7,3 +7,4 @@ class CONTAINERS(enum.StrEnum):
 	""" Контейнеры """
 	DISK   = "local"
 	MEMORY = "ram"
+	CACHE  = "cache"

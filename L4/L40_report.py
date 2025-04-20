@@ -11,5 +11,7 @@ class C40_Report(C20_MetaFrame):
 	""" Генератор отчётов: Модель данных """
 
 	def Init_10(self):
+		super().Init_10()
+
 		self.Accounts   = C90_Accounts()
 		self.Operations = C90_Operations()

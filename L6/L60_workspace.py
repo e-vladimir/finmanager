@@ -17,7 +17,11 @@ class C60_Workspace(C50_Workspace):
 
 	@dy.setter
 	def dy(self, year: int):
+		if year == self.dy: return
+
 		self.FDy.FromInteger(CONTAINERS.MEMORY, year)
+
+		self.on_DyDmChange()
 
 
 	# Месяц
@@ -27,7 +31,11 @@ class C60_Workspace(C50_Workspace):
 
 	@dm.setter
 	def dm(self, month: int):
+		if month == self.dm: return
+
 		self.FDm.FromInteger(CONTAINERS.MEMORY, month)
+
+		self.on_DyDmChange()
 
 
 	# IDO

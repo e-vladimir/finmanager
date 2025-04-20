@@ -17,3 +17,4 @@ class C50_FormImport(C42_FormImport):
 
 	def on_OperationsDataLoaded(self): pass
 	def on_OperationsStructChanged(self): pass
+	def on_Imported(self): pass

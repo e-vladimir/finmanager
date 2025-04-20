@@ -25,6 +25,7 @@ class C80_Application(C70_Application):
 	def InitContainers(self):
 		""" Инициализация контейнеров """
 		controller_containers.RegisterContainerRAM(CONTAINERS.MEMORY)
+		controller_containers.RegisterContainerRAM(CONTAINERS.CACHE)
 		controller_containers.RegisterContainerSQLite(CONTAINERS.DISK)
 
 		container_disk = controller_containers.Container(CONTAINERS.DISK)

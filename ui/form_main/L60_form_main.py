@@ -17,10 +17,11 @@ class C60_FormMain(C50_FormMain):
 		""" Сбор сумм """
 		self._amounts.clear()
 
-		dy, dm                   = self.Workspace.DyDm()
-		operation                = C90_Operation()
+		dy, dm              = self.Workspace.DyDm()
+		operation           = C90_Operation()
+		operation.use_cache = True
 
-		for operation_ido in self.Operations.Idos(dy, dm, include_skip=False):
+		for operation_ido in self.Operations.Idos(dy, dm, include_skip=False, use_cache=True):
 			operation.Ido(operation_ido)
 
 			amount = operation.amount

@@ -94,7 +94,7 @@ class C80_FormImport(C70_FormImport):
 
 		account_name      : str | None = RequestItem( "Импорт операций",
 		                                             f"Период импорта: {self.Workspace.DmDyToString()}",
-		                                              C90_Accounts.Names(dy, dm)
+		                                               C90_Accounts.Names(dy, dm)
 		                                             )
 		if     account_name is None                      : return
 
@@ -110,6 +110,8 @@ class C80_FormImport(C70_FormImport):
 		dialog_import.setLabelText(f"Осталось обработать записей: {dialog_import.maximum()}")
 		dialog_import.setMinimumWidth(480)
 		dialog_import.forceShow()
+
+		flag_import       : bool       = False
 
 		for idx_data, data in enumerate(self.operations_data):
 			dialog_import.setValue(idx_data + 1)
@@ -135,3 +137,9 @@ class C80_FormImport(C70_FormImport):
 			operation.description  = description
 			operation.account_idos = [account_ido]
 			operation.skip         = "перевод между счетами" in description.lower()
+
+			flag_import            = True
+
+		if not flag_import: return
+
+		self.on_Imported()

@@ -12,6 +12,8 @@ class C40_Account(C31_StructFrameWithEvents):
 	_idc = "Счёт"
 
 	def Init_10(self):
+		super().Init_10()
+		
 		self.FDm             = C30_StructField(self, "Месяц")
 		self.FDy             = C30_StructField(self, "Год")
 		self.FGroup          = C30_StructField(self, "Группа счетов")

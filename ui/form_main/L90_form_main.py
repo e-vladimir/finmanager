@@ -34,11 +34,25 @@ class C90_FormMain(C80_FormMain):
 	# Форма
 	def on_RequestOpen(self):
 		""" Открытие формы """
+		self.Workspace.CachingData()
 		self.on_DyDmChanged()
 
 	def on_RequestClose(self):
 		""" Закрытие формы """
 		self.Application.Close()
+
+	def on_RequestUpdateData(self):
+		""" Запрос обновления данных """
+		self.LoadAmounts()
+		self.SendAmountsToDiaDmView()
+
+		self.ShowAccounts()
+		self.ShowOperations()
+		self.ShowMonthView()
+
+	def on_RequestPartialUpdateData(self):
+		""" Запрос обновления данных """
+		self.ShowAccounts()
 
 
 	# Рабочий период
@@ -60,7 +74,6 @@ class C90_FormMain(C80_FormMain):
 		self.Application.FormImport.UpdateData()
 		self.Application.FormOperations.UpdateData()
 		self.Application.FormProcessing.UpdateData()
-
 
 	def on_RequestSwitchDyDmToNextDm(self):
 		""" Запрос на переключение рабочего периода на следующий месяц """

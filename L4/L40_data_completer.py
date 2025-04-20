@@ -10,6 +10,8 @@ class C40_DataCompleter(C31_StructFrameWithEvents):
 	""" Предиктивный анализатор данных: Модель данных """
 
 	def Init_00(self):
+		super().Init_00()
+
 		self._data_operations  : dict[str, T20_RawOperation] = dict()
 		self._data_destination : dict[str, T20_PredictItem]  = dict()
 		self._data_labels      : dict[str, T20_PredictItem]  = dict()
