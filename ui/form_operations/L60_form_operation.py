@@ -126,6 +126,7 @@ class C60_FormOperation(C50_FormOperation):
 
 		item_amount                                = self.ModelData.itemFromIndex(indexes[0])
 		item_amount.setText(AmountToString(operation.amount, flag_sign=True))
+		item_amount.setData(operation.amount, ROLES.SORT_INDEX)
 
 		item_accounts                              = self.ModelData.itemFromIndex(indexes[1])
 		item_accounts.setText('\n'.join(self.Accounts.IdosToNames(operation.account_idos)))
