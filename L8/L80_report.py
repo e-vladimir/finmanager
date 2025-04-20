@@ -124,7 +124,7 @@ class C80_Report(C70_Report):
 					subdata: list[str] = []
 					subdata.append(operation.DdDmDyToString())
 					subdata.append(AmountToString(operation.amount, flag_sign=True))
-					subdata.append(operation.description)
+					subdata.append(operation.DestinationOrDescription())
 
 					if not subdata: continue
 

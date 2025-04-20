@@ -119,7 +119,7 @@ class C60_FormAccounts(C50_FormAccounts):
 		item_initial_balance.setText(AmountToString(initial_balance, flag_point=False, flag_sign=False))
 
 		item_delta_balance                           = self.ModelData.itemFromIndex(indexes[2])
-		item_delta_balance.setText(AmountToString(delta_balance, flag_point=False, flag_sign=False))
+		item_delta_balance.setText(AmountToString(delta_balance, flag_point=False, flag_sign=True))
 
 		item_calculated_balance                      = self.ModelData.itemFromIndex(indexes[3])
 		item_calculated_balance.setText(AmountToString(summary_balance, flag_point=False, flag_sign=False))

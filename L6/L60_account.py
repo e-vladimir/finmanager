@@ -84,12 +84,12 @@ class C60_Account(C50_Account):
 	# Объём списаний
 	@property
 	def outcome_amount(self) -> int:
-		return sum(filter(lambda amount: amount < 0,
+		return abs(sum(filter(lambda amount: amount < 0,
 		                  C90_Operations.Amounts(dy         =self.dy,
 		                                         dm         =self.dm,
 		                                         account_ido=self.Ido().data)
 		                  )
-		           )
+		               ))
 
 
 	# IDO
