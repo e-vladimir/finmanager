@@ -21,7 +21,7 @@ class C60_FormMain(C50_FormMain):
 		operation           = C90_Operation()
 		operation.use_cache = True
 
-		for operation_ido in self.Operations.Idos(dy, dm, include_skip=False, use_cache=True):
+		for operation_ido in self.Operations.Idos(dy, dm, use_cache=True, exclude_skip=True):
 			operation.Ido(operation_ido)
 
 			amount = operation.amount

@@ -64,9 +64,11 @@ class C60_Account(C50_Account):
 	# Остаток на конец месяца
 	@property
 	def summary_balance(self) -> int:
-		return int(self.initial_balance + sum(C90_Operations.Amounts(dy=self.dy,
-		                                                             dm=self.dm,
-		                                                             account_ido=self.Ido().data)
+		return int(self.initial_balance + sum(C90_Operations.Amounts(dy                    = self.dy,
+		                                                             dm                    = self.dm,
+		                                                             account_ido           = self.Ido().data,
+		                                                             exclude_suboperations = True,
+		                                                             exclude_skip          = False)
 		                                      )
 		           )
 
@@ -77,7 +79,9 @@ class C60_Account(C50_Account):
 		return sum(filter(lambda amount: amount > 0,
 		                  C90_Operations.Amounts(dy         =self.dy,
 		                                         dm         =self.dm,
-		                                         account_ido=self.Ido().data)
+		                                         account_ido=self.Ido().data,
+		                                         exclude_skip=False,
+		                                         exclude_suboperations=True)
 		                  )
 		           )
 
@@ -87,7 +91,9 @@ class C60_Account(C50_Account):
 		return abs(sum(filter(lambda amount: amount < 0,
 		                  C90_Operations.Amounts(dy         =self.dy,
 		                                         dm         =self.dm,
-		                                         account_ido=self.Ido().data)
+		                                         account_ido=self.Ido().data,
+		                                         exclude_skip=False,
+		                                         exclude_suboperations=True)
 		                  )
 		               ))
 

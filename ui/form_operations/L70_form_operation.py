@@ -1,7 +1,7 @@
 # ФОРМА ОПЕРАЦИИ: МЕХАНИКА УПРАВЛЕНИЯ
 # 11 мар 2025
 
-from PySide6.QtGui import QCursor, QIcon, Qt
+from PySide6.QtGui      import QCursor, QIcon, Qt
 from PySide6.QtWidgets  import QHeaderView
 
 from L20_PySide6        import ROLES
@@ -53,7 +53,9 @@ class C70_FormOperation(C60_FormOperation):
 
 	def AdjustMenuOperation_Enable(self):
 		""" Настройка меню операций: Доступность """
-		pass
+		operation = C90_Operation(self.processing_ido)
+
+		self.ActionSwitchOperationSkip.setEnabled(not bool(operation.suboids))
 
 	def AdjustMenuOperation_Text(self):
 		""" Настройка меню операций: Название """
@@ -100,7 +102,7 @@ class C70_FormOperation(C60_FormOperation):
 
 	def AdjustTreeData_Colors(self):
 		""" Настройка дерева данных: Цветовая схема """
-		self.ModelData.adjustGroupView(True, True, True)
+		self.ModelData.adjustGroupView(False, True, True)
 
 	def AdjustTreeData_Size(self):
 		""" Настройка дерева данных: Размеры """

@@ -30,6 +30,7 @@ class C40_Operation(C31_StructFrameWithEvents):
 		self.FColor       = C30_StructField(self, "Цветовая метка")
 		self.FLabels      = C30_StructField(self, "Метки")
 		self.FSkip        = C30_StructField(self, "Не учитывать")
+		self.FParentIdo   = C30_StructField(self, "Корневая операция")
 
 
 class C40_Operations(C20_MetaFrame):

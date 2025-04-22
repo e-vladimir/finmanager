@@ -118,7 +118,7 @@ class C80_Report(C70_Report):
 			table_data: list[list[str]] = []
 
 			for dd in range(1, 32):
-				for operation_ido in self.Operations.Idos(dy, dm, dd, account_ido):
+				for operation_ido in self.Operations.Idos(dy, dm, dd, account_ido, use_cache=True, exclude_suboperations=True, exclude_skip=False):
 					operation.Ido(operation_ido)
 
 					subdata: list[str] = []

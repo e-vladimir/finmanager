@@ -28,8 +28,14 @@ border-radius: 5px;
 padding: 3px;
 }
 QTreeView::branch {
-background: white;
+background-color: white;
 border: none;
+}
+QTreeView::branch:open {
+    image: none;
+}
+QTreeView::branch:closed:has-children {
+    image: none;
 }</string>
       </property>
       <property name="editTriggers">

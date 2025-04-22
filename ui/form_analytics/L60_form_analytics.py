@@ -101,7 +101,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 		dy, dm                   = self.Workspace.DyDm()
 		operation                = C90_Operation()
-		for ido in self.Operations.Idos(dy, dm, include_skip=False):
+		for ido in self.Operations.Idos(dy, dm, use_cache=True, exclude_skip=True, exclude_suboperations=False):
 			operation.Ido(ido)
 
 			labels    : set[str] = set(operation.labels)
@@ -128,7 +128,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		for _ in range(12):
 			amounts : list[float] = []
 
-			for ido in self.Operations.Idos(dy, dm, include_skip=False):
+			for ido in self.Operations.Idos(dy, dm, exclude_skip=True, exclude_suboperations=False):
 				operation.Ido(ido)
 
 				labels    : set[str] = set(operation.labels)
@@ -252,11 +252,13 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 		dy, dm = self.Workspace.DyDm()
 
-		for label in self.Operations.Labels(dy, dm):
+		for label in self.Operations.Labels(dy, dm, use_cache=True):
 			amounts : list[float] = [operation.amount for operation in self._operations if label in operation.labels]
 
 			income  : int         =     int(sum([amount for amount in amounts if amount > 0]))
 			outcome : int         = abs(int(sum([amount for amount in amounts if amount < 0])))
+
+			if (not income) and (not outcome): continue
 
 			self._data_distribution[label] = T20_AnalyticItem(name    = label,
 			                                                  income  = income,

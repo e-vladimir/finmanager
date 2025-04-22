@@ -21,8 +21,8 @@ class C80_FormOperation(C70_FormOperation):
 		""" Отображение операций """
 		dy, dm = self.Workspace.DyDm()
 
-		for self.processing_dd  in self.Operations.Dds(dy, dm) : self.LoadDdInModelData()
-		for self.processing_ido in self.Operations.Idos(dy, dm): self.LoadOperationOnModelData()
+		for self.processing_dd  in self.Operations.Dds(dy, dm, use_cache=True)                             : self.LoadDdInModelData()
+		for self.processing_ido in self.Operations.Idos(dy, dm, use_cache=True, exclude_suboperations=True): self.LoadOperationOnModelData()
 
 	def ResetOperations(self):
 		""" Сброс операций """
@@ -80,6 +80,8 @@ class C80_FormOperation(C70_FormOperation):
 		""" Удаление операции """
 		operation = C90_Operation(self.processing_ido)
 		if not RequestConfirm("Удаление операции", operation.Information()): return
+
+		operation.DeleteSuboperations()
 
 		operation.DeleteObject(CONTAINERS.DISK)
 		operation.DeleteObject(CONTAINERS.CACHE)

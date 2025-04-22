@@ -97,8 +97,10 @@ class C60_FormOperation(C50_FormOperation):
 		idp_description : str                      = operation.FDescription.Idp().data
 		idp_labels      : str                      = operation.FLabels.Idp().data
 
-		item_dd         : C20_StandardItem | None  = self.ModelData.itemByData(operation.DdDmDyToString(), ROLES.TEXT)
-		if item_dd is None: return
+		if operation.parent_ido: item_parent : C20_StandardItem | None  = self.ModelData.itemByData(operation.parent_ido, ROLES.IDO)
+		else                   : item_parent : C20_StandardItem | None  = self.ModelData.itemByData(operation.DdDmDyToString(), ROLES.TEXT)
+
+		if item_parent is None: return
 
 		if not self.ModelData.checkIdo(self.processing_ido):
 			item_amount      = C20_StandardItem("", flag_align_right=True)
@@ -122,7 +124,7 @@ class C60_FormOperation(C50_FormOperation):
 			item_labels.setData(operation.dd,        ROLES.GROUP)
 			item_labels.setData(idp_labels,          ROLES.IDP)
 
-			item_dd.appendRow([item_amount, item_accounts, item_destination, item_labels])
+			item_parent.appendRow([item_amount, item_accounts, item_destination, item_labels])
 
 		indexes         : list[QModelIndex]        = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
@@ -137,7 +139,7 @@ class C60_FormOperation(C50_FormOperation):
 		item_destination.setText(operation.DestinationOrDescription())
 
 		item_labels                                = self.ModelData.itemFromIndex(indexes[3])
-		item_labels.setText(', '.join(operation.labels))
+		item_labels.setText("" if operation.suboids else ', '.join(operation.labels))
 
 		color_bg : QColor = QColor(255, 255, 255)
 		color_fg : QColor = QColor(  0,   0,   0)
@@ -151,7 +153,7 @@ class C60_FormOperation(C50_FormOperation):
 
 		if not operation.destination: color_fg = QColor(150, 150, 150)
 
-		self.ModelData.setRowColor(item_dd,
+		self.ModelData.setRowColor(item_parent,
 		                           item_amount.row(),
 		                           color_bg,
 		                           color_fg)
@@ -160,6 +162,8 @@ class C60_FormOperation(C50_FormOperation):
 		icon_show = QIcon()
 
 		item_amount.setIcon(icon_hide if operation.skip else icon_show)
+
+		for self.processing_ido in operation.suboids: self.LoadOperationOnModelData()
 
 	def CleanModelData(self):
 		""" Очистка модели от некорректных данных """
@@ -174,9 +178,14 @@ class C60_FormOperation(C50_FormOperation):
 				self.ModelData.removeRow(index_dd.row())
 				continue
 
-			for index_ido in self.ModelData.indexes(index_dd):
-				ido : str = index_ido.data(ROLES.IDO)
+			for index_ido in reversed(self.ModelData.indexes(index_dd)):
+				for index_subido in reversed(self.ModelData.indexes(index_ido)):
+					ido: str = index_subido.data(ROLES.IDO)
+					if ido in idos: continue
 
+					self.ModelData.removeRow(index_subido.row(), index_ido)
+
+				ido : str = index_ido.data(ROLES.IDO)
 				if ido in idos: continue
 
 				self.ModelData.removeRow(index_ido.row(), index_dd)

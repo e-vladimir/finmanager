@@ -198,6 +198,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.LoadOperationOnModelData()
 
 		self.AdjustTreeData_Expand()
+		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
 		self.AdjustTreeData_Colors()
 
@@ -208,6 +209,9 @@ class C90_FormOperation(C80_FormOperation):
 		""" Операция удалена """
 		self.CleanModelData()
 
+		self.AdjustTreeData_Size()
+		self.AdjustTreeData_Colors()
+
 		self.Application.FormMain.UpdateData()
 		self.Application.FormAccounts.PartialUpdateData()
 
@@ -215,8 +219,10 @@ class C90_FormOperation(C80_FormOperation):
 		""" Операция изменилась """
 		self.LoadOperationOnModelData()
 
+		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Size()
 		self.AdjustTreeData_Sort()
+		self.AdjustTreeData_Colors()
 
 		self.Application.FormMain.UpdateData()
 		self.Application.FormAccounts.PartialUpdateData()

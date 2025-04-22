@@ -1,11 +1,12 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 # 11 мар 2025
 
-from G10_list       import ClearList
+from G10_list               import ClearList
+from G30_cactus_datafilters import C30_FilterLinear1D
 
-from L00_colors     import COLORS
-from L00_containers import CONTAINERS
-from L50_operations import C50_Operation, C50_Operations
+from L00_colors             import COLORS
+from L00_containers         import CONTAINERS
+from L50_operations         import C50_Operation, C50_Operations
 
 
 class C60_Operation(C50_Operation):
@@ -150,6 +151,38 @@ class C60_Operation(C50_Operation):
 		if not self.use_cache: return
 		self.FSkip.FromBoolean(CONTAINERS.CACHE, flag)
 
+
+	# Корневая операция
+	@property
+	def parent_ido(self) -> str:
+		return self.FParentIdo.ToString(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+
+	@parent_ido.setter
+	def parent_ido(self, ido: str):
+		self.FParentIdo.FromString(CONTAINERS.DISK, ido)
+
+		if not self.use_cache: return
+		self.FParentIdo.FromString(CONTAINERS.CACHE, ido)
+
+
+	# Дочерние операции
+	@property
+	def suboids(self) -> list[str]:
+		idc         : str = self.Idc().data
+		idp_amount  : str = self.FAmount.Idp().data
+		idp_dd      : str = self.FDd.Idp().data
+		idp_dm      : str = self.FDm.Idp().data
+		idp_dy      : str = self.FDy.Idp().data
+		idp_parent  : str = self.FParentIdo.Idp().data
+
+		filter_data       = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dd, self.dd)
+		filter_data.FilterIdpVlpByEqual(idp_dm, self.dm)
+		filter_data.FilterIdpVlpByEqual(idp_dy, self.dy)
+		filter_data.FilterIdpVlpByEqual(idp_parent, self.Ido().data)
+		filter_data.Capture(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK)
+
+		return filter_data.Idos(idp_amount).data
 
 
 class C60_Operations(C50_Operations):

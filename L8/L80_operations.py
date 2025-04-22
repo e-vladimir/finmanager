@@ -13,6 +13,7 @@ from L70_operations         import C70_Operation, C70_Operations
 class C80_Operation(C70_Operation):
 	""" Финансовая операция: Логика данных """
 
+	# Выборка данных
 	def DestinationOrDescription(self) -> str:
 		""" Назначение или описание """
 		return self.destination or self.description
@@ -30,6 +31,8 @@ class C80_Operation(C70_Operation):
 		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
 		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()}\n{self.DestinationOrDescription()}"
 
+
+	# Управление операцией
 	def Split(self, amount: int) -> str:
 		""" Разделение операции """
 		accounts    = self.account_idos
@@ -39,9 +42,17 @@ class C80_Operation(C70_Operation):
 		destination = self.destination
 		dm          = self.dm
 		dy          = self.dy
+		labels      = self.labels
+		parent_ido  = self.parent_ido
 		skip        = self.skip
 
-		self.amount -= amount
+		if not parent_ido:
+			parent_ido = self.Ido().data
+			self.skip    = True
+			skip = False
+
+		else                  :
+			self.amount -= amount
 
 		self.GenerateIdo()
 		self.RegisterObject(CONTAINERS.DISK)
@@ -55,6 +66,8 @@ class C80_Operation(C70_Operation):
 		self.destination  = destination
 		self.dm           = dm
 		self.dy           = dy
+		self.labels       = labels
+		self.parent_ido   = parent_ido
 		self.skip         = skip
 
 		return self.Ido().data
@@ -70,6 +83,7 @@ class C80_Operation(C70_Operation):
 		dm          = self.dm
 		dy          = self.dy
 		skip        = self.skip
+		parent_ido  = self.parent_ido
 
 		self.GenerateIdo()
 		self.RegisterObject(CONTAINERS.DISK)
@@ -84,6 +98,7 @@ class C80_Operation(C70_Operation):
 		self.dm           = dm
 		self.dy           = dy
 		self.skip         = skip
+		self.parent_ido   = parent_ido
 
 		return self.Ido().data
 
@@ -96,12 +111,19 @@ class C80_Operation(C70_Operation):
 		                        labels      = self.labels)
 
 
+	# Управление дочерними операциями
+	def DeleteSuboperations(self):
+		for suboid in self.suboids:
+			C80_Operation(suboid).DeleteObject(CONTAINERS.DISK)
+			C80_Operation(suboid).DeleteObject(CONTAINERS.CACHE)
+
+
 class C80_Operations(C70_Operations):
 	""" Финансовые операции: Логика данных """
 
 	# Выборки данных
 	@classmethod
-	def Idos(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, include_skip: bool = True, use_cache: bool = False) -> list[str]:
+	def Idos(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, use_cache: bool = False, exclude_skip: bool = False, exclude_suboperations: bool = False) -> list[str]:
 		""" Список IDO финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -110,20 +132,22 @@ class C80_Operations(C70_Operations):
 		idp_dd      : str = operation.FDd.Idp().data
 		idp_dm      : str = operation.FDm.Idp().data
 		idp_dy      : str = operation.FDy.Idp().data
+		idp_parent  : str = operation.FParentIdo.Idp().data
 		idp_skip    : str = operation.FSkip.Idp().data
 
 		filter_data       = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dd, dd)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
-		filter_data.FilterIdpVlpByEqual(idp_skip, None if include_skip else include_skip)
+		filter_data.FilterIdpVlpByEqual(idp_skip, False if exclude_skip else None)
+		filter_data.FilterIdpVlpByEqual(idp_parent, "" if exclude_suboperations else None)
 		filter_data.FilterIdpVlpByInclude(idp_account, account_ido)
 		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.Idos(idp_amount).data
 
 	@classmethod
-	def Amounts(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, include_skip: bool = True, use_cache: bool = False) -> list[float]:
+	def Amounts(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, use_cache: bool = False, exclude_skip: bool = True, exclude_suboperations: bool = False) -> list[float]:
 		""" Список сумм финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -132,13 +156,15 @@ class C80_Operations(C70_Operations):
 		idp_dd      : str = operation.FDd.Idp().data
 		idp_dm      : str = operation.FDm.Idp().data
 		idp_dy      : str = operation.FDy.Idp().data
+		idp_parent  : str = operation.FParentIdo.Idp().data
 		idp_skip    : str = operation.FSkip.Idp().data
 
 		filter_data       = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
 		filter_data.FilterIdpVlpByEqual(idp_dd, dd)
-		filter_data.FilterIdpVlpByEqual(idp_skip, None if include_skip else include_skip)
+		filter_data.FilterIdpVlpByEqual(idp_skip, False if exclude_skip else None)
+		filter_data.FilterIdpVlpByEqual(idp_parent, "" if exclude_suboperations else None)
 		filter_data.FilterIdpVlpByInclude(idp_account, account_ido)
 		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 

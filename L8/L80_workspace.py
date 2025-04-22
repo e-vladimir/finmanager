@@ -30,6 +30,6 @@ class C80_Workspace(C70_Workspace):
 
 		operation = C90_Operation()
 
-		for ido in C90_Operations.Idos(self.dy, self.dm, include_skip=True, use_cache=False):
+		for ido in C90_Operations.Idos(self.dy, self.dm, use_cache=False):
 			operation.Ido(ido)
 			operation.CopyToContainer(CONTAINERS.DISK, CONTAINERS.CACHE)

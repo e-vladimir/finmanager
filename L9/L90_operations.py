@@ -8,6 +8,7 @@ class C90_Operation(C80_Operation):
 	""" Финансовая операция: Логика управления """
 
 	def on_ObjectRegistered(self, container_name: str):
+		""" Объект зарегистрирован """
 		self.dd           = 0
 		self.dm           = 0
 		self.dy           = 0
@@ -17,6 +18,7 @@ class C90_Operation(C80_Operation):
 		self.description  = ""
 		self.destination  = ""
 		self.labels       = []
+		self.parent_ido   = ""
 		self.skip         = False
 
 
