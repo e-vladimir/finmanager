@@ -79,6 +79,7 @@ class C60_FormOperation(C50_FormOperation):
 		item_dd.setText(name_dd)
 		item_dd.setData(self.processing_dd, ROLES.GROUP)
 		item_dd.setData(self.processing_dd, ROLES.SORT_INDEX)
+		item_dd.setIcon(QIcon("./L0/icons/list.svg"))
 
 		self.ModelData.appendRow([item_dd,
 		                          C20_StandardItem(""),
@@ -158,10 +159,9 @@ class C60_FormOperation(C50_FormOperation):
 		                           color_bg,
 		                           color_fg)
 
-		icon_hide = QIcon("./L0/icons/hide.svg")
-		icon_show = QIcon()
-
-		item_amount.setIcon(icon_hide if operation.skip else icon_show)
+		if   operation.suboids: item_amount.setIcon(QIcon("./L0/icons/square_black.svg"))
+		elif operation.skip   :	item_amount.setIcon(QIcon("./L0/icons/hide.svg"))
+		else                  : item_amount.setIcon(QIcon())
 
 		for self.processing_ido in operation.suboids: self.LoadOperationOnModelData()
 
