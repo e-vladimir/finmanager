@@ -531,6 +531,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 	def LoadDataDistributionInModel(self):
 		""" Загрузка данных распределения в модель """
+		if not self._data_distribution: return
+
 		item_root = C20_StandardItem(f"АНАЛИТИКА РАСПРЕДЕЛЕНИЯ ОБЪЁМА ЗА {self.Workspace.DmDyToString().upper()}")
 		self.ModelDataAnalytics.appendRow([item_root,
 		                                   C20_StandardItem("ед.изм.", flag_align_right=True),

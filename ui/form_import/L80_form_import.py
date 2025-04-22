@@ -136,7 +136,6 @@ class C80_FormImport(C70_FormImport):
 			operation.amount       = amount
 			operation.description  = description
 			operation.account_idos = [account_ido]
-			operation.skip         = "перевод между счетами" in description.lower()
 
 			flag_import            = True
 

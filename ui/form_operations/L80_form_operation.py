@@ -162,13 +162,15 @@ class C80_FormOperation(C70_FormOperation):
 
 	def SplitOperation(self):
 		""" Разделение операции """
-		operation           = C90_Operation(self.processing_ido)
-		operation.use_cache = True
+		operation               = C90_Operation(self.processing_ido)
+		operation.use_cache     = True
 
-		amount : int | None = RequestValue("Разделение операции", f"{operation.Information()}", int(operation.amount), -99999999, 99999999)
+		subammount : int        = int(sum([C90_Operation(oid).amount for oid in operation.suboids]))
+
+		amount     : int | None = RequestValue("Разделение операции", f"{operation.Information()}", int(operation.amount) - subammount, -99999999, 99999999)
 		if amount is None: return
 
-		new_ido : str = operation.Split(amount)
+		new_ido    : str        = operation.Split(amount)
 		self.on_OperationChanged()
 
 		self.processing_ido = new_ido
