@@ -33,3 +33,6 @@ class C80_Workspace(C70_Workspace):
 		for ido in C90_Operations.Idos(self.dy, self.dm, use_cache=False):
 			operation.Ido(ido)
 			operation.CopyToContainer(CONTAINERS.DISK, CONTAINERS.CACHE)
+
+			operation.use_cache = True
+			operation.CalcSuboids()

@@ -1,6 +1,5 @@
 # ФОРМА ОПЕРАЦИИ: ЛОГИКА УПРАВЛЕНИЯ
 # 11 мар 2025
-import time
 
 from L00_colors         import COLORS
 from L80_form_operation import C80_FormOperation
@@ -44,11 +43,8 @@ class C90_FormOperation(C80_FormOperation):
 		""" Форма открыта """
 		self.ShowTitle()
 
-		time_0 = time.time()
 		self.InitModelData()
 		self.ShowOperations()
-		time_1 = time.time()
-		print(f"{(time_1 - time_0):0.3f}")
 
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Sort()

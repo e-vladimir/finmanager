@@ -155,6 +155,13 @@ class C60_Operation(C50_Operation):
 	# Дочерние операции
 	@property
 	def suboids(self) -> list[str]:
+		return self.FSuboids.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+
+	@suboids.setter
+	def suboids(self, oids: list[str]):
+		self.FSuboids.FromStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK, oids)
+
+	def CalcSuboids(self):
 		idc         : str = self.Idc().data
 		idp_amount  : str = self.FAmount.Idp().data
 		idp_dd      : str = self.FDd.Idp().data
@@ -169,7 +176,7 @@ class C60_Operation(C50_Operation):
 		filter_data.FilterIdpVlpByEqual(idp_parent, self.Ido().data)
 		filter_data.Capture(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK)
 
-		return filter_data.Idos(idp_amount).data
+		self.suboids = filter_data.Idos(idp_amount).data
 
 
 class C60_Operations(C50_Operations):
