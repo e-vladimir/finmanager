@@ -3,12 +3,11 @@
 
 from pathlib            import Path
 
-from G10_list           import ClearList
 from G11_convertor_data import AmountToString
 
 from L00_colors         import COLORS
 from L00_containers     import CONTAINERS
-from L20_PySide6        import RequestConfirm, RequestItems, RequestMultipleText, RequestText, RequestValue, ShowMessage
+from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue, ShowMessage
 from L70_form_operation import C70_FormOperation
 from L90_operations     import C90_Operation
 
@@ -128,25 +127,6 @@ class C80_FormOperation(C70_FormOperation):
 		if destination is None: return
 
 		operation.destination    = destination
-
-		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
-
-		self.on_OperationChanged()
-
-	def EditOperationLabels(self):
-		""" Редактирование меток """
-		operation                 = C90_Operation(self.processing_ido)
-		operation.use_cache       = True
-
-		processing_labels : set[str] = set(operation.labels).union(self.Application.DataCompleter.PredictLabels(operation.description, operation.destination))
-
-		labels : list[str] | None = RequestMultipleText("Редактирование операции",
-		                                                f"{operation.Information()}\n\nМетки:",
-		                                                list(sorted(processing_labels)),
-		                                                ClearList(self.Operations.Labels()))
-		if labels is None: return
-
-		operation.labels = labels
 
 		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
 

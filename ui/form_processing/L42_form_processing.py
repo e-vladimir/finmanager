@@ -30,12 +30,6 @@ class C42_FormProcessing(C41_FormProcessing):
 		self._manual_destination_replace : T20_ProcessingItem = T20_ProcessingItem(False, "")
 		self._manual_destination_set     : T20_ProcessingItem = T20_ProcessingItem(False, "")
 
-		self._manual_labels_add          : T20_ProcessingItem = T20_ProcessingItem(False, [])
-		self._manual_labels_exclude      : T20_ProcessingItem = T20_ProcessingItem(False, [])
-		self._manual_labels_include      : T20_ProcessingItem = T20_ProcessingItem(False, [])
-		self._manual_labels_remove       : T20_ProcessingItem = T20_ProcessingItem(False, [])
-		self._manual_labels_replace      : T20_ProcessingItem = T20_ProcessingItem(False, "")
-
 		self._manual_color_set           : T20_ProcessingItem = T20_ProcessingItem(False, COLORS.BLACK)
 
 		self._manual_skip_set            : T20_ProcessingItem = T20_ProcessingItem(False, False)

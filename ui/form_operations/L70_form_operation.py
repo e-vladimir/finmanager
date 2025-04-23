@@ -26,7 +26,6 @@ class C70_FormOperation(C60_FormOperation):
 			self.MenuOperation.addAction(self.ActionEditOperationAmount)
 			self.MenuOperation.addAction(self.ActionEditOperationAccounts)
 			self.MenuOperation.addAction(self.ActionEditOperationDescription)
-			self.MenuOperation.addAction(self.ActionEditOperationLabels)
 			self.MenuOperation.addAction(self.ActionSwitchOperationSkip)
 			self.MenuOperation.addSeparator()
 			self.MenuOperation.addAction(self.ActionSetOperationColorBlack)
@@ -84,12 +83,10 @@ class C70_FormOperation(C60_FormOperation):
 		idp_amount      : str = operation.FAmount.Idp().data
 		idp_accounts    : str = operation.FAccountIdos.Idp().data
 		idp_description : str = operation.FDescription.Idp().data
-		idp_labels      : str = operation.FLabels.Idp().data
 
 		if   self.processing_idp == idp_amount     : self.on_RequestEditOperationAmount()
 		elif self.processing_idp == idp_accounts   : self.on_RequestEditOperationAccounts()
 		elif self.processing_idp == idp_description: self.on_RequestEditOperationDescriptions()
-		elif self.processing_idp == idp_labels     : self.on_RequestEditOperationLabels()
 
 	def AdjustTreeData_Sort(self):
 		""" Настройка дерева данных: Сортировка """
@@ -110,4 +107,3 @@ class C70_FormOperation(C60_FormOperation):
 		self.TreeData.resizeColumnToContents(1)
 
 		self.TreeData.header().setSectionResizeMode(2, QHeaderView.ResizeMode.Stretch)
-		self.TreeData.header().setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)

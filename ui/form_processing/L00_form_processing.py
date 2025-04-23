@@ -28,12 +28,6 @@ class PROCESSING_FIELDS(enum.StrEnum):
 	DESTINATION_SET     = "Установить назначение"
 	DESTINATION_ADD     = "Дополнить назначение"
 
-	LABELS_ADD          = "Добавить метку"
-	LABELS_EXCLUDE      = "Метки не содержат"
-	LABELS_INCLUDE      = "Метки содержат"
-	LABELS_REMOVE       = "Убрать метку"
-	LABELS_REPLACE      = "Заменить метку"
-
 	COLOR_SET           = "Установить цветовую метку"
 
 	SKIP_SET            = "Установить пропуск операции"

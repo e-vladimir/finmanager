@@ -104,17 +104,9 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		for ido in self.Operations.Idos(dy, dm, use_cache=True, exclude_skip=True, exclude_suboperations=False):
 			operation.Ido(ido)
 
-			labels    : set[str] = set(operation.labels)
-
-			flag_skip : bool     = True
-			flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
-			flag_skip           |= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
-
-			if flag_skip: continue
-
 			self._operations.append(T20_Operation(dd     = operation.dd,
-			                                      amount = operation.amount,
-			                                      labels = labels))
+			                                      amount = operation.amount
+			                                      ))
 
 
 	# Данные динамики за год
@@ -130,14 +122,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 			for ido in self.Operations.Idos(dy, dm, exclude_skip=True, exclude_suboperations=False):
 				operation.Ido(ido)
-
-				labels    : set[str] = set(operation.labels)
-
-				flag_skip : bool     = True
-				flag_skip           &= bool(self.processing_include) and not labels.intersection(self.processing_include)
-				flag_skip           |= bool(self.processing_exclude) and     labels.intersection(self.processing_exclude)
-
-				if flag_skip: continue
 
 				amounts.append(operation.amount)
 
@@ -249,37 +233,6 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def ReadDataDistribution(self):
 		""" Чтение данных """
 		self._data_distribution.clear()
-
-		dy, dm = self.Workspace.DyDm()
-
-		for label in self.Operations.Labels(dy, dm, use_cache=True):
-			amounts : list[float] = [operation.amount for operation in self._operations if label in operation.labels]
-
-			income  : int         =     int(sum([amount for amount in amounts if amount > 0]))
-			outcome : int         = abs(int(sum([amount for amount in amounts if amount < 0])))
-
-			if (not income) and (not outcome): continue
-
-			self._data_distribution[label] = T20_AnalyticItem(name    = label,
-			                                                  income  = income,
-			                                                  outcome = outcome)
-
-		for ido in self.Analytics.Idos():
-			analytic_item         = C90_AnalyticsItem(ido)
-			amounts : list[float] = []
-
-			for operation in self._operations:
-				if analytic_item.include and not set(analytic_item.include).intersection(operation.labels): continue
-				if analytic_item.exclude and     set(analytic_item.exclude).intersection(operation.labels): continue
-
-				amounts.append(operation.amount)
-
-			income  : int         =     int(sum([amount for amount in amounts if amount > 0]))
-			outcome : int         = abs(int(sum([amount for amount in amounts if amount < 0])))
-
-			self._data_distribution[analytic_item.name] = T20_AnalyticItem(name    = analytic_item.name,
-						                                                   income  = income,
-						                                                   outcome = outcome)
 
 
 	# Модель данных - Элементы аналитики

@@ -51,7 +51,6 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		self.ActionEditOperationAccounts    = QAction(icon_wallet,      "Редактировать счета")
 		self.ActionEditOperationAmount      = QAction(icon_money,       "Редактировать сумму")
 		self.ActionEditOperationDescription = QAction(icon_edit,        "Редактировать описание")
-		self.ActionEditOperationLabels      = QAction(icon_edit,        "Редактировать метки")
 		self.ActionSwitchOperationSkip      = QAction(icon_hide,        "Не учитывать операцию")
 		self.ActionSetOperationColorBlack   = QAction(icon_color_black, "Чёрный")
 		self.ActionSetOperationColorBlue    = QAction(icon_color_blue,  "Синий")

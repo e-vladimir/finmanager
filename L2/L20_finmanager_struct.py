@@ -31,4 +31,3 @@ class T20_RawOperation:
 	amount      : int       = 0
 	description : str       = ""
 	destination : str       = ""
-	labels      : list[str] = field(default_factory=list)

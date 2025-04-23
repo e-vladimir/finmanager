@@ -3,7 +3,7 @@
 
 from L00_containers     import CONTAINERS
 from L00_form_analytics import ANALYTICS_DATA
-from L20_PySide6        import ROLES, RequestConfirm, RequestItems, RequestText
+from L20_PySide6        import ROLES, RequestConfirm, RequestText
 from L70_form_analytics import C70_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -62,31 +62,11 @@ class C80_FormAnalytics(C70_FormAnalytics):
 
 	def EditItemInclude(self):
 		""" Редактирование данных Признаки+ """
-		analytics_item = C90_AnalyticsItem(self.processing_ido)
-
-		labels : list[str] | None = RequestItems("Управление элементом аналитики",
-		                                         "Признаки+:",
-		                                         self.Operations.Labels(),
-		                                         analytics_item.include)
-		if labels is None: return
-
-		analytics_item.include = labels
-
-		self.on_ItemChanged()
+		pass
 
 	def EditItemExclude(self):
 		""" Редактирование данных Признаки- """
-		analytics_item = C90_AnalyticsItem(self.processing_ido)
-
-		labels : list[str] | None = RequestItems("Управление элементом аналитики",
-		                                         "Признаки-:",
-		                                         self.Operations.Labels(),
-		                                         analytics_item.exclude)
-		if labels is None: return
-
-		analytics_item.exclude = labels
-
-		self.on_ItemChanged()
+		pass
 
 
 	# Параметры аналитики

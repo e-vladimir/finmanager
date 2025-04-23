@@ -53,10 +53,6 @@ class C60_FormProcessing(C50_FormProcessing):
 	def processing_ido(self, ido: str):
 		self._processing_ido = ido
 
-	def ReadProcessingIdoFromTableDataAuto(self):
-		""" Чтение из таблицы данных автоматической обработки """
-		self.processing_ido = self.TableDataAuto.currentIndex().data(ROLES.IDO)
-
 
 	# Рабочий PID
 	@property
@@ -66,10 +62,6 @@ class C60_FormProcessing(C50_FormProcessing):
 	@processing_idp.setter
 	def processing_idp(self, idp: str):
 		self._processing_idp = idp
-
-	def ReadProcessingIdpFromTableDataAuto(self):
-		""" Чтение из таблицы дынных автоматической обработки """
-		self.processing_idp = self.TableDataAuto.currentIndex().data(ROLES.IDP)
 
 
 	# Параметр ручной обработки: Описание включает
@@ -227,115 +219,6 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.on_OptionsManualChanged()
 
 
-	# Параметр ручной обработки: Добавление метки
-	def ReadManualLabelsAdd(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.LABELS_ADD,
-		                                                                 ROLES.IDO)
-
-		self._manual_labels_add.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualLabelsAdd(self):
-		""" Установка параметра """
-		labels : list[str] | None = RequestMultipleText("Обработка операций",
-		                                                "Добавление меток",
-		                                                self._manual_labels_add.data,
-		                                                ClearList(self.Operations.Labels()))
-		if labels is None: return
-
-		self._manual_labels_add.data = ClearList(labels, clear_short=False)
-
-		self.on_OptionsManualChanged()
-
-
-	# Параметр ручной обработки: Метки не содержат
-	def ReadManualLabelsExclude(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.LABELS_EXCLUDE,
-		                                                                 ROLES.IDO)
-
-		self._manual_labels_exclude.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualLabelsExclude(self):
-		""" Установка параметра """
-		dy, dm                    = self.Workspace.DyDm()
-		labels : list[str] | None = RequestMultipleText("Обработка операций",
-		                                                "Метки не содержат",
-		                                                self._manual_labels_exclude.data,
-		                                                ClearList(self.Operations.Labels(dy, dm)))
-		if labels is None: return
-
-		self._manual_labels_exclude.data = ClearList(labels, clear_short=False)
-
-		self.on_OptionsManualChanged()
-
-
-	# Параметр ручной обработки: Метки содержат
-	def ReadManualLabelsInclude(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.LABELS_INCLUDE,
-		                                                                 ROLES.IDO)
-
-		self._manual_labels_include.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualLabelsInclude(self):
-		""" Установка параметра """
-		dy, dm                    = self.Workspace.DyDm()
-		labels : list[str] | None = RequestMultipleText("Обработка операций",
-		                                                "Метки содержат",
-		                                                self._manual_labels_include.data,
-		                                                ClearList(self.Operations.Labels(dy, dm)))
-		if labels is None: return
-
-		self._manual_labels_include.data = ClearList(labels, clear_short=False)
-
-		self.on_OptionsManualChanged()
-
-
-	# Параметр ручной обработки: Убрать метку
-	def ReadManualLabelsRemove(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.LABELS_REMOVE,
-		                                                                 ROLES.IDO)
-
-		self._manual_labels_remove.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualLabelsRemove(self):
-		""" Установка параметра """
-		dy, dm                    = self.Workspace.DyDm()
-		labels : list[str] | None = RequestMultipleText("Обработка операций",
-		                                                "Убрать метки",
-		                                                self._manual_labels_remove.data,
-		                                                ClearList(self.Operations.Labels(dy, dm)))
-		if labels is None: return
-
-		self._manual_labels_remove.data = ClearList(labels, clear_short=False)
-
-		self.on_OptionsManualChanged()
-
-
-	# Параметр ручной обработки: Заменить метку
-	def ReadManualLabelsReplace(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.LABELS_REPLACE,
-		                                                                 ROLES.IDO)
-
-		self._manual_labels_replace.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualLabelsReplace(self):
-		""" Установка параметра """
-		dy, dm            = self.Workspace.DyDm()
-		text : str | None = RequestText("Обработка данных",
-		                                "Замена меток: " + ', '.join(self._manual_labels_include.data),
-		                                self._manual_labels_replace.data,
-		                                ClearList(self.Operations.Labels(dy, dm)))
-		if text is None: return
-
-		self._manual_labels_replace.data   = text
-
-		self.on_OptionsManualChanged()
-
-
 	# Параметр ручной обработки: Установить цветовую метку
 	def ReadManualColorSet(self):
 		""" Чтение параметра из дерева данных """
@@ -382,8 +265,6 @@ class C60_FormProcessing(C50_FormProcessing):
 		                     PROCESSING_FIELDS.DESCRIPTION_EXCLUDE,
 		                     PROCESSING_FIELDS.DESTINATION_INCLUDE,
 		                     PROCESSING_FIELDS.DESTINATION_EXCLUDE,
-					         PROCESSING_FIELDS.LABELS_INCLUDE,
-					         PROCESSING_FIELDS.LABELS_EXCLUDE,
 		                     ]
 
 		group_filter      = C20_StandardItem("Параметры фильтрации")
@@ -404,9 +285,6 @@ class C60_FormProcessing(C50_FormProcessing):
 		items             = [PROCESSING_FIELDS.DESTINATION_ADD,
 							 PROCESSING_FIELDS.DESTINATION_REPLACE,
 					         PROCESSING_FIELDS.DESTINATION_SET,
-					         PROCESSING_FIELDS.LABELS_ADD,
-		                     PROCESSING_FIELDS.LABELS_REPLACE,
-		                     PROCESSING_FIELDS.LABELS_REMOVE,
 		                     PROCESSING_FIELDS.COLOR_SET,
 		                     PROCESSING_FIELDS.SKIP_SET,
 		                     ]
@@ -454,26 +332,6 @@ class C60_FormProcessing(C50_FormProcessing):
 		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESTINATION_SET):
 			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESTINATION_SET)[1])
 			item_value.setText(self._manual_destination_set.data)
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.LABELS_ADD):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.LABELS_ADD)[1])
-			item_value.setText('\n'.join(self._manual_labels_add.data))
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.LABELS_EXCLUDE):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.LABELS_EXCLUDE)[1])
-			item_value.setText('\n'.join(self._manual_labels_exclude.data))
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.LABELS_INCLUDE):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.LABELS_INCLUDE)[1])
-			item_value.setText('\n'.join(self._manual_labels_include.data))
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.LABELS_REMOVE):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.LABELS_REMOVE)[1])
-			item_value.setText('\n'.join(self._manual_labels_remove.data))
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.LABELS_REPLACE):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.LABELS_REPLACE)[1])
-			item_value.setText(self._manual_labels_replace.data)
 
 		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.COLOR_SET):
 			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.COLOR_SET)[1])

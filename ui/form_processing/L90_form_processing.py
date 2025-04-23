@@ -64,11 +64,6 @@ class C90_FormProcessing(C80_FormProcessing):
 		self.ReadManualDestinationInclude()
 		self.ReadManualDestinationReplace()
 		self.ReadManualDestinationSet()
-		self.ReadManualLabelsAdd()
-		self.ReadManualLabelsExclude()
-		self.ReadManualLabelsInclude()
-		self.ReadManualLabelsRemove()
-		self.ReadManualLabelsReplace()
 		self.ReadManualSkipSet()
 
 		self.ManualProcessing()

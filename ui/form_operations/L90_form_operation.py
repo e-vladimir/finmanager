@@ -1,5 +1,6 @@
 # ФОРМА ОПЕРАЦИИ: ЛОГИКА УПРАВЛЕНИЯ
 # 11 мар 2025
+import time
 
 from L00_colors         import COLORS
 from L80_form_operation import C80_FormOperation
@@ -27,7 +28,6 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
 		self.ActionEditOperationAccounts.triggered.connect(self.on_RequestEditOperationAccounts)
 		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescriptions)
-		self.ActionEditOperationLabels.triggered.connect(self.on_RequestEditOperationLabels)
 		self.ActionSwitchOperationSkip.triggered.connect(self.on_RequestSwitchOperationSkip)
 		self.ActionDeleteOperation.triggered.connect(self.on_RequestDeleteOperation)
 		self.ActionSetOperationColorBlack.triggered.connect(self.on_RequestSetOperationColorToBlack)
@@ -44,8 +44,11 @@ class C90_FormOperation(C80_FormOperation):
 		""" Форма открыта """
 		self.ShowTitle()
 
+		time_0 = time.time()
 		self.InitModelData()
 		self.ShowOperations()
+		time_1 = time.time()
+		print(f"{(time_1 - time_0):0.3f}")
 
 		self.AdjustTreeData_Expand()
 		self.AdjustTreeData_Sort()
@@ -135,6 +138,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.Application.FormMain.UpdateData()
 		self.Application.FormAccounts.PartialUpdateData()
 
+
 	# Операция
 	def on_RequestCreateOperation(self):
 		""" Запрос создания операции """
@@ -155,10 +159,6 @@ class C90_FormOperation(C80_FormOperation):
 	def on_RequestEditOperationDescriptions(self):
 		""" Запрос редактирования описания операции """
 		self.EditOperationDestination()
-
-	def on_RequestEditOperationLabels(self):
-		""" Запрос редактирования меток операции """
-		self.EditOperationLabels()
 
 	def on_RequestSwitchOperationSkip(self):
 		""" Запрос на смену учёта операции """

@@ -25,12 +25,6 @@ class C80_FormProcessing(C70_FormProcessing):
 			case PROCESSING_FIELDS.DESTINATION_REPLACE: self.SetManualDestinationReplace()
 			case PROCESSING_FIELDS.DESTINATION_SET    : self.SetManualDestinationSet()
 
-			case PROCESSING_FIELDS.LABELS_ADD         : self.SetManualLabelsAdd()
-			case PROCESSING_FIELDS.LABELS_EXCLUDE     : self.SetManualLabelsExclude()
-			case PROCESSING_FIELDS.LABELS_INCLUDE     : self.SetManualLabelsInclude()
-			case PROCESSING_FIELDS.LABELS_REMOVE      : self.SetManualLabelsRemove()
-			case PROCESSING_FIELDS.LABELS_REPLACE     : self.SetManualLabelsReplace()
-
 			case PROCESSING_FIELDS.COLOR_SET          : self.SetManualColorSet()
 
 			case PROCESSING_FIELDS.SKIP_SET               : self.SwitchManualSkipSet()
@@ -56,7 +50,6 @@ class C80_FormProcessing(C70_FormProcessing):
 			operation               = C90_Operation(ido)
 			description : str       = operation.description.lower()
 			destination             = operation.destination.lower()
-			labels      : set[str]  = set(label.lower() for label in operation.labels)
 
 			flag_skip   : bool      = True
 
@@ -72,16 +65,9 @@ class C80_FormProcessing(C70_FormProcessing):
 			if self._manual_destination_exclude.enable:
 				flag_skip |=     any([item.lower()  in destination for item  in self._manual_destination_exclude.data])
 
-			if self._manual_labels_include.enable:
-				flag_skip &= not any([label.lower() in labels      for label in self._manual_labels_include.data])
-
-			if self._manual_labels_exclude.enable:
-				flag_skip |=     any([label.lower() in labels      for label in self._manual_labels_exclude.data])
-
 			if flag_skip: continue
 
 			destination             = operation.destination
-			labels      : set[str]  = set(operation.labels)
 
 			if self._manual_destination_replace.enable and self._manual_destination_include.enable:
 				for src in self._manual_destination_include.data:
@@ -93,24 +79,10 @@ class C80_FormProcessing(C70_FormProcessing):
 			if self._manual_destination_add.enable:
 				destination += self._manual_destination_add.data
 
-			if self._manual_labels_add.enable:
-				labels.update(self._manual_labels_add.data)
-
-			if self._manual_labels_replace.enable and self._manual_labels_include.enable:
-				for src in self._manual_labels_include.data:
-					if src not in labels: continue
-
-					labels.remove(src)
-					labels.add(self._manual_labels_replace.data)
-
-			if self._manual_labels_remove.enable:
-				labels.difference_update(self._manual_labels_remove.data)
-
 			if self._manual_color_set.enable:
 				operation.color = COLORS(self._manual_color_set.data)
 
 			operation.destination = destination
-			operation.labels      = list(labels)
 
 	def ManualProcessing(self):
 		""" Выполнение ручной обработки данных """

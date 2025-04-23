@@ -64,8 +64,8 @@ class C60_FormOperation(C50_FormOperation):
 
 		self.ModelData.setHorizontalHeaderLabels(["Дата/Сумма",
 		                                          "Счёт",
-		                                          "Описание",
-		                                          "Метки"])
+		                                          "Описание/Назначение"
+		                                          ])
 
 	def LoadDdInModelData(self):
 		""" Загрузка дня в модель """
@@ -84,7 +84,7 @@ class C60_FormOperation(C50_FormOperation):
 		self.ModelData.appendRow([item_dd,
 		                          C20_StandardItem(""),
 		                          C20_StandardItem(""),
-		                          C20_StandardItem("")])
+		                          ])
 
 	def LoadOperationOnModelData(self):
 		""" Загрузка операции в модель """
@@ -96,7 +96,6 @@ class C60_FormOperation(C50_FormOperation):
 		idp_amount      : str                      = operation.FAmount.Idp().data
 		idp_accounts    : str                      = operation.FAccountIdos.Idp().data
 		idp_description : str                      = operation.FDescription.Idp().data
-		idp_labels      : str                      = operation.FLabels.Idp().data
 
 		if operation.parent_ido: item_parent : C20_StandardItem | None  = self.ModelData.itemByData(operation.parent_ido, ROLES.IDO)
 		else                   : item_parent : C20_StandardItem | None  = self.ModelData.itemByData(operation.DdDmDyToString(), ROLES.TEXT)
@@ -120,12 +119,7 @@ class C60_FormOperation(C50_FormOperation):
 			item_destination.setData(operation.dd,        ROLES.GROUP)
 			item_destination.setData(idp_description,     ROLES.IDP)
 
-			item_labels = C20_StandardItem("")
-			item_labels.setData(self.processing_ido, ROLES.IDO)
-			item_labels.setData(operation.dd,        ROLES.GROUP)
-			item_labels.setData(idp_labels,          ROLES.IDP)
-
-			item_parent.appendRow([item_amount, item_accounts, item_destination, item_labels])
+			item_parent.appendRow([item_amount, item_accounts, item_destination])
 
 		indexes         : list[QModelIndex]        = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
@@ -138,9 +132,6 @@ class C60_FormOperation(C50_FormOperation):
 
 		item_destination                           = self.ModelData.itemFromIndex(indexes[2])
 		item_destination.setText(operation.DestinationOrDescription())
-
-		item_labels                                = self.ModelData.itemFromIndex(indexes[3])
-		item_labels.setText("" if operation.suboids else ', '.join(operation.labels))
 
 		color_bg : QColor = QColor(255, 255, 255)
 		color_fg : QColor = QColor(  0,   0,   0)
@@ -159,11 +150,13 @@ class C60_FormOperation(C50_FormOperation):
 		                           color_bg,
 		                           color_fg)
 
-		if   operation.suboids: item_amount.setIcon(QIcon("./L0/icons/square_black.svg"))
-		elif operation.skip   :	item_amount.setIcon(QIcon("./L0/icons/hide.svg"))
-		else                  : item_amount.setIcon(QIcon())
+		suboids : list[str] = operation.suboids
 
-		for self.processing_ido in operation.suboids: self.LoadOperationOnModelData()
+		if   suboids        : item_amount.setIcon(QIcon("./L0/icons/square_black.svg"))
+		elif operation.skip : item_amount.setIcon(QIcon("./L0/icons/hide.svg"))
+		else                : item_amount.setIcon(QIcon())
+
+		for self.processing_ido in suboids: self.LoadOperationOnModelData()
 
 	def CleanModelData(self):
 		""" Очистка модели от некорректных данных """

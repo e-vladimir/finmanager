@@ -2,7 +2,6 @@
 # 08 апр 2025
 
 from G10_datetime           import CurrentDy
-from G10_list               import ClearList
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
@@ -44,7 +43,6 @@ class C60_DataCompleter(C50_DataCompleter):
 		if skip_calc: return
 
 		self.CalcDataDestination()
-		self.CalcDataLabels()
 
 
 	# Данные предиктивного определения назначения
@@ -61,21 +59,3 @@ class C60_DataCompleter(C50_DataCompleter):
 				processing_string = (processing_string + ' ' + word).strip()
 
 				self._data_destination[operation.description].Append(processing_string)
-
-	# Данные предиктивного определения меток
-	def CalcDataLabels(self):
-		""" Формирование данных """
-		self._data_labels.clear()
-
-		for operation in self._data_operations.values():
-			if not operation.labels: continue
-
-			words = ClearList(f'{operation.description} {operation.destination}'.lower().split(' '))
-
-			for label in operation.labels:
-				if label not in self._data_labels: self._data_labels[label] = T20_PredictItem()
-
-				for word in words: self._data_labels[label].Append(word)
-
-		for item in self._data_labels.values():
-			item.CalcWeights()

@@ -126,19 +126,6 @@ class C60_Operation(C50_Operation):
 		self.FColor.FromString(CONTAINERS.CACHE, color.value)
 
 
-	# Метки
-	@property
-	def labels(self) -> list[str]:
-		return sorted(self.FLabels.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data)
-
-	@labels.setter
-	def labels(self, items: list[str]):
-		self.FLabels.FromStrings(CONTAINERS.DISK, ClearList(items))
-
-		if not self.use_cache: return
-		self.FLabels.FromStrings(CONTAINERS.CACHE, ClearList(items))
-
-
 	# Отметка Не учитывать
 	@property
 	def skip(self) -> bool:

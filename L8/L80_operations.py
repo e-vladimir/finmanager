@@ -42,7 +42,6 @@ class C80_Operation(C70_Operation):
 		destination = self.destination
 		dm          = self.dm
 		dy          = self.dy
-		labels      = self.labels
 		parent_ido  = self.parent_ido
 		skip        = self.skip
 
@@ -66,7 +65,6 @@ class C80_Operation(C70_Operation):
 		self.destination  = destination
 		self.dm           = dm
 		self.dy           = dy
-		self.labels       = labels
 		self.parent_ido   = parent_ido
 		self.skip         = skip
 
@@ -107,8 +105,7 @@ class C80_Operation(C70_Operation):
 	def ToT20_RawOperation(self) -> T20_RawOperation:
 		return T20_RawOperation(amount      = int(self.amount),
 		                        description = self.description,
-		                        destination = self.destination,
-		                        labels      = self.labels)
+		                        destination = self.destination)
 
 
 	# Управление дочерними операциями
@@ -219,23 +216,3 @@ class C80_Operations(C70_Operations):
 		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToStrings(idp_destination, True, True).data
-
-	@classmethod
-	def Labels(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
-		""" Список описаний """
-		operation             = C80_Operation()
-		idc             : str = operation.Idc().data
-		idp_dy          : str = operation.FDy.Idp().data
-		idp_dm          : str = operation.FDm.Idp().data
-		idp_labels      : str = operation.FLabels.Idp().data
-
-		filter_data           = C30_FilterLinear1D(idc)
-		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
-		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
-
-		labels : set[str] = set()
-
-		for item in filter_data.ToStrings(idp_labels, True, True).data: labels.update(item.split('\n'))
-
-		return sorted(labels)
