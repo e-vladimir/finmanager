@@ -27,9 +27,6 @@ class C90_FormMain(C80_FormMain):
 		# Блок Копии архива данных
 		self.LabelBackupDdDmDy.clicked.connect(self.on_RequestOpenBackups)
 
-		# Блок Обзор месяца
-		self.DiaDmViewer.clicked.connect(self.on_RequestOpenAnalytics)
-
 
 	# Форма
 	def on_RequestOpen(self):
@@ -69,7 +66,6 @@ class C90_FormMain(C80_FormMain):
 		self.ShowMonthView()
 
 		self.Application.FormAccounts.UpdateData()
-		self.Application.FormAnalytics.UpdateData()
 		self.Application.FormExport.UpdateData()
 		self.Application.FormImport.UpdateData()
 		self.Application.FormOperations.UpdateData()
@@ -108,9 +104,3 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenBackups(self):
 		""" Запрос на переход в форму Копии архива данных """
 		self.Application.FormBackups.Open()
-
-
-	# Аналитика
-	def on_RequestOpenAnalytics(self):
-		""" Запрос на переход в форму Аналитика данных """
-		self.Application.FormAnalytics.Open()
