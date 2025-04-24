@@ -86,4 +86,3 @@ class C90_FormImport(C80_FormImport):
 
 		self.Application.FormAccounts.UpdateData()
 		self.Application.FormMain.UpdateData()
-		self.Application.FormAnalytics.UpdateData()
