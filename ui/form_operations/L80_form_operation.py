@@ -77,8 +77,10 @@ class C80_FormOperation(C70_FormOperation):
 
 	def DeleteOperation(self):
 		""" Удаление операции """
-		operation = C90_Operation(self.processing_ido)
+		operation        = C90_Operation(self.processing_ido)
 		if not RequestConfirm("Удаление операции", operation.Information()): return
+
+		parent_oid : str = operation.parent_ido
 
 		operation.DeleteSuboperations()
 
@@ -86,6 +88,15 @@ class C80_FormOperation(C70_FormOperation):
 		operation.DeleteObject(CONTAINERS.CACHE)
 
 		self.on_OperationDeleted()
+
+		if not parent_oid: return
+
+		operation.Ido(parent_oid)
+		operation.CalcSuboids()
+
+		self.processing_ido = parent_oid
+
+		self.on_OperationChanged()
 
 	def EditOperationAmount(self):
 		""" Редактирование суммы операции """
@@ -146,11 +157,12 @@ class C80_FormOperation(C70_FormOperation):
 		operation.use_cache     = True
 
 		subammount : int        = int(sum([C90_Operation(oid).amount for oid in operation.suboids]))
-
 		amount     : int | None = RequestValue("Разделение операции", f"{operation.Information()}", int(operation.amount) - subammount, -99999999, 99999999)
 		if amount is None: return
 
 		new_ido    : str        = operation.Split(amount)
+
+		operation.CalcSuboids()
 		self.on_OperationChanged()
 
 		self.processing_ido = new_ido
