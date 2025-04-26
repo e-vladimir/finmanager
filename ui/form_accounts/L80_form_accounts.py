@@ -148,7 +148,7 @@ class C80_FormAccounts(C70_FormAccounts):
 		balance : int | None = RequestValue("Остаток на начало месяца", f"{account.group}\n{account.name}\n\nОстаток на начало месяца:", account.balance_initial, -99999999, 99999999)
 		if balance is None: return
 
-		account.initial_balance = balance
+		account.balance_initial = balance
 
 		self.on_AccountChanged()
 

@@ -136,14 +136,16 @@ class C60_FormOperation(C50_FormOperation):
 		color_bg : QColor = QColor(255, 255, 255)
 		color_fg : QColor = QColor(  0,   0,   0)
 
-		match operation.color:
-			case COLORS.BLACK: color_fg = QColor(  0,   0,   0)
-			case COLORS.GRAY : color_fg = QColor(150, 150, 150)
-			case COLORS.GREEN: color_fg = QColor( 30, 130,  30)
-			case COLORS.BLUE : color_fg = QColor( 30,  30, 130)
-			case COLORS.RED  : color_fg = QColor(130,  30,  30)
+		if operation.skip:
+			color_fg = QColor(150, 150, 150)
 
-		if not operation.destination: color_fg = QColor(150, 150, 150)
+		else:
+			match operation.color:
+				case COLORS.BLACK: color_fg = QColor(  0,   0,   0)
+				case COLORS.GRAY : color_fg = QColor(150, 150, 150)
+				case COLORS.GREEN: color_fg = QColor( 30, 130,  30)
+				case COLORS.BLUE : color_fg = QColor( 30,  30, 130)
+				case COLORS.RED  : color_fg = QColor(130,  30,  30)
 
 		self.ModelData.setRowColor(item_parent,
 		                           item_amount.row(),
@@ -151,7 +153,6 @@ class C60_FormOperation(C50_FormOperation):
 		                           color_fg)
 
 		if   operation.virtual_idos : item_amount.setIcon(QIcon("./L0/icons/square_black.svg"))
-		elif operation.skip         : item_amount.setIcon(QIcon("./L0/icons/hide.svg"))
 		else                        : item_amount.setIcon(QIcon())
 
 	def CleanModelData(self):
