@@ -22,11 +22,15 @@ class C70_FormOperation(C60_FormOperation):
 		""" Настройка меню операций """
 		self.MenuOperation.clear()
 
+		operation = C90_Operation(self.processing_ido)
+
 		if self.processing_ido:
 			self.MenuOperation.addAction(self.ActionEditOperationAmount)
 			self.MenuOperation.addAction(self.ActionEditOperationAccounts)
 			self.MenuOperation.addAction(self.ActionEditOperationDescription)
-			self.MenuOperation.addAction(self.ActionSwitchOperationSkip)
+
+			if not operation.virtual_idos: self.MenuOperation.addAction(self.ActionSwitchOperationSkip)
+
 			self.MenuOperation.addSeparator()
 			self.MenuOperation.addAction(self.ActionSetOperationColorBlack)
 			self.MenuOperation.addAction(self.ActionSetOperationColorGray)
@@ -52,10 +56,7 @@ class C70_FormOperation(C60_FormOperation):
 
 	def AdjustMenuOperation_Enable(self):
 		""" Настройка меню операций: Доступность """
-		operation           = C90_Operation(self.processing_ido)
-		operation.use_cache = True
-
-		self.ActionSwitchOperationSkip.setEnabled(not bool(operation.virtual_idos))
+		pass
 
 	def AdjustMenuOperation_Text(self):
 		""" Настройка меню операций: Название """
