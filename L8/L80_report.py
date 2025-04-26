@@ -8,6 +8,7 @@ from fpdf               import Align
 from G11_convertor_data import AmountToString
 
 from L00_months         import MONTHS
+from L00_operations import OPERATIONS
 from L30_reports_fpdf   import C30_ProcessorReportsFpdf2, MONTHS_SHORT
 from L70_report         import C70_Report
 from L90_account        import C90_Account
@@ -44,7 +45,7 @@ class C80_Report(C70_Report):
 					if not account.SwitchByName(dy, dm, name): continue
 
 					data.append([f"{MONTHS_SHORT[dm]} {dy:04d}",
-					             AmountToString(account.initial_balance, flag_point=False, flag_sign=False)])
+					             AmountToString(account.balance_initial, flag_point=False, flag_sign=False)])
 
 
 				report.AppendTable("", header, data, sizes=[100], aligns=[Align.L, Align.R])
@@ -82,15 +83,15 @@ class C80_Report(C70_Report):
 				account = C90_Account()
 				account.SwitchByName(dy, dm, account_name)
 
-				balance_initial : int = account.initial_balance
-				balance_final   : int = account.summary_balance
+				balance_initial : int = account.balance_initial
+				balance_final   : int = account.balance_summary
 				balance_delta   : int = balance_final - balance_initial
 
 				subdata : list[str] = []
 				subdata.append(account_name)
 				subdata.append(AmountToString( balance_initial,        flag_point=False, flag_sign=False))
-				subdata.append(AmountToString( account.income_amount,  flag_point=False, flag_sign=True))
-				subdata.append(AmountToString(-account.outcome_amount, flag_point=False, flag_sign=True))
+				subdata.append(AmountToString(account.amount_income, flag_point=False, flag_sign=True))
+				subdata.append(AmountToString(-account.amount_outcome, flag_point=False, flag_sign=True))
 				subdata.append(AmountToString( balance_delta,          flag_point=False, flag_sign=True))
 				subdata.append(AmountToString( balance_final,          flag_point=False, flag_sign=False))
 
@@ -118,7 +119,7 @@ class C80_Report(C70_Report):
 			table_data: list[list[str]] = []
 
 			for dd in range(1, 32):
-				for operation_ido in self.Operations.Idos(dy, dm, dd, account_ido, use_cache=True, exclude_suboperations=True, exclude_skip=False):
+				for operation_ido in self.Operations.Idos(dy, dm, dd, account_ido, use_cache=True, type_operation=OPERATIONS.PHYSICAL):
 					operation.Ido(operation_ido)
 
 					subdata: list[str] = []

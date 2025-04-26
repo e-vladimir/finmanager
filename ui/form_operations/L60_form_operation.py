@@ -150,11 +150,9 @@ class C60_FormOperation(C50_FormOperation):
 		                           color_bg,
 		                           color_fg)
 
-		if   operation.suboids : item_amount.setIcon(QIcon("./L0/icons/square_black.svg"))
-		elif operation.skip    : item_amount.setIcon(QIcon("./L0/icons/hide.svg"))
-		else                   : item_amount.setIcon(QIcon())
-
-		for self.processing_ido in operation.suboids: self.LoadOperationOnModelData()
+		if   operation.virtual_idos : item_amount.setIcon(QIcon("./L0/icons/square_black.svg"))
+		elif operation.skip         : item_amount.setIcon(QIcon("./L0/icons/hide.svg"))
+		else                        : item_amount.setIcon(QIcon())
 
 	def CleanModelData(self):
 		""" Очистка модели от некорректных данных """

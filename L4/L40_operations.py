@@ -19,20 +19,18 @@ class C40_Operation(C31_StructFrameWithEvents):
 	def Init_10(self):
 		super().Init_10()
 
-		self.FDy            = C30_StructField(self, "Год")
-		self.FDm            = C30_StructField(self, "Месяц")
-		self.FDd            = C30_StructField(self, "День")
-
 		self.FAccountIdos   = C30_StructField(self, "Счета")
 		self.FAmount        = C30_StructField(self, "Сумма")
+		self.FColor         = C30_StructField(self, "Цветовая метка")
+		self.FDd            = C30_StructField(self, "День")
 		self.FDescription   = C30_StructField(self, "Описание")
 		self.FDestination   = C30_StructField(self, "Назначение")
-		self.FColor         = C30_StructField(self, "Цветовая метка")
-		self.FLabels        = C30_StructField(self, "Метки")
-		self.FSkip          = C30_StructField(self, "Не учитывать")
+		self.FDm            = C30_StructField(self, "Месяц")
+		self.FDy            = C30_StructField(self, "Год")
 		self.FParentIdo     = C30_StructField(self, "Корневая операция")
+		self.FSkip          = C30_StructField(self, "Не учитывать")
 
-		self.FSuboids       = C30_StructField(self, "Дочерние операции")
+		self.FVirtualIdos   = C30_StructField(self, "Виртуальные операции")
 
 
 class C40_Operations(C20_MetaFrame):

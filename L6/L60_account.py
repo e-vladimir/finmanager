@@ -4,6 +4,7 @@
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
+from L00_operations         import OPERATIONS
 from L50_account            import C50_Account, C50_Accounts
 from L90_operations         import C90_Operations
 
@@ -53,47 +54,45 @@ class C60_Account(C50_Account):
 
 	# Остаток на начало месяца
 	@property
-	def initial_balance(self) -> int:
-		return self.FInitialBalance.ToInteger(CONTAINERS.DISK).data
+	def balance_initial(self) -> int:
+		return self.FBalanceInitial.ToInteger(CONTAINERS.DISK).data
 
-	@initial_balance.setter
-	def initial_balance(self, amount: int):
-		self.FInitialBalance.FromInteger(CONTAINERS.DISK, amount)
+	@balance_initial.setter
+	def balance_initial(self, amount: int):
+		self.FBalanceInitial.FromInteger(CONTAINERS.DISK, amount)
 
 
 	# Остаток на конец месяца
 	@property
-	def summary_balance(self) -> int:
-		return int(self.initial_balance + sum(C90_Operations.Amounts(dy                    = self.dy,
-		                                                             dm                    = self.dm,
-		                                                             account_ido           = self.Ido().data,
-		                                                             exclude_suboperations = True,
-		                                                             exclude_skip          = False)
+	def balance_summary(self) -> int:
+		return int(self.balance_initial + sum(C90_Operations.Amounts(dy            = self.dy,
+		                                                             dm            = self.dm,
+		                                                             account_ido   = self.Ido().data,
+		                                                             type_operation = OPERATIONS.ACCOUNTING)
 		                                      )
 		           )
 
 
 	# Объём поступлений
 	@property
-	def income_amount(self) -> int:
+	def amount_income(self) -> int:
 		return sum(filter(lambda amount: amount > 0,
-		                  C90_Operations.Amounts(dy         =self.dy,
-		                                         dm         =self.dm,
-		                                         account_ido=self.Ido().data,
-		                                         exclude_skip=False,
-		                                         exclude_suboperations=True)
+		                  C90_Operations.Amounts(dy             = self.dy,
+		                                         dm             = self.dm,
+		                                         account_ido    = self.Ido().data,
+		                                         type_operation = OPERATIONS.ACCOUNTING)
 		                  )
 		           )
 
+
 	# Объём списаний
 	@property
-	def outcome_amount(self) -> int:
+	def amount_outcome(self) -> int:
 		return abs(sum(filter(lambda amount: amount < 0,
-		                  C90_Operations.Amounts(dy         =self.dy,
-		                                         dm         =self.dm,
-		                                         account_ido=self.Ido().data,
-		                                         exclude_skip=False,
-		                                         exclude_suboperations=True)
+		                  C90_Operations.Amounts(dy             = self.dy,
+		                                         dm             = self.dm,
+		                                         account_ido    = self.Ido().data,
+		                                         type_operation = OPERATIONS.ACCOUNTING)
 		                  )
 		               ))
 
@@ -125,13 +124,13 @@ class C60_Accounts(C50_Accounts):
 
 	# Выборка данных
 	@classmethod
-	def CalcInitialBalance(cls, dy: int, dm: int) -> int:
+	def CalcBalanceInitial(cls, dy: int, dm: int) -> int:
 		""" Общий баланс на начало месяца """
 		account           = C60_Account()
 		idc         : str = account.Idc().data
 		idp_dy      : str = account.FDy.Idp().data
 		idp_dm      : str = account.FDm.Idp().data
-		idp_balance : str = account.FInitialBalance.Idp().data
+		idp_balance : str = account.FBalanceInitial.Idp().data
 
 		filter_data = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)

@@ -34,7 +34,7 @@ class C70_FormMain(C60_FormMain):
 		""" Отображение данных Счета """
 		dy, dm = self.Workspace.DyDm()
 
-		self.LabelInitialBalance.setText(AmountToString(self.Accounts.CalcInitialBalance(dy, dm),
+		self.LabelInitialBalance.setText(AmountToString(self.Accounts.CalcBalanceInitial(dy, dm),
 		                                                flag_point=False,
 		                                                flag_sign =False))
 

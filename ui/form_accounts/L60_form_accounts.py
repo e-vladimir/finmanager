@@ -87,7 +87,7 @@ class C60_FormAccounts(C50_FormAccounts):
 
 			item_initial_balance                 = C20_StandardItem(AmountToString(0, flag_point=False, flag_sign=False), flag_align_right=True)
 			item_initial_balance.setData(self.processing_ido,                ROLES.IDO)
-			item_initial_balance.setData(account.FInitialBalance.Idp().data, ROLES.IDP)
+			item_initial_balance.setData(account.FBalanceInitial.Idp().data, ROLES.IDP)
 			item_initial_balance.setData(group,                              ROLES.GROUP)
 
 			item_delta_balance                   = C20_StandardItem(AmountToString(0, flag_point=False, flag_sign=False), flag_align_right=True)
@@ -106,8 +106,8 @@ class C60_FormAccounts(C50_FormAccounts):
 			                      item_calculated_balance,
 			                      ])
 
-		initial_balance    : int                     = account.initial_balance
-		summary_balance    : int                     = account.summary_balance
+		initial_balance    : int                     = account.balance_initial
+		summary_balance    : int                     = account.balance_summary
 		delta_balance      : int                     = summary_balance - initial_balance
 
 		indexes                                      = self.ModelData.indexesInRowByIdo(self.processing_ido)

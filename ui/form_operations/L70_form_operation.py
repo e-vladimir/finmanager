@@ -52,9 +52,10 @@ class C70_FormOperation(C60_FormOperation):
 
 	def AdjustMenuOperation_Enable(self):
 		""" Настройка меню операций: Доступность """
-		operation = C90_Operation(self.processing_ido)
+		operation           = C90_Operation(self.processing_ido)
+		operation.use_cache = True
 
-		self.ActionSwitchOperationSkip.setEnabled(not bool(operation.suboids))
+		self.ActionSwitchOperationSkip.setEnabled(not bool(operation.virtual_idos))
 
 	def AdjustMenuOperation_Text(self):
 		""" Настройка меню операций: Название """

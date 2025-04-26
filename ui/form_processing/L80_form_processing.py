@@ -6,6 +6,7 @@ from PySide6.QtWidgets   import QProgressDialog
 
 from L00_colors          import COLORS
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
+from L00_operations import OPERATIONS
 from L70_form_processing import C70_FormProcessing
 from L90_operations      import C90_Operation
 
@@ -33,7 +34,7 @@ class C80_FormProcessing(C70_FormProcessing):
 	def ManualProcessingOperations(self):
 		""" Выполнение ручной обработки данных операций """
 		dy, dm           = self.Workspace.DyDm()
-		idos : list[str] = self.Operations.Idos(dy, dm)
+		idos : list[str] = self.Operations.Idos(dy, dm, use_cache=True, type_operation=OPERATIONS.ALL)
 
 		dialog_import    = QProgressDialog(self)
 		dialog_import.setWindowTitle("Обработка операций")
@@ -83,6 +84,8 @@ class C80_FormProcessing(C70_FormProcessing):
 				operation.color = COLORS(self._manual_color_set.data)
 
 			operation.destination = destination
+
+			operation.Caching()
 
 	def ManualProcessing(self):
 		""" Выполнение ручной обработки данных """

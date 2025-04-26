@@ -29,13 +29,6 @@ class C80_Workspace(C70_Workspace):
 		container.Clear()
 
 		operation = C90_Operation()
-
-		operation.use_cache = False
 		for ido in C90_Operations.Idos(self.dy, self.dm, use_cache=False):
 			operation.Ido(ido)
-			operation.CopyToContainer(CONTAINERS.DISK, CONTAINERS.CACHE)
-
-		operation.use_cache = True
-		for ido in C90_Operations.Idos(self.dy, self.dm, use_cache=True):
-			operation.Ido(ido)
-			operation.CalcSuboids()
+			operation.Caching()

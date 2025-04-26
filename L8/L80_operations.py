@@ -6,6 +6,7 @@ from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
 from L00_months             import MONTHS_SHORT
+from L00_operations         import OPERATIONS
 from L20_finmanager_struct  import T20_RawOperation
 from L70_operations         import C70_Operation, C70_Operations
 
@@ -17,19 +18,6 @@ class C80_Operation(C70_Operation):
 	def DestinationOrDescription(self) -> str:
 		""" Назначение или описание """
 		return self.destination or self.description
-
-	def DdDmDyToString(self) -> str:
-		""" Дата в строку """
-		return f"{self.dd:02d} {MONTHS_SHORT[self.dm]} {self.dy:04d}"
-
-	def ShortInformation(self) -> str:
-		""" Краткая информация об операции """
-		return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}"
-
-	def Information(self, flag_flat: bool = False) -> str:
-		""" Информация об операции """
-		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
-		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()}\n{self.DestinationOrDescription()}"
 
 
 	# Управление операцией
@@ -53,22 +41,24 @@ class C80_Operation(C70_Operation):
 		else                  :
 			self.amount -= amount
 
-		self.GenerateIdo()
-		self.RegisterObject(CONTAINERS.DISK)
-		self.RegisterObject(CONTAINERS.CACHE)
+		operation   = C80_Operation()
 
-		self.account_idos = accounts
-		self.amount       = amount
-		self.color        = color
-		self.dd           = dd
-		self.description  = description
-		self.destination  = destination
-		self.dm           = dm
-		self.dy           = dy
-		self.parent_ido   = parent_ido
-		self.skip         = skip
+		operation.GenerateIdo()
+		operation.RegisterObject(CONTAINERS.DISK)
+		operation.RegisterObject(CONTAINERS.CACHE)
 
-		return self.Ido().data
+		operation.account_idos = accounts
+		operation.amount       = amount
+		operation.color        = color
+		operation.dd           = dd
+		operation.description  = description
+		operation.destination  = destination
+		operation.dm           = dm
+		operation.dy           = dy
+		operation.parent_ido   = parent_ido
+		operation.skip         = skip
+
+		return operation.Ido().data
 
 	def Copy(self) -> str:
 		""" Копирование операции """
@@ -101,18 +91,30 @@ class C80_Operation(C70_Operation):
 		return self.Ido().data
 
 
+	# Кеширование
+	def Caching(self):
+		""" Кеширование операции """
+		self.CopyToContainer(CONTAINERS.DISK, CONTAINERS.CACHE)
+
+
 	# Конвертация
+	def DdDmDyToString(self) -> str:
+		""" Дата в строку """
+		return f"{self.dd:02d} {MONTHS_SHORT[self.dm]} {self.dy:04d}"
+
+	def ShortInformation(self) -> str:
+		""" Краткая информация об операции """
+		return f"{AmountToString(self.amount, flag_sign=True)} от {self.dd:02d} {self.DdDmDyToString()}"
+
+	def Information(self, flag_flat: bool = False) -> str:
+		""" Информация об операции """
+		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
+		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()}\n{self.DestinationOrDescription()}"
+
 	def ToT20_RawOperation(self) -> T20_RawOperation:
 		return T20_RawOperation(amount      = int(self.amount),
 		                        description = self.description,
 		                        destination = self.destination)
-
-
-	# Управление дочерними операциями
-	def DeleteSuboperations(self):
-		for suboid in self.suboids:
-			C80_Operation(suboid).DeleteObject(CONTAINERS.DISK)
-			C80_Operation(suboid).DeleteObject(CONTAINERS.CACHE)
 
 
 class C80_Operations(C70_Operations):
@@ -120,7 +122,7 @@ class C80_Operations(C70_Operations):
 
 	# Выборки данных
 	@classmethod
-	def Idos(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, use_cache: bool = False, exclude_skip: bool = False, exclude_suboperations: bool = False) -> list[str]:
+	def Idos(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, use_cache: bool = False, type_operation: OPERATIONS=OPERATIONS.ALL) -> list[str]:
 		""" Список IDO финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -131,20 +133,43 @@ class C80_Operations(C70_Operations):
 		idp_dy      : str = operation.FDy.Idp().data
 		idp_parent  : str = operation.FParentIdo.Idp().data
 		idp_skip    : str = operation.FSkip.Idp().data
+		idp_virtual : str = operation.FVirtualIdos.Idp().data
 
 		filter_data       = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dd, dd)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
-		filter_data.FilterIdpVlpByEqual(idp_skip, False if exclude_skip else None)
-		filter_data.FilterIdpVlpByEqual(idp_parent, "" if exclude_suboperations else None)
 		filter_data.FilterIdpVlpByInclude(idp_account, account_ido)
+
+		match type_operation:
+			case OPERATIONS.ALL     :
+				pass
+
+			case OPERATIONS.PHYSICAL:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "")
+
+			case OPERATIONS.VIRTUAL:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "", flag_invert=True)
+
+			case OPERATIONS.BASIC:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "")
+				filter_data.FilterIdpVlpByEqual(idp_virtual,  "")
+
+			case OPERATIONS.PARENT:
+				filter_data.FilterIdpVlpByEqual(idp_virtual,  "", flag_invert=True)
+
+			case OPERATIONS.ACCOUNTING:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "")
+
+			case OPERATIONS.ANALYTICAL:
+				filter_data.FilterIdpVlpByEqual(idp_skip, False)
+
 		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.Idos(idp_amount).data
 
 	@classmethod
-	def Amounts(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, use_cache: bool = False, exclude_skip: bool = True, exclude_suboperations: bool = False) -> list[float]:
+	def Amounts(cls, dy: int, dm: int, dd: int = None, account_ido: str = None, use_cache: bool = False, type_operation: OPERATIONS=OPERATIONS.ALL) -> list[float]:
 		""" Список сумм финансовых операций """
 		operation         = C80_Operation()
 		idc         : str = operation.Idc().data
@@ -155,14 +180,37 @@ class C80_Operations(C70_Operations):
 		idp_dy      : str = operation.FDy.Idp().data
 		idp_parent  : str = operation.FParentIdo.Idp().data
 		idp_skip    : str = operation.FSkip.Idp().data
+		idp_virtual : str = operation.FVirtualIdos.Idp().data
 
 		filter_data       = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
 		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
 		filter_data.FilterIdpVlpByEqual(idp_dd, dd)
-		filter_data.FilterIdpVlpByEqual(idp_skip, False if exclude_skip else None)
-		filter_data.FilterIdpVlpByEqual(idp_parent, "" if exclude_suboperations else None)
 		filter_data.FilterIdpVlpByInclude(idp_account, account_ido)
+
+		match type_operation:
+			case OPERATIONS.ALL     :
+				pass
+
+			case OPERATIONS.PHYSICAL:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "")
+
+			case OPERATIONS.VIRTUAL:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "", flag_invert=True)
+
+			case OPERATIONS.BASIC:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "")
+				filter_data.FilterIdpVlpByEqual(idp_virtual,  "")
+
+			case OPERATIONS.PARENT:
+				filter_data.FilterIdpVlpByEqual(idp_virtual,  "", flag_invert=True)
+
+			case OPERATIONS.ACCOUNTING:
+				filter_data.FilterIdpVlpByEqual(idp_parent, "")
+
+			case OPERATIONS.ANALYTICAL:
+				filter_data.FilterIdpVlpByEqual(idp_skip, False)
+
 		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToFloats(idp_amount).data

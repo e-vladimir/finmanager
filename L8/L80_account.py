@@ -19,7 +19,7 @@ class C80_Account(C70_Account):
 		dy, dm                = CalcDyDmByShiftDm(self.dy, self.dm, count_dm)
 		name            : str = self.name
 		group           : str = self.group
-		summary_balance : int = self.summary_balance
+		balance_summary : int = self.balance_summary
 
 		if not self.SwitchByName(dy, dm, name):
 			self.GenerateIdo()
@@ -30,7 +30,7 @@ class C80_Account(C70_Account):
 
 		self.group    = group
 
-		if count_dm > 0: self.initial_balance = summary_balance
+		if count_dm > 0: self.initial_balance = balance_summary
 
 
 class C80_Accounts(C70_Accounts):

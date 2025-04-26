@@ -91,7 +91,7 @@ class C70_FormAccounts(C60_FormAccounts):
 
 		if   bool(self.processing_ido):
 			if   self.processing_idp == account.FName.Idp().data          : self.on_RequestEditAccountName()
-			elif self.processing_idp == account.FInitialBalance.Idp().data: self.on_RequestEditAccountInitialBalance()
+			elif self.processing_idp == account.FBalanceInitial.Idp().data: self.on_RequestEditAccountInitialBalance()
 
 		elif bool(self.processing_group):
 			self.on_RequestEditGroupName()

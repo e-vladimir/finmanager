@@ -17,7 +17,7 @@ class C40_Account(C31_StructFrameWithEvents):
 		self.FDm             = C30_StructField(self, "Месяц")
 		self.FDy             = C30_StructField(self, "Год")
 		self.FGroup          = C30_StructField(self, "Группа счетов")
-		self.FInitialBalance = C30_StructField(self, "Остаток начальный")
+		self.FBalanceInitial = C30_StructField(self, "Остаток начальный")
 		self.FName           = C30_StructField(self, "Название счёта")
 
 

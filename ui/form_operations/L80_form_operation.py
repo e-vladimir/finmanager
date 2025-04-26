@@ -7,6 +7,7 @@ from G11_convertor_data import AmountToString
 
 from L00_colors         import COLORS
 from L00_containers     import CONTAINERS
+from L00_operations     import OPERATIONS
 from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue, ShowMessage
 from L70_form_operation import C70_FormOperation
 from L90_operations     import C90_Operation
@@ -20,8 +21,10 @@ class C80_FormOperation(C70_FormOperation):
 		""" Отображение операций """
 		dy, dm = self.Workspace.DyDm()
 
-		for self.processing_dd  in self.Operations.Dds(dy, dm, use_cache=True)                             : self.LoadDdInModelData()
-		for self.processing_ido in self.Operations.Idos(dy, dm, use_cache=True, exclude_suboperations=True): self.LoadOperationOnModelData()
+		for self.processing_dd  in self.Operations.Dds(dy, dm, use_cache=True)                                     : self.LoadDdInModelData()
+
+		for self.processing_ido in self.Operations.Idos(dy, dm, use_cache=True, type_operation=OPERATIONS.PHYSICAL): self.LoadOperationOnModelData()
+		for self.processing_ido in self.Operations.Idos(dy, dm, use_cache=True, type_operation=OPERATIONS.VIRTUAL) : self.LoadOperationOnModelData()
 
 	def ResetOperations(self):
 		""" Сброс операций """
@@ -72,17 +75,21 @@ class C80_FormOperation(C70_FormOperation):
 		self.processing_ido = operation.Ido().data
 
 		operation.CopyToContainer(CONTAINERS.DISK, CONTAINERS.CACHE)
+		operation.Caching()
 
 		self.on_OperationCreated()
 
 	def DeleteOperation(self):
 		""" Удаление операции """
-		operation        = C90_Operation(self.processing_ido)
+		operation           = C90_Operation(self.processing_ido)
+		operation.use_cache = True
 		if not RequestConfirm("Удаление операции", operation.Information()): return
 
-		parent_oid : str = operation.parent_ido
+		parent_oid : str    = operation.parent_ido
 
-		operation.DeleteSuboperations()
+		for oid in operation.virtual_idos:
+			C90_Operation(oid).DeleteObject(CONTAINERS.DISK)
+			C90_Operation(oid).DeleteObject(CONTAINERS.CACHE)
 
 		operation.DeleteObject(CONTAINERS.DISK)
 		operation.DeleteObject(CONTAINERS.CACHE)
@@ -92,7 +99,8 @@ class C80_FormOperation(C70_FormOperation):
 		if not parent_oid: return
 
 		operation.Ido(parent_oid)
-		operation.CalcSuboids()
+		operation.CalcVirtualIdos()
+		operation.Caching()
 
 		self.processing_ido = parent_oid
 
@@ -101,12 +109,12 @@ class C80_FormOperation(C70_FormOperation):
 	def EditOperationAmount(self):
 		""" Редактирование суммы операции """
 		operation           = C90_Operation(self.processing_ido)
-		operation.use_cache = True
 
 		amount : int | None = RequestValue("Редактирование операции", f"{operation.Information()}\n\nСумма:", int(operation.amount), -99999999, 99999999)
 		if amount is None: return
 
 		operation.amount = amount
+		operation.Caching()
 
 		self.on_OperationChanged()
 
@@ -114,7 +122,6 @@ class C80_FormOperation(C70_FormOperation):
 		""" Редактирование счетов операции """
 		dy, dm                           = self.Workspace.DyDm()
 		operation                        = C90_Operation(self.processing_ido)
-		operation.use_cache              = True
 
 		account_names : list[str] | None = RequestItems( "Редактирование операции",
 		                                                f"{operation.Information()}\n\nСчета",
@@ -123,13 +130,13 @@ class C80_FormOperation(C70_FormOperation):
 		if account_names is None: return
 
 		operation.account_idos = self.Accounts.NamesToIdos(dy, dm, account_names)
+		operation.Caching()
 
 		self.on_OperationChanged()
 
 	def EditOperationDestination(self):
 		""" Редактирование назначения операции """
 		operation                = C90_Operation(self.processing_ido)
-		operation.use_cache      = True
 
 		destination : str | None = RequestText( "Редактирование операции",
 		                                       f"{operation.ShortInformation()}\n{operation.description}",
@@ -138,6 +145,7 @@ class C80_FormOperation(C70_FormOperation):
 		if destination is None: return
 
 		operation.destination    = destination
+		operation.Caching()
 
 		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
 
@@ -146,8 +154,8 @@ class C80_FormOperation(C70_FormOperation):
 	def SetOperationColor(self, color: COLORS):
 		""" Установка цвета операции """
 		operation           = C90_Operation(self.processing_ido)
-		operation.use_cache = True
 		operation.color     = color
+		operation.Caching()
 
 		self.on_OperationChanged()
 
@@ -156,24 +164,27 @@ class C80_FormOperation(C70_FormOperation):
 		operation               = C90_Operation(self.processing_ido)
 		operation.use_cache     = True
 
-		subammount : int        = int(sum([C90_Operation(oid).amount for oid in operation.suboids]))
-		amount     : int | None = RequestValue("Разделение операции", f"{operation.Information()}", int(operation.amount) - subammount, -99999999, 99999999)
+		subamounts : int        = int(sum([C90_Operation(oid).amount for oid in operation.virtual_idos]))
+		amount     : int | None = RequestValue("Разделение операции", f"{operation.Information()}", int(operation.amount) - subamounts, -99999999, 99999999)
 		if amount is None: return
 
 		new_ido    : str        = operation.Split(amount)
 
-		operation.CalcSuboids()
+		operation.CalcVirtualIdos()
+		operation.Caching()
 		self.on_OperationChanged()
 
 		self.processing_ido = new_ido
-		C90_Operation(self.processing_ido).CopyToContainer(CONTAINERS.DISK, CONTAINERS.CACHE)
+		C90_Operation(self.processing_ido).Caching()
 
 		self.on_OperationCreated()
 
 	def CopyOperation(self):
 		""" Копирование операции """
 		self.processing_ido = C90_Operation(self.processing_ido).Copy()
-		C90_Operation(self.processing_ido).CopyToContainer(CONTAINERS.DISK, CONTAINERS.CACHE)
+
+		operation = C90_Operation(self.processing_ido)
+		operation.Caching()
 
 		self.on_OperationCreated()
 
@@ -182,5 +193,6 @@ class C80_FormOperation(C70_FormOperation):
 		operation           = C90_Operation(self.processing_ido)
 		operation.use_cache = True
 		operation.skip      = not operation.skip
+		operation.Caching()
 
 		self.on_OperationChanged()

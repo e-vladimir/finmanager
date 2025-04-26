@@ -1,7 +1,6 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 # 11 мар 2025
 
-from G10_list               import ClearList
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_colors             import COLORS
@@ -22,45 +21,6 @@ class C60_Operation(C50_Operation):
 		self._use_cache = flag
 
 
-	# Год
-	@property
-	def dy(self) -> int:
-		return self.FDy.ToInteger(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
-
-	@dy.setter
-	def dy(self, year: int):
-		self.FDy.FromInteger(CONTAINERS.DISK, year)
-
-		if not self.use_cache: return
-		self.FDy.FromInteger(CONTAINERS.CACHE, year)
-
-
-	# Месяц
-	@property
-	def dm(self) -> int:
-		return self.FDm.ToInteger(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
-
-	@dm.setter
-	def dm(self, month: int):
-		self.FDm.FromInteger(CONTAINERS.DISK, month)
-
-		if not self.use_cache: return
-		self.FDm.FromInteger(CONTAINERS.CACHE, month)
-
-
-	# Число месяца
-	@property
-	def dd(self) -> int:
-		return self.FDd.ToInteger(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
-
-	@dd.setter
-	def dd(self, day: int):
-		self.FDd.FromInteger(CONTAINERS.DISK, day)
-
-		if not self.use_cache: return
-		self.FDd.FromInteger(CONTAINERS.CACHE, day)
-
-
 	# Счета
 	@property
 	def account_idos(self) -> list[str]:
@@ -69,9 +29,6 @@ class C60_Operation(C50_Operation):
 	@account_idos.setter
 	def account_idos(self, idos: list[str]):
 		self.FAccountIdos.FromStrings(CONTAINERS.DISK, idos)
-
-		if not self.use_cache: return
-		self.FAccountIdos.FromStrings(CONTAINERS.CACHE, idos)
 
 
 	# Сумма
@@ -83,8 +40,35 @@ class C60_Operation(C50_Operation):
 	def amount(self, amount: float):
 		self.FAmount.FromFloat(CONTAINERS.DISK, amount)
 
-		if not self.use_cache: return
-		self.FAmount.FromFloat(CONTAINERS.CACHE, amount)
+
+	# Год
+	@property
+	def dy(self) -> int:
+		return self.FDy.ToInteger(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+
+	@dy.setter
+	def dy(self, year: int):
+		self.FDy.FromInteger(CONTAINERS.DISK, year)
+
+
+	# Месяц
+	@property
+	def dm(self) -> int:
+		return self.FDm.ToInteger(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+
+	@dm.setter
+	def dm(self, month: int):
+		self.FDm.FromInteger(CONTAINERS.DISK, month)
+
+
+	# Число месяца
+	@property
+	def dd(self) -> int:
+		return self.FDd.ToInteger(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+
+	@dd.setter
+	def dd(self, day: int):
+		self.FDd.FromInteger(CONTAINERS.DISK, day)
 
 
 	# Описание
@@ -96,9 +80,6 @@ class C60_Operation(C50_Operation):
 	def description(self, text: str):
 		self.FDescription.FromString(CONTAINERS.DISK, text)
 
-		if not self.use_cache: return
-		self.FDescription.FromString(CONTAINERS.CACHE, text)
-
 
 	# Назначение
 	@property
@@ -108,9 +89,6 @@ class C60_Operation(C50_Operation):
 	@destination.setter
 	def destination(self, text: str):
 		self.FDestination.FromString(CONTAINERS.DISK, text)
-
-		if not self.use_cache: return
-		self.FDestination.FromString(CONTAINERS.CACHE, text)
 
 
 	# Цветовая метка
@@ -122,9 +100,6 @@ class C60_Operation(C50_Operation):
 	def color(self, color: COLORS):
 		self.FColor.FromString(CONTAINERS.DISK, color.value)
 
-		if not self.use_cache: return
-		self.FColor.FromString(CONTAINERS.CACHE, color.value)
-
 
 	# Отметка Не учитывать
 	@property
@@ -134,9 +109,6 @@ class C60_Operation(C50_Operation):
 	@skip.setter
 	def skip(self, flag: bool):
 		self.FSkip.FromBoolean(CONTAINERS.DISK, flag)
-
-		if not self.use_cache: return
-		self.FSkip.FromBoolean(CONTAINERS.CACHE, flag)
 
 
 	# Корневая операция
@@ -148,35 +120,27 @@ class C60_Operation(C50_Operation):
 	def parent_ido(self, ido: str):
 		self.FParentIdo.FromString(CONTAINERS.DISK, ido)
 
-		if not self.use_cache: return
-		self.FParentIdo.FromString(CONTAINERS.CACHE, ido)
 
-
-	# Дочерние операции
+	# Виртуальные операции
 	@property
-	def suboids(self) -> list[str]:
-		return self.FSuboids.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+	def virtual_idos(self) -> list[str]:
+		return self.FVirtualIdos.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
 
-	@suboids.setter
-	def suboids(self, oids: list[str]):
-		self.FSuboids.FromStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK, oids)
+	@virtual_idos.setter
+	def virtual_idos(self, idos: list[str]):
+		self.FVirtualIdos.FromStrings(CONTAINERS.DISK, idos)
 
-	def CalcSuboids(self):
-		idc         : str = self.Idc().data
-		idp_amount  : str = self.FAmount.Idp().data
-		idp_dd      : str = self.FDd.Idp().data
-		idp_dm      : str = self.FDm.Idp().data
-		idp_dy      : str = self.FDy.Idp().data
-		idp_parent  : str = self.FParentIdo.Idp().data
+	def CalcVirtualIdos(self):
+		""" Формирование списка виртуальных операций """
+		idc            : str = self.Idc().data
+		idp_parent_ido : str = self.FParentIdo.Idp().data
+		idp_amount     : str = self.FAmount.Idp().data
 
-		filter_data       = C30_FilterLinear1D(idc)
-		filter_data.FilterIdpVlpByEqual(idp_dd, self.dd)
-		filter_data.FilterIdpVlpByEqual(idp_dm, self.dm)
-		filter_data.FilterIdpVlpByEqual(idp_dy, self.dy)
-		filter_data.FilterIdpVlpByEqual(idp_parent, self.Ido().data)
-		filter_data.Capture(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK)
+		filter_data          = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_parent_ido, self.Ido().data)
+		filter_data.Capture(CONTAINERS.DISK)
 
-		self.suboids = filter_data.Idos(idp_amount).data
+		self.virtual_idos    = filter_data.Idos(idp_amount).data
 
 
 class C60_Operations(C50_Operations):

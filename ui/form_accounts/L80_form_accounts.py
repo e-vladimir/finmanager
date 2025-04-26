@@ -145,7 +145,7 @@ class C80_FormAccounts(C70_FormAccounts):
 		""" Установка баланса начального """
 		account              = C90_Account(self.processing_ido)
 
-		balance : int | None = RequestValue("Остаток на начало месяца", f"{account.group}\n{account.name}\n\nОстаток на начало месяца:", account.initial_balance, -99999999, 99999999)
+		balance : int | None = RequestValue("Остаток на начало месяца", f"{account.group}\n{account.name}\n\nОстаток на начало месяца:", account.balance_initial, -99999999, 99999999)
 		if balance is None: return
 
 		account.initial_balance = balance

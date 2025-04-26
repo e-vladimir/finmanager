@@ -10,6 +10,7 @@ from PySide6.QtWidgets  import QProgressDialog
 from G11_convertor_data import AmountToString
 
 from L00_form_export    import ACCOUNTS, EXPORT_FIELDS, INTERVALS
+from L00_operations import OPERATIONS
 from L70_form_export    import C70_FormExport
 from L90_account        import C90_Account
 from L90_operations     import C90_Operation
@@ -101,7 +102,7 @@ class C80_FormExport(C70_FormExport):
 				if not account.SwitchByName(dy, dm, account_name): continue
 
 				for dd in range(31):
-					for operation_ido in self.Operations.Idos(dy, dm, dd, account.Ido().data):
+					for operation_ido in self.Operations.Idos(dy, dm, dd, account.Ido().data, type_operation=OPERATIONS.PHYSICAL):
 						dialog_export.setValue(dialog_export.value() + 1)
 						dialog_export.setLabelText(f"Осталось обработать операций: {dialog_export.maximum() - dialog_export.value()}")
 
