@@ -20,19 +20,19 @@ class C60_DataCompleter(C50_DataCompleter):
 
 	def ReadDataOperations(self):
 		""" Чтение из БД """
-		operation                   = C90_Operation()
-		idc             : str       = operation.Idc().data
-		idp_dy          : str       = operation.FDy.Idp().data
-		idp_description : str       = operation.FDescription.Idp().data
-		idp_destination : str       = operation.FDestination.Idp().data
+		operation                       = C90_Operation()
+		idc                 : str       = operation.Idc().data
+		idp_dy              : str       = operation.FDy.Idp().data
+		idp_src_description : str       = operation.FSrcDescription.Idp().data
+		idp_description     : str       = operation.FDescription.Idp().data
 
-		filter_data                 = C30_FilterLinear1D(idc)
-		filter_data.FilterIdpVlpByEqual(idp_description, "", True)
-		filter_data.FilterIdpVlpByEqual(idp_destination, "", True)
+		filter_data                     = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_src_description, "", True)
+		filter_data.FilterIdpVlpByEqual(idp_description,     "", True)
 		filter_data.FilterIdpVlpByMore(idp_dy, CurrentDy() - 3)
 		filter_data.Capture(CONTAINERS.DISK)
 
-		idos            : list[str] = filter_data.Idos().data
+		idos                : list[str] = filter_data.Idos().data
 
 		for ido in idos[-1000:]: self.UpdateDataOperations(ido, True)
 
@@ -42,20 +42,20 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		if skip_calc: return
 
-		self.CalcDataDestination()
+		self.CalcDataDescriptions()
 
 
-	# Данные предиктивного определения назначения
-	def CalcDataDestination(self):
+	# Данные предиктивного определения описания
+	def CalcDataDescriptions(self):
 		""" Формирование данных """
-		self._data_destination.clear()
+		self._data_descriptions.clear()
 
 		for operation in self._data_operations.values():
-			if operation.description not in self._data_destination: self._data_destination[operation.description] = T20_PredictItem()
+			if operation.src_description not in self._data_descriptions: self._data_descriptions[operation.src_description] = T20_PredictItem()
 
 			processing_string : str = ""
 
-			for word in operation.destination.split(' '):
+			for word in operation.description.split(' '):
 				processing_string = (processing_string + ' ' + word).strip()
 
-				self._data_destination[operation.description].Append(processing_string)
+				self._data_descriptions[operation.src_description].Append(processing_string)

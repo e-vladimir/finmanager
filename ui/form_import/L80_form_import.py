@@ -87,7 +87,7 @@ class C80_FormImport(C70_FormImport):
 
 		idx_date          : int        = self.IndexOperationsStructByField(DATA_FIELDS.DATE)
 		idx_amount        : int        = self.IndexOperationsStructByField(DATA_FIELDS.AMOUNT)
-		idx_description   : int        = self.IndexOperationsStructByField(DATA_FIELDS.DESCRIPTION)
+		idx_description   : int        = self.IndexOperationsStructByField(DATA_FIELDS.SRC_DESCRIPTION)
 
 		if     idx_date   == -1                        : return
 		if     idx_amount == -1                        : return
@@ -118,26 +118,26 @@ class C80_FormImport(C70_FormImport):
 			dialog_import.setLabelText(f"Осталось обработать записей: {dialog_import.maximum() - dialog_import.value()}")
 
 			try:
-				amount      : float             = StringToFloat(data[idx_amount])
-				date        : datetime.datetime = StringToDateTime(data[idx_date])
-				description : str               = data[idx_description]
+				amount          : float             = StringToFloat(data[idx_amount])
+				date            : datetime.datetime = StringToDateTime(data[idx_date])
+				src_description : str               = data[idx_description]
 			except: continue
 
 			if not date.year  == dy: continue
 			if not date.month == dm: continue
 
-			operation              = C90_Operation()
+			operation                  = C90_Operation()
 			operation.GenerateIdo()
 			operation.RegisterObject(CONTAINERS.DISK)
 
-			operation.dy           = dy
-			operation.dm           = dm
-			operation.dd           = date.day
-			operation.amount       = amount
-			operation.description  = description
-			operation.account_idos = [account_ido]
+			operation.dy               = dy
+			operation.dm               = dm
+			operation.dd               = date.day
+			operation.amount           = amount
+			operation.src_description  = src_description
+			operation.account_idos     = [account_ido]
 
-			flag_import            = True
+			flag_import                = True
 
 		if not flag_import: return
 

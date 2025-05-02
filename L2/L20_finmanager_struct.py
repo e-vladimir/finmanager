@@ -28,6 +28,6 @@ class T20_PredictItem:
 
 @dataclass
 class T20_RawOperation:
-	amount      : int       = 0
-	description : str       = ""
-	destination : str       = ""
+	amount          : int = 0
+	src_description : str = ""
+	description     : str = ""

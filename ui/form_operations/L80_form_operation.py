@@ -134,17 +134,17 @@ class C80_FormOperation(C70_FormOperation):
 
 		self.on_OperationChanged()
 
-	def EditOperationDestination(self):
-		""" Редактирование назначения операции """
+	def EditOperationDescription(self):
+		""" Редактирование описания операции """
 		operation                = C90_Operation(self.processing_ido)
 
-		destination : str | None = RequestText( "Редактирование операции",
-		                                       f"{operation.ShortInformation()}\n{operation.description}",
-		                                         operation.destination or self.Application.DataCompleter.PredictDestination(operation.description) or operation.DestinationOrDescription(),
-		                                         self.Application.DataCompleter.PredictDestinations(operation.description) or self.Operations.Destinations())
-		if destination is None: return
+		description : str | None = RequestText( "Редактирование операции",
+		                                       f"{operation.ShortInformation()}\n\n{operation.src_description}",
+		                                        operation.description or self.Application.DataCompleter.PredictDescription(operation.description) or operation.Descriptions(),
+		                                        self.Application.DataCompleter.PredictDescriptions(operation.src_description) or self.Operations.Descriptions())
+		if description is None: return
 
-		operation.destination    = destination
+		operation.description    = description
 		operation.Caching()
 
 		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
@@ -153,8 +153,8 @@ class C80_FormOperation(C70_FormOperation):
 
 	def SetOperationColor(self, color: COLORS):
 		""" Установка цвета операции """
-		operation           = C90_Operation(self.processing_ido)
-		operation.color     = color
+		operation       = C90_Operation(self.processing_ido)
+		operation.color = color
 		operation.Caching()
 
 		self.on_OperationChanged()

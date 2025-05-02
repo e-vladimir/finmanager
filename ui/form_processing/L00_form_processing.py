@@ -9,7 +9,6 @@ class OBJECTS_TYPE(enum.StrEnum):
 	NONE       = "Объект не указан"
 
 	OPERATIONS = "Операции"
-	LABELS     = "Метки"
 
 	@classmethod
 	def _missing_(cls, value): return cls.NONE
@@ -19,18 +18,18 @@ class PROCESSING_FIELDS(enum.StrEnum):
 	""" Параметры обработки """
 	NONE                = "Нет данных"
 
-	DESCRIPTION_INCLUDE = "Описание включает"
-	DESCRIPTION_EXCLUDE = "Описание исключает"
+	SRC_DESCRIPTION_INCLUDE = "Исходное описание включает"
+	SRC_DESCRIPTION_EXCLUDE = "Исходное описание исключает"
 
-	DESTINATION_INCLUDE = "Назначение включает"
-	DESTINATION_EXCLUDE = "Назначение исключает"
-	DESTINATION_REPLACE = "Заменить назначение"
-	DESTINATION_SET     = "Установить назначение"
-	DESTINATION_ADD     = "Дополнить назначение"
+	DESCRIPTION_INCLUDE     = "Описание включает"
+	DESCRIPTION_EXCLUDE     = "Описание исключает"
+	DESCRIPTION_REPLACE     = "Заменить описание"
+	DESCRIPTION_SET         = "Установить описание"
+	DESCRIPTION_ADD         = "Дополнить описание"
 
-	COLOR_SET           = "Установить цветовую метку"
+	COLOR_SET               = "Установить цветовую метку"
 
-	SKIP_SET            = "Установить пропуск операции"
+	SKIP_SET                = "Установить пропуск операции"
 
 	@classmethod
 	def _missing_(cls, value): return cls.NONE

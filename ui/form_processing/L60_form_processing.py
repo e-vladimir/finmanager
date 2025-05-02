@@ -64,6 +64,73 @@ class C60_FormProcessing(C50_FormProcessing):
 		self._processing_idp = idp
 
 
+	# Параметр ручной обработки: Исходное описание включает
+	def ReadManualSrcDescriptionInclude(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.SRC_DESCRIPTION_INCLUDE,
+		                                                                 ROLES.IDO)
+
+		self._manual_src_description_include.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
+	def SetManualSrcDescriptionInclude(self):
+		""" Установка параметра """
+		dy, dm                   = self.Workspace.DyDm()
+
+		words : list[str] | None = RequestMultipleText("Обработка данных",
+						                               "Исходное описание включает:",
+						                               self._manual_src_description_include.data,
+						                               ClearList(' '.join(self.Operations.SrcDescriptions(dy, dm)).split(' ')))
+		if words is None: return
+
+		self._manual_src_description_include.data = ClearList(words, clear_simbols=False, clear_short=False, clear_numbers=False)
+
+		self.on_OptionsManualChanged()
+
+
+	# Параметр ручной обработки: Исходное описание исключает
+	def ReadManualSrcDescriptionExclude(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.SRC_DESCRIPTION_EXCLUDE,
+		                                                                 ROLES.IDO)
+
+		self._manual_src_description_exclude.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
+	def SetManualSrcDescriptionExclude(self):
+		""" Установка параметра """
+		dy, dm                   = self.Workspace.DyDm()
+
+		words : list[str] | None = RequestMultipleText("Обработка данных",
+						                               "Описание исключает:",
+						                               self._manual_src_description_exclude.data,
+						                               ClearList(' '.join(self.Operations.SrcDescriptions(dy, dm)).split(' ')))
+		if words is None: return
+
+		self._manual_src_description_exclude.data = ClearList(words, clear_simbols=False, clear_short=False, clear_numbers=False)
+
+		self.on_OptionsManualChanged()
+
+
+	# Параметр ручной обработки: Дополнение описания
+	def ReadManualDescriptionAdd(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESCRIPTION_ADD,
+		                                                                 ROLES.IDO)
+
+		self._manual_description_add.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
+	def SetManualDescriptionAdd(self):
+		""" Установка параметра """
+		text : str | None = RequestText("Обработка данных",
+		                                "Дополнение описания:",
+		                                self._manual_description_add.data,
+		                                ClearList(' '.join(self.Operations.Descriptions()).split(' ')))
+		if text is None: return
+
+		self._manual_description_add.data = text
+
+		self.on_OptionsManualChanged()
+
+
 	# Параметр ручной обработки: Описание включает
 	def ReadManualDescriptionInclude(self):
 		""" Чтение параметра из дерева данных """
@@ -110,111 +177,44 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.on_OptionsManualChanged()
 
 
-	# Параметр ручной обработки: Дополнение назначения
-	def ReadManualDestinationAdd(self):
+	# Параметр ручной обработки: Замена фрагмента описания
+	def ReadManualDescriptionReplace(self):
 		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESTINATION_ADD,
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESCRIPTION_REPLACE,
 		                                                                 ROLES.IDO)
 
-		self._manual_destination_add.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+		self._manual_description_replace.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
 
-	def SetManualDestinationAdd(self):
+	def SetManualDescriptionReplace(self):
 		""" Установка параметра """
 		text : str | None = RequestText("Обработка данных",
-		                                "Дополнение назначения:",
-		                                self._manual_destination_add.data,
-		                                ClearList(' '.join(self.Operations.Destinations()).split(' ')))
+		                                "Замена фрагментов описания: " +', '.join(self._manual_description_include.data),
+		                                self._manual_description_replace.data,
+		                                ClearList(' '.join(self.Operations.Descriptions()).split(' ')))
 		if text is None: return
 
-		self._manual_destination_add.data = text
+		self._manual_description_replace.data = text
 
 		self.on_OptionsManualChanged()
 
 
-	# Параметр ручной обработки: Описание включает
-	def ReadManualDestinationInclude(self):
+	# Параметр ручной обработки: Замена описания
+	def ReadManualDescriptionSet(self):
 		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESTINATION_INCLUDE,
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESCRIPTION_SET,
 		                                                                 ROLES.IDO)
 
-		self._manual_destination_include.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+		self._manual_description_set.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
 
-	def SetManualDestinationInclude(self):
-		""" Установка параметра """
-		dy, dm                   = self.Workspace.DyDm()
-
-		words : list[str] | None = RequestMultipleText("Обработка данных",
-						                               "Назначение включает:",
-						                               self._manual_destination_include.data,
-						                               ClearList(' '.join(self.Operations.Destinations(dy, dm)).split(' ')))
-		if words is None: return
-
-		self._manual_destination_include.data = ClearList(words, clear_simbols=False, clear_short=False, clear_numbers=False)
-
-		self.on_OptionsManualChanged()
-
-
-	# Параметр ручной обработки: Описание исключает
-	def ReadManualDestinationExclude(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESTINATION_EXCLUDE,
-		                                                                 ROLES.IDO)
-
-		self._manual_destination_exclude.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualDestinationExclude(self):
-		""" Установка параметра """
-		dy, dm                   = self.Workspace.DyDm()
-
-		words : list[str] | None = RequestMultipleText("Обработка данных",
-						                               "Назначение исключает:",
-						                               self._manual_destination_exclude.data,
-						                               ClearList(' '.join(self.Operations.Destinations(dy, dm)).split(' ')))
-		if words is None: return
-
-		self._manual_destination_exclude.data = ClearList(words, clear_simbols=False, clear_short=False, clear_numbers=False)
-
-		self.on_OptionsManualChanged()
-
-
-	# Параметр ручной обработки: Замена фрагмента назначения
-	def ReadManualDestinationReplace(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESTINATION_REPLACE,
-		                                                                 ROLES.IDO)
-
-		self._manual_destination_replace.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualDestinationReplace(self):
+	def SetManualDescriptionSet(self):
 		""" Установка параметра """
 		text : str | None = RequestText("Обработка данных",
-		                                "Замена фрагментов назначения: " +', '.join(self._manual_destination_include.data),
-		                                self._manual_destination_replace.data,
-		                                ClearList(' '.join(self.Operations.Destinations()).split(' ')))
+		                                "Замена описания:",
+		                                self._manual_description_set.data,
+		                                self.Operations.Descriptions())
 		if text is None: return
 
-		self._manual_destination_replace.data = text
-
-		self.on_OptionsManualChanged()
-
-
-	# Параметр ручной обработки: Замена назначения
-	def ReadManualDestinationSet(self):
-		""" Чтение параметра из дерева данных """
-		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESTINATION_SET,
-		                                                                 ROLES.IDO)
-
-		self._manual_destination_set.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
-
-	def SetManualDestinationSet(self):
-		""" Установка параметра """
-		text : str | None = RequestText("Обработка данных",
-		                                "Замена назначения:",
-		                                self._manual_destination_set.data,
-		                                self.Operations.Destinations())
-		if text is None: return
-
-		self._manual_destination_set.data = text
+		self._manual_description_set.data = text
 
 		self.on_OptionsManualChanged()
 
@@ -261,10 +261,10 @@ class C60_FormProcessing(C50_FormProcessing):
 
 		self.ModelDataManual.setHorizontalHeaderLabels(["Параметр", "Значение"])
 
-		items             = [PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
+		items             = [PROCESSING_FIELDS.SRC_DESCRIPTION_INCLUDE,
+		                     PROCESSING_FIELDS.SRC_DESCRIPTION_EXCLUDE,
+		                     PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
 		                     PROCESSING_FIELDS.DESCRIPTION_EXCLUDE,
-		                     PROCESSING_FIELDS.DESTINATION_INCLUDE,
-		                     PROCESSING_FIELDS.DESTINATION_EXCLUDE,
 		                     ]
 
 		group_filter      = C20_StandardItem("Параметры фильтрации")
@@ -282,9 +282,9 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.ModelDataManual.appendRow([group_filter, C20_StandardItem("")])
 
 
-		items             = [PROCESSING_FIELDS.DESTINATION_ADD,
-							 PROCESSING_FIELDS.DESTINATION_REPLACE,
-					         PROCESSING_FIELDS.DESTINATION_SET,
+		items             = [PROCESSING_FIELDS.DESCRIPTION_ADD,
+							 PROCESSING_FIELDS.DESCRIPTION_REPLACE,
+					         PROCESSING_FIELDS.DESCRIPTION_SET,
 		                     PROCESSING_FIELDS.COLOR_SET,
 		                     PROCESSING_FIELDS.SKIP_SET,
 		                     ]
@@ -305,6 +305,18 @@ class C60_FormProcessing(C50_FormProcessing):
 
 	def LoadModelDataManual(self):
 		""" Загрузка данных в модель данных ручной обработки """
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.SRC_DESCRIPTION_INCLUDE):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.SRC_DESCRIPTION_INCLUDE)[1])
+			item_value.setText('\n'.join(self._manual_src_description_include.data))
+
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.SRC_DESCRIPTION_EXCLUDE):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.SRC_DESCRIPTION_EXCLUDE)[1])
+			item_value.setText('\n'.join(self._manual_src_description_exclude.data))
+
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESCRIPTION_ADD):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_ADD)[1])
+			item_value.setText(self._manual_description_add.data)
+
 		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESCRIPTION_INCLUDE):
 			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_INCLUDE)[1])
 			item_value.setText('\n'.join(self._manual_description_include.data))
@@ -313,25 +325,13 @@ class C60_FormProcessing(C50_FormProcessing):
 			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_EXCLUDE)[1])
 			item_value.setText('\n'.join(self._manual_description_exclude.data))
 
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESTINATION_ADD):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESTINATION_ADD)[1])
-			item_value.setText(self._manual_destination_add.data)
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESCRIPTION_REPLACE):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_REPLACE)[1])
+			item_value.setText(self._manual_description_replace.data)
 
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESTINATION_INCLUDE):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESTINATION_INCLUDE)[1])
-			item_value.setText('\n'.join(self._manual_destination_include.data))
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESTINATION_EXCLUDE):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESTINATION_EXCLUDE)[1])
-			item_value.setText('\n'.join(self._manual_destination_exclude.data))
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESTINATION_REPLACE):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESTINATION_REPLACE)[1])
-			item_value.setText(self._manual_destination_replace.data)
-
-		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESTINATION_SET):
-			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESTINATION_SET)[1])
-			item_value.setText(self._manual_destination_set.data)
+		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.DESCRIPTION_SET):
+			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.DESCRIPTION_SET)[1])
+			item_value.setText(self._manual_description_set.data)
 
 		if self.ModelDataManual.checkIdo(PROCESSING_FIELDS.COLOR_SET):
 			item_value = self.ModelDataManual.itemFromIndex(self.ModelDataManual.indexesInRowByIdo(PROCESSING_FIELDS.COLOR_SET)[1])

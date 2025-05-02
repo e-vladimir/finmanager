@@ -71,6 +71,16 @@ class C60_Operation(C50_Operation):
 		self.FDd.FromInteger(CONTAINERS.DISK, day)
 
 
+	# Исходное описание
+	@property
+	def src_description(self) -> str:
+		return self.FSrcDescription.ToString(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+
+	@src_description.setter
+	def src_description(self, text: str):
+		self.FSrcDescription.FromString(CONTAINERS.DISK, text)
+
+
 	# Описание
 	@property
 	def description(self) -> str:
@@ -79,16 +89,6 @@ class C60_Operation(C50_Operation):
 	@description.setter
 	def description(self, text: str):
 		self.FDescription.FromString(CONTAINERS.DISK, text)
-
-
-	# Назначение
-	@property
-	def destination(self) -> str:
-		return self.FDestination.ToString(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
-
-	@destination.setter
-	def destination(self, text: str):
-		self.FDestination.FromString(CONTAINERS.DISK, text)
 
 
 	# Цветовая метка
@@ -101,14 +101,14 @@ class C60_Operation(C50_Operation):
 		self.FColor.FromString(CONTAINERS.DISK, color.value)
 
 
-	# Метки
+	# Назначение
 	@property
-	def labels(self) -> list[str]:
-		return self.FLabels.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+	def destination(self) -> list[str]:
+		return self.FDestination.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
 
-	@labels.setter
-	def labels(self, labels: list[str]):
-		self.FLabels.FromStrings(CONTAINERS.DISK, labels)
+	@destination.setter
+	def destination(self, labels: list[str]):
+		self.FDestination.FromStrings(CONTAINERS.DISK, labels)
 
 
 	# Корневая операция

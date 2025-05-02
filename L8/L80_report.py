@@ -8,7 +8,7 @@ from fpdf               import Align
 from G11_convertor_data import AmountToString
 
 from L00_months         import MONTHS
-from L00_operations import OPERATIONS
+from L00_operations     import OPERATIONS
 from L30_reports_fpdf   import C30_ProcessorReportsFpdf2, MONTHS_SHORT
 from L70_report         import C70_Report
 from L90_account        import C90_Account
@@ -125,7 +125,7 @@ class C80_Report(C70_Report):
 					subdata: list[str] = []
 					subdata.append(operation.DdDmDyToString())
 					subdata.append(AmountToString(operation.amount, flag_sign=True))
-					subdata.append(operation.DestinationOrDescription())
+					subdata.append(operation.Descriptions())
 
 					if not subdata: continue
 

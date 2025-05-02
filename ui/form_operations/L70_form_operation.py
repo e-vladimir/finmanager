@@ -90,7 +90,7 @@ class C70_FormOperation(C60_FormOperation):
 
 		if   self.processing_idp == idp_amount     : self.on_RequestEditOperationAmount()
 		elif self.processing_idp == idp_accounts   : self.on_RequestEditOperationAccounts()
-		elif self.processing_idp == idp_description: self.on_RequestEditOperationDescriptions()
+		elif self.processing_idp == idp_description: self.on_RequestEditOperationDescription()
 
 	def AdjustTreeData_Sort(self):
 		""" Настройка дерева данных: Сортировка """

@@ -6,7 +6,7 @@ from PySide6.QtWidgets   import QProgressDialog
 
 from L00_colors          import COLORS
 from L00_form_processing import OBJECTS_TYPE, PROCESSING_FIELDS
-from L00_operations import OPERATIONS
+from L00_operations      import OPERATIONS
 from L70_form_processing import C70_FormProcessing
 from L90_operations      import C90_Operation
 
@@ -17,16 +17,16 @@ class C80_FormProcessing(C70_FormProcessing):
 	# Параметры ручной обработки
 	def EditOptionsManual(self):
 		match self.processing_field:
-			case PROCESSING_FIELDS.DESCRIPTION_EXCLUDE: self.SetManualDescriptionExclude()
-			case PROCESSING_FIELDS.DESCRIPTION_INCLUDE: self.SetManualDescriptionInclude()
+			case PROCESSING_FIELDS.SRC_DESCRIPTION_EXCLUDE: self.SetManualSrcDescriptionExclude()
+			case PROCESSING_FIELDS.SRC_DESCRIPTION_INCLUDE: self.SetManualSrcDescriptionInclude()
 
-			case PROCESSING_FIELDS.DESTINATION_ADD    : self.SetManualDestinationAdd()
-			case PROCESSING_FIELDS.DESTINATION_EXCLUDE: self.SetManualDestinationExclude()
-			case PROCESSING_FIELDS.DESTINATION_INCLUDE: self.SetManualDestinationInclude()
-			case PROCESSING_FIELDS.DESTINATION_REPLACE: self.SetManualDestinationReplace()
-			case PROCESSING_FIELDS.DESTINATION_SET    : self.SetManualDestinationSet()
+			case PROCESSING_FIELDS.DESCRIPTION_ADD        : self.SetManualDescriptionAdd()
+			case PROCESSING_FIELDS.DESCRIPTION_EXCLUDE    : self.SetManualDescriptionExclude()
+			case PROCESSING_FIELDS.DESCRIPTION_INCLUDE    : self.SetManualDescriptionInclude()
+			case PROCESSING_FIELDS.DESCRIPTION_REPLACE    : self.SetManualDescriptionReplace()
+			case PROCESSING_FIELDS.DESCRIPTION_SET        : self.SetManualDescriptionSet()
 
-			case PROCESSING_FIELDS.COLOR_SET          : self.SetManualColorSet()
+			case PROCESSING_FIELDS.COLOR_SET              : self.SetManualColorSet()
 
 			case PROCESSING_FIELDS.SKIP_SET               : self.SwitchManualSkipSet()
 
@@ -49,41 +49,41 @@ class C80_FormProcessing(C70_FormProcessing):
 			dialog_import.setLabelText(f"Осталось обработать операций: {dialog_import.maximum() - dialog_import.value()}")
 
 			operation               = C90_Operation(ido)
-			description : str       = operation.description.lower()
-			destination             = operation.destination.lower()
+			src_description : str   = operation.src_description.lower()
+			description             = operation.description.lower()
 
-			flag_skip   : bool      = True
+			flag_skip       : bool  = True
+
+			if self._manual_src_description_include.enable:
+				flag_skip &= not any([item.lower() in src_description for item in self._manual_src_description_include.data])
+
+			if self._manual_src_description_exclude.enable:
+				flag_skip |=     any([item.lower() in src_description for item in self._manual_src_description_exclude.data])
 
 			if self._manual_description_include.enable:
-				flag_skip &= not any([item.lower()  in description for item  in self._manual_description_include.data])
+				flag_skip &= not any([item.lower() in description for item in self._manual_description_include.data])
 
 			if self._manual_description_exclude.enable:
-				flag_skip |=     any([item.lower()  in description for item  in self._manual_description_exclude.data])
-
-			if self._manual_destination_include.enable:
-				flag_skip &= not any([item.lower()  in destination for item  in self._manual_destination_include.data])
-
-			if self._manual_destination_exclude.enable:
-				flag_skip |=     any([item.lower()  in destination for item  in self._manual_destination_exclude.data])
+				flag_skip |=     any([item.lower() in description for item in self._manual_description_exclude.data])
 
 			if flag_skip: continue
 
-			destination             = operation.destination
+			description             = operation.description
 
-			if self._manual_destination_replace.enable and self._manual_destination_include.enable:
-				for src in self._manual_destination_include.data:
-					destination = destination.replace(src, self._manual_destination_replace.data)
+			if self._manual_description_replace.enable and self._manual_description_include.enable:
+				for src in self._manual_description_include.data:
+					description = description.replace(src, self._manual_description_replace.data)
 
-			if self._manual_destination_set.enable:
-				destination = self._manual_destination_set.data
+			if self._manual_description_set.enable:
+				description  = self._manual_description_set.data
 
-			if self._manual_destination_add.enable:
-				destination += self._manual_destination_add.data
+			if self._manual_description_add.enable:
+				description += self._manual_description_add.data
 
 			if self._manual_color_set.enable:
 				operation.color = COLORS(self._manual_color_set.data)
 
-			operation.destination = destination
+			operation.description = description
 
 			operation.Caching()
 

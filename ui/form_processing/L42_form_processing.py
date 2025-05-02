@@ -16,23 +16,23 @@ class C42_FormProcessing(C41_FormProcessing):
 	def Init_00(self):
 		super().Init_00()
 
-		self._processing_object_type     : OBJECTS_TYPE       = OBJECTS_TYPE.NONE
-		self._processing_field           : PROCESSING_FIELDS  = PROCESSING_FIELDS.NONE
-		self._processing_ido             : str                = ""
-		self._processing_idp             : str                = ""
+		self._processing_object_type         : OBJECTS_TYPE       = OBJECTS_TYPE.NONE
+		self._processing_field               : PROCESSING_FIELDS  = PROCESSING_FIELDS.NONE
+		self._processing_ido                 : str                = ""
+		self._processing_idp                 : str                = ""
 
-		self._manual_description_include : T20_ProcessingItem = T20_ProcessingItem(False, [])
-		self._manual_description_exclude : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_src_description_include : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_src_description_exclude : T20_ProcessingItem = T20_ProcessingItem(False, [])
 
-		self._manual_destination_add     : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._manual_destination_include : T20_ProcessingItem = T20_ProcessingItem(False, [])
-		self._manual_destination_exclude : T20_ProcessingItem = T20_ProcessingItem(False, [])
-		self._manual_destination_replace : T20_ProcessingItem = T20_ProcessingItem(False, "")
-		self._manual_destination_set     : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_description_add         : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_description_include     : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_description_exclude     : T20_ProcessingItem = T20_ProcessingItem(False, [])
+		self._manual_description_replace     : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_description_set         : T20_ProcessingItem = T20_ProcessingItem(False, "")
 
-		self._manual_color_set           : T20_ProcessingItem = T20_ProcessingItem(False, COLORS.BLACK)
+		self._manual_color_set               : T20_ProcessingItem = T20_ProcessingItem(False, COLORS.BLACK)
 
-		self._manual_skip_set            : T20_ProcessingItem = T20_ProcessingItem(False, False)
+		self._manual_skip_set                : T20_ProcessingItem = T20_ProcessingItem(False, False)
 
 	def Init_10(self):
 		super().Init_10()

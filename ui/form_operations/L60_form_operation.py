@@ -64,7 +64,8 @@ class C60_FormOperation(C50_FormOperation):
 
 		self.ModelData.setHorizontalHeaderLabels(["Дата/Сумма",
 		                                          "Счёт",
-		                                          "Описание/Назначение"
+		                                          "Описание",
+		                                          "Назначение"
 		                                          ])
 
 	def LoadDdInModelData(self):
@@ -84,6 +85,7 @@ class C60_FormOperation(C50_FormOperation):
 		self.ModelData.appendRow([item_dd,
 		                          C20_StandardItem(""),
 		                          C20_StandardItem(""),
+		                          C20_StandardItem(""),
 		                          ])
 
 	def LoadOperationOnModelData(self):
@@ -96,6 +98,7 @@ class C60_FormOperation(C50_FormOperation):
 		idp_amount      : str                      = operation.FAmount.Idp().data
 		idp_accounts    : str                      = operation.FAccountIdos.Idp().data
 		idp_description : str                      = operation.FDescription.Idp().data
+		idp_destination : str                      = operation.FDestination.Idp().data
 
 		if operation.parent_ido: item_parent : C20_StandardItem | None  = self.ModelData.itemByData(operation.parent_ido, ROLES.IDO)
 		else                   : item_parent : C20_StandardItem | None  = self.ModelData.itemByData(operation.DdDmDyToString(), ROLES.TEXT)
@@ -114,12 +117,17 @@ class C60_FormOperation(C50_FormOperation):
 			item_accounts.setData(operation.dd,        ROLES.GROUP)
 			item_accounts.setData(idp_accounts,        ROLES.IDP)
 
+			item_description = C20_StandardItem("")
+			item_description.setData(self.processing_ido, ROLES.IDO)
+			item_description.setData(operation.dd,        ROLES.GROUP)
+			item_description.setData(idp_description,     ROLES.IDP)
+
 			item_destination = C20_StandardItem("")
 			item_destination.setData(self.processing_ido, ROLES.IDO)
 			item_destination.setData(operation.dd,        ROLES.GROUP)
-			item_destination.setData(idp_description,     ROLES.IDP)
+			item_destination.setData(idp_destination,     ROLES.IDP)
 
-			item_parent.appendRow([item_amount, item_accounts, item_destination])
+			item_parent.appendRow([item_amount, item_accounts, item_description, item_destination])
 
 		indexes         : list[QModelIndex]        = self.ModelData.indexesInRowByIdo(self.processing_ido)
 
@@ -130,8 +138,11 @@ class C60_FormOperation(C50_FormOperation):
 		item_accounts                              = self.ModelData.itemFromIndex(indexes[1])
 		item_accounts.setText('\n'.join(self.Accounts.IdosToNames(operation.account_idos)))
 
-		item_destination                           = self.ModelData.itemFromIndex(indexes[2])
-		item_destination.setText(operation.DestinationOrDescription())
+		item_description                           = self.ModelData.itemFromIndex(indexes[2])
+		item_description.setText(operation.Descriptions())
+
+		item_destination                           = self.ModelData.itemFromIndex(indexes[3])
+		item_destination.setText(', '.join(operation.destination))
 
 		color_bg : QColor = QColor(255, 255, 255)
 		color_fg : QColor = QColor(  0,   0,   0)

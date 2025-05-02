@@ -16,7 +16,7 @@ class C90_Application(C80_Application):
 		self.InitContainers()
 
 		self.DataCompleter.ReadDataOperations()
-		self.DataCompleter.CalcDataDestination()
+		self.DataCompleter.CalcDataDescriptions()
 
 	def on_Start(self):
 		super().on_Start()

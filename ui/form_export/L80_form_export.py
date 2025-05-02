@@ -10,7 +10,7 @@ from PySide6.QtWidgets  import QProgressDialog
 from G11_convertor_data import AmountToString
 
 from L00_form_export    import ACCOUNTS, EXPORT_FIELDS, INTERVALS
-from L00_operations import OPERATIONS
+from L00_operations     import OPERATIONS
 from L70_form_export    import C70_FormExport
 from L90_account        import C90_Account
 from L90_operations     import C90_Operation
@@ -95,7 +95,7 @@ class C80_FormExport(C70_FormExport):
 
 		for account_name in account_names:
 			data : list = []
-			data.append(';'.join(["Дата", "Сумма", "Описание", "Назначение"]))
+			data.append(';'.join(["Дата", "Сумма", "Исходное описание", "Описание", "Назначение"]))
 
 			for dy, dm in product(dys, dms):
 				account = C90_Account()
@@ -109,8 +109,9 @@ class C80_FormExport(C70_FormExport):
 						operation = C90_Operation(operation_ido)
 						subdata : list[str] = [operation.DdDmDyToString(),
 						                       AmountToString(operation.amount, flag_point=True),
+						                       operation.src_description,
 						                       operation.description,
-						                       operation.destination,
+						                       ', '.join(operation.destination),
 						                       ]
 
 						data.append(';'.join(subdata))

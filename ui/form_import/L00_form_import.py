@@ -12,8 +12,8 @@ class FORMATS(enum.StrEnum):
 class DATA_FIELDS(enum.StrEnum):
 	""" Каталог проекта: Типы полей """
 
-	NONE        = ""
+	NONE            = ""
 
-	AMOUNT      = "Сумма"
-	DATE        = "Дата"
-	DESCRIPTION = "Описание"
+	AMOUNT          = "Сумма"
+	DATE            = "Дата"
+	SRC_DESCRIPTION = "Исходное описание"

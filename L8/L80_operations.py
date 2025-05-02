@@ -15,78 +15,82 @@ class C80_Operation(C70_Operation):
 	""" Финансовая операция: Логика данных """
 
 	# Выборка данных
-	def DestinationOrDescription(self) -> str:
-		""" Назначение или описание """
-		return self.destination or self.description
+	def Descriptions(self) -> str:
+		""" Пользовательское или исходное описание """
+		return self.description or self.src_description
 
 
 	# Управление операцией
 	def Split(self, amount: int) -> str:
 		""" Разделение операции """
-		accounts    = self.account_idos
-		color       = self.color
-		dd          = self.dd
-		description = self.description
-		destination = self.destination
-		dm          = self.dm
-		dy          = self.dy
-		parent_ido  = self.parent_ido
-		skip        = self.skip
+		accounts        = self.account_idos
+		color           = self.color
+		dd              = self.dd
+		description     = self.description
+		destination     = self.destination
+		dm              = self.dm
+		dy              = self.dy
+		parent_ido      = self.parent_ido
+		skip            = self.skip
+		src_description = self.src_description
 
 		if not parent_ido:
 			parent_ido = self.Ido().data
-			self.skip    = True
-			skip = False
+			self.skip  = True
+			skip       = False
 
 		else                  :
 			self.amount -= amount
 
-		operation   = C80_Operation()
+		operation       = C80_Operation()
 
 		operation.GenerateIdo()
 		operation.RegisterObject(CONTAINERS.DISK)
 		operation.RegisterObject(CONTAINERS.CACHE)
 
-		operation.account_idos = accounts
-		operation.amount       = amount
-		operation.color        = color
-		operation.dd           = dd
-		operation.description  = description
-		operation.destination  = destination
-		operation.dm           = dm
-		operation.dy           = dy
-		operation.parent_ido   = parent_ido
-		operation.skip         = skip
+		operation.account_idos    = accounts
+		operation.amount          = amount
+		operation.color           = color
+		operation.dd              = dd
+		operation.description     = description
+		operation.destination     = destination
+		operation.dm              = dm
+		operation.dy              = dy
+		operation.parent_ido      = parent_ido
+		operation.skip            = skip
+		operation.src_description = src_description
 
 		return operation.Ido().data
 
 	def Copy(self) -> str:
 		""" Копирование операции """
-		accounts    = self.account_idos
-		amount      = self.amount
-		color       = self.color
-		dd          = self.dd
-		description = self.description
-		destination = self.destination
-		dm          = self.dm
-		dy          = self.dy
-		skip        = self.skip
-		parent_ido  = self.parent_ido
+		accounts        = self.account_idos
+		amount          = self.amount
+		color           = self.color
+		dd              = self.dd
+		description     = self.description
+		destination     = self.destination
+		dm              = self.dm
+		dy              = self.dy
+		parent_ido      = self.parent_ido
+		skip            = self.skip
+		src_description = self.src_description
 
 		self.GenerateIdo()
 		self.RegisterObject(CONTAINERS.DISK)
 		self.RegisterObject(CONTAINERS.CACHE)
 
-		self.account_idos = accounts
-		self.amount       = amount
-		self.color        = color
-		self.dd           = dd
-		self.description  = description
-		self.destination  = destination
-		self.dm           = dm
-		self.dy           = dy
-		self.skip         = skip
-		self.parent_ido   = parent_ido
+		self.account_idos    = accounts
+		self.amount          = amount
+		self.color           = color
+		self.dd              = dd
+		self.description     = description
+		self.destination     = destination
+		self.dm              = dm
+		self.dy              = dy
+		self.parent_ido      = parent_ido
+		self.skip            = skip
+		self.src_description = src_description
 
 		return self.Ido().data
 
@@ -108,13 +112,13 @@ class C80_Operation(C70_Operation):
 
 	def Information(self, flag_flat: bool = False) -> str:
 		""" Информация об операции """
-		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()} ({self.DestinationOrDescription()})"
-		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()}\n{self.DestinationOrDescription()}"
+		if flag_flat: return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()} ({self.Descriptions()})"
+		else        : return f"{AmountToString(self.amount, flag_sign=True)} от {self.DdDmDyToString()}\n{self.Descriptions()}"
 
 	def ToT20_RawOperation(self) -> T20_RawOperation:
-		return T20_RawOperation(amount      = int(self.amount),
-		                        description = self.description,
-		                        destination = self.destination)
+		return T20_RawOperation(amount          = int(self.amount),
+		                        src_description = self.src_description,
+		                        description     = self.description)
 
 
 class C80_Operations(C70_Operations):
@@ -234,6 +238,22 @@ class C80_Operations(C70_Operations):
 		return filter_data.ToIntegers(idp_dd, flag_sort=True, flag_distinct=True).data
 
 	@classmethod
+	def SrcDescriptions(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
+		""" Список исходных описаний """
+		operation                 = C80_Operation()
+		idc                 : str = operation.Idc().data
+		idp_dy              : str = operation.FDy.Idp().data
+		idp_dm              : str = operation.FDm.Idp().data
+		idp_src_description : str = operation.FSrcDescription.Idp().data
+
+		filter_data               = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
+
+		return filter_data.ToStrings(idp_src_description, True, True).data
+
+	@classmethod
 	def Descriptions(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
 		""" Список описаний """
 		operation             = C80_Operation()
@@ -248,19 +268,3 @@ class C80_Operations(C70_Operations):
 		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToStrings(idp_description, True, True).data
-
-	@classmethod
-	def Destinations(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
-		""" Список описаний """
-		operation             = C80_Operation()
-		idc             : str = operation.Idc().data
-		idp_dy          : str = operation.FDy.Idp().data
-		idp_dm          : str = operation.FDm.Idp().data
-		idp_destination : str = operation.FDestination.Idp().data
-
-		filter_data           = C30_FilterLinear1D(idc)
-		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
-		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
-		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
-
-		return filter_data.ToStrings(idp_destination, True, True).data

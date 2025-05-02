@@ -26,7 +26,7 @@ class C90_FormOperation(C80_FormOperation):
 		# Меню Операция
 		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
 		self.ActionEditOperationAccounts.triggered.connect(self.on_RequestEditOperationAccounts)
-		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescriptions)
+		self.ActionEditOperationDescription.triggered.connect(self.on_RequestEditOperationDescription)
 		self.ActionSwitchOperationSkip.triggered.connect(self.on_RequestSwitchOperationSkip)
 		self.ActionDeleteOperation.triggered.connect(self.on_RequestDeleteOperation)
 		self.ActionSetOperationColorBlack.triggered.connect(self.on_RequestSetOperationColorToBlack)
@@ -152,9 +152,9 @@ class C90_FormOperation(C80_FormOperation):
 		""" Запрос редактирования счетов операции """
 		self.EditOperationAccounts()
 
-	def on_RequestEditOperationDescriptions(self):
+	def on_RequestEditOperationDescription(self):
 		""" Запрос редактирования описания операции """
-		self.EditOperationDestination()
+		self.EditOperationDescription()
 
 	def on_RequestSwitchOperationSkip(self):
 		""" Запрос на смену учёта операции """

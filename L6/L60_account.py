@@ -65,9 +65,9 @@ class C60_Account(C50_Account):
 	# Остаток на конец месяца
 	@property
 	def balance_summary(self) -> int:
-		return int(self.balance_initial + sum(C90_Operations.Amounts(dy            = self.dy,
-		                                                             dm            = self.dm,
-		                                                             account_ido   = self.Ido().data,
+		return int(self.balance_initial + sum(C90_Operations.Amounts(dy             = self.dy,
+		                                                             dm             = self.dm,
+		                                                             account_ido    = self.Ido().data,
 		                                                             type_operation = OPERATIONS.ACCOUNTING)
 		                                      )
 		           )
