@@ -17,6 +17,7 @@ class C70_FormOperation(C60_FormOperation):
 		""" Отображение заголовка окна """
 		self.setWindowTitle(f"Операции - {self.Workspace.DmDyToString()}")
 
+
 	# Меню операций
 	def AdjustMenuOperations(self):
 		""" Настройка меню операций """
@@ -73,6 +74,7 @@ class C70_FormOperation(C60_FormOperation):
 	def ShowMenuOperation(self):
 		""" Отображению меню операций """
 		self.MenuOperation.exec_(QCursor().pos())
+
 
 	# Дерево данных
 	def ControlOperationIdp(self):

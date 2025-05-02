@@ -1,3 +1,14 @@
-data = {'174517-429479-127108-880502': False, '174517-434091-465401-050641': True, '174515-092011-722204-810090': True}
+class clss:
+	def __init__(self):
+		self.item = ""
 
-print({ido for ido, result in data.items() if result})
+def update_dict(key, value, defaults = clss()):
+	value_from = defaults.item
+	defaults.item = value
+
+	print(value_from + '->' + defaults.item)
+
+
+update_dict(key='fruit', value='apple', defaults=clss())
+update_dict(key='car', value='ferrari')
+update_dict(key='car', value='ferrari2')

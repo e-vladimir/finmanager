@@ -101,14 +101,14 @@ class C60_Operation(C50_Operation):
 		self.FColor.FromString(CONTAINERS.DISK, color.value)
 
 
-	# Отметка Не учитывать
+	# Метки
 	@property
-	def skip(self) -> bool:
-		return self.FSkip.ToBoolean(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+	def labels(self) -> list[str]:
+		return self.FLabels.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
 
-	@skip.setter
-	def skip(self, flag: bool):
-		self.FSkip.FromBoolean(CONTAINERS.DISK, flag)
+	@labels.setter
+	def labels(self, labels: list[str]):
+		self.FLabels.FromStrings(CONTAINERS.DISK, labels)
 
 
 	# Корневая операция
@@ -119,6 +119,16 @@ class C60_Operation(C50_Operation):
 	@parent_ido.setter
 	def parent_ido(self, ido: str):
 		self.FParentIdo.FromString(CONTAINERS.DISK, ido)
+
+
+	# Отметка Не учитывать
+	@property
+	def skip(self) -> bool:
+		return self.FSkip.ToBoolean(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+
+	@skip.setter
+	def skip(self, flag: bool):
+		self.FSkip.FromBoolean(CONTAINERS.DISK, flag)
 
 
 	# Виртуальные операции

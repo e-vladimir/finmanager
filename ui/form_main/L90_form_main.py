@@ -18,14 +18,21 @@ class C90_FormMain(C80_FormMain):
 		self.LabelDmDy.wheelMovedUp.connect(self.on_RequestSwitchDyDmToNextDm)
 		self.LabelDmDy.wheelMovedDown.connect(self.on_RequestSwitchDyDmToPrevDm)
 
+
 		# Блок Счета
 		self.LabelInitialBalance.clicked.connect(self.on_RequestOpenAccounts)
+
 
 		# Блок Операции
 		self.LabelDelta.clicked.connect(self.on_RequestOpenOperations)
 
+
 		# Блок Копии архива данных
 		self.LabelBackupDdDmDy.clicked.connect(self.on_RequestOpenBackups)
+
+
+		# Блок Аналитика данных
+		self.DiaDmViewer.clicked.connect(self.on_RequestOpenAnalytics)
 
 
 	# Форма
@@ -104,3 +111,9 @@ class C90_FormMain(C80_FormMain):
 	def on_RequestOpenBackups(self):
 		""" Запрос на переход в форму Копии архива данных """
 		self.Application.FormBackups.Open()
+
+
+	# Аналитика данных
+	def on_RequestOpenAnalytics(self):
+		""" Запрос открытия аналитики данных """
+		self.Application.FormAnalytics.Open()

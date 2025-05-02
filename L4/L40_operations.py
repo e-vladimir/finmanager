@@ -27,9 +27,9 @@ class C40_Operation(C31_StructFrameWithEvents):
 		self.FDestination   = C30_StructField(self, "Назначение")
 		self.FDm            = C30_StructField(self, "Месяц")
 		self.FDy            = C30_StructField(self, "Год")
+		self.FLabels        = C30_StructField(self, "Метки")
 		self.FParentIdo     = C30_StructField(self, "Корневая операция")
 		self.FSkip          = C30_StructField(self, "Не учитывать")
-
 		self.FVirtualIdos   = C30_StructField(self, "Виртуальные операции")
 
 

@@ -14,11 +14,18 @@ class C50_FormMain(C42_FormMain):
 
 	def on_DyDmChanged(self): pass
 
+
 	# Счета
 	def on_RequestOpenAccounts(self): pass
+
 
 	# Операции
 	def on_RequestOpenOperations(self): pass
 
+
 	# Копии архива данных
 	def on_RequestOpenBackups(self): pass
+
+
+	# Аналитика данных
+	def on_RequestOpenAnalytics(self): pass

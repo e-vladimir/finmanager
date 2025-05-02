@@ -20,6 +20,7 @@ sys.path.append('./L8')
 sys.path.append('./L9')
 
 sys.path.append('./ui/form_accounts')
+sys.path.append('./ui/form_analytics')
 sys.path.append('./ui/form_backups')
 sys.path.append('./ui/form_export')
 sys.path.append('./ui/form_import')

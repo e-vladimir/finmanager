@@ -16,6 +16,7 @@ class C90_Operation(C80_Operation):
 		self.destination  = ""
 		self.dm           = 0
 		self.dy           = 0
+		self.labels       = []
 		self.parent_ido   = ""
 		self.skip         = False
 		self.virtual_idos = []

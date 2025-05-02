@@ -30,23 +30,23 @@ class META_CLASSES(ClassInfo, enum.Enum):
 META_CLASS       = META_CLASSES.C31_CACTUS_FRAME
 
 # Имя класса
-CLASS_NAME        = "AnalyticsItem"
+CLASS_NAME        = "FormAnalytics"
 
 # Описание класса
-CLASS_DESCRIPTION = "Аналитика данных"
+CLASS_DESCRIPTION = "Форма Аналитика данных"
 
 # Имя файла
 # Если оставить пустым, сгенерируется автоматически из имени класса
 FILE_NAME         = ""
 
 # Корневая папка генерации файлов/директорий L
-DIR_ROOT          = "."
+DIR_ROOT          = "./ui/form_analytics"
 
 # Генерация UI-Класса
-TARGET_IS_UI      = False
+TARGET_IS_UI      = True
 
 # Генерация файлов без деления по папкам
-TARGET_IS_FLAT    = False
+TARGET_IS_FLAT    = True
 
 # Генерация единого файла, без разделения на L4-9
 TARGET_IS_SINGLE  = False
