@@ -8,7 +8,7 @@ from G11_convertor_data import AmountToString
 from L00_colors         import COLORS
 from L00_containers     import CONTAINERS
 from L00_operations     import OPERATIONS
-from L20_PySide6        import RequestConfirm, RequestItems, RequestText, RequestValue, ShowMessage
+from L20_PySide6 import RequestConfirm, RequestItems, RequestMultipleText, RequestText, RequestValue, ShowMessage
 from L70_form_operation import C70_FormOperation
 from L90_operations     import C90_Operation
 
@@ -148,6 +148,21 @@ class C80_FormOperation(C70_FormOperation):
 		operation.Caching()
 
 		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
+
+		self.on_OperationChanged()
+
+	def EditOperationDestination(self):
+		""" Редактирование назначения операции """
+		operation                 = C90_Operation(self.processing_ido)
+		labels : list[str] | None = RequestMultipleText( "Редактирование операции",
+		                                                f"{operation.Information()}",
+		                                                 operation.destination,
+		                                                 list(sorted(set(self.Operations.Destinations()).union(self.Analytics.Names())))
+		                                                )
+		if labels is None: return
+
+		operation.destination = labels
+		operation.Caching()
 
 		self.on_OperationChanged()
 

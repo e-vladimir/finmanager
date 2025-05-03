@@ -268,3 +268,24 @@ class C80_Operations(C70_Operations):
 		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
 
 		return filter_data.ToStrings(idp_description, True, True).data
+
+	@classmethod
+	def Destinations(cls, dy: int = None, dm: int = None, use_cache: bool = False) -> list[str]:
+		""" Список описаний """
+		operation             = C80_Operation()
+		idc             : str = operation.Idc().data
+		idp_dy          : str = operation.FDy.Idp().data
+		idp_dm          : str = operation.FDm.Idp().data
+		idp_destination : str = operation.FDestination.Idp().data
+
+		filter_data           = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByEqual(idp_dy, dy)
+		filter_data.FilterIdpVlpByEqual(idp_dm, dm)
+		filter_data.Capture(CONTAINERS.CACHE if use_cache else CONTAINERS.DISK)
+
+		destinations = set()
+
+		for data in filter_data.ToStrings(idp_destination).data:
+			destinations.update(set(data.split('\n')))
+
+		return list(sorted(destinations))

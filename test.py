@@ -1,14 +1,8 @@
-class clss:
-	def __init__(self):
-		self.item = ""
-
-def update_dict(key, value, defaults = clss()):
-	value_from = defaults.item
-	defaults.item = value
-
-	print(value_from + '->' + defaults.item)
+def update_dict(key, value, defaults=[]):
+	defaults.append(value)
+	print(defaults)
 
 
-update_dict(key='fruit', value='apple', defaults=clss())
+update_dict(key='fruit', value='apple')
+update_dict(key='vegetable', value='tomato', defaults=['tree'])
 update_dict(key='car', value='ferrari')
-update_dict(key='car', value='ferrari2')

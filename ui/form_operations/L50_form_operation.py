@@ -27,6 +27,7 @@ class C50_FormOperation(C42_FormOperation):
 	def on_RequestEditOperationAmount(self): pass
 	def on_RequestEditOperationAccounts(self): pass
 	def on_RequestEditOperationDescription(self): pass
+	def on_RequestEditOperationDestination(self): pass
 	def on_RequestSwitchOperationSkip(self): pass
 	def on_RequestSetOperationColorToBlack(self): pass
 	def on_RequestSetOperationColorToGray(self): pass
