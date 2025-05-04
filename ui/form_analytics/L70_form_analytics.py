@@ -13,6 +13,12 @@ from L90_analytics      import C90_AnalyticsItem
 class C70_FormAnalytics(C60_FormAnalytics):
 	""" Форма Аналитика данных: Механика управления """
 
+	# Форма
+	def ShowTitle(self):
+		""" Отображение заголовка формы """
+		self.setWindowTitle(f"Аналитика данных - {self.Workspace.DmDyToString()}")
+
+
 	# Дерево данных
 	def AdjustTreeDataSize(self):
 		""" Настройка размера дерева данных """

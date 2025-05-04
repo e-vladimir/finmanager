@@ -28,6 +28,8 @@ class C90_FormAnalytics(C80_FormAnalytics):
 	# Форма
 	def on_Opened(self):
 		""" Форма открыта """
+		self.ShowTitle()
+
 		self.InitModelData()
 		self.LoadDistributionInModel()
 
