@@ -8,6 +8,11 @@ from L70_data_completer    import C70_DataCompleter
 class C80_DataCompleter(C70_DataCompleter):
 	""" Предиктивный анализатор данных: Логика данных """
 
+	# Управление
+	def Start(self):
+		""" Запуск """
+		self.on_Started()
+
 	# Предиктивная модель определения описания
 	def PredictDescription(self, description: str) -> str:
 		""" Предиктивное определение описания """

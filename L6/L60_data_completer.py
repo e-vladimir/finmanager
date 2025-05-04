@@ -1,13 +1,13 @@
 # ПРЕДИКТИВНЫЙ АНАЛИЗАТОР ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 08 апр 2025
 
-from G10_datetime           import CurrentDy
-from G30_cactus_datafilters import C30_FilterLinear1D
+from   G10_datetime           import CurrentDy
+from   G30_cactus_datafilters import C30_FilterLinear1D
 
-from L00_containers         import CONTAINERS
-from L20_finmanager_struct  import T20_PredictItem
-from L50_data_completer     import C50_DataCompleter
-from L90_operations         import C90_Operation
+from   L00_containers         import CONTAINERS
+from   L20_finmanager_struct  import T20_PredictItem
+from   L50_data_completer     import C50_DataCompleter
+from   L90_operations         import C90_Operation
 
 
 class C60_DataCompleter(C50_DataCompleter):
@@ -24,25 +24,23 @@ class C60_DataCompleter(C50_DataCompleter):
 		idc                 : str       = operation.Idc().data
 		idp_dy              : str       = operation.FDy.Idp().data
 		idp_src_description : str       = operation.FSrcDescription.Idp().data
-		idp_description     : str       = operation.FDescription.Idp().data
 
 		filter_data                     = C30_FilterLinear1D(idc)
 		filter_data.FilterIdpVlpByEqual(idp_src_description, "", True)
-		filter_data.FilterIdpVlpByEqual(idp_description,     "", True)
 		filter_data.FilterIdpVlpByMore(idp_dy, CurrentDy() - 3)
 		filter_data.Capture(CONTAINERS.DISK)
 
 		idos                : list[str] = filter_data.Idos().data
 
-		for ido in idos[-1000:]: self.UpdateDataOperations(ido, True)
+		for ido in idos: self._data_operations[ido] = C90_Operation(ido).ToT20_RawOperation()
 
-	def UpdateDataOperations(self, ido: str, skip_calc: bool = False):
+		self.on_DataOperationsLoaded()
+
+	def UpdateDescriptionInDataOperations(self, ido: str):
 		""" Обновление данных """
 		self._data_operations[ido] = C90_Operation(ido).ToT20_RawOperation()
 
-		if skip_calc: return
-
-		self.CalcDataDescriptions()
+		self.on_RequestCalcDataDescriptions()
 
 
 	# Данные предиктивного определения описания
@@ -51,7 +49,8 @@ class C60_DataCompleter(C50_DataCompleter):
 		self._data_descriptions.clear()
 
 		for operation in self._data_operations.values():
-			if operation.src_description not in self._data_descriptions: self._data_descriptions[operation.src_description] = T20_PredictItem()
+			if not operation.description: continue
+			if     operation.src_description not in self._data_descriptions: self._data_descriptions[operation.src_description] = T20_PredictItem()
 
 			processing_string : str = ""
 

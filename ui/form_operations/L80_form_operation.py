@@ -147,7 +147,7 @@ class C80_FormOperation(C70_FormOperation):
 		operation.description    = description
 		operation.Caching()
 
-		self.Application.DataCompleter.UpdateDataOperations(operation.Ido().data)
+		self.Application.DataCompleter.UpdateDescriptionInDataOperations(operation.Ido().data)
 
 		self.on_OperationChanged()
 
