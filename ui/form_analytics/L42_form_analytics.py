@@ -16,6 +16,7 @@ class C42_FormAnalytics(C41_FormAnalytics):
 		self._processing_ido    : str = ""
 		self._processing_group  : str = ""
 		self._processing_parent : str = ""
+		self._memory_ido        : str = ""
 
 	def Init_10(self):
 		super().Init_10()

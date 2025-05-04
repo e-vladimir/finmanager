@@ -14,7 +14,7 @@ class C50_FormAnalytics(C42_FormAnalytics):
 	# Структура аналитики
 	def on_RequestResetDestinations(self): pass
 
-	def on_StructChanged(self): pass
+	def on_DestinationStructChanged(self): pass
 
 
 	# Элемент структуры аналитики
@@ -23,8 +23,11 @@ class C50_FormAnalytics(C42_FormAnalytics):
 	def on_RequestCreateSubDestination(self): pass
 	def on_RequestEditDestinationName(self): pass
 	def on_RequestDeleteDestination(self): pass
+	def on_RequestMemoryDestination(self): pass
+	def on_RequestMoveDestination(self): pass
+	def on_RequestMoveDestinationUp(self): pass
+	def on_RequestMoveDestinationToGroup(self): pass
 
-	def on_DestinationCreated(self): pass
 	def on_DestinationChanged(self): pass
 
 

@@ -65,10 +65,10 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		if self._processing_parent: self.MenuStruct.addMenu(self.SubmenuStructGroup)
 		if self._processing_ido   : self.MenuStruct.addMenu(self.SubmenuStructItem)
 
-
 	def AdjustMenuStructText(self):
 		""" Настройка текста меню структуры аналитики """
 		analytics_item = C90_AnalyticsItem(self.processing_ido)
+		memory_item    = C90_AnalyticsItem(self.memory_ido)
 		parent_item    = C90_AnalyticsItem(analytics_item.parent_ido)
 
 		self.SubmenuStructGroup.setTitle(f"{parent_item.name}")
@@ -77,9 +77,20 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		self.ActionCreateDestination.setText(f"Расширить {parent_item.name}")
 		self.ActionCreateSubDestination.setText(f"Уточнить {analytics_item.name}")
 
+		self.ActionMemoryDestination.setText(f"Запомнить {analytics_item.name}")
+		self.ActionMoveDestination.setText(f"Переместить сюда {memory_item.name}" if self.memory_ido else "Перемещение недоступно")
+		self.ActionMoveDestinationToGroup.setText(f"Переместить сюда {memory_item.name}" if self.memory_ido else "Перемещение недоступно")
+
 	def AdjustMenuStructEnable(self):
 		""" Настройка доступности меню структуры аналитики """
-		pass
+		analytics_item = C90_AnalyticsItem(self.processing_ido)
+		memory_item    = C90_AnalyticsItem(self.memory_ido)
+		parent_item    = C90_AnalyticsItem(analytics_item.parent_ido)
+
+		self.ActionMoveDestination.setEnabled(bool(self.memory_ido) and not (self.memory_ido == self.processing_ido))
+		self.ActionMoveDestinationToGroup.setEnabled(bool(self.memory_ido) and not (memory_item.parent_ido == parent_item.Ido().data))
+
+		self.ActionMoveDestinationUp.setEnabled(bool(self.processing_parent))
 
 	def ShowMenuStruct(self):
 		""" Отображение меню структуры аналитики """

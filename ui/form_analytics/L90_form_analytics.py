@@ -20,9 +20,15 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.ActionResetDestinations.triggered.connect(self.on_RequestResetDestinations)
 
 		self.ActionCreateDestination.triggered.connect(self.on_RequestCreateDestination)
+		self.ActionMoveDestinationToGroup.triggered.connect(self.on_RequestMoveDestinationToGroup)
+
 		self.ActionCreateSubDestination.triggered.connect(self.on_RequestCreateSubDestination)
 		self.ActionEditDestinationName.triggered.connect(self.on_RequestEditDestinationName)
 		self.ActionDeleteDestination.triggered.connect(self.on_RequestDeleteDestination)
+
+		self.ActionMemoryDestination.triggered.connect(self.on_RequestMemoryDestination)
+		self.ActionMoveDestinationUp.triggered.connect(self.on_RequestMoveDestinationUp)
+		self.ActionMoveDestination.triggered.connect(self.on_RequestMoveDestination)
 
 
 	# Форма
@@ -58,9 +64,15 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		""" Запрос сброса элементов аналитики """
 		self.ResetDestinations()
 
-	def on_StructChanged(self):
+	def on_RequestCreateTopDestination(self):
+		""" Запрос на создание общего назначения """
+		self.processing_parent = ""
+
+		self.CreateDestination()
+
+	def on_DestinationStructChanged(self):
 		""" Структура данных изменилась """
-		self.ResetDistributionInModel()
+		self.ReinitDistributionInModel()
 		self.LoadDistributionInModel()
 
 		self.AdjustTreeDataExpand()
@@ -69,17 +81,17 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.AdjustTreeDataColor()
 
 
-	# Элемент структуры аналитики
-	def on_RequestCreateTopDestination(self):
-		""" Запрос на создание общего назначения """
-		self.processing_parent = ""
-
-		self.CreateDestination()
-
+	# Группа структуры аналитики
 	def on_RequestCreateDestination(self):
 		""" Запрос создания назначения """
 		self.CreateDestination()
 
+	def on_RequestMoveDestinationToGroup(self):
+		""" Запрос перемещения назначения """
+		self.MoveDestinationToGroup()
+
+
+	# Элемент структуры аналитики
 	def on_RequestCreateSubDestination(self):
 		""" Запрос на уточнение назначения """
 		self.processing_parent = self.processing_ido
@@ -95,14 +107,17 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		""" Запрос удаления назначения """
 		self.DeleteDestination()
 
-	def on_DestinationCreated(self):
-		""" Создан элемент аналитики """
-		self.LoadDistributionInModel()
+	def on_RequestMemoryDestination(self):
+		""" Запрос запоминания элемента аналитики """
+		self.ReadMemoryIdo()
 
-		self.AdjustTreeDataExpand()
-		self.AdjustTreeDataSort()
-		self.AdjustTreeDataSize()
-		self.AdjustTreeDataColor()
+	def on_RequestMoveDestinationUp(self):
+		""" Запрос перемещения назначения уровнем выше """
+		self.MoveDestinationUp()
+
+	def on_RequestMoveDestination(self):
+		""" Запрос перемещения назначения """
+		self.MoveDestination()
 
 	def on_DestinationChanged(self):
 		""" Изменился элемент аналитики """

@@ -62,11 +62,34 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		self.processing_parent = ""
 
 
+	# IDO в памяти
+	@property
+	def memory_ido(self) -> str:
+		return self._memory_ido
+
+	@memory_ido.setter
+	def memory_ido(self, ido: str):
+		self._memory_ido = ido
+
+	def ReadMemoryIdo(self):
+		""" Чтение из дерева данных """
+		self.memory_ido = self.processing_ido
+
+
 	# Модель данных
 	def InitModelData(self):
 		""" Инициализация модели данных """
 		self.ModelData.removeAll()
 		self.ModelData.setHorizontalHeaderLabels(["Назначение/Уточнение"])
+
+
+	# Данные распределения
+	def ReinitDistributionInModel(self):
+		""" Сброс распределения месяца """
+		index_group       = self.ModelData.indexByData(GROUPS.DISTRIBUTION, ROLES.IDO)
+		if index_group is None: return
+
+		self.ModelData.removeRow(index_group.row(), QModelIndex())
 
 	def LoadDistributionInModel(self):
 		""" Загрузка распределения месяца в модель """
@@ -97,21 +120,3 @@ class C60_FormAnalytics(C50_FormAnalytics):
 
 			item_destination = self.ModelData.itemByData(ido, ROLES.IDO)
 			item_destination.setText(analytics_item.name)
-
-	def CleanDistributionInModel(self):
-		""" Подчистка элементов аналитики в модели данных """
-		index_group      = self.ModelData.indexByData(GROUPS.DISTRIBUTION, ROLES.IDO)
-		idos : list[str] = [index_item.data(ROLES.IDO) for index_item in self.ModelData.indexes(index_group)]
-
-		for ido in set(idos).difference(self.Analytics.Idos()):
-			index_item   = self.ModelData.indexByData(ido, ROLES.IDO)
-			if index_item is None: continue
-
-			self.ModelData.removeRow(index_item.row(), index_item.parent())
-
-	def ResetDistributionInModel(self):
-		""" Сброс распределения месяца """
-		index_group       = self.ModelData.indexByData(GROUPS.DISTRIBUTION, ROLES.IDO)
-		if index_group is None: return
-
-		self.ModelData.removeRow(index_group.row(), QModelIndex())

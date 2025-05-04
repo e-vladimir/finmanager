@@ -17,7 +17,7 @@ class C80_FormAnalytics(C70_FormAnalytics):
 
 		for ido in self.Analytics.Idos(""): C90_AnalyticsItem(ido).DeleteObject(CONTAINERS.DISK)
 
-		self.on_StructChanged()
+		self.on_DestinationStructChanged()
 
 
 	# Элемент структуры аналитики
@@ -36,7 +36,7 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		analytics_item.name       = destination
 		analytics_item.parent_ido = self.processing_parent
 
-		self.on_DestinationCreated()
+		self.on_DestinationStructChanged()
 
 	def EditDestinationName(self):
 		""" Редактирование названия назначения """
@@ -68,4 +68,25 @@ class C80_FormAnalytics(C70_FormAnalytics):
 
 		for ido in idos: C90_AnalyticsItem(ido).DeleteObject(CONTAINERS.DISK)
 
-		self.on_StructChanged()
+		self.on_DestinationStructChanged()
+
+	def MoveDestinationUp(self):
+		""" Перемещение назначения уровнем выше """
+		analytics_item            = C90_AnalyticsItem(self.processing_ido)
+		analytics_item.parent_ido = C90_AnalyticsItem(self.processing_parent).parent_ido
+
+		self.on_DestinationStructChanged()
+
+	def MoveDestinationToGroup(self):
+		""" Перемещение назначения в группу """
+		memory_item            = C90_AnalyticsItem(self.memory_ido)
+		memory_item.parent_ido = self.processing_parent
+
+		self.on_DestinationStructChanged()
+
+	def MoveDestination(self):
+		""" Перемещение назначения """
+		memory_item            = C90_AnalyticsItem(self.memory_ido)
+		memory_item.parent_ido = self.processing_ido
+
+		self.on_DestinationStructChanged()
