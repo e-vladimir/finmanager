@@ -22,7 +22,7 @@ class C60_DataCompleter(C50_DataCompleter):
 		""" Сброс данных """
 		self._data_operations.clear()
 
-	def ReadDataOperations(self):
+	async def ReadDataOperations(self):
 		""" Чтение из БД """
 		operation                       = C90_Operation()
 		idc                 : str       = operation.Idc().data
@@ -38,7 +38,7 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		for ido in idos: self._data_operations[ido] = C90_Operation(ido).ToT20_RawOperation()
 
-		self.on_DataOperationsLoaded()
+		# self.on_DataOperationsLoaded()
 
 	def UpdateDescriptionInDataOperations(self, ido: str):
 		""" Обновление данных """
@@ -54,7 +54,7 @@ class C60_DataCompleter(C50_DataCompleter):
 
 
 	# Данные предиктивного определения описания
-	def CalcDataDescriptions(self):
+	async def CalcDataDescriptions(self):
 		""" Формирование данных """
 		self._data_descriptions.clear()
 
@@ -71,7 +71,7 @@ class C60_DataCompleter(C50_DataCompleter):
 
 
 	# Данные предиктивного определения назначения
-	def CalcDataDestinations(self):
+	async def CalcDataDestinations(self):
 		""" Обучение модели предиктивного определения назначения """
 		data : list[dict]      = []
 

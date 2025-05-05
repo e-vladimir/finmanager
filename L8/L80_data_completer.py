@@ -1,6 +1,7 @@
 # ПРЕДИКТИВНЫЙ АНАЛИЗАТОР ДАННЫХ: ЛОГИКА ДАННЫХ
 # 08 апр 2025
 
+import asyncio
 import nltk
 
 from   L20_finmanager_struct import T20_PredictDescriptionItem
@@ -13,13 +14,14 @@ class C80_DataCompleter(C70_DataCompleter):
 	# Управление
 	def Start(self):
 		""" Запуск """
-		self.on_RequestStart()
+		asyncio.run(self.DownloadData())
+		asyncio.run(self.ReadDataOperations())
+		asyncio.run(self.CalcDataDescriptions())
+		asyncio.run(self.CalcDataDestinations())
 
-	def DownloadData(self):
+	async def DownloadData(self):
 		""" Загрузка данных """
 		nltk.download("stopwords")
-
-		self.on_Started()
 
 
 	# Предиктивная модель определения описания
@@ -36,6 +38,7 @@ class C80_DataCompleter(C70_DataCompleter):
 		""" Предиктивное определение описаний """
 		data = list(self._data_descriptions.get(description, T20_PredictDescriptionItem()).data.items())
 		data = sorted(data, key=lambda item: item[1] * 100 + len(item[0]), reverse=True)
+
 		return list([item[0] for item in data])
 
 
@@ -43,4 +46,5 @@ class C80_DataCompleter(C70_DataCompleter):
 	def PredictDestination(self, description: str) -> list[str]:
 		""" Предиктивное определение назначения """
 		predicted_tags = self.data_predict_destinations.inverse_transform(self.model_predict_destinations.predict(self.vectorizer_predict_destination.transform([description])))
+
 		return sorted(list(predicted_tags[0]))
