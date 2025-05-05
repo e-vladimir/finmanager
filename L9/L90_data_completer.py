@@ -2,7 +2,6 @@
 # 08 апр 2025
 
 import threading
-import nltk
 
 from   L80_data_completer import C80_DataCompleter
 
@@ -11,10 +10,12 @@ class C90_DataCompleter(C80_DataCompleter):
 	""" Предиктивный анализатор данных: Логика управления """
 
 	# Модуль
+	def on_RequestStart(self):
+		""" Запрос запуска модуля """
+		threading.Thread(target=self.DownloadData, daemon=True).start()
+
 	def on_Started(self):
 		""" Модуль запущен """
-		nltk.download("stopwords")
-
 		threading.Thread(target=self.ReadDataOperations, daemon=True).start()
 
 

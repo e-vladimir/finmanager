@@ -1,8 +1,10 @@
 # ПРЕДИКТИВНЫЙ АНАЛИЗАТОР ДАННЫХ: ЛОГИКА ДАННЫХ
 # 08 апр 2025
 
-from L20_finmanager_struct import T20_PredictDescriptionItem
-from L70_data_completer    import C70_DataCompleter
+import nltk
+
+from   L20_finmanager_struct import T20_PredictDescriptionItem
+from   L70_data_completer    import C70_DataCompleter
 
 
 class C80_DataCompleter(C70_DataCompleter):
@@ -11,7 +13,14 @@ class C80_DataCompleter(C70_DataCompleter):
 	# Управление
 	def Start(self):
 		""" Запуск """
+		self.on_RequestStart()
+
+	def DownloadData(self):
+		""" Загрузка данных """
+		nltk.download("stopwords")
+
 		self.on_Started()
+
 
 	# Предиктивная модель определения описания
 	def PredictDescription(self, description: str) -> str:

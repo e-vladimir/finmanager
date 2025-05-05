@@ -8,6 +8,7 @@ class C50_DataCompleter(C40_DataCompleter):
 	""" Предиктивный анализатор данных: Модель событий """
 
 	# Модуль
+	def on_RequestStart(self): pass
 	def on_Started(self): pass
 
 
