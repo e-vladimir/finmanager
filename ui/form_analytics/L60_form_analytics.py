@@ -3,7 +3,9 @@
 
 from PySide6.QtCore     import QModelIndex
 
+from G11_convertor_data import AmountToString
 from L00_form_analytics import GROUPS
+from L00_operations import OPERATIONS
 from L20_PySide6        import C20_StandardItem, ROLES
 from L50_form_analytics import C50_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
@@ -80,7 +82,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def InitModelData(self):
 		""" Инициализация модели данных """
 		self.ModelData.removeAll()
-		self.ModelData.setHorizontalHeaderLabels(["Назначение/Уточнение"])
+		self.ModelData.setHorizontalHeaderLabels(["Критерий/Показатель анализа", "", "", "", "", ""])
 
 
 	# Данные распределения
@@ -94,16 +96,38 @@ class C60_FormAnalytics(C50_FormAnalytics):
 	def LoadDistributionInModel(self):
 		""" Загрузка распределения месяца в модель """
 		if not self.ModelData.checkIdo(GROUPS.DISTRIBUTION):
-			item_group = C20_StandardItem(GROUPS.DISTRIBUTION)
+			item_group       = C20_StandardItem(GROUPS.DISTRIBUTION)
 			item_group.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
 			item_group.setData(GROUPS.DISTRIBUTION, ROLES.GROUP)
 
-			self.ModelData.appendRow([item_group])
+			item_income      = C20_StandardItem("+",  flag_align_right=True)
+			item_income.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
+			item_income.setData(GROUPS.DISTRIBUTION, ROLES.GROUP)
+
+			item_income_pct  = C20_StandardItem("+%", flag_align_right=True)
+			item_income_pct.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
+			item_income_pct.setData(GROUPS.DISTRIBUTION, ROLES.GROUP)
+
+			item_outcome     = C20_StandardItem("-",  flag_align_right=True)
+			item_outcome.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
+			item_outcome.setData(GROUPS.DISTRIBUTION, ROLES.GROUP)
+
+			item_outcome_pct = C20_StandardItem("-%", flag_align_right=True)
+			item_outcome_pct.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
+			item_outcome_pct.setData(GROUPS.DISTRIBUTION, ROLES.GROUP)
+
+			item_delta       = C20_StandardItem("",   flag_align_right=True)
+			item_delta.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
+			item_delta.setData(GROUPS.DISTRIBUTION, ROLES.GROUP)
+
+			self.ModelData.appendRow([item_group, item_income, item_income_pct, item_outcome, item_outcome_pct, item_delta])
 
 		item_group       = self.ModelData.itemByData(GROUPS.DISTRIBUTION, ROLES.IDO)
+		dy, dm           = self.Workspace.DyDm()
+
+		amount_dm        = self.Analytics.Amount(dy, dm, use_cache=True)
 
 		idos : list[str] = self.Analytics.Idos("")
-
 		for ido in idos:
 			idos.extend(self.Analytics.Idos(ido))
 
@@ -115,8 +139,49 @@ class C60_FormAnalytics(C50_FormAnalytics):
 				item_destination.setData(GROUPS.DISTRIBUTION,       ROLES.GROUP)
 				item_destination.setData(analytics_item.parent_ido, ROLES.PARENT)
 
-				item_parent      = self.ModelData.itemByData(analytics_item.parent_ido, ROLES.IDO) or item_group
-				item_parent.appendRow([item_destination])
+				item_income      = C20_StandardItem("", flag_align_right=True)
+				item_income.setData(ido,                       ROLES.IDO)
+				item_income.setData(GROUPS.DISTRIBUTION,       ROLES.GROUP)
+				item_income.setData(analytics_item.parent_ido, ROLES.PARENT)
 
-			item_destination = self.ModelData.itemByData(ido, ROLES.IDO)
+				item_income_pct  = C20_StandardItem("", flag_align_right=True)
+				item_income_pct.setData(ido,                       ROLES.IDO)
+				item_income_pct.setData(GROUPS.DISTRIBUTION,       ROLES.GROUP)
+				item_income_pct.setData(analytics_item.parent_ido, ROLES.PARENT)
+
+				item_outcome     = C20_StandardItem("", flag_align_right=True)
+				item_outcome.setData(ido,                       ROLES.IDO)
+				item_outcome.setData(GROUPS.DISTRIBUTION,       ROLES.GROUP)
+				item_outcome.setData(analytics_item.parent_ido, ROLES.PARENT)
+
+				item_outcome_pct = C20_StandardItem("", flag_align_right=True)
+				item_outcome_pct.setData(ido,                       ROLES.IDO)
+				item_outcome_pct.setData(GROUPS.DISTRIBUTION,       ROLES.GROUP)
+				item_outcome_pct.setData(analytics_item.parent_ido, ROLES.PARENT)
+
+				item_delta       = C20_StandardItem("", flag_align_right=True)
+				item_delta.setData(ido,                       ROLES.IDO)
+				item_delta.setData(GROUPS.DISTRIBUTION,       ROLES.GROUP)
+				item_delta.setData(analytics_item.parent_ido, ROLES.PARENT)
+
+				item_parent      = self.ModelData.itemByData(analytics_item.parent_ido, ROLES.IDO) or item_group
+				item_parent.appendRow([item_destination, item_income, item_income_pct, item_outcome, item_outcome_pct, item_delta])
+
+			amount_item      = analytics_item.Amount(dy, dm, use_cache=True)
+
+			indexes          = self.ModelData.indexesInRowByIdo(ido)
+
+			item_destination = self.ModelData.itemFromIndex(indexes[0])
 			item_destination.setText(analytics_item.name)
+
+			item_income      = self.ModelData.itemFromIndex(indexes[1])
+			item_income.setText(AmountToString(amount_item.amount_income,   flag_sign=True))
+
+			item_income_pct  = self.ModelData.itemFromIndex(indexes[2])
+			item_income_pct.setText(f"{100 * amount_item.amount_income / amount_dm.amount_income:.0f}%")
+
+			item_outcome     = self.ModelData.itemFromIndex(indexes[3])
+			item_outcome.setText(AmountToString(amount_item.amount_outcome, flag_sign=True))
+
+			item_outcome_pct = self.ModelData.itemFromIndex(indexes[4])
+			item_outcome_pct.setText(f"{100 * amount_item.amount_outcome / amount_dm.amount_outcome:.0f}%")

@@ -85,24 +85,24 @@ class C80_FormOperation(C70_FormOperation):
 		operation.use_cache = True
 		if not RequestConfirm("Удаление операции", operation.Information()): return
 
-		parent_oid : str    = operation.parent_ido
+		parent_ido : str    = operation.parent_ido
 
-		for oid in operation.virtual_idos:
-			C90_Operation(oid).DeleteObject(CONTAINERS.DISK)
-			C90_Operation(oid).DeleteObject(CONTAINERS.CACHE)
+		for ido in operation.virtual_idos:
+			C90_Operation(ido).DeleteObject(CONTAINERS.DISK)
+			C90_Operation(ido).DeleteObject(CONTAINERS.CACHE)
 
 		operation.DeleteObject(CONTAINERS.DISK)
 		operation.DeleteObject(CONTAINERS.CACHE)
 
 		self.on_OperationDeleted()
 
-		if not parent_oid: return
+		if not parent_ido: return
 
-		operation.Ido(parent_oid)
+		operation.Ido(parent_ido)
 		operation.CalcVirtualIdos()
 		operation.Caching()
 
-		self.processing_ido = parent_oid
+		self.processing_ido = parent_ido
 
 		self.on_OperationChanged()
 
@@ -183,7 +183,7 @@ class C80_FormOperation(C70_FormOperation):
 		operation               = C90_Operation(self.processing_ido)
 		operation.use_cache     = True
 
-		subamounts : int        = int(sum([C90_Operation(oid).amount for oid in operation.virtual_idos]))
+		subamounts : int        = int(sum([C90_Operation(ido).amount for ido in operation.virtual_idos]))
 		amount     : int | None = RequestValue("Разделение операции", f"{operation.Information()}", int(operation.amount) - subamounts, -99999999, 99999999)
 		if amount is None: return
 

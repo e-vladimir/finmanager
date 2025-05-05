@@ -24,6 +24,10 @@ class C70_FormAnalytics(C60_FormAnalytics):
 		""" Настройка размера дерева данных """
 		self.TreeData.header().setSectionResizeMode(0, QHeaderView.ResizeMode.Stretch)
 
+		for idx in range(1, self.ModelData.columnCount()):
+			self.TreeData.header().setSectionResizeMode(idx, QHeaderView.ResizeMode.Fixed)
+			self.TreeData.setColumnWidth(idx, 75)
+
 	def AdjustTreeDataColor(self):
 		""" Настройка цветовой схемы дерева данных """
 		self.ModelData.adjustGroupView(False, True, True)
