@@ -52,6 +52,7 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		self.on_RequestCalcDataDestinations()
 
+
 	# Данные предиктивного определения описания
 	def CalcDataDescriptions(self):
 		""" Формирование данных """
@@ -72,19 +73,19 @@ class C60_DataCompleter(C50_DataCompleter):
 	# Данные предиктивного определения назначения
 	def CalcDataDestinations(self):
 		""" Обучение модели предиктивного определения назначения """
-		data          = []
+		data : list[dict]      = []
 
 		for operation in self._data_operations.values():
 			if not operation.destination: continue
 
 			data.append({"description": operation.description or operation.src_description, "destination": operation.destination})
 
-		data_frame    = pandas.DataFrame(data)
-		descriptions  = data_frame["description"]
-		destinations  = data_frame["destination"]
+		data_frame             = pandas.DataFrame(data)
+		descriptions           = data_frame["description"]
+		destinations           = data_frame["destination"]
 
-		y             = self.data_predict_destinations.fit_transform(destinations)
-		X_train, X_test, y_train, y_test = train_test_split(descriptions, y, test_size=0.3, random_state=42)
-		X_train_tfidf = self.vectorizer_predict_destination.fit_transform(X_train)
+		y                      = self.data_predict_destinations.fit_transform(destinations)
+		X_train, _, y_train, _ = train_test_split(descriptions, y, test_size=0.3, random_state=42)
+		X_train_tfidf          = self.vectorizer_predict_destination.fit_transform(X_train)
 
 		self.model_predict_destinations.fit(X_train_tfidf, y_train)
