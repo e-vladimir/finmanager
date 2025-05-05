@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass, field
 
+from G10_list import ClearList
+
 
 @dataclass
 class T20_Day:
@@ -11,7 +13,7 @@ class T20_Day:
 
 
 @dataclass
-class T20_PredictItem:
+class T20_PredictDescriptionItem:
 	data : dict[str, float] = field(default_factory=dict)
 
 	def Append(self, item: str):
@@ -28,6 +30,7 @@ class T20_PredictItem:
 
 @dataclass
 class T20_RawOperation:
-	amount          : int = 0
-	src_description : str = ""
-	description     : str = ""
+	amount          : int       = 0
+	src_description : str       = ""
+	description     : str       = ""
+	destination     : list[str] = field(default_factory=list)

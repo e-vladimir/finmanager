@@ -1,13 +1,17 @@
 # ПРЕДИКТИВНЫЙ АНАЛИЗАТОР ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 08 апр 2025
 
-from   G10_datetime           import CurrentDy
-from   G30_cactus_datafilters import C30_FilterLinear1D
+import pandas
 
-from   L00_containers         import CONTAINERS
-from   L20_finmanager_struct  import T20_PredictItem
-from   L50_data_completer     import C50_DataCompleter
-from   L90_operations         import C90_Operation
+from   sklearn.model_selection import train_test_split
+
+from   G10_datetime            import CurrentDy
+from   G30_cactus_datafilters  import C30_FilterLinear1D
+
+from   L00_containers          import CONTAINERS
+from   L20_finmanager_struct   import T20_PredictDescriptionItem
+from   L50_data_completer      import C50_DataCompleter
+from   L90_operations          import C90_Operation
 
 
 class C60_DataCompleter(C50_DataCompleter):
@@ -42,6 +46,11 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		self.on_RequestCalcDataDescriptions()
 
+	def UpdateDestinationInDataOperations(self, ido: str):
+		""" Обновление данных """
+		self._data_operations[ido] = C90_Operation(ido).ToT20_RawOperation()
+
+		self.on_RequestCalcDataDestinations()
 
 	# Данные предиктивного определения описания
 	def CalcDataDescriptions(self):
@@ -50,7 +59,7 @@ class C60_DataCompleter(C50_DataCompleter):
 
 		for operation in self._data_operations.values():
 			if not operation.description: continue
-			if     operation.src_description not in self._data_descriptions: self._data_descriptions[operation.src_description] = T20_PredictItem()
+			if     operation.src_description not in self._data_descriptions: self._data_descriptions[operation.src_description] = T20_PredictDescriptionItem()
 
 			processing_string : str = ""
 
@@ -58,3 +67,24 @@ class C60_DataCompleter(C50_DataCompleter):
 				processing_string = (processing_string + ' ' + word).strip()
 
 				self._data_descriptions[operation.src_description].Append(processing_string)
+
+
+	# Данные предиктивного определения назначения
+	def CalcDataDestinations(self):
+		""" Обучение модели предиктивного определения назначения """
+		data          = []
+
+		for operation in self._data_operations.values():
+			if not operation.destination: continue
+
+			data.append({"description": operation.description or operation.src_description, "destination": operation.destination})
+
+		data_frame    = pandas.DataFrame(data)
+		descriptions  = data_frame["description"]
+		destinations  = data_frame["destination"]
+
+		y             = self.data_predict_destinations.fit_transform(destinations)
+		X_train, X_test, y_train, y_test = train_test_split(descriptions, y, test_size=0.3, random_state=42)
+		X_train_tfidf = self.vectorizer_predict_destination.fit_transform(X_train)
+
+		self.model_predict_destinations.fit(X_train_tfidf, y_train)

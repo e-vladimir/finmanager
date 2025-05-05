@@ -1,6 +1,6 @@
 # ФИНАНСОВЫЕ ОПЕРАЦИИ: МЕХАНИКА ДАННЫХ
 # 11 мар 2025
-
+from G10_list import ClearList
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_colors             import COLORS
@@ -104,11 +104,11 @@ class C60_Operation(C50_Operation):
 	# Назначение
 	@property
 	def destination(self) -> list[str]:
-		return self.FDestination.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data
+		return list(sorted([destination.lower() for destination in self.FDestination.ToStrings(CONTAINERS.CACHE if self.use_cache else CONTAINERS.DISK).data]))
 
 	@destination.setter
 	def destination(self, labels: list[str]):
-		self.FDestination.FromStrings(CONTAINERS.DISK, labels)
+		self.FDestination.FromStrings(CONTAINERS.DISK, sorted(ClearList([label.lower().strip() for label in labels], clear_short=False)))
 
 
 	# Корневая операция

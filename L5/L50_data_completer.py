@@ -17,3 +17,7 @@ class C50_DataCompleter(C40_DataCompleter):
 
 	# Модель предиктивного определения описания
 	def on_RequestCalcDataDescriptions(self): pass
+
+
+	# Модель предиктивного определения назначения
+	def on_RequestCalcDataDestinations(self): pass
