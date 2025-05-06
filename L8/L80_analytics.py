@@ -4,7 +4,7 @@
 from G30_cactus_datafilters import C30_FilterLinear1D
 
 from L00_containers         import CONTAINERS
-from L00_months import MONTHS_SHORT
+from L00_months             import MONTHS_SHORT
 from L00_operations         import OPERATIONS
 from L20_finmanager_struct  import T20_AmountItem, T20_StructItem
 from L70_analytics          import C70_Analytics, C70_AnalyticsItem
@@ -54,7 +54,8 @@ class C80_Analytics(C70_Analytics):
 	""" Аналитика данных: Логика данных """
 
 	# Выборка данных
-	def Idos(self, parent_ido: str = None) -> list[str]:
+	@classmethod
+	def Idos(cls, parent_ido: str = None) -> list[str]:
 		""" Список IDO """
 		analytics_item   = C80_AnalyticsItem()
 		idc        : str = analytics_item.Idc().data
@@ -67,7 +68,8 @@ class C80_Analytics(C70_Analytics):
 
 		return filter_data.Idos(idp_name).data
 
-	def Names(self, parent_name: str = None) -> list[str]:
+	@classmethod
+	def Names(cls, parent_name: str = None) -> list[str]:
 		""" Список названий элементов аналитики """
 		analytics_item   = C80_AnalyticsItem()
 		idc        : str = analytics_item.Idc().data
@@ -84,7 +86,8 @@ class C80_Analytics(C70_Analytics):
 
 		return filter_data.ToStrings(idp_name, True, True).data
 
-	def Amount(self, dy: int, dm: int, use_cache: bool = False) -> T20_AmountItem:
+	@classmethod
+	def Amount(cls, dy: int, dm: int, use_cache: bool = False) -> T20_AmountItem:
 		""" Объём операций за месяц """
 		amounts : list[float] = C90_Operations.Amounts(dy, dm, use_cache=use_cache, type_operation=OPERATIONS.ANALYTICAL)
 
@@ -92,3 +95,26 @@ class C80_Analytics(C70_Analytics):
 		                      amount_income  = int(sum(filter(lambda amount: amount > 0, amounts))),
 		                      amount_outcome = int(sum(filter(lambda amount: amount < 0, amounts)))
 		                      )
+
+	# Управление данными
+	@classmethod
+	def ReplaceDestination(cls, destination_from: str, destination_to: str):
+		""" Замена назначения """
+		operation             = C90_Operation()
+		idc             : str = operation.Idc().data
+		idp_destination : str = operation.FDestination.Idp().data
+
+		filter_data           = C30_FilterLinear1D(idc)
+		filter_data.FilterIdpVlpByInclude(idp_destination, destination_from.lower())
+		filter_data.Capture(CONTAINERS.DISK)
+
+		for ido in filter_data.Idos().data:
+			operation.Ido(ido)
+			destinations = operation.destination
+
+			try   :
+				destinations.remove(destination_from.lower())
+				destinations.append(destination_to.lower())
+
+				operation.destination = destinations
+			except: pass

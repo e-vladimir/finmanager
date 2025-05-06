@@ -47,6 +47,8 @@ class C80_FormAnalytics(C70_FormAnalytics):
 		if destination is None                  : return
 		if destination in self.Analytics.Names(): return
 
+		self.Analytics.ReplaceDestination(analytics_item.name, destination)
+
 		analytics_item.name = destination
 
 		self.on_DestinationChanged()

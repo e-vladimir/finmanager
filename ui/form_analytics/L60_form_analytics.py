@@ -309,23 +309,23 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			item_group.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
 			item_group.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
 
-			item_income      = C20_StandardItem("+",  flag_align_right=True)
+			item_income      = C20_StandardItem("+", flag_align_right=True)
 			item_income.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
 			item_income.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
 
-			item_income_pct  = C20_StandardItem("+%", flag_align_right=True)
+			item_income_pct  = C20_StandardItem("",  flag_align_right=True)
 			item_income_pct.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
 			item_income_pct.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
 
-			item_outcome     = C20_StandardItem("-",  flag_align_right=True)
+			item_outcome     = C20_StandardItem("-", flag_align_right=True)
 			item_outcome.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
 			item_outcome.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
 
-			item_outcome_pct = C20_StandardItem("-%", flag_align_right=True)
+			item_outcome_pct = C20_StandardItem("",  flag_align_right=True)
 			item_outcome_pct.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
 			item_outcome_pct.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
 
-			item_delta       = C20_StandardItem("",   flag_align_right=True)
+			item_delta       = C20_StandardItem("",  flag_align_right=True)
 			item_delta.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
 			item_delta.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
 
