@@ -3,8 +3,10 @@
 
 from PySide6.QtCore     import QModelIndex
 
+from G10_datetime import CalcDyDmByShiftDm
 from G11_convertor_data import AmountToString
 from L00_form_analytics import GROUPS
+from L00_months import MONTHS_SHORT
 from L00_operations import OPERATIONS
 from L20_PySide6        import C20_StandardItem, ROLES
 from L20_finmanager_struct import T20_AmountItem, T20_Day
@@ -264,35 +266,109 @@ class C60_FormAnalytics(C50_FormAnalytics):
 		                                                   amount_outcome=int(sum([item.amount_outcome for item in amount_dds[21:  ]])))
 
 		for idx_dw, amount_dw in enumerate([amount_dw_1, amount_dw_2, amount_dw_3, amount_dw_4], start=1):
-			item_subgroup              = C20_StandardItem(f"Неделя {idx_dw}",
-			                                              GROUPS.DYNAMIC_DM,
-			                                              ROLES.GROUP)
+			item_subgroup    = C20_StandardItem(f"Неделя {idx_dw}",
+                                                GROUPS.DYNAMIC_DM,
+                                                ROLES.GROUP)
 
-			item_income                = C20_StandardItem(AmountToString(amount_dw.amount_income,
-			                                                             flag_sign=True),
-			                                              GROUPS.DYNAMIC_DM,
-			                                              ROLES.GROUP,
-			                                              flag_align_right=True)
+			item_income      = C20_StandardItem(AmountToString(amount_dw.amount_income,
+                                                               flag_sign=True),
+                                                GROUPS.DYNAMIC_DM,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
 
-			item_income_pct            = C20_StandardItem("" if not amount_dm.amount_income else f"{100 * amount_dw.amount_income / amount_dm.amount_income:.0f}%",
-			                                              GROUPS.DYNAMIC_DM,
-			                                              ROLES.GROUP,
-			                                              flag_align_right=True)
+			item_income_pct  = C20_StandardItem("" if not amount_dm.amount_income else f"{100 * amount_dw.amount_income / amount_dm.amount_income:.0f}%",
+                                                GROUPS.DYNAMIC_DM,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
 
-			item_outcome               = C20_StandardItem(AmountToString(amount_dw.amount_outcome,
-			                                                             flag_sign=True),
-			                                              GROUPS.DYNAMIC_DM,
-			                                              ROLES.GROUP,
-			                                              flag_align_right=True)
+			item_outcome     = C20_StandardItem(AmountToString(amount_dw.amount_outcome,
+                                                               flag_sign=True),
+                                                GROUPS.DYNAMIC_DM,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
 
-			item_outcome_pct           = C20_StandardItem("" if not amount_dm.amount_outcome else f"{100 * amount_dw.amount_outcome / amount_dm.amount_outcome:.0f}%",
-			                                              GROUPS.DYNAMIC_DM,
-			                                              ROLES.GROUP,
-			                                              flag_align_right=True)
+			item_outcome_pct = C20_StandardItem("" if not amount_dm.amount_outcome else f"{100 * amount_dw.amount_outcome / amount_dm.amount_outcome:.0f}%",
+                                                GROUPS.DYNAMIC_DM,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
 
-			item_delta                 = C20_StandardItem("",
-			                                              GROUPS.DYNAMIC_DM,
-			                                              ROLES.GROUP,
-			                                              flag_align_right=True)
+			item_delta       = C20_StandardItem("",
+                                                GROUPS.DYNAMIC_DM,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
 
 			item_group.appendRow([item_subgroup, item_income, item_income_pct, item_outcome, item_outcome_pct, item_delta])
+
+
+	# Данные динамики года
+	def LoadDynamicDyInModel(self):
+		""" Загрузка динамики года в модель """
+		if not self.ModelData.checkIdo(GROUPS.DYNAMIC_DY):
+			item_group       = C20_StandardItem(GROUPS.DYNAMIC_DY)
+			item_group.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
+			item_group.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
+
+			item_income      = C20_StandardItem("+",  flag_align_right=True)
+			item_income.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
+			item_income.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
+
+			item_income_pct  = C20_StandardItem("+%", flag_align_right=True)
+			item_income_pct.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
+			item_income_pct.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
+
+			item_outcome     = C20_StandardItem("-",  flag_align_right=True)
+			item_outcome.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
+			item_outcome.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
+
+			item_outcome_pct = C20_StandardItem("-%", flag_align_right=True)
+			item_outcome_pct.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
+			item_outcome_pct.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
+
+			item_delta       = C20_StandardItem("",   flag_align_right=True)
+			item_delta.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
+			item_delta.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
+
+			self.ModelData.appendRow([item_group, item_income, item_income_pct, item_outcome, item_outcome_pct, item_delta])
+
+		item_group                        = self.ModelData.itemByData(GROUPS.DYNAMIC_DY, ROLES.IDO)
+		item_group.removeRows(0, item_group.rowCount())
+
+		dy, dm                            = self.Workspace.DyDm()
+
+		for idx in range(12):
+			amount_dm        = self.Analytics.Amount(dy, dm, use_cache=False)
+
+			item_subgroup    = C20_StandardItem(f"{MONTHS_SHORT[dm]} {dy}",
+		                                        GROUPS.DYNAMIC_DY,
+		                                        ROLES.GROUP)
+			item_subgroup.setData(idx, ROLES.SORT_INDEX)
+
+			item_income      = C20_StandardItem(AmountToString(amount_dm.amount_income,
+	                                                           flag_sign=True),
+                                                GROUPS.DYNAMIC_DY,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
+
+			item_income_pct  = C20_StandardItem("",
+                                                GROUPS.DYNAMIC_DY,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
+
+			item_outcome     = C20_StandardItem(AmountToString(amount_dm.amount_outcome,
+			                                                   flag_sign=True),
+                                                GROUPS.DYNAMIC_DY,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
+
+			item_outcome_pct = C20_StandardItem("",
+                                                GROUPS.DYNAMIC_DY,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
+
+			item_delta       = C20_StandardItem("",
+                                                GROUPS.DYNAMIC_DY,
+                                                ROLES.GROUP,
+                                                flag_align_right=True)
+
+			item_group.appendRow([item_subgroup, item_income, item_income_pct, item_outcome, item_outcome_pct, item_delta])
+			dy, dm = CalcDyDmByShiftDm(dy, dm, -1)

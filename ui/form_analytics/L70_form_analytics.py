@@ -6,6 +6,7 @@ from PySide6.QtGui      import QCursor
 from PySide6.QtWidgets  import QHeaderView
 
 from L00_form_analytics import GROUPS
+from L20_PySide6 import ROLES
 from L60_form_analytics import C60_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
@@ -38,6 +39,7 @@ class C70_FormAnalytics(C60_FormAnalytics):
 
 	def AdjustTreeDataSort(self):
 		""" Настойка сортировки """
+		self.ModelData.setSortRole(ROLES.SORT_INDEX)
 		self.TreeData.sortByColumn(0, Qt.SortOrder.AscendingOrder)
 
 	def ProcessingTreeDataDbClick(self):

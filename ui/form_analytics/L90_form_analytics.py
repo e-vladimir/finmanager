@@ -39,6 +39,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.InitModelData()
 		self.LoadDistributionInModel()
 		self.LoadDynamicDmInModel()
+		self.LoadDynamicDyInModel()
 
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataSort()
@@ -52,6 +53,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 		self.InitModelData()
 		self.LoadDistributionInModel()
 		self.LoadDynamicDmInModel()
+		self.LoadDynamicDyInModel()
 
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataSort()
