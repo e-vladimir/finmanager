@@ -1,0 +1,5 @@
+dds = list(range(1, 32))
+print(dds[  : 7])
+print(dds[ 7:14])
+print(dds[14:21])
+print(dds[21:  ])

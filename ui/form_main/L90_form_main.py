@@ -77,6 +77,7 @@ class C90_FormMain(C80_FormMain):
 		self.Application.FormImport.UpdateData()
 		self.Application.FormOperations.UpdateData()
 		self.Application.FormProcessing.UpdateData()
+		self.Application.FormAnalytics.UpdateData()
 
 	def on_RequestSwitchDyDmToNextDm(self):
 		""" Запрос на переключение рабочего периода на следующий месяц """

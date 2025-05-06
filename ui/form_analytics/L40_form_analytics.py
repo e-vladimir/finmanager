@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'form_analyticsdaVzFj.ui'
+## Form generated from reading UI file 'form_analyticsQtbSyc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
@@ -43,6 +43,7 @@ class Ui_FormAnalytics(object):
         self.TreeData.setRootIsDecorated(False)
         self.TreeData.setItemsExpandable(False)
         self.TreeData.setExpandsOnDoubleClick(False)
+        self.TreeData.header().setVisible(False)
         self.TreeData.header().setStretchLastSection(False)
 
         self.verticalLayout.addWidget(self.TreeData)

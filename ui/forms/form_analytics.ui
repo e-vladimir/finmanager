@@ -49,6 +49,9 @@ padding: 3px;
       <property name="expandsOnDoubleClick">
        <bool>false</bool>
       </property>
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
       <attribute name="headerStretchLastSection">
        <bool>false</bool>
       </attribute>

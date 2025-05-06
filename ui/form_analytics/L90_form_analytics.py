@@ -38,12 +38,25 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 		self.InitModelData()
 		self.LoadDistributionInModel()
+		self.LoadDynamicDmInModel()
 
 		self.AdjustTreeDataExpand()
 		self.AdjustTreeDataSort()
 		self.AdjustTreeDataSize()
 		self.AdjustTreeDataColor()
 
+	def on_RequestUpdateData(self):
+		""" Запрос на обновление данных """
+		if not self.isVisible(): return
+
+		self.InitModelData()
+		self.LoadDistributionInModel()
+		self.LoadDynamicDmInModel()
+
+		self.AdjustTreeDataExpand()
+		self.AdjustTreeDataSort()
+		self.AdjustTreeDataSize()
+		self.AdjustTreeDataColor()
 
 	# Меню структуры аналитики
 	def on_RequestShowMenuStruct(self):
@@ -72,7 +85,7 @@ class C90_FormAnalytics(C80_FormAnalytics):
 
 	def on_DestinationStructChanged(self):
 		""" Структура данных изменилась """
-		self.ReinitDistributionInModel()
+		self.InitDistributionInModel()
 		self.LoadDistributionInModel()
 
 		self.AdjustTreeDataExpand()
