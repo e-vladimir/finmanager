@@ -366,7 +366,8 @@ class C60_FormAnalytics(C50_FormAnalytics):
                                                 ROLES.GROUP,
                                                 flag_align_right=True)
 
-			item_delta       = C20_StandardItem("",
+			item_delta       = C20_StandardItem(AmountToString(amount_dm.amount_income - abs(amount_dm.amount_outcome),
+			                                                   flag_sign=True),
                                                 GROUPS.DYNAMIC_DY,
                                                 ROLES.GROUP,
                                                 flag_align_right=True)
