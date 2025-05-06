@@ -1,18 +1,19 @@
 # ФОРМА АНАЛИТИКА ДАННЫХ: МЕХАНИКА ДАННЫХ
 # 27 апр 2025
 
-from PySide6.QtCore     import QModelIndex
+from PySide6.QtCore        import QModelIndex
 
-from G10_datetime import CalcDyDmByShiftDm
-from G11_convertor_data import AmountToString
-from L00_form_analytics import GROUPS
-from L00_months import MONTHS_SHORT
-from L00_operations import OPERATIONS
-from L20_PySide6        import C20_StandardItem, ROLES
-from L20_finmanager_struct import T20_AmountItem, T20_Day
-from L50_form_analytics import C50_FormAnalytics
-from L90_analytics      import C90_AnalyticsItem
-from L90_operations import C90_Operation
+from G10_datetime          import CalcDyDmByShiftDm
+from G11_convertor_data    import AmountToString
+
+from L00_form_analytics    import GROUPS
+from L00_months            import MONTHS_SHORT
+from L00_operations        import OPERATIONS
+from L20_PySide6           import C20_StandardItem, ROLES
+from L20_finmanager_struct import T20_AmountItem
+from L50_form_analytics    import C50_FormAnalytics
+from L90_analytics         import C90_AnalyticsItem
+from L90_operations        import C90_Operation
 
 
 class C60_FormAnalytics(C50_FormAnalytics):

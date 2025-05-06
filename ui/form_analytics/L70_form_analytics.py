@@ -6,7 +6,7 @@ from PySide6.QtGui      import QCursor
 from PySide6.QtWidgets  import QHeaderView
 
 from L00_form_analytics import GROUPS
-from L20_PySide6 import ROLES
+from L20_PySide6        import ROLES
 from L60_form_analytics import C60_FormAnalytics
 from L90_analytics      import C90_AnalyticsItem
 
