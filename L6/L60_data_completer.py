@@ -75,6 +75,8 @@ class C60_DataCompleter(C50_DataCompleter):
 		""" Обучение модели предиктивного определения назначения """
 		data : list[dict]      = []
 
+		if not data: return
+
 		for operation in self._data_operations.values():
 			if not operation.destination: continue
 
