@@ -16,16 +16,21 @@ class OBJECTS_TYPE(enum.StrEnum):
 
 class PROCESSING_FIELDS(enum.StrEnum):
 	""" Параметры обработки """
-	NONE                = "Нет данных"
+	NONE                    = "Нет данных"
+
+	OPERATIONS_ALL          = "Все операции"
 
 	SRC_DESCRIPTION_INCLUDE = "Исходное описание включает"
 	SRC_DESCRIPTION_EXCLUDE = "Исходное описание исключает"
 
-	DESCRIPTION_INCLUDE     = "Описание включает"
+	DESCRIPTION_ADD         = "Дополнить описание"
+	DESCRIPTION_CLEAR       = "Очистить описание"
 	DESCRIPTION_EXCLUDE     = "Описание исключает"
+	DESCRIPTION_INCLUDE     = "Описание включает"
 	DESCRIPTION_REPLACE     = "Заменить описание"
 	DESCRIPTION_SET         = "Установить описание"
-	DESCRIPTION_ADD         = "Дополнить описание"
+
+	DESTINATION_CLEAR       = "Очистить назначение"
 
 	COLOR_SET               = "Установить цветовую метку"
 

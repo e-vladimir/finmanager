@@ -64,6 +64,15 @@ class C60_FormProcessing(C50_FormProcessing):
 		self._processing_idp = idp
 
 
+	# Параметр ручной обработки: Все операции
+	def ReadManualOperationsAll(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.OPERATIONS_ALL,
+		                                                                 ROLES.IDO)
+
+		self._manual_operations_all.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
+
 	# Параметр ручной обработки: Исходное описание включает
 	def ReadManualSrcDescriptionInclude(self):
 		""" Чтение параметра из дерева данных """
@@ -219,6 +228,24 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.on_OptionsManualChanged()
 
 
+	# Параметр ручной обработки: Очистка описания
+	def ReadManualDescriptionClear(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESCRIPTION_CLEAR,
+		                                                                 ROLES.IDO)
+
+		self._manual_description_clear.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
+
+	# Параметр ручной обработки: Очистка назначения
+	def ReadManualDestinationClear(self):
+		""" Чтение параметра из дерева данных """
+		item : C20_StandardItem | None = self.ModelDataManual.itemByData(PROCESSING_FIELDS.DESTINATION_CLEAR,
+		                                                                 ROLES.IDO)
+
+		self._manual_destination_clear.enable = False if item is None else item.checkState() == Qt.CheckState.Checked
+
+
 	# Параметр ручной обработки: Установить цветовую метку
 	def ReadManualColorSet(self):
 		""" Чтение параметра из дерева данных """
@@ -261,7 +288,8 @@ class C60_FormProcessing(C50_FormProcessing):
 
 		self.ModelDataManual.setHorizontalHeaderLabels(["Параметр", "Значение"])
 
-		items             = [PROCESSING_FIELDS.SRC_DESCRIPTION_INCLUDE,
+		items             = [PROCESSING_FIELDS.OPERATIONS_ALL,
+		                     PROCESSING_FIELDS.SRC_DESCRIPTION_INCLUDE,
 		                     PROCESSING_FIELDS.SRC_DESCRIPTION_EXCLUDE,
 		                     PROCESSING_FIELDS.DESCRIPTION_INCLUDE,
 		                     PROCESSING_FIELDS.DESCRIPTION_EXCLUDE,
@@ -282,11 +310,13 @@ class C60_FormProcessing(C50_FormProcessing):
 		self.ModelDataManual.appendRow([group_filter, C20_StandardItem("")])
 
 
-		items             = [PROCESSING_FIELDS.DESCRIPTION_ADD,
+		items             = [PROCESSING_FIELDS.DESCRIPTION_CLEAR,
+		                     PROCESSING_FIELDS.DESCRIPTION_ADD,
 							 PROCESSING_FIELDS.DESCRIPTION_REPLACE,
 					         PROCESSING_FIELDS.DESCRIPTION_SET,
 		                     PROCESSING_FIELDS.COLOR_SET,
 		                     PROCESSING_FIELDS.SKIP_SET,
+		                     PROCESSING_FIELDS.DESTINATION_CLEAR,
 		                     ]
 
 		group_processing  = C20_StandardItem("Параметры обработки")

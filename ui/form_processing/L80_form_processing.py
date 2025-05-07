@@ -66,9 +66,15 @@ class C80_FormProcessing(C70_FormProcessing):
 			if self._manual_description_exclude.enable:
 				flag_skip |=     any([item.lower() in description for item in self._manual_description_exclude.data])
 
+			if self._manual_operations_all.enable:
+				flag_skip  = False
+
 			if flag_skip: continue
 
 			description             = operation.description
+
+			if self._manual_description_clear.enable:
+				description = ""
 
 			if self._manual_description_replace.enable and self._manual_description_include.enable:
 				for src in self._manual_description_include.data:
@@ -82,6 +88,9 @@ class C80_FormProcessing(C70_FormProcessing):
 
 			if self._manual_color_set.enable:
 				operation.color = COLORS(self._manual_color_set.data)
+
+			if self._manual_destination_clear.enable:
+				operation.destination = []
 
 			operation.description = description
 

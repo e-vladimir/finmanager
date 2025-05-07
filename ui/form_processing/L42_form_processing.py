@@ -24,11 +24,16 @@ class C42_FormProcessing(C41_FormProcessing):
 		self._manual_src_description_include : T20_ProcessingItem = T20_ProcessingItem(False, [])
 		self._manual_src_description_exclude : T20_ProcessingItem = T20_ProcessingItem(False, [])
 
+		self._manual_operations_all          : T20_ProcessingItem = T20_ProcessingItem(False, True)
+
 		self._manual_description_add         : T20_ProcessingItem = T20_ProcessingItem(False, "")
 		self._manual_description_include     : T20_ProcessingItem = T20_ProcessingItem(False, [])
 		self._manual_description_exclude     : T20_ProcessingItem = T20_ProcessingItem(False, [])
 		self._manual_description_replace     : T20_ProcessingItem = T20_ProcessingItem(False, "")
 		self._manual_description_set         : T20_ProcessingItem = T20_ProcessingItem(False, "")
+		self._manual_description_clear       : T20_ProcessingItem = T20_ProcessingItem(False, True)
+
+		self._manual_destination_clear       : T20_ProcessingItem = T20_ProcessingItem(False, True)
 
 		self._manual_color_set               : T20_ProcessingItem = T20_ProcessingItem(False, COLORS.BLACK)
 

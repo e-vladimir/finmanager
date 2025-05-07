@@ -57,14 +57,17 @@ class C90_FormProcessing(C80_FormProcessing):
 	def on_RequestManualProcessing(self):
 		""" Запрос выполнения ручной обработки """
 		self.ReadManualColorSet()
-		self.ReadManualSrcDescriptionExclude()
-		self.ReadManualSrcDescriptionInclude()
 		self.ReadManualDescriptionAdd()
+		self.ReadManualDescriptionClear()
 		self.ReadManualDescriptionExclude()
 		self.ReadManualDescriptionInclude()
 		self.ReadManualDescriptionReplace()
 		self.ReadManualDescriptionSet()
+		self.ReadManualDestinationClear()
+		self.ReadManualOperationsAll()
 		self.ReadManualSkipSet()
+		self.ReadManualSrcDescriptionExclude()
+		self.ReadManualSrcDescriptionInclude()
 
 		self.ManualProcessing()
 
