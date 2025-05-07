@@ -107,6 +107,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			item_group       = C20_StandardItem(GROUPS.DISTRIBUTION)
 			item_group.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
 			item_group.setData(GROUPS.DISTRIBUTION, ROLES.GROUP)
+			item_group.setData(1,                   ROLES.SORT_INDEX)
 
 			item_income      = C20_StandardItem("+",  flag_align_right=True)
 			item_income.setData(GROUPS.DISTRIBUTION, ROLES.IDO)
@@ -214,6 +215,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			item_group       = C20_StandardItem(GROUPS.DYNAMIC_DM)
 			item_group.setData(GROUPS.DYNAMIC_DM, ROLES.IDO)
 			item_group.setData(GROUPS.DYNAMIC_DM, ROLES.GROUP)
+			item_group.setData(2,                   ROLES.SORT_INDEX)
 
 			item_income      = C20_StandardItem("+",  flag_align_right=True)
 			item_income.setData(GROUPS.DYNAMIC_DM, ROLES.IDO)
@@ -308,6 +310,7 @@ class C60_FormAnalytics(C50_FormAnalytics):
 			item_group       = C20_StandardItem(GROUPS.DYNAMIC_DY)
 			item_group.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)
 			item_group.setData(GROUPS.DYNAMIC_DY, ROLES.GROUP)
+			item_group.setData(3,                   ROLES.SORT_INDEX)
 
 			item_income      = C20_StandardItem("+", flag_align_right=True)
 			item_income.setData(GROUPS.DYNAMIC_DY, ROLES.IDO)

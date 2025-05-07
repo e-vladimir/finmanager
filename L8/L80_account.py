@@ -30,7 +30,7 @@ class C80_Account(C70_Account):
 
 		self.group    = group
 
-		if count_dm > 0: self.initial_balance = balance_summary
+		if count_dm > 0: self.balance_initial = balance_summary
 
 
 class C80_Accounts(C70_Accounts):
