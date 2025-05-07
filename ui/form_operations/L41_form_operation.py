@@ -46,7 +46,7 @@ class C41_FormOperation(C20_PySideForm, Ui_form_operations):
 		self.ActionGenerateReportDm         = QAction(icon_file,        "Отчёт за месяц")
 		self.ActionImportOperations         = QAction(icon_download,    "Импорт операций")
 		self.ActionOpenProcessing           = QAction(icon_processing,  "Обработка данных")
-		self.ActionPredictDestinations      = QAction(icon_layers,      "Определить назначение")
+		self.ActionPredictDestinations      = QAction(icon_layers,      "Определить назначение операций")
 		self.ActionResetOperations          = QAction(icon_replace,     "Сброс операций")
 
 		self.ActionCreateOperation          = QAction(icon_item_plus,   "Создать операцию")
