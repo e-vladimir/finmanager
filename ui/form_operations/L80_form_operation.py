@@ -74,7 +74,7 @@ class C80_FormOperation(C70_FormOperation):
 			dialog_update.setLabelText(f"Осталось обработать записей: {dialog_update.maximum() - dialog_update.value()}")
 
 			operation.Ido(self.processing_ido)
-			operation.destination =  set(operation.destination).union(self.Application.DataCompleter.PredictDescriptions(operation.description or operation.src_description))
+			operation.destination =  set(operation.destination).union(self.Application.DataCompleter.PredictDestination(operation.description or operation.src_description))
 
 			self.on_OperationChanged()
 
