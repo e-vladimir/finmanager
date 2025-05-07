@@ -24,6 +24,8 @@ class C90_FormExport(C80_FormExport):
 
 	# Форма
 	def on_Opened(self):
+		self.ShowTitle()
+
 		self.InitModelDataOperations()
 		self.LoadModelDataOperations()
 

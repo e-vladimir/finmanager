@@ -2,7 +2,6 @@
 
 import sys
 
-
 sys.path.append('./G0')
 sys.path.append('./G1')
 sys.path.append('./G2')
