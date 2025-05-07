@@ -3,8 +3,8 @@
 
 from pathlib            import Path
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QProgressDialog
+from PySide6.QtCore     import Qt
+from PySide6.QtWidgets  import QProgressDialog
 
 from G11_convertor_data import AmountToString
 
@@ -169,7 +169,7 @@ class C80_FormOperation(C70_FormOperation):
 
 		description : str | None = RequestText( "Редактирование операции",
 		                                       f"{operation.ShortInformation()}\n\n{operation.src_description}",
-		                                        operation.description or self.Application.DataCompleter.PredictDescription(operation.description) or operation.Descriptions(),
+		                                        operation.description or self.Application.DataCompleter.PredictDescription(operation.src_description) or operation.Descriptions(),
 		                                        self.Application.DataCompleter.PredictDescriptions(operation.src_description) or self.Operations.Descriptions())
 		if description is None: return
 
