@@ -18,6 +18,7 @@ class C50_FormOperation(C42_FormOperation):
 	def on_RequestOpenFormExport(self): pass
 	def on_RequestGenerateReportDm(self): pass
 	def on_RequestResetOperations(self): pass
+	def on_RequestPredictDestinations(self): pass
 
 	def on_OperationsReset(self): pass
 

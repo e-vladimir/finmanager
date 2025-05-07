@@ -22,6 +22,7 @@ class C90_FormOperation(C80_FormOperation):
 		self.ActionExportOperations.triggered.connect(self.on_RequestOpenFormExport)
 		self.ActionGenerateReportDm.triggered.connect(self.on_RequestGenerateReportDm)
 		self.ActionResetOperations.triggered.connect(self.on_RequestResetOperations)
+		self.ActionPredictDestinations.triggered.connect(self.on_RequestPredictDestinations)
 
 		# Меню Операция
 		self.ActionEditOperationAmount.triggered.connect(self.on_RequestEditOperationAmount)
@@ -134,6 +135,10 @@ class C90_FormOperation(C80_FormOperation):
 
 		self.Application.FormMain.UpdateData()
 		self.Application.FormAccounts.PartialUpdateData()
+
+	def on_RequestPredictDestinations(self):
+		""" Запрос на определение назначений операций """
+		self.PredictDestinations()
 
 
 	# Операция

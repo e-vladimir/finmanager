@@ -3,6 +3,9 @@
 
 from pathlib            import Path
 
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QProgressDialog
+
 from G11_convertor_data import AmountToString
 
 from L00_colors         import COLORS
@@ -49,6 +52,31 @@ class C80_FormOperation(C70_FormOperation):
 		            f"Отчёт сохранён в файл {pdf_file.name}",
 		            f"{pdf_file.absolute()}")
 
+	def PredictDestinations(self):
+		""" Определение назначений для всех операций """
+		dy, dm              = self.Workspace.DyDm()
+
+		operation           = C90_Operation()
+		operation.use_cache = True
+
+		idos : list[str]    = self.Operations.Idos(dy, dm)
+
+		dialog_update       = QProgressDialog(self)
+		dialog_update.setWindowTitle("Определение назначения")
+		dialog_update.setMaximum(len(idos))
+		dialog_update.setWindowModality(Qt.WindowModality.WindowModal)
+		dialog_update.setLabelText(f"Осталось обработать записей: {dialog_update.maximum()}")
+		dialog_update.setMinimumWidth(480)
+		dialog_update.forceShow()
+
+		for self.processing_ido in idos:
+			dialog_update.setValue(dialog_update.value() + 1)
+			dialog_update.setLabelText(f"Осталось обработать записей: {dialog_update.maximum() - dialog_update.value()}")
+
+			operation.Ido(self.processing_ido)
+			operation.destination =  set(operation.destination).union(self.Application.DataCompleter.PredictDescriptions(operation.description or operation.src_description))
+
+			self.on_OperationChanged()
 
 	# Операция
 	def CreateOperation(self):
