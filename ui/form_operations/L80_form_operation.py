@@ -64,6 +64,7 @@ class C80_FormOperation(C70_FormOperation):
 		dialog_update       = QProgressDialog(self)
 		dialog_update.setWindowTitle("Определение назначения")
 		dialog_update.setMaximum(len(idos))
+		dialog_update.setValue(1)
 		dialog_update.setWindowModality(Qt.WindowModality.WindowModal)
 		dialog_update.setLabelText(f"Осталось обработать записей: {dialog_update.maximum()}")
 		dialog_update.setMinimumWidth(480)

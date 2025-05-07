@@ -14,8 +14,12 @@ class C80_FormBackups(C70_FormBackups):
 		if not RequestConfirm("Восстановление архива данных",
 		                      f"Восстановление архива данных на {self.processing_name}"): return
 
-		if self.Application.RestoreBackup(self.processing_filename): ShowMessage("Восстановление архива данных",
-		                                                                         f"Архив данных восстановлен на {self.processing_name}")
+		if not self.Application.RestoreBackup(self.processing_filename)                 : return
+
+		ShowMessage("Восстановление архива данных",
+		            f"Архив данных восстановлен на {self.processing_name}")
+
+		self.Application.DataCompleter.Start()
 
 	def DeleteBackup(self):
 		""" Удаление копии архива данных """
