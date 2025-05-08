@@ -75,9 +75,12 @@ class C80_FormOperation(C70_FormOperation):
 			dialog_update.setLabelText(f"Осталось обработать записей: {dialog_update.maximum() - dialog_update.value()}")
 
 			operation.Ido(self.processing_ido)
-			operation.destination =  set(operation.destination).union(self.Application.DataCompleter.PredictDestination(operation.description or operation.src_description))
+
+			operation.destination =  list(set(operation.destination).union(self.Application.DataCompleter.PredictDestination(operation.description or operation.src_description)))
 
 			self.on_OperationChanged()
+
+		dialog_update.close()
 
 	# Операция
 	def CreateOperation(self):
@@ -184,10 +187,10 @@ class C80_FormOperation(C70_FormOperation):
 		""" Редактирование назначения операции """
 		operation                       = C90_Operation(self.processing_ido)
 
-		destinations : set[str]         = set(operation.destination).union(self.Application.DataCompleter.PredictDestination(operation.description or operation.src_description))
+		destinations : set[str]         = {destination.lower() for destination in set(operation.destination).union(self.Application.DataCompleter.PredictDestination(operation.description or operation.src_description))}
 		destinations : list[str] | None = RequestMultipleText( "Редактирование операции",
 				                                              f"{operation.Information()}",
-				                                               list(destinations),
+				                                               list(sorted(destinations)),
 				                                               list(sorted(set(self.Operations.Destinations()).union(self.Analytics.Names())))
 				                                              )
 		if destinations is None: return

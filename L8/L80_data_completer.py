@@ -45,6 +45,9 @@ class C80_DataCompleter(C70_DataCompleter):
 	# Предиктивная модель назначения
 	def PredictDestination(self, description: str) -> list[str]:
 		""" Предиктивное определение назначения """
-		predicted_tags = self.data_predict_destinations.inverse_transform(self.model_predict_destinations.predict(self.vectorizer_predict_destination.transform([description])))
-
-		return sorted(list(predicted_tags[0]))
+		try:
+			predicted_tags = self.data_predict_destinations.inverse_transform(self.model_predict_destinations.predict(self.vectorizer_predict_destination.transform([description])))
+			return sorted(list(predicted_tags[0]))
+		except:
+			print("Err")
+			return []
